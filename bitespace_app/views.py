@@ -14,8 +14,13 @@ def index(request):
 
     # Construct a dictionary to pass to the template engine as its context.
     context_dict = {'boldmessage': "Bitespace says welcome!"}
-    
-    context = RequestContext(request, 
-                            {'request': request, 
-                             'user': request.user})
-    return render(request, 'bitespace/index.html', context_dict, context_instance=context)
+
+    context = RequestContext(request,
+                             {'request': request,
+                              'user': request.user})
+    return render(request, 'bitespace/index.html', context_dict,
+                  context_instance=context)
+
+
+def create_plan(request):
+    return render(request, 'bitespace/create_plan.html')

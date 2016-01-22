@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'bitespace_app',
     'registration',
     'social.apps.django_app.default',
+    'csvimport.app.CSVImportConf',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
