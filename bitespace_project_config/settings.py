@@ -108,11 +108,17 @@ WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'DB_BITEPLAN',
+        'USER': 'DB_ROBIN',
+        'PASSWORD': 'jx1234',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+        'OPTIONS': {
+	    'init_command': 'SET storage_engine=INNODB',
+        },
     }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
