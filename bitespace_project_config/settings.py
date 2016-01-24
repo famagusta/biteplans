@@ -111,7 +111,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'DB_BITEPLAN',
-        'USER': 'DB_ROBIN',
+        'USER': 'shubham',
         'PASSWORD': 'jx1234',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
