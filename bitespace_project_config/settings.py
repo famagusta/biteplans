@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -48,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bitespace_app',
     'registration',
+    'import_export',
     'social.apps.django_app.default',
     'csvimport.app.CSVImportConf',
 )
@@ -110,14 +110,11 @@ WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_BITEPLAN',
+        'NAME': 'DB_BITEAPP',
         'USER': 'shubham',
         'PASSWORD': 'jx1234',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
-        'OPTIONS': {
-	    'init_command': 'SET storage_engine=INNODB',
-        },
     }
 }
 # Internationalization

@@ -27,6 +27,9 @@
 *.sql
 *.sqlite
 *.sqlite3
+*.sublime-workspace
+*.sublime-project
+*.csv
 
 # OS generated files #
 ######################

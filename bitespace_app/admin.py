@@ -1,6 +1,17 @@
 from django.contrib import admin
-#from bitespace_app.models import UserProfile
+from import_export.admin import ImportExportModelAdmin
+
+from import_export import resources
+from bitespace_app.models import USDAIngredient
 
 
-# Register your models here.
-# admin.site.register(UserProfile)
+class IngResource(resources.ModelResource):
+	class Meta:
+		model = USDAIngredient
+
+
+
+class IngAdmin(ImportExportModelAdmin):
+	resource_class = IngResource
+
+admin.site.register(USDAIngredient, IngAdmin)
