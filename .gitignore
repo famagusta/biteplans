@@ -21,6 +21,10 @@
 *.tar
 *.zip
 
+# Directories like migrations etc #
+###################################
+migrations/
+
 # Logs and databases #
 ######################
 *.log

@@ -18,4 +18,6 @@ So just click on the model you want to populate, make sure the fields in the xls
 
 Click on import and upload the file and specify the file format from the dropdown.
 
+Note the db will be stored in /var/lib/mysql directory. You can configure the mysql settings to store it to a desired location too.
+
 And you are good to go.!
