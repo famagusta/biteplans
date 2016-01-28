@@ -5,9 +5,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-
+from bitespace_app.models import USDAIngredient
 
 # Create your views here.
+
+def get_ingredients(request):
+    context = {'ingredients' : USDAIngredient.objects.order_by('-id')}
+    print context
+    return render(request, 'bitespace/ingredients.html', context)
+
 @login_required
 def index(request):
     # This will be the homepage in future
