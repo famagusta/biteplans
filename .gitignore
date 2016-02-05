@@ -1,3 +1,10 @@
+# FrontEnd Files #
+node_modules
+dist
+.tmp
+.sass-cache
+bower_components
+
 # Compiled source #
 ###################
 *.com

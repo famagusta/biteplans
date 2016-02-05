@@ -2,10 +2,10 @@
 Django settings for bitespace project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
+https://docs.djangoproject.com/en/1.8/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
+https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 
@@ -42,23 +42,40 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bitespace_app',
-    'registration',
+    'authentication',
+    'rest_framework',
+    'markdown',
+    'rest_framework.authtoken',
+    'django_filters',
     'import_export',
     'social.apps.django_app.default',
-    'csvimport.app.CSVImportConf',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+
+    ],
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    )
+}
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.i18n',
-    'django.core.context_processors.media',
-    'django.core.context_processors.static',
-    'django.core.context_processors.tz',
+    'django.template.context_processors.debug',
+    'django.template.context_processors.i18n',
+    'django.template.context_processors.media',
+    'django.template.context_processors.static',
+    'django.template.context_processors.tz',
     'django.contrib.messages.context_processors.messages',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
@@ -66,6 +83,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
+    'social.backends.facebook.FacebookAppOAuth2',
     'social.backends.google.GoogleOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
@@ -84,10 +102,12 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "y7LJfV8ws-ZqAT0dK_kxz5JF"
 REGISTRATION_OPEN = True    # If True, users can register
 ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
 REGISTRATION_AUTO_LOGIN = True   # If True, users be automatically logged in.
-LOGIN_REDIRECT_URL = '/bitespace/'  # The page you want users to arrive at
-# after they suceffully log in
-LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are
-# not logged in, and are trying to access pages that require login
+# LOGIN_REDIRECT_URL = '/bitespace/'  # The page you want users to arrive at
+# # after they suceffully log in
+# LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are
+# # not logged in, and are trying to access pages that require login
+
+AUTH_USER_MODEL = 'authentication.Account'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -137,6 +157,8 @@ STATIC_PATH = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = 'staticfiles'
+
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
@@ -145,6 +167,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Absolute path to the media directory
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # use bcrypt if you want more secure hasher
 PASSWORD_HASHERS = (

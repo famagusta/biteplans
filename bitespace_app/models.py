@@ -3,8 +3,10 @@
 
 from django.db import models
 
+
 class USDAIngredient(models.Model):
-    ''' model for ingredient specifying quantity of various componenets '''
+    ''' model for ingredient specifying quantity of
+    various componenets '''
 
     id = models.IntegerField(primary_key=True)
     shrt_desc = models.TextField()
@@ -160,3 +162,6 @@ class USDAIngredient(models.Model):
 
     def __unicode__(self):
         return self.shrt_desc
+
+
+

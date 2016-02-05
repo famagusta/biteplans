@@ -1,4 +1,50 @@
-/* BITESPACE_APP configuration */
+##Front end configuration
+
+after pulling the repository, make sure you have bower and npm installed globally, if not then 
+here are the commands :
+
+/* Remove all older packages of node */
+
+dpkg --get-selections | grep node
+sudo apt-get remove --purge node
+sudo apt-get remove --purge nodejs
+
+/* Now install */
+
+sudo apt-get install nodejs 
+sudo apt-get install npm
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+
+
+/* Getting started with frontend project */
+ Make your virtualenvironment
+
+ mkvirtualenv biteapp
+ workon biteapp
+ now in your project's base directory(the path where you see manage.py) run the following command
+ 
+ bower install
+
+ this will install all the dependencies in the static folder as the path is set in .bowerrc in the base directory
+
+/* To run the project */
+
+Make sure you have all the requirements in the requirements.txt satisfied
+then while your terminal is in base dir and virtualenv activated
+
+run the following command
+
+python manage.py runserver
+
+/* Small note */
+While consuming rest api's on the frontend, you will often see outdated data or nothing at all at this point because we haven not migrated db tables or migrations
+
+So you will have to use sql dump that will be provided by any backend guy, import that dump into your sql and finally run 
+
+python manage.py makemigrations
+python manage.py migrate
+
+##BITESPACE_APP backend configuration
 
 After pulling the repository, make sure you have the DB created in mysql with same name that is specified in the settings.py file. Grant all privileges to the specified user by the following command :
 

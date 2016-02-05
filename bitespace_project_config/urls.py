@@ -1,23 +1,31 @@
+'''URLs for the webapp apis'''
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^bitespace/', include('bitespace_app.urls')),
-                       url(r'^accounts/',
-                           include('registration.backends.simple.urls')),
-                       url('', include('social.apps.django_app.urls',
-                                       namespace='social')),
-                       url('', include('django.contrib.auth.urls',
-                                       namespace='auth')),
+                       url(r'^bitespace/',
+                           include('bitespace_app.urls',
+                                       namespace="bitespace")),
+                       url(r'^authentication/',
+                           include('authentication.urls', namespace="auuth")),
+                       url('^.*$',
+                           TemplateView.as_view(template_name="index.html"),
+                           name='index'),
+                       # url(r'^sociallogin/',
+                       #     'mydjangoapp.views.social_register'),
+
                        )
 
 if not settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
-                          document_root=settings.STATIC_ROOT)
+                          document_root=settings.STATIC_ROOT
+                          )
 
 if settings.DEBUG:
     urlpatterns += patterns(
