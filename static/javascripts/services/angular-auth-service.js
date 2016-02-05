@@ -1,28 +1,26 @@
 /*Handles request to user registration, login, logout*/
 'use strict';
-app.factory('authenticationService',
+app.factory('AuthService',
             ['$http','constants','$q','$window',function($http,constants,$q,$window){
-   var register = function (username, password, confirm, email) {
+   var register = function(username, password, confirm, email) {
     // Registration logic goes here
     var deferred = $q.defer();
-    var url = constants.API_SERVER + 'authentication/api/v1/register';
+    var url = constants['API_SERVER'] + 'authentication/api/v1/register/';
     $http.post(url, {
                      username: username,
                      password: password,
-                     confirmpassword:confirm,
-                     email:email
+                     confirm_password: confirm,
+                     email: email,
                  }, 
 {
   headers: {
     'Content-Type': 'application/json'
   }
 }).then(
-  function (response) {
+  function(response) {
     var token = response.data.token;
-    var username = response.data.username;
-    if (token && username) {
+    if (token) {
   		$window.localStorage.token = token;
-  		$window.localStorage.username = username;
   		deferred.resolve(true);
 
   }
@@ -31,14 +29,14 @@ app.factory('authenticationService',
     deferred.reject('Invalid data received from server');
   }
 },
-function (response) {
+function(response) {
     deferred.reject(response.data.error);
 });
 return deferred.promise;
 };
 
-var login = function (username, password) {
-    var url = constants.API_SERVER + 'authentication/api/v1/login/';
+var login = function(username, password) {
+    var url = constants['API_SERVER'] + 'authentication/api/v1/login/';
     var deferred = $q.defer();
     $http.post(url, {
                      username: username,
@@ -49,12 +47,11 @@ var login = function (username, password) {
     'Content-Type': 'application/json'
   }
 }).then(
-  function (response) {
+  function(response) {
     var token = response.data.token;
-    var username = response.data.username;
-    if (token && username) {
+    console.log(response);
+    if (token) {
   		$window.localStorage.token = token;
-  		$window.localStorage.username = username;
   		deferred.resolve(true);
 
   }
@@ -65,7 +62,7 @@ var login = function (username, password) {
 
   }
 },
-function (response) {
+function(response) {
     deferred.reject(response.data.error);
     delete $window.sessionStorage.token;
 
@@ -77,7 +74,7 @@ var logout = function(){
 
 };
   return {
-    register: function (username, password, confirm, email) {
+    register: function(username, password, confirm, email) {
       return register(username, password, confirm, email);
     },
     login: function(username, password){

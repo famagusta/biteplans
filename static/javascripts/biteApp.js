@@ -1,51 +1,41 @@
 'use strict';
-/*We will use app variable globally*/
 /* global app: true */
-app = angular.module('biteApp', [
-      'ngRoute',
-      'ngSanitize',
-      'biteApp.authentication',
-      'biteApp.layout',
-      'biteApp.utils',
-      'biteApp.posts',
-      'biteApp.profiles'
+
+var app = angular.module('biteApp', [
+      'ngRoute'
     ]);
 /**
 * @name run
 * @desc Update xsrf $http headers to align with Django's defaults
 */
-app.config(['$routeProvider','$locationProvider', function($routeProvider,$locationProvider) {
+app.config(['$routeProvider','$locationProvider', '$httpProvider', function($routeProvider,$locationProvider,$httpProvider) {
+
+$httpProvider.interceptors.push('authInterceptor');
+
     $routeProvider.when('/', {
   controller: 'IndexController',
-  controllerAs: 'vm',
-  templateUrl: '/static/templates/layout/index.html'
-}).when('/register', {
-      controller: 'RegisterController', 
-      controllerAs: 'vm',
-      templateUrl: '/static/templates/authentication/register.html'
-    }).when('/login', {
-  controller: 'LoginController',
-  controllerAs: 'vm',
-  templateUrl: '/static/templates/authentication/login.html'
-}).when('/+:username', {
-  controller: 'ProfileController',
-  controllerAs: 'vm',
-  templateUrl: '/static/templates/profiles/profile.html'
-}).when('/+:username/settings', {
-  controller: 'ProfileSettingsController',
-  controllerAs: 'vm',
-  templateUrl: '/static/templates/profiles/settings.html'
+  templateUrl: '/static/templates/indexView.html'
+}).when('/login', {
+  controller: 'IndexController',
+  templateUrl: '/static/templates/login.html'
+}).when('/dashboard', {
+  controller: 'DashboardController',
+  templateUrl: '/static/templates/dashboard.html'
 }).otherwise('/');
 
 $locationProvider.html5Mode(true);
 $locationProvider.hashPrefix('!');
 }]);
 
-function run($http) {
+app.run(['$http',function($http){
   $http.defaults.xsrfHeaderName = 'X-CSRFToken';
   $http.defaults.xsrfCookieName = 'csrftoken';
-}
+}]);
 
-app.run(run);
+var constantData = {
+  'constants': {
+    'API_SERVER':'http://127.0.0.1:8000/',
+  }
+};
 
-run.$inject = ['$http'];
+app.constant('constants',constantData['constants']);
