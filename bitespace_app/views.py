@@ -2,11 +2,19 @@
 from rest_framework import generics
 from bitespace_app.models import USDAIngredient
 from bitespace_app.serializers import GlobalSearchSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
-class GlobalSearchList(generics.ListAPIView):
+class GlobalSearchList(APIView):
     '''creates serializer of the queryset'''
-    serializer_class = GlobalSearchSerializer
-    def get_queryset(self):
+    def get(self,request):
         query = self.request.query_params.get('query', None)
         result = USDAIngredient.objects.filter(shrt_desc__icontains=query)
-        return result
+        result = GlobalSearchSerializer(result,many=True)
+        return Response(result.data)
+
+    def post(self,request):
+        query = self.request.POST['query']
+        result = USDAIngredient.objects.filter(shrt_desc__icontains=query)
+        result = GlobalSearchSerializer(result,many=True)
+        return Response(result.data)

@@ -69,6 +69,29 @@ function(response) {
 });
 return deferred.promise;};
 
+var search = function() {
+    var url = constants['API_SERVER'] + 'bitespace/search';
+    var deferred = $q.defer();
+    $http.post(url, {
+                     query: 'butter'
+                 }, 
+{
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}).then(
+  function(response) {
+    console.log(response);
+    deferred.resolve(true);
+
+},
+function(response) {
+    deferred.reject(response.data.error);
+    console.log(response);
+
+});
+return deferred.promise;};
+
 var logout = function(){
 	delete $window.localStorage.token;
 
@@ -85,7 +108,10 @@ var logout = function(){
     	logout();
     	return 'User has been logged out';
 
-    }
+    },
+    search : function(){
+      return search();
+    } 
   };
 
 }]);

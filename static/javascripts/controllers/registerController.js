@@ -5,6 +5,15 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
     var password = $scope.registerPassword;
     var confirm = $scope.confirmPassword;
     var email = $scope.email;
+    AuthService.search().then(
+
+        function(data){
+          console.log(data);
+
+        },
+        function(error){
+          console.log(error);
+        });
 
 
     if (username && password && confirm && email) {

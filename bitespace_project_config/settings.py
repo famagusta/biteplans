@@ -59,7 +59,7 @@ INSTALLED_APPS = (
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.AllowAny',
 
     ],
      'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -174,3 +174,11 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
+SERVER_EMAIL = 'shubham@jeevomics.com'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'shubham@jeevomics.com'
+EMAIL_HOST_PASSWORD = 'test123##'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

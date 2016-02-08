@@ -118,3 +118,17 @@ False
 >>> result = Importedresource.import_data(dataset, dry_run=False)
 
 And your data is uploaded into your db!
+
+##API DOcumentation
+We are using JWT based authentication so maintaining a session isnt required
+However to protext us against cross site resource foregery django provides a csrf token just in case so while making request to the api be sure to add an X-CSRF header: csrftoken
+and you can get the value of csrf token by going to the website and running any command and checking the networks tab and then checking the headers tab.
+
+Note: You do not need CSRF token for get requests, csrf is only required for post requests.
+
+other headers that are required for accessing resources that require authentication: once you are loggedin, 
+You will get token, Please include that token in each request after that so that the token could be vvalidated
+
+Here is the format to do so
+Your http request must have a header like
+Authorization: Bearer <token value>
