@@ -21,7 +21,7 @@ $httpProvider.interceptors.push('authInterceptor');
 }).when('/dashboard', {
   controller: 'DashboardController',
   templateUrl: '/static/templates/dashboard.html'
-}).otherwise('/');
+}).otherwise('/bitespace/');
 
 $locationProvider.html5Mode(true);
 $locationProvider.hashPrefix('!');

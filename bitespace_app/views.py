@@ -14,7 +14,8 @@ class GlobalSearchList(APIView):
         return Response(result.data)
 
     def post(self,request):
-        query = self.request.POST['query']
+        print self.request.POST
+        query = self.request.POST.get('query',False)
         result = USDAIngredient.objects.filter(shrt_desc__icontains=query)
         result = GlobalSearchSerializer(result,many=True)
         return Response(result.data)

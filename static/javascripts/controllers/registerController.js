@@ -5,16 +5,6 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
     var password = $scope.registerPassword;
     var confirm = $scope.confirmPassword;
     var email = $scope.email;
-    AuthService.search().then(
-
-        function(data){
-          console.log(data);
-
-        },
-        function(error){
-          console.log(error);
-        });
-
 
     if (username && password && confirm && email) {
       AuthService.register(username, password, confirm, email).then(
@@ -48,6 +38,15 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
   }
 };
 
-
+$scope.search = function(){
+  var query=$scope.query
+  if(query){
+    AuthService.search(query).then(function(response){
+      console.log(response);
+    },function(error) {
+      console.log(error);
+    });
+  };
+}
 
 }]);

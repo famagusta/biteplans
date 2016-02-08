@@ -1,52 +1,86 @@
 /*Handles request to user registration, login, logout*/
 'use strict';
+
+app.factory('httpService',['$http', '$q', function($http,$q){
+  var toparams = function(obj) {
+    var p = [];
+    for (var key in obj) {
+        p.push(key + '=' + encodeURIComponent(obj[key]));
+    }
+    return p.join('&');
+};
+
+    var httpPost = function(url,params){
+      params = toparams(params);
+      var promise = $http.post(url, params,{
+        headers:{
+              'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+      function(response){
+        return response.data;
+      });
+      return promise;
+    };
+
+    var httpGet = function(url,params){
+      params = toparams(params);
+      var promise = $http.post(url, params,{
+        headers:{
+              'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+      function(response){
+        return response.data;
+      });
+      return promise;
+    };
+
+
+    return{
+      httpPost : function(url,params){
+        return httpPost(url,params);
+      },
+      httpGet : function(url,params){
+        return httpGet(url,params);
+      }
+
+    };
+}]);
+
 app.factory('AuthService',
-            ['$http','constants','$q','$window',function($http,constants,$q,$window){
+            ['httpService','constants','$q','$window',function(httpService,constants,$q,$window){
    var register = function(username, password, confirm, email) {
     // Registration logic goes here
     var deferred = $q.defer();
     var url = constants['API_SERVER'] + 'authentication/api/v1/register/';
-    $http.post(url, {
-                     username: username,
-                     password: password,
-                     confirm_password: confirm,
-                     email: email,
-                 }, 
-{
-  headers: {
-    'Content-Type': 'application/json'
-  }
-}).then(
-  function(response) {
-    var token = response.data.token;
-    if (token) {
-  		$window.localStorage.token = token;
-  		deferred.resolve(true);
+    var userString = {
+                     'username': username,'password': password,'confirm_password': confirm,'email': email};
 
-  }
-  else{
-    // error callback
-    deferred.reject('Invalid data received from server');
-  }
-},
-function(response) {
-    deferred.reject(response.data.error);
-});
-return deferred.promise;
-};
+    httpService.httpPost(url, userString).then(
+      function(response) {
+          var token = response.token;
+          if (token) {
+  		        $window.localStorage.token = token;
+  		        deferred.resolve(true);
+            }
+          else{
+              deferred.reject('Invalid data received from server');
+            }
+          },
+          function(response) {
+              deferred.reject(response.error);
+          });
+          return deferred.promise;
+          };
 
 var login = function(username, password) {
-    var url = constants['API_SERVER'] + 'authentication/api/v1/login/';
+    var url = constants['API_SERVER'] + 'authentication/api/v1/login';
     var deferred = $q.defer();
-    $http.post(url, {
-                     username: username,
-                     password: password,
-                 }, 
-{
-  headers: {
-    'Content-Type': 'application/json'
-  }
-}).then(
+    httpService.httPost(url, {
+                     'username': username,
+                     'password': password,
+                 }).then(
   function(response) {
     var token = response.data.token;
     console.log(response);
@@ -69,17 +103,12 @@ function(response) {
 });
 return deferred.promise;};
 
-var search = function() {
+var search = function(quer) {
     var url = constants['API_SERVER'] + 'bitespace/search';
     var deferred = $q.defer();
-    $http.post(url, {
-                     query: 'butter'
-                 }, 
-{
-  headers: {
-    'Content-Type': 'application/json'
-  }
-}).then(
+    httpService.httpPost(url, {
+                     'query':quer,
+                 }).then(
   function(response) {
     console.log(response);
     deferred.resolve(true);
@@ -109,8 +138,8 @@ var logout = function(){
     	return 'User has been logged out';
 
     },
-    search : function(){
-      return search();
+    search : function(query){
+      return search(query);
     } 
   };
 
