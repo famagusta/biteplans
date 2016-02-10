@@ -105,6 +105,7 @@ and type the following code:
 >>> import tablib
 >>> from import_export import resources
 >>> from 'your_app'.models import models
+for example - from bitespace_app.models import USDAIngredient
 >>> import csv
 
 Use 'USDAIngredient' as modelname
