@@ -4,7 +4,7 @@ app.factory('authInterceptor', ['$rootScope', '$q', '$window', function($rootSco
     request: function (config) {
       config.headers = config.headers || {};
       if ($window.localStorage.token) {
-        config.headers.Authorization = 'Bearer ' + $window.localStorage.token;
+        config.headers.Authorization = 'JWT ' + $window.localStorage.token;
       }
       return config;
     },
