@@ -30,15 +30,14 @@ class AccountDetail(APIView):
     authentication_classes = (JSONWebTokenAuthentication, )
     def get(self, request):
         '''Handles get request'''
-        query = request.query_params.get('username', None)
-        result = Account.objects.get(username=query)
-        result = AccountSerializer(result)
+        query = request.user
+        result = AccountSerializer(query)
         return Response(result.data)
 
     def post(self, request):
         '''Handles post request'''
-        query = request.POST.get('username', False)
-        result = Account.objects.get(username=query)
-        result = AccountSerializer(result)
+        query = request.user
+        result = AccountSerializer(query)
         return Response(result.data)
+
 
