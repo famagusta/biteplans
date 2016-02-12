@@ -77,12 +77,12 @@ app.factory('AuthService',
 var login = function(username, password) {
     var url = constants['API_SERVER'] + 'authentication/api/v1/login';
     var deferred = $q.defer();
-    httpService.httPost(url, {
+    httpService.httpPost(url, {
                      'username': username,
                      'password': password,
                  }).then(
   function(response) {
-    var token = response.data.token;
+    var token = response.token;
     console.log(response);
     if (token) {
   		$window.localStorage.token = token;
@@ -97,7 +97,7 @@ var login = function(username, password) {
   }
 },
 function(response) {
-    deferred.reject(response.data.error);
+    deferred.reject(response.error);
     delete $window.sessionStorage.token;
 
 });
