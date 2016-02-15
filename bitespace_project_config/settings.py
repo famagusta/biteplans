@@ -62,7 +62,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
 
     ],
-     'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -130,12 +130,12 @@ WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_BITEAPP',
-        'USER': 'shubham',
-        'PASSWORD': 'jx1234',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
-    }
+        'NAME': 'BITESPACE_DB',
+        'USER': 'robin',
+        'PASSWORD': 'bigbang',
+        'HOST': '',   # Or an IP Address that your DB is hosted on
+        'PORT': '',
+        }
 }
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
