@@ -49,4 +49,8 @@ $scope.search = function(){
   };
 }
 
+ $scope.FbAuth = function(){
+           var a = AuthService.loginFb()
+           console.log(a)};
+
 }]);

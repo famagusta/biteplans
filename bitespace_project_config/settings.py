@@ -69,8 +69,21 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
+SOCIAL_AUTH_PIPELINE = (
+ 'social.pipeline.social_auth.social_details',
+ 'social.pipeline.social_auth.social_uid',
+ 'social.pipeline.social_auth.auth_allowed',
+ 'social.pipeline.social_auth.social_user',
+ 'social.pipeline.user.get_username',
+ 'social.pipeline.social_auth.associate_by_email',
+ 'social.pipeline.user.create_user',
+ 'social.pipeline.social_auth.associate_user',
+ 'social.pipeline.social_auth.load_extra_data',
+ 'social.pipeline.user.user_details'
+)
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -94,7 +107,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIAL_AUTH_FACEBOOK_KEY = "778572508914532"
-SOCIAL_AUTH_FACEBOOK_SECRET = "46a3f1c1d626e5296d4f17ac4f3ea1a2"
+SOCIAL_AUTH_FACEBOOK_SECRET = "59edc4201f5b848127d52b1fc736393a"
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =\
     "625705095605-qj6ve872tlinvt14tmnfn38kn3rsbclg.apps.googleusercontent.com"

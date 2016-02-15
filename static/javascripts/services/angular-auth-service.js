@@ -49,7 +49,7 @@ app.factory('httpService',['$http', '$q', function($http,$q){
 }]);
 
 app.factory('AuthService',
-            ['httpService','constants','$q','$window',function(httpService,constants,$q,$window){
+            ['httpService','constants','$q','$window', '$rootScope', function(httpService,constants,$q,$window, $rootScope){
    var register = function(username, password, confirm, email) {
     // Registration logic goes here
     var deferred = $q.defer();
@@ -125,6 +125,67 @@ var logout = function(){
 	delete $window.localStorage.token;
 
 };
+
+// since we are resolving a thirdparty response, 
+        // we need to do so in $apply   
+  var reslve = function(errval, retval, deferred) {
+      $rootScope.$apply(function() {
+          if (errval) {
+        deferred.reject(errval);
+          } else {
+        retval.connected = true;
+              deferred.resolve(retval);
+          }
+      });
+        };
+
+  var fbLogin = function(){
+      var deferred = $q.defer();
+            //first check if we already have logged in
+      FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+              // the user is logged in and has authenticated your
+        // app
+        console.log('fb user already logged in');
+        console.log(FB.appId);
+        deferred.resolve(response);
+    } else {
+        // the user is logged in to Facebook, 
+        // but has not authenticated your app
+        FB.login(function(response){
+            if(response.authResponse){
+          console.log('fb user logged in');
+          reslve(null, response, deferred);
+      }else{
+          console.log('fb user could not log in');
+          reslve(response.error, null, deferred);
+      }
+        });
+     }
+       });
+      
+       return deferred.promise;
+  };
+
+  var loginViaFb = function(){
+           fbLogin().then(function(response){
+               //we come here only if JS sdk login was successful so lets 
+               //make a request to our new view. I use Restangular, one can
+               //use regular http request as well.
+               console.log(response);
+               var reqObj = {'access_token': response.authResponse.accessToken,
+                          'backend': 'facebook'};
+               console.log(reqObj);
+               httpService.httpPost(constants['API_SERVER']+'authentication/sociallogin/', reqObj).then(function(response) {
+                  return response;
+               }, function(response) { /*error*/
+                   return response;
+               });  
+           });
+        };
+
+
+
   return {
     register: function(username, password, confirm, email) {
       return register(username, password, confirm, email);
@@ -140,7 +201,9 @@ var logout = function(){
     },
     search : function(query){
       return search(query);
-    } 
+    },
+
+    loginFb : loginViaFb,
   };
 
 }]);

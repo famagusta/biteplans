@@ -143,4 +143,4 @@ You will get token, Please include that token in each request after that so that
 
 Here is the format to do so
 Your http request must have a header like
-Authorization: Bearer <token value>
+Authorization: JWT <token value>

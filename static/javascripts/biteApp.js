@@ -34,7 +34,7 @@ app.run(['$http',function($http){
 
 var constantData = {
   'constants': {
-    'API_SERVER':'http://127.0.0.1:8000/',
+    'API_SERVER':'http://bitespacetest.com:8000/',
   }
 };
 
