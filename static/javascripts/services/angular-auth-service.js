@@ -25,7 +25,7 @@ app.factory('httpService',['$http', '$q', function($http,$q){
 
     var httpGet = function(url,params){
       params = toparams(params);
-      var promise = $http.post(url, params,{
+      var promise = $http.get(url, {
         headers:{
               'Content-Type': 'application/x-www-form-urlencoded'
         }

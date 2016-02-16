@@ -21,6 +21,9 @@ $httpProvider.interceptors.push('authInterceptor');
 }).when('/dashboard', {
   controller: 'DashboardController',
   templateUrl: '/static/templates/dashboard.html'
+}).when('/confirm', {
+  controller: 'confirmController',
+  templateUrl: '/static/templates/confirmTemp.html'
 }).otherwise('/');
 
 $locationProvider.html5Mode(true);
