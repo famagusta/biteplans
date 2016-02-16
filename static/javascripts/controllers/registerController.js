@@ -9,7 +9,7 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
     if (username && password && confirm && email) {
       AuthService.register(username, password, confirm, email).then(
         function () {
-          $location.path('/dashboard');
+          $location.path('/confirm');
         },
         function (error) {
           $scope.registerError = error;
@@ -27,7 +27,7 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
   if (username && password) {
     AuthService.login(username, password).then(
       function () {
-        $location.path('/dashboard');
+        $location.path('/confirm');
       },
       function (error) {
         $scope.loginError = error;
