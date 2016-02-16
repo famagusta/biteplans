@@ -1,3 +1,4 @@
+'''models = sql tables for user details'''
 from django.db import models
 
 # Create your models here.
@@ -79,3 +80,11 @@ class Account(AbstractBaseUser):
     def get_short_name(self):
         '''return username'''
         return self.username
+
+class UserProfile(models.Model):
+    '''model for user's profile'''
+    user = models.OneToOneField(Account)
+    activation_key = models.CharField(max_length=40, blank=True)
+    key_expires = models.DateTimeField()
+    def __str__(self):
+        return self.user.username

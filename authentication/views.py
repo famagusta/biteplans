@@ -3,15 +3,19 @@ from rest_framework_jwt.settings import api_settings
 from datetime import datetime
 from authentication.serializers import AccountSerializer
 from rest_framework import permissions, viewsets
-from authentication.models import Account
+from authentication.models import Account, UserProfile
 from authentication.permissions import IsAccountOwner
 from rest_framework.response import Response
 from rest_framework import status
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
-from social.apps.django_app.utils import load_strategy,psa
+from social.apps.django_app.utils import load_strategy, psa
 from social.apps.django_app.views import _do_login
-from django.contrib.auth import login
+import hashlib, datetime, random
+from django.core.mail import send_mail
+from django.conf import settings
+from django.utils import timezone
+from django.shortcuts import get_object_or_404
+master = settings.EMAIL_HOST_USER
 
 # Create your views here.
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
@@ -51,26 +55,58 @@ class AccountViewSet(viewsets.ModelViewSet):
         would later be decoded to authenticate the user'''
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            account = Account.objects.create_user(**serializer.validated_data)
-            token = create_token(account)['token']
-            return_dict = serializer.data
-            return_dict['token'] = token
-            return Response(return_dict)
+            salt = hashlib.sha1(
+                                str(random.random()).encode('utf8')
+                                ).hexdigest()[:5]
+            email = serializer.data['email']
+            activation_key = hashlib.sha1(salt+email).hexdigest()
+            key_expires = datetime.datetime.today() + datetime.timedelta(200)
+            sub = "Account confirm"
+            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation key, valid for just 2 days, http://bitespaceapptest.com:8000/confirm_account' % (request.data['username'])
+            tr = send_mail(sub, message, master, [email], fail_silently=False)
+            if tr:
+                account = Account.objects.create_user(
+                                            **serializer.validated_data
+                                            )
+                new_profile = UserProfile(user=account,
+                                      activation_key=activation_key,
+                                      key_expires=key_expires)
+                new_profile.save()
+                token = create_token(account)['token']
+                return_dict = serializer.data
+                return_dict['token'] = token
+                return Response(return_dict)
 
         return Response({
             'status': 'Bad request',
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
 
+def register_confirm(request, activation_key):
+    #check if user is already
+    ##logged in and if he is redirect him
+    ##to some other url, e.g. home
+    if request.user.is_authenticated():
+        user_profile = get_object_or_404(UserProfile,
+                                         activation_key=activation_key)
 
+    #check if the activation key has expired,
+    ##if it hase then render confirm_expired.html
+        if user_profile.key_expires < timezone.now():
+            return Response({'error':'Activation key has expired'})
+        #if the key hasn't expired
+        #save user and set him as active and
+        #render some template to confirm activation
+        user_profile.is_active = True
+        user_profile.save()
+        return Response({'success:Account has been confirmed'})
 @psa()
 def auth_by_token(request, backend):
     '''auth flow using fb token'''
     print request.POST.get('access_token')
-    backend = request.backend
     user = request.user
-    user=user.is_authenticated() and user or None
-    print user,"USERNAME TRYTRY"
+    user = user.is_authenticated() and user or None
+    print user, "USERNAME TRYTRY"
     user = request.backend.do_auth(
         request.POST.get('access_token'),
         user=user.is_authenticated() and user or None
@@ -84,7 +120,7 @@ def auth_by_token(request, backend):
 @permission_classes((permissions.AllowAny,))
 def social_register(request):
     '''signup using fb'''
-    print request.POST.get('access_token',None)
+    print request.POST.get('access_token', None)
     print "TRYTRYTRY"
     auth_token = request.POST.get('access_token', None)
     backend = request.POST.get('backend', None)
@@ -103,16 +139,3 @@ def social_register(request):
     else:
         return Response("Bad request", status=400)
 
-@psa('social:complete')
-def social_cxcxcxcregister(request, backend):
-    # This view expects an access_token GET parameter, if it's needed,
-    # request.backend and request.strategy will be loaded with the current
-    # backend and strategy.
-    token = request.POST.get('access_token')
-    user = request.backend.do_auth(request.POST.get('access_token'))
-    print "jksljlkja"
-    if user:
-        login(request, user)
-        return 'OK'
-    else:
-        return 'ERROR'
