@@ -124,7 +124,19 @@ False
 
 And your data is uploaded into your db!
 
-##API DOcumentation
+### Implementing full text search mysql
+
+/*Make sure you have updated to mysql 5.6*/
+Django doesnot provide away to specify full text search index in models.py, so you have to do it manually.
+goto mysql
+open db
+run: 
+alter table bitespace_app_usdaingredient add fulltext search(shrt_desc);
+if this does not run try with captial letters like
+ALTER TABLE bitespace_app_ingredient ADD FULLTEXT search(shrt_desc);
+
+
+##API Documentation
 We are using JWT based authentication so maintaining a session isnt required
 However to protext us against cross site resource foregery django provides a csrf token just in case so while making request to the api be sure to add an X-CSRF header: csrftoken
 and you can get the value of csrf token by going to the website and running any command and checking the networks tab and then checking the headers tab.
@@ -136,4 +148,4 @@ You will get token, Please include that token in each request after that so that
 
 Here is the format to do so
 Your http request must have a header like
-Authorization: Bearer <token value>
+Authorization: JWT <token value>
