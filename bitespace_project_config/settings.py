@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2o8wd)y-(8^()lkxcs1ejp0uafugdg&%0ds=nat&@-*j9$n1im'
+SECRET_KEY = os.environ.get('BITEPLANS_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -63,23 +63,23 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
 
     ],
-     'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
 SOCIAL_AUTH_PIPELINE = (
- 'social.pipeline.social_auth.social_details',
- 'social.pipeline.social_auth.social_uid',
- 'social.pipeline.social_auth.auth_allowed',
- 'social.pipeline.social_auth.social_user',
- 'social.pipeline.user.get_username',
- 'social.pipeline.social_auth.associate_by_email',
- 'social.pipeline.user.create_user',
- 'social.pipeline.social_auth.associate_user',
- 'social.pipeline.social_auth.load_extra_data',
- 'social.pipeline.user.user_details'
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
 )
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
@@ -106,13 +106,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_FACEBOOK_KEY = "778572508914532"
-SOCIAL_AUTH_FACEBOOK_SECRET = "59edc4201f5b848127d52b1fc736393a"
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =\
-    "625705095605-qj6ve872tlinvt14tmnfn38kn3rsbclg.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "y7LJfV8ws-ZqAT0dK_kxz5JF"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET =\
+    os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 # SOCIAL_AUTH_GOOGLE_OAUTH2_USE_DEPRECATED_API = True
 # SOCIAL_AUTH_GOOGLE_PLUS_USE_DEPRECATED_API = True
@@ -148,9 +148,9 @@ WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_BITEAPP',
-        'USER': 'shubham',
-        'PASSWORD': 'jx1234',
+        'NAME': os.environ.get('BITEPLANS_DB_NAME'),
+        'USER': os.environ.get('BITEPLANS_DB_ROOT_USER'),
+        'PASSWORD': os.environ.get('BITEPLANS_DB_ROOT_USER_PWD'),
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }

@@ -149,3 +149,22 @@ You will get token, Please include that token in each request after that so that
 Here is the format to do so
 Your http request must have a header like
 Authorization: JWT <token value>
+
+
+### Populating db with recipes
+ask robin (robin@jeevomics) for data files
+Make sure the "Recipe" model is created in {app}/models.py
+Run migrations: 
+- python manage.py makemigrations 
+- python manage.py migrate
+
+Also, change the character encoding of mysql by running the commands below to have
+a more generic encoding of character sets
+Ensure you have the json files for recipes
+Run the script populate_recipes.py (change the directory location of json files given here)
+
+Or Alternatively use a db dump (TODO)
+### Changing character encoding for mysql db textfields for recipes
+
+ALTER DATABASE database_name CHARACTER SET = utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE table_name CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -1,4 +1,4 @@
-""" A django model for our database usage!
+""" models for our database usage!
 """
 
 from django.db import models
@@ -230,3 +230,20 @@ class IndiNutrientData(models.Model):
         return self.name
 
 
+class Recipe(models.Model):
+    '''Model to represent recipes extracted from the web
+       https://github.com/fictivekin/openrecipes'''
+    recipe_id = models.CharField(primary_key=True, max_length=255)
+    description = models.TextField(null=True)
+    ingredients = models.TextField()
+    name = models.TextField()
+    url = models.URLField(max_length=400)
+    prep_time = models.CharField(null=True, max_length=255)
+    cook_time = models.CharField(null=True, max_length=255)
+    source = models.CharField(max_length=255)
+    image = models.URLField(null=True, max_length=400)
+    recipe_yield = models.CharField(null=True, max_length=255)
+    date_published = models.CharField(null=True, max_length=255)
+
+    def __unicode__(self):
+        return self.name
