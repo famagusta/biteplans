@@ -55,7 +55,9 @@ INSTALLED_APPS = (
     'django_filters',
     'import_export',
     'social.apps.django_app.default',
+    'rest_social_auth',
 )
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
@@ -70,6 +72,7 @@ REST_FRAMEWORK = {
     )
 }
 SOCIAL_AUTH_PIPELINE = (
+ 'authentication.social_pipe.auto_logout',
  'social.pipeline.social_auth.social_details',
  'social.pipeline.social_auth.social_uid',
  'social.pipeline.social_auth.auth_allowed',
@@ -79,7 +82,7 @@ SOCIAL_AUTH_PIPELINE = (
  'social.pipeline.user.create_user',
  'social.pipeline.social_auth.associate_user',
  'social.pipeline.social_auth.load_extra_data',
- 'social.pipeline.user.user_details'
+ 'authentication.social_pipe.save_avatar',  # custom action
 )
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
@@ -110,9 +113,8 @@ SOCIAL_AUTH_FACEBOOK_KEY = "778572508914532"
 SOCIAL_AUTH_FACEBOOK_SECRET = "59edc4201f5b848127d52b1fc736393a"
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY =\
-    "625705095605-qj6ve872tlinvt14tmnfn38kn3rsbclg.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "y7LJfV8ws-ZqAT0dK_kxz5JF"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ="1085148051855-038mu2fo2vha95b666r8lunao125l4k7.apps.googleusercontent.com"
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "KmrJgB7IrwvTtD30z5PknHbI"
 
 # SOCIAL_AUTH_GOOGLE_OAUTH2_USE_DEPRECATED_API = True
 # SOCIAL_AUTH_GOOGLE_PLUS_USE_DEPRECATED_API = True
@@ -199,3 +201,20 @@ EMAIL_HOST_PASSWORD = 'vniamvcbgpfsdhsf'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'rest_social_auth': {
+            'handlers': ['console', ],
+            'level': "DEBUG",
+        },
+    }
+}

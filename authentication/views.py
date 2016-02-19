@@ -2,7 +2,7 @@
 from rest_framework_jwt.settings import api_settings
 from datetime import datetime
 from authentication.serializers import AccountSerializer
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, viewsets, generics, status
 from authentication.models import Account, UserProfile
 from authentication.permissions import IsAccountOwner
 from rest_framework.response import Response
@@ -15,10 +15,13 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-master = settings.EMAIL_HOST_USER
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
+from rest_social_auth.serializers import UserSerializer
+from rest_social_auth.views import JWTAuthMixin
 
 # Create your views here.
+master = settings.EMAIL_HOST_USER
+
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
@@ -111,42 +114,17 @@ def register_confirm(request):
 
     else:
         return Response({'error':'Not authorized'})
-@psa()
-def auth_by_token(request, backend):
-    '''auth flow using fb token'''
-    print request.POST.get('access_token')
-    user = request.user
-    user = user.is_authenticated() and user or None
-    print user, "USERNAME TRYTRY"
-    user = request.backend.do_auth(
-        request.POST.get('access_token'),
-        user=user.is_authenticated() and user or None
-        )
-    if user and user.is_active:
-        return user# Return anything that makes sense here
-    else:
-        return None
 
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
-def social_register(request):
-    '''signup using fb'''
-    print request.POST.get('access_token', None)
-    print "TRYTRYTRY"
-    auth_token = request.POST.get('access_token', None)
-    backend = request.POST.get('backend', None)
-    if auth_token and backend:
-        try:
-            print "DX DJANGO"
-            user = auth_by_token(request, backend)
-        except Exception, err:
-            return Response(str(err), status=400)
-        if user:
-            strat = load_strategy(request=request, backend=backend)
-            _do_login(strat, user)
-            return Response("User logged in", status=status.HTTP_200_OK)
-        else:
-            return Response("Bad Credentials", status=403)
-    else:
-        return Response("Bad request", status=400)
 
+class BaseDetailView(generics.RetrieveAPIView):
+    '''Base details of user'''
+    permission_classes = permissions.IsAuthenticated,
+    serializer_class = UserSerializer
+    model = get_user_model()
+
+    def get_object(self, queryset=None):
+        '''return current object'''
+        return self.request.user
+
+class UserJWTDetailView(JWTAuthMixin, BaseDetailView):
+    pass

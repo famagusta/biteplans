@@ -46,11 +46,11 @@ $scope.search = function(){
     },function(error) {
       console.log(error);
     });
-  };
-}
+  }
+};
 
- $scope.FbAuth = function(){
-           var a = AuthService.loginFb()
-           console.log(a)};
+ $scope.Auth = function(provider){
+    AuthService.socialAuth(provider);
+};
 
 }]);

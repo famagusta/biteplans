@@ -2,13 +2,14 @@
 /* global app: true */
 
 var app = angular.module('biteApp', [
+      'satellizer',
       'ngRoute'
     ]);
 /**
 * @name run
 * @desc Update xsrf $http headers to align with Django's defaults
 */
-app.config(['$routeProvider','$locationProvider', '$httpProvider', function($routeProvider,$locationProvider,$httpProvider) {
+app.config(['$routeProvider','$locationProvider', '$httpProvider', '$authProvider', function($routeProvider,$locationProvider,$httpProvider,$authProvider) {
 
 $httpProvider.interceptors.push('authInterceptor');
 
@@ -25,6 +26,17 @@ $httpProvider.interceptors.push('authInterceptor');
   controller: 'confirmController',
   templateUrl: '/static/templates/confirmTemp.html'
 }).otherwise('/');
+
+$authProvider.facebook({
+    url: 'http://bitespacetest.com:8000/authentication/sociallogin/social/jwt_user/facebook/',
+    clientId: '778572508914532'
+});
+$authProvider.google({
+    url: 'http://bitespacetest.com:8000/authentication/sociallogin/social/jwt_user/google-oauth2/',
+    clientId: '1085148051855-038mu2fo2vha95b666r8lunao125l4k7.apps.googleusercontent.com'
+});
+$authProvider.authToken = 'JWT';
+$authProvider.tokenPrefix = '';
 
 $locationProvider.html5Mode(true);
 $locationProvider.hashPrefix('!');

@@ -2,21 +2,25 @@
 from django.db import models
 
 # Create your models here.
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+
 
 class AccountManager(BaseUserManager):
     '''this class manages the user save method and other user actions'''
-    def create_user(self, email, password=None, **kwargs):
+    def create_user(self, username, email, password=None, **kwargs):
         '''creates normal user'''
-        if not email:
-            raise ValueError('Users must have a valid email.')
+        kwargs.setdefault('is_staff', False)
+        kwargs.setdefault('is_superuser', False)
 
-        if not kwargs.get('username'):
+        if not username:
             raise ValueError('Users must have a valid username.')
 
+        if not email:
+            email = username+'@'+'facebook.com'
+
         account = self.model(email=self.normalize_email(email),
-                             username=kwargs.get('username')
+                             username=username
                              )
 
         account.set_password(password)
@@ -24,56 +28,37 @@ class AccountManager(BaseUserManager):
 
         return account
 
-    def create_superuser(self, email, password, **kwargs):
+    def create_superuser(self, username, email, password, **kwargs):
         '''creates superuser'''
-        account = self.create_user(email, password, **kwargs)
+        kwargs.setdefault('is_staff', True)
+        kwargs.setdefault('is_superuser', True)
 
-        account.is_admin = True
-        account.save()
+        if kwargs.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if kwargs.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
 
-        return account
+        return self.create_user(username, email, password, **kwargs)
 
 
-class Account(AbstractBaseUser):
+class Account(AbstractBaseUser, PermissionsMixin):
     '''Abstracts/overrides the default user model'''
-    email = models.EmailField(unique=True)
     username = models.CharField(max_length=100, unique=True)
-    is_admin = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-
+    email = models.EmailField(unique=True)
+    is_staff = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    is_active = models.BooleanField(default=False)
+    social_thumb = models.URLField(null=True, blank=True)
     objects = AccountManager()
-
     USERNAME_FIELD = 'username'
-
     REQUIRED_FIELDS = ['email']
-    @property
-    def is_superuser(self):
-        '''check if superuser'''
-        return self.is_admin
-
-    @property
-    def is_staff(self):
-        '''check if employee'''
-        return self.is_admin
-
-
-    def has_perm(self, perm, obj=None):
-        '''check permissions'''
-        return self.is_admin
-
-    def has_module_perms(self, app_label):
-        '''check permissions'''
-        return self.is_admin
-
-
 
     def __unicode__(self):
         return self.username
 
 
-    def get_name(self):
+    def get_full_name(self):
         '''return username'''
         return self.username
 
