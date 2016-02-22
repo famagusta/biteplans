@@ -33,7 +33,8 @@ $authProvider.facebook({
 });
 $authProvider.google({
     url: 'http://bitespacetest.com:8000/authentication/sociallogin/social/jwt_user/google-oauth2/',
-    clientId: '1085148051855-038mu2fo2vha95b666r8lunao125l4k7.apps.googleusercontent.com'
+    clientId: '625705095605-6lemikvbb7kdh13lf3puq0r1fvcs0ukh.apps.googleusercontent.com',
+    redirectUri: window.location.origin + '/'
 });
 $authProvider.authToken = 'JWT';
 $authProvider.tokenPrefix = '';
