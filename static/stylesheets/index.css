@@ -56,27 +56,15 @@ p {
     font-size: inherit;
 }
 
-footer.page-footer {
-    margin: 0;
-}
-
-/* To be copied in another CSS file */
-
-/*.containedBackground {
-    background-image: url('../images/landingBackground.png');
-    background-repeat:repeat-x;
-    background-size: cover;
-}*/
-
-nav ul li {
-    text-transform: uppercase;
-}
-
 .center-btn {
     text-align: center;
 }
 
 .btn {
     background-color: #00bcd4;
+}
+
+.pagination li.active {
+    background: none;
 }
 

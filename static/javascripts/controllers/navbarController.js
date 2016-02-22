@@ -10,17 +10,17 @@ app.controller('navbarController', ['$scope', '$location', function ($scope, $lo
     $scope.modal2 = false;
     $scope.modal3 = false;        
 
-    $scope.switchToModal = function (number) {
+    $scope.switchToModal = function (number) {     // function to change the content in modal window
    
     console.log(number+typeof(number));
     
-       if (number==2) {
+       if (number == 2) {
            $scope.modal2 = true;
            $scope.modal1 = false;
            $scope.modal3 = false;
         }
        
-        else if (number==3) {
+        else if (number == 3) {
            $scope.modal3 = true;
            $scope.modal1 = false;
            $scope.modal2 = false;

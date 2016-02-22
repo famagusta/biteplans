@@ -1,13 +1,8 @@
-nav {
-    position: sticky;
-}
+/* STYLING FOR NAVBAR */
+
 nav ul a, nav .brand-logo {
     color: teal;
     font-weight: bold;
-}
-
-nav ul li a:hover {
-    background-color: transparent !important;
 }
 
 nav ul li.active a {
@@ -22,12 +17,19 @@ nav ul {
     margin-right: 50px;
 }
 
+nav ul li {
+    text-transform: uppercase;
+}
+
+
+/* STYLING IN MOBILE VIEW NAVIGATION */
+
 .button-collapse {
   color: #26a69a;
 }
 
 
-/* LOGIN AND SIGNUP MODALS */
+/* LOGIN AND SIGNUP MODAL */
 
 
 #modal1 { 
