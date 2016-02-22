@@ -1,2 +1,143 @@
+  <div id="dashboard-page">
+    <div class="row">
+        <div class="col s12 m2">
+          <div class="card white darken-1">
+            <div class="card-content grey-text">
+              <ul id="dashboard-list">
+                  <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#"><i class="fa fa-list-alt"></i></a>
+                    </div>
+                    <div class="col s4 m7">
+                        <a href="#"><li>Summary</li></a>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#"><i class="fa fa-user"></i></a>
+                    </div>
+                    <div class="col s4 m7">
+                        <a href="#"><li>Profile</li></a>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#"><i class="fa fa-calendar"></i></a>
+                    </div>
+                    <div class="col s4 m7">
+                        <a href="#"><li>Calender</li></a>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#"><i class="fa fa-group"></i></a>
+                    </div>
+                    <div class="col s4 m7">
+                        <a href="#"><li>Friends</li></a>
+                    </div>
+                  </div>
+                   <div class="row">
+                     <div class="col s4 m4">
+                         <a href="#"><i class="fa fa-signal"></i></a>
+                     </div>
+                    <div class="col s4 m4">
+                        <a href="#"><li>Progress</li></a>
+                    </div>
+                  </div>
+                   <div class="row">
+                        <div class="col s4 m4">
+                            <a href="#"><i class="fa fa-signal"></i></a>
+                        </div>
+                    <div class="col s4 m7">
+                        <a href="#"><li>My Plans</li></a>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#"><i class="fa fa-signal"></i></a>
+                    </div>
+                    <div class="col s4 m7">
+                        <a href="#"><li>My Recipes</li></a>
+                    </div>
+                   </div>
+                   <div class="row">
+                     <div class="col s4 m4">
+                         <a href="#"><i class="material-icons">assignment</i></a>
+                     </div>
+                    <div class="col s4 m7">
+                        <a href="#"><li>Create Plan</li></a>
+                    </div>
+                   </div>
+                   <div class="row">
+                       <div class="col s4 m4">
+                           <a href="#"><i class="fa fa-search"></i></a>
+                       </div>
+                    <div class="col s4 m7">
+                       <li>Search Plan</li>
+                    </div>
+                   </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <!--SUMMARY -->
+     
+      <div class="col s12 m7">
+          <div class="card white">
+            <div class="card-content teal-text">
+              <span class="card-title center-align">
+                  <div class="row">
+                    <div class="col s12 m12">
+                      <ul class="day-list">
+                          <li><i class="fa fa-chevron-left"></i></li>
+                          <li>Yesterday</li>
+                          <li>Today</li>
+                          <li>Tomorrow</li>
+                          <li><i class="fa fa-chevron-right"></i></li>
+                          <li><i class="fa fa-calendar"></i></li>
+                          </ul>
+                      </div>
+                      <div class="col s12 m12">
+                       <h5 class="center-align">Weight Loss in 2 weeks</h5> 
+                      </div>
+                  </div>
+                </span>
+            </div>
+          </div>
+        <div class="col s12 m12">
+          <div class="card white">
+            <div class="card-content teal-text">
+             <div class=" col s12">
+                <select>
+                  <option value="" disabled selected>Nutritional Information</option>
+                  <option value="1">Option 1</option>
+                  <option value="2">Option 2</option>
+                  <option value="3">Option 3</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div> <!-- END OF SUMMARY WINDOW-->
+        <div class="col s12 m3">
+          <div class="card white">
+            <div class="card-content teal-text">
+              <h5 class="card-title center-align">Recent Activity</h5>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
+            
+
+
 <h1>{{token}}</h1>
 <a ng-click="logout()" class="btn btn-primary">Logout</a>

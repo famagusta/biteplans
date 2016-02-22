@@ -5,6 +5,9 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
     var password = $scope.registerPassword;
     var confirm = $scope.confirmPassword;
     var email = $scope.email;
+    var currentWeight = $scope.registerCurrentWeight;
+    var height = $scope.registerHeight;
+    var goalWeight = $scope.registerGoalWeight;
 
     if (username && password && confirm && email) {
       AuthService.register(username, password, confirm, email).then(
@@ -12,11 +15,12 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
           $location.path('/dashboard');
         },
         function (error) {
-          $scope.registerError = error;
-        }
+                 $scope.registerError = error;
+          }
       );
-    } else {
-      $scope.registerError = 'fields are missing';
+    }
+      else {
+      $scope.registerError = 'Fields are missing';
     }
   };
 
@@ -34,7 +38,7 @@ app.controller('IndexController', ['$scope', '$location', 'AuthService', functio
       }
     );
   } else {
-    $scope.error = 'Username and password required';
+    $scope.loginError = 'Username and password required';
   }
 };
 

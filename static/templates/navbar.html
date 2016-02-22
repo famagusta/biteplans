@@ -1,0 +1,182 @@
+<!-- NAVBAR -->
+
+<nav role="navigation" class="navbar" >
+    <div class="nav-wrapper">
+        <a id="logo-container" href="/" class="brand-logo">
+            <img class="responsive-img" src="static/images/headerLogo.png">
+        </a>
+        <ul class="right hide-on-med-and-down">
+            <li class="active" ng-class="navClass('plans')"><a href="/plans">Plans</a>
+            <li><a href="#">Ingredients</a></li>
+            <li><a href="#">Recipes</a></li>
+            <li><a href="#">Articles</a></li>
+            <li><a href="#modal1" ng-click="switchToModal(1)">Log in</a></li>
+        </ul>
+        
+        <!-- MOBILE VIEW NAVIGATION -->
+        
+        <ul id="nav-mobile" class="side-nav">
+            <li><a href="#/plans">Plans</a></li>
+            <li><a href="#">Ingredients</a></li>
+            <li><a href="#">Recipes</a></li>
+            <li><a href="#">Articles</a></li>
+            <li><a class="modal-trigger" href="#modal1">Log in</a></li> 
+          </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse" id="loginModal">
+            <i class="material-icons">menu</i>
+        </a>
+    </div>
+</nav>
+
+<div id="modal1" class="modal">
+<div class="modal-content">
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat right">Close</a>  
+<div ng-if='modal1 && !modal2 && !modal3'>
+      
+      <h5 class="center">Welcome</h5>
+        <br>
+      <div class="center-btn">
+        <a class="waves-effect waves-light btn">Log In with FACEBOOK</a>
+          <br>
+      </div>
+        <br>
+      <div class="center-btn">
+        <a class="waves-effect waves-light btn" id="googlebtn">Log In with GOOGLE</a>
+      </div>
+
+      <p class="center-btn">OR</p>
+        <div class="row">
+            <div class="col s12">
+                <p class="text-danger" ng-show="loginError">{{ loginError }}</p>
+            </div>
+        </div>
+        <form ng-submit="login()" name="formValidate">
+            <div class="input-field">
+             <input id="first_name" type="text" class="form-control validate" ng-model="loginUsername" >
+             <label for="first_name">Username</label>
+            </div>
+            <div class="input-field">
+              <input id="password" type="password" class="form-control validate" ng-model="loginPassword" >
+              <label for="first_name">Password</label>
+            </div>
+          <div class="center-btn">
+            <input type="submit" class="btn btn-default" value="Log In">
+          </div>
+            <p class="teal-text">Forgot your password or username?</p>
+            <p class="teal-text">Don't have an account? <a ng-click="switchToModal(2)">Sign Up Now</a></p>
+        </form>
+    </div>   
+   <!-- END OF LOGIN WINDOW -->
+
+
+    <div ng-if='!modal1 && modal2 && !modal3'>
+
+      <h5 class="center">Welcome</h5>
+        <br>
+      <div class="center-btn">
+        <a class="waves-effect waves-light btn">Sign Up with FACEBOOK</a>
+      </div>
+        <br>
+      <div class="center-btn">
+        <a class="waves-effect waves-light btn" id="googlebtn">Sign Up with GOOGLE</a>
+      </div>
+        
+      <p class="center-btn">or</p>
+        <form ng-submit="register()" name="formValidate" action="">
+            <div class="row">
+                <div class="col s12">
+                 <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
+                </div>
+            </div>
+            
+            <!-- USERNAME -->
+            
+             <div class="row">
+              <div class="input-field col m12">
+                <input class="validate" id="input_name" type="text" pattern="^[a-zA-Z0-9]*$" length="10" required/>
+                <label for="input_name" data-error="Atmost 10 characters">Username</label>
+              </div>
+            </div>
+            
+            
+            <!-- EMAIL -->
+            <div class="row">
+                <div class="input-field col m12">
+                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="email" required /> 
+                <label for="email" data-error="Invalid Email Id">Email</label>
+                </div>
+            </div>
+            
+            <!-- PASSWORD -->
+            
+             <div class="row">
+              <div class="input-field col m12">
+                <input class="validate" id="input_password" type="password" length="10" required>
+                <label for="input_password" data-error="Atmost 10 characters">Password</label>
+              </div>
+            </div>
+                
+            <!-- CONFIRM PASSWORD -->
+               
+             <div class="row">
+                 <div class="input-field col m12">
+                  <input id="password" type="password" class="form-control" ng-model="confirmPassword" required>
+                  <label for="password">Confirm Password</label>
+                </div>
+            </div>
+
+            <br>
+            
+            <div class="center-btn">
+                <a ><input id="continueToForm2" name="action" type="submit" class="btn btn-default" value="Continue" ng-click="switchToModal(3)"></a>
+            </div>
+        </form>
+          </div>
+        
+
+    <div ng-if='!modal1 && !modal2 && modal3'>
+      <h5 class="center">Tell us about yourself</h5>
+        <br>
+        <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
+        <form ng-submit="register()">
+            
+            <!-- WEIGHT -->
+            
+            <div class="input-field">
+                 <input id="weight" type="number" class="form-control validate" ng-model="registerWeight" min="1" required>
+                 <label for="weight">Current Weight (in kgs)</label>
+            </div>
+            
+            <!-- HEIGHT -->
+            
+            <div class="input-field">
+              <label for="height">Height (in cms)</label>
+              <input id="height" type="number" class="form-control validate" ng-model="registerHeight" data-error="Error" required>
+            </div>
+            
+            <!-- GOAL WEIGHT -->
+            
+            <div class="input-field">
+              <input id="weight" type="number" class="form-control validate" ng-model="registerWeight" required>
+              <label for="weight">Goal Weight (in kgs)</label>
+            </div>
+            
+            <!-- GENDER -->
+            
+            <div class="input-field">       <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="test5" class="with-gap" name="group3" type="radio" checked />
+                <label for="test5">Male</label>&nbsp;&nbsp;
+                <input id="test4" class="with-gap" name="group3" type="radio" />
+                <label for="test4">Female</label>
+            </div>
+             <div class="input-field">
+                <input type="date" class="datepicker" id="dob" required>
+            </div>
+            <div class="center-btn">
+            <a class="modal-trigger" href="/dashboard"><input type="submit" class="btn btn-default" value="Save and Continue"></a>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+

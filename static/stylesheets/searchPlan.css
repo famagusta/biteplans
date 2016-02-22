@@ -1,0 +1,88 @@
+#planPage {
+    background-color: #f5f5f5;
+}
+
+type="checkbox"] {
+  border: 2px solid #ff5252;
+}
+
+[type="checkbox"].filled-in:checked + label:after {
+  top: 0px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ff5252;
+  background-color: #ff5252;
+  z-index: 0;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+#checklist {
+    height: 100%;
+}
+
+.bold {
+    font-weight: bold;
+    color: #000;
+}
+
+#searchcard {
+    width: 50%;
+    height: 55px;
+    left: 170px;
+}
+
+#searchcard i {
+    margin-top: -37px;
+}
+
+#searchcard textarea#searchbox {
+    resize: none;
+    border: none;
+    text-align: center;
+    height: 35px;
+    margin-top: -8px;
+}
+
+textarea::-webkit-input-placeholder {
+   text-align: center;
+}
+
+
+textarea:focus {
+    outline: none;
+}
+
+.card-action a {
+    margin-top: -11px;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+.pagination li.active {
+    background: none;
+}
+
+.rating-stars ul {
+    list-style: none;
+    padding: 0px;
+}
+
+.rating-stars ul > li.star {
+    display: inline-block;
+}
+
+.rating-stars ul > li.star > i {
+    font-size: 1.5em;
+    color: #ccc;
+}
+
+.rating-stars ul > li.star.hover > i {
+    color: #ffcc36;
+}
+
+.rating-stars ul > li.star.selected > i {
+    color: #ffcc36;
+}

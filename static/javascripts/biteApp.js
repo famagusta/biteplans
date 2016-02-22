@@ -8,19 +8,25 @@ var app = angular.module('biteApp', [
 * @name run
 * @desc Update xsrf $http headers to align with Django's defaults
 */
-app.config(['$routeProvider','$locationProvider', '$httpProvider', function($routeProvider,$locationProvider,$httpProvider) {
+app.config(['$routeProvider','$locationProvider', '$httpProvider', function($routeProvider, $locationProvider , $httpProvider) {
 
 $httpProvider.interceptors.push('authInterceptor');
 
     $routeProvider.when('/', {
-  controller: 'IndexController',
-  templateUrl: '/static/templates/indexView.html'
-}).when('/login', {
-  controller: 'IndexController',
-  templateUrl: '/static/templates/login.html'
-}).when('/dashboard', {
-  controller: 'DashboardController',
-  templateUrl: '/static/templates/dashboard.html'
+    controller: 'IndexController',
+    templateUrl: '/static/templates/landingPage.html'
+})
+    .when('/plans', {
+    controller: 'planController',
+    templateUrl: '/static/templates/searchPlan.html'
+})
+   /* .when('/login', {
+    controller: 'IndexController',
+    templateUrl: '/static/templates/login.html'
+})*/
+    .when('/dashboard', {
+    controller: 'dashboardController',
+    templateUrl: '/static/templates/dashboard.html'
 }).otherwise('/');
 
 $locationProvider.html5Mode(true);

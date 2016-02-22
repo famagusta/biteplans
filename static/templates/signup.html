@@ -1,0 +1,135 @@
+<div id="modal2" class="modal">
+    <div class="modal-content">
+      <h5 class="center">Welcome</h5>
+        <br>
+      <div class="center-btn">
+        <a class="waves-effect waves-light btn">Sign Up with FACEBOOK</a>
+      </div>
+        <br>
+      <div class="center-btn">
+        <a class="waves-effect waves-light btn" id="googlebtn">Sign Up with GOOGLE</a>
+      </div>
+        
+      <p class="center-btn">or</p>
+        <form ng-submit="register()" name="formValidate" novalidate>
+            <div class="row">
+                <div class="col s12">
+                 <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
+                </div>
+            </div>
+            
+            <!-- USERNAME -->
+            
+             <div class="row">
+              <div class="input-field col m12">
+                <input class="validate" id="input_name" type="text" pattern="^[a-zA-Z0-9]*$" length="10">
+                <label for="input_name" data-error="Atmost 10 characters">Username</label>
+              </div>
+            </div>
+            
+            
+            <!-- EMAIL -->
+            <div class="row">
+                <div class="input-field col m12">
+                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="email" /> 
+                <label for="email" data-error="Invalid Email Id">Email</label>
+                </div>
+            </div>
+            
+            <!-- PASSWORD -->
+            
+             <div class="row">
+              <div class="input-field col m12">
+                <input class="validate" id="input_password" type="password" length="10">
+                <label for="input_password" data-error="Atmost 10 characters">Password</label>
+              </div>
+            </div>
+                
+            <!-- CONFIRM PASSWORD -->
+               
+             <div class="row">
+                 <div class="input-field col m12">
+                  <input id="password" type="password" class="form-control" ng-model="confirmPassword" >
+                  <label for="password">Confirm Password</label>
+                </div>
+            </div>
+
+            <br>
+            
+            <div class="center-btn">
+                <a class="modal-trigger" href="#modal3"><input id="continueToForm2" type="submit" class="btn btn-default" value="Continue"></a>
+            </div>
+        </form>
+          </div>
+        </div>
+
+    <div id="modal3" class="modal">
+    <div class="modal-content">
+      <h5 class="center">Tell us about yourself</h5>
+        <br>
+        <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
+        <form ng-submit="register()">
+            
+            <!-- WEIGHT -->
+            
+            <div class="input-field">
+                 <input id="weight" type="number" class="form-control validate" ng-model="registerWeight" min="1" >
+                 <label for="weight">Current Weight (in kgs)</label>
+            </div>
+            
+            <!-- HEIGHT -->
+            
+            <div class="input-field">
+              <label for="height">Height (in cms)</label>
+              <input id="height" type="number" class="form-control validate" ng-model="registerHeight" data-error="Error">
+            </div>
+            
+            <!-- GOAL WEIGHT -->
+            
+            <div class="input-field">
+              <input id="weight" type="number" class="form-control validate" ng-model="registerWeight" >
+              <label for="weight">Goal Weight (in kgs)</label>
+            </div>
+            
+            <!-- GENDER -->
+            
+            <div class="input-field">       <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="test5" class="with-gap" name="group3" type="radio" checked />
+                <label for="test5">Male</label>&nbsp;&nbsp;
+                <input id="test4" class="with-gap" name="group3" type="radio" />
+                <label for="test4">Female</label>
+            </div>
+             <div class="input-field">
+                <input type="date" class="datepicker" id="dob" >
+            </div>
+            <div class="center-btn">
+            <a class="modal-trigger" href="/dashboard"><input type="submit" class="btn btn-default" value="Save and Continue"></a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+   $(document).ready(function(){
+                
+    $('.modal-trigger').leanModal();
+    
+       $('#signupModal').click(function() {
+           $('#modal1').closeModal();
+       });
+       $('#loginModal').click(function() {
+           $('#modal2').closeModal();
+       });
+        $('#continueToForm2').click(function() {
+           $('#modal2').closeModal();
+       });
+    $("#modal2").width($("#modal2").width());
+    $("#modal3").width($("#modal3").width());
+       
+    $('input#input_name').characterCounter();
+    $('input#input_password').characterCounter();
+
+  });
+
+
+</script>
