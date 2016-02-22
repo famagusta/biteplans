@@ -17,14 +17,14 @@ app.controller('navbarController', ['$scope', '$location', function ($scope, $lo
 
     //show second modal view
     
-       if (number===2) {
+       if (number===2 && $scope.modal2 != true) {
            $scope.modal2 = true;
            $scope.modal1 = false;
            $scope.modal3 = false;
         }
      
     //show third modal view  
-        else if (number===3) {
+        else if (number===3 && $scope.modal3 != true) {
            $scope.modal3 = true;
            $scope.modal1 = false;
            $scope.modal2 = false;
@@ -39,6 +39,9 @@ app.controller('navbarController', ['$scope', '$location', function ($scope, $lo
 //Function to open the modal on clicking login button in the nav
     $scope.openModal = function(){
       $('#modal1').openModal();
+      $scope.modal1 = true;  
+      $scope.modal2 = false;
+      $scope.modal3 = false;  
     };
     
 }]);

@@ -20,7 +20,9 @@ p {
     line-height: 2rem;
 }
 
-
+#articleSection > .section > .row > .col >.card{
+  padding:12px;
+}
 .parallax-container {
     min-height: 380px;
     line-height: 0;
@@ -62,6 +64,7 @@ p {
 
 .btn {
     background-color: #00bcd4;
+    width : 170px;
 }
 
 .pagination li.active {
