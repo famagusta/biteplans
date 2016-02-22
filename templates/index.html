@@ -49,22 +49,17 @@
       
       <script>
     $(document).ready(function(){
+  //Calling the open modal function manually no need for trigger
+  $('.tooltipped').tooltip({delay: 50});
 
-  $('.modal-trigger').leanModal({
-      $('#modal1').openModal();
-      $('#modal1').closeModal();
-      $('.tooltipped').tooltip({delay: 50});
-    }
-  );
-   
 
-    $("#modal2").width($("#modal2").width());
-    $("#modal3").width($("#modal3").width());
+
+    $("#modal1").width($("#modal1").width());
        
     $('input#input_name').characterCounter();
     $('input#input_password').characterCounter();
 
-    });
+    })();
 
  
       </script>

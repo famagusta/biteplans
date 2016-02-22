@@ -1,5 +1,4 @@
 <!-- NAVBAR -->
-
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
         <a id="logo-container" href="/" class="brand-logo">
@@ -7,28 +6,29 @@
         </a>
         
         <ul class="right hide-on-med-and-down">
-            <li class="active" ng-class="navClass('plans')"><a href="/plans">Plans</a>
+            <li class="active" ng-class="navClass('plans')"><a href="/plans">Plans</a></li>
             <li><a href="#">Ingredients</a></li>
             <li><a href="#">Recipes</a></li>
             <li><a href="#">Articles</a></li>
-            <li><a href="#modal1" ng-click="switchToModal(1)">Log in</a></li>
+            <!--function to open modal openModal()-->
+            <li><a href="#modal1" ng-click="openModal()">Log in</a></li>
         </ul>
         
         <!-- MOBILE VIEW NAVIGATION -->
-        
+        <!--Mobile View-->
         <ul id="nav-mobile" class="side-nav">
             <li><a href="#/plans">Plans</a></li>
             <li><a href="#">Ingredients</a></li>
             <li><a href="#">Recipes</a></li>
             <li><a href="#">Articles</a></li>
-            <li><a class="modal-trigger" href="#modal1">Log in</a></li> 
+            <!--function to open modal openModal()-->
+            <li><a ng-click="openModal()" href="#modal1">Log in</a></li> 
           </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse" id="loginModal">
             <i class="material-icons">menu</i>
         </a>
     </div>
 </nav>
-
 <!-- LOGIN & SIGNUP MODAL -->
 
 <div id="modal1" class="modal">
@@ -179,7 +179,7 @@
             
             <!-- GENDER -->
             
-            <div class="input-field">       <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="input-field"><label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input id="test5" class="with-gap" name="group3" type="radio" checked />
                 <label for="test5">Male</label>&nbsp;&nbsp;
                 <input id="test4" class="with-gap" name="group3" type="radio" />
@@ -198,7 +198,8 @@
             <a class="modal-trigger" href="/dashboard"><input type="submit" class="btn btn-default" value="Save and Continue"></a>
             </div>
         </form>
-    </div> <!-- END OF SIGNUP CONTENT -->
-  </div>
-</div> <!-- END OF LOGIN & SIGNUP MODAL -->
+
+    </div>
+    </div>
+</div>
 
