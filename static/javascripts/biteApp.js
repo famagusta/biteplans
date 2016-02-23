@@ -16,9 +16,6 @@ $httpProvider.interceptors.push('authInterceptor');
 
 $routeProvider.when('/', {
   controller: 'IndexController',
-  templateUrl: '/static/templates/indexView.html'
-}).when('/login', {
-  controller: 'IndexController',
   templateUrl: '/static/templates/landingPage.html'
 }).when('/dashboard', {
   controller: 'dashboardController',
