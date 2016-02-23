@@ -49,6 +49,17 @@ $scope.search = function(){
   };
 }
 
+$scope.search_recipe = function(){
+  var query=$scope.query_recipe
+  if(query){
+    AuthService.search_recipe(query).then(function(response){
+      console.log(response);
+    },function(error) {
+      console.log(error);
+    });
+  };
+}
+
  $scope.FbAuth = function(){
            var a = AuthService.loginFb()
            console.log(a)};

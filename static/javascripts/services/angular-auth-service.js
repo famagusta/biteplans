@@ -121,6 +121,27 @@ function(response) {
 });
 return deferred.promise;};
 
+                
+// Search recipe handler
+var search_recipe = function(quer) {
+    var url = constants['API_SERVER'] + 'bitespace/recipe_search';
+    var deferred = $q.defer();
+    httpService.httpPost(url, {
+                     'query':quer,
+                 }).then(
+  function(response) {
+    console.log(response);
+    deferred.resolve(true);
+
+},
+function(response) {
+    deferred.reject(response.data.error);
+    console.log(response);
+
+});
+return deferred.promise;};
+                
+
 var logout = function(){
 	delete $window.localStorage.token;
 
@@ -202,7 +223,9 @@ var logout = function(){
     search : function(query){
       return search(query);
     },
-
+    search_recipe : function(query){
+      return search_recipe(query);
+    },
     loginFb : loginViaFb,
   };
 

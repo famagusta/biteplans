@@ -1,7 +1,9 @@
 '''api views for our bitespace_app'''
 from bitespace_app.models import USDAIngredient
+from bitespace_app.models import Recipe
 from authentication.models import Account
 from bitespace_app.serializers import GlobalSearchSerializer
+from bitespace_app.serializers import RecipeSearchSerializer
 from authentication.serializers import AccountSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -24,6 +26,22 @@ class GlobalSearchList(APIView):
         result = GlobalSearchSerializer(result, many=True)
         return Response(result.data)
 
+class RecipeSearchList(APIView):
+    '''creates serializer of the queryset for recipes'''
+    def get(self, request):
+        '''Handles get request'''
+        query = request.query_params.get('query', None)
+        result = Recipe.objects.filter(name__search=query)
+        result = RecipeSearchSerializer(result, many=True)
+        return Response(result.data)
+
+    def post(self, request):
+        '''Handles post request'''
+        query = request.POST.get('query', False)
+        result = Recipe.objects.filter(name__search=query)
+        result = RecipeSearchSerializer(result, many=True)
+        return Response(result.data)
+    
 class AccountDetail(APIView):
     '''creates serializer of the queryset'''
     permission_classes = (IsAuthenticated, )
