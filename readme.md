@@ -3,6 +3,7 @@
 after pulling the repository, make sure you have bower and npm installed globally, if not then 
 here are the commands :
 
+Installation Instructions for Linux Distributions : 
 /* Remove all older packages of node */
 
 dpkg --get-selections | grep node
@@ -104,12 +105,16 @@ and type the following code:
 >>> import tablib
 >>> from import_export import resources
 >>> from 'your_app'.models import models
+for example - from bitespace_app.models import USDAIngredient
 >>> import csv
 
+Use 'USDAIngredient' as modelname
+First create the 
 >>> Importresource = resources.modelresource_factory(model='modelname')()
 
 >> imported_data = tablib.import_set(open('new.csv').read())
 
+Use dry_run = False to push data into db
 >>> result = Importedresource.import_data(imported_data, dry_run=True)
 
 >>> print result.has_errors()

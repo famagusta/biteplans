@@ -11,20 +11,24 @@ var app = angular.module('biteApp', [
 */
 app.config(['$routeProvider','$locationProvider', '$httpProvider', '$authProvider', function($routeProvider,$locationProvider,$httpProvider,$authProvider) {
 
+
 $httpProvider.interceptors.push('authInterceptor');
 
-    $routeProvider.when('/', {
+$routeProvider.when('/', {
   controller: 'IndexController',
   templateUrl: '/static/templates/indexView.html'
 }).when('/login', {
   controller: 'IndexController',
-  templateUrl: '/static/templates/login.html'
+  templateUrl: '/static/templates/landingPage.html'
 }).when('/dashboard', {
-  controller: 'DashboardController',
+  controller: 'dashboardController',
   templateUrl: '/static/templates/dashboard.html'
 }).when('/confirm', {
   controller: 'confirmController',
-  templateUrl: '/static/templates/confirmTemp.html'
+  templateUrl: '/static/templates/confirmTemp.html'    
+}).when('/plans', {
+    controller: 'planController',
+    templateUrl: '/static/templates/searchPlan.html'
 }).otherwise('/');
 
 $authProvider.facebook({

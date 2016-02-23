@@ -1,0 +1,22 @@
+#dashboard-page {
+    background-color: #f5f5f5;
+}
+
+#dashboard-list li {
+    text-align: center;
+    margin-top: 8px;
+}
+
+#dashboard-list i {
+    color: #fff !important; 
+    background-color: #00bcd4 !important;
+    border: 1px solid #00bcd4 !important;
+    border-radius: 25px;
+    padding: 10px;
+    text-align: left;
+}
+
+ul.day-list li {
+    display: inline-block;
+    margin-left: 20px;
+}

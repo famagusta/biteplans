@@ -1,0 +1,19 @@
+footer {
+    color: #fff;
+    background-color: #4f4f4f !important;
+}
+
+footer a {
+    color: #fff;
+}
+
+footer ul li {
+    display: inline-block;
+    text-transform: uppercase;
+    margin-left: 15px;
+
+}
+
+.copyright {
+    text-align: center;
+}

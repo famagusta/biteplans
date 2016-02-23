@@ -1,4 +1,5 @@
 <!doctype html>
+{% load staticfiles %}
 <html class="no-js" ng-app="biteApp">
   <head>
     <meta charset="utf-8">
@@ -7,9 +8,9 @@
     <meta name="viewport" content="width=device-width">
       <base href="/" />
 
-<!--     
- -->  </head>
-  <body>
+    {% include 'stylesheets.html' %}
+  </head>
+  <body ng-cloak>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. 
       Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -17,23 +18,24 @@
 
     <!--HEADER WILL CONTAIN NAVBAR WHICH WILLBE COMMON TO EVERY PAGE-->
 
-    <div class="header">
-<!--          
- -->    </div>
+    <div class="header" ng-controller="navbarController">
+        <div ng-include="'static/templates/navbar.html'"></div>
+    </div>
 
     <!-- THIS WILL CONTAIN THE BODY OF OUR APP --> 
-    <div class="container">
-    <div ng-view=""></div>
+    <div>
+        <div ng-view></div>
     </div>
 
     
     <!--FOOTER WILL ALSO REMAIN COMMON TO ALL VIEWS-->
     <div class="footer">
-<!--       
- -->    </div>
-    <div id="fb-root">
+        <div ng-include="'static/templates/footer.html'"></div>
+   </div>
+
+<div id="fb-root">
     </div>
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+
     <script>
         //facebook here
     //***************************************************
@@ -62,8 +64,27 @@
 
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
+    
     </script>
     {% include 'javascripts.html' %}
+      
+      <script>
+    $(document).ready(function(){
+  //Calling the open modal function manually no need for trigger
+  $('.tooltipped').tooltip({delay: 50});
+
+
+
+    $("#modal1").width($("#modal1").width());
+       
+    $('input#input_name').characterCounter();
+    $('input#input_password').characterCounter();
+
+    });
+
+ 
+      </script>
+    
 
      
 
