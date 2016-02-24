@@ -8,11 +8,12 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 class AccountSerializer(serializers.ModelSerializer):
     '''serializer for auth users'''
     password = serializers.CharField(write_only=True, required=False)
+    confirm_password = serializers.CharField(write_only=True, required=False)
     class Meta:
         '''Meta Data'''
         model = Account
         fields = ('id', 'email', 'username', 'date_joined',
-                  'updated_at', 'password',)
+                  'updated_at', 'password','confirm_password',)
         read_only_fields = ('date_joined', 'updated_at',)
 
         def create(self, validated_data):

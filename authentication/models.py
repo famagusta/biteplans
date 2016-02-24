@@ -48,7 +48,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     social_thumb = models.URLField(null=True, blank=True)
     objects = AccountManager()
     USERNAME_FIELD = 'username'

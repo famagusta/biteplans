@@ -1,4 +1,5 @@
 <!-- NAVBAR -->
+<div ng-controller="navbarController">
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
         <a id="logo-container" href="/" class="brand-logo">
@@ -41,40 +42,43 @@
             <!-- LOGIN VIA SOCIAL MEDIA -->
             
             <div class="center-btn">
-                <a class="waves-effect waves-light btn">Log In with FACEBOOK</a>
+                <a class="waves-effect waves-light btn" ng-click="Auth('facebook')">Log In with FACEBOOK</a>
                 <br>
             </div>
                 <br>
             <div class="center-btn">
-                <a class="waves-effect waves-light btn" id="googlebtn">Log In with GOOGLE</a>
+                <a class="waves-effect waves-light btn" id="googlebtn" ng-click="Auth('google')">Log In with GOOGLE</a>
             </div>
 
             <p class="center-align">OR</p>
         
-            <div class="row"> <!-- LOGIN FOR EMPTY FIELDS -->
-                <div class="col s12">
-                    <p class="text-danger" ng-show="loginError">{{ loginError }}</p>
+            <form ng-submit="login()">
+                <div class="row"> <!-- LOGIN FOR EMPTY FIELDS -->
+                    <div class="col s12">
+                        <p class="text-danger" ng-show="loginError">{{ loginError }}</p>
+                    </div>
                 </div>
-            </div>
-        
-            <form ng-submit="login()" name="formValidate">
                 <div class="input-field"> <!-- USERNAME -->
-                    <input id="first_name" type="text" class="form-control validate" ng-model="loginUsername" >
+                    <input id="first_name" type="text" class="form-control validate" ng-model="login.username" >
                     <label for="first_name">Username</label>
                 </div>
                 
                 <div class="input-field"> <!-- PASSWORD-->
-                    <input id="password" type="password" class="form-control validate" ng-model="loginPassword" >
+                    <input id="password" type="password" class="form-control validate" ng-model="login.password" >
                     <label for="first_name">Password</label>
                 </div>
                 
                 <div class="center-btn"> <!-- SUBMIT BUTTON -->
-                    <input type="submit" class="btn btn-default" value="Log In">
+                    <button type="submit" class="btn btn-default">Login</button>
                 </div>
                 
                 <p class="teal-text">Forgot your password or username?</p>
-                <p class="teal-text">Don't have an account? <a ng-click="switchToModal(2)">Sign Up Now</a></p>
+
             </form>
+            {{ loginUsername }}
+                {{ loginPassword }}
+          <p class="teal-text">Don't have an account? <a ng-click="switchToModal(2)">Sign Up Now</a></p>
+
         </div>   <!-- END OF LOGIN CONTENT -->
 
 
@@ -84,16 +88,16 @@
         <h5 class="center-align">Welcome</h5>
             <br>
         <div class="center-btn">
-            <a class="waves-effect waves-light btn">Sign Up with FACEBOOK</a>
+            <a class="waves-effect waves-light btn" ng-click="Auth('facebook')">Sign Up with FACEBOOK</a>
         </div>
             <br>
         <div class="center-btn">
-            <a class="waves-effect waves-light btn" id="googlebtn">Sign Up with GOOGLE</a>
+            <a class="waves-effect waves-light btn" id="googlebtn" ng-click="Auth('google')">Sign Up with GOOGLE</a>
         </div>
         
         <p class="center-align">or</p>
         
-        <form ng-submit="register()" name="formValidate" action="">
+        <form ng-submit="register()">
             <div class="row"> <!-- WARNINGS FOR EMPTY FIELD-->
                 <div class="col s12">
                  <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
@@ -104,7 +108,7 @@
             
              <div class="row">
               <div class="input-field col m12">
-                <input class="validate" id="input_name" type="text" pattern="^[a-zA-Z0-9]*$" length="10" required/>
+                <input class="validate" id="input_name" type="text" ng-model="signup.username" length="100" required />
                 <label for="input_name" data-error="Atmost 10 characters">Username</label>
               </div>
             </div>
@@ -114,7 +118,7 @@
             
             <div class="row">
                 <div class="input-field col m12">
-                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="email" required /> 
+                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="signup.email" required /> 
                 <label for="email" data-error="Invalid Email Id">Email</label>
                 </div>
             </div>
@@ -123,8 +127,8 @@
             
              <div class="row">
               <div class="input-field col m12">
-                <input class="validate" id="input_password" type="password" length="10" required>
-                <label for="input_password" data-error="Atmost 10 characters">Password</label>
+                <input class="validate" id="input_password" type="password" length="100" ng-model="signup.password" required>
+                <label for="input_password" data-error="Atmost 100 characters">Password</label>
               </div>
             </div>
                 
@@ -132,7 +136,7 @@
                
              <div class="row">
                  <div class="input-field col m12">
-                  <input id="password" type="password" class="form-control" ng-model="confirmPassword" required>
+                  <input id="password" type="password" class="form-control" ng-model="signup.confirmPassword" required>
                   <label for="password">Confirm Password</label>
                 </div>
             </div>
@@ -142,7 +146,7 @@
             <!-- CONTINUE BUTTON -->
             
             <div class="center-btn">
-                <a ><input id="continueToForm2" name="action" type="submit" class="btn btn-default" value="Continue" ng-click="switchToModal(3)"></a>
+                <button id="continueToForm2" type="submit" class="btn btn-default" >SignUp</button>
             </div>
         </form>
     </div>
@@ -202,4 +206,4 @@
     </div>
     </div>
 </div>
-
+</div>

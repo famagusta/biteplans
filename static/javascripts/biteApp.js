@@ -9,9 +9,9 @@ var app = angular.module('biteApp', [
 * @name run
 * @desc Update xsrf $http headers to align with Django's defaults
 */
-app.config(['$routeProvider','$locationProvider', '$httpProvider', '$authProvider', function($routeProvider,$locationProvider,$httpProvider,$authProvider) {
+app.config(['$routeProvider','$locationProvider', '$httpProvider', '$authProvider', '$controllerProvider', function($routeProvider,$locationProvider,$httpProvider,$authProvider,$controllerProvider) {
 
-
+$controllerProvider.allowGlobals();
 $httpProvider.interceptors.push('authInterceptor');
 
 $routeProvider.when('/', {
