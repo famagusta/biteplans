@@ -134,7 +134,7 @@ var logout = function(){
 
 };
 
-/*User resource for different controllers */
+/*User resource for sharing between different controllers */
 var userOb = {};
 userOb.current = {};
 userOb.set_user = function(response){
@@ -161,6 +161,7 @@ var loginSocial = function(provider){
 }).catch(function(data) {
       logout();
       prom.reject('Something went wrong, try again later');
+      userOb.set_user();
       });
 
 return prom.promise;
