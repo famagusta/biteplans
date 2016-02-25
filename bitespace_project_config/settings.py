@@ -82,6 +82,7 @@ SOCIAL_AUTH_PIPELINE = (
  'social.pipeline.user.create_user',
  'social.pipeline.social_auth.associate_user',
  'social.pipeline.social_auth.load_extra_data',
+ 'social.pipeline.user.user_details',
  'authentication.social_pipe.save_avatar',  # custom action
 )
 JWT_AUTH = {
@@ -112,6 +113,10 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_FACEBOOK_KEY = "778572508914532"
 SOCIAL_AUTH_FACEBOOK_SECRET = "59edc4201f5b848127d52b1fc736393a"
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'locale': 'ru_RU',
+  'fields': 'id, name, email, age_range'
+}
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '625705095605-6lemikvbb7kdh13lf3puq0r1fvcs0ukh.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'IiMLDstpkQmtaeMqCS8dN6qy'
