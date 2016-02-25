@@ -9,7 +9,11 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     $scope.modal1 = true;  
     $scope.modal2 = false;
     $scope.modal3 = false;
+
+    //login object taken up from login from, ill be used to make login post request
     $scope.login={};
+    //signup object taken up from signup from, ill be used to make signup post request
+
     $scope.signup={};        
 
 //Function to switch the views within modal;
@@ -108,8 +112,18 @@ $scope.search = function(){
 };
 
  $scope.Auth = function(provider){
-  $('#modal1').closeModal();
-  AuthService.socialAuth(provider);
+  //provider can be facebook, google-oauth2
+  AuthService.socialAuth(provider).then(function(response){
+    console.log(response);
+    //close the modal if login is success
+    $('#modal1').closeModal();
+    //proceed to confirm>dashboard
+    $location.path('/confirm');
+}, function(error){
+  //there is an error
+  $scope.loginError = error;
+  $location.path('/');
+  });  
+
 };
-    
 }]);

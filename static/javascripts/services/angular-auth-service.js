@@ -1,7 +1,10 @@
 /*Handles request to user registration, login, logout*/
 'use strict';
+// $q makes a promise which can be fulfilled or not fulfilled. so a = $q.defer(), it can resolve or reject
+//a.resolve() means success, a.reject() means not fulfilled
 
 app.factory('httpService',['$http', '$q', function($http,$q){
+  //encodes params into correct format 
   var toparams = function(obj) {
     var p = [];
     for (var key in obj) {
@@ -9,7 +12,7 @@ app.factory('httpService',['$http', '$q', function($http,$q){
     }
     return p.join('&');
 };
-
+//makes a post using url and params as parameter
     var httpPost = function(url,params){
       params = toparams(params);
       var promise = $http.post(url, params,{
@@ -22,7 +25,7 @@ app.factory('httpService',['$http', '$q', function($http,$q){
       });
       return promise;
     };
-
+//http get method wrapper
     var httpGet = function(url){
       var promise = $http.get(url, {
         headers:{
@@ -52,6 +55,9 @@ app.factory('AuthService',
             ['httpService', '$location','constants','$q','$window', '$rootScope', '$auth', function(httpService,$location,constants,$q,$window, $rootScope, $auth){
    var register = function(username, password, confirm, email) {
     // Registration logic goes here
+
+    //constants is a angular.constant service which will contain all the constants for our app
+    //being used 
     var deferred = $q.defer();
     var url = constants['API_SERVER'] + 'authentication/api/v1/register/';
     var userString = {
@@ -62,14 +68,14 @@ app.factory('AuthService',
           var token = response.token;
           if (token) {
   		        $window.localStorage.token = token;
-  		        deferred.resolve(true);
+  		        deferred.resolve(response);
             }
           else{
               deferred.reject('Invalid data received from server');
             }
           },
           function(response) {
-              deferred.reject(response.error);
+              deferred.reject(response);
           });
           return deferred.promise;
           };
@@ -84,22 +90,21 @@ var login = function(username, password) {
                  }).then(
   function(response) {
     var token = response.token;
-    console.log(response);
     if (token) {
   		$window.localStorage.token = token;
-  		deferred.resolve(true);
+  		deferred.resolve(response);
 
   }
   else{
     // error callback
     deferred.reject('Invalid data received from server');
-    delete $window.sessionStorage.token;
+    $auth.removeToken();
 
   }
 },
 function(response) {
-    deferred.reject(response.error);
-    delete $window.sessionStorage.token;
+    deferred.reject(response);
+    $auth.removeToken();
 
 });
 return deferred.promise;};
@@ -113,20 +118,19 @@ var search = function(quer) {
                      'query':quer,
                  }).then(
   function(response) {
-    console.log(response);
-    deferred.resolve(true);
+    deferred.resolve(response);
 
 },
 function(response) {
-    deferred.reject(response.data.error);
-    console.log(response);
+    deferred.reject(response);
 
 });
 return deferred.promise;};
 
 /* function to logout for normally signed in user */
 var logout = function(){
-	delete $window.localStorage.token;
+	$auth.removeToken();
+  userOb.set_user();
 
 };
 
@@ -149,19 +153,17 @@ userOb.set_user = function(response){
 
 /*Function for social login */
 var loginSocial = function(provider){
-  console.log($auth.getToken());
+  var prom = $q.defer();
   $auth.authenticate(provider).then(function(response){
   $auth.setToken(response.data.token);
   userOb.set_user(response);
-  console.log(response);
-  $location.path('/confirm');
+  prom.resolve(response.data);
 }).catch(function(data) {
-      var err_msg = "Something went wrong, maybe the user is already loggedin?";
-      var reply = {'error':data,'message':err_msg};
       logout();
-      $location.path('/');
-      console.log(reply);
+      prom.reject('Something went wrong, try again later');
       });
+
+return prom.promise;
 };
 
 var getCurrentUserDetails = function(){
@@ -196,61 +198,3 @@ if ($auth.getToken()){
 
 }]);
 
-/*Do not touch*/
-// // since we are resolving a thirdparty response, 
-//         // we need to do so in $apply   
-//   var reslve = function(errval, retval, deferred) {
-//       $rootScope.$apply(function() {
-//           if (errval) {
-//         deferred.reject(errval);
-//           } else {
-//         retval.connected = true;
-//               deferred.resolve(retval);
-//           }
-//       });
-//         };
-
-//   var fbLogin = function(){
-//       var deferred = $q.defer();
-//             //first check if we already have logged in
-//       FB.getLoginStatus(function(response) {
-//           if (response.status === 'connected') {
-//               // the user is logged in and has authenticated your
-//         // app
-//         console.log('fb user already logged in');
-//         console.log(FB.appId);
-//         deferred.resolve(response);
-//     } else {
-//         // the user is logged in to Facebook, 
-//         // but has not authenticated your app
-//         FB.login(function(response){
-//             if(response.authResponse){
-//           console.log('fb user logged in');
-//           reslve(null, response, deferred);
-//       }else{
-//           console.log('fb user could not log in');
-//           reslve(response.error, null, deferred);
-//       }
-//         });
-//      }
-//        });
-      
-//        return deferred.promise;
-//   };
-
-//   var loginViaFb = function(){
-//            fbLogin().then(function(response){
-//                //we come here only if JS sdk login was successful so lets 
-//                //make a request to our new view. I use Restangular, one can
-//                //use regular http request as well.
-//                console.log(response);
-//                var reqObj = {'access_token': response.authResponse.accessToken,
-//                           'backend': 'facebook'};
-//                console.log(reqObj);
-//                httpService.httpPost(constants['API_SERVER']+'authentication/sociallogin/', reqObj).then(function(response) {
-//                   return response;
-//                }, function(response) { /*error*/
-//                    return response;
-//                });  
-//            });
-//         };
