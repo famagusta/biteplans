@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2o8wd)y-(8^()lkxcs1ejp0uafugdg&%0ds=nat&@-*j9$n1im'
+SECRET_KEY = os.environ.get('BITEPLANS_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -110,16 +110,17 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_FACEBOOK_KEY = "778572508914532"
-SOCIAL_AUTH_FACEBOOK_SECRET = "59edc4201f5b848127d52b1fc736393a"
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
   'locale': 'ru_RU',
   'fields': 'id, name, email, age_range'
 }
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '625705095605-6lemikvbb7kdh13lf3puq0r1fvcs0ukh.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'IiMLDstpkQmtaeMqCS8dN6qy'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET =\
+    os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 # SOCIAL_AUTH_GOOGLE_OAUTH2_USE_DEPRECATED_API = True
 # SOCIAL_AUTH_GOOGLE_PLUS_USE_DEPRECATED_API = True
@@ -155,14 +156,13 @@ WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_BITEAPP',
-        'USER': 'shubham',
-        'PASSWORD': 'jx1234',
+        'NAME': os.environ.get('BITEPLANS_DB_NAME'),
+        'USER': os.environ.get('BITEPLANS_DB_ROOT_USER'),
+        'PASSWORD': os.environ.get('BITEPLANS_DB_ROOT_USER_PWD'),
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
-}
-# Internationalization
+}# Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
