@@ -2,16 +2,9 @@
 data structures(dictionaries) for easy json rendering'''
 from rest_framework import serializers
 from bitespace_app.models import USDAIngredient
-from authentication.models import Account
 
 class GlobalSearchSerializer(serializers.ModelSerializer):
     '''serializes a python object into JSON serializabale format'''
     class Meta:
         '''defines the model to be serialized'''
         model = USDAIngredient
-
-class AccountSerializer(serializers.ModelSerializer):
-    '''serializes a python object into JSON serializabale format'''
-    class Meta:
-        '''defines the model to be serialized'''
-        model = Account

@@ -60,9 +60,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     if (username && password && confirm && email) {
       AuthService.register(username, password, confirm, email).then(
         function (response) {
-          console.log(response);
-          $('#modal1').closeModal();
-          $location.path('/confirm');
+          console.log(response.success);
         },
         function (error) {
           console.log(error);
@@ -81,18 +79,15 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
   var username = $scope.login.username;
   var password = $scope.login.password;
 
-  console.log(username  + " " + password);
-
   if (username && password) {
-    console.log('here test');
     AuthService.login(username, password).then(
       function (response){
         console.log(response);
          $('#modal1').closeModal();
-        $location.path('/confirm');
+        $location.path('/dashboard');
       },
       function (error) {
-        $scope.loginError = error;
+        $scope.loginError = 'Wrong credentials, are you sure you did not signup through google or facebook?';
       }
     );
   } else {
@@ -117,8 +112,8 @@ $scope.search = function(){
     console.log(response);
     //close the modal if login is success
     $('#modal1').closeModal();
-    //proceed to confirm>dashboard
-    $location.path('/confirm');
+    //proceed to dashboard
+    $location.path('/dashboard');
 }, function(error){
   //there is an error
   $scope.loginError = error;

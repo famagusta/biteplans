@@ -3,19 +3,17 @@ from rest_framework_jwt.settings import api_settings
 from datetime import datetime
 from authentication.serializers import AccountSerializer
 from rest_framework import permissions, viewsets, generics, status
-from authentication.models import Account, UserProfile
+from authentication.models import Account
 from authentication.permissions import IsAccountOwner
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from social.apps.django_app.utils import load_strategy, psa
-from social.apps.django_app.views import _do_login
 import hashlib,datetime,random
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import authenticate, get_user_model, login
 from rest_social_auth.serializers import UserSerializer
 from rest_social_auth.views import JWTAuthMixin
 
@@ -66,21 +64,18 @@ class AccountViewSet(viewsets.ModelViewSet):
             activation_key = hashlib.sha1(salt+email).hexdigest()
             key_expires = datetime.datetime.today() + datetime.timedelta(200)
             sub = "Account confirm"
-            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://bitespacetest.com:8000/confirm' % (request.data['username'])
+            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://bitespacetest.com:8000/confirm/%s' % (request.data['username'] ,activation_key)
             tr = send_mail(sub, message, master, [email], fail_silently=False)
             if tr:
                 account = Account.objects.create_user(
                                             **serializer.validated_data
                                             )
-                new_profile = UserProfile(user=account,
-                                      activation_key=activation_key,
-                                      key_expires=key_expires)
-                new_profile.save()
-                authenticate(email=email,username=request.data['username'],password=request.data['password'])
-                token = create_token(account)['token']
-                return_dict = serializer.data
-                return_dict['token'] = token
-                return Response(return_dict)
+                account.activation_key = activation_key
+                account.key_expires = key_expires
+                account.is_active = False
+                account.save()
+                return Response({'success':'Account created'},
+                                status=status.HTTP_200_OK)
             else:
                 return Response({'error':'Invalid email, does not exist'},
                                 status=status.HTTP_400_BAD_REQUEST)
@@ -93,27 +88,31 @@ class AccountViewSet(viewsets.ModelViewSet):
 
 
 @api_view(['GET', 'POST', ])
-def register_confirm(request):
+def register_confirm(request, activation_key):
     #check if user is already
     ##logged in and if he is redirect him
     ##to some other url, e.g. home
     if request.user.is_authenticated():
-        user_profile = get_object_or_404(UserProfile,
-                                         user=request.user)
+        return Response({'error':'Not authorized, as this user has already been verified'})
 
     #check if the activation key has expired,
     ##if it hase then render confirm_expired.html
+    else:
+        user_profile = get_object_or_404(Account,activation_key=activation_key)
         if user_profile.key_expires < timezone.now():
             return Response({'error':'Activation key has expired'})
         #if the key hasn't expired
         #save user and set him as active and
         #render some template to confirm activation
         user_profile.is_active = True
+        
+        user_profile.backend = 'django.contrib.auth.backends.ModelBackend'
         user_profile.save()
-        return Response({'success:Account has been confirmed'})
-
-    else:
-        return Response({'error':'Not authorized'})
+        login(request, user_profile)
+        print request.user.is_authenticated(),'**********************************'
+        token = create_token(user_profile)['token']
+        return Response({'success':'Account has been confirmed',
+                        'token':token})
 
 
 class BaseDetailView(generics.RetrieveAPIView):

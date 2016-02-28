@@ -65,9 +65,7 @@ app.factory('AuthService',
 
     httpService.httpPost(url, userString).then(
       function(response) {
-          var token = response.token;
-          if (token) {
-  		        $window.localStorage.token = token;
+          if (response.success) {
   		        deferred.resolve(response);
             }
           else{

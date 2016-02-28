@@ -15,6 +15,6 @@ urlpatterns = patterns('',
                            views.UserJWTDetailView.as_view()),
                        url(r'^sociallogin/',
                            include('rest_social_auth.urls_jwt')),
-                       url(r'^registerConfirm/', views.register_confirm),
+                       url(r'^registerConfirm/(?P<activation_key>\w+)/', views.register_confirm),
 
 					)

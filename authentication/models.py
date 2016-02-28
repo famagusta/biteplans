@@ -43,19 +43,29 @@ class AccountManager(BaseUserManager):
 
 class Account(AbstractBaseUser, PermissionsMixin):
     '''Abstracts/overrides the default user model'''
-    username = models.CharField(max_length=100, unique=True)
+    username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     social_thumb = models.URLField(null=True, blank=True)
+
+    ##These fields will be required for manually signing
+    ##up(ie not google or fb user)
+    ##We will send an email to the user on signing up
+    ##clicking on which will make him
+    ##active and if he does not click on it then he will be inactive
+
+    activation_key = models.CharField(max_length=40, null=True)
+    key_expires = models.DateTimeField(null=True)
+
     objects = AccountManager()
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
 
     def __unicode__(self):
-        return self.username
+        return self.email
 
 
     def get_full_name(self):
@@ -65,11 +75,3 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
-
-class UserProfile(models.Model):
-    '''model for user's profile'''
-    user = models.OneToOneField(Account)
-    activation_key = models.CharField(max_length=40, blank=True)
-    key_expires = models.DateTimeField()
-    def __str__(self):
-        return self.user.username

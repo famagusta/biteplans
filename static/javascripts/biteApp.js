@@ -20,7 +20,7 @@ $routeProvider.when('/', {
 }).when('/dashboard', {
   controller: 'dashboardController',
   templateUrl: '/static/templates/dashboard.html'
-}).when('/confirm', {
+}).when('/confirm/:activation_key', {
   controller: 'confirmController',
   templateUrl: '/static/templates/confirmTemp.html'    
 }).when('/plans', {

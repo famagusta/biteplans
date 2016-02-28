@@ -17,21 +17,21 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
 
 }]);
 
-app.controller('confirmController', ['$scope', '$window', '$location','httpService',
-               function ($scope, $window, $location, httpService){ 
-                if (!$window.localStorage.token) {
-                    $location.path('/');
-                    return;
-                }
+app.controller('confirmController', ['$scope', '$window', '$location','httpService','$routeParams',
+               function ($scope, $window, $location, httpService, $routeParams){ 
                 $scope.content = 'Just a moment we are confirming your account';
                 var init = function(){
-                  var url = 'authentication/registerConfirm';
+                  var activation_key = $routeParams.activation_key;
+                  var url = 'authentication/registerConfirm/' + activation_key + '/';
                   httpService.httpGet(url).then( function(response){
+                    if(response.success){
                     $scope.content = response['success'];
-                    $location.path('/dashboard');
+                    $window.localStorage.token = response['token'];
+                    $location.path('/dashboard');}
+                    else
+                      console.log(response);
                 },function(error){
                   $scope.content = error;
-                  $location.path('/confirm');
                 });
                 };
                 init(); 
