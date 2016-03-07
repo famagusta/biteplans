@@ -15,7 +15,7 @@ $controllerProvider.allowGlobals();
 $httpProvider.interceptors.push('authInterceptor');
 
 $routeProvider.when('/', {
-  controller: 'IndexController',
+  controller: 'navbarController',
   templateUrl: '/static/templates/landingPage.html'
 }).when('/dashboard', {
   controller: 'dashboardController',
