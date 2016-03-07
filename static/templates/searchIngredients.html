@@ -45,9 +45,11 @@
                  <div class="col s12 m12"> 
                      <div class="card white" id="searchcard"> <!-- SEARCH-BOX -->
                          <div class="card-content black-text">
-                             <textarea id="searchbox" placeholder="Search people & places" ng-model="search" ng-model-options="{ debounce: 800 }"  class="form-control" autofocus></textarea>
-                             <a href="#" onclick="select()"><i class="material-icons right">search</i></a>
-                         </div> <!-- END OF SEARCH-BOX -->
+                             <form>
+                             <textarea id="searchbox" placeholder="Search people & places" ng-model="query" ng-model-options="{ debounce: 800 }"  class="form-control" autofocus></textarea>
+                             <button href="#" ng-click="search()" type="submit"><i class="material-icons right">search</i></button>
+                             </form>
+                        </div> <!-- END OF SEARCH-BOX -->
                      </div>
                  </div>
              </div>
