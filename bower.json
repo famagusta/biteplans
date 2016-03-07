@@ -12,6 +12,7 @@
   "dependencies": {
     "Materialize": "materialize#^0.97.5",
     "angular": "^1.4.9",
-    "font-awesome": "fontawesome#^4.5.0"
+    "font-awesome": "fontawesome#^4.5.0",
+    "satellizer": "^0.14.0"
   }
 }

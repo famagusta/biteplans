@@ -1,8 +1,15 @@
 /* STYLING FOR NAVBAR */
 
+
+nav {
+    background-color: transparent;
+    box-shadow: none;
+}
+
 nav ul a, nav .brand-logo {
-    color: teal;
+    color: #00bcd4;
     font-weight: bold;
+    opacity: 87%;
 }
 
 nav ul li.active a {

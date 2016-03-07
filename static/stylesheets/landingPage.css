@@ -3,12 +3,6 @@
     text-transform: uppercase;
 }
 
-/*#landingCover {
-    background-image: url('../images/landingBackground.png');
-    background-repeat: repeat-x;
-    background-size: cover;
-}*/
-
 .overlay {
     top:0;
     left:0;
@@ -77,6 +71,7 @@ label[data-error]:after {
 
 video {
     width: 100%;
+    
 }
 
 #sideMenu {
@@ -91,3 +86,22 @@ video {
     -webkit-transition: all 300ms ease;
 }
 
+@media only screen and (max-width : 600px) {
+    ul#landingMenu li a {
+        font-size: 18px !important;
+        margin: -10px;
+    }
+    
+    h4.header {
+        font-size: 21px;
+    }
+    
+    #featuredPlan {
+        margin-top: -240px;
+    }
+    
+    video[poster] {
+        height: 100%;
+    }
+   
+}

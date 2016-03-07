@@ -13,6 +13,16 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
   $scope.token = $window.localStorage.token;
   $scope.username = $window.localStorage.username;
   
+   // dashboard tabs switching
     
-
+    $scope.tab = 1;
+  
+    $scope.setTab = function (tabId) {
+             $scope.tab = tabId;
+    };
+        
+    $scope.isSet = function (tabId) {
+        return  $scope.tab === tabId;
+    };
+        
 }]);

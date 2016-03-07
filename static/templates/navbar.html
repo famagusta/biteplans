@@ -1,15 +1,23 @@
 <!-- NAVBAR -->
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
-        <a id="logo-container" href="/" class="brand-logo">
+        <a ng-class='{"inactive":toggle==0}' ng-click='toggle=0' id="logo-container" href="/" class="brand-logo">
             <img class="responsive-img" src="static/images/headerLogo.png">
         </a>
         
         <ul class="right hide-on-med-and-down">
-            <li class="active" ng-class="navClass('plans')"><a href="/plans">Plans</a></li>
-            <li><a href="#">Ingredients</a></li>
-            <li><a href="#">Recipes</a></li>
-            <li><a href="#">Articles</a></li>
+            <li ng-class='{"active":toggle==1}' ng-click='toggle=1'>
+                <a href="/plans">Plans</a>
+            </li>            
+            <li ng-class='{"active":toggle==2}' ng-click='toggle=2'>
+                <a href="/ingredients">Ingredients</a>
+            </li> 
+            <li ng-class='{"active":toggle==3}' ng-click='toggle=3'>
+                <a href="#">Recipes</a>
+            </li> 
+             <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
+                 <a href="#">Articles</a>
+            </li> 
             <!--function to open modal openModal()-->
             <li><a href="#modal1" ng-click="openModal()">Log in</a></li>
         </ul>
@@ -32,21 +40,21 @@
 <!-- LOGIN & SIGNUP MODAL -->
 
 <div id="modal1" class="modal">
+    <a class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a> 
     <div class="modal-content">
-        <a class=" modal-action modal-close waves-effect waves-green btn-flat right">Close</a>  
-        <div ng-if='modal1 && !modal2 && !modal3'>
+            <div ng-if='modal1 && !modal2 && !modal3 && !modal4'>
             <h5 class="center">Welcome</h5>
             <br>
             
             <!-- LOGIN VIA SOCIAL MEDIA -->
             
             <div class="center-btn">
-                <a class="waves-effect waves-light btn">Log In with FACEBOOK</a>
+                <a class="waves-effect waves-light btn largebtn">Log In with FACEBOOK</a>
                 <br>
             </div>
                 <br>
             <div class="center-btn">
-                <a class="waves-effect waves-light btn" id="googlebtn">Log In with GOOGLE</a>
+                <a class="waves-effect waves-light btn largebtn" id="googlebtn">Log In with GOOGLE</a>
             </div>
 
             <p class="center-align">OR</p>
@@ -57,7 +65,7 @@
                 </div>
             </div>
         
-            <form ng-submit="login()" name="formValidate">
+            <form ng-submit="login()" name="myForm">
                 <div class="input-field"> <!-- USERNAME -->
                     <input id="first_name" type="text" class="form-control validate" ng-model="loginUsername" >
                     <label for="first_name">Username</label>
@@ -71,8 +79,8 @@
                 <div class="center-btn"> <!-- SUBMIT BUTTON -->
                     <input type="submit" class="btn btn-default" value="Log In">
                 </div>
-                
-                <p class="teal-text">Forgot your password or username?</p>
+                <br>
+                <a href="#" ng-click="switchToModal(4)" class="teal-text">Forgot your password or username?</a>
                 <p class="teal-text">Don't have an account? <a ng-click="switchToModal(2)">Sign Up Now</a></p>
             </form>
         </div>   <!-- END OF LOGIN CONTENT -->
@@ -80,20 +88,20 @@
 
     <!-- SIGNUP CONTENT -->
     
-    <div ng-if='!modal1 && modal2 && !modal3'>
+    <div ng-if='!modal1 && modal2 && !modal3 && !modal4'>
         <h5 class="center-align">Welcome</h5>
             <br>
         <div class="center-btn">
-            <a class="waves-effect waves-light btn">Sign Up with FACEBOOK</a>
+            <a class="waves-effect waves-light btn largebtn">Sign Up with FACEBOOK</a>
         </div>
             <br>
         <div class="center-btn">
-            <a class="waves-effect waves-light btn" id="googlebtn">Sign Up with GOOGLE</a>
+            <a class="waves-effect waves-light btn largebtn" id="googlebtn">Sign Up with GOOGLE</a>
         </div>
         
-        <p class="center-align">or</p>
+        <p class="center-align">OR</p>
         
-        <form ng-submit="register()" name="formValidate" action="">
+        <form ng-submit="register()" name="myForm" action="">
             <div class="row"> <!-- WARNINGS FOR EMPTY FIELD-->
                 <div class="col s12">
                  <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
@@ -123,8 +131,10 @@
             
              <div class="row">
               <div class="input-field col m12">
-                <input class="validate" id="input_password" type="password" length="10" required>
-                <label for="input_password" data-error="Atmost 10 characters">Password</label>
+                <label for="password">Password</label>
+                <input type="password" id="registerPassword" name="registerPassword" ng-model="formData.registerPassword" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required  />
+                <span ng-show="!myForm.registerPassword.$error.required && (myForm.registerPassword.$error.minlength || myForm.registerPassword.$error.maxlength) && myForm.registerPassword.$dirty" class="text-danger">Passwords must be between 8 and 20 characters.</span>
+                <br>
               </div>
             </div>
                 
@@ -132,8 +142,12 @@
                
              <div class="row">
                  <div class="input-field col m12">
-                  <input id="password" type="password" class="form-control" ng-model="confirmPassword" required>
-                  <label for="password">Confirm Password</label>
+                 <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" ng-model="formData.confirmPassword" custom-validator required  />
+                  <span ng-show="myForm.confirmPassword.$error.required && myForm.confirmPassword.$dirty">Please confirm your password.</span>
+                  <span ng-show="!myForm.confirmPassword.$error.required && myForm.confirmPassword.$error.noMatch && myForm.registerPassword.$dirty" class="text-danger">Passwords do not match.</span>
+                   <span ng-show="!myForm.confirmPassword.$error.required && !myForm.confirmPassword.$error.noMatch && myForm.registerPassword.$dirty" class="text-success">Passwords matched.</span>
+                <br>
                 </div>
             </div>
 
@@ -142,15 +156,34 @@
             <!-- CONTINUE BUTTON -->
             
             <div class="center-btn">
-                <a ><input id="continueToForm2" name="action" type="submit" class="btn btn-default" value="Continue" ng-click="switchToModal(3)"></a>
+                <a href="/dashboard"><input id="continueToForm2" name="action" type="submit" class="btn btn-default" value="Continue"></a>
             </div>
         </form>
     </div>
         
+          
+        <!-- FORGOT PASSWORD CONTENT -->
+        
+        <div ng-if="!modal1 && !modal2 && !modal3 && modal4">
+            <h5 class="center">Forgot your password</h5>
+            <br><br>
+            <p>Enter your email or username below and we will send you a link to reset your password</p>
+           <div class="row">
+                <div class="input-field col m12">
+                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="email" required /> 
+                    <label for="email" data-error="Invalid Email Id">Email</label>
+                   <br><br>
+                   <div class="center-btn">
+                    <a class="waves-effect waves-light btn largebtn center-align">Submit</a>
+                   </div>
+                </div>  
+              </div>
+        </div>
+        
 
         <!-- ENTER OTHER DETAILS OF THE USER -->
     
-    <div ng-if='!modal1 && !modal2 && modal3'>
+    <div ng-if='!modal1 && !modal2 && modal3 && !modal4'>
       <h5 class="center">Tell us about yourself</h5>
         <br>
         <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
@@ -198,8 +231,6 @@
             <a class="modal-trigger" href="/dashboard"><input type="submit" class="btn btn-default" value="Save and Continue"></a>
             </div>
         </form>
-
+      </div>
     </div>
-    </div>
-</div>
-
+ </div>

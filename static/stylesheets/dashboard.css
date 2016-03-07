@@ -20,3 +20,17 @@ ul.day-list li {
     display: inline-block;
     margin-left: 20px;
 }
+
+.active a {
+    border-bottom: 3px solid #ff5252; !important;
+    background-color: transparent !important;
+    color: #00bcd4 !important;
+}
+
+@media only screen and (max-width : 600px) {
+    ul.day-list li {
+        margin-left: 9px;
+        font-size: 20px;
+        word-spacing: 10px !important;
+    }
+}

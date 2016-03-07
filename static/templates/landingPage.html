@@ -5,9 +5,9 @@
         <div class="section no-pad-bot">
             <div class="container">
             <br><br>
-            <video class="col s12" id="wrapper" autoplay loop poster="static/images/bigLogo.png">
-                <source src="static/images/landingVideo.mov" type="video/mp4">
-            </video>
+             <video class="col s12" id="wrapper" autoplay loop poster="static/images/bigLogo.png" style="visibility:hidden;" onplay="var s=this;setTimeout(function(){s.style.visibility='visible';},100);"> <!-- fixes logo image flashing when page loads -->
++                 <source src="static/images/landingVideo2.mov" type="video/mp4">
+              </video>
             <div class="overlay">
                 <h1 class="header center"><img class="responsive-img" src="static/images/bigLogo.png"></h1>
                 <div class="row center">

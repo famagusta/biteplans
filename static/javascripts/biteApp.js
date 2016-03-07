@@ -20,10 +20,10 @@ $httpProvider.interceptors.push('authInterceptor');
     controller: 'planController',
     templateUrl: '/static/templates/searchPlan.html'
 })
-   /* .when('/login', {
-    controller: 'IndexController',
-    templateUrl: '/static/templates/login.html'
-})*/
+    .when('/ingredients', {
+    controller: 'ingredientsController',
+    templateUrl: '/static/templates/searchIngredients.html'
+})
     .when('/dashboard', {
     controller: 'dashboardController',
     templateUrl: '/static/templates/dashboard.html'

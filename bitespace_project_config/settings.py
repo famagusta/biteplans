@@ -129,8 +129,8 @@ WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_BITEAPP',
-        'USER': 'shubham',
+        'NAME': 'DB_BITEPLANS',
+        'USER': 'keshav',
         'PASSWORD': 'jx1234',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',

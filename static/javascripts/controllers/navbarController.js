@@ -8,7 +8,9 @@ app.controller('navbarController', ['$scope', '$location', function ($scope, $lo
     //by default first modal viw will be visible;
     $scope.modal1 = true;  
     $scope.modal2 = false;
-    $scope.modal3 = false;        
+    $scope.modal3 = false;  
+    $scope.modal4 = false;    
+
 
 //Function to switch the views within modal;
     $scope.switchToModal = function (number) {     // function to change the content in modal window
@@ -21,6 +23,8 @@ app.controller('navbarController', ['$scope', '$location', function ($scope, $lo
            $scope.modal2 = true;
            $scope.modal1 = false;
            $scope.modal3 = false;
+           $scope.modal3 = false;    
+
         }
      
     //show third modal view  
@@ -28,12 +32,24 @@ app.controller('navbarController', ['$scope', '$location', function ($scope, $lo
            $scope.modal3 = true;
            $scope.modal1 = false;
            $scope.modal2 = false;
+           $scope.modal4 = false;    
+
+        }
+        
+     //show fourth modal view  
+        else if (number===4 && $scope.modal4 != true) {
+           $scope.modal3 = false;
+           $scope.modal1 = false;
+           $scope.modal2 = false;
+           $scope.modal4 = true;    
+
         }
     //show default that is first modal view    
         else {
            $scope.modal1 = true;
            $scope.modal2 = false;
            $scope.modal3 = false;
+           $scope.modal4 = false;    
         }
     };
 //Function to open the modal on clicking login button in the nav
@@ -41,7 +57,8 @@ app.controller('navbarController', ['$scope', '$location', function ($scope, $lo
       $('#modal1').openModal();
       $scope.modal1 = true;  
       $scope.modal2 = false;
-      $scope.modal3 = false;  
+      $scope.modal3 = false;
+      $scope.modal4 = false;  
     };
     
 }]);
