@@ -11,13 +11,14 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2o8wd)y-(8^()lkxcs1ejp0uafugdg&%0ds=nat&@-*j9$n1im'
+SECRET_KEY = os.environ.get('BITEPLANS_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,7 +55,9 @@ INSTALLED_APPS = (
     'django_filters',
     'import_export',
     'social.apps.django_app.default',
+    'rest_social_auth',
 )
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
@@ -67,6 +70,24 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
+}
+SOCIAL_AUTH_PIPELINE = (
+ 'authentication.social_pipe.auto_logout',
+ 'social.pipeline.social_auth.social_details',
+ 'social.pipeline.social_auth.social_uid',
+ 'social.pipeline.social_auth.auth_allowed',
+ 'social.pipeline.social_auth.social_user',
+ 'social.pipeline.user.get_username',
+ 'social.pipeline.social_auth.associate_by_email',
+ 'social.pipeline.user.create_user',
+ 'social.pipeline.social_auth.associate_user',
+ 'social.pipeline.social_auth.load_extra_data',
+ 'social.pipeline.user.user_details',
+ 'authentication.social_pipe.save_avatar',  # custom action
+)
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -89,11 +110,17 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_FACEBOOK_KEY = "778572508914532"
-SOCIAL_AUTH_FACEBOOK_SECRET = "46a3f1c1d626e5296d4f17ac4f3ea1a2"
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'locale': 'ru_RU',
+  'fields': 'id, name, email, age_range'
+}
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ="625705095605-qj6ve872tlinvt14tmnfn38kn3rsbclg.apps.googleusercontent.com"
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "y7LJfV8ws-ZqAT0dK_kxz5JF"
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET =\
+    os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 # SOCIAL_AUTH_GOOGLE_OAUTH2_USE_DEPRECATED_API = True
 # SOCIAL_AUTH_GOOGLE_PLUS_USE_DEPRECATED_API = True
@@ -129,14 +156,13 @@ WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'DB_BITEPLANS',
-        'USER': 'keshav',
-        'PASSWORD': 'jx1234',
+        'NAME': os.environ.get('BITEPLANS_DB_NAME'),
+        'USER': os.environ.get('BITEPLANS_DB_ROOT_USER'),
+        'PASSWORD': os.environ.get('BITEPLANS_DB_ROOT_USER_PWD'),
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
-}
-# Internationalization
+}# Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -173,11 +199,27 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'shubham@jeevomics.com'
+EMAIL_HOST_PASSWORD = 'vniamvcbgpfsdhsf'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
-SERVER_EMAIL = 'shubham@jeevomics.com'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'shubham@jeevomics.com'
-EMAIL_HOST_PASSWORD = 'test123##'
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'rest_social_auth': {
+            'handlers': ['console', ],
+            'level': "DEBUG",
+        },
+    }
+}

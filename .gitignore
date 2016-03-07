@@ -60,3 +60,4 @@ Thumbs.db
 venv/*
 newenv/*
 *.db
+data/*

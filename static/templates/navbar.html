@@ -1,4 +1,5 @@
 <!-- NAVBAR -->
+<div ng-controller="navbarController">
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
         <a ng-class='{"inactive":toggle==0}' ng-click='toggle=0' id="logo-container" href="/" class="brand-logo">
@@ -49,40 +50,42 @@
             <!-- LOGIN VIA SOCIAL MEDIA -->
             
             <div class="center-btn">
-                <a class="waves-effect waves-light btn largebtn">Log In with FACEBOOK</a>
+                <a class="waves-effect waves-light btn largebtn" ng-click="Auth('facebook')">Log In with FACEBOOK</a>
                 <br>
             </div>
                 <br>
             <div class="center-btn">
-                <a class="waves-effect waves-light btn largebtn" id="googlebtn">Log In with GOOGLE</a>
+                <a class="waves-effect waves-light btn largebtn" id="googlebtn" ng-click="Auth('google')">Log In with GOOGLE</a>
             </div>
 
             <p class="center-align">OR</p>
         
-            <div class="row"> <!-- LOGIN FOR EMPTY FIELDS -->
-                <div class="col s12">
-                    <p class="text-danger" ng-show="loginError">{{ loginError }}</p>
+            <form ng-submit="login()">
+                <div class="row"> <!-- LOGIN FOR EMPTY FIELDS -->
+                    <div class="col s12">
+                        <p class="text-danger" ng-show="loginError">{{ loginError }}</p>
+                    </div>
                 </div>
-            </div>
-        
+    
             <form ng-submit="login()" name="myForm">
                 <div class="input-field"> <!-- USERNAME -->
-                    <input id="first_name" type="text" class="form-control validate" ng-model="loginUsername" >
+                    <input id="first_name" type="text" class="form-control validate" ng-model="login.username" >
                     <label for="first_name">Username</label>
                 </div>
                 
                 <div class="input-field"> <!-- PASSWORD-->
-                    <input id="password" type="password" class="form-control validate" ng-model="loginPassword" >
+                    <input id="password" type="password" class="form-control validate" ng-model="login.password" >
                     <label for="first_name">Password</label>
                 </div>
                 
                 <div class="center-btn"> <!-- SUBMIT BUTTON -->
-                    <input type="submit" class="btn btn-default" value="Log In">
+                    <button type="submit" class="btn btn-default">Login</button>
                 </div>
                 <br>
                 <a href="#" ng-click="switchToModal(4)" class="teal-text">Forgot your password or username?</a>
-                <p class="teal-text">Don't have an account? <a ng-click="switchToModal(2)">Sign Up Now</a></p>
             </form>
+          <p class="teal-text">Don't have an account? <a ng-click="switchToModal(2)">Sign Up Now</a></p>
+
         </div>   <!-- END OF LOGIN CONTENT -->
 
 
@@ -92,16 +95,16 @@
         <h5 class="center-align">Welcome</h5>
             <br>
         <div class="center-btn">
-            <a class="waves-effect waves-light btn largebtn">Sign Up with FACEBOOK</a>
+            <a class="waves-effect waves-light btn largebtn" ng-click="Auth('facebook')">Sign Up with FACEBOOK</a>
         </div>
             <br>
         <div class="center-btn">
-            <a class="waves-effect waves-light btn largebtn" id="googlebtn">Sign Up with GOOGLE</a>
+            <a class="waves-effect waves-light btn largebtn" id="googlebtn" ng-click="Auth('google')">Sign Up with GOOGLE</a>
         </div>
         
         <p class="center-align">OR</p>
-        
-        <form ng-submit="register()" name="myForm" action="">
+
+        <form ng-submit="register()" name="myForm">
             <div class="row"> <!-- WARNINGS FOR EMPTY FIELD-->
                 <div class="col s12">
                  <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
@@ -112,7 +115,7 @@
             
              <div class="row">
               <div class="input-field col m12">
-                <input class="validate" id="input_name" type="text" pattern="^[a-zA-Z0-9]*$" length="10" required/>
+                <input class="validate" id="input_name" type="text" ng-model="signup.username" length="100" required />
                 <label for="input_name" data-error="Atmost 10 characters">Username</label>
               </div>
             </div>
@@ -122,7 +125,7 @@
             
             <div class="row">
                 <div class="input-field col m12">
-                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="email" required /> 
+                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="signup.email" required /> 
                 <label for="email" data-error="Invalid Email Id">Email</label>
                 </div>
             </div>
@@ -131,8 +134,8 @@
             
              <div class="row">
               <div class="input-field col m12">
-                <label for="password">Password</label>
-                <input type="password" id="registerPassword" name="registerPassword" ng-model="formData.registerPassword" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required  />
+                <label for="registerPassword">Password</label>
+                <input type="password" id="registerPassword" name="registerPassword" ng-model="signup.registerPassword" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/" required  />
                 <span ng-show="!myForm.registerPassword.$error.required && (myForm.registerPassword.$error.minlength || myForm.registerPassword.$error.maxlength) && myForm.registerPassword.$dirty" class="text-danger">Passwords must be between 8 and 20 characters.</span>
                 <br>
               </div>
@@ -143,11 +146,12 @@
              <div class="row">
                  <div class="input-field col m12">
                  <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" ng-model="formData.confirmPassword" custom-validator required  />
+                <input type="password" id="confirmPassword" name="confirmPassword" ng-model="signup.confirmPassword" custom-validator required  />
                   <span ng-show="myForm.confirmPassword.$error.required && myForm.confirmPassword.$dirty">Please confirm your password.</span>
                   <span ng-show="!myForm.confirmPassword.$error.required && myForm.confirmPassword.$error.noMatch && myForm.registerPassword.$dirty" class="text-danger">Passwords do not match.</span>
                    <span ng-show="!myForm.confirmPassword.$error.required && !myForm.confirmPassword.$error.noMatch && myForm.registerPassword.$dirty" class="text-success">Passwords matched.</span>
                 <br>
+
                 </div>
             </div>
 
@@ -156,7 +160,7 @@
             <!-- CONTINUE BUTTON -->
             
             <div class="center-btn">
-                <a href="/dashboard"><input id="continueToForm2" name="action" type="submit" class="btn btn-default" value="Continue"></a>
+                <button id="continueToForm2" type="submit" class="btn btn-default largebtn" >SignUp</button>
             </div>
         </form>
     </div>
@@ -234,3 +238,4 @@
       </div>
     </div>
  </div>
+</div>

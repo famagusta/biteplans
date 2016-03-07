@@ -18,7 +18,7 @@
 
     <!--HEADER WILL CONTAIN NAVBAR WHICH WILLBE COMMON TO EVERY PAGE-->
 
-    <div class="header" ng-controller="navbarController">
+    <div class="header">
         <div ng-include="'static/templates/navbar.html'"></div>
     </div>
 
@@ -33,8 +33,29 @@
         <div ng-include="'static/templates/footer.html'"></div>
    </div>
 
+<div id="fb-root">
+    </div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+        //facebook here
+    //***************************************************
+    window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '778572508914532',
+      status     : true,
+      xfbml      : true,
+      version    : 'v2.2'
+        });
+    };
+    
+    (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
      <script>
        !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
        (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),

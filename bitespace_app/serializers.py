@@ -4,5 +4,7 @@ from rest_framework import serializers
 from bitespace_app.models import USDAIngredient
 
 class GlobalSearchSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = USDAIngredient
+    '''serializes a python object into JSON serializabale format'''
+    class Meta:
+        '''defines the model to be serialized'''
+        model = USDAIngredient
