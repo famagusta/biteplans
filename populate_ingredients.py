@@ -22,4 +22,7 @@ imported_data = tablib.import_set(open('data/ABBREV.csv').read())
 result = imported_resource.import_data(imported_data, dry_run=True)
 
 if result.has_errors() is not True:
+    print "NO ERRORS DETECTED. PROCEEDING TO DATABASE PUSH...."
     result = imported_resource.import_data(imported_data, dry_run=False)
+else:
+    print "ERRORS DETECTED. ABORT!!! ABORT!!! ABORT!!!"

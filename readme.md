@@ -169,5 +169,12 @@ Or Alternatively use a db dump (TODO)
 ALTER DATABASE database_name CHARACTER SET = utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE table_name CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+if you get foreign key error constraint, do the folllowing (IN DEV ONLY) in mysql
+SET FOREIGN_KEY_CHECKS = 0;
+
+/* DO WHAT YOU NEED HERE */
+
+SET FOREIGN_KEY_CHECKS = 1;
+
 ### for full text search
 alter table bitespace_app_recipe add fulltext search(name);

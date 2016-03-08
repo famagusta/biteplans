@@ -247,3 +247,20 @@ class Recipe(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+class RecipeIngredients(models.Model):
+    '''Model to represent all ingredients extracted from the
+       recipes'''
+    recipe_id = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient_tags = models.CharField(null=True, blank=True, max_length=1000)
+
+
+class IngredientQuantity(models.Model):
+    '''Model to represent various quantities of an ingredient
+    in a recipe'''
+    recipe_ingred_id = models.ForeignKey(RecipeIngredients,
+                                         on_delete=models.CASCADE)
+    ingredient_quanty = models.CharField(null=True, blank=True, max_length=255)
+    ingredient_measure = models.CharField(null=True, blank=True,
+                                          max_length=255)
