@@ -11,6 +11,10 @@ urlpatterns = patterns('',
                        url(r'^api/v1/', include(router.urls)),
                        url(r'^api/v1/login',
                            'rest_framework_jwt.views.obtain_jwt_token'),
-                       url(r'^sociallogin/', views.social_register),
+                       url(r'^api/v1/jwt_user/',
+                           views.UserJWTDetailView.as_view()),
+                       url(r'^sociallogin/',
+                           include('rest_social_auth.urls_jwt')),
+                       url(r'^registerConfirm/(?P<activation_key>\w+)/', views.register_confirm),
 
 					)

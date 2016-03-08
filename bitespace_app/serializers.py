@@ -22,3 +22,4 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         '''defines the model to be serialized'''
         model = Account
+

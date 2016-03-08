@@ -1,2 +1,205 @@
+  <div id="dashboard-page">
+    <div class="row">
+        <div class="col s12 m3">
+          <div class="card white darken-1">
+            <div class="card-content grey-text">
+              <ul id="dashboard-list">
+                  <div class="row">
+                      
+                      <!-- SUMMARY TAB -->
+                      
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(1)">
+                            <i class="fa fa-user fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(1)}"><a href="#" ng-click="setTab(1)">Summary</li></a>
+                    </div>
+                  </div>
+                
+                <!-- PROFILE TAB -->
+                
+                  <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(2)">
+                            <i class="fa fa-user fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(2)}">
+                            <a href="#" ng-click="setTab(2)">Profile</a>
+                        </li>
+                    </div>
+                  </div>
+                
+                <!-- CALENDAR TAB -->
+                
+                 <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(3)">
+                            <i class="fa fa-calendar fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(3)}">
+                            <a href="#" ng-click="setTab(3)">Calendar</a></li>
+                    </div>
+                  </div>
+                
+                <!-- FRIENDS TAB -->
+                
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(4)">
+                            <i class="fa fa-group fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(4)}">
+                            <a href="#" ng-click="setTab(4)">Friends</a>
+                        </li>
+                    </div>
+                  </div>
+                 <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(5)">
+                            <i class="fa fa-signal fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(5)}">
+                            <a href="#" ng-click="setTab(5)">Progress</a>
+                        </li>
+                    </div>
+                  </div>
+                 <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(6)">
+                            <i class="fa fa-calendar fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(6)}">
+                            <a href="#" ng-click="setTab(6)">My Plans</a>
+                        </li>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(7)">
+                            <i class="fa fa-signal fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(7)}">
+                            <a href="#" ng-click="setTab(7)">My Recipes</a></li>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(8)">
+                            <i class="fa fa-signal fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(8)}">
+                            <a href="#" ng-click="setTab(8)">Create Plans</a>
+                        </li>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col s4 m4">
+                        <a href="#" ng-click="setTab(9)">
+                            <i class="fa fa-search fa-2x"></i>
+                        </a>            
+                    </div>
+                    <div class="col s4 m8">
+                        <li ng-class="{active:tab.isSet(9)}">
+                            <a href="#" ng-click="setTab(9)">Search Plans</a>
+                        </li>
+                    </div>
+                  </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      
+        <!--SUMMARY VIEW -->
+     
+      <div class="col s12 m6">
+        <div ng-if="tab==1"> 
+          <div class="card white">
+            <div class="card-content teal-text">
+              <span class="card-title center-align">
+                  <div class="row">
+                    <div class="col s12 m12">
+                      <ul class="day-list">
+                          <li><i class="fa fa-chevron-left"></i></li>
+                          <li>Yesterday</li>
+                          <li>Today</li>
+                          <li>Tomorrow</li>
+                          <li><i class="fa fa-chevron-right"></i></li>
+                          <li><i class="fa fa-calendar"></i></li>
+                          </ul>
+                      </div>
+                      <div class="col s12 m12">
+                       <h5 class="center-align">Weight Loss in 2 weeks</h5> 
+                      </div>
+                  </div>
+                </span>
+            </div>
+          </div>
+        </div> 
+      </div><!-- END OF SUMMARY WINDOW-->
+      
+      <!-- PROFILE VIEW -->
+      
+        <div class="col s12 m6">
+        <div ng-if="tab==2"> 
+          <div class="card white">
+            <div class="card-content teal-text">
+              <span class="card-title center-align">
+                  <div class="row">
+                    <div class="col s12 m12">
+                      <ul class="day-list">
+                          <li><i class="fa fa-chevron-left"></i></li>
+                          <li>Profile</li>
+                          <li>Today</li>
+                          <li>Tomorrow</li>
+                          <li><i class="fa fa-chevron-right"></i></li>
+                          <li><i class="fa fa-calendar"></i></li>
+                          </ul>
+                      </div>
+                      <div class="col s12 m12">
+                       <h5 class="center-align">Weight Loss in 2 weeks</h5> 
+                      </div>
+                  </div>
+                </span>
+            </div>
+          </div>
+        </div> 
+      </div><!-- END OF PROFILE WINDOW-->
+      
+        <div class="col s12 m3">
+          <div class="card white">
+            <div class="card-content teal-text">
+              <h5 class="card-title center-align">Recent Activity</h5>
+              <p>I am a very simple card. I am good at containing small bits of information.
+              I am convenient because I require little markup to use effectively.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script>
+$(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
+            
+
+
 <h1>{{token}}</h1>
 <a ng-click="logout()" class="btn btn-primary">Logout</a>
