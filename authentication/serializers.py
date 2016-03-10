@@ -1,6 +1,5 @@
 '''serializes db queries into python objs for easy json conversions'''
 from rest_framework import serializers
-from rest_framework import serializers
 from authentication.models import Account
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 

@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'markdown',
     'rest_framework.authtoken',
+    'djoser',
     'django_filters',
     'import_export',
     'social.apps.django_app.default',
@@ -197,13 +198,16 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
+
+DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+SERVER_EMAIL = 'shubham@jeevomics.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'shubham@jeevomics.com'
 EMAIL_HOST_PASSWORD = 'vniamvcbgpfsdhsf'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
+
 
 LOGGING = {
     'version': 1,
@@ -220,4 +224,13 @@ LOGGING = {
             'level': "DEBUG",
         },
     }
+}
+DJOSER = {
+    'DOMAIN': 'bitespacetest.com:8000',
+    'SITE_NAME': 'biteplans',
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'PASSWORD_VALIDATORS': [],
+    'SERIALIZERS': {},
 }
