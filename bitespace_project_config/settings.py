@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'bitespace_app',
     'authentication',
+    'dietplans',
     'rest_framework',
     'markdown',
     'rest_framework.authtoken',
