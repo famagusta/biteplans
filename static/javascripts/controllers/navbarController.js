@@ -70,7 +70,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     };
   //function to signup manually
   $scope.register = function(){
-    
+    //these vars are the required params
     var username = $scope.signup.username;
     var password = $scope.signup.registerPassword;
     var confirm = $scope.signup.confirmPassword;
@@ -92,13 +92,11 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
       $scope.registerError = 'Fields are missing';
     }
   };
-
+//function to login using manual details. email is the required field and is taken as username
   $scope.login = function(){
- 
-  console.log('here');
-  var username = $scope.login.username;
+    //these are required params
+   var username = $scope.login.username;
   var password = $scope.login.password;
-  console.log(username,password);
 
   if (username && password) {
     AuthService.login(username, password).then(
@@ -143,14 +141,16 @@ $scope.search = function(){
 
 };
 
+//function to reset password, calls auth service to call forgot password feature. Email is a param
 $scope.resetPassword = function(){
 
   var email = $scope.forgot.email;
-  console.log(email);
   AuthService.forgotPassword(email).then(function(response){
+    //message on success
     $scope.Message='Please check your email to reset password';
   },
   function(response){
+    //message on error
     $scope.Message = 'Something went wrong, try again later';
   });
 

@@ -176,20 +176,27 @@ if ($auth.getToken()){
 
 //Function for forgot password and this sends email to user with activation link
 var resetPassword = function(email) {
+  //url to be hit
     var url = constants['API_SERVER'] + 'authentication/forgot/password/reset/';
+    //promise to be fulfilled
     var deferred = $q.defer();
     httpService.httpPost(url, {
                      'email':email,
                  }).then(
   function(response) {
+    //promise is fulfilled
     deferred.resolve(response.data);
 
 },
 function(response) {
+  //error, promise not fulfilled :(
     deferred.reject(response.data);
 
 });
+//return promise, promise gets things done
 return deferred.promise;};
+
+//return all these features as function
   return {
     register: function(username, password, confirm, email) {
       return register(username, password, confirm, email);
