@@ -83,7 +83,7 @@ var login = function(username, password) {
     var url = constants['API_SERVER'] + 'authentication/api/v1/login';
     var deferred = $q.defer();
     httpService.httpPost(url, {
-                     'username': username,
+                     'email': username,
                      'password': password,
                  }).then(
   function(response) {
@@ -165,6 +165,7 @@ var loginSocial = function(provider){
 return prom.promise;
 };
 
+//stores the info of current user to share amongst different controllers.
 var getCurrentUserDetails = function(){
 if ($auth.getToken()){
       httpService.httpGet('http://bitespacetest.com:8000/authentication/api/v1/jwt_user/').then(function(response){
@@ -173,6 +174,22 @@ if ($auth.getToken()){
   }
 };
 
+//Function for forgot password and this sends email to user with activation link
+var resetPassword = function(email) {
+    var url = constants['API_SERVER'] + 'authentication/forgot/password/reset/';
+    var deferred = $q.defer();
+    httpService.httpPost(url, {
+                     'email':email,
+                 }).then(
+  function(response) {
+    deferred.resolve(response.data);
+
+},
+function(response) {
+    deferred.reject(response.data);
+
+});
+return deferred.promise;};
   return {
     register: function(username, password, confirm, email) {
       return register(username, password, confirm, email);
@@ -192,7 +209,9 @@ if ($auth.getToken()){
 
     socialAuth : loginSocial,
 
-    getAuthdUser : getCurrentUserDetails
+    getAuthdUser : getCurrentUserDetails,
+
+    forgotPassword : resetPassword,
   };
 
 }]);

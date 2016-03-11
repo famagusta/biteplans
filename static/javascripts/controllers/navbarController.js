@@ -16,7 +16,9 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     $scope.login={};
     //signup object taken up from signup from, ill be used to make signup post request
 
-    $scope.signup={};        
+    $scope.signup={};
+
+    $scope.forgot={};      
 
 //Function to switch the views within modal;
     $scope.switchToModal = function (number) {     // function to change the content in modal window
@@ -25,7 +27,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
 
     //show second modal view
     
-       if (number===2 && $scope.modal2 != true) {
+       if (number===2 && $scope.modal2 !== true) {
            $scope.modal2 = true;
            $scope.modal1 = false;
            $scope.modal3 = false;
@@ -34,7 +36,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
         }
      
     //show third modal view  
-        else if (number===3 && $scope.modal3 != true) {
+        else if (number===3 && $scope.modal3 !== true) {
            $scope.modal3 = true;
            $scope.modal1 = false;
            $scope.modal2 = false;
@@ -43,7 +45,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
         }
         
      //show fourth modal view  
-        else if (number===4 && $scope.modal4 != true) {
+        else if (number===4 && $scope.modal4 !== true) {
            $scope.modal3 = false;
            $scope.modal1 = false;
            $scope.modal2 = false;
@@ -73,6 +75,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     var password = $scope.signup.registerPassword;
     var confirm = $scope.signup.confirmPassword;
     var email = $scope.signup.email;
+    console.log(username,password,confirm,email);
 
     if (username && password && confirm && email) {
       AuthService.register(username, password, confirm, email).then(
@@ -95,6 +98,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
   console.log('here');
   var username = $scope.login.username;
   var password = $scope.login.password;
+  console.log(username,password);
 
   if (username && password) {
     AuthService.login(username, password).then(
@@ -113,7 +117,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
 };
 
 $scope.search = function(){
-  var query=$scope.query
+  var query=$scope.query;
   if(query){
     AuthService.search(query).then(function(response){
       console.log(response);
@@ -136,6 +140,19 @@ $scope.search = function(){
   $scope.loginError = error;
   $location.path('/');
   });  
+
+};
+
+$scope.resetPassword = function(){
+
+  var email = $scope.forgot.email;
+  console.log(email);
+  AuthService.forgotPassword(email).then(function(response){
+    $scope.Message='Please check your email to reset password';
+  },
+  function(response){
+    $scope.Message = 'Something went wrong, try again later';
+  });
 
 };
 }]);

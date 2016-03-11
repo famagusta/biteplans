@@ -23,6 +23,9 @@ $routeProvider.when('/', {
 }).when('/confirm/:activation_key', {
   controller: 'confirmController',
   templateUrl: '/static/templates/confirmTemp.html'    
+}).when('/resetpassword/:uid/:activation_key', {
+  controller: 'resetController',
+  templateUrl: '/static/templates/resetPassword.html'    
 }).when('/plans', {
     controller: 'planController',
     templateUrl: '/static/templates/searchPlan.html'
