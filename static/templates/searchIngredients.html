@@ -1,6 +1,7 @@
-     <div class="section" id="ingredientsPage">
+<div ng-controller="ingredientsController">    
+<div class="section" id="ingredientsPage">
          <div class="row">
-             <div class="col s12 m3" id="checklist">
+             <div class="col s12 m3 hide-on-small-only" id="checklist">
                  <div class="card white">
                      <div class="card-content black-text">
                          <form action="#" class="planform">  <!-- SEARCH INGREDIENTS CHECKLIST -->
@@ -33,7 +34,7 @@
                                      <input type="checkbox" class="filled-in" id="filled-in-box7" checked="checked" />
                                      <label for="filled-in-box7">Vegetables</label>
                                  </p>
-                                 <br><br><br><br><br><br><br><br><br>
+                                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                              </div>
                          </form>
                      </div>
@@ -46,30 +47,29 @@
                      <div class="card white" id="searchcard"> <!-- SEARCH-BOX -->
                          <div class="card-content black-text">
                              <form>
-                             <textarea id="searchbox" placeholder="Search people & places" ng-model="query" ng-model-options="{ debounce: 800 }"  class="form-control" autofocus></textarea>
-                             <button href="#" ng-click="search()" type="submit"><i class="material-icons right">search</i></button>
+                             <textarea id="searchbox" placeholder="Search people & places" ng-model="query" class="form-control"></textarea>
+                             <button class="fa fa-search search-ingredient" href="#" ng-click="search()" type="submit"></button>
                              </form>
                         </div> <!-- END OF SEARCH-BOX -->
                      </div>
                  </div>
              </div>
-             <div class="row">
+             <div class="row" >
                  <div class="col s12 m12">
-                     <div id="main-info" ng-include="'static/templates/searchIngredientsResult.html'"></div>
+                     <div ng-include="'static/templates/searchIngredientsResults.html'"></div>
                  </div>
              </div>
              </div>
                  
-                     <page-list></page-list> <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
                      
                       <div class="row">
-                        <div class="col s12">
+                        <div class="col s12 center">
                              <div class="center-btn">
-                                <a class="waves-effect waves-light btn btn-social largebtn">CREATE A PLAN</a>
+                                <a href="/create" class="waves-effect waves-light btn btn-social largebtn">CREATE A PLAN</a>
                              </div>
                          </div>
                      </div>
                  </div>  
              </div>
          </div>
-     </div> <!-- END OF PLANPAGE -->
+   

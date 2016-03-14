@@ -36,6 +36,9 @@ $routeProvider.when('/', {
     .when('/dashboard', {
     controller: 'dashboardController',
     templateUrl: '/static/templates/dashboard.html'
+}).when('/create', {
+    controller: 'createPlanController',
+    templateUrl: '/static/templates/createPlan.html'
 
 }).otherwise('/');
 

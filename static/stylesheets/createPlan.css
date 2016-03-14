@@ -1,0 +1,58 @@
+
+form div.container {
+    width: 80%;
+}
+
+input[type=text], input[type=number] {
+    width: 90% !important;
+}
+
+div#create-form {
+    margin-top: -37px;
+}
+
+#progressbar {
+	overflow: hidden;
+    margin-left: 10px;
+}
+
+#progressbar li{
+    display: inline-flex;
+   padding: 0 50px 0 13px;
+    
+}
+
+
+#create-container {
+    width: 92%;
+}
+
+form#createPlan input {
+    width: 10% !important;
+}
+
+#gender {
+    margin-right: 290px;
+}
+
+#progressbar li span {
+    background-color: #ccc;
+    border-radius: 15px;
+    padding: 3px 7px 0px 8px;
+    color: #fff;
+}
+
+#progressbar li span.active-plan {
+    background-color: #ff5252;
+    border-radius: 15px;
+    padding: 3px 7px 0px 8px;
+    color: #fff;
+}
+
+.show {
+    display: block;
+}
+
+#metric-view {
+    display: none;
+}

@@ -3,11 +3,9 @@ footer {
     background-color: #4f4f4f !important;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
-footer > .row {
-    margin-top: 10px;
-}
 
 footer a {
     color: #fff;

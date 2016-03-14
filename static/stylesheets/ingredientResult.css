@@ -1,0 +1,47 @@
+a {
+    text-decoration: none;
+    color: #ccc;
+}
+
+.result-card {
+    height: 380px !important;
+}
+
+.ingredient-title {
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    font-family: 'Roboto';
+}
+
+.ingredient-title::first-letter {
+    text-transform: uppercase;
+}
+
+.nutri {
+    color: #4f4f4f;
+    font-weight: 600;
+}
+
+#page-number {
+    color: #00bcd4;
+    font-size: 15px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0 3px;
+    font-family: 'Raleway';
+}
+
+.active-page {
+    border-bottom: 2px solid #ff5252;
+}
+
+.pagination-control {
+    border: none;
+    background: none;
+}
+
+.pagination-control:focus {
+    border: none;
+    background: none;
+}

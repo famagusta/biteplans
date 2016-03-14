@@ -71,7 +71,8 @@ label[data-error]:after {
 
 video {
     width: 100%;
-    
+    transform: rotateY(-180deg);
+    margin-left: 650px !important; 
 }
 
 #sideMenu {

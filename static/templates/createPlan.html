@@ -1,0 +1,137 @@
+<section id="create-plan">
+<div class="container" id="create-container">
+<form>
+    <div class="row">
+        <div class="col s12 m12">
+          <div class="card white darken-1">
+            <div class="card-content grey-text">
+              <form>
+                <ul id="progressbar" class="center">
+                  <li><span class="active-plan">1</span>&nbsp;&nbsp;Enter Details</li>
+                    <li><span>2</span>&nbsp;&nbsp;Add food</li>
+                  <li><span>3</span>&nbsp;&nbsp;Review</li>
+                  </ul>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    
+     <div class="row" id="create-form">
+        <div class="col s12 m12">
+          <div class="card white">
+            <div class="card-content grey-text">
+              <form>
+                  <div class="row">
+                    <div class="input-field col s5 push-s1">
+                      <label for="plan_name">Name of Plan</label>
+                      <input id="plan_name" type="text" class="validate">
+                    </div>
+                    <div class="input-field col s5 push-s1">
+                      <input id="age" type="number" class="validate">
+                      <label for="age">Age</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                       <div class="input-field col s5 push-s1">
+                      <label for="duration">Duration</label>
+                      <input id="duration" type="number" class="validate">
+                    </div>
+                      <div class="input-field col s5 push-s1">
+                        <div class="input-field col s5 push-s1">
+                        <input id="imperial" class="with-gap" name="group4" value="1" type="radio" checked />
+                       <label for="imperial">Imperial</label>
+                        </div>
+                         <div class="input-field col s5 push-s1">
+                           <input class="with-gap" name="group4" value="2" type="radio" id="metric" />
+                            <label for="metric">Metric</label>
+                         </div>
+                        </div>
+                  </div>
+                  <div class="row">
+                       <div class="input-field col s5 push-s1">
+                        <label for="goal">Goal in one line</label>
+                        <input id="goal" type="text" class="validate">
+                        </div>
+                      <div class="col s5 push-s1" id="imperial-view">
+                          <div class="row">
+                              <div class="input-field col s4 push-s1">
+                                  <input id="feets" type="number" class="validate">
+                                </div>
+                              <div class="col s1">
+                                <span class="unit">Ft</span>
+                              </div>
+                              <div class="input-field col s4 push-s1">
+                                  <input id="inches" type="number" class="validate">
+                                </div>
+                              <div class="col s1">
+                                <span class="unit">In</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col s5 push-s1" id="metric-view">
+                          <div class="row">
+                              <div class="input-field col s6 push-s1">
+                                  <input id="cms" type="number" class="validate">
+                                </div>
+                              <div class="col s1">
+                                  <span class="unit">cms</span>
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="input-field col s5 push-s1">
+                        <label for="tags">Tags</label>
+                        <input id="tags" type="text" class="validate">
+                    </div>
+                       <div class="input-field col s5 push-s1">
+                        <input id="weight" type="number" class="form-control validate" required>
+                        <label for="weight">Weight (in kgs)</label>
+                      </div>
+                  </div>
+                  <div class="row">
+                  <div class="right" id="gender">
+                       <div class="input-field col s12"><label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="test5" class="with-gap" name="group3" type="radio" checked />
+                        <label for="test5">Male</label>&nbsp;&nbsp;
+                        <input id="test4" class="with-gap" name="group3" type="radio" />
+                        <label for="test4">Female</label>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s9 offset-s1">
+                      <label for="description">Description</label>
+                      <input id="description" type="text" class="validate">
+                    </div>   
+                  </div>    
+                </div>
+            </form>
+              <div class="row">
+                  <div class="col s12">
+                    <div class="center-btn">
+                        <a class="waves-effect waves-light btn">Next</a>
+                    </div>
+                      <br><br>
+                  </div>
+              </div>
+        </div>
+          </div>
+        </div>
+      </div>
+</div>
+</section>
+<script>
+$(document).ready(function() {
+    $('#imperial').click(function() {
+        $('#imperial-view').show();
+        $('#metric-view').hide();
+    });
+    $('#metric').click(function() {
+        $('#metric-view').show();
+        $('#imperial-view').hide();
+    });
+});
+</script>

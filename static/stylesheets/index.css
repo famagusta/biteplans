@@ -4,6 +4,8 @@
 
 body {
     font-family: 'Raleway',sans-serif;
+    overflow-x: hidden;
+    -moz-overflow-x: hidden;
 }
 
 a {
@@ -20,7 +22,6 @@ a {
     color: #00bcd4;
 }
 
-
 .largebtn {
     width: 270px !important;
 }
@@ -34,6 +35,10 @@ a {
 .text-success {
     color: #4caf50;
     font-family: 'Roboto';
+}
+
+.cyan-text {
+    color: #00bcd4;
 }
 
 p {

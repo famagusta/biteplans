@@ -118,7 +118,7 @@ $scope.search = function(){
   var query=$scope.query;
   if(query){
     AuthService.search(query).then(function(response){
-      console.log(response);
+        $scope.details=response.data;
     },function(error) {
       console.log(error);
     });

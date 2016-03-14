@@ -1,0 +1,160 @@
+<!-- FRONT END VIEW OF THE INGREDIENTS SEARCH RESULT -->
+
+<div id="result-list">
+    
+    <!-- WHEN THE USER HAS NOT ENTERED ANY INGREDIENT IN SEARCHBOX-->
+    <div ng-if="!details">
+        <p>Loading Results......</p>
+    </div>
+    
+<div ng-if="details">
+    <div class="row">
+        <div class="col s12 m4" ng-repeat="detail in details track by $index" >
+          <div class="card white big result-card" id="ingredient-result-card">
+            <div class="card-content grey-text">
+                <div class="row">
+                    <div class="col s12">
+                        <h5 class="cyan-text center ingredient-title">{{detail.shrt_desc}}</h5>
+                    </div>
+                </div>
+                <div ng-click="openMan($index)">
+                <div class="row">
+                    <div class="col s6 m6">
+                        <input class="with-gap" name="group3" type="radio" id="large" checked />
+                        <label for="large">Large</label>
+                    </div>
+                    <div class="col s6 m6">
+                        <input class="with-gap" name="group3" type="radio" id="extra-large" />
+                        <label for="extra-large">Extra Large</label>
+                    </div>
+                </div>
+                
+                <!-- LARGE SERVING -->
+                
+                <div class="row">
+                    <div class="col s6 m6">
+                        <h6 class="nutri">Protien</h6>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>{{detail.protein}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 m6" >
+                        <h6 class="nutri">Carbohydrates</h6>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>{{detail.carbohydrate}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s6 m6">
+                        <h6 class="nutri">Fats</h6>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>{{detail.lipid_tot}}</p>
+                    </div>
+                </div>
+                  <div class="row">
+                    <div class="col s6 m6">
+                        <h6 class="nutri">Calories</h6>
+                    </div>
+                    <div class="col s6 m6">
+                        <p>{{detail.energy_kcal}}</p>
+                    </div>
+                </div>
+                </div>
+              </div>
+          </div>
+            
+            <!-- MODAL DESCRIPTION FOR EVERY INGREDIENT CARD -->
+
+            <div id="modal6" class="modal" >
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+                <div class="modal-content">
+                  <h4 class="cyan-text ingredient-title">{{details[selected].shrt_desc}}</h4>
+                    <br>
+                    <h5>Macronutrients</h5>
+                  <table class="striped responsive-table">
+                    <thead>
+                      <tr>
+                          <th data-field="id">Nutrient</th>
+                          <th data-field="price">Quantity</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td>Carbohydrates</td>
+                        <td>{{details[selected].carbohydrate}}</td>
+                      </tr>
+                      <tr>
+                        <td>Protein</td>
+                        <td>{{details[selected].protein}}</td>
+                      </tr>
+                      <tr>
+                        <td>Fats</td>
+                        <td>{{details[selected].lipid_tot}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                    <br>
+                    <h5>Micronutrients</h5>
+                     <table class="striped responsive-table">
+                    <thead>
+                      <tr>
+                          <th data-field="id">Nutrient</th>
+                          <th data-field="price">Quantity</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <tr>
+                        <td>Sodium</td>
+                        <td>{{details[selected].sodium}}</td>
+                      </tr>
+                      <tr>
+                        <td>Water</td>
+                        <td>{{details[selected].water}}</td>
+                      </tr>
+                      <tr>
+                        <td>Phosphorus</td>
+                        <td>{{details[selected].phosphorus}}</td>
+                      </tr>
+                         <tr>
+                        <td>Iron</td>
+                        <td>{{details[selected].iron}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                    </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+        <br>
+        
+        <!-- PAGINATION-->
+        
+        <div class="col s12 center">
+            <button ng-hide="offset == 0" ng-click="previous()" class="pagination-control cyan-text">PREV</button>
+            <span ng-repeat="i in navButtons">
+                <span ng-class="$parent.offset == i * $parent.perPage && 'active-page'" class="button" ng-click="$parent.offset = (i * $parent.perPage)" id="page-number">{{i+1}}</span>
+            </span>
+            <button ng-hide="offset + perPage >= details.length" ng-click="next()" class="pagination-control cyan-text">NEXT</button>
+        </div>
+    </div> 
+</div>
+</div>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('.modal-trigger').leanModal(); 
+       
+    });
+
+</script>
+ 
