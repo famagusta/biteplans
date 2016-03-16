@@ -13,3 +13,11 @@ button.search-ingredient {
 #ingredientsPage {
     background-color: #f5f5f5;
 }
+
+.planform > .center-btn > p {
+    margin-top: 7px;
+}
+
+#checklist .card {
+   margin-left: 10% !important;
+}

@@ -36,10 +36,9 @@ footer ul li {
         text-align: center;
     }
     
-    ul.social-icon {
-        display: inline-flex !important;
-        margin-left: 140px;
-        margin-top: -10px;
+    footer ul.social-icon {
+        display: inline;
     }
     
 }
+

@@ -4,13 +4,26 @@ a {
 }
 
 .result-card {
-    height: 380px !important;
+    height: 415px !important;
 }
 
 .ingredient-title {
     text-transform: lowercase;
     letter-spacing: 1px;
     font-family: 'Roboto';
+    font-family: 16px !important;
+    white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+    white-space: -webkit-pre-wrap; /*Chrome & Safari */ 
+    white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        white-space: pre-wrap;       /* css-3 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
+        word-break: break-all;
+        white-space: normal; 
+        text-align: justify;
+        word-spacing: 1px;
+        text-align: left;
+        word-wrap: break-all;
 }
 
 .ingredient-title::first-letter {

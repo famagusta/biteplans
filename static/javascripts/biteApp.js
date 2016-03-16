@@ -3,7 +3,8 @@
 
 var app = angular.module('biteApp', [
       'satellizer',
-      'ngRoute'
+      'ngRoute',
+      'angularUtils.directives.dirPagination'
     ]);
 /**
 * @name run
@@ -39,6 +40,9 @@ $routeProvider.when('/', {
 }).when('/create', {
     controller: 'createPlanController',
     templateUrl: '/static/templates/createPlan.html'
+}).when('/recipes', {
+    controller: 'recipesController',
+    templateUrl: '/static/templates/recipes.html'
 
 }).otherwise('/');
 

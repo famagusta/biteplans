@@ -10,10 +10,11 @@
   "homepage": "",
   "private": true,
   "dependencies": {
-    "Materialize": "materialize#^0.97.5",
+    "Materialize": "^0.97.5",
     "angular": "^1.4.9",
     "angular-route": "^1.5.0",
-    "font-awesome": "fontawesome#^4.5.0",
-    "satellizer": "^0.14.0"
+    "font-awesome": "^4.5.0",
+    "satellizer": "^0.14.0",
+    "angularUtils-pagination": "^0.11.0"
   }
 }

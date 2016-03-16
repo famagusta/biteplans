@@ -83,6 +83,7 @@ video {
     right: 20px;
 }
 
+
 #sideMenu li a {
     -webkit-transition: all 300ms ease;
 }
@@ -103,6 +104,14 @@ video {
     
     video[poster] {
         height: 100%;
+    }
+    
+    #featuredPlan {
+        padding: 242px 0 0 0;
+    }
+    
+    .non-veg-card {
+        padding: 32px 0 0 0 !important;
     }
    
 }

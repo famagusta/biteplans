@@ -10,3 +10,11 @@ app.directive('customValidator', function () {
         }
     }
 });
+
+app.filter('addSpace', function () {
+   return function (input) {
+
+   	return input.replace(/,/g,', ');
+      //your date parser here
+   };
+});

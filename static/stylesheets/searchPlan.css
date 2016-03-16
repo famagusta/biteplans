@@ -37,7 +37,7 @@
 #searchcard {
     width: 50%;
     height: 55px;
-    left: 170px;
+    margin: auto;
 }
 
 #searchcard i {
