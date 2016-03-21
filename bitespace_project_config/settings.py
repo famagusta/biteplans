@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'import_export',
     'social.apps.django_app.default',
     'rest_social_auth',
+    'schedule',     # support for calendars
 )
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
@@ -73,18 +74,18 @@ REST_FRAMEWORK = {
     )
 }
 SOCIAL_AUTH_PIPELINE = (
- 'authentication.social_pipe.auto_logout',
- 'social.pipeline.social_auth.social_details',
- 'social.pipeline.social_auth.social_uid',
- 'social.pipeline.social_auth.auth_allowed',
- 'social.pipeline.social_auth.social_user',
- 'social.pipeline.user.get_username',
- 'social.pipeline.social_auth.associate_by_email',
- 'social.pipeline.user.create_user',
- 'social.pipeline.social_auth.associate_user',
- 'social.pipeline.social_auth.load_extra_data',
- 'social.pipeline.user.user_details',
- 'authentication.social_pipe.save_avatar',  # custom action
+    'authentication.social_pipe.auto_logout',
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'authentication.social_pipe.save_avatar',  # custom action
 )
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
@@ -101,6 +102,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
+    'django.core.context_processors.request',  # support for calendars
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -115,8 +117,8 @@ SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'locale': 'ru_RU',
-  'fields': 'id, name, email, age_range'
+    'locale': 'ru_RU',
+    'fields': 'id, name, email, age_range'
 }
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
@@ -162,7 +164,8 @@ DATABASES = {
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
-}# Internationalization
+}
+# Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -208,7 +211,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'shubham@jeevomics.com'
 EMAIL_HOST_PASSWORD = 'vniamvcbgpfsdhsf'
 EMAIL_PORT = 587
-
 
 
 LOGGING = {

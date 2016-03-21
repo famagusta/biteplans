@@ -11,15 +11,16 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^bitespace/',
                            include('bitespace_app.urls',
-                                       namespace="bitespace")),
+                                   namespace="bitespace")),
                        url(r'^authentication/',
                            include('authentication.urls', namespace="auuth")),
                        url('^.*$',
                            TemplateView.as_view(template_name="index.html"),
                            name='index'),
-                       # url(r'^sociallogin/',
-                       #     'mydjangoapp.views.social_register'),
-
+                       url(r'^fullcalendar/', TemplateView.
+                           as_view(template_name='fullcalendar.html'),
+                           name='fullcalendar'),
+                       url(r'^schedule/', include('schedule.urls')),
                        )
 
 if not settings.DEBUG:
