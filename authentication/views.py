@@ -74,10 +74,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://bitespacetest.com:8000/confirm/%s' % (request.data['username'], activation_key)
             tr = send_mail(sub, message, master, [email], fail_silently=False)
             if tr:
-                cal = Calendar.objects.create(name=serializer.data['username'],
-                                              slug='default')
                 account = Account.objects.create_user(
-                    calendar=cal,
                     **serializer.validated_data)
                 account.activation_key = activation_key
                 account.key_expires = key_expires

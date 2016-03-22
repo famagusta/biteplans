@@ -5,14 +5,15 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from schedule.models import Calendar
+from django.db.models.signals import post_save, post_delete, pre_save
+from django.dispatch import receiver
 
 
 class AccountManager(BaseUserManager):
     '''this class manages the user save method and other user actions'''
-    def create_user(self, username, email, calendar,
+    def create_user(self, username, email,
                     password=None, **kwargs):
         '''creates normal user'''
-        '''robin added calendar support on 21/03/2016'''
         kwargs.setdefault('is_staff', False)
         kwargs.setdefault('is_superuser', False)
 
@@ -23,8 +24,7 @@ class AccountManager(BaseUserManager):
             email = username+'@'+'facebook.com'
 
         account = self.model(email=self.normalize_email(email),
-                             username=username, calendar=calendar
-                             )
+                             username=username)
 
         account.set_password(password)
         account.save()
@@ -81,3 +81,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
+
+
+@receiver(pre_save, sender=Account)
+def assosiate_calendar(sender, instance, **kwargs):
+    '''assosiate one to one calender to the user instance'''
+    print "jhaa2"
+    cal = Calendar.objects.create(name=instance.username,
+                                              slug='default')
+    instance.calendar = cal

@@ -17,10 +17,6 @@ urlpatterns = patterns('',
                        url('^.*$',
                            TemplateView.as_view(template_name="index.html"),
                            name='index'),
-                       url(r'^fullcalendar/', TemplateView.
-                           as_view(template_name='fullcalendar.html'),
-                           name='fullcalendar'),
-                       url(r'^schedule/', include('schedule.urls')),
                        )
 
 if not settings.DEBUG:
