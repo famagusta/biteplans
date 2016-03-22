@@ -10,6 +10,8 @@ class USDAIngredient(models.Model):
 
     id = models.IntegerField(primary_key=True)
     shrt_desc = models.TextField()
+    lng_desc = models.TextField()
+    food_groups = models.CharField(null=True, blank=True, max_length=191)
     water = models.DecimalField(
         null=True, max_digits=11, decimal_places=3
         )
