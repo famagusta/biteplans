@@ -10,7 +10,7 @@ class DietPlan(models.Model):
     ''' model for specifying a general diet plan- name,
         url??, creator, goal, description, duration, age,
         gender, unit system, height, weight'''
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     name = models.CharField(null=True, blank=False, max_length=191)
     creator = models.ForeignKey(Account, on_delete=models.CASCADE)
     goal = models.CharField(max_length=191)
@@ -24,7 +24,7 @@ class DietPlan(models.Model):
 
 class DayPlan(models.Model):
     '''model to store one days diet plan'''
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     diet = models.ForeignKey(DietPlan, on_delete=models.CASCADE)
     week_no = models.IntegerField()
     day_no = models.IntegerField()
@@ -32,13 +32,13 @@ class DayPlan(models.Model):
 
 class MealPlan(models.Model):
     '''model to store one meals plan'''
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     day = models.ForeignKey(DayPlan, on_delete=models.CASCADE)
     name = models.CharField(max_length=191)
 
 
 class MealRecipe(models.Model):
     '''model to connect meals to recipes'''
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
     reciple = models.ForeignKey(Recipe, on_delete=models.CASCADE)

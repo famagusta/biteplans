@@ -73,6 +73,9 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
+
+##Authentication pipeline for social auth to work correctly
+
 SOCIAL_AUTH_PIPELINE = (
     'authentication.social_pipe.auto_logout',
     'social.pipeline.social_auth.social_details',
@@ -87,11 +90,13 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details',
     'authentication.social_pipe.save_avatar',  # custom action
 )
+##JWT Auth settings
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
+##Template middleware
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.template.context_processors.debug',
@@ -105,6 +110,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',  # support for calendars
 )
 
+##Authentication backends for manual+social auth
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'social.backends.facebook.FacebookAppOAuth2',
@@ -113,6 +119,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+##Social auth keys
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
@@ -138,6 +145,7 @@ REGISTRATION_AUTO_LOGIN = True   # If True, users be automatically logged in.
 
 AUTH_USER_MODEL = 'authentication.Account'
 
+##django middleware
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -203,6 +211,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
 
+##Settings to be able to send mail to user
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -229,6 +238,8 @@ LOGGING = {
         },
     }
 }
+
+##Forgot password djoser
 DJOSER = {
     'DOMAIN': 'bitespacetest.com:8000',
     'SITE_NAME': 'biteplans',
