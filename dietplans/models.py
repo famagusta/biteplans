@@ -2,7 +2,7 @@
     diets '''
 from django.db import models
 from authentication.models import Account
-from bitespace_app.models import Recipe
+from recipes.models import Recipe
 
 
 # Create your models here.
