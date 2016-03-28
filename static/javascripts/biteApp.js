@@ -31,7 +31,7 @@ $routeProvider.when('/', {
     controller: 'planController',
     templateUrl: '/static/templates/searchPlan.html'
 }).when('/ingredients', {
-    controller: 'navbarController',
+    controller: 'ingredientsController',
     templateUrl: '/static/templates/searchIngredients.html'
 })
     .when('/dashboard', {

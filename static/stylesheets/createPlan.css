@@ -1,3 +1,4 @@
+/* Step 1 */
 
 form div.container {
     width: 80%;
@@ -55,4 +56,110 @@ form#createPlan input {
 
 #metric-view {
     display: none;
+}
+
+/* Step 2 */
+
+.cont-create {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.vertical-line {
+    border-right: 1px solid #ddd;
+}
+
+ul.food-timing li {
+    display: flex;
+}
+
+.routine {
+    display: inline;
+}
+
+
+i.add-button {
+    height: 10px !important;
+}
+
+hr {
+  color: #ddd;
+  background-color: #ddd;
+  border: none;
+  height: 1px
+}
+
+.down-key {
+    margin-top: 12px;
+}
+
+#create-plan-modal {
+    height: 120% !important;
+    width: 70% !important; 
+}
+.create-modal-half1 {
+    border-right: 1px solid #ddd;
+    height: 390px;
+}
+
+.create-search-box {
+    width: 90% !important;
+}
+
+#searchcard button.filter {
+    margin-left: 20px;
+}
+
+.a {
+    line-height: 0px;
+/*    margin-top: -4px;*/
+    color: #4f4f4f;
+}
+
+.b {
+    margin-top: -4px !important;
+}
+
+#check-label {
+    margin: auto;
+}
+
+.hline {
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.ahead {
+    font-weight: 600;
+}
+
+.servehead {
+    display: flex;
+}
+
+.servetext {
+    display: flex;
+/*    margin-top: -20px;*/
+    position: relative;
+   
+/*    right: 30px;*/
+}
+
+.nutsection {
+    max-height: 250px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.dustbin {
+    margin-right: 29px;
+    margin-top: 17px;
+}
+
+.meal-list {
+    margin-top: -14px;
+}
+
+.dustbin {
+    color: #9a9fa1;
 }

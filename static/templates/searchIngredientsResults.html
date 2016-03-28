@@ -1,7 +1,5 @@
 <!-- FRONT END VIEW OF THE INGREDIENTS SEARCH RESULT -->
-
-<div id="result-list">
-    
+<div id="result-list" class="full-length">  
 <div ng-if="details!=null && details!=undefined && details.length!=0">
     <div class="row">
          <div class="col s12 m6" dir-paginate="detail in details | itemsPerPage: pageSize" current-page="currentPage">
@@ -12,17 +10,6 @@
                         <h5 class="cyan-text center ingredient-title">{{detail.shrt_desc| addSpace}}</h5>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s6 m6">
-                        <input class="with-gap" name="group3" type="radio" id="large" />
-                        <label for="large">Large</label>
-                    </div>
-                    <div class="col s6 m6">
-                        <input class="with-gap" name="group3" type="radio" id="extra-large" />
-                        <label for="extra-large">Extra Large</label>
-                    </div>
-                </div>
-                
                 <div ng-click="openIngredientsModal($index)">
               
                 <div class="row">
@@ -61,8 +48,9 @@
               </div>
           </div>
         </div>
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="static/bower_components/angularUtils-pagination/dirPagination.tpl.html" class="center"></dir-pagination-controls>
     </div>
-                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="static/bower_components/angularUtils-pagination/dirPagination.tpl.html" class="center cyan-text"></dir-pagination-controls>
+               
             
             <!-- MODAL DESCRIPTION FOR EVERY INGREDIENT CARD -->
 
@@ -71,59 +59,79 @@
                 <div class="modal-content">
                   <h4 class="cyan-text ingredient-title">{{details[selected].shrt_desc}}</h4>
                     <br>
-                    <h5 class="center">Macronutrients</h5>
-                  <table class="striped responsive-table centered">
-                    <thead>
-                      <tr>
-                          <th data-field="id">Nutrient</th>
-                          <th data-field="price">Quantity</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <tr>
-                        <td>Carbohydrates</td>
-                        <td>{{details[selected].carbohydrate}}</td>
-                      </tr>
-                      <tr>
-                        <td>Protein</td>
-                        <td>{{details[selected].protein}}</td>
-                      </tr>
-                      <tr>
-                        <td>Fats</td>
-                        <td>{{details[selected].lipid_tot}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                    <br>
-                    <h5 class="center">Micronutrients</h5>
-                     <table class="striped responsive-table centered">
-                    <thead>
-                      <tr>
-                          <th data-field="id">Nutrient</th>
-                          <th data-field="price">Quantity</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <tr>
-                        <td>Sodium</td>
-                        <td>{{details[selected].sodium}}</td>
-                      </tr>
-                      <tr>
-                        <td>Water</td>
-                        <td>{{details[selected].water}}</td>
-                      </tr>
-                      <tr>
-                        <td>Phosphorus</td>
-                        <td>{{details[selected].phosphorus}}</td>
-                      </tr>
-                         <tr>
-                        <td>Iron</td>
-                        <td>{{details[selected].iron}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <div class="row">
+                        <div class="col s12 m12">
+                             <div class="row">
+                                <div class="col s6 m6 center">
+                                    <input class="with-gap center" name="group3" type="radio" id="large" />
+                                    <label for="large">Large</label>
+                                </div>
+                                <div class="col s6 m6 center">
+                                    <input class="with-gap center" name="group3" type="radio" id="extra-large" />
+                                    <label for="extra-large">Extra Large</label>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <h6 class="nutri">Nutritional Information (Large 50gm)</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m6">
+                         <p class="grey-text">Macronutrients</p>
+                            <div class="row">
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">Carbohydrates</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line ">
+                                    <p class="grey-text">{{details[selected].carbohydrate}}</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">Proteins</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">{{details[selected].protein}}</p>
+                                </div>
+                                 <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">Fats</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">{{details[selected].lipid_tot}}</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col s12 m6">
+                         <p class="grey-text">Micronutrients</p>
+                            <div class="row">
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">Sodium</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line ">
+                                    <p class="grey-text">{{details[selected].sodium}}</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">Water</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">{{details[selected].water}}</p>
+                                </div>
+                                 <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">Phosphorus</p>
+                                </div>
+                                <div class="col s6 m6 nutrient-table-line">
+                                    <p class="grey-text">{{details[selected].phosphorus}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="center-btn">
+                        <a class="waves-effect waves-light btn largebtn center">Add to My Ingredients</a>  
+                    </div>
+                </div>
+                    </div>
+                   
                     </div>
                 <div class="modal-footer">
                 </div>

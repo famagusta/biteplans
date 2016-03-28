@@ -3,7 +3,7 @@
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
         <a ng-class='{"inactive":toggle==0}' ng-click='toggle=0' id="logo-container" href="/" class="brand-logo">
-            <img class="responsive-img small" src="static/images/bigLogo.png">
+            <img class="responsive-img small" src="static/images/Logo-new.png">
         </a>
         
         <ul class="right hide-on-med-and-down">
@@ -20,7 +20,10 @@
                  <a href="#">Articles</a>
             </li> 
             <!--function to open modal openModal()-->
-            <li><a href="#modal1" ng-click="openModal()">Log in</a></li>
+            <li>
+                <a href="#modal1" ng-click="openModal()" ng-if="!isLoggedIn">Log in</a>
+                <a ng-click="logout()" ng-if="isLoggedIn" class="cyan-text">Log out</a>
+            </li>
         </ul>
         
         <!-- MOBILE VIEW NAVIGATION -->
@@ -31,7 +34,10 @@
             <li><a href="/recipes" class="cyan-text">Recipes</a></li>
             <li><a href="#" class="cyan-text">Articles</a></li>
             <!--function to open modal openModal()-->
-            <li><a ng-click="openModal()" href="#modal1" class="cyan-text">Log in</a></li> 
+            <li>
+                <a href="#modal1" ng-click="openModal()" ng-if="!isLoggedIn" class="cyan-text">Log in</a>
+                <a ng-click="logout()" ng-if="isLoggedIn" class="cyan-text">Log out</a>
+            </li> 
           </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse" id="loginModal">
             <i class="material-icons">menu</i>
@@ -249,8 +255,8 @@
 
  // Initialize collapse button
   $(".button-collapse").sideNav({
-       menuWidth: 200, // Default is 240
-      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+       menuWidth: 200, 
+      closeOnClick: true 
   });
   // Initialize collapsible (uncomment the line below if you use the dropdown variation)
   $('.collapsible').collapsible();
