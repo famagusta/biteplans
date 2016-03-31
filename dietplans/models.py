@@ -4,7 +4,7 @@ from django.db import models
 from authentication.models import Account
 from recipes.models import Recipe
 from imported_recipes.models import ImportedRecipe
-
+from ingredients.models import USDAIngredient, USDAIngredientCommonMeasures
 
 # Create your models here.
 class DietPlan(models.Model):
@@ -43,7 +43,9 @@ class DayPlan(models.Model):
 
     def __unicode__(self):
         '''string repr of the object'''
-        return self.name
+        return_string = "Day {0}, Week {1} for Plan {2}"
+        return return_string.format(self.day_no, self.week_no, self.diet)
+
 
     class Meta:
         '''name db table'''
@@ -55,10 +57,12 @@ class MealPlan(models.Model):
     day = models.ForeignKey(DayPlan, on_delete=models.CASCADE,
                             related_name="mealplan")
     name = models.CharField(max_length=191)
+    time = models.TimeField()
 
     def __unicode__(self):
         '''string repr of the object'''
-        return self.name
+        return_name = "meal {0} for {1}"
+        return return_name.format(self.name, self.day)
 
     class Meta:
         '''name db table'''
@@ -70,12 +74,32 @@ class MealRecipe(models.Model):
     id = models.AutoField(primary_key=True)
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE,
                                   related_name="mealrecipe")
-    reciple = models.ForeignKey(ImportedRecipe, on_delete=models.CASCADE,
+    reciple = models.ForeignKey(Recipe, on_delete=models.CASCADE,
                                 related_name="recipe")
+
     def __unicode__(self):
         '''string repr of the object'''
-        return 'Meal Recipe for %s mealplan' %self.id
+        return 'Meal Recipe for %s' %self.meal_plan
 
     class Meta:
         '''name db table'''
         db_table = 'dietplans_mealrecipe'
+
+class MealIngredient(models.Model):
+    '''model to connect meals to recipes'''
+    id = models.AutoField(primary_key=True)
+    meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE,
+                                  related_name="mealingredient")
+    ingredient = models.ForeignKey(USDAIngredient, on_delete=models.CASCADE,
+                                related_name="meal_ingredient")
+    quantity = models.IntegerField(default=0)
+    unit = models.ForeignKey(USDAIngredientCommonMeasures,
+                             on_delete=models.CASCADE,
+                             related_name="meal_ing_qty")
+    def __unicode__(self):
+        '''string repr of the object'''
+        return 'Meal Ingredient for %s' %self.meal_plan
+
+    class Meta:
+        '''name db table'''
+        db_table = 'dietplans_mealingredient'
