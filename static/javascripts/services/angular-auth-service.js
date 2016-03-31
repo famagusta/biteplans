@@ -125,29 +125,13 @@ return deferred.promise;};
 //});
 //return deferred.promise;};
 //
-///* function to logout for normally signed in user */
-//var logout = function(){
-//	$auth.removeToken();
-//  userOb.set_user();
-//
-//};
-//
-//var search_recipe = function(quer) {
-//    var url = constants['API_SERVER'] + 'bitespace/recipe_search';
-//    var deferred = $q.defer();
-//    httpService.httpPost(url, {
-//                     'query':quer,
-//                 }).then(
-//  function(response) {
-//    deferred.resolve(response);
-//
-//},
-//function(response) {
-//    deferred.reject(response.data.error);
-//    console.log(response);
-//
-//});
-//return deferred.promise;};
+/* function to logout for normally signed in user */
+var logout = function(){
+	$auth.removeToken();
+ userOb.set_user();
+
+};
+
 
 /*User resource for sharing between different controllers */
 var userOb = {};

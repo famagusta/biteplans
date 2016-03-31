@@ -65,9 +65,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     $scope.nutrientValue = [];
     
     $scope.nutrientDisplay = [];
-    
-    console.log($scope.nutrientDisplay);
-    
+        
     $scope.emptyModalContents = function () {
         if ($scope.mealName == 'Breakfast') {
             $scope.breakfastDisplay = $scope.nutrientValue.slice(0);

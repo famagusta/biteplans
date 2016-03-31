@@ -3,6 +3,7 @@ from recipes.models import Recipe, RecipeIngredients
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework import permissions
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework import permissions, viewsets, generics, status
 from authentication.permissions import IsPlanOwner
@@ -19,7 +20,14 @@ class DietPlanViewset(viewsets.ModelViewSet):
 	'''view to return JSON for crud related to DietPlans'''
 	serializer_class = DietPlanSerializer
 	queryset = DietPlan.objects.all()
-	permission_classes = (IsAuthenticatedOrReadOnly, IsPlanOwner, )
+
+	def get_permissions(self):
+		'''return allowed permissions'''
+		if self.request.method in permissions.SAFE_METHODS:
+			return (permissions.AllowAny(),)
+		if self.request.method == 'POST':
+			return (permissions.IsAuthenticated(), permissions.IsPlanOwner())
+		return (permissions.IsPlanOwner(),)
 
 	def create(self, request):
 		'''Creates the model instance dietplans'''
@@ -27,7 +35,7 @@ class DietPlanViewset(viewsets.ModelViewSet):
 		if serializer.is_valid():
 			obj = DietPlan.objects.create(creator=request.user,
 			                              **serializer.validated_data)
-			obj.createdby = request.user
+			obj.creator = request.user
 			obj.save()
 			obj = serializers.serialize('json', [obj, ])
 			return Response(obj)
