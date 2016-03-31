@@ -14,9 +14,6 @@ class AccountManager(BaseUserManager):
     def create_user(self, username, email,
                     password=None, **kwargs):
         '''creates normal user'''
-        kwargs.setdefault('is_staff', False)
-        kwargs.setdefault('is_superuser', False)
-
         if not username:
             raise ValueError('Users must have a valid username.')
 
@@ -86,7 +83,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
 @receiver(pre_save, sender=Account)
 def assosiate_calendar(sender, instance, **kwargs):
     '''assosiate one to one calender to the user instance'''
-    print "jhaa2"
     cal = Calendar.objects.create(name=instance.username,
                                               slug='default')
     instance.calendar = cal

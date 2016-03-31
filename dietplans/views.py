@@ -1,5 +1,5 @@
 '''api views for our bitespace_app'''
-from bitespace_app.models import Recipe, RecipeIngredients, IngredientQuantity
+from recipes.models import Recipe, RecipeIngredients
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly

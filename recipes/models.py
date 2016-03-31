@@ -20,7 +20,8 @@ class Recipe(models.Model):
     cook_time = models.DateTimeField(null=True, blank=True)
     servings = models.IntegerField()
     # TODO: Handle case of saving recipe when user is deleted
-    created_by = models.ForeignKey(Account, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Account, on_delete=models.CASCADE,
+                                   related_name="created_recipe")
     date_published = models.DateField()
     image = models.URLField(null=True, max_length=400)
 
@@ -32,14 +33,21 @@ class RecipeIngredients(models.Model):
     '''Model to match the one to many relationshsip
        between recipe & ingredients. One recipe will
        have multiple ingredients'''
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
+                               related_name="recipeIngredients")
 
     # TODO: potential limitation here - redo the models for ingredients to make
     # it more general
-    ingredient = models.ForeignKey(USDAIngredient, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(USDAIngredient, on_delete=models.CASCADE,
+                                   related_name="ingredient_of_recipe")
     # units & quantity must not be empty ever
     # units could be a model of its own to make things standardized across apps
-    measure = models.ForeignKey(USDAIngredientCommonMeasures)
+    measure = models.ForeignKey(USDAIngredientCommonMeasures,
+                                related_name="measure_of_recipeingredient")
     quantity = models.IntegerField()
     # modifiers - optional description for the ingredients
     modifiers = models.CharField(null=True, blank=True, max_length=191)
+
+    def __unicode__(self):
+      return self.modifiers
+
