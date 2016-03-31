@@ -21,17 +21,16 @@ nav {
 }
 
 
-#landingMenu li {
-    font-size: 25px;
+#index-banner ul.pagination li a {
+    font-size: 27px;
     text-transform: uppercase;
     color: #000;
-    margin-top: -71px !important;
 }
 
 .big-logo {
     text-align: center !important;
     padding: 0 !important;
-    margin-top: -20px !important;
+    margin: 0 !important;
 }
 
 
@@ -40,10 +39,9 @@ h3 {
     font-size: 30px;
 }
 
-h4.tagline {
+h4 {
     color: #212121;
     font-size: 25px;
-    margin-top: -20px !important;
 }
 
 .text-danger {

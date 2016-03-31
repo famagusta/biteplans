@@ -3,7 +3,7 @@
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
         <a ng-class='{"inactive":toggle==0}' ng-click='toggle=0' id="logo-container" href="/" class="brand-logo">
-            <img class="responsive-img small" src="static/images/logo.png">
+            <img class="responsive-img small" src="static/images/Logo-new.png">
         </a>
         
         <ul class="right hide-on-med-and-down">
@@ -14,24 +14,30 @@
                 <a href="/ingredients">Ingredients</a>
             </li> 
             <li ng-class='{"active":toggle==3}' ng-click='toggle=3'>
-                <a href="#">Recipes</a>
+                <a href="/recipes">Recipes</a>
             </li> 
              <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
                  <a href="#">Articles</a>
             </li> 
             <!--function to open modal openModal()-->
-            <li><a href="#modal1" ng-click="openModal()">Log in</a></li>
+            <li>
+                <a href="#modal1" ng-click="openModal()" ng-if="!isLoggedIn">Log in</a>
+                <a ng-click="logout()" ng-if="isLoggedIn" class="cyan-text">Log out</a>
+            </li>
         </ul>
         
         <!-- MOBILE VIEW NAVIGATION -->
         <!--Mobile View-->
         <ul id="nav-mobile" class="side-nav">
-            <li><a href="#/plans">Plans</a></li>
-            <li><a href="#">Ingredients</a></li>
-            <li><a href="#">Recipes</a></li>
-            <li><a href="#">Articles</a></li>
+            <li><a href="/plans" class="cyan-text">Plans</a></li>
+            <li><a href="/ingredients" class="cyan-text">Ingredients</a></li>
+            <li><a href="/recipes" class="cyan-text">Recipes</a></li>
+            <li><a href="#" class="cyan-text">Articles</a></li>
             <!--function to open modal openModal()-->
-            <li><a ng-click="openModal()" href="#modal1">Log in</a></li> 
+            <li>
+                <a href="#modal1" ng-click="openModal()" ng-if="!isLoggedIn" class="cyan-text">Log in</a>
+                <a ng-click="logout()" ng-if="isLoggedIn" class="cyan-text">Log out</a>
+            </li> 
           </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse" id="loginModal">
             <i class="material-icons">menu</i>
@@ -40,7 +46,7 @@
 </nav>
 <!-- LOGIN & SIGNUP MODAL -->
 
-<div id="modal1" class="modal">
+<div id="modal1" class="modal col s12 m6">
     <a class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a> 
     <div class="modal-content">
             <div ng-if='modal1 && !modal2 && !modal3 && !modal4'>
@@ -81,9 +87,9 @@
                     <button type="submit" class="btn btn-default">Login</button>
                 </div>
                 <br>
-                <a href="#" ng-click="switchToModal(4)" class="teal-text">Forgot your password or username?</a>
+                <a href="#" ng-click="switchToModal(4)" class="cyan-text">Forgot your password or username?</a>
             </form>
-          <p class="teal-text">Don't have an account? <a ng-click="switchToModal(2)">Sign Up Now</a></p>
+          <p class="cyan-text">Don't have an account? <a ng-click="switchToModal(2)" class="cyan-text">Sign Up Now</a></p>
 
         </div>   <!-- END OF LOGIN CONTENT -->
 
@@ -244,3 +250,14 @@
     </div>
  </div>
 </div>
+
+<script>
+
+ // Initialize collapse button
+  $(".button-collapse").sideNav({
+       menuWidth: 200, 
+      closeOnClick: true 
+  });
+  // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+  $('.collapsible').collapsible();
+</script>

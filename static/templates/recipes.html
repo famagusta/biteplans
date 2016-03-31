@@ -1,4 +1,4 @@
-<div class="section" id="planPage">
+<div class="section full-length" id="planPage">
          <div class="row">
              <div class="col s12 m3 hide-on-small-only" id="checklist">
                  <div class="card white">
@@ -46,22 +46,22 @@
                      <div class="card white" id="searchcard"> <!-- SEARCH-BOX -->
                          <div class="card-content black-text">
                              <form>
-                             <textarea id="searchbox" placeholder="Search people & places" ng-model="query" class="form-control"></textarea>
-                             <button class="fa fa-search search-ingredient" href="#" ng-click="search()" type="submit"></button>
+                             <textarea id="searchbox" placeholder="Search people & places"  ng-model="query_recipe" class="form-control"></textarea>
+                             <button class="fa fa-search search-ingredient" href="#" ng-click="search_recipe()" type="submit"></button>
                              </form>
                         </div> <!-- END OF SEARCH-BOX -->
                      </div>
                  </div>
              </div>
-             
              <div class="row" >
                  <div class="col s12 m12">
-                     <div ng-include="'static/templates/searchIngredientsResults.html'"></div>
+                     <div ng-include="'static/templates/recipeSearch.html'"></div>
                  </div>
-             </div>            
              </div>
-            </div>
-                <div class="row">
+            
+             </div>
+            </div> 
+              <div class="row">
                   <div class="col s12">
                     <div class="section-button center">
                        <a href="/create" class="waves-effect waves-light btn largebtn">CREATE A PLAN</a>
@@ -69,7 +69,7 @@
                   </div>
                 </div>
         </div>
-   
+
 <script>
 $(document).ready(function() {
     $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
@@ -81,6 +81,5 @@ $(document).ready(function() {
         }
     });
 });
-
-
 </script>
+   

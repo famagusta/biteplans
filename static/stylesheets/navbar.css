@@ -2,7 +2,7 @@
 
 
 nav {
-    background-color: transparent;
+    background-color: #fdfdfb;
     box-shadow: none;
 }
 
@@ -18,7 +18,8 @@ nav ul li.active a {
 
 nav img {
     margin-left: 50px;
-    height: 60px !important;
+    height: 40px !important;
+    margin-top: 9px;
 }
 
 nav ul {
@@ -33,20 +34,37 @@ nav ul li {
 /* STYLING IN MOBILE VIEW NAVIGATION */
 
 .button-collapse {
-  color: #26a69a;
+  color: #00bcd4;
+  left: 20px;
 }
 
+#nav-mobile li {
+    border-bottom: 1px solid #eeeeee;
+}
 
 /* LOGIN AND SIGNUP MODAL */
 
 
 #modal1 { 
-    max-height: 90%; 
-    max-width: 35%;
+    max-height: 85%;
+    max-width: 85%;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     margin: auto;
 }
+
+
+
+@media only screen and (max-width : 400px) {
+    #modal1 {
+        max-height: 85% !important;
+        max-width: 65% !important;
+    }
+    
+    #modal1 h5 {
+        left: 70px !important;
+    }
+} 
 

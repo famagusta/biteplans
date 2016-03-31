@@ -21,21 +21,3 @@ button.search-ingredient {
 #checklist .card {
    margin-left: 10% !important;
 }
-
-@media only screen and (max-width : 768px) {
-    #planPage {
-        min-height: 640px;
-        bottom: -70%;
-    }
-    .smallmid {
-       margin:auto !important;
-        width: 100% !important;
-        min-height: 440px !important;
-    }
-}
-
-@media only screen and (min-width : 600px) {
-    #planPage {
-        max-width: 100%;
-    }
-}
