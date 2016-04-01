@@ -10,7 +10,7 @@ from authentication.permissions import IsPlanOwner
 from rest_framework.decorators import api_view, permission_classes
 from django.core import serializers
 import hashlib, datetime, random
-from dietplans.models import DietPlan
+from dietplans.models import DietPlan, DayPlan
 from dietplans.serializers import DietPlanSerializer
 from rest_framework import status
 
@@ -52,3 +52,7 @@ class DietPlanViewset(viewsets.ModelViewSet):
 			return Response(obj)
 		else:
 			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class DayPlanViewSet(viewsets.ModelViewSet):
+

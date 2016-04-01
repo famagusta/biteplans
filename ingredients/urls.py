@@ -6,7 +6,7 @@ from ingredients import views
 from dietplans import views as vu
 
 router = routers.SimpleRouter()
-router.register(r'dietPlans',
+router.register(r'dietplans',
                 vu.DietPlanViewset)
 
 urlpatterns = patterns('',
