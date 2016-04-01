@@ -17,21 +17,22 @@ nav {
     background: url('../images/banner.jpg') no-repeat 50% 100%;
     padding: 20px;
     background-size: cover;
-    padding-bottom: 50px;
+    padding-bottom: 165px;
 }
 
 
 #landingMenu li {
-    font-size: 25px;
+    font-size: 22px;
     text-transform: uppercase;
     color: #000;
-    margin-top: -71px !important;
+    padding: 16px;
+    bottom: 70px;
 }
 
 .big-logo {
     text-align: center !important;
-    padding: 0 !important;
-    margin-top: -20px !important;
+    padding: 12px !important;
+    margin-top: -40px !important;
 }
 
 
@@ -41,9 +42,10 @@ h3 {
 }
 
 h4.tagline {
-    color: #212121;
+    color: #4f4f4f;
     font-size: 25px;
-    margin-top: -20px !important;
+    margin-top: -100px !important;
+    
 }
 
 .text-danger {

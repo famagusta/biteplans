@@ -127,21 +127,53 @@
           <div class="card white">
               <div class="container cont-create">
                 <div class="card-content black-text">
-                    <div class="row">
+                    <div class="row c">
                          <div class="col s12 m12">
                            <hr>
                              <div class="row">
-                                 <div class="col m3 vertical-line">
-                                    <p class="center">Your food plan for</p>
+                                 <div class="col m3 vertical-line nutri">
+                                     <div class="row">
+                                         <div class="col m12">
+                                            <p class="center down">Your food plan for</p>
+                                         </div>
+                                     </div>
                                  </div>
-                                 <div class="col m2 vertical-line">
-                                   <p class="center">Week 1</p>
+                                 <div class="col m2 vertical-line down nutri">
+                                    <div class="row">
+                                         <div class="col m3">
+                                             <a href="#" ng-click="dayCount=dayCount-1"><i class="material-icons down">navigate_before</i></a>
+                                         </div>
+                                         <div class="col m6">
+                                            <p class="center down">Day{{dayCount}}</p>
+                                         </div>
+                                         <div class="col m3">
+                                             <a href="#" ng-click="dayCount=dayCount+1"><i class="material-icons down">navigate_next</i></a>
+                                         </div>
+                                     </div>
                                  </div>
-                                 <div class="col m2 vertical-line">
-                                     <p class="center">Day 1</p>
+                                 <div class="col m2 vertical-line down nutri">
+                                     <div class="row">
+                                         <div class="col m3">
+                                             <a href="#" ng-click="weekCount=weekCount-1"><i class="material-icons down">navigate_before</i></a>
+                                         </div>
+                                         <div class="col m6">
+                                            <p class="center down">Week{{weekCount}}</p>
+                                         </div>
+                                         <div class="col m3">
+                                             <a href="#" ng-click="weekCount=weekCount+1"><i class="material-icons down">navigate_next</i></a>
+                                         </div>
+                                     </div>
+                                     
                                  </div>
-                                 <div class="col m5">
-                                     <i class="material-icons">data_range</i>
+                                 <div class="col m5 nutri">
+                                     <div class="row">
+                                         <div class="col m6">
+                                            <p class="down">Copy to</p>
+                                         </div>
+                                         <div class="col m6">
+                                            <i class="material-icons down nutri">date_range</i>
+                                         </div>
+                                     </div>
                                  </div>
                              </div>
                             <hr>
@@ -149,63 +181,104 @@
                     </div>
                   <div class="row">
                       <div class="col m12">
-                          <div class="col m3">
+                          <div class="col m4">
+                              <a class="btn-floating btn-small waves-effect waves-light red" ng-click="clearMeal()"><i class="material-icons add-button routine">remove</i></a>
                              <a class="btn-floating btn-small waves-effect waves-light cyan modal-trigger" ng-click="openCreatePlanModal(1)"><i class="material-icons add-button routine">add</i></a>
-                              <h6 class="nutri routine">&nbsp;&nbsp;Breakfast</h6>
+                              <h6 class="nutri routine">&nbsp;&nbsp;{{addMealName.meal1}}</h6>
+                          </div>
+                          <div class="col s1">
+                              <a class="modal-trigger" ng-click="openTimeModal()"><i class="material-icons">query_builder</i></a>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Amt.</p>
+                          </div>
+                           <div class="col s1 center">
+                            <p class="meal-text">Carbs</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Proteins</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fats</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fiber</p>
                           </div>
                           <br><br>
-                          <div class="col m12" ng-repeat="item1 in breakfastDisplay" ng-if="mealName=='Breakfast'">
-                              <div class="cont-create col m7">
-                                <p class="ingredient-title">{{item1.shrt_desc}}</p>
+                          <div class="col m12" ng-repeat="item1 in breakfastDisplay" ng-if="breakfastDisplay.length!=0">
+                              <div class="col m5">
+                                <p class="meal-text">{{item1.shrt_desc}}</p>
+                              </div>
+                               <div class="col m1">
+                                <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item1.carbohydrate}}</p>
+                                <p class="meal-text">{{item1.carbohydrate * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item1.protein}}</p>
+                                <p class="meal-text">{{item1.protein * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item1.lipid_tot}}</p>
+                                <p class="meal-text">{{item1.lipid_tot * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item1.fiber_td}}</p>
+                                <p class="meal-text">{{item1.fiber_td * amount | number}}</p>
                               </div>
-                              <div class="col m1">
-                                <a href="#" ng-click="removeIngredient(item)">
-                                    <i ng-if="nutrientValue.length>0" class="material-icons dustbin">delete</i>
-                                </a>
+                              <div class="col m1 center">
+                                  <a ng-click="removeSavedIngredient(1)"><i class="material-icons b" >delete</i></a>
                               </div>
                           </div>
+
                       </div>
                   </div>
                       <hr>
                   <div class="row">
                       <div class="col m12">
-                          <div class="col s3">
+                          <div class="col s4">
+                               <a class="btn-floating btn-small waves-effect waves-light red" ng-click="clearMeal()"><i class="material-icons add-button routine">remove</i></a>
                              <a class="btn-floating btn-small waves-effect waves-light cyan"  ng-click="openCreatePlanModal(2)"><i class="material-icons add-button routine">add</i></a>
-                              <h6 class="nutri routine">&nbsp;&nbsp;Lunch</h6>
+                              <h6 class="nutri routine">&nbsp;&nbsp;{{addMealName.meal2}}</h6>
+                          </div>
+                          <div class="col s1">
+                                  <a class="modal-trigger" ng-click="openTimeModal()"><i class="material-icons">query_builder</i></a>
+                          </div>
+                           <div class="col s1 center">
+                            <p class="meal-text">Amt.</p>
+                          </div>
+                           <div class="col s1 center">
+                            <p class="meal-text">Carbs</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Proteins</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fats</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fiber</p>
                           </div>
                           <br><br>
-                           <div class="col m12" ng-repeat="item2 in lunchDisplay" ng-if="mealName=='Lunch'">
-                              <div class="cont-create col m7">
-                                <p class="ingredient-title">{{item2.shrt_desc}}</p>
+                           <div class="col m12" ng-repeat="item2 in lunchDisplay" ng-if="lunchDisplay.length!=0">
+                              <div class="col m5">
+                                <p class="meal-text">{{item2.shrt_desc}}</p>
+                              </div>
+                               <div class="col m1">
+                                <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item2.carbohydrate}}</p>
+                                <p class="meal-text">{{item2.carbohydrate * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item2.protein}}</p>
+                                <p class="meal-text">{{item2.protein * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item2.lipid_tot}}</p>
+                                <p class="meal-text">{{item2.lipid_tot * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item2.fiber_td}}</p>
+                                <p class="meal-text">{{item2.fiber_td * amount | number}}</p>
                               </div>
-                              <div class="col m1">
-                                <a href="#" ng-click="removeIngredient(item)">
-                                    <i ng-if="nutrientValue.length>0" class="material-icons dustbin b">delete</i>
-                                </a>
+                              <div class="col m1 center">
+                                  <a ng-click="removeSavedIngredient(2)"><i class="material-icons b" >delete</i></a>
                               </div>
                           </div>
                       </div>
@@ -213,31 +286,51 @@
                       <hr>
                   <div class="row">
                       <div class="col m12">
-                          <div class="col s3">
+                          <div class="col s4">
+                               <a class="btn-floating btn-small waves-effect waves-light red" ng-click="clearMeal()"><i class="material-icons add-button routine">remove</i></a>
                              <a class="btn-floating btn-small waves-effect waves-light cyan" ng-click="openCreatePlanModal(3)"><i class="material-icons add-button routine">add</i></a>
-                              <h6 class="nutri routine">&nbsp;&nbsp;Dinner</h6>
+                              <h6 class="nutri routine">&nbsp;&nbsp;{{addMealName.meal3}}</h6>
+                          </div>
+                          <div class="col s1">
+                                  <a class="modal-trigger" ng-click="openTimeModal()"><i class="material-icons">query_builder</i></a>
+                          </div>
+                           <div class="col s1 center">
+                            <p class="meal-text">Amt.</p>
+                          </div>
+                           <div class="col s1 center">
+                            <p class="meal-text">Carbs</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Proteins</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fats</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fiber</p>
                           </div>
                           <br><br>
-                          <div class="col m12" ng-repeat="item3 in dinnerDisplay" ng-if="mealName=='Dinner'">
-                              <div class="cont-create col m7">
-                                <p class="ingredient-title">{{item3.shrt_desc}}</p>
+                          <div class="col m12" ng-repeat="item3 in dinnerDisplay" ng-if="dinnerDisplay.length!=0">
+                              <div class="col m5">
+                                <p class="meal-text">{{item3.shrt_desc}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item3.carbohydrate}}</p>
+                                <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item3.protein}}</p>
+                                <p class="meal-text">{{item3.carbohydrate * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item3.lipid_tot}}</p>
+                                <p class="meal-text">{{item3.protein * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item3.fiber_td}}</p>
+                                <p class="meal-text">{{item3.lipid_tot * amount | number}}</p>
                               </div>
                               <div class="col m1">
-                                <a href="#" ng-click="removeIngredient(item)">
-                                    <i ng-if="nutrientValue.length>0" class="material-icons dustbin b">delete</i>
-                                </a>
+                                <p class="meal-text">{{item3.fiber_td * amount | number}}</p>
+                              </div>
+                              <div class="col m1 center">
+                                  <a ng-click="removeSavedIngredient(3)"><i class="material-icons b" >delete</i></a>
                               </div>
                           </div>
                       </div>
@@ -245,31 +338,51 @@
                       <hr>
                   <div class="row">
                       <div class="col m12">
-                          <div class="col s3">
+                          <div class="col s4">
+                               <a class="btn-floating btn-small waves-effect waves-light red" ng-click="clearMeal()"><i class="material-icons add-button routine">remove</i></a>
                              <a class="btn-floating btn-small waves-effect waves-light cyan" ng-click="openCreatePlanModal(4)"><i class="material-icons add-button routine">add</i></a>
-                              <h6 class="nutri routine">&nbsp;&nbsp;Snacks</h6>
+                              <h6 class="nutri routine">&nbsp;&nbsp;{{addMealName.meal4}}</h6>
+                          </div>
+                          <div class="col s1">
+                              <a class="modal-trigger" ng-click="openTimeModal()"><i class="material-icons">query_builder</i></a>
+                          </div>
+                           <div class="col s1 center">
+                            <p class="meal-text">Amt.</p>
+                          </div>
+                           <div class="col s1 center">
+                            <p class="meal-text">Carbs</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Proteins</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fats</p>
+                          </div>
+                          <div class="col s1 center">
+                            <p class="meal-text">Fiber</p>
                           </div>
                           <br><br>
-                          <div class="col m12" ng-repeat="item4 in snacksDisplay" ng-if="mealName=='Snacks'">
-                              <div class="cont-create col m7">
-                                <p class="ingredient-title">{{item4.shrt_desc}}</p>
+                          <div class="col m12" ng-repeat="item4 in snacksDisplay" ng-if="snacksDisplay.length!=0">
+                              <div class="col m5">
+                                <p class="meal-text">{{item4.shrt_desc}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item4.carbohydrate}}</p>
+                                <input type="number" id="serving" min="0" value="1"></p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item4.protein}}</p>
+                                <p class="meal-text">{{item4.carbohydrate}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item4.lipid_tot}}</p>
+                                <p class="meal-text">{{item4.protein}}</p>
                               </div>
                               <div class="col m1">
-                                <p class="ingredient-title">{{item4.fiber_td}}</p>
+                                <p class="meal-text">{{item4.lipid_tot}}</p>
                               </div>
                               <div class="col m1">
-                                <a href="#" ng-click="removeIngredient(item)">
-                                    <i ng-if="nutrientValue.length>0" class="material-icons dustbin b">delete</i>
-                                </a>
+                                <p class="meal-text">{{item4.fiber_td}}</p>
+                              </div>
+                               <div class="col m1 center">
+                                  <a ng-click="removeSavedIngredient(4)"><i class="material-icons b" >delete</i></a>
                               </div>
                           </div>
                       </div>
@@ -278,7 +391,8 @@
                   <div class="row">
                       <div class="col m12">
                           <div class="col s3">
-                             <a class="btn-floating btn-small waves-effect waves-light cyan"><i class="material-icons add-button routine">add</i></a>
+                             <a class="btn-floating btn-small waves-effect waves-light red" ng-click="clearMeal()"><i class="material-icons add-button routine">remove</i></a>
+                             <a class="btn-floating btn-small waves-effect waves-light cyan" id="add-meal-button"><i class="material-icons add-button routine">add</i></a>
                               <h6 class="nutri routine">&nbsp;&nbsp;Add Meal</h6>
                           </div>
                       </div>
@@ -321,7 +435,7 @@
                                 <div ng-repeat="detail in details | limitTo:7 track by $index">
                                      <p>
                                         <input type="checkbox" class="filled-in" id="filled-in-box{{$index}}"  checklist-model="nutrientValue" checklist-value="detail"/>
-                                        <label for="filled-in-box{{$index}}" id="check-label" class="ingredient-title black-text">{{detail.shrt_desc}} </label>
+                                        <label for="filled-in-box{{$index}}" id="check-label" class="ing-text">{{detail.shrt_desc}} </label>
                                     </p>
                                 </div>
                             </div>
@@ -329,11 +443,11 @@
                         <div class="nutsection" ng-if="nutrientValue.length>0">
 
                              <div class="row hline" >
-                                <div class="col m4">
+                                <div class="col m3">
                                     <p class="a ahead servehead">Serving:</p>
                                 </div>
-                                <div class="col m3">
-                                     <input type="text" class="servetext" ng-model="ingQuantity"/>
+                                <div class="col m2">
+                                     <input type="text" id="serving" value="1" ng-model="ingQuantity"/>
                                 </div>
                                  <div class="col m3">
                                    <p class="a ahead">Amt</p>
@@ -405,7 +519,7 @@
 
                          <div class="row" ng-repeat="item in nutrientValue" >
                                 <div class="col m6 meal-list">
-                                    <p ng-if="nutrientValue.length>0" class="ingredient-title meal-list">{{item.shrt_desc}}</p>
+                                    <p ng-if="nutrientValue.length>0" class="ing-text meal-list">{{item.shrt_desc}}</p>
                                 </div>
                                 <div class="col m6 meal-list">
                                     <a href="#" ng-click="removeIngredient(item)"><i ng-if="nutrientValue.length>0" class="material-icons meal-list right dustbin">delete</i></a>
@@ -416,7 +530,7 @@
             </div>
                 <div class="row">
                     <div class="col m12 center">
-                        <a ng-click="emptyModalContents()" class="waves-effect waves-light btn btn-social">Add</a>
+                        <a ng-click="addContents()" class="waves-effect waves-light btn btn-social">Add</a>
                         <a ng-click="saveAndContinue()" class="waves-effect waves-light btn btn-social largebtn">Save and Continue</a>
                     </div>
                 </div>
@@ -431,11 +545,9 @@
 </section>
 
 
-
-
 <script>
 $(document).ready(function() {
-    $('select').material_select();
+  $('select').material_select('update');
 
     $('#imperial').click(function() {
         $('#imperial-view').show();
@@ -450,13 +562,17 @@ $(document).ready(function() {
       accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
     });
 
-    $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
+     $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
         if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
             $('button[type=submit].search-ingredient').click();
             return false;
         } else {
             return true;
         }
+    });
+    
+    $('#add-meal-button').click(function() {
+        $('#add-meal').hide();
     });
 });
 </script>

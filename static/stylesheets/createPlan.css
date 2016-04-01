@@ -117,7 +117,7 @@ hr {
 }
 
 .b {
-    margin-top: -4px !important;
+    margin-top: -3px !important;
 }
 
 #check-label {
@@ -162,4 +162,61 @@ hr {
 
 .dustbin {
     color: #9a9fa1;
+}
+
+.meal-text {
+    color: #9e9e9e !important;
+    text-transform: lowercase;
+}
+
+.meal-text::first-letter {
+    text-transform: uppercase;
+}
+
+.btn-floating {
+    height: 21px;
+    width: 21px;
+    line-height: 20px !important;
+}
+
+.btn-floating i {
+    font-size: 18px;
+    line-height: 24px !important;
+}
+
+.down {
+  padding-top: 20px;
+    margin-top: 0 !important;
+    
+}
+
+.c {
+    height: 50% !important;
+}
+
+.time-date {
+    font-size: 14px !important;
+   
+}
+
+#serving {
+    height: 1rem !important;
+    text-align: center;
+    color: #9e9e9e;
+}
+
+.ing-text {
+    color: #4f4f4f !important;
+    text-transform: lowercase;
+    font-weight: 600;
+}
+
+.ing-text::first-letter {
+    text-transform: uppercase;
+}
+
+
+.time-date > .control > .slider > .time-control > .time-inputs > input {
+    font-size: 2.1rem !important;
+
 }
