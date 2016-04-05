@@ -1,6 +1,6 @@
 from django.db import models
-from ingredients.models import USDAIngredient,\
-    IndianIngredient, USDAIngredientCommonMeasures
+from ingredients.models import Ingredient,\
+    IngredientCommonMeasures
 from authentication.models import Account
 # Create your models here.
 
@@ -36,10 +36,10 @@ class RecipeIngredients(models.Model):
 
     # TODO: potential limitation here - redo the models for ingredients to make
     # it more general
-    ingredient = models.ForeignKey(USDAIngredient, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     # units & quantity must not be empty ever
     # units could be a model of its own to make things standardized across apps
-    measure = models.ForeignKey(USDAIngredientCommonMeasures)
+    measure = models.ForeignKey(IngredientCommonMeasures)
     quantity = models.IntegerField()
     # modifiers - optional description for the ingredients
     modifiers = models.CharField(null=True, blank=True, max_length=191)

@@ -8,233 +8,471 @@ import codecs
 # you need this line to tell python that we are in django
 # project bitespace
 os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                      "bitespace_project_config.settings")
+                      "biteplans_project_config.settings")
 
 import tablib
 from import_export import resources
 import csv
 from decimal import *
-from bitespace_app.models import USDAIngredient, USDAIngredientCommonMeasures
+from ingredients.models import Ingredient, IngredientCommonMeasures, AddtnlIngredientInfo
 
 
-with codecs.open('data/ABBREV_4USE.csv', 'rU', encoding='ascii') as f:
+
+# Populate ingredients table from the USDA Ingredients DB
+with codecs.open('data/nutrition_info/ABBREV_4USE.csv', 'rU', encoding='ascii') as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
         if i > 0:
             ingredient_id = int(line[0])
-            shrt_desc = line[1]
-            lng_desc = line[2]
-            food_groups = line[3]
-            if line[4] == '':
-                water = None
-            else:
+            #shrt_desc = line[1]
+            name = line[2]
+            food_group = line[3]
+            source = "USDA"
+            water = None
+            if line[4] != '':
                 water = Decimal(line[4])
+            
             energy_kcal = Decimal(line[5])
-            protein = Decimal(line[6])
-            lipid_tot = Decimal(line[7])
-            if line[8] == '':
-                ash = None
-            else:
-                ash = Decimal(line[8])
-            carbohydrate = Decimal(line[9])
-            if line[10] == '':
-                fiber_td = None
-            else:
-                fiber_td = Decimal(line[10])
-            if line[11] == '':
-                sugar_tot = None
-            else:
+            protein_tot = Decimal(line[6])
+            fat_tot = Decimal(line[7])
+            carbohydrate_tot = Decimal(line[9])
+            
+            fiber_tot = None
+            if line[10] != '':
+                fiber_tot = Decimal(line[10])
+            sugar_tot = None
+            if line[11] != '':
                 sugar_tot = Decimal(line[11])
-            if line[12] == '':
-                calcium = None
-            else:
-                calcium = Decimal(line[12])
-            if line[13] == '':
-                iron = None
-            else:
-                iron = Decimal(line[13])
-            if line[14] == '':
-                magnesium = None
-            else:
-                magnesium = Decimal(line[14])
-            if line[15] == '':
-                phosphorus = None
-            else:
-                phosphorus = Decimal(line[15])
-            if line[16] == '':
-                potassium = None
-            else:
-                potassium = Decimal(line[16])
-            if line[17] == '':
-                sodium = None
-            else:
-                sodium = Decimal(line[17])
-            if line[18] == '':
-                zinc = None
-            else:
-                zinc = Decimal(line[18])
-            if line[19] == '':
-                copper = None
-            else:
-                copper = Decimal(line[19])
-            if line[20] == '':
-                manganese = None
-            else:
-                manganese = Decimal(line[20])
-            if line[21] == '':
-                selenium = None
-            else:
-                selenium = Decimal(line[21])
-            if line[22] == '':
-                vit_c = None
-            else:
-                vit_c = Decimal(line[22])
-            if line[23] == '':
-                thiamin = None
-            else:
-                thiamin = Decimal(line[23])
-            if line[24] == '':
-                riboflavin = None
-            else:
-                riboflavin = Decimal(line[24])
-            if line[25] == '':
-                niacin = None
-            else:
-                niacin = Decimal(line[25])
-            if line[26] == '':
-                panto_acid = None
-            else:
-                panto_acid = Decimal(line[26])
-            if line[27] == '':
-                vit_b6 = None
-            else:
-                vit_b6 = Decimal(line[27])
-            if line[28] == '':
-                folate_tot = None
-            else:
-                folate_tot = Decimal(line[28])
-            if line[29] == '':
-                folic_acid = None
-            else:
-                folic_acid = Decimal(line[29])
-            if line[30] == '':
-                food_folate = None
-            else:
-                food_folate = Decimal(line[30])
-            if line[31] == '':
-                folate_dfe = None
-            else:
-                folate_dfe = Decimal(line[31])
-            if line[32] == '':
-                choline_tot = None
-            else:
-                choline_tot = Decimal(line[32])
-            if line[33] == '':
-                vit_b12 = None
-            else:
-                vit_b12 = Decimal(line[33])
-            if line[34] == '':
-                vit_a_iu = None
-            else:
-                vit_a_iu = Decimal(line[34])
-            if line[35] == '':
-                vit_a_rae = None
-            else:
-                vit_a_rae = Decimal(line[35])
-            if line[36] == '':
-                retinol = None
-            else:
-                retinol = Decimal(line[36])
-            if line[37] == '':
-                alpha_carot = None
-            else:
-                alpha_carot = Decimal(line[37])
-            if line[38] == '':
-                beta_carot = None
-            else:
-                beta_carot = Decimal(line[38])
-            if line[39] == '':
-                beta_crypt = None
-            else:
-                beta_crypt = Decimal(line[39])
-            if line[40] == '':
-                lycopene = None
-            else:
-                lycopene = Decimal(line[40])
-            if line[41] == '':
-                lut_zea = None
-            else:
-                lut_zea = Decimal(line[41])
-            if line[42] == '':
-                vit_e = None
-            else:
-                vit_e = Decimal(line[42])
-            if line[43] == '':
-                vit_d = None
-            else:
-                vit_d = Decimal(line[43])
-            if line[44] == '':
-                vit_d_iu = None
-            else:
-                vit_d_iu = Decimal(line[44])
-            if line[45] == '':
-                vit_k = None
-            else:
-                vit_k = Decimal(line[45])
-            if line[46] == '':
-                fa_sat = None
-            else:
-                fa_sat = Decimal(line[46])
-            if line[47] == '':
-                fa_mono = None
-            else:
-                fa_mono = Decimal(line[47])
-            if line[48] == '':
-                fa_poly = None
-            else:
-                fa_poly = Decimal(line[48])
-            if line[49] == '':
-                cholestrl = None
-            else:
-                cholestrl = Decimal(line[49])
-            ingredient = USDAIngredient(id=ingredient_id, shrt_desc=shrt_desc,
-                                        lng_desc=lng_desc,
-                                        food_groups=food_groups,
-                                        water=water, energy_kcal=energy_kcal,
-                                        protein=protein, lipid_tot=lipid_tot,
-                                        ash=ash, carbohydrate=carbohydrate,
-                                        fiber_td=fiber_td, sugar_tot=sugar_tot,
-                                        calcium=calcium, iron=iron,
-                                        magnesium=magnesium,
-                                        phosphorus=phosphorus,
-                                        potassium=potassium, sodium=sodium,
-                                        zinc=zinc, copper=copper,
-                                        manganese=manganese, selenium=selenium,
-                                        vit_c=vit_c, thiamin=thiamin,
-                                        riboflavin=riboflavin, niacin=niacin,
-                                        panto_acid=panto_acid, vit_b6=vit_b6,
-                                        folate_tot=folate_tot,
-                                        folic_acid=folic_acid,
-                                        food_folate=food_folate,
-                                        folate_dfe=folate_dfe,
-                                        choline_tot=choline_tot,
-                                        vit_b12=vit_b12,
-                                        vit_a_iu=vit_a_iu, vit_a_rae=vit_a_rae,
-                                        retinol=retinol,
-                                        alpha_carot=alpha_carot,
-                                        beta_carot=beta_carot,
-                                        beta_crypt=beta_crypt,
-                                        lycopene=lycopene, lut_zea=lut_zea,
-                                        vit_e=vit_e,
-                                        vit_d=vit_d, vit_d_iu=vit_a_iu,
-                                        vit_k=vit_k,
-                                        fa_sat=fa_sat, fa_mono=fa_mono,
-                                        fa_poly=fa_poly, cholestrl=cholestrl)
+            
+            ingredient = Ingredient(id=ingredient_id, name=name, food_group=food_group,
+                                    source=source, water=water, energy_kcal=energy_kcal,
+                                    protein_tot=protein_tot, fat_tot=fat_tot, 
+                                    carbohydrate_tot=carbohydrate_tot, fiber_tot=fiber_tot,
+                                    sugar_tot=sugar_tot)
             ingredient.save()
+            
+            calcium = None
+            if line[12] != '':
+                calcium = Decimal(line[12])
+
+            iron = None
+            if line[13] != '':
+                iron = Decimal(line[13])
+            
+            magnesium = None
+            if line[14] != '':
+                magnesium = Decimal(line[14])
+            
+            phosphorus = None
+            if line[15] != '':
+                phosphorus = Decimal(line[15])
+            
+            potassium = None
+            if line[16] != '':
+                potassium = Decimal(line[16])
+            
+            sodium = None
+            if line[17] != '':
+                sodium = Decimal(line[17])
+            
+            zinc = None
+            if line[18] != '':
+                zinc = Decimal(line[18])
+            
+            copper = None
+            if line[19] != '':
+                copper = Decimal(line[19])
+            
+            manganese = None
+            if line[20] != '':
+                manganese = Decimal(line[20])
+            
+            selenium = None
+            if line[21] != '':
+                selenium = Decimal(line[21])
+            
+            vit_c = None
+            if line[22] != '':
+                vit_c = Decimal(line[22])
+            
+            thiamine = None
+            if line[23] != '':
+                thiamine = Decimal(line[23])
+                
+            riboflavin = None
+            if line[24] != '':
+                riboflavin = Decimal(line[24])
+            
+            niacin = None
+            if line[25] != '':
+                niacin = Decimal(line[25])
+            
+            vit_b6 = None 
+            if line[27] != '':
+                vit_b6 = Decimal(line[27])
+            
+            folate_tot = None
+            if line[28] != '':
+                folate_tot = Decimal(line[28])
+            
+            vit_b12 = None
+            if line[33] != '':
+                vit_b12 = Decimal(line[33])
+            
+            vit_a_iu = None
+            if line[34] != '':
+                vit_a_iu = Decimal(line[34])
+            
+            vit_a_rae = None
+            if line[35] != '':
+                vit_a_rae = Decimal(line[35])
+            
+            retinol = None
+            if line[36] != '':
+                retinol = Decimal(line[36])
+            
+            vit_e = None
+            if line[42] != '':
+                vit_e = Decimal(line[42])
+            
+            vit_d = None
+            if line[43] != '':
+                vit_d = Decimal(line[43])
+            
+            vit_k = None
+            if line[45] != '':
+                vit_k = Decimal(line[45])
+            
+            fa_sat = None
+            if line[46] != '':
+                fa_sat = Decimal(line[46])
+            
+            fa_mono = None
+            if line[47] != '':
+                fa_mono = Decimal(line[47])
+            
+            fa_poly = None
+            if line[48] != '':
+                fa_poly = Decimal(line[48])
+            
+            cholestrl = None
+            if line[49] != '':
+                cholestrl = Decimal(line[49])
+            
+            addIngrdInfo = AddtnlIngredientInfo(ingredient=ingredient, 
+                                              calcium_mg = calcium,
+                                              phosphorus_mg = phosphorus,
+                                              magnesium_mg = magnesium,
+                                              iron_mg = iron,
+                                              potassium_mg = potassium,
+                                              sodium_mg = sodium,
+                                              zinc_mg = zinc,
+                                              copper_mg = copper,
+                                              manganese_mg = manganese,
+                                              selenium_mcg = selenium,
+                                              vitamin_a_iu = vit_a_iu,
+                                              vitamin_a_rae_mcg = vit_a_rae,
+                                              retinol_mcg = retinol,
+                                              thiamine_mg = thiamine,
+                                              riboflavin_mg = riboflavin,
+                                              niacin_mg = niacin,
+                                              total_b6_mg = vit_b6,
+                                              folic_acid_total_mcg = folate_tot,
+                                              vitamin_c_mg = vit_c,
+                                              vitamin_b12_mcg = vit_b12,
+                                              vitamin_e_mg = vit_e,
+                                              vitamin_d_mcg = vit_d,
+                                              vitamin_k_mcg = vit_k,
+                                              fa_sat_g = fa_sat,
+                                              fa_mono_g = fa_mono,
+                                              fa_poly_g = fa_poly,
+                                              cholestrl_mg = cholestrl,)
+            addIngrdInfo.save()
+                        
+       
+# Populate ingredients table from the Indian Ingredients DB
+with codecs.open('data/nutrition_info/nutritive_value_of_indian_foods.csv', 'rU', encoding='ascii') as f:
+    reader = csv.reader(f, delimiter=",")
+    for i, line in enumerate(reader):
+        if i > 0:
+            #ingredient_id = int(line[0])
+            #shrt_desc = line[1]
+            name = line[0]
+            food_group = line[1]
+            source = "National Institute of Nutrition, Hyderabad"
+            water = None
+            if line[2] not in ['', '-']:
+                water = Decimal(line[2])
+            
+            energy_kcal = Decimal(line[8])
+            
+            protein_tot = None
+            if line[3] not in ['', '-']:
+                protein_tot = Decimal(line[3])
+            
+            fat_tot = None
+            if line[4] not in ['', '-']:
+                fat_tot = Decimal(line[4])
+            
+            carbohydrate_tot = None
+            if line[7] not in ['', '-']:
+                carbohydrate_tot = Decimal(line[7])
+            
+            fiber_tot = None
+            if line[6] not in ['', '-']:
+                fiber_tot = Decimal(line[6])
+            sugar_tot = None
+            
+            ingredient = Ingredient(name=name, food_group=food_group,
+                                    source=source, water=water, energy_kcal=energy_kcal,
+                                    protein_tot=protein_tot, fat_tot=fat_tot, 
+                                    carbohydrate_tot=carbohydrate_tot, fiber_tot=fiber_tot,
+                                    sugar_tot=sugar_tot)
+            ingredient.save()
+            
+            
+            calcium = None
+            if line[9] not in ['', '-']:
+                calcium = Decimal(line[9])
+
+            iron = None
+            if line[11] not in ['', '-']:
+                iron = Decimal(line[11])
+            
+            phosphorus = None
+            if line[10] not in ['', '-']:
+                phosphorus = Decimal(line[10])
+            
+            vit_c = None
+            if line[19] not in ['', '-']:
+                vit_c = Decimal(line[19])
+            
+            thiamine = None
+            if line[13] not in ['', '-']:
+                thiamine = Decimal(line[13])
+                
+            riboflavin = None
+            if line[14] not in ['', '-']:
+                riboflavin = Decimal(line[14])
+            
+            niacin = None
+            if line[15] not in ['', '-']:
+                niacin = Decimal(line[15])
+            
+            vit_b6 = None 
+            if line[16] not in ['', '-']:
+                vit_b6 = Decimal(line[16])
+            
+            folate_tot = None
+            if line[18] not in ['', '-']:
+                folate_tot = Decimal(line[18])
+            
+            vit_b12 = None
+            vit_a_rae = None
+            retinol = None
+            vit_e = None
+            vit_d = None
+            vit_k = None
+            fa_sat = None
+            fa_mono = None
+            fa_poly = None
+            cholestrl = None
+            
+            addIngrdInfo = AddtnlIngredientInfo(ingredient=ingredient, 
+                                              calcium_mg = calcium,
+                                              phosphorus_mg = phosphorus,
+                                              magnesium_mg = None,
+                                              iron_mg = iron,
+                                              potassium_mg = None,
+                                              sodium_mg = None,
+                                              zinc_mg = None,
+                                              copper_mg = None,
+                                              manganese_mg = None,
+                                              selenium_mcg = None,
+                                              vitamin_a_iu = None,
+                                              vitamin_a_rae_mcg = None,
+                                              retinol_mcg = None,
+                                              thiamine_mg = thiamine,
+                                              riboflavin_mg = riboflavin,
+                                              niacin_mg = niacin,
+                                              total_b6_mg = vit_b6,
+                                              folic_acid_total_mcg = folate_tot,
+                                              vitamin_c_mg = vit_c,
+                                              vitamin_b12_mcg = None,
+                                              vitamin_e_mg = None,
+                                              vitamin_d_mcg = None,
+                                              vitamin_k_mcg = None,
+                                              fa_sat_g = None,
+                                              fa_mono_g = None,
+                                              fa_poly_g = None,
+                                              cholestrl_mg = None,)
+            addIngrdInfo.save()
 
 
-ingredients = USDAIngredient.objects.all()
-with codecs.open('data/usdaingredient_wts.csv', 'rU', encoding='ascii') as f:
+
+with codecs.open('data/nutrition_info/caloriecount_unbranded_per100.csv', 'rU', encoding='ascii') as f:
+    reader = csv.reader(f, delimiter=",")
+    for i, line in enumerate(reader):
+        if i > 0:
+            name = line[0]
+            food_group = line[1]
+            source = ""
+            water = None
+            
+            energy_kcal = Decimal(line[2])
+            
+            protein_tot = None
+            if line[14] not in ['', '-']:
+                protein_tot = Decimal(line[14])
+            
+            fat_tot = None
+            if line[4] not in ['', '-']:
+                fat_tot = Decimal(line[4])
+            
+            carbohydrate_tot = None
+            if line[11] not in ['', '-']:
+                carbohydrate_tot = Decimal(line[11])
+            
+            fiber_tot = None
+            if line[12] not in ['', '-']:
+                fiber_tot = Decimal(line[12])
+                
+            sugar_tot = None
+            if line[13] not in ['', '-']:
+                sugar_tot = Decimal(line[13])
+                
+            ingredient = Ingredient(name=name, food_group=food_group,
+                                    source=source, water=water, energy_kcal=energy_kcal,
+                                    protein_tot=protein_tot, fat_tot=fat_tot, 
+                                    carbohydrate_tot=carbohydrate_tot, fiber_tot=fiber_tot,
+                                    sugar_tot=sugar_tot)
+            ingredient.save()
+            
+            calcium = None
+            if line[17] not in ['', '-']:
+                calcium = Decimal(line[17])
+            
+            sodium = None
+            if line[9] not in ['', '-']:
+                sodium = Decimal(line[9])
+                
+            iron = None
+            if line[18] not in ['', '-']:
+                iron = Decimal(line[18])
+            
+            potassium = None
+            if line[10] not in ['', '-']:
+                potassium = Decimal(line[10])
+            
+            phosphorus = None
+            if line[25] not in ['', '-']:
+                phosphorus = Decimal(line[25])
+                
+            magnesium = None
+            if line[26] not in ['', '-']:
+                magnesium = Decimal(line[26])
+                
+            zinc = None
+            if line[30] not in ['', '-']:
+                zinc = Decimal(line[30])
+                
+            copper = None
+            if line[31] not in ['', '-']:
+                copper = Decimal(line[31])
+
+            manganese = None
+            if line[28] not in ['', '-']:
+                manganese = Decimal(line[28])
+
+            selenium = None
+            if line[27] not in ['', '-']:
+                selenium = Decimal(line[27])
+                
+            vit_c = None
+            if line[16] not in ['', '-']:
+                vit_c = Decimal(line[16])
+            
+            thiamine = None
+            if line[20] not in ['', '-']:
+                thiamine = Decimal(line[20])
+                
+            riboflavin = None
+            if line[21] not in ['', '-']:
+                riboflavin = Decimal(line[21])
+            
+            niacin = None
+            if line[22] not in ['', '-']:
+                niacin = Decimal(line[22])
+            
+            vit_b6 = None 
+            if line[23] not in ['', '-']:
+                vit_b6 = Decimal(line[23])
+            
+            vit_b12 = None
+            if line[24] not in ['', '-']:
+                vit_b12 = Decimal(line[24])
+                
+            vit_a_iu = None
+            if line[15] not in ['', '-']:
+                vit_a_iu = Decimal(line[15])
+                
+            vit_e = None
+            if line[19] not in ['', '-']:
+                vit_e = Decimal(line[19])
+            
+            vit_k = None
+            if line[29] not in ['', '-']:
+                vit_k = Decimal(line[29])
+                
+            cholestrl = None
+            if line[8] not in ['', '-']:
+                cholestrl = Decimal(line[8])
+                
+            fa_sat = None
+            if line[5] not in ['', '-']:
+                fa_sat = Decimal(line[5])
+            
+            fa_mono = None
+            if line[7] not in ['', '-']:
+                fa_mono = Decimal(line[7])
+            
+            fa_poly = None
+            if line[6] not in ['', '-']:
+                fa_poly = Decimal(line[6])
+            
+
+            addIngrdInfo = AddtnlIngredientInfo(ingredient=ingredient, 
+                                              calcium_mg = calcium,
+                                              phosphorus_mg = phosphorus,
+                                              magnesium_mg = magnesium,
+                                              iron_mg = iron,
+                                              potassium_mg = potassium,
+                                              sodium_mg = sodium,
+                                              zinc_mg = zinc,
+                                              copper_mg = copper,
+                                              manganese_mg = manganese,
+                                              selenium_mcg = selenium,
+                                              vitamin_a_rae_mcg = None,
+                                              retinol_mcg = None,
+                                              thiamine_mg = thiamine,
+                                              riboflavin_mg = riboflavin,
+                                              niacin_mg = niacin,
+                                              total_b6_mg = vit_b6,
+                                              folic_acid_total_mcg = None,
+                                              vitamin_c_mg = vit_c,
+                                              vitamin_b12_mcg = vit_b12,
+                                              vitamin_e_mg = vit_e,
+                                              vitamin_d_mcg = None,
+                                              vitamin_k_mcg = vit_k,
+                                              fa_sat_g = fa_sat,
+                                              fa_mono_g = fa_mono,
+                                              fa_poly_g = fa_poly,
+                                              cholestrl_mg = cholestrl)
+            addIngrdInfo.save()
+
+# populate common ingredient measures for usda data
+ingredients = Ingredient.objects.all()
+with codecs.open('data/nutrition_info/usdaingredient_wts.csv', 'rU', encoding='ascii') as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
         if i > 0:
@@ -244,7 +482,28 @@ with codecs.open('data/usdaingredient_wts.csv', 'rU', encoding='ascii') as f:
             amount = Decimal(line[2])
             description = line[3]
             weight = Decimal(line[4])
-            ingred_measure = USDAIngredientCommonMeasures(
+            ingred_measure = IngredientCommonMeasures(
+                ingred_id=ingred_model,
+                seq=seq,
+                amount=amount,
+                description=description,
+                weight=weight)
+            ingred_measure.save()
+
+        
+# Populate ingredients wts & measures from the Calorie Counts Ingredients DB    
+ingredients = Ingredient.objects.all()
+with codecs.open('data/nutrition_info/caloriecount_wts.csv', 'rU', encoding='ascii') as f:
+    reader = csv.reader(f, delimiter=",")
+    for i, line in enumerate(reader):
+        if i > 0:
+            ingredient_name = line[0]
+            ingred_model = ingredients.filter(name=ingredient_name)[0]
+            seq = 1
+            amount = line[1]
+            description = line[2]
+            weight = Decimal(line[3])
+            ingred_measure = IngredientCommonMeasures(
                 ingred_id=ingred_model,
                 seq=seq,
                 amount=amount,

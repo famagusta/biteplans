@@ -34,6 +34,8 @@ class ImportedIngredientQuantity(models.Model):
     in a recipe'''
     recipe_ingred_id = models.ForeignKey(ImportedRecipeIngredients,
                                          on_delete=models.CASCADE)
-    ingredient_quanty = models.CharField(null=True, blank=True, max_length=191)
+    ingredient_quantity = models.DecimalField(max_digits=11, 
+                                              decimal_places=3, 
+                                              null=True)
     ingredient_measure = models.CharField(null=True, blank=True,
                                           max_length=191)
