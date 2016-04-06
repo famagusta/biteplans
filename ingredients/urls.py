@@ -14,4 +14,4 @@ urlpatterns = patterns('',
                        url(r'^search/$', views.GlobalSearchList.as_view(),
                            name="search"),
                        url(r'^diet/', include(router.urls)),
-					)
+                       )

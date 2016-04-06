@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime    
 from ingredients.models import Ingredient,\
     IngredientCommonMeasures
 from authentication.models import Account
@@ -16,14 +17,14 @@ class Recipe(models.Model):
     name = models.CharField(max_length=191)
     description = models.TextField()
     directions = models.TextField()
-    prep_time = models.DateTimeField(null=True, blank=True)
-    cook_time = models.DateTimeField(null=True, blank=True)
+    prep_time = models.TimeField(null=True, blank=True)
+    cook_time = models.TimeField(null=True, blank=True)
     servings = models.IntegerField()
     # TODO: Handle case of saving recipe when user is deleted
     created_by = models.ForeignKey(Account, on_delete=models.CASCADE,
                                    related_name="created_recipe")
-    date_published = models.DateField()
-    image = models.URLField(null=True, max_length=400)
+    date_published = models.DateField(auto_now_add=True, blank=True)
+    image = models.URLField(null=True, blank=True, max_length=400)
 
     def __unicode__(self):
         return self.name
@@ -40,7 +41,7 @@ class RecipeIngredients(models.Model):
     # it more general
 
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE,
-                                  related_name="ingredient_of_recipe")
+                                   related_name="ingredient_of_recipe")
     # units & quantity must not be empty ever
     # units could be a model of its own to make things standardized across apps
     measure = models.ForeignKey(IngredientCommonMeasures,
@@ -50,5 +51,4 @@ class RecipeIngredients(models.Model):
     modifiers = models.CharField(null=True, blank=True, max_length=191)
 
     def __unicode__(self):
-      return self.modifiers
-
+        return self.modifiers

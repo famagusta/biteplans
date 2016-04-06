@@ -34,5 +34,4 @@ class GlobalSearchList(APIView):
 
 # class IngredientUnitsViewset(viewsets.ReadOnlyModelViewSet):
 #     queryset = IngredientCommonMeasures.objects.all()
-#     serializer_class = IngredientSerializer 
-
+#     serializer_class = IngredientSerializer

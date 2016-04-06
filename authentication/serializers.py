@@ -10,6 +10,7 @@ class AccountSerializer(serializers.ModelSerializer):
     '''serializer for auth users'''
     password = serializers.CharField(write_only=True, required=False)
     confirm_password = serializers.CharField(write_only=True, required=False)
+
     class Meta:
         '''Meta Data'''
         model = Account
@@ -25,8 +26,7 @@ class AccountSerializer(serializers.ModelSerializer):
         '''This method overrides update method,
         and takes care of update on details of a user'''
         instance.username = validated_data.get(
-                                               'username', instance.username
-                                               )
+            'username', instance.username)
         instance.save()
 
         return instance

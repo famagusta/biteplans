@@ -1,90 +1,42 @@
-'''This Script populates the Database with recipes
-from open source recipe indexing project
-https://github.com/fictivekin/openrecipes
-The datadump from the above link is broken into different
-json files for easy parsing and identifying potential differences
-in formats. A few errors were encountered and inconsistencies were
-manually fixed in the data file itself.'''
+'''script to populate some test recipes'''
 
 import os
-import json
-
+import codecs
 # you need this line to tell python that we are in django
 # project bitespace
 os.environ.setdefault("DJANGO_SETTINGS_MODULE",
-                      "bitespace_project_config.settings")
+                      "biteplans_project_config.settings")
 
-from bitespace_app.models import Recipe
+import tablib
+from import_export import resources
+import csv
+from decimal import *
+from recipes.models import Recipe, RecipeIngredients
+from ingredients.models import Ingredient, IngredientCommonMeasures
+from authentication.models import Account
 
-SOURCE_NAMES_FILE = open('data/source_recipes.txt', 'r')
-DATA_SOURCES = SOURCE_NAMES_FILE.readlines()
-SOURCE_NAMES_FILE.close()
 
-for datasource in DATA_SOURCES:
-    # Remove any trailing whitespaces
-    datasource = datasource.strip()
+scrambled_eggs = Recipe(name='Scrambled Eggs',
+                        description= 'A quick an easy recipes for making scrambled eggs',
+                        directions= 'Heat the oil in a skillet on medium heat for 2 mins, add two eggs with salt and pepper. Scramble for 5 mins',
+                        servings=1,
+                        created_by=Account.objects.get(pk=1))
 
-    # Print progress
-    print "Processing : " + datasource
+scrambled_eggs.save()
 
-    json_filename = 'data/' + datasource + '_data.json'
-    with open(json_filename, 'r') as json_source:
-        source_data = json.load(json_source)
+se_ingredient_1 = RecipeIngredients(recipe=scrambled_eggs,
+                                   ingredient=Ingredient.objects.get(pk=1123),
+                                   measure=IngredientCommonMeasures.objects.get(pk=346), 
+                                   quantity=2)
+se_ingredient_2 = RecipeIngredients(recipe=scrambled_eggs,
+                                   ingredient=Ingredient.objects.get(pk=2047),
+                                   measure=IngredientCommonMeasures.objects.get(pk=690), 
+                                   quantity=2)
+se_ingredient_3 = RecipeIngredients(recipe=scrambled_eggs,
+                                   ingredient=Ingredient.objects.get(pk=2030),
+                                   measure=IngredientCommonMeasures.objects.get(pk=651), 
+                                   quantity=2)
 
-    for source in source_data:
-        recipe_id = source['_id']['$oid']       # Extract id
-
-        if 'description' in source:
-            description = source['description']  # Extract description
-        else:
-            description = None
-
-        ingredients = source['ingredients']     # Extract ingredients
-        name = source['name']                   # Extract name
-        url = source['url']                     # Extract url
-
-        if 'prepTime' in source:                # Extract prep time
-            prep_time = source['prepTime']
-        elif 'totalTime' in source:
-            # Some sources only give total time - add it to prep
-            # time instead
-            prep_time = source['totalTime']
-        else:
-            prep_time = None
-
-        if 'cookTime' in source:                # Extract cook time
-            cook_time = source['cookTime']
-        else:
-            cook_time = None
-        data_source = source['source']          # Where does the data come from
-
-        if 'image' in source:                   # image source (url)
-            # some entries had img file code - i deleted them
-            # only 3-4 such entries
-            image = source['image']
-        else:
-            image = None
-
-        if 'recipeYield' in source:
-            # Extract yield. we will use this later
-            recipe_yield = source['recipeYield']
-        else:
-            recipe_yield = None
-
-        if 'datePublished' in source:
-            # Not really useful but what the hell
-            date_published = source['datePublished']
-        else:
-            date_published = None
-
-        # create a recipe object
-        recipe = Recipe(recipe_id, description=description,
-                        ingredients=ingredients, name=name, url=url,
-                        prep_time=prep_time, cook_time=cook_time,
-                        source=source['source'], image=image,
-                        recipe_yield=recipe_yield,
-                        date_published=date_published)
-
-        # save into database
-        recipe.save()
-    json_source.close()
+se_ingredient_1.save()
+se_ingredient_2.save()
+se_ingredient_3.save()

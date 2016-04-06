@@ -38,7 +38,6 @@ class AccountManager(BaseUserManager):
         if kwargs.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-
         return self.create_user(username, email, password, **kwargs)
 
 
@@ -84,8 +83,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 @receiver(pre_save, sender=Account)
 def assosiate_calendar(sender, instance, **kwargs):
     '''assosiate one to one calender to the user instance'''
-    if instance.pk == None:
+    if instance.pk is None:
         print instance
         cal = Calendar.objects.create(name=instance.username,
-                                              slug='default')
+                                      slug='default')
         instance.calendar = cal
