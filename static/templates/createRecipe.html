@@ -1,0 +1,291 @@
+ <div class="row">
+    <div class="col s12 m12">
+      <div class="card white" id="recipe-card">
+        <div class="card-content black-text">
+            <p class="card-title" id="recipe-title">Create Recipe</p>
+        </div>
+      </div>
+    </div>
+ </div>
+
+<div class="row recipe-form-card">
+    <div class="col s12 m12">
+      <div class="card white">
+        <div class="card-content black-text">
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="recipe_name" type="text" class="validate">
+                  <label for="recipe_name">Name of Recipe</label>
+                </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12">
+                      <input id="recipe_desc" type="text" class="validate">
+                      <label for="recipe_desc">Description</label>
+                  </div>    
+              </div>
+             <div class="row">
+                  <div class="input-field col s6">
+                      <input id="servings" type="text" class="validate">
+                      <label for="servings">Serving (No of people)</label>
+                  </div>
+                 <div class="input-field col s6">
+                      <input id="serving_no" type="text" class="validate">
+                      <label for="seving_no">Serving Size</label>
+                  </div>  
+              </div>
+                <div class="row">
+                    <div class="col s4">
+                        <h5 class="recipe-subheading">Ingredients</h5>
+                    </div>
+                    <div class="col s1 push-s1">
+                        <p class="meal-text center">Amt</p>
+                    </div>
+                    <div class="col s1 push-s1">
+                        <p class="meal-text center">Desc</p>
+                    </div>
+                </div>
+                <div class="row" ng-repeat="selectedIngredient in ingredientDisplay">
+                    <div class="col s4">
+                        <p class="meal-text">{{selectedIngredient.shrt_desc}}</p>
+                    </div>
+                    <div class="col s1 push-s1">
+                        <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
+                    </div>
+                    <div class="col s1 push-s1">
+                        <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
+                    </div>
+                    <div class="col m1 push-s1">
+                        <a ng-click="removeIngredientsFromSavedMeal(value)">
+                            <i class="material-icons" >delete</i>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <a href="#" class="cyan-text add-ing" ng-click="openCreateRecipeModal()">Add Ingredients</a>
+                    </div>
+                </div>
+            
+            <!-- STEPS TO CREATE RECIPES -->
+            
+            <div class="row">
+                <div class="col s4">
+                    <h5 class="recipe-subheading">Directions</h5>
+                </div>
+            </div>
+            <div class="row" ng-repeat="steps in stepsToCreateRecipes track by $index">
+                <div class="input-field col s12">
+                    <input id="recipe_steps" type="text" class="validate">
+                    <label for="recipe_steps">Step {{$index+1}}</label>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col s12">
+                   <a href="#" class="cyan-text add-ing" ng-click="addMoreSteps(item)">Add Step</a>
+                </div>
+            </div>
+            <br>
+            
+            <!-- TIME TAKEN TO CREATE RECIPES -->
+            
+            <div class="row">
+                <div class="col s6">
+                    <h6 class="meal-text">Preparation Time</h6>
+                </div>
+                 <div class="col s6">
+                    <h6 class="meal-text">Cooking Time</h6>
+                </div>
+            </div>
+            <div class="row">
+                <!-- PREPARATION TIME -->
+                <div class="col s6">
+                    <div class="row">
+                        <div class="input-field col s3">
+                          <input id="prep_time" type="number" class="validate" max="12" min="0">
+                          <p>Hrs</p>
+                        </div> 
+                        <div class="input-field col s3">
+                           <input id="prep_time" type="number" class="validate" max="59" min="00">
+                           <p>Mins</p>
+                        </div>   
+                    </div>
+                </div>
+                <!-- COOKING TIME -->
+                <div class="col s6">
+                    <div class="row">
+                        <div class="input-field col s3">
+                           <input id="prep_time" type="number" class="validate" max="12" min="0">
+                           <p>Hrs</p>
+                        </div> 
+                        <div class="input-field col s3">
+                           <input id="prep_time" type="number" class="validate" max="59" min="00">
+                           <p>Mins</p>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col s4">
+                    <div class="row">
+                        <div class="col s6">
+                            <a class="cyan-text add-ing" href="#">Upload Image</a>
+                        </div>
+                        <div class="col s6">
+                            <a class="cyan-text add-ing" href="#">Image URL</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+</div> 
+ 
+<div class="row">
+    <div class="col s12 m12">
+      <div class="card white" id="recipe-card">
+        <div class="card-content black-text">
+            <p style="margin-left: 10px" class="card-title left" id="recipe-title">Nutritional Information</p>
+        </div>
+      </div>
+    </div>
+ </div>
+
+ <div class="row">
+    <div class="col s12">
+        <div class="center-btn">
+            <a href="/create" class="waves-effect waves-light btn largebtn">Save</a>
+        </div>
+    </div>
+ </div>
+    
+<!-- CREATE RECIPE MODAL -->
+    
+  <div id="create-recipe-modal" class="modal">
+            <a href="#!" ng-click="emptyModalContents()" class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col m6">
+                        <div class="card white create-search-box" id="searchcard"> <!-- SEARCH-BOX -->
+                         <div class="card-content black-text">
+                             <textarea id="searchbox" placeholder="Search people & places" ng-model="query" class="form-control"></textarea>
+                             <button class="fa fa-search search-ingredient" ng-click="search()" type="submit"></button>
+                         </div> <!-- END OF SEARCH-BOX -->
+                        </div>
+                    </div>
+                    <div class="col m6">
+                    <p>Hello</p>
+                    </div>
+                    <br>
+                        <div class="row">
+                            <div class="col m6 create-modal-half1">
+                                <div ng-repeat="detail in details | limitTo:7 track by $index">
+                                     <p>
+                                        <input type="checkbox" class="filled-in" id="filled-in-box{{$index}}"  checklist-model="nutrientValue" checklist-value="detail"/>
+                                        <label for="filled-in-box{{$index}}" id="check-label" class="ing-text">{{detail.shrt_desc}} </label>
+                                    </p>
+                                </div>
+                            </div>
+                    <div class="col m6">
+                        <div class="nutsection" ng-if="nutrientValue.length>0">
+
+                             <div class="row hline" >
+                                <div class="col m3">
+                                    <p class="a ahead servehead">Serving:</p>
+                                </div>
+                                <div class="col m2">
+                                     <input type="text" id="serving" value="1" ng-model="ingQuantity"/>
+                                </div>
+                                 <div class="col m3">
+                                   <p class="a ahead">Amt</p>
+                                </div>
+                                <div class="col m2">
+                                   <p class="a ahead">Amt</p>
+                                </div>
+                            </div>
+
+                          <div class="row hline" >
+                                <div class="col m6">
+                                    <p class="a b ahead">Calories (kcal)</p>
+                                </div>
+                                <div class="col m6">
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].energy_kcal}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Proteins</p>
+                                </div>
+                                <div class="col m6">
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].protein}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Fats</p>
+                                </div>
+                                <div class="col m6">
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].lipid_tot}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Carbohydrates</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].carbohydrate}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Sodium</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].sodium}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Fiber</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].fiber_td}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Cholestrol</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].cholestrl}}</p>
+                                </div>
+                            </div>   
+                    </div>
+                        <p>{{currentMealPlanName}}</p>
+                        <br><br>
+
+                         <div class="row" ng-repeat="item in nutrientValue" >
+                                <div class="col m6 meal-list">
+                                    <p ng-if="nutrientValue.length>0" class="ing-text meal-list">{{item.shrt_desc}}</p>
+                                </div>
+                                <div class="col m6 meal-list">
+                                    <a href="#" ng-click="removeIngredient(item)"><i ng-if="nutrientValue.length>0" class="material-icons meal-list right dustbin">delete</i></a>
+                                </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col m12 center">
+                        <a ng-click="addContents()" class="waves-effect waves-light btn btn-social">Add</a>
+                        <a ng-click="saveAndContinue()" class="waves-effect waves-light btn btn-social largebtn">Save and Continue</a>
+                    </div>
+                </div>
+                </div>
+            </div>

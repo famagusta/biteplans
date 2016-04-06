@@ -125,12 +125,12 @@ return deferred.promise;};
 //});
 //return deferred.promise;};
 //
-///* function to logout for normally signed in user */
-//var logout = function(){
-//	$auth.removeToken();
-//  userOb.set_user();
-//
-//};
+/* function to logout for normally signed in user */
+var logout = function(){
+	$auth.removeToken();
+    userOb.set_user();
+
+};
 //
 //var search_recipe = function(quer) {
 //    var url = constants['API_SERVER'] + 'bitespace/recipe_search';

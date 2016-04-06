@@ -5,7 +5,7 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
     $location.path('/');
     return;
   }*/
-   $scope .logout = function(){
+   $scope.logout = function(){
     var response = AuthService.logout();
     if(response){
       $location.path('/');

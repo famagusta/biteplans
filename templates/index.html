@@ -90,7 +90,38 @@
 
  
       </script>
+<script>
+$(document).ready(function() {
+    $("h5").click(function() {
+        alert("fadfds");
+    });
+
+    $('#imperial').click(function() {
+        $('#imperial-view').show();
+        $('#metric-view').hide();
+    });
+    $('#metric').click(function() {
+        $('#metric-view').show();
+        $('#imperial-view').hide();
+    });
+
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+
+     $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            $('button[type=submit].search-ingredient').click();
+            return false;
+        } else {
+            return true;
+        }
+    });
     
+    
+});
+</script>
+     
 
      
 
