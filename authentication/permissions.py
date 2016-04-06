@@ -9,5 +9,5 @@ class IsAccountOwner(permissions.BasePermission):
 class IsPlanOwner(permissions.BasePermission):
 	def has_object_permission(self, request, view, plan):
 		if request.user:
-			return plan.createdby == request.user
+			return plan.creator == request.user
 		return False

@@ -48,6 +48,11 @@ class Ingredient(models.Model):
     def __unicode__(self):
         return self.name
     
+    class Meta:
+        '''name db table'''
+        db_table = 'ingredients_Ingredient'
+
+    
 class AddtnlIngredientInfo(models.Model):
     '''Model for storing basic ingredient information from
     various sources. All units are measured per 100gm'''
@@ -118,14 +123,27 @@ class AddtnlIngredientInfo(models.Model):
     cholestrl_mg = models.DecimalField(max_digits=11, decimal_places=3,
                                     null=True)
 
+    class Meta:
+        '''name db table'''
+        db_table = 'ingredients_AddtnlIngredientInfo'
+
+
     
 class IngredientCommonMeasures(models.Model):
     '''this model stores different measures for an ingredient
        for e.g. 1tbsp butter, 1 cup butter and the weights
        associated with them'''
     id = models.AutoField(primary_key=True)
-    ingred_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    ingred_id = models.ForeignKey(Ingredient, on_delete=models.CASCADE,
+                                 related_name="measure")
     seq = models.IntegerField()
     amount = models.DecimalField(null=True, max_digits=11, decimal_places=3)
     description = models.CharField(max_length=191)
     weight = models.DecimalField(null=True, max_digits=11, decimal_places=3)
+
+    def __unicode__(self):
+        return self.description
+
+    class Meta:
+        '''name db table'''
+        db_table = 'ingredients_IngredientCommonMeasures'

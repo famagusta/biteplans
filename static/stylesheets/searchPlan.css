@@ -1,5 +1,7 @@
 #planPage {
     background-color: #f5f5f5;
+    min-height: 950px;
+    padding-bottom: 50px;
 }
 
 
@@ -37,7 +39,9 @@
 #searchcard {
     width: 50%;
     height: 55px;
-    left: 170px;
+    margin: auto;
+    resize: none;
+    text-overflow: ellipsis;
 }
 
 #searchcard i {
@@ -66,5 +70,83 @@ textarea:focus {
     font-size: 17px;
 }
 
+.section-button {
+    
+}
 
 
+@media only screen and (max-width : 768px) {
+   #searchcard {
+        width: 100%;
+    }
+   #checklist {
+        display: none;
+    }
+/*
+    .smallmid{
+        margin:auto !important;
+        width: 100% !important;
+        min-height: 440px !important;
+    }
+*/
+    .section-button {
+       position: relative;
+    }
+    #planPage {
+    background-color: #f5f5f5;
+    min-height:730px;
+    padding-bottom: 50px;
+    
+}
+
+}
+
+
+/*
+@media only screen and (min-width : 601px) {
+   #searchcard {
+        width: 100% !important;  
+    }
+    .plan-card {
+       height: 150% !important;
+    }
+    .smallmid{
+        margin:auto !important;
+        width: 100% !important;
+    }
+    .section-button {
+       position: relative;
+    }
+    #planPage {
+    background-color: #f5f5f5;
+    min-height:730px;
+    padding-bottom: 50px;
+    
+}
+
+}
+
+@media only screen and (max-width : 767px) {
+   #searchcard {
+        width: 124% !important;  
+    }
+    .plan-card {
+       height: 150% !important;
+    }
+    .smallmid{
+        margin:auto !important;
+        width: 100% !important;
+    }
+    .section-button {
+       position: relative;
+    }
+    #planPage {
+    background-color: #f5f5f5;
+    min-height:730px;
+    padding-bottom: 50px;
+    
+}
+
+}
+
+*/

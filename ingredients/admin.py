@@ -6,6 +6,11 @@ from django.contrib import admin
 from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from ingredients.models import Ingredient
+from recipes.models import Recipe, RecipeIngredients
+from authentication.models import Account
+from dietplans.models import DietPlan, DayPlan, MealPlan, MealRecipe
+from imported_recipes.models import ImportedRecipe, ImportedRecipeIngredients, \
+    ImportedIngredientQuantity
 
 
 class IngResource(resources.ModelResource):
@@ -23,3 +28,13 @@ class IngAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Ingredient, IngAdmin)
+admin.site.register(Recipe)
+admin.site.register(RecipeIngredients)
+admin.site.register(DietPlan)
+admin.site.register(DayPlan)
+admin.site.register(MealPlan)
+admin.site.register(MealRecipe)
+admin.site.register(ImportedRecipe)
+admin.site.register(ImportedRecipeIngredients)
+admin.site.register(ImportedIngredientQuantity)
+

@@ -21,12 +21,19 @@ class ImportedRecipe(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        '''name db table'''
+        db_table = 'bitespace_app_recipe'
+
 
 class ImportedRecipeIngredients(models.Model):
     '''Model to represent all ingredients extracted from the
        recipes'''
     recipe_id = models.ForeignKey(ImportedRecipe, on_delete=models.CASCADE)
     ingredient_tags = models.CharField(null=True, blank=True, max_length=1000)
+    class Meta:
+        '''name db table'''
+        db_table = 'bitespace_app_recipeingredients'
 
 
 class ImportedIngredientQuantity(models.Model):
@@ -39,3 +46,6 @@ class ImportedIngredientQuantity(models.Model):
                                               null=True)
     ingredient_measure = models.CharField(null=True, blank=True,
                                           max_length=191)
+    class Meta:
+        '''name db table'''
+        db_table = 'bitespace_app_ingredientquantity'

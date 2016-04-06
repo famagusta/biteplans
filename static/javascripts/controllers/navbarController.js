@@ -10,7 +10,8 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     $scope.modal2 = false;
     $scope.modal3 = false;  
     $scope.modal4 = false;    
-
+    
+    $scope.isLoggedIn = false;
 
     //login object taken up from login from, ill be used to make login post request
     $scope.login={};
@@ -97,6 +98,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     //these are required params
    var username = $scope.login.username;
   var password = $scope.login.password;
+      
 
   if (username && password) {
     AuthService.login(username, password).then(
@@ -104,6 +106,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
         console.log(response);
          $('#modal1').closeModal();
         $location.path('/dashboard');
+        
       },
       function (error) {
         $scope.loginError = 'Wrong credentials, are you sure you did not signup through google or facebook?';
@@ -113,22 +116,20 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     $scope.loginError = 'Username and password required';
   }
 };
-
-$scope.search = function(){
-  var query=$scope.query;
-  if(query){
-    AuthService.search(query).then(function(response){
-        $scope.details=response.data;
-    },function(error) {
-      console.log(error);
-    });
-  }
-};
+    
+    $scope.logout = function() {
+        $scope.isLoggedIn = false;
+        var response = AuthService.logout();
+        if(response) {
+            $location.path('/');
+        }
+    };
 
  $scope.Auth = function(provider){
   //provider can be facebook, google-oauth2
   AuthService.socialAuth(provider).then(function(response){
     console.log(response);
+      $scope.isLoggedIn = true;
     //close the modal if login is success
     $('#modal1').closeModal();
     //proceed to dashboard
@@ -140,6 +141,8 @@ $scope.search = function(){
   });  
 
 };
+    
+    
 
 //function to reset password, calls auth service to call forgot password feature. Email is a param
 $scope.resetPassword = function(){
