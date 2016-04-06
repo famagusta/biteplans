@@ -21,7 +21,7 @@ class AccountManager(BaseUserManager):
             email = username+'@'+'facebook.com'
 
         account = self.model(email=self.normalize_email(email),
-                             username=username)
+                             username=username, **kwargs)
 
         account.set_password(password)
         account.save()
@@ -37,6 +37,7 @@ class AccountManager(BaseUserManager):
             raise ValueError('Superuser must have is_staff=True.')
         if kwargs.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
+
 
         return self.create_user(username, email, password, **kwargs)
 

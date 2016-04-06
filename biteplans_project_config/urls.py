@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^ingredients/',
+                       url(r'^biteplans/',
                            include('ingredients.urls',
                                    namespace="ingredients")),
                        url(r'^authentication/',
