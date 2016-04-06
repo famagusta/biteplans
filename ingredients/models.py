@@ -121,6 +121,9 @@ class AddtnlIngredientInfo(models.Model):
     cholestrl_mg = models.DecimalField(max_digits=11, decimal_places=3,
                                     null=True)
 
+    def __unicode__(self):
+        return self.ingredient.name
+
     class Meta:
         '''name db table'''
         db_table = 'ingredients_addtnlingredientinfo'

@@ -11,6 +11,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
+from rest_framework import viewsets
 
 
 class GlobalSearchList(APIView):
@@ -30,3 +31,8 @@ class GlobalSearchList(APIView):
             result = DietPlan.objects.filter(name__search=query)
             result = DietPlanSerializer(result, many=True)
         return Response(result.data)
+
+# class IngredientUnitsViewset(viewsets.ReadOnlyModelViewSet):
+#     queryset = IngredientCommonMeasures.objects.all()
+#     serializer_class = IngredientSerializer 
+
