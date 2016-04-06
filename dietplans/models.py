@@ -4,7 +4,7 @@ from django.db import models
 from authentication.models import Account
 from recipes.models import Recipe
 from imported_recipes.models import ImportedRecipe
-from ingredients.models import USDAIngredient, USDAIngredientCommonMeasures
+from ingredients.models import Ingredient, IngredientCommonMeasures
 
 # Create your models here.
 class DietPlan(models.Model):
@@ -90,10 +90,10 @@ class MealIngredient(models.Model):
     id = models.AutoField(primary_key=True)
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE,
                                   related_name="mealingredient")
-    ingredient = models.ForeignKey(USDAIngredient, on_delete=models.CASCADE,
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE,
                                 related_name="meal_ingredient")
     quantity = models.IntegerField(default=0)
-    unit = models.ForeignKey(USDAIngredientCommonMeasures,
+    unit = models.ForeignKey(IngredientCommonMeasures,
                              on_delete=models.CASCADE,
                              related_name="meal_ing_qty")
     def __unicode__(self):

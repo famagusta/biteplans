@@ -1,5 +1,5 @@
 '''api views for our ingredients'''
-from ingredients.models import USDAIngredient
+from ingredients.models import Ingredient
 from recipes.models import Recipe
 from authentication.models import Account
 from dietplans.models import DietPlan

@@ -9,9 +9,9 @@ from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^biteplans/',
+                       url(r'^ingredients/',
                            include('ingredients.urls',
-                                   namespace="biteplans")),
+                                   namespace="ingredients")),
                        url(r'^authentication/',
                            include('authentication.urls', namespace="auuth")),
                        url('^.*$',
