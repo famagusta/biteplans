@@ -83,7 +83,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 @receiver(pre_save, sender=Account)
 def assosiate_calendar(sender, instance, **kwargs):
     '''assosiate one to one calender to the user instance'''
-    if instance.pk==None:
+    if instance.pk == None:
         print instance
         cal = Calendar.objects.create(name=instance.username,
                                               slug='default')

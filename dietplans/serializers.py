@@ -17,6 +17,12 @@ class MealRecipeSerializer(serializers.ModelSerializer):
 		'''Meta data, or config for the serializer'''
 		model = MealRecipe
 
+class MealIngredientSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	reciple = RecipeSerializer(many=False, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MealRecipe
 
 class MealPlanSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
