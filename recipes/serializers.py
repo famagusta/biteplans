@@ -1,7 +1,7 @@
 '''Serializers convert the db queries into python
 data structures(dictionaries) for easy json rendering'''
 from rest_framework import serializers
-from ingredients.models import USDAIngredient, USDAIngredientCommonMeasures
+from ingredients.models import Ingredient, IngredientCommonMeasures
 from ingredients.serializers import IngredientSerializer, IngredientMeasureSerializer
 from recipes.models import Recipe, RecipeIngredients
 from authentication.models import Account

@@ -23,7 +23,7 @@ class ImportedRecipe(models.Model):
 
     class Meta:
         '''name db table'''
-        db_table = 'bitespace_app_recipe'
+        db_table = 'imported_recipes_importedrecipe'
 
 
 class ImportedRecipeIngredients(models.Model):
@@ -33,7 +33,7 @@ class ImportedRecipeIngredients(models.Model):
     ingredient_tags = models.CharField(null=True, blank=True, max_length=1000)
     class Meta:
         '''name db table'''
-        db_table = 'bitespace_app_recipeingredients'
+        db_table = 'imported_recipes_importedrecipeingredients'
 
 
 class ImportedIngredientQuantity(models.Model):
@@ -41,11 +41,11 @@ class ImportedIngredientQuantity(models.Model):
     in a recipe'''
     recipe_ingred_id = models.ForeignKey(ImportedRecipeIngredients,
                                          on_delete=models.CASCADE)
-    ingredient_quantity = models.DecimalField(max_digits=11, 
-                                              decimal_places=3, 
+    ingredient_quantity = models.DecimalField(max_digits=11,
+                                              decimal_places=3,
                                               null=True)
     ingredient_measure = models.CharField(null=True, blank=True,
                                           max_length=191)
     class Meta:
         '''name db table'''
-        db_table = 'bitespace_app_ingredientquantity'
+        db_table = 'imported_recipes_importedingredientquantity'

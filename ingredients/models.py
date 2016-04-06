@@ -4,7 +4,7 @@
 
 from django.db import models
 
-    
+
 class Ingredient(models.Model):
     '''Model for storing basic ingredient information from
     various sources. All units are measured per 100gm'''
@@ -13,16 +13,15 @@ class Ingredient(models.Model):
     food_group = models.CharField(null=True, blank=True, max_length=191)
     source = models.CharField(null=True, blank=True, max_length=191)
     brand = models.CharField(null=True, blank=True, max_length=191)
-    
+
     # moisture content of food in grams
-    water = models.DecimalField(null=True, 
-                                max_digits=11, 
+    water = models.DecimalField(null=True,
+                                max_digits=11,
                                 decimal_places=3)
     # energy content of food in kilo calories
     energy_kcal = models.DecimalField(max_digits=11,
-                                      decimal_places=3, 
+                                      decimal_places=3,
                                       null=True)
-    
     # protein content in food in grams
     protein_tot = models.DecimalField(null=True,
                                       max_digits=11,
@@ -35,30 +34,30 @@ class Ingredient(models.Model):
     carbohydrate_tot = models.DecimalField(null=True,
                                            max_digits=11,
                                            decimal_places=3)
-    
+
     # total fiber content in food in grams
     fiber_tot = models.DecimalField(max_digits=11,
                                    decimal_places=3,
                                    null=True)
-    
+
     # total sugar content
     sugar_tot = models.DecimalField(null=True,
                                     max_digits=11,
                                     decimal_places=3)
     def __unicode__(self):
         return self.name
-    
+
     class Meta:
         '''name db table'''
-        db_table = 'ingredients_Ingredient'
+        db_table = 'ingredients_ingredient'
 
-    
+
 class AddtnlIngredientInfo(models.Model):
     '''Model for storing basic ingredient information from
     various sources. All units are measured per 100gm'''
     # one to one link to the ingredients object
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    
+
     # Metallic Minerals
     calcium_mg = models.DecimalField(null=True, max_digits=11,
                                      decimal_places=3)
@@ -83,8 +82,7 @@ class AddtnlIngredientInfo(models.Model):
                                        decimal_places=3)
     selenium_mcg = models.DecimalField(null=True, max_digits=11,
                                        decimal_places=3)
-    
-    # Vitamins 
+    # Vitamins
     # find out different types of vit a
     vitamin_a_iu = models.DecimalField(null=True, max_digits=11,
                                        decimal_places=3)
@@ -125,10 +123,9 @@ class AddtnlIngredientInfo(models.Model):
 
     class Meta:
         '''name db table'''
-        db_table = 'ingredients_AddtnlIngredientInfo'
+        db_table = 'ingredients_addtnlingredientinfo'
 
 
-    
 class IngredientCommonMeasures(models.Model):
     '''this model stores different measures for an ingredient
        for e.g. 1tbsp butter, 1 cup butter and the weights
@@ -146,4 +143,4 @@ class IngredientCommonMeasures(models.Model):
 
     class Meta:
         '''name db table'''
-        db_table = 'ingredients_IngredientCommonMeasures'
+        db_table = 'ingredients_ingredientcommonmeasures'

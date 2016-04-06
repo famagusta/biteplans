@@ -5,6 +5,9 @@ from authentication.models import Account
 from recipes.models import Recipe
 from imported_recipes.models import ImportedRecipe
 from ingredients.models import Ingredient, IngredientCommonMeasures
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
+import math
 
 # Create your models here.
 class DietPlan(models.Model):
@@ -103,3 +106,18 @@ class MealIngredient(models.Model):
     class Meta:
         '''name db table'''
         db_table = 'dietplans_mealingredient'
+
+@receiver(post_save, sender=DietPlan)
+def create_dayplan(sender, instance, created, **kwargs):
+    '''assosiate one to one calender to the user instance'''
+    if created == True:
+        num_of_days = int(math.ceil(instance.duration*7))
+        for i in range(num_of_days):
+            DayPlan.objects.create(diet=instance, day_no=i+1, week_no=(i/7)+1,
+                                  name="Week "+str(i/7+1)+" Day "+str(i+1)
+                                  +" of DietPlan "+instance.name)
+
+
+
+
+

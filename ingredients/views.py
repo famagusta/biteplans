@@ -21,7 +21,7 @@ class GlobalSearchList(APIView):
         topic = request.POST.get('type', None)
         result = None
         if topic == 'ingredients':
-            result = USDAIngredient.objects.filter(shrt_desc__search=query)
+            result = Ingredient.objects.filter(shrt_desc__search=query)
             result = IngredientSerializer(result, many=True)
         elif topic == 'recipes':
             result = Recipe.objects.filter(name__search=query)
