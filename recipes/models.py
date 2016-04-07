@@ -44,7 +44,7 @@ class RecipeIngredients(models.Model):
                                    related_name="ingredient_of_recipe")
     # units & quantity must not be empty ever
     # units could be a model of its own to make things standardized across apps
-    measure = models.ForeignKey(IngredientCommonMeasures,
+    measure = models.ForeignKey(IngredientCommonMeasures, null=True, blank=True,
                                 related_name="measure_of_recipeingredient")
     quantity = models.IntegerField()
     # modifiers - optional description for the ingredients
