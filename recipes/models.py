@@ -17,8 +17,8 @@ class Recipe(models.Model):
     name = models.CharField(max_length=191)
     description = models.TextField()
     directions = models.TextField()
-    prep_time = models.TimeField(null=True, blank=True)
-    cook_time = models.TimeField(null=True, blank=True)
+    prep_time = models.DurationField(null=True, blank=True)
+    cook_time = models.DurationField(null=True, blank=True)
     servings = models.IntegerField()
     # TODO: Handle case of saving recipe when user is deleted
     created_by = models.ForeignKey(Account, on_delete=models.CASCADE,
