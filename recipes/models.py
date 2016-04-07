@@ -16,10 +16,12 @@ class Recipe(models.Model):
     # empty name is not allowed for recipe
     name = models.CharField(max_length=191)
     description = models.TextField()
-    directions = models.TextField()
+    directions = models.TextField(null=True, blank=True)
     prep_time = models.DurationField(null=True, blank=True)
     cook_time = models.DurationField(null=True, blank=True)
     servings = models.IntegerField()
+    source = models.CharField(null=True, blank=True, max_length=191)
+    url = models.URLField(null=True, blank=True, max_length=400)
     # TODO: Handle case of saving recipe when user is deleted
     created_by = models.ForeignKey(Account, on_delete=models.CASCADE,
                                    related_name="created_recipe")
@@ -46,9 +48,9 @@ class RecipeIngredients(models.Model):
     # units could be a model of its own to make things standardized across apps
     measure = models.ForeignKey(IngredientCommonMeasures, null=True, blank=True,
                                 related_name="measure_of_recipeingredient")
-    quantity = models.IntegerField()
+    quantity = models.DecimalField(max_digits=11, decimal_places=3)
     # modifiers - optional description for the ingredients
     modifiers = models.CharField(null=True, blank=True, max_length=191)
 
     def __unicode__(self):
-        return self.modifiers
+        return self.ingredient.name
