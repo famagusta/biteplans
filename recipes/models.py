@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime    
+from datetime import datetime
 from ingredients.models import Ingredient,\
     IngredientCommonMeasures
 from authentication.models import Account
