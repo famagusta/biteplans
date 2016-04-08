@@ -16,7 +16,7 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="recipe_name" type="text" class="validate">
+                  <input id="recipe_name" type="text" class="validate" ng-model ="recipe.name">
                   <label for="recipe_name">Name of Recipe</label>
                 </div>
               </div>
@@ -28,7 +28,7 @@
               </div>
              <div class="row">
                   <div class="input-field col s6">
-                      <input id="servings" type="text" class="validate" ng-model="serving">
+                      <input id="servings" type="text" class="validate" ng-model="recipe.servings">
                       <label for="servings">Serving (No of people)</label>
                   </div>
               </div>
@@ -39,23 +39,23 @@
                     <div class="col s1 push-s1" ng-if="ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length>0">
                         <p class="meal-text center">Amt</p>
                     </div>
-                    <div class="col s1 push-s1">
+                    <div class="col s1 push-s1" ng-if="ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length>0">
                         <p class="meal-text center">Unit</p>
                     </div>
                 </div>
                 <div class="row" ng-repeat="selectedIngredient in ingredientDisplay track by $index">
                     <div class="col s4">
                     <br>
-                        <p class="meal-text">{{selectedIngredient.name}}</p>
+                        <p class="meal-text">{{nutrientValue[$index].name}}</p>
                     <br>
                     </div>
                     <div class="col s1 push-s1">
                     <br>
-                        <input type="number" id="serving" min="0" value="1" ng-model="amount" />
+                        <input type="number" id="serving" min="0" value="1" ng-model="ingredientDisplay[$index].quantity" />
                     <br>
                     </div>
                     <div class="col s1 push-s1">
-                      <select material-select ng-options= "unit.description for unit in ingredientDisplay[$index].measure" ng-model="selectedUnit">
+                      <select material-select ng-options= "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id" ng-model="ingredientDisplay[$index].measure">
                       </select>
                     </div>
                     <div class="col s1 push-s1" class="select-delete-mat">
@@ -162,7 +162,7 @@
  <div class="row">
     <div class="col s12">
         <div class="center-btn">
-            <a href="/create" class="waves-effect waves-light btn largebtn">Save</a>
+            <a ng-click="finalizeRecipeCreation()" class="waves-effect waves-light btn largebtn">Save</a>
         </div>
     </div>
  </div>

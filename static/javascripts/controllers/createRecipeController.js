@@ -30,7 +30,10 @@ app.controller('createRecipeController', ['$scope', 'ingredientService', functio
      };
     
      $scope.addContents = function () {
-        $scope.ingredientDisplay = $scope.nutrientValue.slice(0);
+        for(var i=0; i<$scope.nutrientValue.length; i++){
+          $scope.ingredientDisplay.push({ingredient:$scope.nutrientValue[i].id});
+        }
+        console.log($scope.ingredientDisplay);
         $('#create-recipe-modal').closeModal();
      };
      
@@ -38,6 +41,20 @@ app.controller('createRecipeController', ['$scope', 'ingredientService', functio
     
      $scope.addMoreSteps = function (item) {
          $scope.stepsToCreateRecipes.push(item);
+     };
+
+     var createRecipe = function(){
+
+     };
+
+     var createRecipeIngredient = function(){
+
+     };
+
+     $scope.finalizeRecipeCreation = function(){
+
+        console.log($scope.ingredientDisplay);
+
      };
          
         

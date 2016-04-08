@@ -20,7 +20,22 @@ app.factory('recipeService',
     	return deferred.promise;
     };
 
-    var createRecipeIngredients = function(){};
+    var createRecipeIngredients = function(obj){
+
+    	var url = constants.API_SERVER + 'biteplans/recipe/recipeingredient/';
+    	var deferred = $q.defer();
+
+    	httpService.httpPost(url, obj).then(function(response){
+    		deferred.resolve(response);
+    		console.log(response);
+
+    	}, function(error){
+    		console.log(error);
+    		deferred.reject(error);
+    	});
+
+    	return deferred.promise;
+    };
 
 
 
