@@ -4,8 +4,9 @@ from rest_framework import serializers
 from dietplans.models import DietPlan, DayPlan, MealPlan, MealRecipe,\
     MealIngredient
 from recipes.serializers import RecipeSerializer
-from ingredients.serializers import IngredientSerializer
 
+from ingredients.serializers import IngredientSerializer, \
+IngredientMeasureSerializer
 
 class DietPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
@@ -17,29 +18,40 @@ class DietPlanSerializer(serializers.ModelSerializer):
 class MealRecipeSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
     reciple = RecipeSerializer(many=False, read_only=True)
-
     class Meta:
         '''Meta data, or config for the serializer'''
         model = MealRecipe
 
+class MealRecpSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MealRecipe
+
 
 class MealIngredientSerializer(serializers.ModelSerializer):
-    '''Serializer to convert the recieved data into suitable python dict'''
-    ingredient = IngredientSerializer(many=False, read_only=True)
-    measure = IngredientSerializer(many=False, read_only=True)
+	'''Serializer to convert the recieved data into suitable python dict'''
 
-    class Meta:
-        '''Meta data, or config for the serializer'''
-        model = MealIngredient
+	unit = IngredientMeasureSerializer(many=False, read_only=True)
+	ingredient = IngredientSerializer(many=False, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MealIngredient
 
+
+class MealIngSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MealIngredient
 
 class MealPlanSerializer(serializers.ModelSerializer):
-    '''Serializer to convert the recieved data into suitable python dict'''
-    mealrecipe = MealRecipeSerializer(many=True, read_only=True)
-
-    class Meta:
-        '''Meta data, or config for the serializer'''
-        model = MealPlan
+	'''Serializer to convert the recieved data into suitable python dict'''
+	mealrecipe = MealRecipeSerializer(many=True, read_only=True)
+	meal_ingredient = MealIngSerializer(many=True, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MealPlan
 
 
 class DayPlanSerializer(serializers.ModelSerializer):

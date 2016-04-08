@@ -7,13 +7,21 @@ from ingredients.serializers import IngredientSerializer,\
 from recipes.models import Recipe, RecipeIngredients
 from authentication.models import Account
 from dietplans.models import DietPlan
-from dietplans.serializers import *
+
 
 
 class RecipeIngredientsSerializer(serializers.ModelSerializer):
     '''serializes a python object into JSON serializabale format'''
     ingredient = IngredientSerializer(many=False, read_only=True)
     measure = IngredientMeasureSerializer(many=False, read_only=True)
+
+    class Meta:
+        '''defines the model to be serialized'''
+        model = RecipeIngredients
+
+
+class RecipeIngSerializer(serializers.ModelSerializer):
+    '''serializes a python object into JSON serializabale format'''
 
     class Meta:
         '''defines the model to be serialized'''

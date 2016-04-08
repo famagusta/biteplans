@@ -7,7 +7,7 @@
             <div class="card-content grey-text">
                 <div class="row">
                     <div class="col s12">
-                        <h5 class="cyan-text center ingredient-title">{{detail.shrt_desc| addSpace}}</h5>
+                        <h5 class="cyan-text center ingredient-title">{{detail.name| addSpace}}</h5>
                     </div>
                 </div>
                 <div ng-click="openIngredientsModal($index)">
@@ -17,7 +17,7 @@
                         <h6 class="nutri">Protien</h6>
                     </div>
                     <div class="col s6 m6">
-                        <p>{{detail.protein}}</p>
+                        <p>{{detail.protein_tot}}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -25,7 +25,7 @@
                         <h6 class="nutri">Carbohydrates</h6>
                     </div>
                     <div class="col s6 m6">
-                        <p>{{detail.carbohydrate}}</p>
+                        <p>{{detail.carbohydrate_tot}}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -33,7 +33,7 @@
                         <h6 class="nutri">Fats</h6>
                     </div>
                     <div class="col s6 m6">
-                        <p>{{detail.lipid_tot}}</p>
+                        <p>{{detail.fat_tot}}</p>
                     </div>
                 </div>
                   <div class="row">
@@ -57,7 +57,7 @@
             <div id="modal6" class="modal" >
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
                 <div class="modal-content">
-                  <h4 class="cyan-text ingredient-title">{{details[selected].shrt_desc}}</h4>
+                  <h4 class="cyan-text ingredient-title">{{details[selected].name}}</h4>
                     <br>
                     <div class="row">
                         <div class="col s12 m12">
@@ -86,19 +86,19 @@
                                     <p class="grey-text">Carbohydrates</p>
                                 </div>
                                 <div class="col s6 m6 nutrient-table-line ">
-                                    <p class="grey-text">{{details[selected].carbohydrate}}</p>
+                                    <p class="grey-text">{{details[selected].carbohydrate_tot}}</p>
                                 </div>
                                 <div class="col s6 m6 nutrient-table-line">
                                     <p class="grey-text">Proteins</p>
                                 </div>
                                 <div class="col s6 m6 nutrient-table-line">
-                                    <p class="grey-text">{{details[selected].protein}}</p>
+                                    <p class="grey-text">{{details[selected].protein_tot}}</p>
                                 </div>
                                  <div class="col s6 m6 nutrient-table-line">
                                     <p class="grey-text">Fats</p>
                                 </div>
                                 <div class="col s6 m6 nutrient-table-line">
-                                    <p class="grey-text">{{details[selected].lipid_tot}}</p>
+                                    <p class="grey-text">{{details[selected].fat_tot}}</p>
                                 </div>
                             </div>
                         </div>
@@ -106,10 +106,10 @@
                          <p class="grey-text">Micronutrients</p>
                             <div class="row">
                                 <div class="col s6 m6 nutrient-table-line">
-                                    <p class="grey-text">Sodium</p>
+                                    <p class="grey-text">Fiber</p>
                                 </div>
                                 <div class="col s6 m6 nutrient-table-line ">
-                                    <p class="grey-text">{{details[selected].sodium}}</p>
+                                    <p class="grey-text">{{details[selected].fiber_tot}}</p>
                                 </div>
                                 <div class="col s6 m6 nutrient-table-line">
                                     <p class="grey-text">Water</p>
@@ -118,10 +118,10 @@
                                     <p class="grey-text">{{details[selected].water}}</p>
                                 </div>
                                  <div class="col s6 m6 nutrient-table-line">
-                                    <p class="grey-text">Phosphorus</p>
+                                    <p class="grey-text">sugar</p>
                                 </div>
                                 <div class="col s6 m6 nutrient-table-line">
-                                    <p class="grey-text">{{details[selected].phosphorus}}</p>
+                                    <p class="grey-text">{{details[selected].sugar_tot}}</p>
                                 </div>
                             </div>
                         </div>
