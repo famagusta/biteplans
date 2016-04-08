@@ -22,7 +22,7 @@ app.controller('recipesController', ['$scope', 'ingredientService', function ($s
           console.log($scope.selected);
     };
     
-    $scope.openDetailedInfo = function (index) {
+    $scope.openDetailedInfo =function(){
         $('#modal8').openModal();
     };
     

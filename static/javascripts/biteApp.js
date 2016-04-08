@@ -43,7 +43,9 @@ $routeProvider.when('/', {
 }).when('/recipes', {
     controller: 'recipesController',
     templateUrl: '/static/templates/recipes.html'
-
+}).when('/createRecipes', {
+    controller: 'createRecipeController',
+    templateUrl: 'static/templates/createRecipe.html'
 }).otherwise('/');
 
 $authProvider.facebook({

@@ -80,6 +80,8 @@ ul.food-timing li {
 
 i.add-button {
     height: 10px !important;
+    background-color: #00bcd4;
+    padding: 0;
 }
 
 hr {
@@ -177,11 +179,13 @@ hr {
     height: 21px;
     width: 21px;
     line-height: 20px !important;
+    background-color: #00bcd4 !important;
 }
 
 .btn-floating i {
     font-size: 18px;
     line-height: 24px !important;
+    background-color: #00bcd4 !important;
 }
 
 .down {
@@ -192,11 +196,6 @@ hr {
 
 .c {
     height: 50% !important;
-}
-
-.time-date {
-    font-size: 14px !important;
-   
 }
 
 #serving {
@@ -215,8 +214,14 @@ hr {
     text-transform: uppercase;
 }
 
+#shortcut-menu {
+    font-family: 'Raleway' !important;
+    font-size: 14px !important;
+    font-weight: 600;
+    margin-left: 23px;
+}
 
-.time-date > .control > .slider > .time-control > .time-inputs > input {
-    font-size: 2.1rem !important;
-
+.hor-line {
+    border-bottom: 1px solid #ddd;
+    margin-top: 3px !important;
 }

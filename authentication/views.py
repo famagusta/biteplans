@@ -136,3 +136,17 @@ class BaseDetailView(generics.RetrieveAPIView):
 
 class UserJWTDetailView(JWTAuthMixin, BaseDetailView):
     pass
+
+@api_view(['GET'])
+def checkAccountStatus(request):
+    '''function to check auth status of a user'''
+    if request.method == 'GET':
+        if request.user.is_authenticated():
+            data = {'status':True, 'pk':request.user.id}
+            return Response(data, status=status.HTTP_200_OK)
+        else:
+            data = {'status':False}
+            return Response(data, status=status.HTTP_200_OK)
+    else:
+        data = {'error':'Method not allowed'}
+        Response(data, status=status.HTTP_405_METHOD_NOT_ALLOWED)

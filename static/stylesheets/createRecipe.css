@@ -1,0 +1,29 @@
+#recipe-card {
+    height: 60px !important;
+}
+
+#recipe-title {
+    text-align: center !important;
+    font-size: 18px;
+    margin: -14px !important;
+}
+
+.add-ing {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+h5.recipe-subheading {
+    color: #4f4f4f;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.select-wrapper {
+    position: relative;
+    margin-top: -5px !important;
+}
+
+.select-delete-mat{
+	padding-top:7px !important;
+}

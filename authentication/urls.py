@@ -17,5 +17,6 @@ urlpatterns = patterns('',
                            include('rest_social_auth.urls_jwt')),
                        url(r'^registerConfirm/(?P<activation_key>\w+)/',
                            views.register_confirm),
+                       url(r'^loginstatus/$', views.checkAccountStatus),
                        url(r'^forgot/', include('djoser.urls.base')),
                        )
