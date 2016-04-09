@@ -3,15 +3,15 @@
 
 app.controller('createPlanController', ['$scope', 'ingredientService', function($scope, ingredientService) {
   
+ 
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
-    $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
-    $scope.mealTrack = [];
-
-    $scope.mealWatch = angular.element("#meals");
-    console.log($scope.mealWatch);
+    $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
+                               {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
+                               {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
+                               {mealname:"Dinner", ingredient:[], hours:"8", minutes:"00", ampm:"PM"}];
     
-    $scope.mealPlanNameArray = {Breakfast: [], Lunch: [], Dinner: [], Snacks: []};
+    //searches recipes or ingredients
     $scope.searchPlan = function(query) {
      if (query) {
            ingredientService.search(query).then(function(response) {
@@ -22,29 +22,6 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
         }
     }
     
-    
-    $scope.switchMealEdit = function (key) {
-        $scope.mealEdit = key;
-    };
-    $scope.changeKeyName = function (key,oldKey) {
-        var temp = $scope.mealNameKeys[oldKey];
-        $scope.mealNameKeys[oldKey] = key;
-        $scope.mealPlanNameArray[key] = $scope.mealPlanNameArray[temp];
-        delete $scope.mealPlanNameArray[oldKey];
-        $scope.mealEdit = null;
-    }
-    
-    $scope.$watch('mealWatch', function(newValue, oldValue, scope) {
-        console.log("watch");
-        var temp = $scope.mealNameKeys.indexOf(oldValue);
-        $scope.mealNameKeys[temp] = newValue;
-        $scope.mealPlanNameArray[newValue] = $scope.mealPlanNameArray[oldValue];
-        delete $scope.mealPlanNameArray[oldValue];
-        $scope.mealEdit = null;
-        console.log(oldValue, newValue);
-        
-    });
-         
     
     // switch views among differnt steps in creating  plans
     $scope.createPlanView1 = true;
@@ -80,10 +57,9 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     }
   
     
-    $scope.openCreatePlanModal = function (string) {
+    $scope.openCreatePlanModal = function (index) {
         $('#create-plan-modal').openModal();
-        console.log(string);
-        $scope.currentMealPlanName = string;
+        $scope.currentMealPlanName = index;
     }
     
     $scope.nutrientValue = []; // array to store the nutrient values in modal for every ingredient checked
@@ -93,10 +69,9 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
         // currentmealPlanname, nutrientvalue
         // these should be used to create a post request  to create meal
         var x = $scope.nutrientValue.slice();
-       $scope.mealPlanNameArray[$scope.currentMealPlanName] =  $scope.mealPlanNameArray[$scope.currentMealPlanName].concat(x);
+       $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient =  $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.concat(x);
         $scope.nutrientValue.length = 0;
-        $('#create-plan-modal').closeModal()
-        
+        $('#create-plan-modal').closeModal();
     }
    
     // uncheck all the selected items if save button is not clicked
@@ -108,16 +83,19 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     $scope.amount = 1; // serving per ingredient
 
     // to fire red(-) button which removes the entire meal
-    $scope.clearMeal = function (string) {
-        console.log($scope.currentMealPlanName);
-        delete $scope.mealPlanNameArray[string];
+    $scope.clearMeal = function (element) {
+        $scope.mealPlanNameArray.splice(element,1);
     }
     
     // adds new mealname
     $scope.addMeal = function (key) {
-    alert(key);
-       $scope.mealPlanNameArray[key] = [];
-        $scope.mealNameKeys.push(key);
+       $scope.mealPlanNameArray.push({mealname:key, ingredient:[], hours: $scope.hours, minutes: $scope.minutes, ampm: $scope.ampm});
+       
+       $('#add-meal-modal').closeModal();
+    }
+    
+    $scope.triggerAddMealModal = function () {
+         $('#add-meal-modal').openModal();
     }
     
     $scope.nextDayPlan = function (element) {
@@ -127,20 +105,15 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     // removes ingredients from the modal
     $scope.removeIngredient = function (element) {
          var index = $scope.nutrientValue.indexOf(element);
-         $scope.nutrientValue.splice(index, 1);     
+         $scope.nutrientValue.splice(index,1);     
      }
      
      // removes ingredients which are saved in meal
      $scope.removeIngredientsFromSavedMeal = function (element) {
-         var index = $scope.mealPlanNameArray[$scope.currentMealPlanName].indexOf(element);
-         $scope.mealPlanNameArray[$scope.currentMealPlanName].splice(index,1);
+        $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.splice(element,1);
      }
-     
  
-    $scope.dayCount = 1 
-    
-    $scope.weekCount = 1;
-    
-    
     
 }]);
+
+

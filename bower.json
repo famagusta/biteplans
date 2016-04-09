@@ -19,6 +19,11 @@
     "lolliclock": "^0.1.0",
     "sc-date-time": "^1.1.6",
     "progressbar.js": "^1.0.0",
-    "fullcalendar": "^2.6.1"
+    "fullcalendar": "^2.6.1",
+    "jt.timepicker": "jquery-timepicker-jt#^1.8.11",
+    "material-calendar": "^0.2.14"
+  },
+  "resolutions": {
+    "angular": "^1.4.9"
   }
 }

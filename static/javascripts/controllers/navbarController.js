@@ -1,6 +1,12 @@
 'use strict';
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
+    
+    var checkLoggedIn = function () {
+//        AuthService.checkStatus()
+        
+    };
+    
     $scope.navClass = function (page) {
         var currentRoute = $location.path().substring(1) || '/';
         return page === currentRoute ? 'active' : '';
@@ -118,9 +124,10 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
 };
     
     $scope.logout = function() {
-        $scope.isLoggedIn = false;
+        
         var response = AuthService.logout();
         if(response) {
+            $scope.isLoggedIn = false;
             $location.path('/');
         }
     };

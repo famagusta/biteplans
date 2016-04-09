@@ -198,9 +198,17 @@ hr {
     height: 50% !important;
 }
 
-#serving {
+.serving {
     height: 1rem !important;
     text-align: center;
+    color: #9e9e9e;
+}
+
+.select-wrapper input.select-dropdown#serving {
+    height: 1em !important;
+}
+
+.select-wrapper span.caret {
     color: #9e9e9e;
 }
 
@@ -218,10 +226,66 @@ hr {
     font-family: 'Raleway' !important;
     font-size: 14px !important;
     font-weight: 600;
-    margin-left: 23px;
+    margin-left: 79px;
 }
 
 .hor-line {
     border-bottom: 1px solid #ddd;
     margin-top: 3px !important;
 }
+
+.item-align {
+    margin-top: 16px;
+}
+
+.time-input {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+input[type=number].time-input {
+    width: 62% !important;
+    text-align: center;
+}
+
+.shift-time-left {
+    margin-left: -26px !important;
+    text-align: center;
+}
+
+.shift-ampm-left {
+    margin-left: -30px !important;
+    text-align: center;
+}
+
+#meals {
+    text-align: center;
+    width: 77% !important;
+}
+
+.selected-meal-ingredient-list {
+    margin-left: 49px !important;
+    margin-top: -18px !important;
+}
+
+/* ADD NEW MEAL MODAL */
+
+#add-meal-modal {
+    height: 80% !important;
+    width: 50% !important;
+}
+
+.dropdown-content li>span {
+    height: 10% !important;
+    font-size: 13px;
+}
+
+.select-wrapper input.select-dropdown {
+    height: 2em;
+    margin-top: -28px;
+}
+
+select {
+    height: 1em !important;
+}
+
