@@ -16,7 +16,7 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="recipe_name" type="text" class="validate">
+                  <input id="recipe_name" type="text" class="validate" ng-model ="recipe.name">
                   <label for="recipe_name">Name of Recipe</label>
                 </div>
               </div>
@@ -28,39 +28,41 @@
               </div>
              <div class="row">
                   <div class="input-field col s6">
-                      <input id="servings" type="text" class="validate">
+                      <input id="servings" type="text" class="validate" ng-model="recipe.servings">
                       <label for="servings">Serving (No of people)</label>
                   </div>
-                 <div class="input-field col s6">
-                      <input id="serving_no" type="text" class="validate">
-                      <label for="seving_no">Serving Size</label>
-                  </div>  
               </div>
                 <div class="row">
                     <div class="col s4">
                         <h5 class="recipe-subheading">Ingredients</h5>
                     </div>
-                    <div class="col s1 push-s1">
+                    <div class="col s1 push-s1" ng-if="ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length>0">
                         <p class="meal-text center">Amt</p>
                     </div>
-                    <div class="col s1 push-s1">
-                        <p class="meal-text center">Desc</p>
+                    <div class="col s1 push-s1" ng-if="ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length>0">
+                        <p class="meal-text center">Unit</p>
                     </div>
                 </div>
-                <div class="row" ng-repeat="selectedIngredient in ingredientDisplay">
+                <div class="row" ng-repeat="selectedIngredient in ingredientDisplay track by $index">
                     <div class="col s4">
-                        <p class="meal-text">{{selectedIngredient.shrt_desc}}</p>
+                    <br>
+                        <p class="meal-text">{{nutrientValue[$index].name}}</p>
+                    <br>
                     </div>
                     <div class="col s1 push-s1">
-                        <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
+                    <br>
+                        <input type="number" id="serving" min="0" value="1" ng-model="ingredientDisplay[$index].quantity" />
+                    <br>
                     </div>
                     <div class="col s1 push-s1">
-                        <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
+                      <select material-select ng-options= "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id" ng-model="ingredientDisplay[$index].measure">
+                      </select>
                     </div>
-                    <div class="col m1 push-s1">
+                    <div class="col s1 push-s1" class="select-delete-mat">
                         <a ng-click="removeIngredientsFromSavedMeal(value)">
                             <i class="material-icons" >delete</i>
                         </a>
+          
                     </div>
                 </div>
                 <div class="row">
@@ -160,7 +162,7 @@
  <div class="row">
     <div class="col s12">
         <div class="center-btn">
-            <a href="/create" class="waves-effect waves-light btn largebtn">Save</a>
+            <a ng-click="finalizeRecipeCreation()" class="waves-effect waves-light btn largebtn">Save</a>
         </div>
     </div>
  </div>
@@ -168,7 +170,7 @@
 <!-- CREATE RECIPE MODAL -->
     
   <div id="create-recipe-modal" class="modal">
-            <a href="#!" ng-click="emptyModalContents()" class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
             <div class="modal-content">
                 <div class="row">
                     <div class="col m6">
@@ -188,7 +190,7 @@
                                 <div ng-repeat="detail in details | limitTo:7 track by $index">
                                      <p>
                                         <input type="checkbox" class="filled-in" id="filled-in-box{{$index}}"  checklist-model="nutrientValue" checklist-value="detail"/>
-                                        <label for="filled-in-box{{$index}}" id="check-label" class="ing-text">{{detail.shrt_desc}} </label>
+                                        <label for="filled-in-box{{$index}}" id="check-label" class="ing-text">{{detail.name}} </label>
                                     </p>
                                 </div>
                             </div>
@@ -223,7 +225,7 @@
                                     <p class="a b ahead">Proteins</p>
                                 </div>
                                 <div class="col m6">
-                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].protein}}</p>
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].protein_tot}}</p>
                                 </div>
                             </div>
                             <div class="row hline">
@@ -231,7 +233,7 @@
                                     <p class="a b ahead">Fats</p>
                                 </div>
                                 <div class="col m6">
-                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].lipid_tot}}</p>
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].fat_tot}}</p>
                                 </div>
                             </div>
                             <div class="row hline">
@@ -239,15 +241,7 @@
                                     <p class="a b ahead">Carbohydrates</p>
                                 </div>
                                 <div class="col m6">
-                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].carbohydrate}}</p>
-                                </div>
-                            </div>
-                            <div class="row hline">
-                                <div class="col m6 ">
-                                    <p class="a b ahead">Sodium</p>
-                                </div>
-                                <div class="col m6">
-                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].sodium}}</p>
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].carbohydrate_tot}}</p>
                                 </div>
                             </div>
                             <div class="row hline">
@@ -255,15 +249,15 @@
                                     <p class="a b ahead">Fiber</p>
                                 </div>
                                 <div class="col m6">
-                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].fiber_td}}</p>
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].fiber_tot}}</p>
                                 </div>
                             </div>
                             <div class="row hline">
                                 <div class="col m6 ">
-                                    <p class="a b ahead">Cholestrol</p>
+                                    <p class="a b ahead">Water</p>
                                 </div>
                                 <div class="col m6">
-                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].cholestrl}}</p>
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].water}}</p>
                                 </div>
                             </div>   
                     </div>
@@ -272,7 +266,7 @@
 
                          <div class="row" ng-repeat="item in nutrientValue" >
                                 <div class="col m6 meal-list">
-                                    <p ng-if="nutrientValue.length>0" class="ing-text meal-list">{{item.shrt_desc}}</p>
+                                    <p ng-if="nutrientValue.length>0" class="ing-text meal-list">{{item.name}}</p>
                                 </div>
                                 <div class="col m6 meal-list">
                                     <a href="#" ng-click="removeIngredient(item)"><i ng-if="nutrientValue.length>0" class="material-icons meal-list right dustbin">delete</i></a>

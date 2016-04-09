@@ -4,10 +4,11 @@ app.factory('ingredientService',
             ['httpService', '$location','constants','$q','$window', '$rootScope', '$auth', function(httpService,$location,constants,$q,$window, $rootScope, $auth){
     /* Function to do the search ingredients */
         var search = function(quer) {
-            var url = constants['API_SERVER'] + 'bitespace/search';
+            var url = constants['API_SERVER'] + 'biteplans/search/';
             var deferred = $q.defer();
             httpService.httpPost(url, {
                              'query':quer,
+                             'type':"ingredients"
                          }).then(
           function(response) {
             deferred.resolve(response);
@@ -22,10 +23,11 @@ app.factory('ingredientService',
     
        // Function to search recipes
         var search_recipe = function(quer) {
-            var url = constants['API_SERVER'] + 'bitespace/recipe_search';
+            var url = constants['API_SERVER'] + 'biteplans/search/';
             var deferred = $q.defer();
             httpService.httpPost(url, {
                              'query':quer,
+                             'type':"recipes"
                          }).then(
           function(response) {
             deferred.resolve(response);

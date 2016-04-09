@@ -25,6 +25,20 @@ app.factory('httpService',['$http', '$q', function($http,$q){
       });
       return promise;
     };
+
+    var httpPut = function(url,params){
+      params = toparams(params);
+      var promise = $http.put(url, params,{
+        headers:{
+              'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+      function(response){
+        return response.data;
+      });
+      return promise;
+    };
+
 //http get method wrapper
     var httpGet = function(url){
       var promise = $http.get(url, {
@@ -45,7 +59,11 @@ app.factory('httpService',['$http', '$q', function($http,$q){
       },
       httpGet : function(url,params){
         return httpGet(url,params);
-      }
+      },
+      httpPut : function(url,params){
+        return httpPut(url,params);
+      },
+
 
     };
 }]);
@@ -80,7 +98,7 @@ app.factory('AuthService',
 
 /* Login logic goes here {This is normal login, not social login }*/
 var login = function(username, password) {
-    var url = constants['API_SERVER'] + 'authentication/api/v1/login';
+    var url = constants['API_SERVER'] + 'authentication/api/v1/login/';
     var deferred = $q.defer();
     httpService.httpPost(url, {
                      'email': username,
@@ -128,7 +146,7 @@ return deferred.promise;};
 /* function to logout for normally signed in user */
 var logout = function(){
 	$auth.removeToken();
-    userOb.set_user();
+  userOb.set_user();
 
 };
 //
@@ -148,7 +166,6 @@ var logout = function(){
 //
 //});
 //return deferred.promise;};
-
 /*User resource for sharing between different controllers */
 var userOb = {};
 userOb.current = {};
@@ -213,6 +230,20 @@ function(response) {
 //return promise, promise gets things done
 return deferred.promise;};
 
+
+var isAuthenticated = function(){
+  var url = constants['API_SERVER'] + 'authentication/loginstatus/';
+  var deferred = $q.defer();
+  httpService.httpGet(url).then(function(response){
+    deferred.resolve(response);
+  }, function(error){
+    deferred.reject(error);
+  });
+
+  return deferred.promise;
+
+};
+
 //return all these features as function
   return {
     register: function(username, password, confirm, email) {
@@ -227,11 +258,8 @@ return deferred.promise;};
     	return 'User has been logged out';
 
     },
-    search : function(query){
-      return search(query);
-    },
-    search_recipe : function(query){
-      return search_recipe(query);
+    isAuthenticated : function(){
+      return isAuthenticated();
     },
 
     socialAuth : loginSocial,

@@ -9,17 +9,14 @@ from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
-                       url(r'^bitespace/',
-                           include('bitespace_app.urls',
-                                       namespace="bitespace")),
+                       url(r'^biteplans/',
+                           include('ingredients.urls',
+                                   namespace="ingredients")),
                        url(r'^authentication/',
                            include('authentication.urls', namespace="auuth")),
                        url('^.*$',
                            TemplateView.as_view(template_name="index.html"),
                            name='index'),
-                       # url(r'^sociallogin/',
-                       #     'mydjangoapp.views.social_register'),
-
                        )
 
 if not settings.DEBUG:

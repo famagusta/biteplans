@@ -4,15 +4,16 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from schedule.models import Calendar
+from django.db.models.signals import post_save, post_delete, pre_save
+from django.dispatch import receiver
 
 
 class AccountManager(BaseUserManager):
     '''this class manages the user save method and other user actions'''
-    def create_user(self, username, email, password=None, **kwargs):
+    def create_user(self, username, email,
+                    password=None, **kwargs):
         '''creates normal user'''
-        kwargs.setdefault('is_staff', False)
-        kwargs.setdefault('is_superuser', False)
-
         if not username:
             raise ValueError('Users must have a valid username.')
 
@@ -20,8 +21,7 @@ class AccountManager(BaseUserManager):
             email = username+'@'+'facebook.com'
 
         account = self.model(email=self.normalize_email(email),
-                             username=username
-                             )
+                             username=username, **kwargs)
 
         account.set_password(password)
         account.save()
@@ -51,11 +51,15 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     social_thumb = models.URLField(null=True, blank=True)
 
-    ##These fields will be required for manually signing
-    ##up(ie not google or fb user)
-    ##We will send an email to the user on signing up
-    ##clicking on which will make him
-    ##active and if he does not click on it then he will be inactive
+    # Added calendar support
+    calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE,
+                                    null=True)
+
+    # These fields will be required for manually signing
+    # up(ie not google or fb user)
+    # We will send an email to the user on signing up
+    # clicking on which will make him
+    # active and if he does not click on it then he will be inactive
 
     activation_key = models.CharField(max_length=40, null=True)
     key_expires = models.DateTimeField(null=True)
@@ -67,7 +71,6 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def __unicode__(self):
         return self.email
 
-
     def get_full_name(self):
         '''return username'''
         return self.username
@@ -75,3 +78,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
+
+
+@receiver(pre_save, sender=Account)
+def assosiate_calendar(sender, instance, **kwargs):
+    '''assosiate one to one calender to the user instance'''
+    if instance.pk is None:
+        print instance
+        cal = Calendar.objects.create(name=instance.username,
+                                      slug='default')
+        instance.calendar = cal

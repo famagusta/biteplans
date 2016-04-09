@@ -18,3 +18,12 @@ h5.recipe-subheading {
     font-weight: 600;
     font-size: 19px;
 }
+
+.select-wrapper {
+    position: relative;
+    margin-top: -5px !important;
+}
+
+.select-delete-mat{
+	padding-top:7px !important;
+}

@@ -47,10 +47,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bitespace_app',
+    'ingredients',
     'authentication',
     'dietplans',
     'rest_framework',
+    'imported_recipes',
+    'recipes',
     'markdown',
     'rest_framework.authtoken',
     'djoser',
@@ -58,6 +60,7 @@ INSTALLED_APPS = (
     'import_export',
     'social.apps.django_app.default',
     'rest_social_auth',
+    'schedule',     # support for calendars
 )
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
@@ -72,25 +75,30 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     )
 }
+
+# Authentication pipeline for social auth to work correctly
+
 SOCIAL_AUTH_PIPELINE = (
- 'authentication.social_pipe.auto_logout',
- 'social.pipeline.social_auth.social_details',
- 'social.pipeline.social_auth.social_uid',
- 'social.pipeline.social_auth.auth_allowed',
- 'social.pipeline.social_auth.social_user',
- 'social.pipeline.user.get_username',
- 'social.pipeline.social_auth.associate_by_email',
- 'social.pipeline.user.create_user',
- 'social.pipeline.social_auth.associate_user',
- 'social.pipeline.social_auth.load_extra_data',
- 'social.pipeline.user.user_details',
- 'authentication.social_pipe.save_avatar',  # custom action
+    'authentication.social_pipe.auto_logout',
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'authentication.social_pipe.save_avatar',  # custom action
 )
+# JWT Auth settings
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
 
+# Template middleware
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.template.context_processors.debug',
@@ -101,8 +109,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     'social.apps.django_app.context_processors.backends',
     'social.apps.django_app.context_processors.login_redirect',
+    'django.core.context_processors.request',  # support for calendars
 )
 
+# Authentication backends for manual+social auth
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
     'social.backends.facebook.FacebookAppOAuth2',
@@ -111,12 +121,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# Social auth keys
 SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-  'locale': 'ru_RU',
-  'fields': 'id, name, email, age_range'
+    'locale': 'ru_RU',
+    'fields': 'id, name, email, age_range'
 }
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
@@ -136,6 +147,7 @@ REGISTRATION_AUTO_LOGIN = True   # If True, users be automatically logged in.
 
 AUTH_USER_MODEL = 'authentication.Account'
 
+# django middleware
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -145,9 +157,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'bitespace_project_config.urls'
+ROOT_URLCONF = 'biteplans_project_config.urls'
 
-WSGI_APPLICATION = 'bitespace_project_config.wsgi.application'
+WSGI_APPLICATION = 'biteplans_project_config.wsgi.application'
 
 
 # Database
@@ -162,7 +174,8 @@ DATABASES = {
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
-}# Internationalization
+}
+# Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -200,6 +213,7 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
 
+# Settings to be able to send mail to user
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -208,7 +222,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'shubham@jeevomics.com'
 EMAIL_HOST_PASSWORD = 'vniamvcbgpfsdhsf'
 EMAIL_PORT = 587
-
 
 
 LOGGING = {
@@ -227,6 +240,8 @@ LOGGING = {
         },
     }
 }
+
+# Forgot password djoser
 DJOSER = {
     'DOMAIN': 'bitespacetest.com:8000',
     'SITE_NAME': 'biteplans',

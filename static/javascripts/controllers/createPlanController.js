@@ -20,7 +20,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
       console.log(error);
     });
         }
-    }
+    };
     
     
     // switch views among differnt steps in creating  plans
@@ -30,19 +30,19 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     $scope.createPlanView4 = false;
 
     $scope.switchCreatePlanViews = function (number) {
-        if (number == 2 && $scope.createPlanView2!==true) {
+        if (number === 2 && $scope.createPlanView2!==true) {
                $scope.createPlanView1 = false;
                $scope.createPlanView2 = true;
                $scope.createPlanView3 = false;
                $scope.createPlanView4 = false;
         }
-        else if (number == 3 && $scope.createPlanView3!==true) {
+        else if (number === 3 && $scope.createPlanView3!==true) {
                $scope.createPlanView1 = false;
                $scope.createPlanView2 = false;
                $scope.createPlanView3 = true;
                $scope.createPlanView4 = false;
         }
-         else if (number == 4 && $scope.createPlanView4!==true) {
+         else if (number === 4 && $scope.createPlanView4!==true) {
                $scope.createPlanView1 = false;
                $scope.createPlanView2 = false;
                $scope.createPlanView3 = false;
@@ -77,12 +77,14 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     // uncheck all the selected items if save button is not clicked
     $scope.emptyModalContents = function () {
         $('#create-plan-modal').closeModal();
-    }
+
+    };
     
     
     $scope.amount = 1; // serving per ingredient
 
     // to fire red(-) button which removes the entire meal
+
     $scope.clearMeal = function (element) {
         $scope.mealPlanNameArray.splice(element,1);
     }

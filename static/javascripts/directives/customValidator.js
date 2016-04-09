@@ -18,3 +18,12 @@ app.filter('addSpace', function () {
       //your date parser here
    };
 });
+
+app.directive('materialSelect', function() {
+   return {
+      restrict: 'A',
+      link: function(scope, elem) {
+         $(elem).material_select();
+      }
+   };
+});
