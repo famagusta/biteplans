@@ -1,9 +1,9 @@
 {
-  "name": "BiteApp",
+  "name": "biteplans",
   "authors": [
     "shubham"
   ],
-  "description": "biteApp",
+  "description": "biteplans",
   "main": "",
   "moduleType": [],
   "license": "MIT",
@@ -19,6 +19,8 @@
     "lolliclock": "^0.1.0",
     "sc-date-time": "^1.1.6",
     "progressbar.js": "^1.0.0",
-    "fullcalendar": "^2.6.1"
+    "fullcalendar": "^2.6.1",
+    "angular-ui-calendar": "^1.0.1",
+    "moment": "^2.12.0"
   }
 }

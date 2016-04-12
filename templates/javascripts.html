@@ -1,17 +1,26 @@
 {% load staticfiles %}
+
 <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'bower_components/moment/src/moment.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'bower_components/angular/angular.min.js' %}"></script>
 
 <script type="text/javascript" src="{% static 'bower_components/materialize/dist/js/materialize.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'bower_components/angular/angular.min.js' %}"></script>
+
+
 <script type="text/javascript" src="{% static 'bower_components/angular-route/angular-route.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/satellizer/satellizer.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/progressbar.js/dist/progressbar.js' %}"></script>
 
 <script type="text/javascript" src="{% static 'bower_components/angularUtils-pagination/dirPagination.js' %}"></script>
+
+
+<!-- JS LIBRARIES FOR CALENDAR SUPPORT -->
+<script type="text/javascript" src="{% static 'bower_components/moment/moment.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/fullcalendar/dist/fullcalendar.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-ui-calendar/src/calendar.js' %}"></script>
 
 
+<!-- BITEPLANS CUSTOM JS FILES -->
 <script type="text/javascript" src="{% static 'javascripts/biteApp.js' %}"></script>
 
 <script type="text/javascript" src="{% static 'javascripts/services/angular-auth-service.js' %}"></script>
@@ -32,3 +41,5 @@
 <script type="text/javascript" src="{% static 'javascripts/controllers/navbarController.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascripts/controllers/resetController.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascripts/controllers/recipesController.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'javascripts/controllers/calendarController.js' %}"></script>
