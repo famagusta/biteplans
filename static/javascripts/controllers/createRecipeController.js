@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('createRecipeController', ['$scope', 'ingredientService', function($scope, ingredientService) {
+app.controller('createRecipeController', ['$scope', 'ingredientService','recipeService', function($scope, ingredientService, recipeService) {
       $scope.search = function() {
           var query = $scope.query;
             if (query) {
@@ -30,20 +30,42 @@ app.controller('createRecipeController', ['$scope', 'ingredientService', functio
      };
     
      $scope.addContents = function () {
-        for(var i=0; i<$scope.nutrientValue.length; i++){
-          $scope.ingredientDisplay.push({ingredient:$scope.nutrientValue[i].id});
+        for(var i=$scope.ingredientDisplay.length; i<$scope.nutrientValue.length; i++){
+          $scope.ingredientDisplay.push({ingredient:$scope.nutrientValue[i].id, measure: $scope.nutrientValue[i].measure[0].id});
         }
         console.log($scope.ingredientDisplay);
         $('#create-recipe-modal').closeModal();
      };
      
-     $scope.stepsToCreateRecipes = ['Step1', 'Step2'];
+     $scope.stepsToCreateRecipes = [''];
     
      $scope.addMoreSteps = function (item) {
-         $scope.stepsToCreateRecipes.push(item);
+         $scope.stepsToCreateRecipes.length += 1;
      };
 
-     var createRecipe = function(){
+     var createRecipe = function(recipe){
+      console.log(recipe);
+      recipeService.createRecipe(recipe).then(function(response){
+
+          var id = response.recipe_id;
+          console.log(id);
+          for(var i=0; i<$scope.ingredientDisplay.length; i++){
+                $scope.ingredientDisplay[i].recipe = id;
+                recipeService.createRecipeIng($scope.ingredientDisplay[i]).then(function(response){
+                      console.log(response);
+                    },
+                    function(error){
+                              console.log(error);
+                    });
+
+            };
+
+
+      }, function(error){
+
+        console.log('recipe could not be created, try again later');
+
+      })
 
      };
 
@@ -52,9 +74,14 @@ app.controller('createRecipeController', ['$scope', 'ingredientService', functio
      };
 
      $scope.finalizeRecipeCreation = function(){
+       $scope.recipe.directions = '';
+       for(var i=0; i< $scope.stepsToCreateRecipes.length; i++)
+       {$scope.recipe.directions = $scope.recipe.directions + ' ' + $scope.stepsToCreateRecipes[i];}
 
-        console.log($scope.ingredientDisplay);
+       $scope.recipe.prep_time= $scope.prep_hours + ':' +$scope.prep_mins + ':00';
+       $scope.recipe.cook_time= $scope.cook_hours + ':' +$scope.cook_mins + ':00';
 
+       createRecipe($scope.recipe);
      };
          
         

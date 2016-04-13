@@ -96,6 +96,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
 //function to login using manual details. email is the required field and is taken as username
   $scope.login = function(){
     //these are required params
+    console.log('SWAG');
    var username = $scope.login.username;
   var password = $scope.login.password;
       

@@ -7,6 +7,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     // function to search ingredients in create plan 
     $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
     $scope.mealTrack = [];
+    $scope.plan={};
 
     $scope.mealWatch = angular.element("#meals");
     console.log($scope.mealWatch);
@@ -54,6 +55,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
 
     $scope.switchCreatePlanViews = function (number) {
         if (number === 2 && $scope.createPlanView2!==true) {
+            alert($scope.plan.plan_name_test);
                $scope.createPlanView1 = false;
                $scope.createPlanView2 = true;
                $scope.createPlanView3 = false;

@@ -25,7 +25,7 @@
                                 <div class="row">
                                     <div class="input-field col s5 push-s1">
                                         <label for="plan_name">Name of Plan</label>
-                                        <input id="plan_name" type="text" class="validate" required>
+                                        <input id="plan_name" type="text" class="validate" ng-model="plan.plan_name_test" required>
                                     </div>
                                     <div class="input-field col s5 push-s1">
                                         <input id="age" type="number" class="validate">
@@ -135,6 +135,7 @@
                                      <div class="row">
                                          <div class="col m12">
                                             <p class="center down">Your food plan for</p>
+                                            {{plan.plan_name_test}}
                                          </div>
                                      </div>
                                  </div>

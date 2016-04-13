@@ -72,7 +72,7 @@
                 </div>
             </div>
     
-            <form ng-submit="login()" name="myForm">
+            <form name="myForm">
                 <div class="input-field"> <!-- USERNAME -->
                     <input id="first_name" type="email" class="form-control validate" ng-model="login.username" >
                     <label for="first_name">Email</label>
@@ -84,7 +84,7 @@
                 </div>
                 
                 <div class="center-btn"> <!-- SUBMIT BUTTON -->
-                    <a type="submit" class="waves-effect waves-light btn btn-default largebtn">Login</a>
+                    <a type="submit" ng-click="login()"class="waves-effect waves-light btn btn-default largebtn">Login</a>
                 </div>
                 <br>
                 <a href="#" ng-click="switchToModal(4)" class="cyan-text">Forgot your password or username?</a>
