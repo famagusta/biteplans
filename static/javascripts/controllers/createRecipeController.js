@@ -29,6 +29,10 @@ app.controller('createRecipeController', ['$scope', 'ingredientService', functio
          $scope.nutrientValue.splice(index, 1);     
      };
     
+    $scope.removeIngredientsFromSavedMeal = function (element) {
+        $scope.ingredientDisplay.splice(element,1);
+    }
+    
      $scope.addContents = function () {
         for(var i=0; i<$scope.nutrientValue.length; i++){
           $scope.ingredientDisplay.push({ingredient:$scope.nutrientValue[i].id});
@@ -42,6 +46,9 @@ app.controller('createRecipeController', ['$scope', 'ingredientService', functio
      $scope.addMoreSteps = function (item) {
          $scope.stepsToCreateRecipes.push(item);
      };
+    
+     $scope.currentPage = 1;
+  $scope.pageSize = 6; 
 
      var createRecipe = function(){
 

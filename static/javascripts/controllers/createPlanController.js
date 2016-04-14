@@ -1,15 +1,53 @@
 // controller for create plans page
 'use strict';
 
-app.controller('createPlanController', ['$scope', 'ingredientService', function($scope, ingredientService) {
+app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', function($scope, ingredientService, Data) {
+    
+    
   
- 
+    $scope.plan = {};
+    
+    $scope.weekCount = [];
+    $scope.dayCount = [];
+    
+    $scope.$watch()
+    
+    $scope.func = function (index) {
+        for(var i = 1 ; i <= $scope.plan.durations ; i++) {
+            $scope.weekCount.push("Week" + " " + i);
+        }
+        for(var i = 1 ; i <= 7 ; i++) {
+                $scope.dayCount.push("Day" + " " + i);  
+        }
+    }
+    $scope.weekCount.length = 0;
+    
+     $scope.addMealHours = [];
+    
+    for(var i = 0 ; i <= 23 ; i++) {
+        $scope.addMealHours.push(i);
+    }
+    
+     $scope.addMealMinutes = [];
+    
+    for(var i = 0 ; i <= 59 ; i++) {
+        $scope.addMealMinutes.push(i);
+    }
+    
+//    $scope.planDetailSubmit = function () {
+//        console.log($rootScope.planData.plan_username);
+//    }
+        
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
     $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
                                {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
                                {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
                                {mealname:"Dinner", ingredient:[], hours:"8", minutes:"00", ampm:"PM"}];
+    
+//    console.log($scope.mealPlanNameArray);
+    
+
     
     //searches recipes or ingredients
     $scope.searchPlan = function(query) {
@@ -22,7 +60,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
         }
     };
     
-    
+  
     // switch views among differnt steps in creating  plans
     $scope.createPlanView1 = true;
     $scope.createPlanView2 = false;
@@ -69,10 +107,28 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
         // currentmealPlanname, nutrientvalue
         // these should be used to create a post request  to create meal
         var x = $scope.nutrientValue.slice();
-       $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient =  $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.concat(x);
+        for(var i=0; i<x.length; i++){
+            if (x[i].measure.length!==0) {
+                 $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.push({ingredient:x[i], unit:x[i].measure[0].id, quantity:1})
+            }
+            else {
+                 $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.push({ingredient:x[i], unit:x[i].measure, quantity:1})
+            }
+           
+        }
         $scope.nutrientValue.length = 0;
         $('#create-plan-modal').closeModal();
+        
+      
+        
+//        var temp = 0;
+//        for (i=0;i<$scope.mealPlanNameArray.length;i++) {
+//            temp = temp + $scope.mealPlanNameArray
+//        }
+        
     }
+    
+//      console.log($scope.nutrientValue);
    
     // uncheck all the selected items if save button is not clicked
     $scope.emptyModalContents = function () {
@@ -114,6 +170,24 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
      $scope.removeIngredientsFromSavedMeal = function (element) {
         $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.splice(element,1);
      }
+     
+     $scope.calculateTotalInfo = function (index, field) {
+          
+        var total =0;
+       for(i=0;i<$scope.mealPlanNameArray[index].ingredient.length;i++) {
+           
+           total += parseFloat($scope.mealPlanNameArray[index].ingredient[i].ingredient[field]);
+           
+          
+       } 
+         console.log(total, index, field);
+         return total;
+         
+     }
+     
+    
+    
+    
  
     
 }]);
