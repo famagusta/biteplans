@@ -25,4 +25,7 @@ urlpatterns = patterns('',
                        url(r'^diet/', include(router.urls)),
 
                        url(r'^recipe/', include(reciperouter.urls)),
+
+                       url(r'^plan/dayplan/(?P<diet>[0-9]+)/$',
+                           vu.DayPlanViewSet.as_view()),
 					)
