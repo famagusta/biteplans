@@ -146,11 +146,35 @@
                       <div class="col s12 m12">
                        <h5 class="center-align">Weight Loss in 2 weeks</h5> 
                       </div>
+                      <!--POPULATE DASHBOARD WITH RANDOM DATA-->
+                      <div ng-controller='summaryCtrl'>
+                            <div ng-repeat="x in plan_data">
+                                <h5 class='left-align'>{{x.title}}</h5>
+                                    <div ng-repeat='y in x.ingredient'>
+                                         <div class="row">
+                                            <div class="col s3 m3">
+                                                <h6>{{y.name[0]}}</h6>
+                                            </div>
+                                            <div class="col s2">
+                                                <input id="servings" type="text" class="validate" value={{y.name[1]}} />
+                                             </div>
+                                             <div class="col s4">
+                                                <label for="servings">{{y.name[2]}}</label>
+                                            </div>
+                                            <div class="col s2 m1">   
+                                                <input type="checkbox" class="filled-in" id="filled-in-box1" checked="checked" />
+                                                <label for="filled-in-box1"></label>
+                                            </div>
+                                            
+                                        </div>    
+                                    </div>
+                                </div>
+                          </div>
+                      </div>
                   </div>
                 </span>
             </div>
           </div>
-        </div> 
       </div><!-- END OF SUMMARY WINDOW-->
       
       <!-- PROFILE VIEW -->
@@ -185,7 +209,7 @@
     
     <div class="col s12 m7">
         <div ng-if="tab==3"> 
-          <div class="card white" id="directives-calendar" ng-controller="CalendarCtrl">
+          <div class="card white">
               <div ng-include="'static/templates/calendar.html'"></div>
           </div>
         </div> 
@@ -203,30 +227,5 @@
       </div>
     </div>
 
-<script>
-$(document).ready(function() {
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-    
-    $('#calendar').fullCalendar({
-        dayClick: function() { 
-            alert('a day has been clicked!');
-        },
-        editable: true,
-        defaultView: 'month',
-        header: {
-            left: 'prev,next,today',
-            center: 'title',
-            right: 'month,basicWeek,basicDay'
-        },        
-        
-
-  }); 
-    
-    
-});
-</script>
 
 <a ng-click="logout()" class="btn btn-primary">Logout</a>

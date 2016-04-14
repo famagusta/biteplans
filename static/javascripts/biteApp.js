@@ -5,7 +5,7 @@ var app = angular.module('biteApp', [
       'satellizer',
       'ngRoute',
       'angularUtils.directives.dirPagination',
-      'ui.calendar'
+      "ngMaterial", "materialCalendar"
     ]);
 /**
 * @name run
