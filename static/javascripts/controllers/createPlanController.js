@@ -173,14 +173,15 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
      
      $scope.calculateTotalInfo = function (index, field) {
           
-        var total =0;
-       for(i=0;i<$scope.mealPlanNameArray[index].ingredient.length;i++) {
+         console.log($scope.mealPlanNameArray[index]);
+            var total =0;
+        for(i=0;i<$scope.mealPlanNameArray[index].ingredient.length;i++) {
            
            total += parseFloat($scope.mealPlanNameArray[index].ingredient[i].ingredient[field]);
            
           
        } 
-         console.log(total, index, field);
+//         console.log(total, index, field);
          return total;
          
      }
