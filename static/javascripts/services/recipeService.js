@@ -8,7 +8,7 @@ app.factory('recipeService',
     	var url = constants.API_SERVER+'biteplans/recipe/recipes/';
     	var deferred = $q.defer();
     	var obj = null;
-    	httpService.httpPost(url, obj).then(function(response){
+    	httpService.httpPost(url, recipeObject).then(function(response){
     		deferred.resolve(response);
     		console.log(response);
 
@@ -35,6 +35,19 @@ app.factory('recipeService',
     	});
 
     	return deferred.promise;
+    };
+
+    return {
+
+    	createRecipe : function(obj){
+    		return createRecipe(obj);
+    	},
+
+		createRecipeIng : function(obj){
+    		return createRecipeIngredients(obj);
+    	}
+
+
     };
 
 

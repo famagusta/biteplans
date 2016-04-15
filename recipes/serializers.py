@@ -28,10 +28,17 @@ class RecipeIngSerializer(serializers.ModelSerializer):
         model = RecipeIngredients
 
 
+
 class RecipeSerializer(serializers.ModelSerializer):
     '''serializes a python object into JSON serializabale format'''
     recipeIngredients = RecipeIngredientsSerializer(read_only=True, many=True)
+    url = serializers.CharField(read_only=False, required=False,
+                    allow_null=True, allow_blank=True)
+    image = serializers.CharField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True)
 
     class Meta:
         '''defines the model to be serialized'''
         model = Recipe
+
+        read_only_fields = ('date_published', 'created_by', )

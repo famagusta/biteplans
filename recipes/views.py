@@ -20,7 +20,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
 			return (permissions.AllowAny(),)
 		if self.request.method == 'POST':
 			return (permissions.IsAuthenticated(), )
-		return (IsRecipeOwner(),)
+		elif self.request.method == 'PUT':
+			return (IsRecipeOwner(),)
 
 	def create(self, request):
 		'''Creates the model instance dietplans'''
@@ -32,17 +33,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
 			obj.save()
 			return Response({'recipe_id':obj.id}, status=status.HTTP_201_CREATED)
 		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+			print serializer.errors
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-	def update(self, request):
-		'''Updates existing model instance based on
-		the properties provided in the queryset'''
-		serializer = self.serializer_class(data=request.data)
-		if serializer.is_valid():
-			obj = serializer.save()
-			return Response({'recipe_id':obj.id}, status=status.HTTP_200_OK)
-		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+	
 
 class RecipeIngredientViewSet(viewsets.ModelViewSet):
 	queryset = RecipeIngredients.objects.all()
@@ -50,10 +44,10 @@ class RecipeIngredientViewSet(viewsets.ModelViewSet):
 	def get_permissions(self):
 		'''return allowed permissions'''
 		if self.request.method in permissions.SAFE_METHODS:
-			return (permissions.AllowAny(),)
+			return (permissions.IsAuthenticated(),)
 		if self.request.method == 'POST':
-			return (IsRecipeOwner(), )
-		return (IsRecipeOwner(),)
+			return (IsRecipeIngOwner(), )
+		return (IsRecipeIngOwner(),)
 
 	def create(self, request):
 		'''Creates the model instance dietplans'''
@@ -63,17 +57,7 @@ class RecipeIngredientViewSet(viewsets.ModelViewSet):
 			obj.save()
 			return Response({'recipe_ing_id':obj.id}, status=status.HTTP_201_CREATED)
 		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
-
-	def update(self, request):
-		'''Updates existing model instance based on
-		the properties provided in the queryset'''
-		serializer = self.serializer_class(data=request.data)
-		if serializer.is_valid():
-			obj = serializer.save()
-			return Response({'recipe_ing_id':obj.id}, status=status.HTTP_200_OK)
-		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

@@ -1,7 +1,7 @@
 // controller for create plans page
 'use strict';
 
-app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', function($scope, ingredientService, Data) {
+app.controller('createPlanController', ['$scope', 'ingredientService', function($scope, ingredientService) {
     
     
   
@@ -10,7 +10,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
     $scope.weekCount = [];
     $scope.dayCount = [];
     
-    $scope.$watch()
+//    $scope.$watch()
     
     $scope.func = function (index) {
         for(var i = 1 ; i <= $scope.plan.durations ; i++) {
@@ -40,6 +40,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
         
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
+//<<<<<<< HEAD
     $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
                                {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
                                {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
@@ -47,6 +48,11 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
     
 //    console.log($scope.mealPlanNameArray);
     
+//=======
+//    $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+//    $scope.mealTrack = [];
+//    $scope.plan={};
+//>>>>>>> bp_recipes
 
     
     //searches recipes or ingredients

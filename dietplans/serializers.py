@@ -53,10 +53,18 @@ class MealPlanSerializer(serializers.ModelSerializer):
 		'''Meta data, or config for the serializer'''
 		model = MealPlan
 
+class MealPlnSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	mealrecipe = MealRecpSerializer(many=True, read_only=True)
+	meal_ingredient = MealIngSerializer(many=True, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MealPlan
+
 
 class DayPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
-    mealplan = MealPlanSerializer(many=True, read_only=True)
+    mealplan = MealPlnSerializer(many=True, read_only=True)
 
     class Meta:
         '''Meta data, or config for the serializer'''

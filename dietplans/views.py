@@ -59,15 +59,12 @@ class DietPlanViewset(viewsets.ModelViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
-class DayPlanViewSet(generics.ListAPIView):
+class DayPlanViewSet(generics.RetrieveAPIView):
 	'''view to return JSON for crud related to DayPlan
 	Only list method is allowed and only get is allowed'''
 	serializer_class = DayPlanSerializer
-	def get_queryset(self):
-		'''return queryset to be returned'''
-		diet = self.kwargs['diet']
-		dietplan = DietPlan.objects.get(pk=diet)
-		return DayPlan.objects.filter(diet=dietplan)
+	lookup_field = 'diet'
+	queryset = DayPlan.objects.all()
 
 class MealPlanViewSet(viewsets.ModelViewSet):
 	'''view to return JSON for crud related to DayPlan

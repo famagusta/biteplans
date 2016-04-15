@@ -16,19 +16,19 @@
             <form class="col s12">
               <div class="row">
                 <div class="input-field col s6">
-                  <input id="recipe_name" type="text" class="validate" ng-model ="recipe.name">
+                  <input id="recipe_name" type="text" class="validate" ng-model ="recipe.name" required/>
                   <label for="recipe_name">Name of Recipe</label>
                 </div>
               </div>
               <div class="row">
                   <div class="input-field col s12">
-                      <input id="recipe_desc" type="text" class="validate">
+                      <input id="recipe_desc" type="text" class="validate" ng-model= "recipe.description" required/>
                       <label for="recipe_desc">Description</label>
                   </div>    
               </div>
              <div class="row">
                   <div class="input-field col s6">
-                      <input id="servings" type="text" class="validate" ng-model="recipe.servings">
+                      <input id="servings" type="number" class="validate" ng-model="recipe.servings" required/>
                       <label for="servings">Serving (No of people)</label>
                   </div>
               </div>
@@ -46,16 +46,30 @@
                 <div class="row" ng-repeat="selectedIngredient in ingredientDisplay track by $index">
                     <div class="col s4">
                         <p class="meal-text">{{nutrientValue[$index].name}}</p>
-                    </div>
-                    <div class="input-field col s1 push-s1">
-                        <input type="number" id="serving" min="0" value="1" ng-model="ingredientDisplay[$index].quantity" />
-                    </div>
+                    </div>                    
+<!--
                     <div class="input-field col s2 push-s2 m1 push-m1">
                       <select material-select ng-options= "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id" ng-model="ingredientDisplay[$index].measure" id="ing_select">
                       </select>
                     </div>
+-->
+<!--
                     <div class="col s2 push-s3 m1 push-m1" id="select-delete-mat">
                         <a ng-click="removeIngredientsFromSavedMeal($index)">
+-->
+<!--=======-->
+                    <div class="col s1 push-s1">
+                    <br>
+                        <input type="number" id="serving" min="0" value="1" ng-model="ingredientDisplay[$index].quantity" required/>
+                    <br>
+                    </div>
+                    <div class="col s1 push-s1">
+                      <select ng-model="ingredientDisplay[$index].measure" material-select ng-options= "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id" required>
+                      {{unit.description}}
+                      </select>
+                    </div>
+                    <div class="col s2 push-s2" class="select-delete-mat">
+                        <a ng-click="removeIngredientsFromSavedMeal(value)">
                             <i class="material-icons" >delete</i>
                         </a>
           
@@ -76,7 +90,7 @@
             </div>
             <div class="row" ng-repeat="steps in stepsToCreateRecipes track by $index">
                 <div class="input-field col s12">
-                    <input id="recipe_steps" type="text" class="validate">
+                    <input id="recipe_steps" type="text" class="validate" ng-model="stepsToCreateRecipes[$index]"required />
                     <label for="recipe_steps">Step {{$index+1}}</label>
                 </div> 
             </div>
@@ -102,11 +116,11 @@
                 <div class="col s6">
                     <div class="row">
                         <div class="input-field col s3">
-                          <input id="prep_time" type="number" class="validate" max="12" min="0">
+                          <input id="prep_time" type="number" class="validate" max="12" min="0" ng-model="prep_hours" required/>
                           <p>Hrs</p>
                         </div> 
                         <div class="input-field col s3">
-                           <input id="prep_time" type="number" class="validate" max="59" min="00">
+                           <input id="prep_time" type="number" class="validate" max="59" min="00" ng-model ="prep_mins" required/>
                            <p>Mins</p>
                         </div>   
                     </div>
@@ -115,11 +129,11 @@
                 <div class="col s6">
                     <div class="row">
                         <div class="input-field col s3">
-                           <input id="prep_time" type="number" class="validate" max="12" min="0">
+                           <input id="prep_time" type="number" class="validate" max="12" min="0" ng-model="cook_hours" required/>
                            <p>Hrs</p>
                         </div> 
                         <div class="input-field col s3">
-                           <input id="prep_time" type="number" class="validate" max="59" min="00">
+                           <input id="prep_time" type="number" class="validate" max="59" min="00" ng-model = "cook_mins" required/>
                            <p>Mins</p>
                         </div>   
                     </div>
