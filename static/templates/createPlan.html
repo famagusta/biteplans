@@ -32,9 +32,25 @@
                         <div class="card-content grey-text">
                             <form>
                                 <div class="row">
+<!--
+<<<<<<< HEAD
+<!--
+-->
+<!--
                                     <div class="input-field col s12 m5 push-m1">
+<<<<<<< HEAD
                                         <label for="plan_name">Name of Plan</label>
                                         <input id="plan_name" type="text" class="validate" ng-model="plan.plan_saved_name" required="true">
+=======
+                                        <label for="plan_name" data-error="wrong" data-success="right">Name of Plan</label>
+                                        <input id="plan_name" type="text" class="validate" ng-model="plan.plan_saved_name" required="true">
+=======
+-->
+
+                                    <div class="input-field col s5 push-s1">
+                                        <label for="plan_name">Name of Plan</label>
+                                        <input id="plan_name" type="text" class="validate" ng-model="plan.plan_name_test" required>
+>>>>>>> recover_front
                                     </div>
                                     <div class="input-field col s12 m5 push-m1">
                                         <input id="age" type="number" class="validate">
@@ -136,12 +152,18 @@
      
    <div class="container" id="create-container">
      <div class="row">
+<<<<<<< HEAD
+=======
+<!--
+>>>>>>> recover_front
         <div class="col s12 m12 create_card">
             <div class="card white">
                 <div class="container cont-create">
                     <div class="card-content black-text">
                     <div class="container" id="create-container">
                     <div class="row">
+-->
+<!--
                         <div class="col s12 m12">
                             <div class="row">
                                 <div class="col s3 m3 top-line vertical-line horizontal-line">
@@ -158,6 +180,52 @@
                                 </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
+=======
+-->
+        <div class="col s12 m12">
+          <div class="card white">
+              <div class="container cont-create">
+                <div class="card-content black-text">
+                    <div class="row c">
+                         <div class="col s12 m12">
+                           <hr>
+                             <div class="row">
+                                 <div class="col m3 vertical-line nutri">
+                                     <div class="row">
+                                         <div class="col m12">
+                                            <p class="center down">Your food plan for</p>
+                                            {{plan.plan_name_test}}
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col m2 vertical-line down nutri">
+                                    <div class="row">
+                                         <div class="col m6">
+                                            <select id="daydrop" material-select ng-options="i for i in dayCount" ng-model="dayList"></select>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col m2 vertical-line down nutri">
+                                     <div class="row">
+                                         <div class="col m12">
+                                            <select material-select ng-options="i for i in weekCount" ng-model="weekList"></select>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col m5 nutri">
+                                     <div class="row">
+                                         <div class="col m6">
+                                            <p class="down">Copy to</p>
+                                         </div>
+                                         <div class="col m6">
+                                            <i class="material-icons down nutri">date_range</i>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                            <hr>
+>>>>>>> recover_front
                         </div>
                     </div>
                  
@@ -283,7 +351,6 @@
                                     </div>
                                 </div>
                             </div>
-<!--
                             <div class="col s6">
                             <div class="row horizontal-line">
                                 <div class="col s6">
@@ -310,7 +377,6 @@
                                 </div>
                             </div>
                         </div>
--->
                     </div>
                 </div>
             </div>

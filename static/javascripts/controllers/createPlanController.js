@@ -1,7 +1,7 @@
 // controller for create plans page
 'use strict';
 
-app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', function($scope, ingredientService, Data) {
+app.controller('createPlanController', ['$scope', 'ingredientService', function($scope, ingredientService) {
     
     
   
@@ -10,7 +10,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
     $scope.weekCount = [];
     $scope.dayCount = [];
     
-    $scope.$watch()
+//    $scope.$watch()
     
     $scope.func = function (index) {
         for(var i = 1 ; i <= $scope.plan.durations ; i++) {
@@ -40,7 +40,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
         
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
-
+//<<<<<<< HEAD
     $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
                                {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
                                {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
@@ -48,11 +48,11 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
     
 //    console.log($scope.mealPlanNameArray);
     
-
-    $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
-    $scope.mealTrack = [];
-    $scope.plan={};
-
+//=======
+//    $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+//    $scope.mealTrack = [];
+//    $scope.plan={};
+//>>>>>>> bp_recipes
 
     
     //searches recipes or ingredients
@@ -75,7 +75,6 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
 
     $scope.switchCreatePlanViews = function (number) {
         if (number === 2 && $scope.createPlanView2!==true) {
-            alert($scope.plan.plan_name_test);
                $scope.createPlanView1 = false;
                $scope.createPlanView2 = true;
                $scope.createPlanView3 = false;
@@ -180,14 +179,15 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
      
      $scope.calculateTotalInfo = function (index, field) {
           
-        var total =0;
-       for(i=0;i<$scope.mealPlanNameArray[index].ingredient.length;i++) {
+         console.log($scope.mealPlanNameArray[index]);
+            var total =0;
+        for(i=0;i<$scope.mealPlanNameArray[index].ingredient.length;i++) {
            
            total += parseFloat($scope.mealPlanNameArray[index].ingredient[i].ingredient[field]);
            
           
        } 
-         console.log(total, index, field);
+//         console.log(total, index, field);
          return total;
          
      }
@@ -198,5 +198,3 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
  
     
 }]);
-
-

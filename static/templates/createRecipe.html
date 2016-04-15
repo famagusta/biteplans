@@ -28,7 +28,7 @@
               </div>
              <div class="row">
                   <div class="input-field col s6">
-                      <input id="servings" type="text" class="validate" ng-model="recipe.servings" required/>
+                      <input id="servings" type="number" class="validate" ng-model="recipe.servings" required/>
                       <label for="servings">Serving (No of people)</label>
                   </div>
               </div>
@@ -46,8 +46,18 @@
                 <div class="row" ng-repeat="selectedIngredient in ingredientDisplay track by $index">
                     <div class="col s4">
                         <p class="meal-text">{{nutrientValue[$index].name}}</p>
+                    </div>                    
+<!--
+                    <div class="input-field col s2 push-s2 m1 push-m1">
+                      <select material-select ng-options= "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id" ng-model="ingredientDisplay[$index].measure" id="ing_select">
+                      </select>
                     </div>
-
+-->
+<!--
+                    <div class="col s2 push-s3 m1 push-m1" id="select-delete-mat">
+                        <a ng-click="removeIngredientsFromSavedMeal($index)">
+-->
+<!--=======-->
                     <div class="col s1 push-s1">
                     <br>
                         <input type="number" id="serving" min="0" value="1" ng-model="ingredientDisplay[$index].quantity" required/>

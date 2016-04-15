@@ -8,6 +8,10 @@
     margin: -14px !important;
 }
 
+#serving {
+    height: 10px !important;
+}
+
 .add-ing {
     font-size: 16px;
     font-weight: 600;
@@ -22,6 +26,15 @@ h5.recipe-subheading {
 .select-wrapper {
     position: relative;
     margin-top: -1px !important;
+}
+
+/*<<<<<<< HEAD*/
+#select-delete-mat {
+	padding-top: 32px !important;
+}
+
+#prep_time {
+    width: 80% !important;
 }
 
 @media only screen and (max-width : 600px) {
@@ -40,8 +53,8 @@ h5.recipe-subheading {
     #recipe_name {
         width: 150% !important;
     }
-}
-
+    
+    
 .select-delete-mat{
 	padding-top:7px !important;
 }
@@ -54,7 +67,7 @@ h5.recipe-subheading {
     outline: none;
     height: 3rem;
     line-height: 3rem;
-    width: 150px !important;
+    width: 100px !important;
     font-size: 1rem;
     margin: 0 0 15px 0;
     padding: 0;
@@ -62,4 +75,5 @@ h5.recipe-subheading {
 }
 option{
     margin-bottom:15px !important;
+/*>>>>>>> bp_recipes*/
 }
