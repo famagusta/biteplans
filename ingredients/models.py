@@ -143,7 +143,7 @@ class IngredientCommonMeasures(models.Model):
     weight = models.DecimalField(null=True, max_digits=11, decimal_places=3)
 
     def __unicode__(self):
-        return self.description
+        return str(self.ingred_id.id)
 
     class Meta:
         '''name db table'''

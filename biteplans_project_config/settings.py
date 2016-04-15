@@ -54,6 +54,7 @@ INSTALLED_APPS = (
     'imported_recipes',
     'recipes',
     'markdown',
+    'plan_calendar',
     'rest_framework.authtoken',
     'djoser',
     'django_filters',

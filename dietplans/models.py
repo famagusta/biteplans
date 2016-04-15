@@ -80,6 +80,7 @@ class MealRecipe(models.Model):
                                   related_name="mealrecipe")
     reciple = models.ForeignKey(Recipe, on_delete=models.CASCADE,
                                 related_name="recipe")
+    no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
 
     def __unicode__(self):
         '''string repr of the object'''
@@ -97,7 +98,7 @@ class MealIngredient(models.Model):
                                   related_name="mealingredient")
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE,
                                    related_name="meal_ingredient")
-    quantity = models.IntegerField(default=0)
+    quantity = models.DecimalField(max_digits=11, decimal_places=3)
     unit = models.ForeignKey(IngredientCommonMeasures,
                              on_delete=models.CASCADE,
                              related_name="meal_ing_qty")
