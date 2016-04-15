@@ -5,7 +5,8 @@ var app = angular.module('biteApp', [
       'satellizer',
       'ngRoute',
       'angularUtils.directives.dirPagination',
-      'ui.calendar'
+      'ui.calendar',
+      'angular-svg-round-progressbar'
     ]);
 /**
 * @name run
@@ -47,6 +48,12 @@ $routeProvider.when('/', {
 }).when('/createRecipes', {
     controller: 'createRecipeController',
     templateUrl: 'static/templates/createRecipe.html'
+}).when('/createPlan2', {
+    controller: 'createPlanController',
+    templateUrl: 'static/templates/createPlan2.html'
+}).when('/createPlan3', {
+    controller: 'createPlanController',
+    templateUrl: 'static/templates/createPlan3.html'
 }).otherwise('/');
 
 $authProvider.facebook({

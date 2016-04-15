@@ -36,7 +36,7 @@
                     <div class="col s4">
                         <h5 class="recipe-subheading">Ingredients</h5>
                     </div>
-                    <div class="col s1 push-s1" ng-if="ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length>0">
+                    <div class="col s12 m1 push-m1" ng-if="ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length>0">
                         <p class="meal-text center">Amt</p>
                     </div>
                     <div class="col s1 push-s1" ng-if="ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length>0">
@@ -45,21 +45,17 @@
                 </div>
                 <div class="row" ng-repeat="selectedIngredient in ingredientDisplay track by $index">
                     <div class="col s4">
-                    <br>
                         <p class="meal-text">{{nutrientValue[$index].name}}</p>
-                    <br>
                     </div>
-                    <div class="col s1 push-s1">
-                    <br>
+                    <div class="input-field col s1 push-s1">
                         <input type="number" id="serving" min="0" value="1" ng-model="ingredientDisplay[$index].quantity" />
-                    <br>
                     </div>
-                    <div class="col s1 push-s1">
-                      <select material-select ng-options= "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id" ng-model="ingredientDisplay[$index].measure">
+                    <div class="input-field col s2 push-s2 m1 push-m1">
+                      <select material-select ng-options= "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id" ng-model="ingredientDisplay[$index].measure" id="ing_select">
                       </select>
                     </div>
-                    <div class="col s1 push-s1" class="select-delete-mat">
-                        <a ng-click="removeIngredientsFromSavedMeal(value)">
+                    <div class="col s2 push-s3 m1 push-m1" id="select-delete-mat">
+                        <a ng-click="removeIngredientsFromSavedMeal($index)">
                             <i class="material-icons" >delete</i>
                         </a>
           
@@ -131,14 +127,18 @@
             </div>
             <br>
             <div class="row">
-                <div class="col s4">
+                <div class="col s12">
                     <div class="row">
-                        <div class="col s6">
+                        <div class="col s12 m12">
                             <a class="cyan-text add-ing" href="#">Upload Image</a>
                         </div>
-                        <div class="col s6">
+                    </div>
+                    <div class="row">
+                     <div class="col s12 m12">
                             <a class="cyan-text add-ing" href="#">Image URL</a>
                         </div>
+                    </div>
+                       
                     </div>
                 </div>
             </div>
@@ -153,7 +153,10 @@
     <div class="col s12 m12">
       <div class="card white" id="recipe-card">
         <div class="card-content black-text">
-            <p style="margin-left: 10px" class="card-title left" id="recipe-title">Nutritional Information</p>
+            <div class="container" id="create-container">
+                <p style="margin-left: 10px" class="card-title left" id="recipe-title">Nutritional Information</p>
+                <i class="material-icons right cyan-text">expand_more</i>
+            </div>
         </div>
       </div>
     </div>
@@ -193,6 +196,7 @@
                                         <label for="filled-in-box{{$index}}" id="check-label" class="ing-text">{{detail.name}} </label>
                                     </p>
                                 </div>
+                                  <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="static/bower_components/angularUtils-pagination/dirPagination.tpl.html" class="center"></dir-pagination-controls>
                             </div>
                     <div class="col m6">
                         <div class="nutsection" ng-if="nutrientValue.length>0">

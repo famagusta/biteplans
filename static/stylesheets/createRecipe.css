@@ -21,9 +21,31 @@ h5.recipe-subheading {
 
 .select-wrapper {
     position: relative;
-    margin-top: -5px !important;
+    margin-top: -1px !important;
 }
 
-.select-delete-mat{
-	padding-top:7px !important;
+#select-delete-mat {
+	padding-top: 32px !important;
+}
+
+#prep_time {
+    width: 80% !important;
+}
+
+@media only screen and (max-width : 600px) {
+    #prep_time {
+        width: 127% !important;
+    }
+    
+    .select-wrapper input.select-dropdown {
+        width: 150% !important;
+    }
+    
+    #serving {
+        width: 250% !important;
+    }
+    
+    #recipe_name {
+        width: 150% !important;
+    }
 }

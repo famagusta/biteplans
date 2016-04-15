@@ -8,6 +8,10 @@ body {
     -moz-overflow-x: hidden;
 }
 
+input:focus {
+    border-color: #00bcd4 !important;
+}
+
 a {
     text-decoration: none;
     cursor: pointer;
