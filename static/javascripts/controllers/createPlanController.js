@@ -40,6 +40,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
         
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
+
     $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
                                {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
                                {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
@@ -47,6 +48,11 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
     
 //    console.log($scope.mealPlanNameArray);
     
+
+    $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
+    $scope.mealTrack = [];
+    $scope.plan={};
+
 
     
     //searches recipes or ingredients
@@ -69,6 +75,7 @@ app.controller('createPlanController', ['$scope', 'ingredientService', 'Data', f
 
     $scope.switchCreatePlanViews = function (number) {
         if (number === 2 && $scope.createPlanView2!==true) {
+            alert($scope.plan.plan_name_test);
                $scope.createPlanView1 = false;
                $scope.createPlanView2 = true;
                $scope.createPlanView3 = false;

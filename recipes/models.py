@@ -50,7 +50,7 @@ class RecipeIngredients(models.Model):
                                 related_name="measure_of_recipeingredient")
     quantity = models.DecimalField(max_digits=11, decimal_places=3)
     # modifiers - optional description for the ingredients
-    modifiers = models.CharField(null=True, blank=True, max_length=191)
+    # modifiers = models.CharField(null=True, blank=True, max_length=191)
 
     def __unicode__(self):
         return self.ingredient.name
