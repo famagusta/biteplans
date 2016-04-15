@@ -1,0 +1,12 @@
+<!-- DEFINES THE CALENDAR VIEW ON THE DASHBOARD. A SIMILAR VIEW SHOULD BE USED FOR SUMMARY PAGE WITH THE VIEW FIXED TO A DAY VIEW -->
+<div>
+    <p>Calendar One View Options</p>
+            <div>
+                <button ng-click="changeView('agendaDay', 'myCalendar1')">AgendaDay</button>
+                <button ng-click="changeView('agendaWeek', 'myCalendar1')">AgendaWeek</button>
+                <button ng-click="changeView('month', 'myCalendar1')">Month</button>
+            </div>
+
+    <div class="calendar" ng-model="eventSources" calendar="myCalendar1" ui-calendar="uiConfig.calendar"></div>
+                            
+</div>

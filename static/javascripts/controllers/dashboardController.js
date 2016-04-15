@@ -19,6 +19,7 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
     $scope.tab = 1;
   
     $scope.setTab = function (tabId) {
+        console.log("changing tabs");
              $scope.tab = tabId;
     };
         
