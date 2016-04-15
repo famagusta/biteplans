@@ -58,5 +58,8 @@ Thumbs.db
 /static/gen/*
 /static/.webassets-cache/*
 venv/*
+data/*
 newenv/*
 *.db
+data/*
+archived_stuff/*

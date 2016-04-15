@@ -1,0 +1,70 @@
+/* STYLING FOR NAVBAR */
+
+
+nav {
+    background-color: #fdfdfb;
+    box-shadow: none;
+}
+
+nav ul a, nav .brand-logo {
+    color: #00bcd4;
+    font-weight: bold;
+    opacity: 87%;
+}
+
+nav ul li.active a {
+    background-color: transparent !important;
+}
+
+nav img {
+    margin-left: 50px;
+    height: 40px !important;
+    margin-top: 9px;
+}
+
+nav ul {
+    margin-right: 50px;
+}
+
+nav ul li {
+    text-transform: uppercase;
+}
+
+
+/* STYLING IN MOBILE VIEW NAVIGATION */
+
+.button-collapse {
+  color: #00bcd4;
+  left: 20px;
+}
+
+#nav-mobile li {
+    border-bottom: 1px solid #eeeeee;
+}
+
+/* LOGIN AND SIGNUP MODAL */
+
+
+#modal1 { 
+    max-height: 85%;
+    max-width: 85%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+
+
+@media only screen and (max-width : 400px) {
+    #modal1 {
+        max-height: 85% !important;
+        max-width: 65% !important;
+    }
+    
+    #modal1 h5 {
+        left: 70px !important;
+    }
+} 
+

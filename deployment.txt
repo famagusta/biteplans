@@ -1,0 +1,45 @@
+On aws, remember to listen in on the port range on which our apache server
+is expecting incoming traffic
+
+Following are configuration options for apache2 hosting with mod_wsgi
+
+1. Configure the wsgi.py file as given in the example (attached)
+2. Change the ports configuration of apache to listen to port on which the
+    app is hosted (8000 in this case) in /etc/apache2/apache2.conf
+    below Listen 80 and Listen 8000
+3. Add "LoadModule wsgi_module /usr/lib/apache2/modules/mod_wsgi.so"
+    to /etc/apache2/mods-available/wsgi.load
+4. To the sites-enabled/ configuration file add the following 
+        # Since wsgi generates its own environment and cannot see the systems environment
+        # variables, we set the here and configure wsgi.py to copy it into its own 
+        # environment
+        SetEnv SOCIAL_AUTH_FACEBOOK_KEY 778572508914532
+        SetEnv SOCIAL_AUTH_FACEBOOK_SECRET 59edc4201f5b848127d52b1fc736393a
+        SetEnv SOCIAL_AUTH_GOOGLE_OAUTH2_KEY 625705095605-6lemikvbb7kdh13lf3puq0r1fvcs0ukh.apps.googleusercontent.com
+        SetEnv SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET IiMLDstpkQmtaeMqCS8dN6qy
+        SetEnv SECRET_KEY t2o8wd)y-(8^()lkxcs1ejp0uafugdg&%0ds=nat&@-*j9$n1im
+        SetEnv BITEPLANS_DB_NAME BITEPLANS_DB
+        SetEnv BITEPLANS_SECRET_KEY 2o8wd)y-(8^()lkxcs1ejp0uafugdg&%0ds=nat&@-*j9$n1im
+        SetEnv BITEPLANS_DB_ROOT_USER biteplans
+        SetEnv BITEPLANS_DB_ROOT_USER_PWD biteplans
+
+
+        <Directory />
+            Require all granted
+        </Directory>
+
+        Alias /static /home/ubuntu/biteplans/static
+        <Directory /home/ubuntu/biteplans/static>
+            Require all granted
+        </Directory>
+
+        <Directory /home/ubuntu/biteplans>
+            <Files wsgi.py>
+                Require all granted
+            </Files>
+        </Directory>
+
+        WSGIDaemonProcess biteplans python-path=/home/ubuntu/biteplans:/home/ubuntu/biteplans/venv/lib/python2.7/site-packages
+        WSGIProcessGroup biteplans
+        WSGIScriptAlias / /home/ubuntu/biteplans/wsgi.py
+

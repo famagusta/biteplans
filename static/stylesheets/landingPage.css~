@@ -1,0 +1,147 @@
+
+#featuredPlan p, #articleSection p {
+    text-transform: uppercase;
+}
+
+.overlay {
+    top:0;
+    left:0;
+    z-index:1;
+}
+
+nav {
+    background-color: #fff;
+}
+
+#index-banner {
+    background: url('../images/banner.jpg') no-repeat 50% 100%;
+    padding: 20px;
+    background-size: cover;
+    padding-bottom: 50px;
+}
+
+
+#index-banner ul.pagination li a {
+    font-size: 27px;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.big-logo {
+    text-align: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+h3 {
+    color: #00bcd4;
+    font-size: 30px;
+}
+
+h4 {
+    color: #212121;
+    font-size: 25px;
+}
+
+.text-danger {
+    color: red;
+    font-family: 'Roboto';
+}
+
+#googlebtn {
+    background-color: #ff5252;
+}
+
+span {
+    font-family: 'Roboto';
+    font-size: 0.8rem;
+}
+
+label[data-error]:after {
+    white-space: nowrap;
+    width: 100%;
+}
+
+ /*#wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 0;
+    z-index: -1;
+	margin:0;
+	padding:0;
+    background-image: url('static/images/bigLogo.png') no-repeat;
+    background-size: cover;
+    overflow: none;
+}
+
+
+video {
+    width: 100%;
+    transform: rotateY(-180deg);
+    margin-left: 650px !important; 
+}*/
+
+@media only screen and (max-width : 600px) {
+    ul#landingMenu {
+        margin: 0;
+    }
+    
+    ul#landingMenu li a {
+       font-size: 13px !important;
+        margin: -3px;
+        margin-left: -32px;
+    }
+    
+    h4.header {
+        font-size: 21px;
+    }
+    
+    #featuredPlan {
+        margin-top: -240px;
+    }
+    
+    video[poster] {
+        height: 100%;
+    }
+    
+    #featuredPlan {
+        padding: 242px 0 0 0;
+    }
+    
+    .non-veg-card {
+        padding: 32px 0 0 0 !important;
+    }
+   
+}
+
+@media only screen and (min-width : 600px) and (max-width : 725px) {
+    ul#landingMenu {
+        margin-top: -10px !important;
+    }
+    ul#landingMenu li a {
+        font-size: 18px !important;
+        margin-left: 0 !important;
+    }
+    h4.header {
+        margin: 0;
+    }
+}
+
+@media only screen and (min-width : 300px) and (max-width : 600px) {
+    ul#landingMenu {
+        margin-top: 0 !important;
+    }
+    ul#landingMenu li a {
+        font-size: 18px !important;
+        margin-left: 0 !important;
+    }
+    h4.header {
+        margin: 0;
+    }
+}
+
+.contLand {
+    padding-bottom: 180px;
+}

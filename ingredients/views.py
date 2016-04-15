@@ -1,0 +1,37 @@
+'''api views for our ingredients'''
+from ingredients.models import Ingredient
+from recipes.models import Recipe
+from authentication.models import Account
+from dietplans.models import DietPlan
+from dietplans.serializers import DietPlanSerializer
+from ingredients.serializers import IngredientSerializer
+from recipes.serializers import RecipeSerializer
+from authentication.serializers import AccountSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from django.core import serializers
+from rest_framework import viewsets
+
+
+class GlobalSearchList(APIView):
+    '''creates serializer of the queryset'''
+    def post(self, request):
+        '''Handles post request'''
+        query = request.POST.get('query', False)
+        topic = request.POST.get('type', None)
+        result = None
+        if topic == 'ingredients':
+            result = Ingredient.objects.filter(name__search=query)
+            result = IngredientSerializer(result, many=True)
+        elif topic == 'recipes':
+            result = Recipe.objects.filter(name__search=query)
+            result = RecipeSerializer(result, many=True)
+        elif topic == 'plans':
+            result = DietPlan.objects.filter(name__search=query)
+            result = DietPlanSerializer(result, many=True)
+        return Response(result.data)
+
+# class IngredientUnitsViewset(viewsets.ReadOnlyModelViewSet):
+#     queryset = IngredientCommonMeasures.objects.all()
+#     serializer_class = IngredientSerializer

@@ -1,0 +1,418 @@
+<section id="create-plan" class="full-length">
+    <div class="container" id="create-container">
+        <form>
+            <div class="row">
+                <div class="col s12 m12">
+                  <div class="card white darken-1">
+                    <div class="card-content grey-text">
+                      <form>
+                        <ul id="progressbar" class="center">
+                          <li><span class="active-plan">1</span>&nbsp;&nbsp;Enter Details</li>
+                            <li><span>2</span>&nbsp;&nbsp;Add food</li>
+                          <li><span>3</span>&nbsp;&nbsp;Review</li>
+                          </ul>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="row" id="create-form" ng-if="createPlanView1 && !createPlanView2 && !createPlanView3 && !createPlanView4">
+                <div class="col s12 m12">
+                    <div class="card white">
+                        <div class="card-content grey-text">
+                            <form>
+                                <div class="row">
+                                    <div class="input-field col s5 push-s1">
+                                        <label for="plan_name">Name of Plan</label>
+                                        <input id="plan_name" type="text" class="validate" required>
+                                    </div>
+                                    <div class="input-field col s5 push-s1">
+                                        <input id="age" type="number" class="validate">
+                                        <label for="age">Age</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s5 push-s1">
+                                        <label for="duration">Duration</label>
+                                        <input id="duration" type="number" class="validate">
+                                    </div>
+                                    <div class="input-field col s5 push-s1">
+                                        <div class="input-field col s5 push-s1">
+                        <input id="imperial" class="with-gap" name="group4" value="1" type="radio" checked />
+                       <label for="imperial">Imperial</label>
+                        </div>
+                         <div class="input-field col s5 push-s1">
+                           <input class="with-gap" name="group4" value="2" type="radio" id="metric" />
+                            <label for="metric">Metric</label>
+                         </div>
+                        </div>
+                  </div>
+                  <div class="row">
+                       <div class="input-field col s5 push-s1">
+                        <label for="goal">Goal in one line</label>
+                        <input id="goal" type="text" class="validate">
+                        </div>
+                      <div class="col s5 push-s1" id="imperial-view">
+                          <div class="row">
+                              <div class="input-field col s4 push-s1">
+                                  <input id="feets" type="number" class="validate">
+                                </div>
+                              <div class="col s1">
+                                <span class="unit">Ft</span>
+                              </div>
+                              <div class="input-field col s4 push-s1">
+                                  <input id="inches" type="number" class="validate">
+                                </div>
+                              <div class="col s1">
+                                <span class="unit">In</span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col s5 push-s1" id="metric-view">
+                          <div class="row">
+                              <div class="input-field col s6 push-s1">
+                                  <input id="cms" type="number" class="validate">
+                                </div>
+                              <div class="col s1">
+                                  <span class="unit">cms</span>
+                                </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="input-field col s5 push-s1">
+                        <label for="tags">Tags</label>
+                        <input id="tags" type="text" class="validate">
+                    </div>
+                       <div class="input-field col s5 push-s1">
+                        <input id="weight" type="number" class="form-control validate" required>
+                        <label for="weight">Weight (in kgs)</label>
+                      </div>
+                  </div>
+                  <div class="row">
+                  <div class="right" id="gender">
+                       <div class="input-field col s12"><label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input id="test5" class="with-gap" name="group3" type="radio" checked />
+                        <label for="test5">Male</label>&nbsp;&nbsp;
+                        <input id="test4" class="with-gap" name="group3" type="radio" />
+                        <label for="test4">Female</label>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s9 offset-s1">
+                      <label for="description">Description</label>
+                      <input id="description" type="text" class="validate">
+                    </div>   
+                  </div>    
+                </div>
+            </form>
+              <div class="row">
+                  <div class="col s12">
+                    <div class="center-btn">
+                        <a class="waves-effect waves-light btn" ng-click="switchCreatePlanViews(2)">Next</a>
+                    </div>
+                      <br><br>
+                  </div>
+              </div>
+        </div>
+    </div>
+</div>
+    
+ <div ng-if="!createPlanView1 && createPlanView2 && !createPlanView3 && !createPlanView4">
+     
+     <div class="row">
+        <div class="col s12 m12">
+          <div class="card white">
+              <div class="container cont-create">
+                <div class="card-content black-text">
+                    <div class="row c">
+                         <div class="col s12 m12">
+                           <hr>
+                             <div class="row">
+                                 <div class="col m3 vertical-line nutri">
+                                     <div class="row">
+                                         <div class="col m12">
+                                            <p class="center down">Your food plan for</p>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col m2 vertical-line down nutri">
+                                    <div class="row">
+                                         <div class="col m3">
+                                             <a href="#" ng-click="dayCount=dayCount-1"><i class="material-icons down">navigate_before</i></a>
+                                         </div>
+                                         <div class="col m6">
+                                            <p class="center down">Day{{dayCount}}</p>
+                                         </div>
+                                         <div class="col m3">
+                                             <a href="#" ng-click="dayCount=dayCount+1;nextDayPlan()"><i class="material-icons down">navigate_next</i></a>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div class="col m2 vertical-line down nutri">
+                                     <div class="row">
+                                         <div class="col m3">
+                                             <a href="#"><i class="material-icons down">navigate_before</i></a>
+                                         </div>
+                                         <div class="col m6">
+                                            <p class="center down">Week{{weekCount}}</p>
+                                         </div>
+                                         <div class="col m3">
+                                             <a href="#" ng-click="weekCount=weekCount+1"><i class="material-icons down">navigate_next</i></a>
+                                         </div>
+                                     </div>
+                                     
+                                 </div>
+                                 <div class="col m5 nutri">
+                                     <div class="row">
+                                         <div class="col m6">
+                                            <p class="down">Copy to</p>
+                                         </div>
+                                         <div class="col m6">
+                                            <i class="material-icons down nutri">date_range</i>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                            <hr>
+                        </div>
+                    </div>
+                  <div class="row" ng-repeat="key in mealNameKeys track by $index">
+                      <div class="col m12 hor-line">
+                          <div class="row">
+                              <div class="col m12">
+                                   <a ng-click="clearMeal(key)"><i class="material-icons cyan-text ">delete</i></a>
+                               <div>
+                                   <a href="#" ng-click="switchMealEdit(key)"><i class="material-icons">create</i></a>
+                                   <h6 class="nutri routine">&nbsp;&nbsp;{{key}}</h6>   
+                               </div>
+                               <div ng-if="mealEdit==key">
+                                <input ng-model="newobj">
+                                <a href="#" ng-click="changeKeyName(newobj,$index)"><i class="material-icons">create</i></a>
+                                   
+                               </div>
+                              </div>
+                          </div>
+                          <div class="col m12" ng-repeat="item1 in mealPlanNameArray[key] track by $index">
+                              <div class="col m5">
+                                <p class="meal-text" ng-hide="mealEdit">{{item1.shrt_desc}}</p> 
+                              </div>
+                               <div class="col m1">
+                                <input type="number" id="serving" min="0" value="1" ng-model="amount"></p>
+                              </div>
+                              <div class="col m1">
+                                <p class="meal-text">{{item1.carbohydrate * amount | number}}</p>
+                              </div>
+                              <div class="col m1">
+                                <p class="meal-text">{{item1.protein * amount | number}}</p>
+                              </div>
+                              <div class="col m1">
+                                <p class="meal-text">{{item1.lipid_tot * amount | number}}</p>
+                              </div>
+                              <div class="col m1">
+                                <p class="meal-text">{{item1.fiber_td * amount | number}}</p>
+                              </div>
+                              <div class="col m1 center">
+                                  <a ng-click="removeIngredientsFromSavedMeal(value)"><i class="material-icons b" >delete</i></a>
+                              </div>
+                          </div>
+                      <span id="shortcut-menu"><a class="cyan-text">Quick Tools</a>&nbsp;&nbsp;<span class="cyan-text">|</span>&nbsp;&nbsp;<a class="cyan-text" ng-click="openCreatePlanModal(key)">Add Food</a></span>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col m12">
+                          <div class="row">
+                              <div class="col s3">
+                                 <a class="btn-floating btn-small waves-effect waves-light" id="add-meal-button" ng-click="addMeal(meal)"><i class="material-icons add-button routine">add</i></a>
+                                  <h6 class="nutri routine">&nbsp;&nbsp;Add Meal</h6>
+                              </div>
+                              <div class="col s3">
+                                <input type="text" ng-model="meal" />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     
+     <!-- Nutritional  Information -->
+     
+     <div class="row">
+        <div class="col s12 m12">
+         <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+        </div>
+      </div>
+     
+     <!-- Create Plan Modal -->
+     
+        <div id="create-plan-modal" class="modal">
+            <a href="#!" ng-click="emptyModalContents()" class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col m6">
+                        <div class="card white create-search-box" id="searchcard"> <!-- SEARCH-BOX -->
+                         <div class="card-content black-text">
+                             <textarea id="searchbox" placeholder="Search people & places" ng-model="query" class="form-control"></textarea>
+                             <button class="fa fa-search search-ingredient" ng-click="searchPlan(query)" type="submit"></button>
+                         </div> <!-- END OF SEARCH-BOX -->
+                        </div>
+                    </div>
+                    <div class="col m6">
+                    <p>Hello</p>
+                    </div>
+                    <br>
+                        <div class="row">
+                            <div class="col m6 create-modal-half1">
+                                <div ng-repeat="detail in details | limitTo:7 track by $index">
+                                     <p>
+                                        <input type="checkbox" class="filled-in" id="filled-in-box{{$index}}"  checklist-model="nutrientValue" checklist-value="detail"/>
+                                        <label for="filled-in-box{{$index}}" id="check-label" class="ing-text">{{detail.shrt_desc}} </label>
+                                    </p>
+                                </div>
+                            </div>
+                    <div class="col m6">
+                        <div class="nutsection" ng-if="nutrientValue.length>0">
+
+                             <div class="row hline" >
+                                <div class="col m3">
+                                    <p class="a ahead servehead">Serving:</p>
+                                </div>
+                                <div class="col m2">
+                                     <input type="text" id="serving" value="1" ng-model="ingQuantity"/>
+                                </div>
+                                 <div class="col m3">
+                                   <p class="a ahead">Amt</p>
+                                </div>
+                                <div class="col m2">
+                                   <p class="a ahead">Amt</p>
+                                </div>
+                            </div>
+
+                          <div class="row hline" >
+                                <div class="col m6">
+                                    <p class="a b ahead">Calories (kcal)</p>
+                                </div>
+                                <div class="col m6">
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].energy_kcal}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Proteins</p>
+                                </div>
+                                <div class="col m6">
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].protein}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Fats</p>
+                                </div>
+                                <div class="col m6">
+                                    <p class="a b">{{nutrientValue[nutrientValue.length-1].lipid_tot}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Carbohydrates</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].carbohydrate}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Sodium</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].sodium}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Fiber</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].fiber_td}}</p>
+                                </div>
+                            </div>
+                            <div class="row hline">
+                                <div class="col m6 ">
+                                    <p class="a b ahead">Cholestrol</p>
+                                </div>
+                                <div class="col m6">
+                                       <p class="a b">{{nutrientValue[nutrientValue.length-1].cholestrl}}</p>
+                                </div>
+                            </div>   
+                    </div>
+                        <p>{{currentMealPlanName}}</p>
+                        <br><br>
+
+                         <div class="row" ng-repeat="item in nutrientValue" >
+                                <div class="col m6 meal-list">
+                                    <p ng-if="nutrientValue.length>0" class="ing-text meal-list">{{item.shrt_desc}}</p>
+                                </div>
+                                <div class="col m6 meal-list">
+                                    <a href="#" ng-click="removeIngredient(item)"><i ng-if="nutrientValue.length>0" class="material-icons meal-list right dustbin">delete</i></a>
+                                </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col m12 center">
+                        <a ng-click="addContents()" class="waves-effect waves-light btn btn-social">Add</a>
+                        <a ng-click="saveAndContinue()" class="waves-effect waves-light btn btn-social largebtn">Save and Continue</a>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+     
+      </div>
+    </div>
+</div>
+</div>
+</section>
+
+
+<script>
+$(document).ready(function() {
+  $('select').material_select('update');
+
+    $('#imperial').click(function() {
+        $('#imperial-view').show();
+        $('#metric-view').hide();
+    });
+    $('#metric').click(function() {
+        $('#metric-view').show();
+        $('#imperial-view').hide();
+    });
+
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+
+     $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
+        if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+            $('button[type=submit].search-ingredient').click();
+            return false;
+        } else {
+            return true;
+        }
+    });
+    
+    $('#add-meal-text').hide();
+    
+    $('#add-meal-button').click(function () {
+        $('#add-meal-text').show();
+    });
+});
+</script>

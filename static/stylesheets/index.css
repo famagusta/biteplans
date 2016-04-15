@@ -1,0 +1,108 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+body {
+    font-family: 'Raleway',sans-serif;
+    overflow-x: hidden;
+    -moz-overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #000;
+}
+
+.active a {
+    border-bottom: 3px solid #ff5252; !important;
+    background-color: transparent !important;
+    color: #00bcd4 !important;
+}
+
+.active a:visited {
+    color: #00bcd4;
+}
+
+.largebtn {
+    width: 270px !important;
+}
+
+ 
+.text-danger {
+    color: #ff5252;
+    font-family: 'Roboto';
+}
+
+.text-success {
+    color: #4caf50;
+    font-family: 'Roboto';
+}
+
+.cyan-text {
+    color: #00bcd4;
+}
+
+p {
+    line-height: 2rem;
+}
+
+#articleSection > .section > .row > .col >.card{
+  padding:12px;
+}
+
+.btn {
+      width : 170px;
+      background-color: #00bcd4;
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255,255,255,.9);
+}
+  
+.parallax-container .section {
+    width: 100%;
+}
+
+.icon-block {
+    padding: 0 15px;
+}
+
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+.center-btn {
+    text-align: center;
+}
+
+.btn {
+    background-color: #00bcd4;
+    width : 170px;
+}
+
+.pagination li.active {
+    background: none;
+}
+
+
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+}
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #featuredPlan a {
+      margin-top: 20px;
+  }
+}
+
