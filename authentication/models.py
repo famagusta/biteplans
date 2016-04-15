@@ -52,8 +52,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     social_thumb = models.URLField(null=True, blank=True)
 
     # Added calendar support
-    calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE,
-                                    null=True)
+    #calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE,
+    #                                null=True)
 
     # These fields will be required for manually signing
     # up(ie not google or fb user)
@@ -80,11 +80,11 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-@receiver(pre_save, sender=Account)
-def assosiate_calendar(sender, instance, **kwargs):
-    '''assosiate one to one calender to the user instance'''
-    if instance.pk is None:
-        print instance
-        cal = Calendar.objects.create(name=instance.username,
-                                      slug='default')
-        instance.calendar = cal
+#@receiver(pre_save, sender=Account)
+#def assosiate_calendar(sender, instance, **kwargs):
+#    '''assosiate one to one calender to the user instance'''
+#    if instance.pk is None:
+#        print instance
+#        cal = Calendar.objects.create(name=instance.username,
+#                                      slug='default')
+#        instance.calendar = cal

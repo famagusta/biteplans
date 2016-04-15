@@ -1,9 +1,10 @@
 {% load staticfiles %}
 
+<!-- CORE LIBRARIES : JQUERY & ANGULAR -->
 <script type="text/javascript" src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
-
 <script type="text/javascript" src="{% static 'bower_components/angular/angular.min.js' %}"></script>
 
+<!-- LIBRARY FOR MATERIALIZE DESIGN SUPPORT -->
 <script type="text/javascript" src="{% static 'bower_components/materialize/dist/js/materialize.min.js' %}"></script>
 
 
@@ -14,11 +15,20 @@
 
 
 <!-- JS LIBRARIES FOR CALENDAR SUPPORT -->
+<!--
 <script type="text/javascript" src="{% static 'bower_components/moment/moment.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/fullcalendar/dist/fullcalendar.js' %}"></script>
 <script type="text/javascript" src="{% static 'bower_components/angular-ui-calendar/src/calendar.js' %}"></script>
-<script type="text/javascript" src="{% static 'bower_components/angular-svg-round-progressbar/build/roundProgress.js' %}"></script>
+-->
 
+<script type="text/javascript" src="{% static 'bower_components/angular-animate/angular-animate.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-aria/angular-aria.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-sanitize/angular-sanitize.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/angular-material/angular-material.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bower_components/material-calendar/angular-material-calendar.js' %}"></script>
+
+
+<script type="text/javascript" src="{% static 'bower_components/angular-svg-round-progressbar/build/roundProgress.js' %}"></script>
 
 <!-- BITEPLANS CUSTOM JS FILES -->
 <script type="text/javascript" src="{% static 'javascripts/biteApp.js' %}"></script>
@@ -43,4 +53,5 @@
 <script type="text/javascript" src="{% static 'javascripts/controllers/resetController.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascripts/controllers/recipesController.js' %}"></script>
 
+<script type="text/javascript" src="{% static 'javascripts/controllers/summaryController.js' %}"></script>
 <script type="text/javascript" src="{% static 'javascripts/controllers/calendarController.js' %}"></script>

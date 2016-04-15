@@ -5,8 +5,9 @@ var app = angular.module('biteApp', [
       'satellizer',
       'ngRoute',
       'angularUtils.directives.dirPagination',
-      'ui.calendar',
-      'angular-svg-round-progressbar'
+      'angular-svg-round-progressbar',
+      "ngMaterial", 
+      "materialCalendar"
     ]);
 /**
 * @name run
