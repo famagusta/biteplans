@@ -50,9 +50,6 @@ form#createPlan input {
     width: 10% !important;
 }
 
-#gender {
-    margin-right: 290px;
-}
 
 #progressbar li span {
     background-color: #ccc;
@@ -313,6 +310,10 @@ input[type=number].time-input {
 .selected-meal-ingredient-list {
     margin-left: 49px !important;
     margin-top: -18px !important;
+}
+
+#daydrop {
+    border: none;
 }
 
 /* ADD NEW MEAL MODAL */
