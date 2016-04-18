@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
-from schedule.models import Calendar
+# from schedule.models import Calendar
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
@@ -52,7 +52,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     social_thumb = models.URLField(null=True, blank=True)
 
     # Added calendar support
-    #calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE,
+    # calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE,
     #                                null=True)
 
     # These fields will be required for manually signing
@@ -80,11 +80,44 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-#@receiver(pre_save, sender=Account)
-#def assosiate_calendar(sender, instance, **kwargs):
+# @receiver(pre_save, sender=Account)
+# def assosiate_calendar(sender, instance, **kwargs):
 #    '''assosiate one to one calender to the user instance'''
 #    if instance.pk is None:
 #        print instance
 #        cal = Calendar.objects.create(name=instance.username,
 #                                      slug='default')
 #        instance.calendar = cal
+
+
+class AccountDetails(models.Model):
+    '''model to store user details such as weight, height, dob'''
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    # we need to let the user upload a dp
+    # TODO: a photo management tool to work with django
+    # will also be used for loading recipe images.
+
+    # these are mandatory fields
+    weight = models.DecimalField(max_digits=11, decimal_places=3)
+    height = models.DecimalField(max_digits=11, decimal_places=3)
+    date_of_birth = models.DateField()
+
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+
+    # some optional fields
+    body_fat_percent = models.DecimalField(max_digits=11, decimal_places=3)
+
+    # body measurements
+    neck = models.DecimalField(max_digits=11, decimal_places=3)
+    shoulder = models.DecimalField(max_digits=11, decimal_places=3)
+    bicep = models.DecimalField(max_digits=11, decimal_places=3)
+    forearm = models.DecimalField(max_digits=11, decimal_places=3)
+    chest = models.DecimalField(max_digits=11, decimal_places=3)
+    waist = models.DecimalField(max_digits=11, decimal_places=3)
+    hip = models.DecimalField(max_digits=11, decimal_places=3)
+    thigh = models.DecimalField(max_digits=11, decimal_places=3)
+    calf = models.DecimalField(max_digits=11, decimal_places=3)
