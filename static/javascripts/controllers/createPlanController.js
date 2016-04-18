@@ -3,14 +3,32 @@
 
 app.controller('createPlanController', ['$scope', 'ingredientService', function($scope, ingredientService) {
     
-    
-  
     $scope.plan = {};
+    
+    $scope.unit =0;
+    
+    $scope.displayHeight = function (string) {
+        
+        if (string == 0) {
+            $scope.feet = 1;
+            $scope.inches = 0;
+            $scope.unit= string;
+                    console.log(string);
+
+        }
+        else   {
+            $scope.metric = 1;
+            $scope.unit=string;
+            console.log(string);
+
+        }
+        
+    }
+    
     
     $scope.weekCount = [];
     $scope.dayCount = [];
-    
-//    $scope.$watch()
+    $scope.amPmArray = ["AM", "PM"];
     
     $scope.func = function (index) {
         for(var i = 1 ; i <= $scope.plan.durations ; i++) {
@@ -40,7 +58,6 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
         
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
-//<<<<<<< HEAD
     $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
                                {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
                                {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
@@ -48,11 +65,9 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     
 //    console.log($scope.mealPlanNameArray);
     
-//=======
 //    $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
 //    $scope.mealTrack = [];
 //    $scope.plan={};
-//>>>>>>> bp_recipes
 
     
     //searches recipes or ingredients
@@ -97,6 +112,20 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
                $scope.createPlanView2 = false;
                $scope.createPlanView3 = false;
                $scope.createPlanView4 = false;
+        }
+    }
+    
+    $scope.submitted = false;
+    
+    $scope.submitForm = function () {
+        var planName = $scope.plan.plan_name_test;
+        var planDuration = $scope.plan.durations;
+        console.log(planName && planDuration);
+        if (planName) {
+            $scope.switchCreatePlanViews(2);
+        }
+        else {
+            $scope.error = 'Required';
         }
     }
   
