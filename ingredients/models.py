@@ -56,7 +56,7 @@ class Ingredient(models.Model):
 class AddtnlIngredientInfo(models.Model):
     '''Model for storing basic ingredient information from
     various sources. All units are measured per 100gm'''
-    # one to one link to the ingredients object
+    # one to one link to the ingredients object. consider using oneToOne
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
 
     # Metallic Minerals

@@ -8,6 +8,11 @@ from django.contrib.auth.models import BaseUserManager
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
+GENDER_CHOICES = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+)
+
 
 class AccountManager(BaseUserManager):
     '''this class manages the user save method and other user actions'''
@@ -63,6 +68,37 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     activation_key = models.CharField(max_length=40, null=True)
     key_expires = models.DateTimeField(null=True)
+    
+     # these are mandatory fields
+    weight = models.DecimalField(null=True, blank=True, 
+                                 max_digits=11, decimal_places=3)
+    height = models.DecimalField(null=True, blank=True,
+                                 max_digits=11, decimal_places=3)
+    date_of_birth = models.DateField(null=True, blank=True)
+    gender = models.CharField(null=True, blank=True,
+                              max_length=1, choices=GENDER_CHOICES)
+
+    # some optional fields - body measurements
+    body_fat_percent = models.DecimalField(null=True, blank=True,
+                                           max_digits=11, decimal_places=3)
+    neck = models.DecimalField(null=True, blank=True,
+                               max_digits=11, decimal_places=3)
+    shoulder = models.DecimalField(null=True, blank=True,
+                                   max_digits=11, decimal_places=3)
+    bicep = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    forearm = models.DecimalField(null=True, blank=True,
+                                  max_digits=11, decimal_places=3)
+    chest = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    waist = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    hip = models.DecimalField(null=True, blank=True,
+                              max_digits=11, decimal_places=3)
+    thigh = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    calf = models.DecimalField(null=True, blank=True,
+                               max_digits=11, decimal_places=3)
 
     objects = AccountManager()
     USERNAME_FIELD = 'email'
@@ -80,44 +116,5 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-# @receiver(pre_save, sender=Account)
-# def assosiate_calendar(sender, instance, **kwargs):
-#    '''assosiate one to one calender to the user instance'''
-#    if instance.pk is None:
-#        print instance
-#        cal = Calendar.objects.create(name=instance.username,
-#                                      slug='default')
-#        instance.calendar = cal
 
-
-class AccountDetails(models.Model):
-    '''model to store user details such as weight, height, dob'''
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
-    # we need to let the user upload a dp
-    # TODO: a photo management tool to work with django
-    # will also be used for loading recipe images.
-
-    # these are mandatory fields
-    weight = models.DecimalField(max_digits=11, decimal_places=3)
-    height = models.DecimalField(max_digits=11, decimal_places=3)
-    date_of_birth = models.DateField()
-
-    GENDER_CHOICES = (
-        ('M', 'Male'),
-        ('F', 'Female'),
-    )
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
-
-    # some optional fields
-    body_fat_percent = models.DecimalField(max_digits=11, decimal_places=3)
-
-    # body measurements
-    neck = models.DecimalField(max_digits=11, decimal_places=3)
-    shoulder = models.DecimalField(max_digits=11, decimal_places=3)
-    bicep = models.DecimalField(max_digits=11, decimal_places=3)
-    forearm = models.DecimalField(max_digits=11, decimal_places=3)
-    chest = models.DecimalField(max_digits=11, decimal_places=3)
-    waist = models.DecimalField(max_digits=11, decimal_places=3)
-    hip = models.DecimalField(max_digits=11, decimal_places=3)
-    thigh = models.DecimalField(max_digits=11, decimal_places=3)
-    calf = models.DecimalField(max_digits=11, decimal_places=3)
+   

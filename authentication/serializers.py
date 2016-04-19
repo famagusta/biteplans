@@ -1,6 +1,6 @@
 '''serializes db queries into python objs for easy json conversions'''
 from rest_framework import serializers
-from authentication.models import Account
+from authentication.models import Account, AccountDetail
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from schedule.models import Calendar
@@ -30,3 +30,11 @@ class AccountSerializer(serializers.ModelSerializer):
         instance.save()
 
         return instance
+
+
+class AccountDetailSerializer(serializers.ModelSerializer):
+    '''serializer for account details of a user - to be filled
+       post sign up'''
+    class Meta:
+        model = AccountDetail
+        fields = ('__all__')
