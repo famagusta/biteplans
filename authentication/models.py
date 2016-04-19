@@ -4,9 +4,14 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
-from schedule.models import Calendar
+# from schedule.models import Calendar
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
+
+GENDER_CHOICES = (
+    ('M', 'Male'),
+    ('F', 'Female'),
+)
 
 
 class AccountManager(BaseUserManager):
@@ -52,7 +57,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     social_thumb = models.URLField(null=True, blank=True)
 
     # Added calendar support
-    #calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE,
+    # calendar = models.OneToOneField(Calendar, on_delete=models.CASCADE,
     #                                null=True)
 
     # These fields will be required for manually signing
@@ -63,6 +68,37 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     activation_key = models.CharField(max_length=40, null=True)
     key_expires = models.DateTimeField(null=True)
+    
+     # these are mandatory fields
+    weight = models.DecimalField(null=True, blank=True, 
+                                 max_digits=11, decimal_places=3)
+    height = models.DecimalField(null=True, blank=True,
+                                 max_digits=11, decimal_places=3)
+    date_of_birth = models.DateField(null=True, blank=True)
+    gender = models.CharField(null=True, blank=True,
+                              max_length=1, choices=GENDER_CHOICES)
+
+    # some optional fields - body measurements
+    body_fat_percent = models.DecimalField(null=True, blank=True,
+                                           max_digits=11, decimal_places=3)
+    neck = models.DecimalField(null=True, blank=True,
+                               max_digits=11, decimal_places=3)
+    shoulder = models.DecimalField(null=True, blank=True,
+                                   max_digits=11, decimal_places=3)
+    bicep = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    forearm = models.DecimalField(null=True, blank=True,
+                                  max_digits=11, decimal_places=3)
+    chest = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    waist = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    hip = models.DecimalField(null=True, blank=True,
+                              max_digits=11, decimal_places=3)
+    thigh = models.DecimalField(null=True, blank=True,
+                                max_digits=11, decimal_places=3)
+    calf = models.DecimalField(null=True, blank=True,
+                               max_digits=11, decimal_places=3)
 
     objects = AccountManager()
     USERNAME_FIELD = 'email'
@@ -80,11 +116,5 @@ class Account(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-#@receiver(pre_save, sender=Account)
-#def assosiate_calendar(sender, instance, **kwargs):
-#    '''assosiate one to one calender to the user instance'''
-#    if instance.pk is None:
-#        print instance
-#        cal = Calendar.objects.create(name=instance.username,
-#                                      slug='default')
-#        instance.calendar = cal
+
+   

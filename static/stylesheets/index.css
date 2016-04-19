@@ -12,6 +12,7 @@ input:focus {
     border-color: #00bcd4 !important;
 }
 
+
 input[type=radio]:focus {
     border-color: #00bcd4 !important;
 }

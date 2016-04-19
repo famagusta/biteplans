@@ -19,4 +19,5 @@ urlpatterns = patterns('',
                            views.register_confirm),
                        url(r'^loginstatus/$', views.checkAccountStatus),
                        url(r'^forgot/', include('djoser.urls.base')),
+                      # url(r'^accountDetail/', views.accountDetails),
                        )
