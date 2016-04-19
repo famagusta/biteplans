@@ -13,18 +13,12 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
             $scope.feet = 1;
             $scope.inches = 0;
             $scope.unit= string;
-                    console.log(string);
-
         }
         else   {
             $scope.metric = 1;
             $scope.unit=string;
-            console.log(string);
-
-        }
-        
+        }  
     }
-    
     
     $scope.weekCount = [];
     $scope.dayCount = [];
@@ -51,10 +45,6 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     for(var i = 0 ; i <= 59 ; i++) {
         $scope.addMealMinutes.push(i);
     }
-    
-//    $scope.planDetailSubmit = function () {
-//        console.log($rootScope.planData.plan_username);
-//    }
         
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
@@ -63,18 +53,13 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
                                {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
                                {mealname:"Dinner", ingredient:[], hours:"8", minutes:"00", ampm:"PM"}];
     
-//    console.log($scope.mealPlanNameArray);
-    
-//    $scope.mealNameKeys = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
-//    $scope.mealTrack = [];
-//    $scope.plan={};
-
     
     //searches recipes or ingredients
     $scope.searchPlan = function(query) {
      if (query) {
            ingredientService.search(query).then(function(response) {
-                $scope.details = response;   //model for storing response from API                
+                $scope.details = response;   //model for storing response from API 
+               console.log($scope.details);
     },function(error) {
       console.log(error);
     });
@@ -117,18 +102,53 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     
     $scope.submitted = false;
     
+    var validateInput = function (input) {
+        if (input) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    // Create plan form validation
     $scope.submitForm = function () {
         var planName = $scope.plan.plan_name_test;
         var planDuration = $scope.plan.durations;
-        console.log(planName && planDuration);
-        if (planName) {
-            $scope.switchCreatePlanViews(2);
+        var planWeight = $scope.plan.plan_weight;
+        var planAge = $scope.plan.age;
+        var planFeet = $scope.plan.feet;
+        var planInches = $scope.plan.inches;
+        
+        if ($scope.unit == 0) {
+            var planHeightInCms = parseFloat(($scope.plan.feet)*30.48+($scope.plan.inches)*2.54)
+            console.log(planHeightInCms);
         }
         else {
-            $scope.error = 'Required';
+           var planHeightInCms = $scope.plan.metric;
+            console.log(planHeightInCms);
         }
+        
+        var testValidate = [planName, planDuration, planWeight, planAge];
+        
+        $scope.errorArray = ['','','',''];
+        var output =testValidate.map(validateInput); 
+        var allOutputValid = output.every(function(element) {
+            return element === true;
+        });
+       
+        if(allOutputValid){
+            $scope.switchCreatePlanViews(2);
+        }else{
+            for (var i=0;i<output.length;i++) {
+                if (output[i]==false) {
+                    $scope.errorArray[i] = 'Required';
+                }
+ 
+            }
+        }
+
     }
-  
+        
     
     $scope.openCreatePlanModal = function (index) {
         $('#create-plan-modal').openModal();
@@ -149,21 +169,14 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
             else {
                  $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.push({ingredient:x[i], unit:x[i].measure, quantity:1})
             }
+            
            
         }
         $scope.nutrientValue.length = 0;
         $('#create-plan-modal').closeModal();
         
-      
-        
-//        var temp = 0;
-//        for (i=0;i<$scope.mealPlanNameArray.length;i++) {
-//            temp = temp + $scope.mealPlanNameArray
-//        }
-        
     }
     
-//      console.log($scope.nutrientValue);
    
     // uncheck all the selected items if save button is not clicked
     $scope.emptyModalContents = function () {
@@ -212,11 +225,8 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
             var total =0;
         for(i=0;i<$scope.mealPlanNameArray[index].ingredient.length;i++) {
            
-           total += parseFloat($scope.mealPlanNameArray[index].ingredient[i].ingredient[field]);
-           
-          
+           total += parseFloat($scope.mealPlanNameArray[index].ingredient[i].ingredient[field]);  
        } 
-//         console.log(total, index, field);
          return total;
          
      }

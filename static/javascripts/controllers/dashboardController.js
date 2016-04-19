@@ -1,6 +1,6 @@
 'use strict';
-app.controller('dashboardController', ['$scope','$window','$location', 'AuthService',
-               function ($scope, $window, $location, AuthService) {
+app.controller('dashboardController', ['$scope','$window','$location', 'AuthService', 'ingredientService',
+               function ($scope, $window, $location, AuthService, ingredientService) {
   /*if (!$window.localStorage.token) {
     $location.path('/');
     return;
@@ -26,6 +26,23 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
     $scope.isSet = function (tabId) {
         return  $scope.tab === tabId;
     };
+                   
+    $scope.myIngredientsArray = [];
+                   
+     $scope.search = function() {
+        console.log('dkjdh');
+        var query = $scope.query;
+        console.log(query);
+        if (query) {
+           ingredientService.search(query).then(function(response) {
+                $scope.details = response;   //model for storing response from API                
+                console.log($scope.details);                          
+    },function(error) {
+      console.log(error);
+    });
+  }
+
+};
         
 }]);
 

@@ -68,3 +68,9 @@ nav ul li {
     }
 } 
 
+@media only screen and (min-width : 1500px) {
+    #modal1 {
+        max-height: 55% !important;
+        max-width: 35% !important;
+    }
+}
