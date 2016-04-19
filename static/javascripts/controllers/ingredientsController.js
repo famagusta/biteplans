@@ -7,7 +7,6 @@ app.controller('ingredientsController', ['$scope', 'ingredientService', function
     // function to search for ingredients 
     console.log('ewe');
     $scope.search = function() {
-        console.log('dkjdh');
         var query = $scope.query;
         console.log(query);
         if (query) {
@@ -28,6 +27,6 @@ app.controller('ingredientsController', ['$scope', 'ingredientService', function
 
   // pagination
   $scope.currentPage = 1;
-  $scope.pageSize = 6; 
+  $scope.pageSize = 100; 
 
 }]);

@@ -1,4 +1,5 @@
- <div class="row">
+<section id="create-plan" class="full-length">
+<div class="row">
     <div class="col s12 m12">
       <div class="card white" id="recipe-card">
         <div class="card-content black-text">
@@ -60,7 +61,7 @@
 <!--=======-->
                     <div class="col s1 push-s1">
                     <br>
-                        <input type="number" id="serving" min="0" value="1" ng-model="ingredientDisplay[$index].quantity" required/>
+                        <input type="number" step="0.25" id="serving" min="0" ng-model="ingredientDisplay[$index].quantity" required/>
                     <br>
                     </div>
                     <div class="col s1 push-s1">
@@ -163,23 +164,51 @@
     </div>
 </div> 
  
-<div class="row">
-    <div class="col s12 m12">
-      <div class="card white" id="recipe-card">
-        <div class="card-content black-text">
-            <div class="container" id="create-container">
-                <p style="margin-left: 10px" class="card-title left" id="recipe-title">Nutritional Information</p>
-                <i class="material-icons right cyan-text">expand_more</i>
-            </div>
+
+     <div class="row">
+        <div class="col s12 m12">
+          <div class="card white">
+            <div class="card-content black-text">
+              <span class="card-title">Nutritional Information</span>
+                        <div class="row">
+                            <div class="col s6">
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Total Carbohydrates:</p> 
+                                </div>
+                                <div class="col s6">
+                                    <p class="meal-text">{{ totalCarb | number}}</p>
+                                </div>
+                            </div>
+                             <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Total Proteins:</p> 
+                                </div>
+                                <div class="col s6">
+                                    <p class="meal-text">{{ totalProtein | number}}</p>
+                                </div>
+                            </div>
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Total Fats:</p> 
+                                </div>
+                                <div class="col s6">
+                                    <p class="meal-text">{{ totalFat | number }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          </div>
         </div>
       </div>
-    </div>
- </div>
+    
+
 
  <div class="row">
     <div class="col s12">
         <div class="center-btn">
-            <a ng-click="finalizeRecipeCreation()" class="waves-effect waves-light btn largebtn">Save</a>
+            <a ng-click='finalizeRecipeCreation()' class="waves-effect waves-light btn largebtn">Save</a>
         </div>
     </div>
  </div>
@@ -295,9 +324,9 @@
             </div>
                 <div class="row">
                     <div class="col m12 center">
-                        <a ng-click="addContents()" class="waves-effect waves-light btn btn-social">Add</a>
-                        <a ng-click="saveAndContinue()" class="waves-effect waves-light btn btn-social largebtn">Save and Continue</a>
+                        <a ng-click="addContents();calculateTotalInfoForRecipes()" class="waves-effect waves-light btn btn-social largebtn">Add</a>
                     </div>
                 </div>
                 </div>
             </div>
+</section>

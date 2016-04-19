@@ -13,6 +13,8 @@ app.controller('recipesController', ['$scope', 'ingredientService', function ($s
 	    });
 	  }
         };
+    
+    
 	  
     //function to open modal for viewing full content of recipe
     
@@ -29,6 +31,9 @@ app.controller('recipesController', ['$scope', 'ingredientService', function ($s
     // pagination
     $scope.currentPage = 1;
     $scope.pageSize = 4;
+    
+   
+     
 
     
 }]);

@@ -1,147 +1,156 @@
-
+<div id="planPage">
 <div id="dashboard-page">
     <div class="row">
-        <div class="col s2">
-          <div class="card white darken-1">
+        <div class="col s12 m2">
+          <div class="card white darken-1 top_mar">
             <div class="card-content grey-text">
-              <ul id="dashboard-list">
                   <div class="row">
                       
                       <!-- SUMMARY TAB -->
                       
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(1)">
-                            <i class="fa fa-user"></i>
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(1)">
+                            <img ng-if="tab!=1" src="static/images/summary_deselect.png" />
+                            <img ng-if="tab==1" src="static/images/summary.png" />
                         </a>            
                     </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(1)}"><a href="#" ng-click="setTab(1)">Summary</li></a>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(1)}" ng-click="setTab(1)">Summary</li>
                     </div>
                   </div>
                 
                 <!-- PROFILE TAB -->
                 
                   <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(2)">
-                            <i class="fa fa-user"></i>
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(2)">
+                          <img ng-if="tab!=2" src="static/images/profile_deselect.png" />
+                          <img ng-if="tab==2" src="static/images/profile.png" />
                         </a>            
                     </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(2)}">
-                            <a href="#" ng-click="setTab(2)">Profile</a>
-                        </li>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(2)}" ng-click="setTab(2)">Profile</a>
                     </div>
                   </div>
                 
                 <!-- CALENDAR TAB -->
                 
                  <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(3)">
-                            <i class="fa fa-calendar"></i>
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(3)">
+                            <img ng-if="tab!=3" src="static/images/calendar_deselect.png" />
+                            <img ng-if="tab==3" src="static/images/calendar.png" />
+
                         </a>            
                     </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(3)}">
-                            <a href="#" ng-click="setTab(3)">Calendar</a></li>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(3)}" ng-click="setTab(3)">Calendar</a>
                     </div>
                   </div>
                 
-                <!-- FRIENDS TAB -->
+                
+                 <div class="row">
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(4)">
+                            <img ng-if="tab!=4" src="static/images/progress_deselect.png" />
+                            <img ng-if="tab==4" src="static/images/progress.png" />
+                        </a>            
+                    </div>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(5)}" ng-click="setTab(4)">Progress</a>
+                    </div>
+                  </div>
+                 <div class="row">
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(5)">
+                            <img ng-if="tab!=5" src="static/images/myplans_deselect.png" />
+                            <img ng-if="tab==5" src="static/images/myplans.png" />
+                        </a>            
+                    </div>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(5)}" ng-click="setTab(5)">My Plans</a>
+                    </div>
+                  </div>
+                 
+                <div class="row">
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(6)">
+                         <img ng-if="tab!=6" src="static/images/summary_deselect.png" />
+                        <img ng-if="tab==6" src="static/images/summary.png" />
+                        </a>            
+                    </div>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(6)}" ng-click="setTab(6)">Create Plans</a>
+                    </div>
+                  </div>
                 
                    <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(4)">
-                            <i class="fa fa-group"></i>
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(7)">
+                            <img ng-if="tab!=7" src="static/images/reciepes_deselect.png" />
+                            <img ng-if="tab==7" src="static/images/reciepes.png" />
                         </a>            
                     </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(4)}">
-                            <a href="#" ng-click="setTab(4)">Friends</a>
-                        </li>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(7)}" ng-click="setTab(7)">My Recipes</a>
                     </div>
                   </div>
+                
                  <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(5)">
-                            <i class="fa fa-signal"></i>
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(8)">
+                         <img ng-if="tab!=8" src="static/images/summary_deselect.png" />
+                        <img ng-if="tab==8" src="static/images/summary.png" />
                         </a>            
                     </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(5)}">
-                            <a href="#" ng-click="setTab(5)">Progress</a>
-                        </li>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(8)}" ng-click="setTab(8)">Create Recipes</a>
                     </div>
                   </div>
-                 <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(6)">
-                            <i class="fa fa-calendar"></i>
+                
+                <div class="row">
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(9)">
+                            <img ng-if="tab!=9" src="static/images/searchplan_deselect.png" />
+                            <img ng-if="tab==9" src="static/images/searchplan.png" />
                         </a>            
                     </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(6)}">
-                            <a href="#" ng-click="setTab(6)">My Plans</a>
-                        </li>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(9)}" ng-click="setTab(9)">My Ingredients</a>
                     </div>
                   </div>
+                  
                    <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(7)">
-                            <i class="fa fa-signal"></i>
+                    <div class="col s5 m5">
+                        <a ng-click="setTab(10)">
+                            <img ng-if="tab!=10" src="static/images/searchplan_deselect.png" />
+                            <img ng-if="tab==10" src="static/images/searchplan.png" />
                         </a>            
                     </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(7)}">
-                            <a href="#" ng-click="setTab(7)">My Recipes</a></li>
+                    <div class="col s7 m7">
+                        <a class="db_list_text" ng-class="{active:tab.isSet(10)}" ng-click="setTab(10)">Search Plans</a>
                     </div>
                   </div>
-                   <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(8)">
-                            <i class="fa fa-signal"></i>
-                        </a>            
-                    </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(8)}">
-                            <a href="#" ng-click="setTab(8)">Create Plans</a>
-                        </li>
-                    </div>
-                  </div>
-                   <div class="row">
-                    <div class="col s4 m4">
-                        <a href="#" ng-click="setTab(9)">
-                            <i class="fa fa-search"></i>
-                        </a>            
-                    </div>
-                    <div class="col s4 m8 right">
-                        <li ng-class="{active:tab.isSet(9)}">
-                            <a href="#" ng-click="setTab(9)">Search Plans</a>
-                        </li>
-                    </div>
-                  </div>
-              </ul>
             </div>
           </div>
         </div>
       
         <!--SUMMARY VIEW -->
      
-        <div class="col s5">
         <div ng-if="tab==1"> 
-          <div class="card white">
-            <div class="card-content teal-text">
+        <div class="col s6">
+          <div class="card white top_mar">
+            <div class="card-content">
               <span class="card-title center-align">
                   <div class="row">
                     <div class="col s12 m12">
                       <ul class="day-list">
-                          <li><i class="fa fa-chevron-left"></i></li>
+                          <li><i class="fa fa-chevron-left cyan-text"></i></li>
                           <li>Yesterday</li>
                           <li>Today</li>
                           <li>Tomorrow</li>
-                          <li><i class="fa fa-chevron-right"></i></li>
-                          <li><i class="fa fa-calendar"></i></li>
+                          <li><i class="fa fa-chevron-right cyan-text"></i></li>
+                          <li><i class="material-icons silver-text">date_range</i></li>
                           </ul>
                       </div>
                       <div class="col s12 m12">
@@ -184,27 +193,59 @@
       
         <!-- PROFILE VIEW -->
       
-        <div class="col s5">
         <div ng-if="tab==2"> 
-          <div class="card white">
-            <div class="card-content teal-text">
-              <span class="card-title center-align">
-                  <div class="row">
-                    <div class="col s12 m12">
-                      <ul class="day-list">
-                          <li><i class="fa fa-chevron-left"></i></li>
-                          <li>Profile</li>
-                          <li>Today</li>
-                          <li>Tomorrow</li>
-                          <li><i class="fa fa-chevron-right"></i></li>
-                          <li><i class="fa fa-calendar"></i></li>
-                          </ul>
+        <div class="col s6">
+          <div class="card white top_mar">
+            <div class="card-content cyan-text">
+<!--                <i class="material-icons">date_range</i>-->
+                <i class="material-icons edit_content_icon">mode_edit</i><span id="edit_content_db" class="right">EDIT PROFILE</span>
+                   <div class="row">
+                        <form class="col s12">
+                          <div class="row">
+                            <div class="input-field col s6">
+                             <label for="first_name">Current Weight (in kgs)</label>
+                              <input id="first_name" type="number" class="validate">
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="input-field col s12">
+                              <input id="goal" type="text" class="validate">
+                              <label for="goal">Goal Weight (in kgs)</label>
+                            </div>
+                          </div>
+                            <div class="row">
+                            <div class="input-field col s12">
+                              <input id="height" type="text" class="validate">
+                              <label for="height">Height (in cms)</label>
+                            </div>
+                          </div>
+                             <div class="row">
+                                <div class="input-field col s6">
+                                    <div class="row">
+                                        <div class="col s3 m3">
+                                            <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        </div>
+                                         <div class="col s9 m9">
+                                           <input id="test5" class="with-gap" name="group3" type="radio" checked />
+                                    <label for="test5">Male</label>&nbsp;&nbsp;
+                                    <input id="test4" class="with-gap" name="group3" type="radio" />
+                                    <label for="test4">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="row">
+                                <div class="input-field col s12">
+                                <input type="date" class="datepicker">
+                            </div>
+                                 <br><br><br>
+                                 <div class="row center">
+                                <div class="input-field col s12">
+                                    <a class="waves-effect waves-light btn">Update</a>
+                            </div>
+                          </div>
+                        </form>
                       </div>
-                      <div class="col s12 m12">
-                       <h5 class="center-align">Weight Loss in 2 weeks</h5> 
-                      </div>
-                  </div>
-                </span>
             </div>
           </div>
         </div> 
@@ -212,19 +253,20 @@
     
         <!-- CALENDAR VIEW -->
     
-
-        <div class="col s5">
             <div ng-if="tab==3"> 
-                <div class="card white">
-                    <div ng-include="'static/templates/calendar.html'"></div>
-                </div>
-            </div> 
-        </div><!-- END OF CALENDAR WINDOW-->
+                <div class="col m6">
+                    <div class="card white darken-1 top_mar">
+                        <div class="card-content black-text">
+                            <div ng-include="'static/templates/calendar.html'"></div>
 
-      
-        <div class="col s3">
-          <div class="card white">
-            <div class="card-content teal-text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <div class="col m4">
+          <div class="card white top_mar">
+            <div class="card-content cyan-text">
               <h5 class="card-title center-align">Recent Activity</h5>
               <p>I am a very simple card. I am good at containing small bits of information.
               I am convenient because I require little markup to use effectively.</p>
@@ -233,7 +275,6 @@
         </div>
       </div>
 
-
+    </div>
 </div>
 
-<a ng-click="logout()" class="btn btn-primary">Logout</a>

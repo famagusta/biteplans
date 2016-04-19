@@ -19,7 +19,7 @@ app.controller('createRecipeController', ['$scope', 'ingredientService','recipeS
         console.log(string);
         $scope.currentMealPlanName = string;
     };
-     
+    
      
       $scope.nutrientValue = [];
       $scope.ingredientDisplay = [];
@@ -35,7 +35,7 @@ app.controller('createRecipeController', ['$scope', 'ingredientService','recipeS
     
      $scope.addContents = function () {
         for(var i=$scope.ingredientDisplay.length; i<$scope.nutrientValue.length; i++){
-          $scope.ingredientDisplay.push({ingredient:$scope.nutrientValue[i].id, measure: $scope.nutrientValue[i].measure[0].id});
+          $scope.ingredientDisplay.push({ingredient:$scope.nutrientValue[i].id, measure: $scope.nutrientValue[i].measure[0].id, carbohydrate:$scope.nutrientValue[i].carbohydrate_tot, fats: $scope.nutrientValue[i].fat_tot, protein: $scope.nutrientValue[i].protein_tot,quantity:1});
         }
         console.log($scope.ingredientDisplay);
         $('#create-recipe-modal').closeModal();
@@ -79,6 +79,30 @@ app.controller('createRecipeController', ['$scope', 'ingredientService','recipeS
      var createRecipeIngredient = function(){
 
      };
+    
+    // $scope.calculateTotalInfoForRecipes = function () {
+            $scope.totalCarb = 0;
+            $scope.totalProtein = 0;
+            $scope.totalFat = 0;
+
+        $scope.$watch('ingredientDisplay', function() {
+            
+    
+        for(var i=0;i<$scope.ingredientDisplay.length;i++) {
+            console.log($scope.ingredientDisplay[i]);
+        $scope.totalCarb += parseFloat($scope.ingredientDisplay[i].carbohydrate*$scope.ingredientDisplay[i].quantity);
+            $scope.totalProtein += parseFloat($scope.ingredientDisplay[i].protein*$scope.ingredientDisplay[i].quantity);
+            $scope.totalFat += parseFloat($scope.ingredientDisplay[i].fats*$scope.ingredientDisplay[i].quantity);
+           
+//           total += parseFloat($scope.mealPlanNameArray[index].ingredient[i].ingredient[field]);  
+       } 
+            console.log($scope.totalCarb);
+                  console.log($scope.totalProtein);
+         console.log($scope.totalFat);
+
+        }, true);
+         
+    // }
 
      $scope.finalizeRecipeCreation = function(){
        $scope.recipe.directions = '';

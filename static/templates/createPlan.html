@@ -1,48 +1,45 @@
 <section id="create-plan" class="full-length">
-    <div class="container" id="create-container">
+    <div id="planPage">
             <div class="row">
                 <div class="col s12 m12">
                   <div class="card white darken-1">
                     <div class="card-content grey-text">
                         <div class="row center">
                             <div class="col m3 push-m1 center shift-title">
-                                <p><span class="active-plan">1</span>&nbsp;&nbsp; Enter Details</p>
-                                <hr class="para-horizontal-line">
+                                <a><img src="static/images/Number1.png"/><p>Enter Details</p></a>
                             </div>
                             <div class="col m3 push-m1 center shift-title">
-                                <p><span class="active-plan">2</span>&nbsp;&nbsp; Add Food</p>
-                                <hr class="para-horizontal-line">
+                                <a ng-if="!createPlanView2" ng-click="switchCreatePlanViews(2)"><img src="static/images/Number2.png"/><p>Add Food</p></a>
+                                <a ng-if="!createPlanView1 && createPlanView2 && !createPlanView3"><img src="static/images/Number2_red.png"/><p>Add Food</p></a>
                             </div>
                             <div class="col m3 push-m1 center shift-title">
-                                <p><span class="active-plan">3</span>&nbsp;&nbsp; Review</p>
-                                <hr class="para-horizontal-line">
+                                <a ng-if="!createPlanView3" ng-click="switchCreatePlanViews(3)"><img src="static/images/Number3.png"/><p>Review</p></a>
+                                <a ng-if="!createPlanView1 && !createPlanView2 && createPlanView3"><img src="static/images/Number3_red.png"/><p>Review</p></a>
                             </div>
                         </div>
                     </div>
                   </div>
                 </div>
               </div>
-        </div>
     
     
-    <div class="container" id="create-container">
         <div class="row" id="create-form" ng-if="createPlanView1 && !createPlanView2 && !createPlanView3 && !createPlanView4">
                 <div class="col s12 m12">
                     <div class="card white create_card">
                         <div class="card-content grey-text">
-                            <form name="form" ng-submit="submitForm()">
+                            <form name="form">
                                 <div class="row">
                                     <div class="input-field col s5 push-s1">
                                         <label for="plan_name">Name of Plan</label>
-                                        <input id="plan_name" type="text" class="validate" ng-model="plan.plan_name_test" name="planName" required>
-                                        <span class="text-danger">{{error}}</p>
+                                        <input id="plan_name" type="text" class="validate" ng-model="plan.plan_name_test" name="planName" required="true">
+                                        <span class="text-danger">{{errorArray[0]}}</p>
 
 
                                     </div>
                                     <div class="input-field col s12 m5 push-m1">
-                                        <input name="age" id="age" type="number" class="validate" max="120" min="5" ng-model="plan.age" required>
+                                        <input name="age" id="age" type="number" class="validate" max="120" min="5" ng-model="plan.age" required="true">
                                         <label for="age">Age</label>
-                                        <span class="text-danger">{{error}}</p>
+                                        <span class="text-danger" ng-if="!planAge">{{errorArray[3]}}</p>
 
                                     </div>
                                 </div>
@@ -50,7 +47,7 @@
                                     <div class="input-field col s12 m5 push-m1">
                                         <label for="duration">Duration (in Weeks)</label>
                                         <input id="duration" type="number" class="validate" ng-model="plan.durations" min="1" max="52" required>
-                                          <span class="text-danger" ng-show="submitted && form.planName.$error.required">Required</span>
+                                         <span class="text-danger" ng-if="!planDuration">{{errorArray[1]}}</p>
 
                                     </div>
                                     <div class="input-field s12 col m5 push-m1">
@@ -68,18 +65,17 @@
                                     <div class="input-field col s5 m5 push-m1">
                                         <label for="goal">Goal in one line</label>
                                         <input name="goals" id="goal" type="text" class="validate" ng-model="plan.goals" required>
-                                        <span class="text-danger" ng-show="submitted && form.goals.$error.required">Required Goal</span>
                                     </div>
                                     <div class="col s5 m5 push-m1" id="imperial-view" ng-if="unit==0">
                                         <div class="row" >
                                             <div class="input-field col s4 push-s1">
-                                                <input id="feets" type="number" class="validate" ng-model="plan.feet" max="7" min="3" >
+                                                <input id="feets" type="number" class="validate" ng-model="plan.feet" max="7" min="3" value="0">
                                             </div>
                                             <div class="col s1">
                                                 <span class="unit">Ft</span>
                                             </div>
                                             <div class="input-field col s4 push-s1">
-                                                <input id="inches" type="number" class="validate" ng-model="plan.inches" max="11" min="0" >
+                                                <input id="inches" type="number" class="validate" ng-model="plan.inches" max="11" min="0" value="0" >
                                             </div>
                                             <div class="col s1">
                                                 <span class="unit">In</span>
@@ -89,7 +85,7 @@
                                     <div class="col s5 m5 push-m1" id="imperial-view" ng-if="unit==1">
                                     <div class="row">
                                             <div class="input-field col s6 push-s1">
-                                                <input type="number" id="metric">
+                                                <input type="number" id="metric" ng-model="plan.metric">
                                             </div>
                                             <div class="col s1">
                                                 <span class="unit">cms</span>
@@ -113,9 +109,9 @@
                                     </div>
                                 </div>
                                 <div class="input-field col m4 push-m1">
-                                    <input id="weight" type="number" class="form-control validate" max="600" min="1" required>
+                                    <input id="weight" type="number" class="form-control validate" max="600" min="1" ng-model="plan.plan_weight" required>
                                     <label for="weight">Weight (in kgs)</label>
-                                      <span class="text-danger" ng-show="submitted && form.planName.$error.required">Required</span>
+                                       <span class="text-danger" ng-if="!planWeight">{{errorArray[2]}}</p>
 
                                 </div>
                             </div>
@@ -129,7 +125,7 @@
                     <div class="row">
                         <div class="col s12">
                             <div class="center-btn">
-                                <button type="submit" class="waves-effect waves-light btn"  ng-click="submitForm()">Next</button>
+                                <button type="submit" class="waves-effect waves-light btn"  ng-click="submitForm();func()">Next</button>
                             </div>
                             <br><br>
                         </div>
@@ -138,16 +134,14 @@
                 </div>
             </div>
         </div>
-    </div>
             
     <!-- CREATE PLAN -PAGE 2-->
     
  <div ng-if="!createPlanView1 && createPlanView2 && !createPlanView3 && !createPlanView4">
      
-   <div class="container" id="create-container">
         <div class="col s12 m12 create_card">
 
-
+<div id="cont-create">
         <div class="col s12 m12">
           <div class="card white">
               <div class="container cont-create">
@@ -276,8 +270,8 @@
             </div>
         </div>
     </div>
+            </div>
 </div>
-       </div>
      
      <div class="container" id="create-container">
      <div class="row">
@@ -328,6 +322,7 @@
         </div>
       </div>
     </div>
+     </div>
     
 
      <div class="row">
@@ -337,7 +332,6 @@
         </div>
      </div>
 </div>
-    </div>
     
     <!-- Add Meal Modal--> 
     
@@ -683,7 +677,7 @@
     </div>
            
                                         
-                                   
+        </div>                                  
 </section>
        
  
