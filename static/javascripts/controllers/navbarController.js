@@ -3,21 +3,26 @@
 app.controller('navbarController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
     
     var checkLoggedIn = function () {
-//        AuthService.checkStatus()
+        AuthService.isAuthenticated().then(function(response){
+            $scope.isLoggedIn = response.status;
+            console.log(response);
+        },function(error){
+            $scope.isLoggedIn = false;
+        })
         
     };
+    checkLoggedIn();
     
-    $scope.navClass = function (page) {
-        var currentRoute = $location.path().substring(1) || '/';
-        return page === currentRoute ? 'active' : '';
-    };
+//    $scope.navClass = function (page) {
+//        var currentRoute = $location.path().substring(1) || '/';
+//        return page === currentRoute ? 'active' : '';
+//    };
     //by default first modal viw will be visible;
     $scope.modal1 = true;  
     $scope.modal2 = false;
     $scope.modal3 = false;  
     $scope.modal4 = false;    
     
-    $scope.isLoggedIn = false;
 
     //login object taken up from login from, ill be used to make login post request
     $scope.login={};
@@ -111,6 +116,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     AuthService.login(username, password).then(
       function (response){
         console.log(response);
+          $scope.isLoggedIn = true;
          $('#modal1').closeModal();
         $location.path('/dashboard');
         
@@ -166,4 +172,5 @@ $scope.resetPassword = function(){
   });
 
 };
+   
 }]);

@@ -1,6 +1,6 @@
 'use strict';
-app.controller('dashboardController', ['$scope','$window','$location', 'AuthService', 'ingredientService',
-               function ($scope, $window, $location, AuthService, ingredientService) {
+app.controller('dashboardController', ['$scope','$window','$location', 'AuthService', 'ingredientService', 'Data',
+               function ($scope, $window, $location, AuthService, ingredientService, Data) {
   /*if (!$window.localStorage.token) {
     $location.path('/');
     return;
@@ -13,7 +13,8 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
   $scope.token = $window.localStorage.token;
   $scope.username = $window.localStorage.username;
   
-
+                   $scope.Data = Data;
+                   console.log($scope.Data.Carba);
    // dashboard tabs switching
     
     $scope.tab = 1;
@@ -27,22 +28,13 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
         return  $scope.tab === tabId;
     };
                    
-    $scope.myIngredientsArray = [];
+    $scope.edit = 0;
+    console.log($scope.edit);
                    
-     $scope.search = function() {
-        console.log('dkjdh');
-        var query = $scope.query;
-        console.log(query);
-        if (query) {
-           ingredientService.search(query).then(function(response) {
-                $scope.details = response;   //model for storing response from API                
-                console.log($scope.details);                          
-    },function(error) {
-      console.log(error);
-    });
-  }
-
-};
+    $scope.editProfileForm = function () {
+        $scope.edit = 1;
+        console.log($scope.edit);
+    }
         
 }]);
 

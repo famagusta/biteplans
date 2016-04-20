@@ -74,8 +74,8 @@ textarea:focus {
     font-size: 17px;
 }
 
-.section-button {
-    
+#small-modal {
+    max-width: 30% !important;
 }
 
 

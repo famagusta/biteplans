@@ -1,6 +1,6 @@
 app.factory('Data', function () {
     return {
-        planName: '',
+        Carba: '',
         goalDetails: '',
         planDuration: '',
         currentWeight: '',

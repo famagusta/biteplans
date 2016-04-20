@@ -60,6 +60,10 @@ ul.day-list li {
     padding-left: 20em;
 }
 
+input:disabled {
+    border-bottom: 1px solid rgba(0,0,0,0.26) !important;
+}
+
 @media only screen and (max-width : 600px) {
     ul.day-list li {
         margin-left: 9px;

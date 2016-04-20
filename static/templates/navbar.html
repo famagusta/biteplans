@@ -1,9 +1,9 @@
 <!-- NAVBAR -->
-<div ng-controller="navbarController">
+<div ng-controller="navbarController" class="ng-cloak" ng-cloak>
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
         <a ng-class='{"inactive":toggle==0}' ng-click='toggle=0' id="logo-container" href="/" class="brand-logo">
-            <img class="responsive-img small" src="static/images/Logo-new.png">
+            <img class="responsive-img small" id="small_logo" src="static/images/Logo-new.png">
         </a>
         
         <ul class="right hide-on-med-and-down">
@@ -20,11 +20,27 @@
                  <a href="#">Articles</a>
             </li> 
             <!--function to open modal openModal()-->
-            <li>
-                <a href="#modal1" ng-click="openModal()" ng-if="!isLoggedIn">Log in</a>
-                <a href="/" ng-click="logout()" ng-if="isLoggedIn" class="cyan-text">Log out</a>
+            <li class="ng-cloak" ng-cloak>
+                <a class="ng-cloak" ng-cloak href="#modal1" ng-class="{'hidden':isLoggedIn}" ng-click="openModal()" ng-if="!isLoggedIn">Log in</a>
+                <a class="ng-cloak" ng-cloak ng-if="isLoggedIn" ng-class="{'hidden':!isLoggedIn}" ng-click="logout()"  class="cyan-text"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a>
+<!--                    <a ng-if="isLoggedIn" ng-click="logout()"><img class="circle small responsive-img" src="static/images/tiger.jpg"/></a><span class="black-text material-icons">expand_more</span>-->
             </li>
+            <li><a ng-click="showExtraFunctionList=!showExtraFunctionList"><i class="material-icons cyan-text">expand_more</i></a>
+<!--
+            <ul>
+                <a>Dashboard</a>
+                <a>Logout</a>
+                </ul>
+-->
+            </li>
+            
         </ul>
+<!--
+        <div id="extra_sliding_menu" ng-show="showExtraFunctionList" ng-if="isLoggedIn">
+                <a class="cyan-text" href="/dashboard">Dashboard</a>
+                        <a class="cyan-text" ng-click="logout()">Logout</a>
+            </div>
+-->
         
         <!-- MOBILE VIEW NAVIGATION -->
         <!--Mobile View-->
@@ -152,11 +168,10 @@
                  <label for="confirmPassword">Confirm Password</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" ng-model="signup.confirmPassword" required  />
                 <br>
-
                 </div>
             </div>
 
-            <br>
+            <br><br>
             
             <!-- CONTINUE BUTTON -->
             

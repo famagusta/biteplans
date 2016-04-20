@@ -1,6 +1,11 @@
 /* STYLING FOR NAVBAR */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
 
-
+.hidden {
+    display: none !important;
+}
 nav {
     background-color: #fdfdfb;
     box-shadow: none;
@@ -16,10 +21,14 @@ nav ul li.active a {
     background-color: transparent !important;
 }
 
-nav img {
+nav #small_logo {
     margin-left: 50px;
     height: 40px !important;
     margin-top: 9px;
+}
+
+#user_dp {
+    height: 30px !important;
 }
 
 nav ul {
@@ -51,7 +60,7 @@ nav ul li {
     left: 0;
     right: 0;
     top: 0;
-    bottom: 0;
+    bottom: 3em;
     margin: auto;
 }
 

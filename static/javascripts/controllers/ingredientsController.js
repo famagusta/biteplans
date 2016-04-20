@@ -1,11 +1,10 @@
 'use strict';
 // Controller to display search results on ingredients page
 
-app.controller('ingredientsController', ['$scope', 'ingredientService', function($scope, ingredientService) {
+app.controller('ingredientsController', ['$scope', 'ingredientService', 'Data', function($scope, ingredientService, Data) {
     
-    
+    $scope.Data = Data;
     // function to search for ingredients 
-    console.log('ewe');
     $scope.search = function() {
         var query = $scope.query;
         console.log(query);

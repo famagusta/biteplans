@@ -193,63 +193,72 @@
       
         <!-- PROFILE VIEW -->
       
-        <div ng-if="tab==2"> 
-        <div class="col s6">
-          <div class="card white top_mar">
-            <div class="card-content cyan-text">
-<!--                <i class="material-icons">date_range</i>-->
-                <i class="material-icons edit_content_icon">mode_edit</i><span id="edit_content_db" class="right">EDIT PROFILE</span>
-                   <div class="row">
-                        <form class="col s12">
-                          <div class="row">
-                            <div class="input-field col s6">
-                             <label for="first_name">Current Weight (in kgs)</label>
-                              <input id="first_name" type="number" class="validate">
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="input-field col s12">
-                              <input id="goal" type="text" class="validate">
-                              <label for="goal">Goal Weight (in kgs)</label>
-                            </div>
-                          </div>
+        <div ng-if="tab==2">
+            <div class="col s6">
+                <div class="card white top_mar">
+                    <div class="card-content cyan-text">
+                        <a class="cyan-text" ng-click="editIt=!editIt"><i class="material-icons edit_content_icon">mode_edit</i><span id="edit_content_db" class="right">EDIT PROFILE</span></a>
                             <div class="row">
-                            <div class="input-field col s12">
-                              <input id="height" type="text" class="validate">
-                              <label for="height">Height (in cms)</label>
-                            </div>
-                          </div>
-                             <div class="row">
-                                <div class="input-field col s6">
+                                <form class="col s12" >
+                                  <div class="row">
+                                    <div class="input-field col s6">
+                                     <label for="first_name">Current Weight (in kgs)</label>
+                                      <input disabled ng-if="!editIt" id="disabled" type="number" class="validate" readonly>
+                                      <input ng-if="editIt" id="first_name" type="number" class="validate">
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="input-field col s12">
+                                      <input disabled ng-if="!editIt" id="disabled" type="number" class="validate" readonly>
+                                      <input ng-if="editIt" id="goal" type="text" class="validate">
+                                      <label for="goal">Goal Weight (in kgs)</label>
+                                    </div>
+                                  </div>
                                     <div class="row">
-                                        <div class="col s3 m3">
-                                            <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div class="input-field col s12">
+                                          <input disabled ng-if="!editIt" id="disabled" type="text" class="validate">
+                                          <input ng-if="editIt" id="height" type="number" class="validate">
+                                          <label for="height">Height (in cms)</label>
                                         </div>
-                                         <div class="col s9 m9">
-                                           <input id="test5" class="with-gap" name="group3" type="radio" checked />
-                                    <label for="test5">Male</label>&nbsp;&nbsp;
-                                    <input id="test4" class="with-gap" name="group3" type="radio" />
-                                    <label for="test4">Female</label>
+                                  </div>
+                                 <div class="row">
+                                    <div class="input-field col s6">
+                                        <div class="row">
+                                            <div class="col s3 m3">
+                                                <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </div>
+                                             <div class="col s9 m9">
+                                               <input disabled ng-if="!editIt" id="disabled" class="with-gap" name="group3" type="radio" checked readonly />
+                                                <input ng-if="editIt" id="test5" class="with-gap" name="group3" type="radio" checked />
+                                                <label for="test5">Male</label>&nbsp;&nbsp;
+                                                <input disabled ng-if="!editIt" id="test4" class="with-gap" name="group3" type="radio" readonly/>
+                                                <input ng-if="editIt" id="test4" class="with-gap" name="group3" type="radio" />
+                                                <label for="test4">Female</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                              <div class="row">
                                 <div class="input-field col s12">
-                                <input type="date" class="datepicker">
+                                <input disabled ng-if="!editIt" type="date" class="datepicker">
+                                <input ng-if="editIt" type="date" class="datepicker">
+
+                                </div>
                             </div>
-                                 <br><br><br>
+                                 <br>
                                  <div class="row center">
                                 <div class="input-field col s12">
-                                    <a class="waves-effect waves-light btn">Update</a>
+                                    <button disabled ng-if="!editIt" class="waves-effect waves-light btn">Update</button>
+                                  <button ng-if="editIt" class="waves-effect waves-light btn">Update</button>
+
                             </div>
                           </div>
                         </form>
-                      </div>
             </div>
           </div>
         </div> 
-      </div><!-- END OF PROFILE WINDOW-->
+      </div>
+        </div>
     
         <!-- CALENDAR VIEW -->
     
@@ -258,7 +267,16 @@
                     <div class="card white darken-1 top_mar">
                         <div class="card-content black-text">
                             <div ng-include="'static/templates/calendar.html'"></div>
-
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+         <div ng-if="tab==9"> 
+                <div class="col s6">
+                    <div class="card white darken-1 top_mar">
+                        <div class="card-content black-text">
+                            {{alpha.carba}}
                         </div>
                     </div>
                 </div>
@@ -278,3 +296,9 @@
     </div>
 </div>
 
+<script>
+$(document).ready(function () {
+         $('label').addClass('active');
+
+});
+</script>

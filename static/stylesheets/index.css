@@ -97,6 +97,10 @@ p {
     background: none;
 }
 
+.modal {
+    border-radius: 10px !important;
+}
+
 
 
 @media only screen and (max-width : 992px) {

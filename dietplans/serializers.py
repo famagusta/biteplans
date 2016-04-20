@@ -10,6 +10,20 @@ IngredientMeasureSerializer
 
 class DietPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
+   
+    age = serializers.DecimalField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True)
+    gender = serializers.CharField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True)
+    height = serializers.DecimalField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True)
+    weight = serializers.DecimalField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True)
+    goal = serializers.CharField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True)
+    description = serializers.TextField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True)
+
     class Meta:
         '''Meta data, or config for the serializer'''
         model = DietPlan

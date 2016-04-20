@@ -10,7 +10,7 @@
 
     {% include 'stylesheets.html' %}
   </head>
-  <body ng-cloak>
+  <body class="ng-cloak" ng-cloak>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. 
       Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -70,6 +70,8 @@
       
       <script>
     $(document).ready(function(){
+             $('label').addClass('active');
+
   //Calling the open modal function manually no need for trigger
   $('.tooltipped').tooltip({delay: 50});
 
@@ -87,13 +89,12 @@
             return true;
         }
     });
-$('select').material_select();
 
 $("h5").click(function() {
     });
 
    
-   
+  
 
      $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
         if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
