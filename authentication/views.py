@@ -19,6 +19,7 @@ from django.contrib.auth import authenticate, get_user_model, login
 from rest_social_auth.serializers import UserSerializer
 from rest_social_auth.views import JWTAuthMixin
 from schedule.models import Calendar
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 # Create your views here.
@@ -41,7 +42,6 @@ def create_token(user):
 
 class AccountViewSet(viewsets.ModelViewSet):
     '''registration view'''
-    lookup_field = 'username'
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 

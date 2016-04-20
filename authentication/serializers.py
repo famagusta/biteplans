@@ -15,18 +15,9 @@ class AccountSerializer(serializers.ModelSerializer):
         '''Meta Data'''
         model = Account
         fields = ('id', 'email', 'username', 'date_joined', 'last_login',
-                  'updated_at', 'password', 'confirm_password',)
+                  'updated_at', 'password', 'confirm_password', 'image_path')
         read_only_fields = ('date_joined', 'updated_at',)
 
     def create(self, validated_data):
         '''runs when new user is created'''
         return Account.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        '''This method overrides update method,
-        and takes care of update on details of a user'''
-        instance.username = validated_data.get(
-            'username', instance.username)
-        instance.save()
-
-        return instance

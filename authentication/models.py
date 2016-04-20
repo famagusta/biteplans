@@ -14,6 +14,10 @@ GENDER_CHOICES = (
 )
 
 
+def upload_to(instance, filename):
+    return 'user_profile_image/{}/{}'.format(instance.id, filename)
+
+
 class AccountManager(BaseUserManager):
     '''this class manages the user save method and other user actions'''
     def create_user(self, username, email,
@@ -65,12 +69,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # We will send an email to the user on signing up
     # clicking on which will make him
     # active and if he does not click on it then he will be inactive
-
+    image_path = models.ImageField(null= True, blank=True, upload_to=upload_to)
     activation_key = models.CharField(max_length=40, null=True)
     key_expires = models.DateTimeField(null=True)
-    
-     # these are mandatory fields
-    weight = models.DecimalField(null=True, blank=True, 
+
+    # these are mandatory fields
+    weight = models.DecimalField(null=True, blank=True,
                                  max_digits=11, decimal_places=3)
     height = models.DecimalField(null=True, blank=True,
                                  max_digits=11, decimal_places=3)
@@ -114,7 +118,3 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
-
-
-
-   
