@@ -43,7 +43,7 @@ class DietPlanViewset(viewsets.ModelViewSet):
             obj.save()
             return Response({'dietplan_id': obj.id}, status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'invalid data'},
+            return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request):
@@ -55,7 +55,7 @@ class DietPlanViewset(viewsets.ModelViewSet):
             return Response({'dietplan_id': obj.id},
                             status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'invalid data'},
+            return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
 

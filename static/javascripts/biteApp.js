@@ -40,7 +40,7 @@ $routeProvider.when('/', {
     .when('/dashboard', {
     controller: 'dashboardController',
     templateUrl: '/static/templates/dashboard.html'
-}).when('/create', {
+}).when('/plan/:planid', {
     controller: 'createPlanController',
     templateUrl: '/static/templates/createPlan.html'
 }).when('/recipes', {

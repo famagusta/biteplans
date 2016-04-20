@@ -1,7 +1,11 @@
 'use strict';
 
-app.controller('createRecipeController', ['$scope', 'ingredientService','recipeService', function($scope, ingredientService, recipeService) {
-      $scope.search = function() {
+app.controller('createRecipeController', ['$scope','AuthService','ingredientService','$location','recipeService', function($scope, AuthService, ingredientService, $location, recipeService) {
+    AuthService.isAuthenticated().then(function(response){
+
+            var isAuthenticated = response.status;
+          if(isAuthenticated){
+          $scope.search = function() {
           var query = $scope.query;
             if (query) {
                 ingredientService.search(query).then(
@@ -31,7 +35,7 @@ app.controller('createRecipeController', ['$scope', 'ingredientService','recipeS
     
     $scope.removeIngredientsFromSavedMeal = function (element) {
         $scope.ingredientDisplay.splice(element,1);
-    }
+    };
     
      $scope.addContents = function () {
         for(var i=$scope.ingredientDisplay.length; i<$scope.nutrientValue.length; i++){
@@ -43,7 +47,7 @@ app.controller('createRecipeController', ['$scope', 'ingredientService','recipeS
      
      $scope.stepsToCreateRecipes = [''];
     
-     $scope.addMoreSteps = function (item) {
+     $scope.addMoreSteps = function () {
          $scope.stepsToCreateRecipes.length += 1;
      };
     
@@ -65,18 +69,14 @@ app.controller('createRecipeController', ['$scope', 'ingredientService','recipeS
                               console.log(error);
                     });
 
-            };
+            }
 
 
       }, function(error){
 
-        console.log('recipe could not be created, try again later');
+        console.log('recipe could not be created, try again later', error);
 
-      })
-
-     };
-
-     var createRecipeIngredient = function(){
+      });
 
      };
     
@@ -113,7 +113,19 @@ app.controller('createRecipeController', ['$scope', 'ingredientService','recipeS
        $scope.recipe.cook_time= $scope.cook_hours + ':' +$scope.cook_mins + ':00';
 
        createRecipe($scope.recipe);
-     };
+     }; } 
+
+    else{
+      $location.path('/');
+    } 
+
+}, 
+
+function(error){
+  $location.path('/');
+  console.log(error);
+});
+      
          
         
 }]);

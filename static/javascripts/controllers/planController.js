@@ -1,82 +1,21 @@
 'use strict';
-app.controller('planController', ['$scope',  function ($scope) {
-//    $scope.planArray = [
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in 2 weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        },
-//        {
-//            image: 'static/images/tiger.jpg',
-//            heading: 'Weight Loss in 2 Weeks',
-//            subHeading: 'Lose weight in two weeks with all liquid plan',
-//            point1: 'Main Goal',
-//            point2: 'Duration',
-//            point3: 'Rating'
-//        }
-//        
-//    ];
+app.controller('planController', ['$scope','AuthService', 'ingredientService', '$location', 'planService', function($scope, AuthService, ingredientService, $location, planService) {
     
     $scope.openShortInfoModal = function () {
         $('#small-modal').openModal();
     }
+    
+     $scope.createPlan = function () {
+
+        
+
+        planService.createPlan($scope.plan).then(function(response){
+            console.log(response);
+            $location.path('plan'+'/'+response.dietplan_id+'/');
+
+        }, function(error){
+            console.log(error);
+        });
+
+    };
 }]);

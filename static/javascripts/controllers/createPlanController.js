@@ -1,8 +1,13 @@
 // controller for create plans page
 'use strict';
 
-app.controller('createPlanController', ['$scope', 'ingredientService', function($scope, ingredientService) {
+app.controller('createPlanController', ['$scope','AuthService', 'ingredientService', '$location', 'planService', function($scope, AuthService, ingredientService, $location, planService) {
     
+
+    
+  AuthService.isAuthenticated().then(function(response){
+    var isAuth = response.status;
+    if(isAuth){
     $scope.plan = {};
     
     $scope.unit =0;
@@ -24,14 +29,25 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     $scope.dayCount = [];
     $scope.amPmArray = ["AM", "PM"];
     
-    $scope.func = function (index) {
-        for(var i = 1 ; i <= $scope.plan.durations ; i++) {
-            $scope.weekCount.push("Week" + " " + i);
+    $scope.func = function () {
+        for(var i = 1 ; i <= $scope.plan.duration ; i++) {
+            $scope.weekCount.push('Week' + '' + i);
         }
-        for(var i = 1 ; i <= 7 ; i++) {
-                $scope.dayCount.push("Day" + " " + i);  
+        for(var j = 1 ; j <= 7 ; j++) {
+                $scope.dayCount.push('Day' + '' + j);  
         }
-    }
+
+        console.log($scope.plan);
+
+        planService.createPlan($scope.plan).then(function(response){
+            console.log(response);
+            $scope.switchCreatePlanViews(2);
+
+        }, function(error){
+            console.log(error);
+        });
+
+    };
     $scope.weekCount.length = 0;
     
      $scope.addMealHours = [];
@@ -45,14 +61,21 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
     for(var i = 0 ; i <= 59 ; i++) {
         $scope.addMealMinutes.push(i);
     }
+
+    
         
     $scope.mealEdit = null;
     // function to search ingredients in create plan 
+
+
     $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
                                {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
                                {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
                                {mealname:"Dinner", ingredient:[], hours:"8", minutes:"00", ampm:"PM"}];
-    
+
+
+
+
     
     //searches recipes or ingredients
     $scope.searchPlan = function(query) {
@@ -229,8 +252,16 @@ app.controller('createPlanController', ['$scope', 'ingredientService', function(
        } 
          return total;
          
-     }
-     
+     };
+ }
+
+ else{
+    $location.path('/');
+ }
+ }, function(error){
+    console.log(error);
+    $location.path('/');
+ } ); 
     
     
     

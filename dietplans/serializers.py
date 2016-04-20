@@ -12,21 +12,22 @@ class DietPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
    
     age = serializers.DecimalField(read_only=False, required=False,
-                      allow_null=True, allow_blank=True)
+                      allow_null=True, max_digits=11, decimal_places=3)
     gender = serializers.CharField(read_only=False, required=False,
                       allow_null=True, allow_blank=True)
     height = serializers.DecimalField(read_only=False, required=False,
-                      allow_null=True, allow_blank=True)
+                      allow_null=True, max_digits=11, decimal_places=3)
     weight = serializers.DecimalField(read_only=False, required=False,
-                      allow_null=True, allow_blank=True)
+                      allow_null=True, max_digits=11, decimal_places=3)
     goal = serializers.CharField(read_only=False, required=False,
                       allow_null=True, allow_blank=True)
-    description = serializers.TextField(read_only=False, required=False,
-                      allow_null=True, allow_blank=True)
+    description = serializers.CharField(read_only=False, required=False,
+                      allow_null=True, allow_blank=True, max_length=None, min_length=None)
 
     class Meta:
         '''Meta data, or config for the serializer'''
         model = DietPlan
+        read_only_fields = ('id', 'creator', )
 
 
 class MealRecipeSerializer(serializers.ModelSerializer):

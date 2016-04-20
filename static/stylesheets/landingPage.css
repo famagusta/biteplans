@@ -58,11 +58,6 @@ h4.tagline {
     background-color: #ff5252;
 }
 
-span {
-    font-family: 'Roboto';
-    font-size: 0.8rem;
-}
-
 label[data-error]:after {
     white-space: nowrap;
     width: 100%;
@@ -162,11 +157,17 @@ video {
 }
 
 
+
 @media only screen and (min-width : 1500px) {
     #index-banner {
     background: url('../images/banner.jpg') no-repeat 50% 100%;
     padding: 20px;
     background-size: cover;
     padding-bottom: 295px;
+    }
 }
+.contfyt{
+    min-height:550px !important;
+    padding-bottom: 50px;
+
 }

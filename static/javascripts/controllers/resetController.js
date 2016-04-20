@@ -2,7 +2,6 @@
 
 app.controller('resetController', ['$scope', '$window', '$location','httpService','$routeParams',
                function ($scope, $window, $location, httpService, $routeParams){ 
-                $scope.content = 'burbak';
                 $scope.password = '';
                 $scope.confirmP = '';
                 $scope.init = function(){
@@ -15,7 +14,7 @@ app.controller('resetController', ['$scope', '$window', '$location','httpService
                     'new_password' : $scope.password,
                     're_new_password' : $scope.confirmP,
                   }).then( function(response){
-                    $scope.content = 'Password has been reset, please login';
+                    $scope.success = 'Password has been reset, please login';
                 },function(response){
                   $scope.content = response.data;
                 });

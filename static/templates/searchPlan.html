@@ -142,24 +142,26 @@
     </div> <!-- END OF PLANPAGE -->
 
         <div id="small-modal" class="modal" >
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a>
                 <div class="modal-content">
+                    <form ng-submit="createPlan()">
                    <div class="row">
                     <div class="input-field col s12">
-                        <input type="text" id="name_plan" />
+                        <input type="text" id="name_plan" ng-model="plan.name" required/>
                         <label for="name_plan">Name of Plan</label>
                        </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="number" id="duration_plan" />
+                            <input type="number" id="duration_plan" ng-model="plan.duration" required/>
                             <label for="duration_plan">Duration (in Weeks)</label>
                         </div>
                     </div>
                     <div class="row center">
                         <div class="col s12">
-                             <button class="center">Done</button>
+                             <button type="submit" class="center waves-effect waves-light btn largebtn">Done</button>
                         </div>
                     </div>
+                        </form>
                 </div>
         </div>

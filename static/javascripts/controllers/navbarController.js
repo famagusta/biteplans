@@ -93,10 +93,11 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
       AuthService.register(username, password, confirm, email).then(
         function (response) {
           console.log(response.success);
+          $scope.registerSuccess = response.success + "Please check your email account to activate your profile";
         },
         function (error) {
           console.log(error);
-                 $scope.registerError = error;
+                 $scope.registerError = error.data.message;
           }
       );
     }

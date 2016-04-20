@@ -16,16 +16,16 @@ class DietPlan(models.Model):
         url??, creator, goal, description, duration, age,
         gender, unit system, height, weight'''
     id = models.AutoField(primary_key=True)
-    name = models.CharField(null=True, blank=False, max_length=191)
+    name = models.CharField(max_length=191)
     creator = models.ForeignKey(Account, on_delete=models.CASCADE,
                                 related_name="createdfrom")
-    goal = models.CharField(max_length=191)
-    description = models.TextField()
+    goal = models.CharField(max_length=191, null=True)
+    description = models.TextField(null=True)
     duration = models.IntegerField()
-    age = models.DecimalField(max_digits=11, decimal_places=3)
-    gender = models.CharField(max_length=20)
-    height = models.DecimalField(max_digits=11, decimal_places=3)
-    weight = models.DecimalField(max_digits=11, decimal_places=3)
+    age = models.DecimalField(max_digits=11, decimal_places=3, null=True)
+    gender = models.CharField(max_length=20, null=True)
+    height = models.DecimalField(max_digits=11, decimal_places=3, null=True)
+    weight = models.DecimalField(max_digits=11, decimal_places=3, null=True)
 
     def __unicode__(self):
         '''string repr of the object'''
