@@ -7,6 +7,8 @@ from django.contrib.auth.models import BaseUserManager
 # from schedule.models import Calendar
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
+_UNSAVED_FILEFIELD = 'unsaved_filefield'
+
 
 GENDER_CHOICES = (
     ('M', 'Male'),
@@ -15,7 +17,7 @@ GENDER_CHOICES = (
 
 
 def upload_to(instance, filename):
-    return 'user_profile_image/{}/{}'.format(instance.id, filename)
+    return 'photos/user_profile_image/{}_{}'.format(instance.id, filename)
 
 
 class AccountManager(BaseUserManager):
@@ -118,3 +120,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
+    
+    
+@receiver(pre_save, sender=Account)
+def skip_saving_file(sender, instance, **kwargs):
+    if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
+        setattr(instance, _UNSAVED_FILEFIELD, instance.image)
+        instance.image = None
+
+        
+@receiver(post_save, sender=Account)
+def save_file(sender, instance, created, **kwargs):
+    if created and hasattr(instance, _UNSAVED_FILEFIELD):
+        instance.image = getattr(instance, _UNSAVED_FILEFIELD)
+        instance.save()    

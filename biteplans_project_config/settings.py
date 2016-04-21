@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'import_export',
     'social.apps.django_app.default',
     'rest_social_auth',
+    'django_cleanup'
     #'schedule',     # support for calendars
 )
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']

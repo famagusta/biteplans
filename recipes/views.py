@@ -10,7 +10,9 @@ IsMealOwner, IsRecipeOwner, IsRecipeIngOwner
 from django.core import serializers
 import hashlib, datetime, random
 from rest_framework import status
-# Create your views here.
+from rest_framework.parsers import MultiPartParser, FormParser
+
+
 class RecipeViewSet(viewsets.ModelViewSet):
 	queryset = Recipe.objects.all()
 	serializer_class = RecipeSerializer
@@ -20,7 +22,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 			return (permissions.AllowAny(),)
 		if self.request.method == 'POST':
 			return (permissions.IsAuthenticated(), )
-		elif self.request.method == 'PUT':
+		else:
 			return (IsRecipeOwner(),)
 
 	def create(self, request):
