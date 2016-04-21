@@ -1,7 +1,7 @@
 // controller for create plans page
 'use strict';
 
-app.controller('createPlanController', ['$scope','AuthService', 'ingredientService', '$location', 'planService', function($scope, AuthService, ingredientService, $location, planService) {
+app.controller('createPlanController', ['$scope','$window','AuthService', '$routeParams', 'ingredientService', '$location', 'planService', function($scope, $window, AuthService, $routeParams, ingredientService, $location, planService) {
     
 
     
@@ -14,7 +14,7 @@ app.controller('createPlanController', ['$scope','AuthService', 'ingredientServi
     
     $scope.displayHeight = function (string) {
         
-        if (string == 0) {
+        if (string === 0) {
             $scope.feet = 1;
             $scope.inches = 0;
             $scope.unit= string;
@@ -23,11 +23,15 @@ app.controller('createPlanController', ['$scope','AuthService', 'ingredientServi
             $scope.metric = 1;
             $scope.unit=string;
         }  
-    }
+    };
     
     $scope.weekCount = [];
     $scope.dayCount = [];
     $scope.amPmArray = ["AM", "PM"];
+
+    $scope.backUrl3 = '/plan2/'+$routeParams.id;
+    $scope.backUrl2 = '/plan/'+$routeParams.id;
+     $scope.nextUrl2 = '/plan3/'+$routeParams.id;
     
     $scope.func = function () {
         for(var i = 1 ; i <= $scope.plan.duration ; i++) {
@@ -36,12 +40,15 @@ app.controller('createPlanController', ['$scope','AuthService', 'ingredientServi
         for(var j = 1 ; j <= 7 ; j++) {
                 $scope.dayCount.push('Day' + '' + j);  
         }
+        $window.localStorage.setItem('weekCount', $scope.weekCount);
+        $window.localStorage.setItem('dayCount', $scope.dayCount);
 
         console.log($scope.plan);
-
-        planService.createPlan($scope.plan).then(function(response){
+        var id = $routeParams.id;
+        console.log(id);
+        planService.updatePlan($scope.plan, id).then(function(response){
             console.log(response);
-            $scope.switchCreatePlanViews(2);
+            $location.path('/plan2/'+response.id);
 
         }, function(error){
             console.log(error);
@@ -58,8 +65,8 @@ app.controller('createPlanController', ['$scope','AuthService', 'ingredientServi
     
      $scope.addMealMinutes = [];
     
-    for(var i = 0 ; i <= 59 ; i++) {
-        $scope.addMealMinutes.push(i);
+    for(var j = 0 ; j <= 59 ; j++) {
+        $scope.addMealMinutes.push(j);
     }
 
     
@@ -68,10 +75,10 @@ app.controller('createPlanController', ['$scope','AuthService', 'ingredientServi
     // function to search ingredients in create plan 
 
 
-    $scope.mealPlanNameArray = [{mealname:"Breakfast", ingredient:[], hours:"8", minutes:"00", ampm:"AM"},
-                               {mealname:"Lunch", ingredient:[], hours:"1", minutes:"00", ampm:"PM"},
-                               {mealname:"Snacks", ingredient:[], hours:"4", minutes:"00", ampm:"PM"},
-                               {mealname:"Dinner", ingredient:[], hours:"8", minutes:"00", ampm:"PM"}];
+    $scope.mealPlanNameArray = [{mealname:'Breakfast', ingredient:[], hours:'8', minutes:'00', ampm:'AM'},
+                               {mealname:'Lunch', ingredient:[], hours:'1', minutes:'00', ampm:'PM'},
+                               {mealname:'Snacks', ingredient:[], hours:'4', minutes:'00', ampm:'PM'},
+                               {mealname:'Dinner', ingredient:[], hours:'8', minutes:'00', ampm:'PM'}];
 
 
 
@@ -88,95 +95,12 @@ app.controller('createPlanController', ['$scope','AuthService', 'ingredientServi
     });
         }
     };
-    
-  
-    // switch views among differnt steps in creating  plans
-    $scope.createPlanView1 = true;
-    $scope.createPlanView2 = false;
-    $scope.createPlanView3 = false;
-    $scope.createPlanView4 = false;
-
-    $scope.switchCreatePlanViews = function (number) {
-        if (number === 2 && $scope.createPlanView2!==true) {
-               $scope.createPlanView1 = false;
-               $scope.createPlanView2 = true;
-               $scope.createPlanView3 = false;
-               $scope.createPlanView4 = false;
-        }
-        else if (number === 3 && $scope.createPlanView3!==true) {
-               $scope.createPlanView1 = false;
-               $scope.createPlanView2 = false;
-               $scope.createPlanView3 = true;
-               $scope.createPlanView4 = false;
-        }
-         else if (number === 4 && $scope.createPlanView4!==true) {
-               $scope.createPlanView1 = false;
-               $scope.createPlanView2 = false;
-               $scope.createPlanView3 = false;
-               $scope.createPlanView4 = true;
-        }
-        else {
-               $scope.createPlanView1 = true;
-               $scope.createPlanView2 = false;
-               $scope.createPlanView3 = false;
-               $scope.createPlanView4 = false;
-        }
-    }
-    
-    $scope.submitted = false;
-    
-    var validateInput = function (input) {
-        if (input) {
-            return true;
-        }
-        
-        return false;
-    }
-    
-    // Create plan form validation
-    $scope.submitForm = function () {
-        var planName = $scope.plan.plan_name_test;
-        var planDuration = $scope.plan.durations;
-        var planWeight = $scope.plan.plan_weight;
-        var planAge = $scope.plan.age;
-        var planFeet = $scope.plan.feet;
-        var planInches = $scope.plan.inches;
-        
-        if ($scope.unit == 0) {
-            var planHeightInCms = parseFloat(($scope.plan.feet)*30.48+($scope.plan.inches)*2.54)
-            console.log(planHeightInCms);
-        }
-        else {
-           var planHeightInCms = $scope.plan.metric;
-            console.log(planHeightInCms);
-        }
-        
-        var testValidate = [planName, planDuration, planWeight, planAge];
-        
-        $scope.errorArray = ['','','',''];
-        var output =testValidate.map(validateInput); 
-        var allOutputValid = output.every(function(element) {
-            return element === true;
-        });
-       
-        if(allOutputValid){
-            $scope.switchCreatePlanViews(2);
-        }else{
-            for (var i=0;i<output.length;i++) {
-                if (output[i]==false) {
-                    $scope.errorArray[i] = 'Required';
-                }
- 
-            }
-        }
-
-    }
         
     
     $scope.openCreatePlanModal = function (index) {
         $('#create-plan-modal').openModal();
         $scope.currentMealPlanName = index;
-    }
+    };
     
     $scope.nutrientValue = []; // array to store the nutrient values in modal for every ingredient checked
         
@@ -268,3 +192,52 @@ app.controller('createPlanController', ['$scope','AuthService', 'ingredientServi
  
     
 }]);
+    // $scope.submitted = false;
+
+
+    // var validateInput = function (input) {
+    //     if (input) {
+    //         return true;
+    //     }
+        
+    //     return false;
+    // }
+    
+    // // Create plan form validation
+    // $scope.submitForm = function () {
+    //     var planName = $scope.plan.plan_name_test;
+    //     var planDuration = $scope.plan.durations;
+    //     var planWeight = $scope.plan.plan_weight;
+    //     var planAge = $scope.plan.age;
+    //     var planFeet = $scope.plan.feet;
+    //     var planInches = $scope.plan.inches;
+        
+    //     if ($scope.unit == 0) {
+    //         var planHeightInCms = parseFloat(($scope.plan.feet)*30.48+($scope.plan.inches)*2.54)
+    //         console.log(planHeightInCms);
+    //     }
+    //     else {
+    //        var planHeightInCms = $scope.plan.metric;
+    //         console.log(planHeightInCms);
+    //     }
+        
+    //     var testValidate = [planName, planDuration, planWeight, planAge];
+        
+    //     $scope.errorArray = ['','','',''];
+    //     var output =testValidate.map(validateInput); 
+    //     var allOutputValid = output.every(function(element) {
+    //         return element === true;
+    //     });
+       
+    //     if(allOutputValid){
+    //         $scope.switchCreatePlanViews(2);
+    //     }else{
+    //         for (var i=0;i<output.length;i++) {
+    //             if (output[i]==false) {
+    //                 $scope.errorArray[i] = 'Required';
+    //             }
+ 
+    //         }
+    //     }
+
+    // }

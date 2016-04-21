@@ -39,6 +39,19 @@ app.factory('httpService',['$http', '$q', function($http,$q){
       return promise;
     };
 
+    var httpPatch = function(url, params){
+      params = toparams(params);
+      var promise = $http.patch(url, params,{
+        headers:{
+              'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+      function(response){
+        return response.data;
+      });
+      return promise;
+    };
+
 //http get method wrapper
     var httpGet = function(url){
       var promise = $http.get(url, {
@@ -62,6 +75,9 @@ app.factory('httpService',['$http', '$q', function($http,$q){
       },
       httpPut : function(url,params){
         return httpPut(url,params);
+      },
+      httpPatch : function(url,params){
+        return httpPatch(url,params);
       },
 
 

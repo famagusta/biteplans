@@ -31,7 +31,7 @@ class DietPlanViewset(viewsets.ModelViewSet):
             return (permissions.AllowAny(),)
         if self.request.method == 'POST':
             return (permissions.IsAuthenticated(), )
-        return (permissions.IsPlanOwner(),)
+        return (IsPlanOwner(),)
 
     def create(self, request):
         '''Creates the model instance dietplans'''
@@ -46,25 +46,15 @@ class DietPlanViewset(viewsets.ModelViewSet):
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request):
-        '''Updates existing model instance based on
-        the properties provided in the queryset'''
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid():
-            obj = serializer.save()
-            return Response({'dietplan_id': obj.id},
-                            status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.errors,
-                            status=status.HTTP_400_BAD_REQUEST)
 
-
-class DayPlanViewSet(generics.RetrieveAPIView):
+class DayPlanViewSet(generics.ListAPIView):
 	'''view to return JSON for crud related to DayPlan
 	Only list method is allowed and only get is allowed'''
 	serializer_class = DayPlanSerializer
-	lookup_field = 'diet'
-	queryset = DayPlan.objects.all()
+
+	def get_queryset(self):
+		diet = self.kwargs['diet']
+		return DayPlan.objects.filter(diet=diet)
 
 class MealPlanViewSet(viewsets.ModelViewSet):
 	'''view to return JSON for crud related to DayPlan

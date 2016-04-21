@@ -40,9 +40,15 @@ $routeProvider.when('/', {
     .when('/dashboard', {
     controller: 'dashboardController',
     templateUrl: '/static/templates/dashboard.html'
-}).when('/plan/:planid', {
+}).when('/plan/:id', {
     controller: 'createPlanController',
     templateUrl: '/static/templates/createPlan.html'
+}).when('/plan2/:id', {
+    controller: 'createPlanController',
+    templateUrl: '/static/templates/createPlan2.html'
+}).when('/plan3/:id', {
+    controller: 'createPlanController',
+    templateUrl: '/static/templates/createPlan3.html'
 }).when('/recipes', {
     controller: 'recipesController',
     templateUrl: '/static/templates/recipes.html'

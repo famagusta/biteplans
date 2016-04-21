@@ -32,10 +32,10 @@ class RecipeIngSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     '''serializes a python object into JSON serializabale format'''
     recipeIngredients = RecipeIngredientsSerializer(read_only=True, many=True)
-    url = serializers.CharField(read_only=False, required=False,
-                    allow_null=True, allow_blank=True)
-    image = serializers.CharField(read_only=False, required=False,
-                      allow_null=True, allow_blank=True)
+    # url = serializers.CharField(read_only=False, required=False,
+    #                 allow_null=True, allow_blank=True)
+    # image = serializers.CharField(read_only=False, required=False,
+    #                   allow_null=True, allow_blank=True)
 
     class Meta:
         '''defines the model to be serialized'''

@@ -121,3 +121,13 @@ def create_dayplan(sender, instance, created, **kwargs):
             DayPlan.objects.create(diet=instance, day_no=i+1, week_no=(i/7)+1,
                                    name="Week "+str(i/7+1)+" Day "+str(i+1)
                                    + " of DietPlan "+instance.name)
+
+@receiver(post_save, sender=DayPlan)
+def create_mealplan(sender, instance, created, **kwargs):
+    '''assosiate one to one calender to the user instance'''
+    if created:
+        MealPlan.objects.create(day=instance, name="Breakfast", time="10:00:00")
+        MealPlan.objects.create(day=instance, name="Lunch", time="14:00:00")
+        MealPlan.objects.create(day=instance, name="Snacks", time="18:00:00")
+        MealPlan.objects.create(day=instance, name="Dinner", time="21:00:00")
+        
