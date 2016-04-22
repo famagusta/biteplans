@@ -34,6 +34,8 @@ class IsRecipeIngOwner(permissions.BasePermission):
 
 		return False
 
+
+class IsRecipeIngrOwner(permissions.BasePermission):
 	def has_object_permission(self, request, view, ing):
 		'''handles permissions for editing the object'''
 		if request.user:
@@ -46,15 +48,15 @@ class IsRecipeIngOwner(permissions.BasePermission):
 class IsDayMealOwner(permissions.BasePermission):
 	def has_permission(self, request, view):
 		'''handles permission for getting/creating'''
-		if request.method == "POST" and request.user.is_authenticated():
+		if request.user.is_authenticated():
 			dayid = request.POST.get('day', False)
 			if dayid == False:
 				return False
 			day = DayPlan.objects.get(pk=request.data['day'])
 			return day.diet.creator == request.user
-
 		return False
 
+class IsDayMealrOwner(permissions.BasePermission):
 	def has_object_permission(self, request, view, meal):
 		'''handles permissions for editing the object'''
 		if request.user:
@@ -72,6 +74,8 @@ class IsMealOwner(permissions.BasePermission):
 
 		return False
 
+
+class IsMealingOwner(permissions.BasePermission):
 	def has_object_permission(self, request, view, mealIng):
 		'''handles permissions for editing the object'''
 		if request.user:

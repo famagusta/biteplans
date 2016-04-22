@@ -84,17 +84,43 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
         
     $scope.mealEdit = null;
 
-    $scope.updateMealPlan = function(boo, index){
-
-        
-        $scope.mealPlanNameArray[index].showInput = true;
-        $scope.mealPlanNameArray[index].showdiv = false;
-        
-    };
 
     $scope.updateDayMealPlan = function(index){
-        console.log(true);
-        console.log($scope.mealPlanNameArray[index].time);
+
+         var obj = {
+            'name':$scope.mealPlanNameArray[index].mealname,
+            'time':$scope.mealPlanNameArray[index].time.getHours()+':'+$scope.mealPlanNameArray[index].time.getMinutes()
+                
+            };
+
+            planService.updateMealPlan(obj, $scope.mealPlanNameArray[index].id).then(function(response){
+                console.log(response);
+
+            }, function(error){
+
+                console.log(error);
+
+            });};
+
+    $scope.updateMealIngredient = function(obj){
+        console.log(obj);
+
+         var obje = {
+            'quantity':obj.quantity,
+            'ingredient':obj.ingredient.id,
+            'unit':obj.unit.id           
+                
+            };
+
+            planService.updateMealIngredient(obje, obj.id).then(function(response){
+                console.log(response);
+
+            }, function(error){
+
+                console.log(error);
+
+            });
+        
 
       
     };
@@ -124,21 +150,23 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
     $scope.addContents = function () {
         // currentmealPlanname, nutrientvalue
         // these should be used to create a post request  to create meal
+        var currlength = $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.length
         var x = $scope.nutrientValue.slice();
         for(var i=0; i<x.length; i++){
             if (x[i].measure.length!==0) {
-                 $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({ingredient:x[i], unit:x[i].measure[0].id, quantity:1})
+                 $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({ingredient:x[i], unit:x[i].measure[0], quantity:1})
             }
             else {
-                 $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({ingredient:x[i], unit:x[i].measure, quantity:1})
+                 $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({ingredient:x[i], unit:x[i].measure, quantity:1});
             }
            
         }
-        $scope.fillMealPlan($scope.currentMealPlanName);
+        //post ingredients to db via url endpoint
+        $scope.fillMealPlan(currlength, $scope.currentMealPlanName);
         $scope.nutrientValue.length = 0;
         $('#create-plan-modal').closeModal();
         
-    }
+    };
     
    
     // uncheck all the selected items if save button is not clicked
@@ -147,8 +175,8 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
 
     };
 
+    //function to disable search result checkboxes which have already been selected
     $scope.checkToDisable = function(index){
-        console.log(index);
         for(var k=0; k < $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.length; k++){
             if($scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient[k].ingredient.id===index)
             {
@@ -156,7 +184,7 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
             }
         }
         return false;
-    }
+    };
     
     
     $scope.amount = 1; // serving per ingredient
@@ -165,33 +193,33 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
 
     $scope.clearMeal = function (element) {
         $scope.mealPlanNameArray.splice(element,1);
-    }
+    };
     
     // adds new mealname
     $scope.addMeal = function (key) {
        $scope.mealPlanNameArray.push({mealname:key, ingredient:[], hours: $scope.hours, minutes: $scope.minutes, ampm: $scope.ampm});
        
        $('#add-meal-modal').closeModal();
-    }
+    };
     
     $scope.triggerAddMealModal = function () {
          $('#add-meal-modal').openModal();
-    }
+    };
     
     $scope.nextDayPlan = function (element) {
         $scope.mealPlanNameArray[element] = [];
-    }
+    };
     
     // removes ingredients from the modal
     $scope.removeIngredient = function (element) {
          var index = $scope.nutrientValue.indexOf(element);
          $scope.nutrientValue.splice(index,1);     
-     }
+     };
      
      // removes ingredients which are saved in meal
      $scope.removeIngredientsFromSavedMeal = function (element) {
         $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.splice(element,1);
-     }
+     };
      
      $scope.calculateTotalInfo = function (index, field) {
           
@@ -235,23 +263,27 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
      $scope.getDayPlan();
     
      //function to create meal ingredients related to given mealplan
-     $scope.fillMealPlan = function(current){
+     $scope.fillMealPlan = function(ind, current){
 
         var temp = $scope.mealPlanNameArray[current].mealingredient;
-        for(var i=0; i<temp.length; i++){
+        for(var i=ind; i<temp.length; i++){
 
-            if(typeof(temp[i].unit) !== 'object'){
+
+            var saveind = i;
                     
 
             var obj = {
                 'ingredient':temp[i].ingredient.id,   
                 'meal_plan':$scope.mealPlanNameArray[current].id,
                 'quantity':temp[i].quantity,
-                'unit':temp[i].unit
+                'unit':temp[i].unit.id
             };
+            console.log(temp[i].unit);
 
             planService.createMealIngredient(obj).then(function(response){
-                console.log(response);
+                console.log(i, temp);
+                $scope.mealPlanNameArray[current].mealingredient[saveind].id=response.meal_ingredient_id;
+                console.log($scope.mealPlanNameArray[current].mealingredient);
 
             }, function(error){
 
@@ -263,7 +295,6 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
 
 
 
-        }
         }
         
      };

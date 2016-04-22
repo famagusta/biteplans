@@ -64,7 +64,7 @@ app.factory('planService',
                   var updateMealPlan = function(obj, id){
                         var url = '/biteplans/diet/mealplans/'+id+'/';
                         var deferred = $q.defer();
-                        httpService.httpPut(url, obj).then(function(response){
+                        httpService.httpPatch(url, obj).then(function(response){
                               deferred.resolve(response);
                         }, function(error){
                               deferred.reject(error);

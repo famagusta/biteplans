@@ -99,7 +99,7 @@
                                         <input type="number" class="serving" min="0" value="1" ng-model="item1.quantity">
                                     </div>
                                     <div class="input-field col m1 selcol">
-                                        <select material-select ng-options= "unit.id as unit.description for unit in item1.ingredient.measure track by unit.id" ng-model="item1.unit" id="ing_select">
+                                        <select material-select ng-change="updateMealIngredient(item1)" ng-options= "unit as unit.description for unit in item1.ingredient.measure track by unit.id" ng-model="item1.unit" id="ing_select">
                                         </select>
                                     </div>
                                     <div class="col m1">

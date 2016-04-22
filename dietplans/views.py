@@ -7,7 +7,7 @@ from rest_framework import permissions
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 from rest_framework import permissions, viewsets, generics, status
 from authentication.permissions import IsPlanOwner, IsDayMealOwner, \
-IsMealOwner
+IsMealOwner, IsMealingOwner, IsDayMealrOwner
 from rest_framework.decorators import api_view, permission_classes
 from django.core import serializers
 from django.shortcuts import get_list_or_404, get_object_or_404
@@ -80,8 +80,9 @@ class MealPlanViewSet(viewsets.ModelViewSet):
 		'''return allowed permissions'''
 		if self.request.method in permissions.SAFE_METHODS:
 			return (permissions.AllowAny(),)
-		elif self.request.method in ('POST', 'PUT', 'DELETE'):
+		elif self.request.method == 'POST':
 			return (IsDayMealOwner(), )
+		return (IsDayMealrOwner(), )
 
 	def create(self, request):
 		'''Creates the model instance mealplans'''
@@ -111,6 +112,8 @@ class MealIngredientViewSet(viewsets.ModelViewSet):
 			return (permissions.AllowAny(),)
 		elif self.request.method in ('POST', 'PUT', 'DELETE'):
 			return (IsMealOwner(), )
+		else:
+			return (IsMealingOwner(), )
 
 	def create(self, request):
 		'''Creates the model instance mealplans'''
@@ -136,10 +139,10 @@ class MealRecipeViewSet(viewsets.ModelViewSet):
 		'''return allowed permissions'''
 		if self.request.method in permissions.SAFE_METHODS:
 			return (permissions.AllowAny(),)
-		elif self.request.method in ('POST', 'PUT', 'DELETE'):
+		elif self.request.method == 'POST':
 			return (IsMealOwner(), )
 		else:
-			return (IsMealOwner(), )
+			return (IsMealingOwner(), )
 
 	def create(self, request):
 		'''Creates the model instance mealplans'''

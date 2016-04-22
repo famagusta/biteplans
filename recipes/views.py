@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework import permissions, viewsets, generics, status
 from authentication.permissions import IsPlanOwner, IsDayMealOwner, \
-IsMealOwner, IsRecipeOwner, IsRecipeIngOwner
+IsMealOwner, IsRecipeOwner, IsRecipeIngOwner, IsRecipeIngrOwner
 from django.core import serializers
 import hashlib, datetime, random
 from rest_framework import status
@@ -20,7 +20,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 			return (permissions.AllowAny(),)
 		if self.request.method == 'POST':
 			return (permissions.IsAuthenticated(), )
-		elif self.request.method == 'PUT':
+		else:
 			return (IsRecipeOwner(),)
 
 	def create(self, request):
@@ -47,7 +47,7 @@ class RecipeIngredientViewSet(viewsets.ModelViewSet):
 			return (permissions.IsAuthenticated(),)
 		if self.request.method == 'POST':
 			return (IsRecipeIngOwner(), )
-		return (IsRecipeIngOwner(),)
+		return (IsRecipeIngrOwner(),)
 
 	def create(self, request):
 		'''Creates the model instance dietplans'''
