@@ -17,7 +17,9 @@
 form div.container {
     width: 80%;
 }
-
+.namecol{
+    margin-right:15px;
+}
 input[type=text], input[type=number] {
     width: 90% !important;
 }
@@ -272,8 +274,19 @@ hr {
 .hor-line {
     border-bottom: 1px solid #ddd;
     margin-top: 3px !important;
-}
 
+}
+.selcol{
+    width:12.444% !important;
+    margin-top:-10px;
+}
+.selco{
+    width:12.444% !important;
+    
+}
+.lowbo{
+    margin-top: -400px !important;
+}
 #nutsinfo {
     margin-top: -20px !important;
 }

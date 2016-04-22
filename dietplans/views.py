@@ -10,7 +10,7 @@ from authentication.permissions import IsPlanOwner, IsDayMealOwner, \
 IsMealOwner
 from rest_framework.decorators import api_view, permission_classes
 from django.core import serializers
-
+from django.shortcuts import get_list_or_404, get_object_or_404
 import hashlib, datetime, random
 from dietplans.models import DietPlan, DayPlan, MealPlan, \
 MealIngredient, MealRecipe
@@ -53,8 +53,22 @@ class DayPlanViewSet(generics.ListAPIView):
 	serializer_class = DayPlanSerializer
 
 	def get_queryset(self):
+		''''''
 		diet = self.kwargs['diet']
 		return DayPlan.objects.filter(diet=diet)
+
+class DayPlnViewSet(generics.RetrieveAPIView):
+	'''view to return JSON for crud related to DayPlan
+	Only list method is allowed and only get is allowed'''
+	serializer_class = DayPlanSerializer
+	queryset = DayPlan.objects.all()
+
+	def get_object(self):
+	    obj = DayPlan.objects.get(diet=self.kwargs['diet'],
+	                              day_no=self.kwargs['day_no'],
+	                              week_no=self.kwargs['week_no'])
+	    self.check_object_permissions(self.request, obj)
+	    return obj
 
 class MealPlanViewSet(viewsets.ModelViewSet):
 	'''view to return JSON for crud related to DayPlan
@@ -81,17 +95,8 @@ class MealPlanViewSet(viewsets.ModelViewSet):
 			obj.save()
 			return Response({'mealplanid':obj.id}, status=status.HTTP_201_CREATED)
 		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-	def update(self, request):
-		'''Updates existing model instance based on
-		the properties provided in the queryset'''
-		serializer = self.serializer_class(data=request.data)
-		if serializer.is_valid():
-			obj = serializer.save()
-			return Response({'mealplanid':obj.id}, status=status.HTTP_200_OK)
-		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class MealIngredientViewSet(viewsets.ModelViewSet):
@@ -120,17 +125,8 @@ class MealIngredientViewSet(viewsets.ModelViewSet):
 			return Response({'meal_ingredient_id':obj.id},
 			                status=status.HTTP_201_CREATED)
 		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-	def update(self, request):
-		'''Updates existing model instance based on
-		the properties provided in the queryset'''
-		serializer = self.serializer_class(data=request.data)
-		if serializer.is_valid():
-			obj = serializer.save()
-			return Response({'meal_ingredient_id':obj.id}, status=status.HTTP_200_OK)
-		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
 
 class MealRecipeViewSet(viewsets.ModelViewSet):
 	'''view to return JSON for crud related to MealRecipe'''
@@ -158,15 +154,4 @@ class MealRecipeViewSet(viewsets.ModelViewSet):
 			return Response({'meal_receipe_id':obj.id},
 			                status=status.HTTP_201_CREATED)
 		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-	def update(self, request):
-		'''Updates existing model instance based on
-		the properties provided in the queryset'''
-		serializer = self.serializer_class(data=request.data)
-		if serializer.is_valid():
-			obj = serializer.save()
-			return Response({'meal_recipe_id':obj.id}, status=status.HTTP_200_OK)
-		else:
-			return Response({'error':'invalid data'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

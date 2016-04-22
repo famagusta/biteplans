@@ -34,44 +34,62 @@
                                             <i class="material-icons cyan-text item-align center">delete</i>
                                         </a>
                                     </div>
-                                    <div class="col m2">
-                                        <input type="text" value="{{key.mealname}}" id="meals"/>
+                                    
+                                    <div class="col m2" >
+                                        <div class="editabletext" contenteditable ng-model="key.mealname" id="meals" ng-blur="updateDayMealPlan($index)"></div>
                                     </div>
-                                    <div class="col m1">
+                    
+                                    <div class="col m2">
+
+                                     <input type="time" id="exampleInput" name="input" ng-model="key.time"
+                                      placeholder="HH:mm:ss" ng-blur="updateDayMealPlan($index)"required />
+                                   <!--  <div class="row timediv" ng-blur="updateDayMealPlan($index)">
+                                    <div class="col m4">
                                         <input type="number" class="cyan-text time-input" value="{{key.hours}}" max="23" min="0" validate />
                                     </div>
-                                     <div class="col m1 shift-time-left">
+                                     <div class="col m4">
                                         <input type="number" id="mins" class="cyan-text time-input shift-time-left" value="{{key.minutes}}" max="59" min="0" validate />
                                     </div>
-                                     <div class="col m1">
+                                     <div class="col m4">
                                         <input class="cyan-text time-input shift-ampm-left" value="{{key.ampm}}" validate/>
                         
                                     </div>
+                                </div> -->
+                                </div>
                                 </div>
                             </div>
                         </div>
                          
-                         <div class="row center" ng-if="key.ingredient.length>0">
-                                    <div class="col s1 push-s4 center">
-                                        <p class="meal-text">Amt</p>
+                         <div class="row center lowbo" ng-if="key.mealingredient.length>0">
+                                    <div class="col m4 namecol">
+                                        <p class="meal-text">Name</p>
                                     </div>
-                                    <div class="col s1 push-s4 center">
-                                        <p class="meal-text">Desc</p>
+                                    
+                                    <div class="col m1">
+                                        <p class="meal-text">&nbsp;&nbsp;
+                                    &nbsp;&nbsp;
+                                    Amt</p>
                                     </div>
-                                    <div class="col s1 push-s4 center">
+                                    <div class="col m1 selco">
+                                        <p class="meal-text">Unit</p>
+                                    </div>
+                                    <div class="col m1">
                                         <p class="meal-text">Carbs</p>
                                     </div>
-                                    <div class="col s1 push-s4 center">
+                                    <div class="col m1">
                                         <p class="meal-text">Proteins</p>
                                     </div>
-                                    <div class="col s1 push-s4 center">
+                                    <div class="col m1">
                                         <p class="meal-text">Fats</p>
                                     </div>
-                                    <div class="col s1 push-s4 center">
+                                    <div class="col m1">
                                         <p class="meal-text">Fiber</p>
                                     </div>
+                                   
                                 </div>
-                            <div class="col s12" ng-repeat="item1 in key.ingredient track by $index">
+                              <br>
+
+                            <div class="row" ng-repeat="item1 in key.mealingredient track by $index">
                                
                                 <div class="row selected-meal-ingredient-list">
                                     <div class="col m4">
@@ -80,23 +98,23 @@
                                     <div class="col m1">
                                         <input type="number" class="serving" min="0" value="1" ng-model="item1.quantity">
                                     </div>
-                                    <div class="input-field col s1">
+                                    <div class="input-field col m1 selcol">
                                         <select material-select ng-options= "unit.id as unit.description for unit in item1.ingredient.measure track by unit.id" ng-model="item1.unit" id="ing_select">
                                         </select>
                                     </div>
                                     <div class="col m1">
                                         <p class="meal-text">{{item1.ingredient.carbohydrate_tot * item1.quantity | number}}</p>
                                     </div>
-                                    <div class="col m1">
+                                    <div class="col m1 namecol">
                                         <p class="meal-text">{{item1.ingredient.protein_tot * item1.quantity | number}}</p>
                                     </div>
-                                    <div class="col m1">
+                                    <div class="col m1 namecol">
                                         <p class="meal-text">{{item1.ingredient.fat_tot * item1.quantity | number}}</p>
                                     </div>
                                     <div class="col m1">
                                         <p class="meal-text">{{item1.ingredient.fiber_tot * item1.quantity | number}}</p>
                                     </div>
-                                    <div class="col m1 push-m1">
+                                    <div class="col m1">
                                         <a ng-click="removeIngredientsFromSavedMeal($index)">
                                             <i class="material-icons b" >delete</i>
                                         </a>
@@ -248,7 +266,7 @@
                             <div class="col m6 create-modal-half1">
                                 <div ng-repeat="detail in details | limitTo:7 track by $index">
                                      <p>
-                                        <input type="checkbox" class="filled-in" id="filled-in-box{{$index}}"  checklist-model="nutrientValue" checklist-value="detail"/>
+                                        <input type="checkbox" class="filled-in" id="filled-in-box{{$index}}" ng-disabled="checkToDisable(detail.id)" checklist-model="nutrientValue" checklist-value="detail"/>
                                         <label for="filled-in-box{{$index}}" id="check-label" class="ing-text">{{detail.name}} </label>
                                     </p>
                                 </div>

@@ -70,6 +70,7 @@ class MealPlan(models.Model):
 
     class Meta:
         '''name db table'''
+        unique_together = ('day', 'time')
         db_table = 'dietplans_mealplan'
 
 
@@ -88,6 +89,7 @@ class MealRecipe(models.Model):
 
     class Meta:
         '''name db table'''
+        unique_together = ('meal_plan', 'reciple')
         db_table = 'dietplans_mealrecipe'
 
 
@@ -109,6 +111,7 @@ class MealIngredient(models.Model):
 
     class Meta:
         '''name db table'''
+        unique_together = ('meal_plan', 'ingredient')
         db_table = 'dietplans_mealingredient'
 
 

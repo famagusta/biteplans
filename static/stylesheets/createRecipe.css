@@ -19,6 +19,38 @@ h5.recipe-subheading {
     font-size: 19px;
 }
 
+.editabletext{
+    color:#4f4f4f !important;
+    margin-top:10px;
+    cursor: pointer;
+}
+.timediv{
+    cursor:pointer;
+
+}
+
+.timediv:focus{
+    cursor:pointer;
+    color:#4f4f4f !important;
+    margin-top:10px !important;
+    cursor: pointer !important;
+    border:2px solid #fff !important;
+    border-bottom: 2px solid #00bcd4 !important;
+    padding-bottom:10px !important;
+    outline:none !important;
+    
+}
+
+.editabletext:focus{
+    color:#4f4f4f !important;
+    margin-top:10px !important;
+    cursor: pointer !important;
+    border:2px solid #fff !important;
+    border-bottom: 2px solid #00bcd4 !important;
+    padding-bottom:10px !important;
+    outline:none !important;
+}
+
 .select-wrapper {
     position: relative;
     margin-top: -1px !important;
