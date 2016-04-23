@@ -32,8 +32,23 @@ app.factory('planService',
 
             	};
 
+                  var getdayplan = function(diet,day,week){
+
+                        var url = '/biteplans/plan/dayplan/'+diet+'/'+day+'/'+week+'/';
+                        var deferred = $q.defer();
+                        httpService.httpGet(url).then(function(response){
+                              deferred.resolve(response);
+
+                        }, function(response){
+                              deferred.reject(response);
+                        });
+
+                        return deferred.promise;
+
+                  };
+
                   var createMealPlan = function(obj){
-                        var url = '/biteplans/diet/mealplans/'
+                        var url = '/biteplans/diet/mealplans/';
                         var deferred = $q.defer();
                         httpService.httpPost(url, obj).then(function(response){
                               deferred.resolve(response);
@@ -49,7 +64,7 @@ app.factory('planService',
                   var updateMealPlan = function(obj, id){
                         var url = '/biteplans/diet/mealplans/'+id+'/';
                         var deferred = $q.defer();
-                        httpService.httpPut(url, obj).then(function(response){
+                        httpService.httpPatch(url, obj).then(function(response){
                               deferred.resolve(response);
                         }, function(error){
                               deferred.reject(error);
@@ -61,7 +76,7 @@ app.factory('planService',
                   };
 
                   var createMealIngredient = function(obj){
-                        var url = '/biteplans/diet/mealing/'
+                        var url = '/biteplans/diet/mealing/';
                         var deferred = $q.defer();
                         httpService.httpPost(url, obj).then(function(response){
                               deferred.resolve(response);
@@ -75,7 +90,7 @@ app.factory('planService',
                   };
 
                   var updateMealIngredient = function(obj, id){
-                        var url = '/biteplans/diet/mealing/' + id+'/'
+                        var url = '/biteplans/diet/mealing/' + id+'/';
                         var deferred = $q.defer();
                         httpService.httpPatch(url, obj).then(function(response){
                               deferred.resolve(response);
@@ -89,7 +104,7 @@ app.factory('planService',
                   };
 
                   var createMealRecipe = function(obj){
-                        var url = '/biteplans/diet/mealrecipe/'
+                        var url = '/biteplans/diet/mealrecipe/';
                         var deferred = $q.defer();
                         httpService.httpPost(url, obj).then(function(response){
                               deferred.resolve(response);
@@ -103,7 +118,7 @@ app.factory('planService',
                   };
 
                   var updateMealRecipe = function(obj, id){
-                        var url = '/biteplans/diet/mealrecipe/' + id+'/'
+                        var url = '/biteplans/diet/mealrecipe/' + id+'/';
                         var deferred = $q.defer();
                         httpService.httpPatch(url, obj).then(function(response){
                               deferred.resolve(response);
@@ -121,8 +136,29 @@ app.factory('planService',
             			return createPlan(obj);
             		},
             		updatePlan : function(obj, id){
-            			return updatePlan(obj, id);
-            		}
+                              return updatePlan(obj, id);
+                        },
+                        getdayplan : function(o, i, d){
+                              return getdayplan(o, i, d);
+                        },
+                        createMealPlan : function(obj){
+                              return createMealPlan(obj);
+                        },
+                        updateMealPlan : function(obj, id){
+                              return updateMealPlan(obj, id);
+                        },
+                        createMealIngredient : function(obj){
+                              return createMealIngredient(obj);
+                        },
+                        updateMealIngredient : function(obj, id){
+                              return updateMealIngredient(obj, id);
+                        },
+                        createMealRecipe : function(obj){
+                              return createMealRecipe(obj);
+                        },
+                        updateMealRecipe : function(obj, id){
+                              return updateMealRecipe(obj, id);
+                        },
             	};
 
 

@@ -62,16 +62,14 @@ class MealIngSerializer(serializers.ModelSerializer):
 
 class MealPlanSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
-	mealrecipe = MealRecipeSerializer(many=True, read_only=True)
-	meal_ingredient = MealIngSerializer(many=True, read_only=True)
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = MealPlan
 
 class MealPlnSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
-	mealrecipe = MealRecpSerializer(many=True, read_only=True)
-	meal_ingredient = MealIngSerializer(many=True, read_only=True)
+	mealrecipe = MealRecipeSerializer(many=True, read_only=True)
+	mealingredient = MealIngredientSerializer(many=True, read_only=True)
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = MealPlan

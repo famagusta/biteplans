@@ -54,9 +54,14 @@ class RecipeIngredients(models.Model):
 
     def __unicode__(self):
         return self.ingredient.name
-    
-    
+
     def possible_measures(self):
         '''return set of measures possible for current ingredient'''
-        measure_set = IngredientCommonMeasures.objects.filter(ingred_id=self.ingredient)
+        measure_set = IngredientCommonMeasures.\
+            objects.filter(ingred_id=self.ingredient)
         return measure_set
+
+    class Meta:
+        '''Meta details, defines a composite unique key'''
+        unique_together = ('recipe', 'ingredient')
+
