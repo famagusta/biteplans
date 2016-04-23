@@ -5,22 +5,22 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
     $location.path('/');
     return;
   }*/
-   $scope.logout = function(){
-    var response = AuthService.logout();
-    if(response){
-      $location.path('/');
-    }};
+//   $scope.logout = function(){
+//    var response = AuthService.logout();
+//    if(response){
+//      $location.path('/');
+//    }};
   $scope.token = $window.localStorage.token;
   $scope.username = $window.localStorage.username;
   
                    $scope.Data = Data;
-                   console.log($scope.Data.Carba);
+//                   console.log($scope.Data.Carba);
    // dashboard tabs switching
     
     $scope.tab = 1;
   
     $scope.setTab = function (tabId) {
-        console.log("changing tabs");
+//        console.log("changing tabs");
              $scope.tab = tabId;
     };
         
@@ -29,11 +29,11 @@ app.controller('dashboardController', ['$scope','$window','$location', 'AuthServ
     };
                    
     $scope.edit = 0;
-    console.log($scope.edit);
+//    console.log($scope.edit);
                    
     $scope.editProfileForm = function () {
         $scope.edit = 1;
-        console.log($scope.edit);
+//        console.log($scope.edit);
     }
         
 }]);

@@ -1,12 +1,18 @@
 <!-- NAVBAR -->
 <div ng-controller="navbarController" class="ng-cloak" ng-cloak>
+<!--
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="/dashboard" class="cyan-text">Dashboard</a></li>
+        <li><a ng-click="logout()" class="cyan-text">Logout</a></li>
+    </ul>
+-->
 <nav role="navigation" class="navbar" >
     <div class="nav-wrapper">
         <a ng-class='{"inactive":toggle==0}' ng-click='toggle=0' id="logo-container" href="/" class="brand-logo">
             <img class="responsive-img small" id="small_logo" src="static/images/Logo-new.png">
         </a>
         
-        <ul class="right hide-on-med-and-down">
+        <ul id="main_menu" class="right hide-on-med-and-down">
             <li ng-class='{"active":toggle==1}' ng-click='toggle=1'>
                 <a href="/plans">Plans</a>
             </li>            
@@ -18,23 +24,60 @@
             </li> 
              <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
                  <a href="#">Articles</a>
-            </li> 
+            </li>
+            <li>
+                <a  href="#modal1" ng-click="openModal()" ng-show="!isLoggedIn">Log in </a> 
+<!--
+            </li>
+
+             <li ng-cloak id="log_out" ng-if="isLoggedIn">
+-->
+                <a ng-click="logout()"   ng-show="isLoggedIn">Log out</a> 
+<!--
+            </li>
+             <li ng-if="isLoggedIn" class="img_li">
+-->
+<!--            <a ng-cloak href="/dashboard" ng-if="isLoggedIn" class="img_li"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a> -->
+            </li>
+            
+            
+<!--
+            <button ng-click="logout()" class="dropdown-button" data-activates="dropdown1">
+                    <i class="material-icons">arrow_drop_down</i>
+                </button>
+-->
+
+            
+<!--
+            <li ng-if="isLoggedIn">
+                <a ng-if="!isLoggedIn" ng-click="openModal()" href="#modal1">Login</a>
+
+                <a class="dropdown-button" data-activates="dropdown1">
+                    <i class="material-icons">arrow_drop_down</i>
+                </a>
+
+                <ul id="dropdown1" class="dropdown-content">
+                    <li><a href="/dashboard" class="cyan-text">Dashboard</a></li>
+                    <li><a ng-click="logout()" class="cyan-text">Logout</a></li>
+                </ul>
+            </li>
+-->
+
             <!--function to open modal openModal()-->
+<!--
             <li class="ng-cloak" ng-cloak>
                 <a class="ng-cloak" ng-cloak href="#modal1" ng-class="{'hidden':isLoggedIn}" ng-click="openModal()" ng-if="!isLoggedIn">Log in</a>
                 <a class="ng-cloak" ng-cloak ng-if="isLoggedIn" ng-class="{'hidden':!isLoggedIn}" ng-click="logout()"  class="cyan-text"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a>
-<!--                    <a ng-if="isLoggedIn" ng-click="logout()"><img class="circle small responsive-img" src="static/images/tiger.jpg"/></a><span class="black-text material-icons">expand_more</span>-->
             </li>
             <li><a ng-click="showExtraFunctionList=!showExtraFunctionList"><i class="material-icons cyan-text">expand_more</i></a>
+-->
 <!--
             <ul>
                 <a>Dashboard</a>
                 <a>Logout</a>
                 </ul>
 -->
-            </li>
             
-        </ul>
 <!--
         <div id="extra_sliding_menu" ng-show="showExtraFunctionList" ng-if="isLoggedIn">
                 <a class="cyan-text" href="/dashboard">Dashboard</a>
@@ -274,12 +317,16 @@
 </div>
 
 <script>
+$(document).ready(function() {
+    $(".dropdown-button").dropdown();
 
- // Initialize collapse button
+    // Initialize collapse button
   $(".button-collapse").sideNav({
        menuWidth: 200, 
       closeOnClick: true 
   });
   // Initialize collapsible (uncomment the line below if you use the dropdown variation)
   $('.collapsible').collapsible();
+})
+ 
 </script>

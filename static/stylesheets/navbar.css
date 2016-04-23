@@ -1,18 +1,12 @@
-/* STYLING FOR NAVBAR */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 
-.hidden {
-    display: none !important;
-}
 nav {
     background-color: #fdfdfb;
     box-shadow: none;
 }
-.notifier{
-    color:green;
-}
+
 nav ul a, nav .brand-logo {
     color: #00bcd4;
     font-weight: bold;
@@ -23,16 +17,25 @@ nav ul li.active a {
     background-color: transparent !important;
 }
 
-nav #small_logo {
-    margin-left: 50px;
+#small_logo {
     height: 40px !important;
-    margin-top: 9px;
+    margin-top: 7px;
+    margin-left: 50px;
 }
 
-#user_dp {
-    height: 30px !important;
+li>a>#user_dp {
+    height: 37px;
+    padding-top: 0px;
+    margin-top: 13px;
 }
 
+.img_li{
+    width: 100px !important;
+    padding:0;
+}
+.img_li>a:hover{
+    padding-bottom:0 !important;
+}
 nav ul {
     margin-right: 50px;
 }
@@ -40,6 +43,7 @@ nav ul {
 nav ul li {
     text-transform: uppercase;
 }
+
 
 
 /* STYLING IN MOBILE VIEW NAVIGATION */
@@ -57,12 +61,12 @@ nav ul li {
 
 
 #modal1 { 
-    max-height: 85%;
-    max-width: 85%;
+    max-height: 75%;
+    max-width: 35%;
     left: 0;
     right: 0;
     top: 0;
-    bottom: 3em;
+    bottom: 5em;
     margin: auto;
 }
 

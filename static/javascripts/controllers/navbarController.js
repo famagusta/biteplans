@@ -1,11 +1,13 @@
 'use strict';
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
-    
+   // function to check whether the person is logged in or not
     var checkLoggedIn = function () {
         AuthService.isAuthenticated().then(function(response){
+//            console.log($scope.isLoggedIn);
             $scope.isLoggedIn = response.status;
-            console.log(response);
+//                        console.log($scope.isLoggedIn);
+//            console.log(response);
         },function(error){
             $scope.isLoggedIn = false;
         })
@@ -13,10 +15,11 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     };
     checkLoggedIn();
     
-//    $scope.navClass = function (page) {
-//        var currentRoute = $location.path().substring(1) || '/';
-//        return page === currentRoute ? 'active' : '';
-//    };
+//    $scope.$watch('AuthService.isAuthenticated', function(newVal, oldVal) {
+//        console.log(newVal);
+//        console.log(oldVal);
+//    });
+    
     //by default first modal viw will be visible;
     $scope.modal1 = true;  
     $scope.modal2 = false;
@@ -35,7 +38,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
 //Function to switch the views within modal;
     $scope.switchToModal = function (number) {     // function to change the content in modal window
    
-    console.log(number+typeof(number));
+//    console.log(number+typeof(number));
 
     //show second modal view
     
@@ -87,16 +90,16 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     var password = $scope.signup.registerPassword;
     var confirm = $scope.signup.confirmPassword;
     var email = $scope.signup.email;
-    console.log(username,password,confirm,email);
+//    console.log(username,password,confirm,email);
 
     if (username && password && confirm && email) {
       AuthService.register(username, password, confirm, email).then(
         function (response) {
-          console.log(response.success);
+//          console.log(response.success);
           $scope.registerSuccess = response.success + "Please check your email account to activate your profile";
         },
         function (error) {
-          console.log(error);
+//          console.log(error);
                  $scope.registerError = error.data.message;
           }
       );
@@ -108,7 +111,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
 //function to login using manual details. email is the required field and is taken as username
   $scope.login = function(){
     //these are required params
-    console.log('SWAG');
+//    console.log('SWAG');
    var username = $scope.login.username;
   var password = $scope.login.password;
       
@@ -116,9 +119,13 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
   if (username && password) {
     AuthService.login(username, password).then(
       function (response){
-        console.log(response);
+//        console.log(response);
+                    console.log($scope.isLoggedIn);
+
           $scope.isLoggedIn = true;
+          console.log($scope.isLoggedIn);
          $('#modal1').closeModal();
+          
         $location.path('/dashboard');
         
       },
@@ -131,10 +138,12 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
   }
 };
     
+// function to logout 
     $scope.logout = function() {
-        
         var response = AuthService.logout();
         if(response) {
+                                console.log($scope.isLoggedIn);
+
             $scope.isLoggedIn = false;
             $location.path('/');
         }
@@ -143,7 +152,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
  $scope.Auth = function(provider){
   //provider can be facebook, google-oauth2
   AuthService.socialAuth(provider).then(function(response){
-    console.log(response);
+//    console.log(response);
       $scope.isLoggedIn = true;
     //close the modal if login is success
     $('#modal1').closeModal();

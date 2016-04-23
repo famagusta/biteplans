@@ -270,7 +270,7 @@ var isAuthenticated = function(){
 
     },
     logout : function(){
-    	logout();
+    	 logout();
     	return 'User has been logged out';
 
     },

@@ -323,10 +323,12 @@ input[type=number].time-input {
     width: 50% !important;
 }
 
+/*
 .dropdown-content li>span {
     height: 10% !important;
     font-size: 13px;
 }
+*/
 
 .select-wrapper input.select-dropdown {
     height: 2em;
@@ -340,11 +342,13 @@ input[type=number].time-input {
     height: 52px !important;
 }
 
+/*
 .dropdown-content li>a, .dropdown-content li>span {
     color: #00bcd4 !important;
     font-family: 'Raleway' !important;
     text-align: center !important;
 }
+*/
 
 .select-wrapper span.caret {
     top: 34px !important;

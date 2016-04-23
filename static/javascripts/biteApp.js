@@ -9,6 +9,10 @@ var app = angular.module('biteApp', [
       "ngMaterial", 
       "materialCalendar"
     ]);
+
+app.run( function(){
+   $('#main_html').show(); 
+});
 /**
 * @name run
 * @desc Update xsrf $http headers to align with Django's defaults

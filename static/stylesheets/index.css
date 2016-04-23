@@ -23,11 +23,13 @@ a {
     color: #000;
 }
 
-.active a {
+/*
+#main_menu .active a {
     border-bottom: 3px solid #ff5252; !important;
     background-color: transparent !important;
     color: #00bcd4 !important;
 }
+*/
 
 .active a:visited {
     color: #00bcd4;

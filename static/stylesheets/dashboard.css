@@ -46,11 +46,13 @@ ul.day-list li {
     margin-left: 20px;
 }
 
+/*
 .active a {
     border-bottom: 3px solid #ff5252; !important;
     background-color: transparent !important;
     color: #00bcd4 !important;
 }
+*/
 
 #edit_content_db {
     font-size: 21px;  
