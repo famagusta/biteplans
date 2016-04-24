@@ -121,7 +121,7 @@ def create_dayplan(sender, instance, created, **kwargs):
     if created:
         num_of_days = int(math.ceil(instance.duration*7))
         for i in range(num_of_days):
-            DayPlan.objects.create(diet=instance, day_no=i+1, week_no=(i/7)+1,
+            DayPlan.objects.create(diet=instance, day_no=i%7+1, week_no=(i/7)+1,
                                    name="Week "+str(i/7+1)+" Day "+str(i+1)
                                    + " of DietPlan "+instance.name)
 

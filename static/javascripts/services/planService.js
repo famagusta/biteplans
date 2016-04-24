@@ -17,6 +17,18 @@ app.factory('planService',
 
 
             	};
+                
+                var getDietPlan = function(id){
+                    var url = '/biteplans/diet/dietplans/' + id + '/';
+            		var deferred = $q.defer();
+            		httpService.httpGet(url).then(function(response){
+            			deferred.resolve(response);
+            		}, function(error){
+            			deferred.reject(error);
+            		});
+
+            		return deferred.promise;
+                }
 
             	var updatePlan = function(obj, id){
             		var url = '/biteplans/diet/dietplans/'+id+'/';
@@ -33,7 +45,7 @@ app.factory('planService',
             	};
 
                   var getdayplan = function(diet,day,week){
-
+                        //url looks like /biteplans/plan/dayplan/8/1/1/
                         var url = '/biteplans/plan/dayplan/'+diet+'/'+day+'/'+week+'/';
                         var deferred = $q.defer();
                         httpService.httpGet(url).then(function(response){
@@ -135,6 +147,9 @@ app.factory('planService',
             		createPlan : function(obj){
             			return createPlan(obj);
             		},
+                    getDietPlan : function(id){
+                        return getDietPlan(id);
+                    },
             		updatePlan : function(obj, id){
                               return updatePlan(obj, id);
                         },
