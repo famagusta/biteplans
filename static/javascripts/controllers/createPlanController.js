@@ -1,4 +1,4 @@
-// controller for create plans page
+/* controller for createplan pages */
 'use strict';
 
 app.controller('createPlanController', ['$scope','$window','AuthService', '$routeParams', 'ingredientService', '$location', 'planService', function($scope, $window, AuthService, $routeParams, ingredientService, $location, planService) {
@@ -7,56 +7,55 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
         BE ABLE TO CREATE A PLAN */
     AuthService.isAuthenticated().then(function(response){
         var isAuth = response.status;
-        //page is visible only if user is authenticated
-        
+        /*page is visible only if user is authenticated
+          TODO : page is visible only to creator of plan */
         if(isAuth){
-            //if authed then create these objects
-            $scope.plan = {}; //object to create/update dietplan
-            //console.log($routeParams.id);
+            /*if authed then create these objects*/
             
-            //week & day count for current plan
+            /* main object storing the plan data */
+            $scope.plan = {}; 
+            
+            /* week & day count for current plan */
             $scope.weekCount = [];
             $scope.dayCount = [];
-            //get the diet plan in question
+            
+            /* get the diet plan in question from the server */
             planService.getDietPlan($routeParams.id).then(function(response){
-//                $scope.plan.name = response.name; 
-//                $scope.plan.duration = response.duration;
+
                 $scope.plan = response;
+                
+                /* rewrite some object variables in correct format
+                   as the response object stringifies everything */
                 $scope.plan.age = parseInt($scope.plan.age);
                 $scope.plan.height = parseFloat($scope.plan.height);
                 $scope.plan.weight = parseFloat($scope.plan.weight);
                 $scope.plan.duration = parseInt($scope.plan.duration)
+                
                 for(var i = 1 ; i <= $scope.plan.duration ; i++) {
                     $scope.weekCount.push({'id':i, 'name': 'Week' + ' ' + i});
-
                 }
                 for(var j = 1 ; j <= 7 ; j++) {
                         $scope.dayCount.push({'id':i, 'name': 'Day' + ' ' + j});  
                 }
-//                console.log($scope.weekCount);
-//                console.log($scope.dayCount);
                 
             }, function(error){
                 console.log(error);
             });
             
             
-            //stores the details to get current day plan
-            //this is used to make the first query
+            /* stores the details to get current day plan
+            this is used to make the first query */
             $scope.dayplan = {'day_no':1, 'week_no':1};
-            $scope.unit =0; //unit for height
             
-            //function to update day_no or week_no
+            /* unit for height */
+            $scope.unit =0; 
+            
+            /* Function to update day_no or week_no */
             $scope.updateDayPlan = function(param, val){
                 
-                //write a shorter function using modulo operator
-                //days increase all the time
+                /*if possible, write a shorter function using modulo operator
+                  days increase all the time */
                 $scope.dayplan[param] += parseInt(val);
-//                if($scope.dayplan['day_no']>7){
-//                    $scope.dayplan['day_no']=1;
-//                }else if($scope.dayplan['day_no']<1){
-//                    $scope.dayplan['day_no']=7;
-//                }
                 if($scope.dayplan['day_no']>7*$scope.plan.duration){
                     $scope.dayplan['day_no']=1;
                 }
@@ -84,18 +83,17 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
             };
         
 
-            //phase of the day
+            /* phase of the day */
             $scope.amPmArray = ["AM", "PM"];
 
-            //urls for previous and next buttons
+            /* urls for previous and next buttons */
             $scope.backUrl3 = '/plan2/'+$routeParams.id;
             $scope.backUrl2 = '/plan/'+$routeParams.id;
             $scope.nextUrl2 = '/plan3/'+$routeParams.id;
 
-            //function to create dietplan from page1
-            // TODO: CONSIDER RENAMING THIS HORRIBLY NAMED FUNCTION
-            // CONSIDER ADDING COMMENTS INSIDE THIS FUNCTION AS WELL
-            $scope.func = function () {                
+            /* Function that updates the main descriptors of a diet plan
+            from the first create plan page */
+            $scope.initialize_plan = function () {                
                 var id = $routeParams.id;
                 planService.updatePlan($scope.plan, id).then(function(response){
                     $location.path('/plan2/'+response.id);
