@@ -121,15 +121,13 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
             $scope.mealEdit = null;
             // WHAT DO THESE DO?
             $scope.updateDayMealPlan = function(index){
-                                console.log($scope.weekCount);
-
                 var obj = {
                     'name':$scope.mealPlanNameArray[index].mealname,
                     'time':$scope.mealPlanNameArray[index].time.getHours() + ':' + $scope.mealPlanNameArray[index].time.getMinutes()                
                 };
 
                 planService.updateMealPlan(obj,   $scope.mealPlanNameArray[index].id).then(                         function(response){
-                        console.log(response);
+                        //console.log(response);
 
                     }, function(error){
                         console.log(error);
@@ -139,10 +137,9 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
             
             // YEH KYA HAI?
             $scope.updateMealIngredient = function(obj){
-                console.log(obj);
                 // CONSIDER RENAMING THIS
                 var obje = {
-                    'quantity':obj.quantity,
+                    'quantity': parseFloat(obj.quantity),
                     'ingredient':obj.ingredient.id,
                     'unit':obj.unit.id           
                 };
@@ -159,7 +156,6 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
                 if (query) {
                     ingredientService.search(query).then(function(response) {
                         $scope.details = response;   //model for storing response from API 
-                            console.log($scope.details);
                         },function(error) {
                             console.log(error);
                         });
@@ -180,16 +176,20 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
             // currentmealPlanname, nutrientvalue
             // these should be used to create a post request  to create meal
                 // THIS SHOULD BE SHORTER
-                var currlength =  $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.length;
+                var currlength = 
+                    $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.length;
+                //give a more sensible name to this variable
                 var x = $scope.nutrientValue.slice();
                 
                 //STRANGE LOOKING FOR LOOP
                 for(var i=0; i<x.length; i++){
                     if (x[i].measure.length!==0) {
-                                            $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({ingredient:x[i], unit:x[i].measure[0], quantity:1})
+                                            $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({ingredient:x[i],
+                       unit:x[i].measure[0],
+                       quantity:1.00})
                     }
-                    else {
-                 $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({ingredient:x[i], unit:x[i].measure, quantity:1});
+                    else {                 $scope.mealPlanNameArray[$scope.currentMealPlanName].mealingredient.push({
+                        ingredient:x[i], unit:x[i].measure, quantity:1.00});
                     }
                 }
                 
@@ -221,13 +221,29 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
 
             // to fire red(-) button which removes the entire meal
             $scope.clearMeal = function (element) {
-                $scope.mealPlanNameArray.splice(element,1);
+                var temp = $scope.mealPlanNameArray[element];
+                planService.deleteMealPlan(temp.id).then(function(response){
+                    $scope.mealPlanNameArray.splice(element,1);
+                },function(error){
+                    console.log(error);
+                });
             };
     
             // adds new mealname
             $scope.addMeal = function (key) {
-                $scope.mealPlanNameArray.push({mealname:key, ingredient:[], hours: $scope.hours, minutes: $scope.minutes, ampm: $scope.ampm});
-                // DO WE REALLY NEED JQUERY HERE???
+                key.day = $scope.dayplan.id;
+                var tm = key.time;
+                key.time = key.time.getHours()+":"+key.time.getMinutes()+":00";
+                planService.createMealPlan(key).then(function(response){
+                    $scope.mealPlanNameArray.push({'mealname':key.name, 'mealingredient':[],
+                                                   'time':tm, 'mealrecipe':[],
+                                                   'id':response.mealplanid,
+                                                   'counter':$scope.mealPlanNameArray.length,
+                                                   'day':$scope.dayplan.id});
+                }, function(error){
+                    console.log('cant', error);
+                });
+                
                 $('#add-meal-modal').closeModal();
             };
     
@@ -247,8 +263,14 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
              };
      
             // removes ingredients which are saved in meal
-            $scope.removeIngredientsFromSavedMeal = function (element) {
-                $scope.mealPlanNameArray[$scope.currentMealPlanName].ingredient.splice(element,1);
+            $scope.removeIngredientsFromSavedMeal = function (key, element) {
+
+                var temp = $scope.mealPlanNameArray[key].mealingredient[element];  
+                planService.deleteMealIngredient(temp.id).then(function(response){
+                    $scope.mealPlanNameArray[key].mealingredient.splice(element,1);
+                },function(response){
+                    console.log(response);
+                });
             };
      
             $scope.calculateTotalInfo = function (index, field) {
@@ -282,6 +304,16 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
                         var dateStr = "July 21, 1983 " + response.mealplan[i].time;
                         var b = new Date(dateStr);
                         response.mealplan[i].time = b;
+                        response.mealplan[i].counter = i;
+                        
+                        /* coerce string responses into floats to avoid angular error
+                            do samething for recipes as well. check null cases */
+                        for(var j=0; j<response.mealplan[i].mealingredient.length; j++){
+                            response.mealplan[i].mealingredient[j].quantity =
+                                parseFloat(response.mealplan[i].mealingredient[j].quantity);
+                        }
+                        
+                        // TODO: similar thing for recipes
                     }
 
                     $scope.mealPlanNameArray = response.mealplan;
@@ -304,19 +336,15 @@ app.controller('createPlanController', ['$scope','$window','AuthService', '$rout
                     var obj = {
                     'ingredient':temp[i].ingredient.id,   
                     'meal_plan':$scope.mealPlanNameArray[current].id,
-                    'quantity':temp[i].quantity,
+                    'quantity': parseFloat(temp[i].quantity),
                     'unit':temp[i].unit.id
                     };
-
-                    console.log(temp[i].unit);
             
                     planService.createMealIngredient(obj).then(
                         function(response){
-                            console.log(i, temp);
                             $scope.mealPlanNameArray[current].mealingredient[saveind].id = 
                                 response.meal_ingredient_id;
 
-                            console.log($scope.mealPlanNameArray[current].mealingredient);
                         },
                         function(error){
                             console.log(error);

@@ -65,22 +65,34 @@ app.factory('httpService',['$http', '$q', function($http,$q){
       return promise;
     };
 
-
+    var httpDelete = function(url){
+        var promise = $http.delete(url, {
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).then(
+            function(response){
+            return response.data;
+        });
+        return promise;
+    };
+    
     return{
-      httpPost : function(url,params){
-        return httpPost(url,params);
-      },
-      httpGet : function(url,params){
-        return httpGet(url,params);
-      },
-      httpPut : function(url,params){
-        return httpPut(url,params);
-      },
-      httpPatch : function(url,params){
-        return httpPatch(url,params);
-      },
-
-
+        httpPost : function(url,params){
+            return httpPost(url,params);
+        },
+        httpGet : function(url,params){
+            return httpGet(url,params);
+        },
+        httpPut : function(url,params){
+            return httpPut(url,params);
+        },
+        httpPatch : function(url,params){
+            return httpPatch(url,params);
+        },
+        httpDelete : function(url,params){
+            return httpDelete(url,params);
+        },
     };
 }]);
 

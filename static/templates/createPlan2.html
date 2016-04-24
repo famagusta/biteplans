@@ -152,8 +152,7 @@
                                         </p> 
                                     </div>
                                     <div class="col m1">
-                                        <input type="number" class="serving" min="0"
-                                               value="1" ng-model="item1.quantity">
+                                        <input type="number" class="serving" ng-model="item1.quantity" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
                                     </div>
                                     <div class="input-field col m1 selcol">
                                         <select material-select
@@ -190,7 +189,7 @@
                                         </p>
                                     </div>
                                     <div class="col m1">
-                                        <a ng-click="removeIngredientsFromSavedMeal($index)">
+                                        <a ng-click="removeIngredientsFromSavedMeal(key.counter, $index)">
                                             <i class="material-icons b" >delete</i>
                                         </a>
                                     </div> 
@@ -495,7 +494,7 @@
                                 </div>
                                 <div class="col m6">
                                     <p class="a b">
-                                        {{nutrientValue[nutrientValue.length-1].energy_kcal}}
+                                        {{nutrientValue[nutrientValue.length-1].energy_kcal | number }}
                                     </p>
                                 </div>
                             </div>
@@ -508,7 +507,7 @@
                                 </div>
                                 <div class="col m6">
                                     <p class="a b">
-                                        {{nutrientValue[nutrientValue.length-1].protein_tot}}
+                                        {{nutrientValue[nutrientValue.length-1].protein_tot | number }}
                                     </p>
                                 </div>
                             </div>
@@ -521,7 +520,7 @@
                                 </div>
                                 <div class="col m6">
                                     <p class="a b">
-                                        {{nutrientValue[nutrientValue.length-1].fat_tot}}
+                                        {{nutrientValue[nutrientValue.length-1].fat_tot | number }}
                                     </p>
                                 </div>
                             </div>
@@ -534,7 +533,7 @@
                                 </div>
                                 <div class="col m6">
                                     <p class="a b">
-                                        {{nutrientValue[nutrientValue.length-1].carbohydrate_tot}}
+                                        {{nutrientValue[nutrientValue.length-1].carbohydrate_tot | number }}
                                     </p>
                                 </div>
                             </div>
@@ -547,7 +546,7 @@
                                 </div>
                                 <div class="col m6">
                                     <p class="a b">
-                                        {{nutrientValue[nutrientValue.length-1].fiber_tot}}
+                                        {{nutrientValue[nutrientValue.length-1].fiber_tot | number }}
                                     </p>
                                 </div>
                             </div> 
@@ -591,8 +590,3 @@
             </div>
             
         </div>
-<script>
-     $(document).ready(function() {
-        $('select').material_select();
-    });
-  </script>

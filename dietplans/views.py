@@ -110,7 +110,7 @@ class MealIngredientViewSet(viewsets.ModelViewSet):
 		'''return allowed permissions'''
 		if self.request.method in permissions.SAFE_METHODS:
 			return (permissions.AllowAny(),)
-		elif self.request.method in ('POST', 'PUT', 'DELETE'):
+		elif self.request.method == 'POST':
 			return (IsMealOwner(), )
 		else:
 			return (IsMealingOwner(), )
