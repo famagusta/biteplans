@@ -35,7 +35,7 @@ app.factory('ingredientService',
         },
         function(response) {
             deferred.reject(response.data.error);
-            console.log(response);
+            //console.log(response);
         });
         return deferred.promise;};
 

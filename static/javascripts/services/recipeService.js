@@ -36,6 +36,19 @@ app.factory('recipeService',
 
     	return deferred.promise;
     };
+                
+    var getRecipe = function(id){
+        var url = 'biteplans/recipe/recipes/' + id + '/';
+        var deferred = $q.defer();
+        httpService.httpGet(url).then(function(response){
+            deferred.resolve(response);
+        }, function(error){
+            deferred.reject(error);
+        });
+        return deferred.promise;
+    }
+                
+                
 
     return {
 
@@ -45,8 +58,11 @@ app.factory('recipeService',
 
 		createRecipeIng : function(obj){
     		return createRecipeIngredients(obj);
-    	}
-
+       },
+        
+        getRecipe : function(id){
+            return getRecipe(id);
+        }
 
     };
 

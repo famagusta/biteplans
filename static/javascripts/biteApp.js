@@ -40,8 +40,7 @@ $routeProvider.when('/', {
 }).when('/ingredients', {
     controller: 'ingredientsController',
     templateUrl: '/static/templates/searchIngredients.html'
-})
-    .when('/dashboard', {
+}).when('/dashboard', {
     controller: 'dashboardController',
     templateUrl: '/static/templates/dashboard.html'
 }).when('/plan/:id', {
@@ -59,6 +58,9 @@ $routeProvider.when('/', {
 }).when('/createRecipes', {
     controller: 'createRecipeController',
     templateUrl: 'static/templates/createRecipe.html'
+}).when('/viewRecipe/:id', {
+    controller: 'viewRecipeController',
+    templateUrl: 'static/templates/viewRecipe.html'
 }).otherwise('/');
 
 $authProvider.facebook({

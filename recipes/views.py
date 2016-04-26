@@ -10,7 +10,8 @@ IsMealOwner, IsRecipeOwner, IsRecipeIngOwner, IsRecipeIngrOwner
 from django.core import serializers
 import hashlib, datetime, random
 from rest_framework import status
-# Create your views here.
+
+
 class RecipeViewSet(viewsets.ModelViewSet):
 	queryset = Recipe.objects.all()
 	serializer_class = RecipeSerializer
