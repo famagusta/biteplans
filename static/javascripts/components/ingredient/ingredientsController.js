@@ -1,8 +1,8 @@
 'use strict';
 // Controller to display search results on ingredients page
 
-app.controller('ingredientsController', ['$scope', 'ingredientService', 'Data',
-    function($scope, ingredientService, Data) {
+app.controller('ingredientsController', ['$scope', 'searchService', 'Data',
+    function($scope, searchService, Data) {
 
         $scope.Data = Data;
         // function to search for ingredients 
@@ -10,7 +10,7 @@ app.controller('ingredientsController', ['$scope', 'ingredientService', 'Data',
             var query = $scope.query;
             console.log(query);
             if (query) {
-                ingredientService.search(query)
+                searchService.search_ingredient(query)
                     .then(function(response) {
                         $scope.details = response; //model for storing response from API                
                         console.log($scope.details);

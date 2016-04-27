@@ -94,7 +94,7 @@
                         <div class="card-content black-text">
                             <form>
                                 <textarea class="form-control" id="searchbox"
-                                ng-model="query_paln" placeholder=
+                                ng-model="query_plan" placeholder=
                                 "Search Plans"></textarea> <button class=
                                 "fa fa-search search-plan" ng-click=
                                 "search_plan()" type="submit"></button>
@@ -108,7 +108,7 @@
 
             <div class="row">
                 <div class="col s12 m6" ng-repeat=
-                "plans in planArray | limitTo:0">
+                "plan in plans | limitTo:4">
                     <div class="card white">
                         <div class="card-content black-text">
                             <div class="row">
@@ -120,12 +120,12 @@
 
                                 <div class="col s10">
                                     <h5 class="teal-text">
-                                    {{plans.heading}}</h5>
+                                    {{plan.name}}</h5>
                                 </div>
 
 
                                 <div class="col s12">
-                                    <p class="grey-text">{{ plans.subHeading
+                                    <p class="grey-text">{{ plan.goal
                                     }}</p>
                                 </div>
 
@@ -137,7 +137,7 @@
                                             <div class="row">
                                                 <div class="col s3">
                                                     <ul>
-                                                        <li>{{ plans.point1
+                                                        <li>{{ plan.duration
                                                         }}</li>
                                                     </ul>
                                                 </div>
@@ -148,7 +148,7 @@
                                             <div class="row">
                                                 <div class="col s3">
                                                     <ul>
-                                                        <li>{{ plans.point2
+                                                        <li>{{ plan.height
                                                         }}</li>
                                                     </ul>
                                                 </div>
@@ -160,7 +160,7 @@
                                         <li>
                                             <div class="row">
                                                 <div class="col s3">
-                                                    {{ plans.point3 }}
+                                                    {{ plan.weight }}
                                                 </div>
 
 

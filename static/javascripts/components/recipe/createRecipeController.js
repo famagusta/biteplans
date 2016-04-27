@@ -2,8 +2,8 @@
 
 app.controller('createRecipeController', ['$scope', 'AuthService',
     '$routeParams',
-    'ingredientService', '$location', 'recipeService',
-    function($scope, AuthService, $routeParams, ingredientService,
+    'searchService', '$location', 'recipeService',
+    function($scope, AuthService, $routeParams, searchService,
         $location,
         recipeService) {
 
@@ -38,7 +38,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.search = function() {
                         var query = $scope.query;
                         if (query) {
-                            ingredientService.search(query)
+                            searchService.search_ingredient(query)
                                 .then(
                                     function(response) {
                                         /* model for storing response from API */

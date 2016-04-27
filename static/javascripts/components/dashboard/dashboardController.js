@@ -1,7 +1,7 @@
 'use strict';
 app.controller('dashboardController', ['$scope', '$window', '$location',
-    'AuthService', 'ingredientService', 'Data',
-    function($scope, $window, $location, AuthService, ingredientService,
+    'AuthService', 'searchService', 'Data',
+    function($scope, $window, $location, AuthService, searchService,
         Data) {
 
         $scope.token = $window.localStorage.token;

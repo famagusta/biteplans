@@ -2,9 +2,9 @@
 'use strict';
 
 app.controller('createPlanController', ['$scope', '$window', 'AuthService',
-    '$routeParams', 'ingredientService', '$location', 'planService',
+    '$routeParams', 'searchService', '$location', 'planService',
     function($scope, $window, AuthService, $routeParams,
-        ingredientService, $location, planService) {
+        searchService, $location, planService) {
 
         /* CHECK AUTH STATUS - ONLY AUTHENTICATED USERS SHOULD
         BE ABLE TO CREATE A PLAN */
@@ -187,9 +187,10 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         };
 
                         //searches recipes or ingredients
+                        //only works for ingredients right now
                         $scope.searchPlan = function(query) {
                             if (query) {
-                                ingredientService.search(query)
+                                searchService.search_ingredient(query)
                                     .then(function(response) {
                                         $scope.details =
                                             response; //model for storing response from API 

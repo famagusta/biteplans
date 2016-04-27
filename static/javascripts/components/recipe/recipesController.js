@@ -1,13 +1,13 @@
 'use strict';
 
-app.controller('recipesController', ['$scope', 'ingredientService',
-    function($scope, ingredientService) {
+app.controller('recipesController', ['$scope', 'searchService',
+    function($scope, searchService) {
         $scope.selected = 0;
         $scope.query_recipe = '';
         $scope.search_recipe = function() {
             var query = $scope.query_recipe
             if (query) {
-                ingredientService.search_recipe(query)
+                searchService.search_recipe(query)
                     .then(function(response) {
                         $scope.recipeDetails = response;
                     }, function(error) {

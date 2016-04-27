@@ -1,8 +1,8 @@
 'use strict';
 
 app.controller('viewRecipeController', ['$scope', 'AuthService',
-    'ingredientService', '$location', 'recipeService', '$routeParams',
-    function($scope, AuthService, ingredientService, $location,
+    'searchService', '$location', 'recipeService', '$routeParams',
+    function($scope, AuthService, searchService, $location,
         recipeService, $routeParams) {
 
         $scope.recipe = {};
