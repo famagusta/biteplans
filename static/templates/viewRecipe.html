@@ -4,117 +4,118 @@
             <div class="card white">
                 <div class="card-content black-text">
                     <div class="row">
-                            <div class="row">
-                                <div class="col s12 m6">
-                                    <p class="ing-text" style="text-transform:uppercase">
-                                        Name of Recipe :
-                                    </p>
-                                </div>
-                                <div class="col s12 m6">
-                                    <p class="meal-text" style="text-transform:uppercase">
-                                        {{recipe.name}}
-                                    </p>
-                                </div>
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <p class="ing-text" style=
+                                "text-transform:uppercase">Name of Recipe :</p>
                             </div>
 
 
-                            <div class="row">
-                                <div class="col s12 m6">
-                                    <p class="ing-text" style="text-transform:uppercase">
-                                        Description :
-                                    </p>
-                                </div>
-                                <div class="col s12 m6">
-                                    <p class="meal-text" style="text-transform:uppercase">
-                                        {{recipe.description}}
-                                    </p>
-                                </div>
+                            <div class="col s12 m6">
+                                <p class="meal-text" style=
+                                "text-transform:uppercase">{{recipe.name}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <p class="ing-text" style=
+                                "text-transform:uppercase">Description :</p>
                             </div>
 
 
-                            <div class="row">
-                                <div class="col s12 m6">
-                                    <p class="ing-text" style="text-transform:uppercase">
-                                        Serving (No of people)
-                                    </p>
-                                </div>
-                                <div class="col s12 m6">
-                                    <p class="meal-text" style="text-transform:uppercase">
-                                        {{recipe.servings}}
-                                    </p>
-                                </div>
+                            <div class="col s12 m6">
+                                <p class="meal-text" style=
+                                "text-transform:uppercase">
+                                {{recipe.description}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <p class="ing-text" style=
+                                "text-transform:uppercase">Serving (No of
+                                people)</p>
                             </div>
 
 
-                            <div class="row">
-                                <div class="col s12 m6">
-                                    <p class="ing-text" style="text-transform:uppercase">
-                                        Prep Time
-                                    </p>
-                                </div>
-                                <div class="col s12 m6">
-                                    <p class="meal-text" style="text-transform:uppercase">
-                                        {{recipe.prep_time}}
-                                    </p>
-                                </div>
+                            <div class="col s12 m6">
+                                <p class="meal-text" style=
+                                "text-transform:uppercase">
+                                {{recipe.servings}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <p class="ing-text" style=
+                                "text-transform:uppercase">Prep Time</p>
                             </div>
 
 
-                            <div class="row">
-                                <div class="col s12 m6">
-                                    <p class="ing-text" style="text-transform:uppercase">
-                                        Cook Time
-                                    </p>
-                                </div>
-                                <div class="col s12 m6">
-                                    <p class="meal-text" style="text-transform:uppercase">
-                                        {{recipe.cook_time}}
-                                    </p>
-                                </div>
+                            <div class="col s12 m6">
+                                <p class="meal-text" style=
+                                "text-transform:uppercase">
+                                {{recipe.prep_time}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col s12 m6">
+                                <p class="ing-text" style=
+                                "text-transform:uppercase">Cook Time</p>
                             </div>
 
 
-                            <div class="row" 
-                                 ng-repeat="ingredient in recipe.recipeIngredients">
-                                <div class="col s4">
-                                    <p class="meal-text">
-                                    {{ingredient.ingredient.name}}
-                                    </p>
-                                </div>
-                                <div class="col m1">
-                                    <p class="meal-text">
-                                        {{ingredient.quantity}}
-                                    </p> 
-                                </div>
-                                 <div class="col m1">
-                                    <p class="meal-text">
-                                        {{ingredient.measure.description}}
-                                    </p> 
-                                </div>
+                            <div class="col s12 m6">
+                                <p class="meal-text" style=
+                                "text-transform:uppercase">
+                                {{recipe.cook_time}}</p>
                             </div>
-                            <!-- STEPS TO CREATE RECIPES -->
+                        </div>
 
 
-                            <div class="row">
-                                <div class="col s4">
-                                    <h5 class="recipe-subheading">
-                                    Directions</h5>
-                                </div>
+                        <div class="row" ng-repeat=
+                        "ingredient in recipe.recipeIngredients">
+                            <div class="col s4">
+                                <p class="meal-text">
+                                {{ingredient.ingredient.name}}</p>
                             </div>
 
 
-                            <div class="row" ng-repeat=
-                            "direction in parsed_directions">
-                                <div class="input-field col s12">
-                                    <p class="meal-text">
-                                        {{direction}}
-                                    </p>
-                                </div>
+                            <div class="col m1">
+                                <p class="meal-text">
+                                {{ingredient.quantity}}</p>
                             </div>
-                            <br>
-                            <!-- TIME TAKEN TO CREATE RECIPES -->
 
 
+                            <div class="col m1">
+                                <p class="meal-text">
+                                {{ingredient.measure.description}}</p>
+                            </div>
+                        </div>
+                        <!-- STEPS TO CREATE RECIPES -->
+
+
+                        <div class="row">
+                            <div class="col s4">
+                                <h5 class="recipe-subheading">Directions</h5>
+                            </div>
+                        </div>
+
+
+                        <div class="row" ng-repeat=
+                        "direction in parsed_directions">
+                            <div class="input-field col s12">
+                                <p class="meal-text">{{direction}}</p>
+                            </div>
+                        </div>
+                        <br>
+                        <!-- TIME TAKEN TO CREATE RECIPES -->
                     </div>
                 </div>
             </div>
@@ -184,9 +185,8 @@
             </div>
         </div>
     </div>
-    
-    
     <!-- CREATE RECIPE MODAL -->
+
 
     <div class="modal" id="create-recipe-modal">
         <a class=
@@ -232,8 +232,7 @@
 
 
                     <div class="col m6">
-                        <div class="nutsection" ng-if=
-                        "lastChecked">
+                        <div class="nutsection" ng-if="lastChecked">
                             <div class="row hline">
                                 <div class="col m3">
                                     <p class="a ahead servehead">Serving:</p>
@@ -290,8 +289,7 @@
 
 
                                 <div class="col m6">
-                                    <p class="a b">
-                                    {{lastChecked.fat_tot}}</p>
+                                    <p class="a b">{{lastChecked.fat_tot}}</p>
                                 </div>
                             </div>
 
@@ -329,8 +327,7 @@
 
 
                                 <div class="col m6">
-                                    <p class="a b">
-                                    {{lastChecked.water}}</p>
+                                    <p class="a b">{{lastChecked.water}}</p>
                                 </div>
                             </div>
                         </div>
@@ -356,15 +353,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="col m12 center">
-                    <a class="waves-effect waves-light btn btn-social largebtn"
-                    ng-click=
-                    "addContents();calculateTotalInfoForRecipes()">Add</a>
                 </div>
             </div>
         </div>

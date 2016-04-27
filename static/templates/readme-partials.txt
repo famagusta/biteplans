@@ -1,1 +1,0 @@
-this directory contains all the controller based templates for our angular view

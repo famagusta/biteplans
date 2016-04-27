@@ -1,67 +1,105 @@
 <div class="section" id="planPage">
-         <div class="row">
-             <div class="col s12 m3 hide-on-small-only" id="checklist">
-                 <div class="card white">
-                     <div class="card-content black-text">
-                         <form action="#" class="planform">  <!-- SEARCH INGREDIENTS CHECKLIST -->
-                             <div class="center-btn">
-                                 <p>
-                                     <input type="checkbox" class="filled-in" id="filled-in-box1" checked="checked" />
-                                     <label for="filled-in-box1">Vegetarian</label>
-                                 </p>
-                                 <p>
-                                     <input type="checkbox" class="filled-in" id="filled-in-box2" />
-                                     <label for="filled-in-box2">Non Vegetarian</label>
-                                 </p>
-                                 <p>
-                                     <input type="checkbox" class="filled-in" id="filled-in-box3" checked="checked" />
-                                     <label for="filled-in-box3">Dairy</label>
-                                 </p>
-                                 <p>
-                                     <input type="checkbox" class="filled-in" id="filled-in-box4" checked="checked" />
-                                 <label for="filled-in-box4">Non Dairy</label>
-                                 </p>
-                                 <p>
-                                     <input type="checkbox" class="filled-in" id="filled-in-box5" checked="checked" />
-                                     <label for="filled-in-box5">Protien Rich</label>
-                                 </p>
-                                 <p>
-                                     <input type="checkbox" class="filled-in" id="filled-in-box6" checked="checked" />
-                                     <label for="filled-in-box6">Fruits</label>
-                                 </p>
-                                 <p>
-                                     <input type="checkbox" class="filled-in" id="filled-in-box7" checked="checked" />
-                                     <label for="filled-in-box7">Vegetables</label>
-                                 </p>
-                                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                             </div>
-                         </form>
-                     </div>
-                 </div>
-             </div> <!-- END OF CHECKLIST -->
-             
-         <div class="col s12 m9 smallmid">
-             <div class="row">
-                 <div class="col s12 m12"> 
-                     <div class="card white" id="searchcard"> <!-- SEARCH-BOX -->
-                         <div class="card-content black-text">
-                             <form>
-                             <textarea id="searchbox" placeholder="Search people & places" ng-model="query" class="form-control"></textarea>
-                             <button class="fa fa-search search-ingredient" href="#" ng-click="search()" type="submit"></button>
-                             </form>
-                        </div> <!-- END OF SEARCH-BOX -->
-                     </div>
-                 </div>
-             </div>
-             
-             <div class="row" >
-                 <div class="col s12 m12">
-                     <div ng-include="'static/templates/searchIngredientsResults.html'"></div>
-                 </div>
-             </div>            
-             </div>
+    <div class="row">
+        <div class="col s12 m3 hide-on-small-only" id="checklist">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <form action="#" class="planform">
+                        <!-- SEARCH INGREDIENTS CHECKLIST -->
+
+
+                        <div class="center-btn">
+                            <p><input checked="checked" class="filled-in" id=
+                            "filled-in-box1" type="checkbox"> <label for=
+                            "filled-in-box1">Vegetarian</label></p>
+
+
+                            <p><input class="filled-in" id="filled-in-box2"
+                            type="checkbox"> <label for="filled-in-box2">Non
+                            Vegetarian</label></p>
+
+
+                            <p><input checked="checked" class="filled-in" id=
+                            "filled-in-box3" type="checkbox"> <label for=
+                            "filled-in-box3">Dairy</label></p>
+
+
+                            <p><input checked="checked" class="filled-in" id=
+                            "filled-in-box4" type="checkbox"> <label for=
+                            "filled-in-box4">Non Dairy</label></p>
+
+
+                            <p><input checked="checked" class="filled-in" id=
+                            "filled-in-box5" type="checkbox"> <label for=
+                            "filled-in-box5">Protien Rich</label></p>
+
+
+                            <p><input checked="checked" class="filled-in" id=
+                            "filled-in-box6" type="checkbox"> <label for=
+                            "filled-in-box6">Fruits</label></p>
+
+
+                            <p><input checked="checked" class="filled-in" id=
+                            "filled-in-box7" type="checkbox"> <label for=
+                            "filled-in-box7">Vegetables</label></p>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        </div>
+                    </form>
+                </div>
             </div>
-<!--
+        </div>
+        <!-- END OF CHECKLIST -->
+
+
+        <div class="col s12 m9 smallmid">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card white" id="searchcard">
+                        <!-- SEARCH-BOX -->
+
+
+                        <div class="card-content black-text">
+                            <form>
+                                <textarea class="form-control" id="searchbox"
+                                ng-model="query" placeholder=
+                                "Search people & places"></textarea>
+                                <button class="fa fa-search search-ingredient"
+                                href="#" ng-click="search()" type=
+                                "submit"></button>
+                            </form>
+                        </div>
+                        <!-- END OF SEARCH-BOX -->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col s12 m12">
+                    <div ng-include=
+                    "'static/templates/searchIngredientsResults.html'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
                  <div class="row">
                   <div class="col s12">
                     <div class="center-btn">
@@ -70,8 +108,7 @@
                   </div>
                 </div>
 -->
-             </div>            
-   
+</div>
 <script>
 $(document).ready(function() {
     $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key

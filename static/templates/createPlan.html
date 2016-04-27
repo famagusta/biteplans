@@ -1,176 +1,168 @@
-<section id="create-plan" class="full-length">
+<!--CREATE PLAN PAGE 1-->
+<section class="full-length" id="create-plan">
     <div id="planPage">
-        
         <div class="row">
             <div class="col s12 m12">
                 <div class="card white darken-1">
                     <div class="card-content grey-text">
                         <div class="row center">
                             <div class="col m3 push-m1 center shift-title">
-                                <a><img src="static/images/Number1.png"/>
-                                    <p>Enter Details</p>
-                                </a>
+                                <a><img src="static/images/Number1.png">
+                                <p>Enter Details</p></a>
                             </div>
-                            <div class="col m3 push-m1 center shift-title">
-                                <a ng-if="!createPlanView2"
-                                   ng-click="switchCreatePlanViews(2)">
-                                    <img src="static/images/Number2.png"/>
-                                    <p>Add Food</p>
-                                </a>
-                                <a
-                                   ng-if="!createPlanView1 && createPlanView2 && !createPlanView3">
-                                    <img src="static/images/Number2_red.png"/>
-                                    <p>Add Food</p>
-                                </a>
-                            </div>
-                            <div class="col m3 push-m1 center shift-title">
-                                <a ng-if="!createPlanView3"
-                                   ng-click="switchCreatePlanViews(3)">
-                                    <img src="static/images/Number3.png"/>
-                                    <p>Review</p>
-                                </a>
-                                <a ng-if="!createPlanView1 && !createPlanView2 && createPlanView3">
-                                    <img src="static/images/Number3_red.png"/>
-                                    <p>Review</p>
-                                </a>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-            </div>
-        </div>
-    
-        
-        <div class="row" id="create-form">
-            <div class="col s12 m12">
-                <div class="card white create_card">
-                    <div class="card-content grey-text">
-                            <form ng-submit="initialize_plan()">
-                                
-                                <div class="row">
-                                    <div class="input-field col s5 push-s1">
-                                        <label for="plan_name">Name of Plan</label>
-                                        <input id="plan_name" type="text" class="validate"
-                                               ng-model="plan.name" required/>
-                                    </div>
-                                    <div class="input-field col s12 m5 push-m1">
-                                        <input id="age" type="number" class="validate"
-                                               ng-model="plan.age"required/>
-                                        <label for="age">Age</label>
-                                        <span class="text-danger"
-                                              ng-if="!plan.age">{{errorArray[3]}}
-                                        </span>
 
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="input-field col s12 m5 push-m1">
-                                        <label for="duration">Duration</label>
-                                        <input id="duration" type="number" class="validate"
-                                               ng-model="plan.duration" min="1" max="52"
-                                               required/>
-                                    </div>
-                                    <div class="input-field s12 col m5 push-m1">
-                                        <input id="height" type="number"
-                                               class="form-control validate"
-                                               ng-model="plan.height" required>
-                                        <label for="height">Height (in cms)</label>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="input-field col s12 m5 push-m1">
-                                        <label for="goal">Goal in one line</label>
-                                        <input id="goal" type="text" class="validate"
-                                               ng-model="plan.goal">
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="input-field col s12 m5 push-m1">
-                                        <input id="weight" type="number"
-                                               class="form-control validate"
-                                               ng-model="plan.weight" required>
-                                        <label for="weight">Weight (in kgs)</label>
-                                    </div>
-                                    <div class="right s12 m5 push-m1" id="gender">
-                                        <div class="row">
-                                            <div class="col m3 s3">
-                                                <span class="push-m1">Gender</span>
-                                            </div>
-                                            <div class="col m3 s3">
-                                                <input id="test5"
-                                                       class="with-gap push-m2" name="group3"
-                                                       value="Male" type="radio"
-                                                       ng-model="plan.gender" checked />
-                                                <label for="test5">Male</label>
-                                                &nbsp;&nbsp;
-                                            </div>
-                                            <div class="col m3 s3 ">
-                                                <input id="test4" class="with-gap push-m2"
-                                                       name="group3" value="Female" 
-                                                       type="radio" ng-model="plan.gender" />
-                                                <label for="test4">Female</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col m3 push-m1 center shift-title">
+                                <a ng-click="switchCreatePlanViews(2)" ng-if=
+                                "!createPlanView2"><img src=
+                                "static/images/Number2.png">
+
+                                <p>Add Food</p></a> <a ng-if=
+                                "!createPlanView1 && createPlanView2 && !createPlanView3">
+                                <img src="static/images/Number2_red.png">
+                                <p>Add Food</p></a>
+                            </div>
+
+                            <div class="col m3 push-m1 center shift-title">
+                                <a ng-click="switchCreatePlanViews(3)" ng-if=
+                                "!createPlanView3"><img src=
+                                "static/images/Number3.png">
+                                <p>Review</p></a> <a ng-if=
+                                "!createPlanView1 && !createPlanView2 && createPlanView3">
+                                <img src="static/images/Number3_red.png">
+                                <p>Review</p></a>
+                            </div>
                             
-                                <div class="row">
-                                    <div class="input-field col s12 m9 offset-m1">
-                                        <textarea id="description"
-                                                  class="materialize-textarea"
-                                                  ng-model="plan.description">
-                                        </textarea>
-                                        <label for="description">Description</label>    
-                                    </div>   
-                                </div> 
-                                
-                                <div class="row">
-                                    <div class="col s12">
-                                        <div class="center-btn">
-                                            <button type="submit"
-                                                    class="waves-effect waves-light 
-                                                           btn">Next
-                                            </button>
-                                        </div>
-                                        <br><br>
-                                    </div>
-                                </div>
-
-                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    
+
+
+        <div class="row" id="create-form">
+            <div class="col s12 m12">
+                <div class="card white create_card">
+                    <div class="card-content grey-text">
+                        <form ng-submit="initialize_plan()">
+                            <div class="row">
+                                
+                                <div class="input-field col s5 push-s1">
+                                    <label for="plan_name">Name of Plan</label>
+                                    <input class="validate" id="plan_name"
+                                    ng-model="plan.name" type="text">
+                                </div>
+
+                                <div class="input-field col s12 m5 push-m1">
+                                    <input class="validate" id="age" ng-model=
+                                    "plan.age" type="number"> <label for=
+                                    "age">Age</label> <span class="text-danger"
+                                    ng-if="!plan.age">{{errorArray[3]}}</span>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m5 push-m1">
+                                    <label for="duration">Duration</label>
+                                    <input class="validate" id="duration" max=
+                                    "52" min="1" ng-model="plan.duration" type=
+                                    "number">
+                                </div>
+
+                                <div class="input-field s12 col m5 push-m1">
+                                    <input class="form-control validate" id=
+                                    "height" ng-model="plan.height" required=""
+                                    type="number"> <label for="height">Height
+                                    (in cms)</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m5 push-m1">
+                                    <label for="goal">Goal in one line</label>
+                                    <input class="validate" id="goal" ng-model=
+                                    "plan.goal" type="text">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m5 push-m1">
+                                    <input class="form-control validate" id=
+                                    "weight" ng-model="plan.weight" required=""
+                                    type="number"> <label for="weight">Weight
+                                    (in kgs)</label>
+                                </div>
+
+                                <div class="right s12 m5 push-m1" id="gender">
+                                    <div class="row">
+                                        <div class="col m3 s3">
+                                            <span class="push-m1">Gender</span>
+                                        </div>
+
+                                        <div class="col m3 s3">
+                                            <input checked class=
+                                            "with-gap push-m2" id="test5" name=
+                                            "group3" ng-model="plan.gender"
+                                            type="radio" value="Male">
+                                            <label for="test5">Male</label>
+                                            &nbsp;&nbsp;
+                                        </div>
+
+                                        <div class="col m3 s3">
+                                            <input class="with-gap push-m2" id=
+                                            "test4" name="group3" ng-model=
+                                            "plan.gender" type="radio" value=
+                                            "Female"> <label for=
+                                            "test4">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m9 offset-m1">
+                                    <textarea class="materialize-textarea" id=
+                                    "description" ng-model=
+                                    "plan.description"></textarea> <label for=
+                                    "description">Description</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12">
+                                    <div class="center-btn">
+                                        <button class=
+                                        "waves-effect waves-light btn" type=
+                                        "submit">Next</button>
+                                    </div>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-            
-    <!-- CREATE PLAN -PAGE 2-->
     
-
-
-<!-- CREATE PLAN- PAGE 3 -->
-
-          
-
-
-<script>
-$(document).ready(function(){
+    <script>
+    $(document).ready(function(){
      $('label').addClass('active');
-  $('#description').trigger('autoresize');
-    
-//     $('input').blur(function() {
-//
-//    // check if the input has any value (if we've typed into it)
-//    if ($(this).val())
-//      $(this).addClass('used');
-//    else
-//      $(this).removeClass('used');
-//  });
+    $('#description').trigger('autoresize');
 
-  });
-    
+    //     $('input').blur(function() {
+    //
+    //    // check if the input has any value (if we've typed into it)
+    //    if ($(this).val())
+    //      $(this).addClass('used');
+    //    else
+    //      $(this).removeClass('used');
+    //  });
+
+    });
+
         
-</script>
+    </script>
+</section>

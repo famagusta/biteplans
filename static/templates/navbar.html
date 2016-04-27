@@ -1,54 +1,60 @@
-<!-- NAVBAR -->
-<div ng-controller="navbarController" class="ng-cloak" ng-cloak>
-<!--
+<div class="ng-cloak" ng-cloak="" ng-controller="navbarController">
+    <!--
     <ul id="dropdown1" class="dropdown-content">
         <li><a href="/dashboard" class="cyan-text">Dashboard</a></li>
         <li><a ng-click="logout()" class="cyan-text">Logout</a></li>
     </ul>
 -->
-<nav role="navigation" class="navbar" >
-    <div class="nav-wrapper">
-        <a ng-class='{"inactive":toggle==0}' ng-click='toggle=0' id="logo-container" href="/" class="brand-logo">
-            <img class="responsive-img small" id="small_logo" src="static/images/Logo-new.png">
-        </a>
-        
-        <ul id="main_menu" class="right hide-on-med-and-down">
-            <li ng-class='{"active":toggle==1}' ng-click='toggle=1'>
-                <a href="/plans">Plans</a>
-            </li>            
-            <li ng-class='{"active":toggle==2}' ng-click='toggle=2'>
-                <a href="/ingredients">Ingredients</a>
-            </li> 
-            <li ng-class='{"active":toggle==3}' ng-click='toggle=3'>
-                <a href="/recipes">Recipes</a>
-            </li> 
-             <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
-                 <a href="#">Articles</a>
-            </li>
-            <li>
-                <a  href="#modal1" ng-click="openModal()" ng-show="!isLoggedIn">Log in </a> 
-<!--
+
+
+    <nav class="navbar" role="navigation">
+        <div class="nav-wrapper">
+            <a class="brand-logo" href="/" id="logo-container" ng-class=
+            '{"inactive":toggle==0}' ng-click='toggle=0'><img class=
+            "responsive-img small" id="small_logo" src=
+            "static/images/Logo-new.png"></a>
+
+            <ul class="right hide-on-med-and-down" id="main_menu">
+                <li ng-class='{"active":toggle==1}' ng-click='toggle=1'>
+                    <a href="/plans">Plans</a>
+                </li>
+
+
+                <li ng-class='{"active":toggle==2}' ng-click='toggle=2'>
+                    <a href="/ingredients">Ingredients</a>
+                </li>
+
+
+                <li ng-class='{"active":toggle==3}' ng-click='toggle=3'>
+                    <a href="/recipes">Recipes</a>
+                </li>
+
+
+                <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
+                    <a href="#">Articles</a>
+                </li>
+
+
+                <li>
+                    <a href="#modal1" ng-click="openModal()" ng-show=
+                    "!isLoggedIn">Log in</a> <!--
             </li>
 
              <li ng-cloak id="log_out" ng-if="isLoggedIn">
 -->
-                <a ng-click="logout()"   ng-show="isLoggedIn">Log out</a> 
-<!--
+                     <a ng-click="logout()" ng-show="isLoggedIn">Log out</a> 
+                    <!--
             </li>
              <li ng-if="isLoggedIn" class="img_li">
 -->
-<!--            <a ng-cloak href="/dashboard" ng-if="isLoggedIn" class="img_li"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a> -->
-            </li>
-            
-            
-<!--
+                    <!--            <a ng-cloak href="/dashboard" ng-if="isLoggedIn" class="img_li"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a> -->
+                </li>
+                <!--
             <button ng-click="logout()" class="dropdown-button" data-activates="dropdown1">
                     <i class="material-icons">arrow_drop_down</i>
                 </button>
 -->
-
-            
-<!--
+                <!--
             <li ng-if="isLoggedIn">
                 <a ng-if="!isLoggedIn" ng-click="openModal()" href="#modal1">Login</a>
 
@@ -62,260 +68,355 @@
                 </ul>
             </li>
 -->
-
-            <!--function to open modal openModal()-->
-<!--
+                <!--function to open modal openModal()-->
+                <!--
             <li class="ng-cloak" ng-cloak>
                 <a class="ng-cloak" ng-cloak href="#modal1" ng-class="{'hidden':isLoggedIn}" ng-click="openModal()" ng-if="!isLoggedIn">Log in</a>
                 <a class="ng-cloak" ng-cloak ng-if="isLoggedIn" ng-class="{'hidden':!isLoggedIn}" ng-click="logout()"  class="cyan-text"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a>
             </li>
             <li><a ng-click="showExtraFunctionList=!showExtraFunctionList"><i class="material-icons cyan-text">expand_more</i></a>
 -->
-<!--
+                <!--
             <ul>
                 <a>Dashboard</a>
                 <a>Logout</a>
                 </ul>
 -->
-            
-<!--
+                <!--
         <div id="extra_sliding_menu" ng-show="showExtraFunctionList" ng-if="isLoggedIn">
                 <a class="cyan-text" href="/dashboard">Dashboard</a>
                         <a class="cyan-text" ng-click="logout()">Logout</a>
             </div>
 -->
-        
-        <!-- MOBILE VIEW NAVIGATION -->
-        <!--Mobile View-->
-        <ul id="nav-mobile" class="side-nav">
-            <li><a href="/plans" class="cyan-text">Plans</a></li>
-            <li><a href="/ingredients" class="cyan-text">Ingredients</a></li>
-            <li><a href="/recipes" class="cyan-text">Recipes</a></li>
-            <li><a href="#" class="cyan-text">Articles</a></li>
-            <!--function to open modal openModal()-->
-            <li>
-                <a href="#modal1" ng-click="openModal()" ng-if="!isLoggedIn" class="cyan-text">Log in</a>
-                <a ng-click="logout()" ng-if="isLoggedIn" class="cyan-text">Log out</a>
-            </li> 
-          </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse" id="loginModal">
-            <i class="material-icons">menu</i>
-        </a>
-    </div>
-</nav>
-<!-- LOGIN & SIGNUP MODAL -->
+                <!-- MOBILE VIEW NAVIGATION -->
+                <!--Mobile View-->
 
-<div id="modal1" class="modal col s12 m6">
-    <a class=" modal-action modal-close waves-effect waves-green btn-flat right">X</a> 
-    <div class="modal-content">
+
+                <li style="list-style: none; display: inline">
+                    <ul class="side-nav" id="nav-mobile">
+                        <li>
+                            <a class="cyan-text" href="/plans">Plans</a>
+                        </li>
+
+
+                        <li>
+                            <a class="cyan-text" href=
+                            "/ingredients">Ingredients</a>
+                        </li>
+
+
+                        <li>
+                            <a class="cyan-text" href="/recipes">Recipes</a>
+                        </li>
+
+
+                        <li>
+                            <a class="cyan-text" href="#">Articles</a>
+                        </li>
+                        <!--function to open modal openModal()-->
+
+
+                        <li>
+                            <a class="cyan-text" href="#modal1" ng-click=
+                            "openModal()" ng-if="!isLoggedIn">Log in</a>
+                            <a class="cyan-text" ng-click="logout()" ng-if=
+                            "isLoggedIn">Log out</a>
+                        </li>
+                    </ul>
+                    <a class="button-collapse" data-activates="nav-mobile"
+                    href="#" id="loginModal"><i class=
+                    "material-icons">menu</i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- LOGIN & SIGNUP MODAL -->
+
+
+    <div class="modal col s12 m6" id="modal1">
+        <a class=
+        " modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+
+        <div class="modal-content">
             <div ng-if='modal1 && !modal2 && !modal3 && !modal4'>
-            <h5 class="center">Welcome</h5>
-            <br>
-            
-            <!-- LOGIN VIA SOCIAL MEDIA -->
-            
-            <div class="center-btn">
-                <a class="waves-effect waves-light btn largebtn" ng-click="Auth('facebook')">Log In with FACEBOOK</a>
+                <h5 class="center">Welcome</h5>
                 <br>
-            </div>
-                <br>
-            <div class="center-btn">
-                <a class="waves-effect waves-light btn largebtn" id="googlebtn" ng-click="Auth('google')">Log In with GOOGLE</a>
-            </div>
+                <!-- LOGIN VIA SOCIAL MEDIA -->
 
-            <p class="center-align">OR</p>
-        
-            <div class="row"> <!-- LOGIN FOR EMPTY FIELDS -->
-                <div class="col s12">
-                    <p class="text-danger" ng-show="loginError">{{ loginError }}</p>
-                </div>
-            </div>
-    
-            <form name="myForm">
-                <div class="input-field"> <!-- USERNAME -->
-                    <input id="first_name" type="email" class="form-control validate" ng-model="login.username" >
-                    <label for="first_name">Email</label>
-                </div>
-                
-                <div class="input-field"> <!-- PASSWORD-->
-                    <input id="password" type="password" class="form-control validate" ng-model="login.password" >
-                    <label for="first_name">Password</label>
-                </div>
-                
-                <div class="center-btn"> <!-- SUBMIT BUTTON -->
-                    <a type="submit" ng-click="login()"class="waves-effect waves-light btn btn-default largebtn">Login</a>
+
+                <div class="center-btn">
+                    <a class="waves-effect waves-light btn largebtn" ng-click=
+                    "Auth('facebook')">Log In with FACEBOOK</a><br>
                 </div>
                 <br>
-                <a href="#" ng-click="switchToModal(4)" class="cyan-text">Forgot your password or username?</a>
-            </form>
-          <p class="cyan-text">Don't have an account? <a ng-click="switchToModal(2)" class="cyan-text">Sign Up Now</a></p>
-
-        </div>   <!-- END OF LOGIN CONTENT -->
 
 
-    <!-- SIGNUP CONTENT -->
-    
-    <div ng-if='!modal1 && modal2 && !modal3 && !modal4'>
-        <h5 class="center-align">Welcome</h5>
-            <br>
-        <div class="center-btn">
-            <a class="waves-effect waves-light btn largebtn" ng-click="Auth('facebook')">Sign Up with FACEBOOK</a>
+                <div class="center-btn">
+                    <a class="waves-effect waves-light btn largebtn" id=
+                    "googlebtn" ng-click="Auth('google')">Log In with
+                    GOOGLE</a>
+                </div>
+
+
+                <p class="center-align">OR</p>
+
+
+                <div class="row">
+                    <!-- LOGIN FOR EMPTY FIELDS -->
+
+
+                    <div class="col s12">
+                        <p class="text-danger" ng-show="loginError">{{
+                        loginError }}</p>
+                    </div>
+                </div>
+
+
+                <form id="myForm" name="myForm">
+                    <div class="input-field">
+                        <!-- USERNAME -->
+                        <input class="form-control validate" id="first_name"
+                        ng-model="login.username" type="email"> <label for=
+                        "first_name">Email</label>
+                    </div>
+
+
+                    <div class="input-field">
+                        <!-- PASSWORD-->
+                        <input class="form-control validate" id="password"
+                        ng-model="login.password" type="password"> <label for=
+                        "first_name">Password</label>
+                    </div>
+
+
+                    <div class="center-btn">
+                        <!-- SUBMIT BUTTON -->
+                        <a class=
+                        "waves-effect waves-light btn btn-default largebtn"
+                        ng-click="login()" type="submit">Login</a>
+                    </div>
+                    <br>
+                    <a class="cyan-text" href="#" ng-click=
+                    "switchToModal(4)">Forgot your password or username?</a>
+                </form>
+
+
+                <p class="cyan-text">Don't have an account? <a class=
+                "cyan-text" ng-click="switchToModal(2)">Sign Up Now</a></p>
+            </div>
+            <!-- END OF LOGIN CONTENT -->
+            <!-- SIGNUP CONTENT -->
+
+
+            <div ng-if='!modal1 && modal2 && !modal3 && !modal4'>
+                <h5 class="center-align">Welcome</h5>
+                <br>
+
+
+                <div class="center-btn">
+                    <a class="waves-effect waves-light btn largebtn" ng-click=
+                    "Auth('facebook')">Sign Up with FACEBOOK</a>
+                </div>
+                <br>
+
+
+                <div class="center-btn">
+                    <a class="waves-effect waves-light btn largebtn" id=
+                    "googlebtn" ng-click="Auth('google')">Sign Up with
+                    GOOGLE</a>
+                </div>
+
+
+                <p class="center-align">OR</p>
+
+
+                <form id="myForm" name="myForm" ng-submit="register()">
+                    <div class="row">
+                        <!-- WARNINGS FOR EMPTY FIELD-->
+
+
+                        <div class="col s12">
+                            <p class="text-danger" ng-show="registerError">{{
+                            registerError }}</p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <!-- WARNINGS FOR EMPTY FIELD-->
+
+
+                        <div class="col s12">
+                            <p class="text-success" ng-show="registerSuccess">
+                            {{ registerSuccess }}</p>
+                        </div>
+                    </div>
+                    <!-- USERNAME -->
+
+
+                    <div class="row">
+                        <div class="input-field col m12">
+                            <input class="validate" id="input_name" length=
+                            "100" ng-model="signup.username" required="" type=
+                            "text"> <label data-error="Atmost 10 characters"
+                            for="input_name">Username</label>
+                        </div>
+                    </div>
+                    <!-- EMAIL -->
+
+
+                    <div class="row">
+                        <div class="input-field col m12">
+                            <input class="form-control validate" id="email"
+                            name="emailId" ng-model="signup.email" required=""
+                            type="email"> <label data-error="Invalid Email Id"
+                            for="email">Email</label>
+                        </div>
+                    </div>
+                    <!-- PASSWORD -->
+
+
+                    <div class="row">
+                        <div class="input-field col m12">
+                            <label for="registerPassword">Password</label>
+                            <input id="registerPassword" name=
+                            "registerPassword" ng-maxlength="20" ng-minlength=
+                            "8" ng-model="signup.registerPassword" required=""
+                            type="password"><br>
+                        </div>
+                    </div>
+                    <!-- CONFIRM PASSWORD -->
+
+
+                    <div class="row">
+                        <div class="input-field col m12">
+                            <label for="confirmPassword" ng-if=
+                            "signup.registerPassword == signup.confirmPassword">
+                            Confirm Password</label> <input id=
+                            "confirmPassword" name="confirmPassword" ng-class=
+                            "{invalid:signup.registerPassword != signup.confirmPassword}"
+                            ng-model="signup.confirmPassword" required="" type=
+                            "password"> <label class="active" data-error=
+                            "Passwords do not match" for="confirmPassword"
+                            ng-if=
+                            "signup.registerPassword != signup.confirmPassword">
+                            Confirm Password</label><br>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <!-- CONTINUE BUTTON -->
+
+
+                    <div class="center-btn">
+                        <button class="btn btn-default largebtn" id=
+                        "continueToForm2" type="submit">SignUp</button>
+                    </div>
+                </form>
+            </div>
+            <!-- FORGOT PASSWORD CONTENT -->
+
+
+            <div ng-if="!modal1 && !modal2 && !modal3 && modal4">
+                <h5 class="center">Forgot your password</h5>
+                <br>
+                <br>
+
+
+                <p>Enter your email or username below and we will send you a
+                link to reset your password</p>
+                <span class="teal">{{Message}}</span>
+
+                <form id="myForm" name="myForm" ng-submit="resetPassword()">
+                    <div class="row">
+                        <div class="input-field col m12">
+                            <input class="form-control validate" id="email"
+                            name="emailId" ng-model="forgot.email" required=""
+                            type="email"> <label data-error="Invalid Email Id"
+                            for="email">Email</label>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <!-- CONTINUE BUTTON -->
+
+
+                    <div class="center-btn">
+                        <button class="btn btn-default largebtn" id=
+                        "continueToForm2" type="submit">ResetPassword</button>
+                    </div>
+                </form>
+            </div>
+            <!-- ENTER OTHER DETAILS OF THE USER -->
+
+
+            <div ng-if='!modal1 && !modal2 && modal3 && !modal4'>
+                <h5 class="center">Tell us about yourself</h5>
+                <br>
+
+
+                <p class="text-danger" ng-show="registerError">{{ registerError
+                }}</p>
+
+
+                <form ng-submit="register()">
+                    <!-- WEIGHT -->
+
+
+                    <div class="input-field">
+                        <input class="form-control validate" id="weight" min=
+                        "1" ng-model="registerWeight" required="" type=
+                        "number"> <label for="weight">Current Weight (in
+                        kgs)</label>
+                    </div>
+                    <!-- HEIGHT -->
+
+
+                    <div class="input-field">
+                        <label for="height">Height (in cms)</label>
+                        <input class="form-control validate" data-error="Error"
+                        id="height" ng-model="registerHeight" required="" type=
+                        "number">
+                    </div>
+                    <!-- GOAL WEIGHT -->
+
+
+                    <div class="input-field">
+                        <input class="form-control validate" id="weight"
+                        ng-model="registerWeight" required="" type="number">
+                        <label for="weight">Goal Weight (in kgs)</label>
+                    </div>
+                    <!-- GENDER -->
+
+
+                    <div class="input-field">
+                        <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input checked class="with-gap" id="test5" name=
+                        "group3" type="radio"> <label for=
+                        "test5">Male</label>&nbsp;&nbsp; <input class=
+                        "with-gap" id="test4" name="group3" type="radio">
+                        <label for="test4">Female</label>
+                    </div>
+                    <!-- DATE OF BIRTH -->
+
+
+                    <div class="input-field">
+                        <input class="datepicker" id="dob" required="" type=
+                        "date">
+                    </div>
+                    <!-- SAVE AND CONTINUE BUTTON -->
+
+
+                    <div class="center-btn">
+                        <a class="modal-trigger" href=
+                        "/dashboard"><input class="btn btn-default" type=
+                        "submit" value="Save and Continue"></a>
+                    </div>
+                </form>
+            </div>
         </div>
-            <br>
-        <div class="center-btn">
-            <a class="waves-effect waves-light btn largebtn" id="googlebtn" ng-click="Auth('google')">Sign Up with GOOGLE</a>
-        </div>
-        
-        <p class="center-align">OR</p>
-
-        <form ng-submit="register()" name="myForm">
-            <div class="row"> <!-- WARNINGS FOR EMPTY FIELD-->
-                <div class="col s12">
-                 <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
-                </div>
-            </div>
-            <div class="row"> <!-- WARNINGS FOR EMPTY FIELD-->
-                <div class="col s12">
-                 <p class="text-success" ng-show="registerSuccess">{{ registerSuccess }}</p> 
-                </div>
-            </div>
-            
-            <!-- USERNAME -->
-            
-             <div class="row">
-              <div class="input-field col m12">
-                <input class="validate" id="input_name" type="text" ng-model="signup.username" length="100" required />
-                <label for="input_name" data-error="Atmost 10 characters">Username</label>
-              </div>
-            </div>
-            
-            
-            <!-- EMAIL -->
-            
-            <div class="row">
-                <div class="input-field col m12">
-                  <input name="emailId" id="email" type="email" class="form-control validate" ng-model="signup.email" required /> 
-                <label for="email" data-error="Invalid Email Id">Email</label>
-                </div>
-            </div>
-            
-            <!-- PASSWORD -->
-            
-             <div class="row">
-              <div class="input-field col m12">
-                <label for="registerPassword">Password</label>
-                <input type="password" id="registerPassword" name="registerPassword" ng-model="signup.registerPassword" ng-minlength="8" ng-maxlength="20" required  />
-                <br>
-              </div>
-            </div>
-                
-            <!-- CONFIRM PASSWORD -->
-               
-             <div class="row">
-                 <div class="input-field col m12">
-                 <label for="confirmPassword" ng-if="signup.registerPassword == signup.confirmPassword">Confirm Password</label>
-
-                <input type="password" ng-class="{invalid:signup.registerPassword != signup.confirmPassword}" id="confirmPassword" name="confirmPassword" ng-model="signup.confirmPassword" required  />
-                <label for="confirmPassword" ng-if="signup.registerPassword != signup.confirmPassword" data-error="Passwords do not match" class="active">Confirm Password</label>
-                <br>
-                </div>
-            </div>
-
-            <br><br>
-            
-            <!-- CONTINUE BUTTON -->
-            
-            <div class="center-btn">
-                <button id="continueToForm2" type="submit" class="btn btn-default largebtn" >SignUp</button>
-            </div>
-        </form>
     </div>
-        
-          
-        <!-- FORGOT PASSWORD CONTENT -->
-
-       
-        <div ng-if="!modal1 && !modal2 && !modal3 && modal4">
-            <h5 class="center">Forgot your password</h5>
-            <br><br>
-            <p>Enter your email or username below and we will send you a link to reset your password</p>
-            <span class="teal">{{Message}}</span>
-            <form ng-submit="resetPassword()" name="myForm"> 
-           <div class="row">
-              <div class="input-field col m12">
-                 <input name="emailId" id="email" type="email" class="form-control validate" ng-model="forgot.email" required /> 
-                <label for="email" data-error="Invalid Email Id">Email</label>
-              </div>
-            </div>
-                 
-                <br>
-
-            <br>
-            
-            <!-- CONTINUE BUTTON -->
-            
-            <div class="center-btn">
-                <button id="continueToForm2" type="submit" class="btn btn-default largebtn" >ResetPassword</button>
-            </div>
-        </form>
-        </div>
-        
-
-        <!-- ENTER OTHER DETAILS OF THE USER -->
-    
-    <div ng-if='!modal1 && !modal2 && modal3 && !modal4'>
-      <h5 class="center">Tell us about yourself</h5>
-        <br>
-        <p class="text-danger" ng-show="registerError">{{ registerError }}</p> 
-        <form ng-submit="register()">
-            
-            <!-- WEIGHT -->
-            
-            <div class="input-field">
-                 <input id="weight" type="number" class="form-control validate" ng-model="registerWeight" min="1" required>
-                 <label for="weight">Current Weight (in kgs)</label>
-            </div>
-            
-            <!-- HEIGHT -->
-            
-            <div class="input-field">
-              <label for="height">Height (in cms)</label>
-              <input id="height" type="number" class="form-control validate" ng-model="registerHeight" data-error="Error" required>
-            </div>
-            
-            <!-- GOAL WEIGHT -->
-            
-            <div class="input-field">
-              <input id="weight" type="number" class="form-control validate" ng-model="registerWeight" required>
-              <label for="weight">Goal Weight (in kgs)</label>
-            </div>
-            
-            <!-- GENDER -->
-            
-            <div class="input-field"><label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id="test5" class="with-gap" name="group3" type="radio" checked />
-                <label for="test5">Male</label>&nbsp;&nbsp;
-                <input id="test4" class="with-gap" name="group3" type="radio" />
-                <label for="test4">Female</label>
-            </div>
-            
-            <!-- DATE OF BIRTH -->
-            
-            <div class="input-field">
-                <input type="date" class="datepicker" id="dob" required>
-            </div>
-            
-            <!-- SAVE AND CONTINUE BUTTON -->
-            
-            <div class="center-btn">
-            <a class="modal-trigger" href="/dashboard"><input type="submit" class="btn btn-default" value="Save and Continue"></a>
-            </div>
-        </form>
-      </div>
-    </div>
- </div>
 </div>
-
 <script>
 $(document).ready(function() {
     $(".dropdown-button").dropdown();

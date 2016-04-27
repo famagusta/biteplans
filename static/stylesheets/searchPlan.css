@@ -37,6 +37,17 @@
     color: #000;
 }
 
+button.search-plan {
+   float: right;
+   margin-top: -31px;
+   border: none;
+   background: none;
+   color: #00bcd4;
+   z-index: 999;
+   position: relative;
+   font-size: 20px;
+   opacity: 87%;
+}
 
 /* SEARCH BOX STYLING */
 

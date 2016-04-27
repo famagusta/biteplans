@@ -68,9 +68,9 @@
 
                             <div class="row" ng-repeat=
                             "selectedIngredient in ingredientDisplay track by $index">
-                                <div class="col s4">
+                            <div class="col s4">
                                     <p class="meal-text">
-                                    {{nutrientValue[$index].name}}</p>
+                                    {{checklistIngredients[$index].name}}</p>
                                 </div>
 
 
@@ -86,7 +86,7 @@
                                     <select material-select="" ng-model=
                                     "ingredientDisplay[$index].measure"
                                     ng-options=
-                                    "unit.id as unit.description for unit in nutrientValue[$index].measure track by unit.id"
+                                    "unit.id as unit.description for unit in checklistIngredients[$index].measure track by unit.id"
                                     required="">
                                         </select>
                                 </div>
@@ -94,8 +94,8 @@
 
                                 <div class="select-delete-mat col s1 push-s1">
                                     <a ng-click=
-                                    "removeIngredient(value)"><i class="material-icons">
-                                    delete</i></a>
+                                    "removeIngredient(value)"><i class=
+                                    "material-icons">delete</i></a>
                                 </div>
                             </div>
 
@@ -103,7 +103,7 @@
                             <div class="row">
                                 <div class="col s12">
                                     <a class="cyan-text add-ing" href="#"
-                                    ng-click="openCreateRecipeModal()">Add
+                                    ng-click="addRecipeIngredModal()">Add
                                     Ingredients</a>
                                 </div>
                             </div>
@@ -287,18 +287,16 @@
     <div class="row">
         <div class="col s12">
             <div class="center-btn">
-                <a class="waves-effect waves-light btn largebtn" 
-                   ng-click='finalizeRecipeCreation()' ng-href="{{view_recipe}}">
-                    {{$routeParams.id}}Save</a>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a class="waves-effect waves-light btn largebtn" ng-click=
+                'finalizeRecipeCreation()'><!-- ng-href="{{view_recipe}}">
+                    {{$routeParams.id}}-->Save</a> &nbsp;&nbsp;&nbsp;&nbsp;
             </div>
         </div>
     </div>
-    
-    
-    <!-- CREATE RECIPE MODAL -->
+    <!-- ADD RECIPE INGREDIENTS MODAL -->
 
-    <div class="modal" id="create-recipe-modal">
+
+    <div class="modal" id="add-ingredients-modal">
         <a class=
         "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
 
@@ -331,7 +329,7 @@
                     <div class="col m6 create-modal-half1">
                         <div ng-repeat=
                         "detail in details | limitTo:7 track by $index">
-                            <p><input checklist-model="nutrientValue"
+                            <p><input checklist-model="checklistIngredients"
                             checklist-value="detail" class="filled-in" id=
                             "filled-in-box{{$index}}" type="checkbox">
                             <label class="ing-text highlight" for=
@@ -342,8 +340,7 @@
 
 
                     <div class="col m6">
-                        <div class="nutsection" ng-if=
-                        "lastChecked">
+                        <div class="nutsection" ng-if="lastChecked">
                             <div class="row hline">
                                 <div class="col m3">
                                     <p class="a ahead servehead">Serving:</p>
@@ -400,8 +397,7 @@
 
 
                                 <div class="col m6">
-                                    <p class="a b">
-                                    {{lastChecked.fat_tot}}</p>
+                                    <p class="a b">{{lastChecked.fat_tot}}</p>
                                 </div>
                             </div>
 
@@ -439,8 +435,7 @@
 
 
                                 <div class="col m6">
-                                    <p class="a b">
-                                    {{lastChecked.water}}</p>
+                                    <p class="a b">{{lastChecked.water}}</p>
                                 </div>
                             </div>
                         </div>
@@ -451,10 +446,12 @@
                         <br>
 
 
-                        <div class="row" ng-repeat="item in nutrientValue">
+                        <div class="row" ng-repeat=
+                        "item in checklistIngredients">
                             <div class="col m10 meal-list">
                                 <p class="ing-text meal-list" ng-if=
-                                "nutrientValue.length&gt;0">{{item.name}}</p>
+                                "checklistIngredients.length&gt;0">
+                                {{item.name}}</p>
                             </div>
 
 
@@ -462,7 +459,7 @@
                                 <a href="#" ng-click=
                                 "removeIngredient(item)"><i class=
                                 "material-icons meal-list right dustbin" ng-if=
-                                "nutrientValue.length&gt;0">delete</i></a>
+                                "checklistIngredients.length&gt;0">delete</i></a>
                             </div>
                         </div>
                     </div>

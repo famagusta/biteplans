@@ -1,148 +1,181 @@
-<!-- FRONT END VIEW OF THE INGREDIENTS SEARCH RESULT -->
-
 <div id="result-list">
-    
-<div ng-if="recipeDetails!=null && recipeDetails!=undefined &&  recipeDetails.length!=0">
+    <div ng-if=
+    "recipeDetails!=null && recipeDetails!=undefined && recipeDetails.length!=0">
     <div class="row">
-       <div class="col s12 m6" dir-paginate="recipe in recipeDetails | itemsPerPage: pageSize" current-page="currentPage">
-          <div class="card white big recipe-result-card" id="recipes-result-card">
-            <div class="card-content grey-text">
-                <div class="row">
-                    <div class="col s12">
-                        <h5 class="cyan-text center ingredient-title">{{recipe.name | addSpace}}</h5>
-                    </div>
-                </div>
-                <div ng-click="openDetailedInfo($index)">
-                    <div class="row">
-                        <div class="col s12 m12">
-                            <h6 class="nutri">Ingredients</h6>
+            <div class="col s12 m6" current-page="currentPage" dir-paginate=
+            "recipe in recipeDetails | itemsPerPage: pageSize">
+                <div class="card white big recipe-result-card" id=
+                "recipes-result-card">
+                    <div class="card-content grey-text">
+                        <div class="row">
+                            <div class="col s12">
+                                <h5 class="cyan-text center ingredient-title">
+                                {{recipe.name | addSpace}}</h5>
+                            </div>
                         </div>
-                    </div>
-                    <pre>
-                    <p class="recipe-card-info">{{recipe.ingredients | limitTo:50}}.....</p>
+
+
+                        <div ng-click="openDetailedInfo($index)">
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    <h6 class="nutri">Ingredients</h6>
+                                </div>
+                            </div>
+
+                            <pre>
+                    <br>{{recipe.ingredients | limitTo:50}}.....
                     </pre>
-                    <div class="row raise">
-                        <div class="col s12 m12">
-                            <h6 class="nutri">Description</h6>
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <h6 class="nutri">Description</h6>
+                                </div>
+                                <br>
+                            </div>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <p class="recipe-card-info">
+                                    {{recipe.description |
+                                    limitTo:50}}.....</p>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <h6 class="nutri">Source</h6>
+                                </div>
+                            </div>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <p class="recipe-card-info">{{recipe.url |
+                                    limitTo:50}}.....</p>
+                                </div>
+                            </div>
                         </div>
-                        <br>
                     </div>
-                    <div class="row raise">
-                        <div class="col s12 m12">
-                            <p class="recipe-card-info">{{recipe.description | limitTo:50}}.....</p>
-                        </div>
-                    </div>
-                        <br><br>
-                    <div class="row raise">
-                        <div class="col s12 m12">
-                            <h6 class="nutri">Source</h6>
-                        </div>
-                    </div>
-                    <div class="row raise">
-                        <div class="col s12 m12">
-                            <p class="recipe-card-info">{{recipe.url | limitTo:50}}.....</p>
-                        </div>
-                    </div>
+                    <span class="read-more right cyan-text" ng-click=
+                    "openReadMoreContent($index)">READ MORE</span>
                 </div>
             </div>
-                <span ng-click="openReadMoreContent($index)" class="read-more right cyan-text">READ MORE</span>
         </div>
-    </div>
-          </div>
-    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="static/bower_components/angularUtils-pagination/dirPagination.tpl.html" class="center cyan-text"></dir-pagination-controls>
-            
-            <!-- MODAL FOR COMPLETE INFORMATION OF RECIPE -->
+        <!-- MODAL FOR COMPLETE INFORMATION OF RECIPE -->
 
-            <div id="modal7" class="modal" >
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat right" ng-click="closeReadMoreContent()">X</a>
-                <div class="modal-content">
-                   <div class="row">
+
+        <div class="modal" id="modal7">
+            <a class=
+            " modal-action modal-close waves-effect waves-green btn-flat right"
+            href="#!" ng-click="closeReadMoreContent()">X</a>
+
+            <div class="modal-content">
+                <div class="row">
                     <div class="col s12">
-                        <h5 class="cyan-text center ingredient-title">{{recipeDetails[selected].name}}</h5>
+                        <h5 class="cyan-text center ingredient-title">
+                        {{recipeDetails[selected].name}}</h5>
                     </div>
                 </div>
-                
-              
+
+
                 <div class="row">
                     <div class="col s12 m12">
                         <h6 class="nutri">Ingredients</h6>
                     </div>
                 </div>
+
                 <pre>
-                <p class="recipe-card-info">{{recipeDetails[selected].ingredients}}</p>
+                <br>{{recipeDetails[selected].ingredients}}
                 </pre>
+
                 <div class="row raise">
                     <div class="col s12 m12">
                         <h6 class="nutri">Description</h6>
                     </div>
                     <br>
                 </div>
+
+
                 <div class="row raise">
                     <div class="col s12 m12">
-                        <p class="recipe-card-info">{{recipeDetails[selected].description}}</p>
+                        <p class="recipe-card-info">
+                        {{recipeDetails[selected].description}}</p>
                     </div>
                 </div>
-                    <br><br>
+                <br>
+                <br>
+
+
                 <div class="row raise">
                     <div class="col s12 m12">
                         <h6 class="nutri">Source</h6>
                     </div>
                 </div>
+
+
                 <div class="row raise">
                     <div class="col s12 m12">
-                        <p class="recipe-card-info">{{recipeDetails[selected].url}}</p>
+                        <p class="recipe-card-info">
+                        {{recipeDetails[selected].url}}</p>
                     </div>
                 </div>
             </div>
         </div>
-    
-        <div id="modal8" class="modal">
+
+
+        <div class="modal" id="modal8">
             <div class="modal-content">
-              <h4>Modal Header</h4>
-              <p>A bunch of text</p>
+                <h4>Modal Header</h4>
+
+
+                <p>A bunch of text</p>
             </div>
+
+
             <div class="modal-footer">
-              <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                <a class=
+                " modal-action modal-close waves-effect waves-green btn-flat"
+                href="#!">Agree</a>
             </div>
         </div>
-          
         <br>
-        
         <!-- PAGINATION-->
-    </div> 
+    </div>
 </div>
-
 <!-- When the user has not entered anything for search -->
+
+
 <div ng-if="recipeDetails==null || recipeDetails==undefined">
-  <div class="row">
+    <div class="row">
         <div class="col s12 m12">
-          <div class="card white">
-            <div class="card-content black-text center">
-              <p>Please enter recipe</p>
+            <div class="card white">
+                <div class="card-content black-text center">
+                    <p>Please enter recipe</p>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
-
 <!-- When the user has entered incorrect entry in search -->
-<div ng-if="recipeDetails.length==0">
-  <div class="row">
-        <div class="col s12 m12">
-          <div class="card white">
-            <div class="card-content black-text center">
-              <p>Sorry!! Nothing found</p>
-            </div>
-          </div>
-        </div>
-      </div>
-</div>
-</div>
 
-        <script>
-	$(document).ready(function () {
+
+<div ng-if="recipeDetails.length==0">
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="card white">
+                <div class="card-content black-text center">
+                    <p>Sorry!! Nothing found</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
           $('.modal-trigger').leanModal();  
 });
-</script>  
-        
-   
+</script>
