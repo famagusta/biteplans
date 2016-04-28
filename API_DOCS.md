@@ -1,32 +1,54 @@
-##API DOCS
-
-##Search
-1) url = /bitespace/search/
-
-	Note: This is subject to be changed whilst the development of the project to accomodate search for different models
-
-	/*GET*/:
-	/search/?query=term/
+API DOCS
 
 
-	/*POST*/:
-	request = {
+1)Search ingredients, recipes or plans
+    url = /bitespace/search/
+    x-www-form-urlencoded
 
-		query : ""
+    For Ingredients
+        /*POST*/:
+        request = {
+            query : query_term
+            type : ingredients
+        }
 
-	}
+        response = {
+            headers:'',
+            data:[array if object],
+            status:''	
+        }
 
-	response = {
-		headers:'',
-		data:[array if object],
-		status:''	
-	}
+    For Recipes
+    /*POST*/:
+        request = {
+            query : query_term
+            type : recipes
+        }
 
-	screenshot: searchss.png
+        response = {
+            headers:'',
+            data:[array if object],
+            status:''	
+        }
+        
+        
+    For Plans
+    /*POST*/:
+        request = {
+            query : query_term
+            type : plans
+        }
 
-##Manual Login(Not social)
-2) url = /authentication/api/v1/login/
+        response = {
+            headers:'',
+            data:[array if object],
+            status:''	
+        }
 
+2)Manual Login(Not social)
+    url = /authentication/api/v1/login/
+    x-www-form-urlencoded
+    
 	/*POST*/
 	request = {
 		email : email,
@@ -44,8 +66,14 @@ The format to do so is just add the following header to your request
 Authorization : JWT <token>
 
 
-##Manual registeration/signup
-3) url = /authentication/api/v1/register/
+3) Manual registeration/signup
+    API for Manual Registration of a user
+    
+    url = /authentication/api/v1/register/
+    (e.g. http://www.bitespacetest.com:8000/authentication/api/v1/register/)
+ 
+    x-www-form-urlencoded
+ 
 	/*POST*/
 		request = {
 			username: username,
@@ -60,7 +88,7 @@ Authorization : JWT <token>
 	 data: 'Account created'
 	}
 
-	screenshot: registerss.png
+	
 
 /* User is not authenticated at this point, instead is asked to confirm his account, so he/she has to click on activation mail sent to them*/
 
@@ -78,4 +106,65 @@ request{
 }
 
 
+6) To create a recipes
+    url = /biteplans/recipe/recipes/
+    x-www-form-urlencoded
+    
+    /*POST*/
+		request = {
+			name: reipce_name,
+			description : recipe_description
+            directions : recipe_directions,
+			servings : recipe_servings,
+            cook_time : cook_time,
+            prep_time : prep_time
+            
+		}
+        
+        headers 
+        Authorization : JTW <token>
+        
+7) To retrieve a recipe (by id)
+    url = /biteplans/recipe/recipes/{id}/
+    x-www-form-urlencoded
+    
+    no headers or body required
+    
+8) To create a plan
+   url = /biteplans/diet/dietplans/
+   x-www-form-urlencoded
+   
+   /*POST*/
+   request = {
+          name: plan_name,
+          goal: plan_goal,
+          description: plan_description,
+          duration: duration_weeks,
+          age: plan_age,
+          gender: plan_gender,
+          height: plan_height,
+          weight: plan_weight
+   }
+        
+        headers 
+        Authorization : JTW <token>
 
+9) To retrieve a plan (by id)
+    url = /biteplans/diet/dietplans/{id}/
+    x-www-form-urlencoded
+    
+    no headers or body required
+    
+10) Get a specific day of a week in the plan
+    url = /biteplans/plan/dayplan/{diet_id}/{day_no}/{week_no}/
+    x-www-form-urlencoded
+    
+    no headers or body required
+
+11) Get a specific day of a week in the plan
+    url = /biteplans/plan/dayplan/{diet_id}/{day_no}/{week_no}/
+    x-www-form-urlencoded
+    
+    no headers or body required
+
+    you will get all meal plans of that day
