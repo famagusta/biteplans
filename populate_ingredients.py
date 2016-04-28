@@ -308,6 +308,14 @@ with codecs.open('data/nutrition_info/nutritive_value_of_indian_foods.csv', 'rU'
                                               cholestrl_mg = None,)
             addIngrdInfo.save()
 
+            ingred_measure = IngredientCommonMeasures(
+                ingred_id=ingredient,
+                seq=1,
+                amount=100,
+                description='grams',
+                weight=100)
+            ingred_measure.save()
+
 
 
 with codecs.open('data/nutrition_info/caloriecount_unbranded_per100.csv', 'rU', encoding='ascii') as f:
@@ -477,18 +485,21 @@ with codecs.open('data/nutrition_info/usdaingredient_wts.csv', 'rU', encoding='a
     for i, line in enumerate(reader):
         if i > 0:
             ingredient_id = line[0]
-            ingred_model = ingredients.filter(id=int(ingredient_id))[0]
-            seq = int(line[1])
-            amount = Decimal(line[2])
-            description = line[3]
-            weight = Decimal(line[4])
-            ingred_measure = IngredientCommonMeasures(
-                ingred_id=ingred_model,
-                seq=seq,
-                amount=amount,
-                description=description,
-                weight=weight)
-            ingred_measure.save()
+            try:
+                ingred_model = ingredients.filter(id=int(ingredient_id))[0]
+                seq = int(line[1])
+                amount = Decimal(line[2])
+                description = line[3]
+                weight = Decimal(line[4])
+                ingred_measure = IngredientCommonMeasures(
+                    ingred_id=ingred_model,
+                    seq=seq,
+                    amount=amount,
+                    description=description,
+                    weight=weight)
+                ingred_measure.save()
+            except IndexError:
+                pass
 
         
 # Populate ingredients wts & measures from the Calorie Counts Ingredients DB    
