@@ -143,10 +143,6 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET =\
 REGISTRATION_OPEN = True    # If True, users can register
 ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window
 REGISTRATION_AUTO_LOGIN = True   # If True, users be automatically logged in.
-# LOGIN_REDIRECT_URL = '/bitespace/'  # The page you want users to arrive at
-# # after they suceffully log in
-# LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are
-# # not logged in, and are trying to access pages that require login
 
 AUTH_USER_MODEL = 'authentication.Account'
 
@@ -246,7 +242,7 @@ LOGGING = {
 
 # Forgot password djoser
 DJOSER = {
-    'DOMAIN': 'bitespacetest.com:8000',
+    'DOMAIN': os.environ.get('BITEPLANS_API_SERVER'),
     'SITE_NAME': 'biteplans',
     'PASSWORD_RESET_CONFIRM_URL': 'resetpassword/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',

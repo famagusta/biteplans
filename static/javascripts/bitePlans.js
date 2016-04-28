@@ -1,5 +1,5 @@
 'use strict'; /* global app: true */
-var app = angular.module('biteApp', [
+var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'angularUtils.directives.dirPagination',
     'angular-svg-round-progressbar', "ngMaterial", "materialCalendar"
 ]);
@@ -8,6 +8,15 @@ app.run(
         $('#main_html')
             .show();
     });
+
+var constantData = {
+    'constants': {
+        'API_SERVER': 'http://bitespacetest.com:8000/',
+    }
+};
+
+app.constant('constants', constantData['constants']);
+
 /** * @name run * @desc Update xsrf
 $http headers to align with Django's defaults */
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
@@ -70,11 +79,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             })
             .otherwise('/');
         $authProvider.facebook({
-            url: 'http://bitespacetest.com:8000/authentication/sociallogin/social/jwt_user/facebook/',
+            url: constantData['constants']['API_SERVER'] +
+            'authentication/sociallogin/social/jwt_user/facebook/',
             clientId: '778572508914532'
         });
         $authProvider.google({
-            url: 'http://bitespacetest.com:8000/authentication/sociallogin/social/jwt_user/google-oauth2/',
+            url: constantData['constants']['API_SERVER'] + 'authentication/sociallogin/social/jwt_user/google-oauth2/',
             clientId: '625705095605-6lemikvbb7kdh13lf3puq0r1fvcs0ukh.apps.googleusercontent.com',
             redirectUri: window.location.origin + '/'
         });
@@ -91,9 +101,3 @@ app.run(['$http',
             'csrftoken';
     }
 ]);
-var constantData = {
-    'constants': {
-        'API_SERVER': 'http://bitespacetest.com:8000/',
-    }
-};
-app.constant('constants', constantData['constants']);

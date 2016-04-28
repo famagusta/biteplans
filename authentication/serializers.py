@@ -3,7 +3,6 @@ from rest_framework import serializers
 from authentication.models import Account
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from schedule.models import Calendar
 
 
 class AccountSerializer(serializers.ModelSerializer):

@@ -18,7 +18,6 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, get_user_model, login
 from rest_social_auth.serializers import UserSerializer
 from rest_social_auth.views import JWTAuthMixin
-from schedule.models import Calendar
 
 
 # Create your views here.

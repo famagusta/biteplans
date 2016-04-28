@@ -124,9 +124,9 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
 
           $scope.isLoggedIn = true;
           console.log($scope.isLoggedIn);
-         $('#modal1').closeModal();
+          $('#modal1').closeModal();
           
-        $location.path('/dashboard');
+        //$location.path('/dashboard');
         
       },
       function (error) {
@@ -142,10 +142,9 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     $scope.logout = function() {
         var response = AuthService.logout();
         if(response) {
-                                console.log($scope.isLoggedIn);
-
+            //console.log($scope.isLoggedIn);
             $scope.isLoggedIn = false;
-            $location.path('/');
+            //$location.path('/');
         }
     };
 
@@ -157,7 +156,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     //close the modal if login is success
     $('#modal1').closeModal();
     //proceed to dashboard
-    $location.path('/dashboard');
+    //$location.path('/dashboard');
 }, function(error){
   //there is an error
   $scope.loginError = error;
