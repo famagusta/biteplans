@@ -1,7 +1,7 @@
 '''Serializers convert the db queries into python
 data structures(dictionaries) for easy json rendering'''
 from rest_framework import serializers
-from ingredients.models import Ingredient, IngredientCommonMeasures
+from ingredients.models import Ingredient, IngredientCommonMeasures, AddtnlIngredientInfo
 from recipes.models import Recipe, RecipeIngredients
 from authentication.models import Account
 
@@ -17,3 +17,9 @@ class IngredientSerializer(serializers.ModelSerializer):
     class Meta:
         '''defines the model to be serialized'''
         model = Ingredient
+
+class AddtnlInfoIngSerializer(serializers.ModelSerializer):
+	'''serializes additional info of ingredients'''
+	class Meta:
+		'''defines model to be assosiated'''
+		model = AddtnlIngredientInfo

@@ -22,6 +22,8 @@ reciperouter.register(r'recipeingredient', recipeView.RecipeIngredientViewSet)
 urlpatterns = patterns('',
                        url(r'^search/$', views.GlobalSearchList.as_view(),
                            name="search"),
+                       url(r'^ingredient/(?P<ingredient>[0-9]+)/$',
+                           views.GetCompleteIngredientInfo.as_view()),
                        url(r'^diet/', include(router.urls)),
 
                        url(r'^recipe/', include(reciperouter.urls)),

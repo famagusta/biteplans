@@ -1,10 +1,11 @@
 '''api views for our ingredients'''
-from ingredients.models import Ingredient
+from ingredients.models import Ingredient, AddtnlIngredientInfo
 from recipes.models import Recipe
 from authentication.models import Account
 from dietplans.models import DietPlan
 from dietplans.serializers import DietPlanSerializer
-from ingredients.serializers import IngredientSerializer
+from ingredients.serializers import IngredientSerializer,\
+AddtnlInfoIngSerializer
 from recipes.serializers import RecipeSerializer
 from authentication.serializers import AccountSerializer
 from rest_framework.views import APIView
@@ -50,6 +51,13 @@ class GlobalSearchList(generics.GenericAPIView):
 
         result = serializer(result, many=True)
         return Response(result.data)
+
+class GetCompleteIngredientInfo(generics.RetrieveAPIView):
+    '''retrieve additional info API, allows get with pk only'''
+    lookup_field = 'ingredient'
+    queryset = AddtnlIngredientInfo.objects.all()
+    serializer_class = AddtnlInfoIngSerializer
+
 
 # class IngredientUnitsViewset(viewsets.ReadOnlyModelViewSet):
 #     queryset = IngredientCommonMeasures.objects.all()
