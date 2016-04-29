@@ -1,6 +1,17 @@
 #dashboard-page {
     background-color: #f5f5f5;
 }
+.icon-img{
+    margin-left:-8px !important;
+}
+.icon-label{
+    margin-top: 6px !important;
+    margin-left:-3px;
+}
+.icon-orig{
+    height:37px;
+    width:37px;
+}
 
 #db-container {
     margin: auto;
