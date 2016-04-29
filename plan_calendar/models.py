@@ -6,13 +6,15 @@ from dietplans.models import DietPlan, MealPlan, MealIngredient,\
     MealRecipe
 from ingredients.models import Ingredient, IngredientCommonMeasures
 from recipes.models import Recipe
+from datetime import datetime
 
 
 class UserPlanHistory(models.Model):
     '''model stores calender associated with each user.
        based on django-scheduler'''
     # each calendar is in a one to one relation with a user
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE,
+                             related_name="followed")
 
     # Even if the dietplan is deleted. let the populated
     # meal history remain. COOL!!
@@ -30,6 +32,13 @@ class UserPlanHistory(models.Model):
         '''string repr of the object'''
         return self.user.username
 
+    def save(self, **kwargs):
+        if not self.id:
+            # Edit created timestamp only if it's new entry
+            self.created_on = datetime.now()
+        self.updated_on = datetime.now()
+        super(UserPlanHistory, self).save()
+
     class Meta:
         '''name db table'''
         db_table = 'plan_calendar_history'
@@ -38,18 +47,26 @@ class UserPlanHistory(models.Model):
 class MealHistory(models.Model):
     '''Stores a users meal history
        - logged meals or that from a plan history'''
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True,
+                             related_name="logged")
     name = models.CharField(default="Ad Hoc Meal", max_length=191)
     user_dietplan = models.ForeignKey(UserPlanHistory,
-                                      on_delete=models.CASCADE)
+                                      on_delete=models.CASCADE,
+                                      related_name="FollowPlanMealPlans",
+                                      null=True)
     date_time = models.DateTimeField()
     updated_on = models.DateTimeField()
+
+    def save(self, **kwargs):
+        self.updated_on = datetime.now()
+        super(MealHistory, self).save()
 
 
 class EventIngredient(models.Model):
     ''' stores an ingredient from a meal plan or log for a given day
         and whether the user has ticked it in his dashboard'''
-    meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE)
+    meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE,
+                                     related_name="followingMealPlanIngredient")
     meal_ingredient = models.ForeignKey(Ingredient,
                                         on_delete=models.CASCADE)
     is_checked = models.BooleanField(default=False)
@@ -63,6 +80,7 @@ class EventRecipe(models.Model):
     ''' stores an recipe from a meal plan or log for a given day
         and whether the user has ticked it in his dashboard'''
     meal_recipe = models.ForeignKey(MealRecipe, on_delete=models.CASCADE)
-    meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE)
+    meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE,
+                                     related_name="followingMealPlanRecipe")
     is_checked = models.BooleanField(default=False)
     no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
