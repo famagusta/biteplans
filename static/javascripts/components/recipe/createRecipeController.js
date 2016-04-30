@@ -10,6 +10,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
         AuthService.isAuthenticated()
             .then(function(response) {
                 var isAuthenticated = response.status;
+                console.log(response);
                 if (isAuthenticated) {
 
                     /* initialize scope variables to interact with DOM */

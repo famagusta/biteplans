@@ -141,6 +141,7 @@ class UserJWTDetailView(JWTAuthMixin, BaseDetailView):
 def checkAccountStatus(request):
     '''function to check auth status of a user'''
     if request.method == 'GET':
+        print request.user
         if request.user.is_authenticated():
             data = {'status': True,
                     'pk': request.user.id}
