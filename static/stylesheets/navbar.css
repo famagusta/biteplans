@@ -17,10 +17,21 @@ nav ul li.active a {
     background-color: transparent !important;
 }
 
+.btn-thumb {
+    /* restyle a the user dropdown button to enable thumbnail*/
+    height: 60px;
+    overflow: hidden;
+    background-color: transparent !important;
+}
+
+.btn-thumb:active{
+    background-color: transparent !important;
+}
+
 #small_logo {
-    height: 40px !important;
+    height: 75% !important;
     margin-top: 7px;
-    margin-left: 50px;
+/*    margin-left: 50px;*/
 }
 
 li>a>#user_dp {
