@@ -10,6 +10,7 @@ IsMealOwner, IsRecipeOwner, IsRecipeIngOwner, IsRecipeIngrOwner
 from django.core import serializers
 import hashlib, datetime, random
 from rest_framework import status
+from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class RecipeViewSet(viewsets.ModelViewSet):

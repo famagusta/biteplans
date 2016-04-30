@@ -31,7 +31,9 @@ bower_components
 
 # Directories like migrations etc #
 ###################################
-migrations/
+
+#migrations/
+media/
 
 # Logs and databases #
 ######################

@@ -3,7 +3,14 @@ from datetime import datetime
 from ingredients.models import Ingredient,\
     IngredientCommonMeasures
 from authentication.models import Account
-# Create your models here.
+from django.db.models.signals import pre_delete, pre_save, post_save
+from django.dispatch.dispatcher import receiver
+
+_UNSAVED_FILEFIELD = 'unsaved_filefield'
+
+
+def upload_to(instance, filename):
+    return 'photos/recipe_image/{}_{}'.format(instance.id, filename)
 
 
 class Recipe(models.Model):
@@ -26,7 +33,7 @@ class Recipe(models.Model):
     created_by = models.ForeignKey(Account, on_delete=models.CASCADE,
                                    related_name="created_recipe")
     date_published = models.DateField(auto_now_add=True, blank=True)
-    image = models.URLField(null=True, blank=True, max_length=400)
+    image = models.ImageField(null= True, blank=True, upload_to=upload_to)
 
     def __unicode__(self):
         return self.name
@@ -64,4 +71,18 @@ class RecipeIngredients(models.Model):
     class Meta:
         '''Meta details, defines a composite unique key'''
         unique_together = ('recipe', 'ingredient')
+ 
+
+@receiver(pre_save, sender=Recipe)
+def skip_saving_file(sender, instance, **kwargs):
+    if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
+        setattr(instance, _UNSAVED_FILEFIELD, instance.image)
+        instance.image = None
+
+        
+@receiver(post_save, sender=Recipe)
+def save_file(sender, instance, created, **kwargs):
+    if created and hasattr(instance, _UNSAVED_FILEFIELD):
+        instance.image = getattr(instance, _UNSAVED_FILEFIELD)
+        instance.save()        
 

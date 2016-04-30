@@ -7,11 +7,17 @@ from django.contrib.auth.models import BaseUserManager
 # from schedule.models import Calendar
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
+_UNSAVED_FILEFIELD = 'unsaved_filefield'
+
 
 GENDER_CHOICES = (
     ('M', 'Male'),
     ('F', 'Female'),
 )
+
+
+def upload_to(instance, filename):
+    return 'photos/user_profile_image/{}_{}'.format(instance.id, filename)
 
 
 class AccountManager(BaseUserManager):
@@ -65,12 +71,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # We will send an email to the user on signing up
     # clicking on which will make him
     # active and if he does not click on it then he will be inactive
-
+    image_path = models.ImageField(null= True, blank=True, upload_to=upload_to)
     activation_key = models.CharField(max_length=40, null=True)
     key_expires = models.DateTimeField(null=True)
-    
-     # these are mandatory fields
-    weight = models.DecimalField(null=True, blank=True, 
+
+    # these are mandatory fields
+    weight = models.DecimalField(null=True, blank=True,
                                  max_digits=11, decimal_places=3)
     height = models.DecimalField(null=True, blank=True,
                                  max_digits=11, decimal_places=3)
@@ -114,7 +120,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
+    
+    
+@receiver(pre_save, sender=Account)
+def skip_saving_file(sender, instance, **kwargs):
+    if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
+        setattr(instance, _UNSAVED_FILEFIELD, instance.image)
+        instance.image = None
 
-
-
-   
+        
+@receiver(post_save, sender=Account)
+def save_file(sender, instance, created, **kwargs):
+    if created and hasattr(instance, _UNSAVED_FILEFIELD):
+        instance.image = getattr(instance, _UNSAVED_FILEFIELD)
+        instance.save()    
