@@ -47,7 +47,7 @@ class UserPlanHistory(models.Model):
 class MealHistory(models.Model):
     '''Stores a users meal history
        - logged meals or that from a plan history'''
-    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True,
+    user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="logged")
     name = models.CharField(default="Ad Hoc Meal", max_length=191)
     user_dietplan = models.ForeignKey(UserPlanHistory,

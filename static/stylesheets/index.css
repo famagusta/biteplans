@@ -3,9 +3,14 @@
 }
 
 body {
-    font-family: 'Raleway',sans-serif;
+    font-family: 'Raleway',sans-serif !important;
     overflow-x: hidden;
     -moz-overflow-x: hidden;
+}
+
+a, span, button, div, input {
+  font-family: 'Raleway',sans-serif !important;
+
 }
 
 input:focus {
