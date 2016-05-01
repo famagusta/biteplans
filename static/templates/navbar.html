@@ -39,19 +39,19 @@
                 </li>
 
 
-                <li ng-show="!isLoggedIn">
-                    <a href="#modal1" ng-click=
-                "openModal()" >Login</a></li>
-
-
-                <li ng-show="isLoggedIn">    
-                <button class='circle dropdown-button btn-flat btn-thumb'
+                <li>
+                    <button class="login-btn" href="#modal1" ng-show="!isLoggedIn" ng-click=
+                "openModal()" >LOGIN</button>
+                <button ng-show="isLoggedIn" class='circle dropdown-button btn-flat btn-thumb'
                 data-activates='dropdown1' data-beloworigin="true"
                 >
                         <img class="responsive-img small circle"
                             id="small_logo" src="static/images/tiger.jpg">
-                    </button>
-                </li>
+                    </button></li>
+
+
+                   
+                
                 
                 
                 <!-- MOBILE VIEW NAVIGATION -->
