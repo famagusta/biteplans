@@ -22,6 +22,12 @@ class IsRecipeOwner(permissions.BasePermission):
 			return plan.created_by == request.user
 		return False
 
+class IsFollowing(permissions.BasePermission):
+	def has_object_permission(self, request, view, plan):
+		if request.user:
+			return plan.user == request.user
+		return False
+
 class IsRecipeIngOwner(permissions.BasePermission):
 	def has_permission(self, request, view):
 		'''handles permission for getting/creating'''

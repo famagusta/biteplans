@@ -1,13 +1,13 @@
 '''models for managing a users food calendar'''
 from django.db import models
-
 from authentication.models import Account
 from dietplans.models import DietPlan, MealPlan, MealIngredient,\
     MealRecipe
 from ingredients.models import Ingredient, IngredientCommonMeasures
 from recipes.models import Recipe
-from datetime import datetime
-
+from datetime import datetime, timedelta
+from django.db.models.signals import post_save, post_delete, pre_save
+from django.dispatch import receiver
 
 class UserPlanHistory(models.Model):
     '''model stores calender associated with each user.
@@ -20,7 +20,6 @@ class UserPlanHistory(models.Model):
     # meal history remain. COOL!!
     dietplan = models.ForeignKey(DietPlan, on_delete=models.CASCADE)
     start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
     created_on = models.DateTimeField()
     updated_on = models.DateTimeField()
 
@@ -54,6 +53,9 @@ class MealHistory(models.Model):
                                       on_delete=models.CASCADE,
                                       related_name="FollowPlanMealPlans",
                                       null=True)
+    user_mealplan = models.ForeignKey(MealPlan, on_delete=models.CASCADE,
+                                      null=True)
+
     date_time = models.DateTimeField()
     updated_on = models.DateTimeField()
 
@@ -84,3 +86,44 @@ class EventRecipe(models.Model):
                                      related_name="followingMealPlanRecipe")
     is_checked = models.BooleanField(default=False)
     no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
+
+
+@receiver(post_save, sender=UserPlanHistory)
+def assosiate_mealhistory(sender, instance, created, **kwargs):
+    if created:
+        diet = instance.dietplan
+        daylist = diet.dayplan.all()
+
+        for i in range(len(daylist)):
+            mealplanarr = daylist[i].mealplan.all()
+            for j in range(len(mealplanarr)):
+                date = instance.start_date + timedelta(
+                                                days=daylist[i].day_no + (daylist[i].week_no-1)*7)
+                time = mealplanarr[j].time
+                MealHistory.objects.create(name=mealplanarr[j].name, user=instance.user,
+                                           user_dietplan=instance,
+                                           user_mealplan=mealplanarr[j],
+                                           date_time=\
+                                           datetime.combine(date, time))
+
+@receiver(post_save, sender=MealHistory)
+def assosiate_mealingres(sender, instance, created, **kwargs):
+    if created:
+        mealplan = instance.user_mealplan
+        mealingredient = mealplan.mealingredient
+        mealrecipe = mealplan.mealrecipe
+
+        for i in mealingredient.all():
+            EventIngredient.objects.create(meal_history=instance,
+                                           meal_ingredient=i.ingredient,
+                                           quantity=i.quantity,
+                                           unit_desc=i.unit
+                                           )
+
+        for i in mealrecipe.all():
+            EventRecipe.objects.create(meal_history=instance,
+                                       meal_recipe=i.reciple,
+                                       no_of_servings=i.no_of_servings
+                                       )
+
+

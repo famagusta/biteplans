@@ -4,6 +4,8 @@ from rest_framework import routers
 from . import views
 from dietplans import views as vu
 from recipes import views as recipeView
+from plan_calendar import views as plnView
+
 
 router = routers.SimpleRouter()
 router.register(r'dietplans',
@@ -19,6 +21,9 @@ reciperouter = routers.SimpleRouter()
 reciperouter.register(r'recipes', recipeView.RecipeViewSet)
 reciperouter.register(r'recipeingredient', recipeView.RecipeIngredientViewSet)
 
+followrouter = routers.SimpleRouter()
+followrouter.register(r'follow', plnView.FollowDietViewSet)
+
 urlpatterns = patterns('',
                        url(r'^search/$', views.GlobalSearchList.as_view(),
                            name="search"),
@@ -27,6 +32,8 @@ urlpatterns = patterns('',
                        url(r'^diet/', include(router.urls)),
 
                        url(r'^recipe/', include(reciperouter.urls)),
+
+                       url(r'^calendar/', include(followrouter.urls)),
 
                        url(r'^plan/dayplan/(?P<diet>[0-9]+)/(?P<day_no>[0-9]+)/(?P<week_no>[0-9]+)/$',
                            vu.DayPlnViewSet.as_view()),
