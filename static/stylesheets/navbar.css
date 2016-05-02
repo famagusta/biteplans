@@ -16,11 +16,45 @@ nav ul a, nav .brand-logo {
 nav ul li.active a {
     background-color: transparent !important;
 }
+.login-btn{
+
+    color: #00bcd4 !important;
+    font-weight: bold !important;
+    opacity: 87% !important;
+    background:transparent !important;
+    border:none;
+    box-shadow: none;
+    padding:0 15px;
+
+}
+
+.login-btn:hover{
+
+    color: #00bcd4 !important;
+    font-weight: bold !important;
+    opacity: 87% !important;
+    background:#eaeaea !important;
+    border:none;
+    box-shadow: none;
+    padding:0 15px;
+
+}
+
+.btn-thumb {
+    /* restyle a the user dropdown button to enable thumbnail*/
+    height: 60px;
+    overflow: hidden;
+    background-color: transparent !important;
+}
+
+.btn-thumb:active{
+    background-color: transparent !important;
+}
 
 #small_logo {
-    height: 40px !important;
+    height: 75% !important;
     margin-top: 7px;
-    margin-left: 50px;
+    margin-left: 35px;
 }
 
 li>a>#user_dp {
