@@ -107,7 +107,7 @@
 
 
                             <div class="row center lowbo" ng-if=
-                            "key.mealingredient.length&gt;0">
+                            "key.mealingredient.length>0">
                                 <div class="col m4 namecol">
                                     <p class="meal-text">Name</p>
                                 </div>
@@ -540,7 +540,7 @@
 
 
                 <div class="col m6">
-                    <div class="nutsection" ng-if="nutrientValue.length&gt;0">
+                    <div class="nutsection" ng-if="nutrientValue.length>0">
                         <div class="row hline">
                             <div class="col m3">
                                 <p class="a ahead servehead">Serving:</p>
@@ -646,7 +646,7 @@
                     <div class="row" ng-repeat="item in nutrientValue">
                         <div class="col m10 meal-list">
                             <p class="ing-text meal-list" ng-if=
-                            "nutrientValue.length&gt;0">{{item.name}}</p>
+                            "nutrientValue.length>0">{{item.name}}</p>
                         </div>
 
 
@@ -654,7 +654,7 @@
                             <a href="#" ng-click=
                             "removeIngredient(item)"><i class=
                             "material-icons meal-list right dustbin" ng-if=
-                            "nutrientValue.length&gt;0">delete</i></a>
+                            "nutrientValue.length>0">delete</i></a>
                         </div>
                     </div>
                 </div>
