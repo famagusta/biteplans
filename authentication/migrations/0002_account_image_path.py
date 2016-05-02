@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-from django.conf import settings
 import authentication.models
 
 
@@ -13,5 +12,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        
+        migrations.AddField(
+            model_name='account',
+            name='image_path',
+            field=models.ImageField(null=True, upload_to=authentication.models.upload_to, blank=True),
+            preserve_default=False,
+        ),
     ]

@@ -1,10 +1,14 @@
 <div class="ng-cloak" ng-cloak="" ng-controller="navbarController">
-    <!--
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a href="/dashboard" class="cyan-text">Dashboard</a></li>
-        <li><a ng-click="logout()" class="cyan-text">Logout</a></li>
+    <ul class="dropdown-content" id="dropdown1">
+        <li>
+            <a class="cyan-text" href="/dashboard">Dashboard</a>
+        </li>
+
+
+        <li>
+            <a class="cyan-text" ng-click="logout()">Logout</a>
+        </li>
     </ul>
--->
 
 
     <nav class="navbar" role="navigation">
@@ -36,58 +40,20 @@
 
 
                 <li>
-                    <a href="#modal1" ng-click="openModal()" ng-show=
-                    "!isLoggedIn">Log in</a> <!--
-            </li>
+                    <button class="login-btn" href="#modal1" ng-show="!isLoggedIn" ng-click=
+                "openModal()" >LOGIN</button>
+                <button ng-show="isLoggedIn" class='circle dropdown-button btn-flat btn-thumb'
+                data-activates='dropdown1' data-beloworigin="true"
+                >
+                        <img class="responsive-img small circle"
+                            id="small_logo" src="static/images/tiger.jpg">
+                    </button></li>
 
-             <li ng-cloak id="log_out" ng-if="isLoggedIn">
--->
-                     <a ng-click="logout()" ng-show="isLoggedIn">Log out</a> 
-                    <!--
-            </li>
-             <li ng-if="isLoggedIn" class="img_li">
--->
-                    <!--            <a ng-cloak href="/dashboard" ng-if="isLoggedIn" class="img_li"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a> -->
-                </li>
-                <!--
-            <button ng-click="logout()" class="dropdown-button" data-activates="dropdown1">
-                    <i class="material-icons">arrow_drop_down</i>
-                </button>
--->
-                <!--
-            <li ng-if="isLoggedIn">
-                <a ng-if="!isLoggedIn" ng-click="openModal()" href="#modal1">Login</a>
 
-                <a class="dropdown-button" data-activates="dropdown1">
-                    <i class="material-icons">arrow_drop_down</i>
-                </a>
-
-                <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="/dashboard" class="cyan-text">Dashboard</a></li>
-                    <li><a ng-click="logout()" class="cyan-text">Logout</a></li>
-                </ul>
-            </li>
--->
-                <!--function to open modal openModal()-->
-                <!--
-            <li class="ng-cloak" ng-cloak>
-                <a class="ng-cloak" ng-cloak href="#modal1" ng-class="{'hidden':isLoggedIn}" ng-click="openModal()" ng-if="!isLoggedIn">Log in</a>
-                <a class="ng-cloak" ng-cloak ng-if="isLoggedIn" ng-class="{'hidden':!isLoggedIn}" ng-click="logout()"  class="cyan-text"><img class="circle small" id="user_dp" src="static/images/tiger.jpg"></a>
-            </li>
-            <li><a ng-click="showExtraFunctionList=!showExtraFunctionList"><i class="material-icons cyan-text">expand_more</i></a>
--->
-                <!--
-            <ul>
-                <a>Dashboard</a>
-                <a>Logout</a>
-                </ul>
--->
-                <!--
-        <div id="extra_sliding_menu" ng-show="showExtraFunctionList" ng-if="isLoggedIn">
-                <a class="cyan-text" href="/dashboard">Dashboard</a>
-                        <a class="cyan-text" ng-click="logout()">Logout</a>
-            </div>
--->
+                   
+                
+                
+                
                 <!-- MOBILE VIEW NAVIGATION -->
                 <!--Mobile View-->
 
