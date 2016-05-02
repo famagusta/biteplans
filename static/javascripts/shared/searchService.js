@@ -57,6 +57,19 @@ app.factory('searchService',
             //console.log(response);
         });
         return deferred.promise;};
+                
+        // Function to get ingredient additional info
+        // in future migrate to full fledged ingredient service
+        var get_ingredient_addtnl_info = function(id) {
+            var url = constants['API_SERVER'] + 'biteplans/ingredient/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpGet(url).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        }
 
     return {
         search_ingredient : function(query) {
@@ -67,6 +80,9 @@ app.factory('searchService',
         },
         search_plan : function(query) {
             return search_plan(query); 
+        },
+        get_ingredient_addtnl_info : function(id){
+            return get_ingredient_addtnl_info(id);
         }
     };
     

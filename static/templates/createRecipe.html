@@ -40,8 +40,8 @@
                                 <div class="input-field col s6">
                                     <input class="validate" id="servings"
                                     ng-model="recipe.servings" type="number">
-                                    <label for="servings">Serving (No of
-                                    people)</label>
+                                    <label for="servings">Number of Servings
+                                    </label>
                                 </div>
                             </div>
 
@@ -94,7 +94,7 @@
 
                                 <div class="select-delete-mat col s1 push-s1">
                                     <a ng-click=
-                                    "removeIngredient(value)"><i class=
+                                    "removeIngredient(ingredientDisplay[$index].ingredient.id)"><i class=
                                     "material-icons">delete</i></a>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@
                                         <div class="input-field col s3">
                                             <input class="validate" id=
                                             "prep_time" max="12" min="0"
-                                            ng-model="prep_hours" type=
+                                            ng-model="prepHours" type=
                                             "number">
 
                                             <p>Hrs</p>
@@ -170,7 +170,7 @@
                                         <div class="input-field col s3">
                                             <input class="validate" id=
                                             "prep_time" max="59" min="00"
-                                            ng-model="prep_mins" type="number">
+                                            ng-model="prepMins" type="number">
 
                                             <p>Mins</p>
                                         </div>
@@ -184,7 +184,7 @@
                                         <div class="input-field col s3">
                                             <input class="validate" id=
                                             "prep_time" max="12" min="0"
-                                            ng-model="cook_hours" type=
+                                            ng-model="cookHours" type=
                                             "number">
 
                                             <p>Hrs</p>
@@ -194,7 +194,7 @@
                                         <div class="input-field col s3">
                                             <input class="validate" id=
                                             "prep_time" max="59" min="00"
-                                            ng-model="cook_mins" type="number">
+                                            ng-model="cookMins" type="number">
 
                                             <p>Mins</p>
                                         </div>
@@ -245,7 +245,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.total_calories |
+                                    <p class="meal-text">{{ calculateNutritionTotal('energy_kcal') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -257,7 +257,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.total_carbs |
+                                    <p class="meal-text">{{ calculateNutritionTotal('carbohydrate_tot') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -269,7 +269,7 @@
 
 
                                 <div class="col s4">
-                                    <p class="meal-text">{{ nutrition_info.sugar |
+                                    <p class="meal-text">{{ calculateNutritionTotal('sugar_tot') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -281,7 +281,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.total_protein |
+                                    <p class="meal-text">{{ calculateNutritionTotal('protein_tot') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -294,7 +294,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.total_fat | number
+                                    <p class="meal-text">{{ calculateNutritionTotal('fat_tot') | number
                                     }}</p>
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
 
 
                                 <div class="col s4">
-                                    <p class="meal-text">{{ nutrition_info.polyunsaturated_fat |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_poly_g') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -318,7 +318,7 @@
 
 
                                 <div class="col s4">
-                                    <p class="meal-text">{{ nutrition_info.monounsaturated_fat |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_mono_g') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -330,7 +330,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.total_carbs |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_sat_g') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -342,7 +342,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.fiber |
+                                    <p class="meal-text">{{ calculateNutritionTotal('fiber_tot') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -358,7 +358,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.saturated_fat |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('cholestrl_mg') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -370,7 +370,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.sodium |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('sodium_mg') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -382,7 +382,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.calcium |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('calcium_mg') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -394,7 +394,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.iron |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('iron_mg') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -407,7 +407,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.vitamin_a |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_a_iu') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -419,7 +419,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.vitamin_c |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_c_mg') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -431,7 +431,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.vitamin_d |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_d_mcg') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -443,7 +443,7 @@
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ nutrition_info.vitamin_e |
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_e_mg') |
                                     number}}</p>
                                 </div>
                             </div>
@@ -461,8 +461,9 @@
         <div class="col s12">
             <div class="center-btn">
                 <a class="waves-effect waves-light btn largebtn" ng-click=
-                'finalizeRecipeCreation()'><!-- ng-href="{{view_recipe}}">
-                    {{$routeParams.id}}-->Save</a> &nbsp;&nbsp;&nbsp;&nbsp;
+                'finalizeRecipeCreation()'>
+                    Save
+                </a> &nbsp;&nbsp;&nbsp;&nbsp;
             </div>
         </div>
     </div>
