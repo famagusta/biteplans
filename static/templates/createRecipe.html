@@ -70,7 +70,7 @@
                             "selectedIngredient in ingredientDisplay track by $index">
                             <div class="col s4">
                                     <p class="meal-text">
-                                    {{checklistIngredients[$index].name}}</p>
+                                    {{ingredientDisplay[$index].ingredient.name}}</p>
                                 </div>
 
 
@@ -84,9 +84,9 @@
 
                                 <div class="col s1 push-s1">
                                     <select material-select="" ng-model=
-                                    "ingredientDisplay[$index].measure"
+                                    "ingredientDisplay[$index].selected_measure"
                                     ng-options=
-                                    "unit.id as unit.description for unit in checklistIngredients[$index].measure track by unit.id"
+                                    "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
                                     required="">
                                         </select>
                                 </div>
@@ -234,19 +234,54 @@
         <div class="col s12 m12">
             <div class="card white">
                 <div class="card-content black-text">
-                    <span class="card-title">Nutritional Information</span>
+                    <span class="card-title">NUTRITION INFORMATION (per serving)</span>
 
                     <div class="row">
                         <div class="col s6">
                             <div class="row horizontal-line">
                                 <div class="col s6">
-                                    <p class="ing-text">Total
-                                    Carbohydrates:</p>
+                                    <p class="ing-text">Calories:</p>
                                 </div>
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ totalCarb |
+                                    <p class="meal-text">{{ nutrition_info.total_calories |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Carbohydrates:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.total_carbs |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s8 ">
+                                    <p class="ing-text">Sugar:</p>
+                                </div>
+
+
+                                <div class="col s4">
+                                    <p class="meal-text">{{ nutrition_info.sugar |
+                                    number}}</p>
+                                </div>
+                            </div>
+
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Proteins:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.total_protein |
                                     number}}</p>
                                 </div>
                             </div>
@@ -254,29 +289,167 @@
 
                             <div class="row horizontal-line">
                                 <div class="col s6">
-                                    <p class="ing-text">Total Proteins:</p>
+                                    <p class="ing-text">Fats:</p>
                                 </div>
 
 
                                 <div class="col s6">
-                                    <p class="meal-text">{{ totalProtein |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Total Fats:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ totalFat | number
+                                    <p class="meal-text">{{ nutrition_info.total_fat | number
                                     }}</p>
                                 </div>
                             </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s8 ">
+                                    <p class="ing-text">Polyunsaturated Fats:</p>
+                                </div>
+
+
+                                <div class="col s4">
+                                    <p class="meal-text">{{ nutrition_info.polyunsaturated_fat |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s8 ">
+                                    <p class="ing-text">Monounsaturated Fats:</p>
+                                </div>
+
+
+                                <div class="col s4">
+                                    <p class="meal-text">{{ nutrition_info.monounsaturated_fat |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Saturated Fats:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.total_carbs |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Fiber:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.fiber |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
                         </div>
+                        
+                        <div class="col s6">
+                                
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Cholesterol:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.saturated_fat |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Sodium:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.sodium |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Calcium:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.calcium |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Iron:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.iron |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin A(IU):</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.vitamin_a |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin C:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.vitamin_c |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin D:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.vitamin_d |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin E:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ nutrition_info.vitamin_e |
+                                    number}}</p>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        
                     </div>
                 </div>
             </div>

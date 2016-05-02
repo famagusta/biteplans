@@ -261,7 +261,6 @@ return deferred.promise;};
 
 var isAuthenticated = function(){
   var url = constants['API_SERVER'] + 'authentication/loginstatus/';
-    console.log(url);
   var deferred = $q.defer();
   httpService.httpGet(url).then(function(response){
     deferred.resolve(response);

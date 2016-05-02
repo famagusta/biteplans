@@ -10,7 +10,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
         AuthService.isAuthenticated()
             .then(function(response) {
                 var isAuthenticated = response.status;
-                console.log(response);
                 if (isAuthenticated) {
 
                     /* initialize scope variables to interact with DOM */
@@ -35,11 +34,35 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.view_recipe = '/viewRecipe/' +
                         $routeParams.id;
 
+                    /* Nutritional Information Storage Box */
+                    // maybe use 'NA' instead of zero??
+                    $scope.nutrition_info = {
+                        total_calories: 0,
+                        total_carbs: 0,
+                        total_protein: 0,
+                        total_fat: 0,
+                        fiber: 0,
+                        sugar: 0,
+                        polyunsaturated_fat: 0,
+                        monounsaturated_fat: 0,
+                        saturated_fat: 0,
+                        cholesterol: 0,
+                        sodium: 0,
+                        calcium: 0,
+                        iron: 0,
+                        vitamin_a: 0, //IU units
+                        vitamin_c: 0,
+                        vitamin_d: 0,
+                        vitamin_e: 0,
+                        
+                    };
+
                     /* search function for the ingredient modal */
                     $scope.search = function() {
                         var query = $scope.query;
                         if (query) {
-                            searchService.search_ingredient(query)
+                            searchService.search_ingredient(
+                                    query)
                                 .then(
                                     function(response) {
                                         /* model for storing response from API */
@@ -89,25 +112,21 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     /* add contents from the modal to the recipe */
                     $scope.addContents = function() {
                         /*loop over the checklist mode (nutrient value) and
-                          add to the ingredients */
+                          add to the ingredients 
+                          also, add the weight of each ingredient measure to 
+                          use in calculating total nutrient*/
                         for (var i = $scope.ingredientDisplay.length; i <
                             $scope.checklistIngredients.length; i++
                         ) {
                             $scope.ingredientDisplay.push({
                                 ingredient: $scope.checklistIngredients[
-                                    i].id,
-                                measure: $scope.checklistIngredients[
-                                    i].measure[0].id,
-                                carbohydrate: $scope.checklistIngredients[
-                                    i].carbohydrate_tot,
-                                fats: $scope.checklistIngredients[
-                                    i].fat_tot,
-                                protein: $scope.checklistIngredients[
-                                    i].protein_tot,
+                                    i],
+                                selected_measure: $scope
+                                    .checklistIngredients[
+                                        i].measure[0],
                                 quantity: 1
                             });
                         }
-
                         $('#add-ingredients-modal')
                             .closeModal();
 
@@ -131,15 +150,22 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     var id = response.recipe_id;
                                     for (var i = 0; i < $scope.ingredientDisplay
                                         .length; i++) {
-                                        $scope.ingredientDisplay[
-                                            i].recipe = id;
-                                        recipeService.createRecipeIng(
-                                                $scope.ingredientDisplay[
-                                                    i])
+                                        /* create a recipe ingred object to send to server */
+                                        var recipeIngred ={
+                                            recipe: id,
+                                            ingredient: $scope.ingredientDisplay[i].ingredient
+                                            .id,
+                                            measure: $scope.ingredientDisplay[i]
+                                            .selected_measure.id,
+                                            quantity: $scope.ingredientDisplay[i].quantity
+                                        } 
+                                        
+                                        recipeService.createRecipeIng(recipeIngred)
                                             .then(
                                                 function(
                                                     response) {
-                                                    //TODO: Add meaningful behaviour on successful return
+                                                    //TODO: Add meaningful behaviour
+                                                    //    on successful return
                                                 }, function(
                                                     error) {
                                                     console.log(
@@ -159,35 +185,49 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 });
                     };
 
-                    /* Nutritional Information calculations */
-                    $scope.totalCarb = 0;
-                    $scope.totalProtein = 0;
-                    $scope.totalFat = 0;
-                    $scope.$watch('ingredientDisplay', function() {
+                    /* Nutritional Information calculations based on changes to
+                    selected ingredients */
+
+                    $scope.$watch('ingredientDisplay', function(
+                        newVal, oldVal) {
+                        console.log($scope.ingredientDisplay);
+                        /* recalculate nutritional information */
+                        $scope.nutrition_info.total_carbs = 0;
+                        $scope.nutrition_info.total_protein = 0;
+                        $scope.nutrition_info.total_fat = 0;
                         for (var i = 0; i < $scope.ingredientDisplay
                             .length; i++) {
-                            $scope.totalCarb += parseFloat(
+                            $scope.nutrition_info.total_carbs +=
                                 $scope.ingredientDisplay[
-                                    i]
-                                .carbohydrate *
+                                    i].ingredient
+                                .carbohydrate_tot *
                                 $scope.ingredientDisplay[
-                                    i]
-                                .quantity);
-                            $scope.totalProtein +=
-                                parseFloat($scope.ingredientDisplay[
-                                        i]
-                                    .protein * $scope
-                                    .ingredientDisplay[i].quantity
-                                );
-                            $scope.totalFat += parseFloat(
+                                    i].quantity *
                                 $scope.ingredientDisplay[
+                                    i].selected_measure
+                                .weight / (100 * parseInt($scope.recipe.servings));
+                            $scope.nutrition_info.total_protein +=
+                                $scope.ingredientDisplay[
+                                    i].ingredient
+                                .protein_tot *
+                                $scope.ingredientDisplay[i]
+                                .quantity *
+                                $scope.ingredientDisplay[i]
+                                .selected_measure.weight /
+                                (100 * parseInt($scope.recipe.servings));
+                            $scope.nutrition_info.total_fat +=
+                                $scope.ingredientDisplay[
+                                    i].ingredient
+                                .fat_tot * $scope.ingredientDisplay[
                                     i]
-                                .fats * $scope.ingredientDisplay[
-                                    i]
-                                .quantity);
+                                .quantity *
+                                $scope.ingredientDisplay[
+                                    i].selected_measure
+                                .weight / (100 * parseInt($scope.recipe.servings));
                         }
 
                     }, true);
+
 
                     /* function called for saving the plan */
                     $scope.finalizeRecipeCreation = function() {
