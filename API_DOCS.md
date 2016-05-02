@@ -168,3 +168,6 @@ request{
     no headers or body required
 
     you will get all meal plans of that day
+    
+12) to retrieve additional nutrition info 
+    url = /biteplans/ingredient/1123/
