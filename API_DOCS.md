@@ -61,7 +61,8 @@ API DOCS
 
 	screenshot: loginss.png
 
-##Please note that after recieving token from any kind of authentication, You have to include it in your request headers to be recognized as authenticated
+##Please note that after recieving token from any kind of authentication, You have to include 
+it in your request headers to be recognized as authenticated
 The format to do so is just add the following header to your request
 Authorization : JWT <token>
 
@@ -90,7 +91,8 @@ Authorization : JWT <token>
 
 	
 
-/* User is not authenticated at this point, instead is asked to confirm his account, so he/she has to click on activation mail sent to them*/
+/* User is not authenticated at this point, instead is asked to confirm his account, 
+so he/she has to click on activation mail sent to them*/
 
 ##Social signup
 
@@ -178,15 +180,33 @@ request{
 13) To upload an image of a recipe
     url = /biteplans/recipe/recipes/{recipe_id}/
     patch method only, send information as 
+    content type is automatically determined by the the browser
     formdata with header:
     header:{
         Content-Type : undefined
         Authorization: JWT <token> //this is automatically added in web
     }
     
-14) to get a user's profile
+14) to get a user's profile with just the token
     url = /authentication/api/v1/jwt_user/
+    GET
     with headers
     header :{
         Authorization: JWT <token>
     }
+    
+    
+15) To upload a user's picture 
+    url = /authentication/api/v1/register/{id}/
+    PATCH
+    with headers
+    header :{
+        Content-Type : undefined
+        Authorization: JWT <token>
+    }
+    
+    content type is automatically determined by the the browser
+    
+    for angular - need to encode the file into a form data to send 
+    it . check httpPatchFile in angular-auth-service.js
+    
