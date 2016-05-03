@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import authentication.models
 
 
 class Migration(migrations.Migration):
@@ -25,6 +26,7 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('social_thumb', models.URLField(null=True, blank=True)),
+                ('image_path', models.ImageField(null=True, upload_to=authentication.models.upload_to, blank=True)),
                 ('activation_key', models.CharField(max_length=40, null=True)),
                 ('key_expires', models.DateTimeField(null=True)),
                 ('weight', models.DecimalField(null=True, max_digits=11, decimal_places=3, blank=True)),

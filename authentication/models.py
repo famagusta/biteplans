@@ -125,7 +125,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
 @receiver(pre_save, sender=Account)
 def skip_saving_file(sender, instance, **kwargs):
     if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
-        setattr(instance, _UNSAVED_FILEFIELD, instance.image)
+        setattr(instance, _UNSAVED_FILEFIELD, instance.image_path)
         instance.image = None
 
         
