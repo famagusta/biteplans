@@ -1,4 +1,4 @@
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+i[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
 
@@ -25,6 +25,7 @@ nav ul li.active a {
     border:none;
     box-shadow: none;
     padding:0 15px;
+    font-family: 'Raleway', sans-serif !important;
 
 }
 

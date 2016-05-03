@@ -15,7 +15,6 @@
     "angular-route": "^1.5.0",
     "font-awesome": "^4.5.0",
     "satellizer": "^0.14.0",
-    "angular-utils-pagination": "^0.11.0",
     "lolliclock": "^0.1.0",
     "sc-date-time": "^1.1.6",
     "progressbar.js": "^1.0.0",
@@ -25,7 +24,8 @@
     "jt.timepicker": "jquery-timepicker-jt#^1.8.11",
     "material-calendar": "^0.2.14",
     "angular-svg-round-progressbar": "^0.4.2",
-    "angular-mocks": "^1.5.5"
+    "angular-mocks": "^1.5.5",
+    "angular-paging": "^2.2.1",
   },
   "resolutions": {
     "angular": "^1.4.9",

@@ -1,8 +1,7 @@
 <div class="full-length" id="result-list">
-    <div ng-if="details!=null && details!=undefined && details.length!=0">
+    <div ng-if="details.results!=null && details.results!=undefined && details.results.length!=0">
         <div class="row">
-            <div class="col s12 m6" current-page="currentPage" dir-paginate=
-            "detail in details | itemsPerPage: pageSize">
+            <div class="col s12 m6" ng-repeat="detail in details.results track by $index ">
                 <div class="card white big result-card" id=
                 "ingredient-result-card">
                     <div class="card-content grey-text">
@@ -72,7 +71,7 @@
         <div class="modal" id="modal6">
             <a class=
             " modal-action modal-close waves-effect waves-green btn-flat right"
-            href="#!">X</a>
+            >X</a>
 
             <div class="modal-content">
                 <h4 class="cyan-text ingredient-title">

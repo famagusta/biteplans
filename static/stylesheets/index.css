@@ -8,10 +8,18 @@ body {
     -moz-overflow-x: hidden;
 }
 
-a, span, button, div, input {
+span, div, input {
   font-family: 'Raleway',sans-serif !important;
 
 }
+
+.pagination li.active a {
+    color: #00bcd4 !important;
+    font-weight: bold;
+}
+
+
+
 
 input:focus {
     border-color: #00bcd4 !important;

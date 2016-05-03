@@ -6,6 +6,7 @@ from dietplans.models import DietPlan
 from dietplans.serializers import DietPlanSerializer
 from ingredients.serializers import IngredientSerializer,\
 AddtnlInfoIngSerializer
+import json
 from recipes.serializers import RecipeSerializer
 from authentication.serializers import AccountSerializer
 from rest_framework.views import APIView
@@ -14,6 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
 from rest_framework import viewsets, generics
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import math
 
 class GlobalSearchList(generics.GenericAPIView):
     '''creates serializer of the queryset'''
@@ -37,7 +39,19 @@ class GlobalSearchList(generics.GenericAPIView):
     def post(self, request):
         '''Handles post request'''
         result = self.get_queryset()
-        paginator = Paginator(result, 10)
+
+        food_group = request.POST.get('food_group', False)
+
+        filters = result.values_list("food_group").distinct()
+
+        if food_group != False:
+            for i in food_group:
+                result = result.filter(food_group=i, many=True)
+
+
+
+        total = math.ceil(len(result)/6.0)
+        paginator = Paginator(result, 6)
         page = request.GET.get('page')
         serializer = self.get_serializer_class()
         try:
@@ -50,7 +64,19 @@ class GlobalSearchList(generics.GenericAPIView):
             result = paginator.page(paginator.num_pages)
 
         result = serializer(result, many=True)
-        return Response(result.data)
+        return Response({"results":result.data, "total":total,
+                        "filters":filters})
+
+
+class GetFilters(generics.GenericAPIView):
+    '''creates serializer of the queryset'''
+    def get(self, request):
+        '''get request'''
+        filter_list = Ingredient.objects.order_by().\
+        values_list('food_group').distinct()
+        filter_list = {"filters":filter_list}
+        return Response(json.dumps(filter_list))
+
 
 class GetCompleteIngredientInfo(generics.RetrieveAPIView):
     '''retrieve additional info API, allows get with pk only'''

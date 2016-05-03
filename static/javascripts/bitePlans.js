@@ -1,13 +1,8 @@
 'use strict'; /* global app: true */
 var app = angular.module('biteplans', [
-    'satellizer', 'ngRoute', 'angularUtils.directives.dirPagination',
-    'angular-svg-round-progressbar', "ngMaterial", "materialCalendar"
+    'satellizer', 'ngRoute', 'bw.paging',
+    'angular-svg-round-progressbar', 'ngMaterial', 'materialCalendar'
 ]);
-app.run(
-    function() {
-        $('#main_html')
-            .show();
-    });
 
 var constantData = {
     'constants': {

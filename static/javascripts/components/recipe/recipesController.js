@@ -4,6 +4,7 @@ app.controller('recipesController', ['$scope', 'searchService',
     function($scope, searchService) {
         $scope.selected = 0;
         $scope.query_recipe = '';
+        
         $scope.search_recipe = function() {
             var query = $scope.query_recipe
             if (query) {
