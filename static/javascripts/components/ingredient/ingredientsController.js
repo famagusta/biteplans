@@ -6,11 +6,18 @@ app.controller('ingredientsController', ['$scope', 'searchService',
         // function to search for ingredients 
         $scope.foodgroup=[];
 
+        $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
+
+            $scope.search(1);
+
+
+         });
+
         $scope.search = function(page) {
             var query = $scope.query;
             console.log(query, page);
             if (query && $scope.foodgroup.length >0) {
-                searchService.search_ingredient(query, page)
+                searchService.search_ingredient(query, page, $scope.foodgroup)
                     .then(function(response) {
                         $scope.details = response;
                         $scope.filts = response.filters; //model for storing response from API                
@@ -23,7 +30,7 @@ app.controller('ingredientsController', ['$scope', 'searchService',
                     });
             }
             else if (query && $scope.foodgroup.length ===0) {
-                searchService.search_ingredient(query, page)
+                searchService.search_ingredient(query, page, $scope.foodgroup)
                     .then(function(response) {
                         $scope.details = response;
                         $scope.filts = response.filters; //model for storing response from API                

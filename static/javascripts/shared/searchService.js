@@ -4,7 +4,7 @@ app.factory('searchService',
             ['httpService', '$location','constants','$q','$window', '$rootScope', '$auth', function(httpService,$location,constants,$q,$window, $rootScope, $auth){
     
         /* Function to do the search ingredients */
-        var search_ingredient = function(quer, page) {
+        var search_ingredient = function(quer, page, food_group) {
 
             var url = constants['API_SERVER'] + 'biteplans/search/';
 
@@ -13,10 +13,24 @@ app.factory('searchService',
                     url += '?page'+'='+page;
                 }
             var deferred = $q.defer();
-            httpService.httpPost(url, {
-                             'query':quer,
-                             'type':'ingredients'
-                         }).then(
+
+            var obj = {};
+            if(food_group!==undefined && food_group!==null && food_group.length>0){
+                obj = {
+                    'query':quer,
+                    'type':'ingredients',
+                    'food_group':angular.toJson(food_group)
+                };
+            }
+            else{
+                obj = {
+                    'query':quer,
+                    'type':'ingredients'
+                };
+
+            }
+
+            httpService.httpPost(url, obj).then(
           function(response) {
             deferred.resolve(response);
             
@@ -73,8 +87,8 @@ app.factory('searchService',
         return deferred.promise;};
 
     return {
-        search_ingredient : function(query, page) {
-            return search_ingredient(query, page);
+        search_ingredient : function(query, page, food_group) {
+            return search_ingredient(query, page, food_group);
          },
          search_recipe : function(query, page) {
             return search_recipe(query, page); 

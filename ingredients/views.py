@@ -45,8 +45,13 @@ class GlobalSearchList(generics.GenericAPIView):
         filters = result.values_list("food_group").distinct()
 
         if food_group != False:
+            food_group = json.loads(food_group)
+            res = []
+            print len(food_group)
             for i in food_group:
-                result = result.filter(food_group=i, many=True)
+                res += result.filter(food_group=i)
+
+            result = res
 
 
 
