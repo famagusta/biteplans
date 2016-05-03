@@ -121,8 +121,9 @@ request{
             
 		}
         
-        headers 
-        Authorization : JTW <token>
+        headers : {
+            Authorization: JWT <token> //this is automatically added in web
+        }
         
 7) To retrieve a recipe (by id)
     url = /biteplans/recipe/recipes/{id}/
@@ -146,10 +147,12 @@ request{
           weight: plan_weight
    }
         
-        headers 
-        Authorization : JTW <token>
+        headers : {
+            Authorization: JWT <token> //this is automatically added in web
+        }
 
-9) To retrieve a plan (by id)
+    9) To retrieve a plan (by
+})
     url = /biteplans/diet/dietplans/{id}/
     x-www-form-urlencoded
     
@@ -171,3 +174,19 @@ request{
     
 12) to retrieve additional nutrition info 
     url = /biteplans/ingredient/1123/
+    
+13) To upload an image of a recipe
+    url = /biteplans/recipe/recipes/{recipe_id}/
+    patch method only, send information as 
+    formdata with header:
+    header:{
+        Content-Type : undefined
+        Authorization: JWT <token> //this is automatically added in web
+    }
+    
+14) to get a user's profile
+    url = /authentication/api/v1/jwt_user/
+    with headers
+    header :{
+        Authorization: JWT <token>
+    }

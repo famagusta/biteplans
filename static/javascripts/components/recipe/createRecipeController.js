@@ -1,9 +1,9 @@
 'use strict';
 
 app.controller('createRecipeController', ['$scope', 'AuthService',
-    '$routeParams',
+    '$routeParams', 'constants',
     'searchService', '$location', 'recipeService',
-    function($scope, AuthService, $routeParams, searchService,
+    function($scope, AuthService, $routeParams, constants, searchService,
         $location,
         recipeService) {
 
@@ -35,6 +35,26 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.view_recipe = '/viewRecipe/' +
                         $routeParams.id;
                     
+                    /* variables & functions to upload image file for recipe */
+                    $scope.formdata = new FormData();
+                    $scope.getTheFiles = function ($files) {
+                            angular.forEach($files, function (value, key) {
+                                $scope.formdata.append('file', value);                                
+                            });
+                        
+                    };
+                    
+                    $scope.uploadFile = function(id){
+                        var file = $scope.recipe_image_file;
+                        var url = constants.API_SERVER + 'biteplans/recipe/recipes/' 
+                        + id + '/';
+                        if(file){
+                            console.log(file);
+                            recipeService.uploadRecipeImage(file, url);
+                        }
+                    };
+                    
+                    
                      /* Nutritional Information calculations based on changes to
                         selected ingredients */
                     $scope.calculateNutritionTotal = function(nutrient){
@@ -47,7 +67,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         for (var i=0; i< $scope.ingredientDisplay.length; i++){
                             total += parseFloat($scope.ingredientDisplay[i].ingredient[nutrient])
                                 * parseFloat($scope.ingredientDisplay[i].quantity)
-                                * parseFLoat($scope.ingredientDisplay[i].selected_measure.weight)
+                                * parseFloat($scope.ingredientDisplay[i].selected_measure.weight)
                                 / (100 * servings);
                         }
                         return total;
@@ -136,9 +156,13 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             $scope.checklistIngredients.length; i++
                         ) {
                             // call API to get addtional ingredient information
-                            searchService.get_ingredient_addtnl_info($scope.checklistIngredients[i].id)
+                                    
+                            searchService.get_ingredient_addtnl_info($scope
+                                                                 .checklistIngredients[i]
+                                                                 .id)
                             .then(function(response) {
-                                $scope.AdditionalIngredientInfo.push(response); //model for storing response from API                
+                                //model for storing response from API                
+                                $scope.AdditionalIngredientInfo.push(response); 
                             }, function(error) {
                                 console.log(error);
                             });
@@ -151,7 +175,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     .checklistIngredients[
                                         i].measure[0],
                                 quantity: 1,
-//                                additional_nutrition_info: $scope.AdditionalIngredientInfo
                             });
                         }
                         
@@ -176,6 +199,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             .then(
                                 function(response) {
                                     var id = response.recipe_id;
+                                    
                                     for (var i = 0; i < $scope.ingredientDisplay
                                         .length; i++) {
                                         /* create a recipe ingred object to send to server */
@@ -200,6 +224,12 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                                         error
                                                     );
                                                 });
+                                        
+                                        /* upload image file to server upon id creation 
+                                           Note: it was easier to do this separately since
+                                           the other option was to rewrite sending data in 
+                                           a form as opposed to urlencoding it */
+                                        $scope.uploadFile(id);
                                     }
 
                                     /* Redirect to view recipe page */
@@ -216,7 +246,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                 
 
                     /* function called for saving the plan */
-                    $scope.finalizeRecipeCreation = function() {
+                    $scope.finalizeRecipeCreation = function($files) {
                         $scope.recipe.directions = '';
                         for (var i = 0; i < $scope.stepsToCreateRecipes
                             .length; i++) {
@@ -230,6 +260,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             ':' + $scope.cookMins + ':00';
                         createRecipe($scope.recipe);
                     };
+
+                    
                 }
                 else {
                     $location.path('/');
