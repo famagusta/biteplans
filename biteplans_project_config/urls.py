@@ -14,10 +14,12 @@ urlpatterns = patterns('',
                                    namespace="ingredients")),
                        url(r'^authentication/',
                            include('authentication.urls', namespace="auuth")),
+                       url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+                            'document_root': settings.MEDIA_ROOT}),
                        url('^.*$',
                            TemplateView.as_view(template_name="index.html"),
                            name='index'),
-                       )
+                       ) 
 
 if not settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,

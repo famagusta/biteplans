@@ -14,7 +14,10 @@ class AccountSerializer(serializers.ModelSerializer):
         '''Meta Data'''
         model = Account
         fields = ('id', 'email', 'username', 'date_joined', 'last_login',
-                  'updated_at', 'password', 'confirm_password', 'image_path')
+                  'updated_at', 'password', 'confirm_password', 'weight',
+                  'height', 'date_of_birth', 'gender', 'body_fat_percent',
+                  'neck', 'shoulder', 'bicep', 'forearm', 'chest', 'waist',
+                  'hip', 'thigh', 'calf', 'image_path', 'social_thumb')
         read_only_fields = ('date_joined', 'updated_at',)
 
     def create(self, validated_data):

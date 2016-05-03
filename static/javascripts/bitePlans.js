@@ -29,10 +29,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'navbarController',
                 templateUrl: '/static/templates/landingPage.html'
             })
-            .when('/dashboard', {
-                controller: 'dashboardController',
-                templateUrl: '/static/templates/dashboard.html'
-            })
             .when('/confirm/:activation_key', {
                 controller: 'confirmController',
                 templateUrl: '/static/templates/confirmTemp.html'
@@ -76,6 +72,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             .when('/viewRecipe/:id', {
                 controller: 'viewRecipeController',
                 templateUrl: 'static/templates/viewRecipe.html'
+            })
+            .when('/dashboard/2', {
+                controller: 'profileController',
+                templateUrl: 'static/templates/dashboard.html'
             })
             .otherwise('/');
         $authProvider.facebook({

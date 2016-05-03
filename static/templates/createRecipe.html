@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="input-field col s6">
                                     <input class="validate" id="servings"
-                                    ng-model="recipe.servings" type="number">
+                                    ng-model="recipe.servings" type="number" min="1">
                                     <label for="servings">Number of Servings
                                     </label>
                                 </div>
@@ -213,6 +213,11 @@
                                         <div class="col s12 m12">
                                             <a class="cyan-text add-ing" href=
                                             "#">Upload Image</a>
+<!--
+                                            <input type="file" id="file1" name="file" 
+                                                   multiple ng-files="getTheFiles($files)" />
+-->
+                                            <input type="file" file-model="recipe_image_file"/>
                                         </div>
                                     </div>
 
