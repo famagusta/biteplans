@@ -13,11 +13,25 @@ app.controller('ingredientsController', ['$scope', 'searchService',
 
          });
 
-        $scope.search = function(page) {
+        $scope.search = function(page, sortby) {
+            
             var query = $scope.query;
-            console.log(query, page);
+            console.log(query, page, sortby);
             if (query && $scope.foodgroup.length >0) {
-                searchService.search_ingredient(query, page, $scope.foodgroup)
+                searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
+                    .then(function(response) {
+                        $scope.details = response;
+                        $scope.filts = response.filters; //model for storing response from API                
+                        console.log($scope.details);
+                        // pagination
+                        $scope.currentPage = page;
+                        $scope.pageSize = response.total*6;
+                    }, function(error) {
+                        console.log(error);
+                    });
+            }
+            else if (query && $scope.foodgroup.length ===0) {
+                searchService.search_ingredient(query, page, null, sortby)
                     .then(function(response) {
                         $scope.details = response;
                         $scope.filts = response.filters; //model for storing response from API                
@@ -29,8 +43,8 @@ app.controller('ingredientsController', ['$scope', 'searchService',
                         console.log(error);
                     });
             }
-            else if (query && $scope.foodgroup.length ===0) {
-                searchService.search_ingredient(query, page, $scope.foodgroup)
+            else{
+                searchService.search_ingredient(query, page, null, sortby)
                     .then(function(response) {
                         $scope.details = response;
                         $scope.filts = response.filters; //model for storing response from API                

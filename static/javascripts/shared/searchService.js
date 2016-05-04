@@ -4,7 +4,7 @@ app.factory('searchService',
             ['httpService', '$location','constants','$q','$window', '$rootScope', '$auth', function(httpService,$location,constants,$q,$window, $rootScope, $auth){
     
         /* Function to do the search ingredients */
-        var search_ingredient = function(quer, page, food_group) {
+        var search_ingredient = function(quer, page, food_group, sortby) {
 
             var url = constants['API_SERVER'] + 'biteplans/search/';
 
@@ -19,7 +19,7 @@ app.factory('searchService',
                 obj = {
                     'query':quer,
                     'type':'ingredients',
-                    'food_group':angular.toJson(food_group)
+                    'food_group':angular.toJson(food_group),
                 };
             }
             else{
@@ -28,6 +28,10 @@ app.factory('searchService',
                     'type':'ingredients'
                 };
 
+            }
+
+            if(sortby!==undefined && sortby!==null){
+                obj['sortby']=sortby
             }
 
             httpService.httpPost(url, obj).then(
@@ -87,14 +91,14 @@ app.factory('searchService',
         return deferred.promise;};
 
     return {
-        search_ingredient : function(query, page, food_group) {
-            return search_ingredient(query, page, food_group);
+        search_ingredient : function(query, page, food_group, sortby) {
+            return search_ingredient(query, page, food_group, sortby);
          },
-         search_recipe : function(query, page) {
-            return search_recipe(query, page); 
+         search_recipe : function(query, page, sortby) {
+            return search_recipe(query, page, sortby); 
         },
-        search_plan : function(query, page) {
-            return search_plan(query, page); 
+        search_plan : function(query, page, sortby) {
+            return search_plan(query, page, sortby); 
         }
     };
     

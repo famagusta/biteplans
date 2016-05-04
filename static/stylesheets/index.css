@@ -86,10 +86,6 @@ a {
     color: #00bcd4;
 }
 
-p {
-    line-height: 2rem;
-}
-
 #articleSection > .section > .row > .col >.card{
   padding:12px;
 }

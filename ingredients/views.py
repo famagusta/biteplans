@@ -19,6 +19,7 @@ import math
 
 class GlobalSearchList(generics.GenericAPIView):
     '''creates serializer of the queryset'''
+    sortlist = None
     def get_serializer_class(self):
         if self.request.data['type'] == 'ingredients':
             return IngredientSerializer
@@ -30,30 +31,39 @@ class GlobalSearchList(generics.GenericAPIView):
     def get_queryset(self):
         query = self.request.data['query']
         if self.request.data['type'] == 'ingredients':
+            self.sortlist = Ingredient._meta.fields
             return Ingredient.objects.filter(name__search=query)
         elif self.request.data['type'] == 'recipes':
+            self.sortlist = Recipe._meta.fields
             return Recipe.objects.filter(name__search=query)
         elif self.request.data['type'] == 'plans':
+            self.sortlist = DietPlan._meta.fields
             return DietPlan.objects.filter(name__search=query)
 
     def post(self, request):
         '''Handles post request'''
         result = self.get_queryset()
-
         food_group = request.POST.get('food_group', False)
+        filters = None
 
-        filters = result.values_list("food_group").distinct()
-
+        if request.POST.get('type', False) == 'ingredients':
+            filters = result.values_list("food_group").distinct()
+        sortl = []
+        for i in self.sortlist:
+            if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
+                sortl.append(i.name)
+        self.sortlist = None
         if food_group != False:
+            
             food_group = json.loads(food_group)
             res = []
-            print len(food_group)
             for i in food_group:
                 res += result.filter(food_group=i)
-
             result = res
 
-
+        sortby = request.POST.get('sortby', False)
+        if sortby != False:
+            result = result.order_by('-'+sortby)
 
         total = math.ceil(len(result)/6.0)
         paginator = Paginator(result, 6)
@@ -70,17 +80,7 @@ class GlobalSearchList(generics.GenericAPIView):
 
         result = serializer(result, many=True)
         return Response({"results":result.data, "total":total,
-                        "filters":filters})
-
-
-class GetFilters(generics.GenericAPIView):
-    '''creates serializer of the queryset'''
-    def get(self, request):
-        '''get request'''
-        filter_list = Ingredient.objects.order_by().\
-        values_list('food_group').distinct()
-        filter_list = {"filters":filter_list}
-        return Response(json.dumps(filter_list))
+                        "filters":filters, "sortlist":sortl})
 
 
 class GetCompleteIngredientInfo(generics.RetrieveAPIView):
