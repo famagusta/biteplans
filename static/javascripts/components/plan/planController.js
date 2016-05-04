@@ -37,5 +37,11 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     console.log(error);
                 })
         };
+        
+          $scope.selectedDate = null;
+        
+        $scope.followPlan = function(){
+            console.log($scope.selectedDate);
+        }
     }
 ]);

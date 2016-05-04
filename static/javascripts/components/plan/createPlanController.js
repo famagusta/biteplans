@@ -180,7 +180,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             planService.updateMealIngredient(obje,
                                     obj.id)
                                 .then(function(response) {
-                                    console.log(response);
+//                                    console.log(response);
                                 }, function(error) {
                                     console.log(error);
                                 });
