@@ -19,7 +19,7 @@ class UserPlanHistory(models.Model):
     # Even if the dietplan is deleted. let the populated
     # meal history remain. COOL!!
     dietplan = models.ForeignKey(DietPlan, on_delete=models.CASCADE)
-    start_date = models.DateTimeField()
+    start_date = models.DateField()
     created_on = models.DateTimeField()
     updated_on = models.DateTimeField()
 
@@ -47,16 +47,14 @@ class MealHistory(models.Model):
     '''Stores a users meal history
        - logged meals or that from a plan history'''
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
-                             related_name="logged")
+                             related_name="userSchedule")
     name = models.CharField(default="Ad Hoc Meal", max_length=191)
     user_dietplan = models.ForeignKey(UserPlanHistory,
                                       on_delete=models.CASCADE,
-                                      related_name="FollowPlanMealPlans",
-                                      null=True)
-    user_mealplan = models.ForeignKey(MealPlan, on_delete=models.CASCADE,
-                                      null=True)
+                                      related_name="FollowPlanMealPlans")
+    user_mealplan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
 
-    date_time = models.DateTimeField()
+    date_time = models.DateTimeField(unique=True)
     updated_on = models.DateTimeField()
 
     def save(self, **kwargs):
@@ -86,6 +84,31 @@ class EventRecipe(models.Model):
                                      related_name="followingMealPlanRecipe")
     is_checked = models.BooleanField(default=False)
     no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
+
+
+class UserLoggedIngredient(models.Model):
+    '''stores ingredients logged of bookmarked by users'''
+    user = models.ForeignKey(Account, on_delete=models.CASCADE,
+                             related_name="loggedIngredients")
+    meal_ingredient = models.ForeignKey(Ingredient,
+                                        on_delete=models.CASCADE)
+    is_checked = models.BooleanField(default=False)
+    quantity = models.DecimalField(max_digits=11, decimal_places=3)
+    unit_desc = models.ForeignKey(IngredientCommonMeasures,
+                                  on_delete=models.CASCADE,
+                                  related_name="logged_ing_qty")
+    date_time = models.DateTimeField(unique=True)
+
+
+class UserLoggedRecipe(models.Model):
+    '''stores recipes logged of bookmarked by users'''
+    meal_recipe = models.ForeignKey(MealRecipe, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE,
+                             related_name="loggedrecipes")
+    is_checked = models.BooleanField(default=False)
+    no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
+    date_time = models.DateTimeField(unique=True)
+
 
 
 @receiver(post_save, sender=UserPlanHistory)
