@@ -18,6 +18,19 @@ app.factory('profileService',
         });
         return deferred.promise;
     }
+    
+    var updateSavedPlan = function(obj, id ) {
+            var url = 'authentication/api/v1/register/' + id + '/';
+        console.log(obj);
+            var deferred = $q.defer();
+            httpService.httpPatch(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+    }
       
      var uploadProfileImage = function(file, uploadUrl){
         var fd = new FormData();
@@ -44,11 +57,9 @@ app.factory('profileService',
         },
         uploadProfileImage : function(id, file){
             return uploadProfileImage(id, file)
+        },
+        updateSavedPlan : function(obj, id){
+            return updateSavedPlan(obj, id)
         }
-
     };
-
-
-
-
-   }]);
+}]);

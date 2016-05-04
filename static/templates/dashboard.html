@@ -350,7 +350,7 @@
                                             id="disabled" ng-if="!editIt"
                                             readonly type="number" ng-model='profileInfo.weight'>
                                             <input class="validate" id=
-                                            "first_name" ng-if="editIt" type=
+                                            "first_name" ng-if="editIt" ng-model='profileInfo.weight' type=
                                             "number">
                                         </div>
                                     </div>
@@ -375,9 +375,10 @@
                                         <div class="input-field col s12">
                                             <input class="validate" disabled
                                             id="disabled" ng-if="!editIt" type=
-                                            "text" ng-model="profileInfo.height"> <input class="validate" id=
+                                            "text" ng-model="profileInfo.height">
+                                            <input class="validate" id=
                                             "height" ng-if="editIt" type=
-                                            "number"> <label for=
+                                            "number"  ng-model="profileInfo.height"> <label for=
                                             "height">Height (in cms)</label>
                                         </div>
                                     </div>
@@ -424,10 +425,9 @@
                                             <input class="datepicker" ng-if=
                                             "editIt" type="date">
                                         </div>
+                                        
                                     </div>
                                     <br>
-
-
                                     <div class="row center">
                                         <div class="input-field col s12">
                                             <button class=
@@ -436,7 +436,7 @@
                                             "!editIt">Update</button>
                                             <button class=
                                             "waves-effect waves-light btn"
-                                            ng-if="editIt">Update</button>
+                                            ng-if="editIt" ng-click="updateDetailsInDashboard()">Update</button>
                                         </div>
                                     </div>
                                 </form>
