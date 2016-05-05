@@ -154,46 +154,13 @@ function(response) {
 return deferred.promise;};
 
 
-/* Function to do the search ingredients */
-//var search = function(quer) {
-//    var url = constants['API_SERVER'] + 'bitespace/search';
-//    var deferred = $q.defer();
-//    httpService.httpPost(url, {
-//                     'query':quer,
-//                 }).then(
-//  function(response) {
-//    deferred.resolve(response);
-//
-//},
-//function(response) {
-//    deferred.reject(response);
-//
-//});
-//return deferred.promise;};
-//
 /* function to logout for normally signed in user */
 var logout = function(){
 	$auth.removeToken();
   userOb.set_user();
 
 };
-//
-//var search_recipe = function(quer) {
-//    var url = constants['API_SERVER'] + 'bitespace/recipe_search';
-//    var deferred = $q.defer();
-//    httpService.httpPost(url, {
-//                     'query':quer,
-//                 }).then(
-//  function(response) {
-//    deferred.resolve(response);
-//
-//},
-//function(response) {
-//    deferred.reject(response.data.error);
-//    console.log(response);
-//
-//});
-//return deferred.promise;};
+
 /*User resource for sharing between different controllers */
 var userOb = {};
 userOb.current = {};
@@ -261,7 +228,6 @@ return deferred.promise;};
 
 var isAuthenticated = function(){
   var url = constants['API_SERVER'] + 'authentication/loginstatus/';
-    console.log(url);
   var deferred = $q.defer();
   httpService.httpGet(url).then(function(response){
     deferred.resolve(response);
