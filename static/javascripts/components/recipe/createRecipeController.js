@@ -17,6 +17,11 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     // stores the entries from the checkbox prior to saving into
                     // recipe ingredients
+
+                    //This is to store the checked results from the given search page
+                    $scope.checklistIngs = [];
+
+                    //this is to store all the checked/selected results
                     $scope.checklistIngredients = [];
 
                     // stores the ingredients added to the recipe so far
@@ -36,21 +41,74 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $routeParams.id;
 
                     /* search function for the ingredient modal */
-                    $scope.search = function() {
+                    $scope.foodgroup=[];
+
+
+                    //Checks for applied filters, as soon as a new filter is applied or removed
+                    //search result is changed.
+
+                    $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
+
+                        $scope.search(1, undefined, true);
+
+
+                     });
+
+                    //main search fn, executed on page change(page specifies page number to be displayed)
+                    //checks whether applied sort order is same as previous sort order or not, 
+                    //if not, then only make the request, if the order is same and filters are same,
+                    //then do not make the request.
+                    $scope.search = function(page, sortby, filter_changed) {
+                        if($scope.sortby!==sortby || $scope.sortby ===undefined || filter_changed===true){
+
+                        $scope.sortby = sortby;
+                        $scope.checklistIngredients = $scope.checklistIngredients.concat(
+                                                        $scope.checklistIngs.splice(0,$scope.checklistIngs.length
+                                                        ));
+                        
                         var query = $scope.query;
-                        if (query) {
-                            searchService.search_ingredient(query)
-                                .then(
-                                    function(response) {
-                                        /* model for storing response from API */
-                                        $scope.details =
-                                            response;
-                                    }, function(error) {
-                                        // TODO : Handle error cases better
-                                        console.log(error);
-                                    });
+                        console.log(query, page, sortby);
+                        if (query && $scope.foodgroup.length >0) {
+                            searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
                         }
-                    };
+                        else if (query && $scope.foodgroup.length ===0) {
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                    $scope.currentPage = page;
+                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else{
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                    $scope.currentPage = page;
+                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+
+                    }};
 
                     /* function that opens the modal */
                     // is create recipe a modal anymore??
@@ -62,7 +120,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* watch the value of nutrient value to detect change 
                       and update the last checked value */
-                    $scope.$watch('checklistIngredients', function(
+                    $scope.$watchCollection('checklistIngs', function(
                         newVal, oldVal) {
                         if (newVal.length > 0) {
                             $scope.lastChecked = newVal[
@@ -70,19 +128,59 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         }
                     }, true);
 
-                    /* function to remove an ingredient from the recipe */
+                    /* function to remove an ingredient from the recipe checklist and templist */
                     $scope.removeIngredient = function(element) {
-                        // remove ingredient from checklist array
-                        var index = $scope.checklistIngredients
+                        console.log(element);
+                        // remove ingredient from checklist temp array
+                        var index1 = $scope.checklistIngs
                             .indexOf(element);
+
+                        if(index1>=0){
+                        $scope.checklistIngs.splice(
+                            index1, 1);
+}
+
+                        // remove ingredient from checklist array
+                        var index2 = $scope.checklistIngredients
+                            .indexOf(element);
+                        if(index2>=0){
                         $scope.checklistIngredients.splice(
-                            index, 1);
+                            index2, 1);}
 
                         // remove ingredient from recipe ingredients
-                        var index = $scope.checklistIngredients
-                            .indexOf(element);
+                        var index3 = -1;
+                        for(var ind=0; ind<$scope.ingredientDisplay.length;ind++){
+                            if(element.id===$scope.ingredientDisplay[ind].ingredient){
+                                index3 = ind;
+                                break;
+                            }
+                        }
+                        if(index3>=0){
+                        $scope.ingredientDisplay.splice(index3,
+                            1);}
+
+                        console.log(index1, index2, index3);
+                    };
+
+                    /* function to remove an ingredient from the recipe */
+                    $scope.removeIngs = function(index) {
+                        console.log(index);
+                        
+
+                        // remove ingredient from checklist array
+                        var index2 = -1;
+                        for(var i=0; i<$scope.checklistIngredients.length;i++){
+                            if($scope.checklistIngredients[i].id===$scope.ingredientDisplay[index].ingredient)
+                            {index2 = i;}
+                        }
+                        if(index2>=0){
+                        $scope.checklistIngredients.splice(
+                            index2, 1);}
+
+                        // remove ingredient from recipe ingredients
                         $scope.ingredientDisplay.splice(index,
                             1);
+
                     };
 
 
@@ -90,6 +188,14 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.addContents = function() {
                         /*loop over the checklist mode (nutrient value) and
                           add to the ingredients */
+
+                        for (var j = $scope.checklistIngredients.length; j <
+                            $scope.checklistIngs.length; j++
+                        ) {
+                            $scope.checklistIngredients.push($scope.checklistIngs[j]);
+                        }
+                        $scope.checklistIngs=[];
+
                         for (var i = $scope.ingredientDisplay.length; i <
                             $scope.checklistIngredients.length; i++
                         ) {
@@ -114,13 +220,28 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         /* cleanup checklist and search results */
                         $scope.lastChecked = null;
                         $scope.details = [];
+                        $scope.filts = undefined;
+                        $scope.query = undefined;
+                        $scope.pageSize = null;
+                        $scope.currentPage = null;
 
                     };
+                    //checks whether an ingredient is already selected or not
+                    $scope.checkIfSelected = function(index){
+                        for(var i=0; i<$scope.checklistIngredients.length; i++){
+                            if($scope.checklistIngredients[i].id===index){
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
 
                     $scope.stepsToCreateRecipes = [''];
                     $scope.addMoreSteps = function() {
                         $scope.stepsToCreateRecipes.length += 1;
                     };
+
+
 
                     $scope.currentPage = 1;
                     $scope.pageSize = 6;

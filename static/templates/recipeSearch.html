@@ -2,8 +2,8 @@
     <div ng-if=
     "recipeDetails!=null && recipeDetails!=undefined && recipeDetails.results.length!=0">
     <div class="row">
-            <div class="col s12 m6" current-page="currentPage" dir-paginate=
-            "recipe in recipeDetails.results | itemsPerPage: pageSize">
+            <div class="col s12 m6" current-page="currentPage" ng-repeat=
+            "recipe in recipeDetails.results track by $index">
                 <div class="card white big recipe-result-card" id=
                 "recipes-result-card">
                     <div class="card-content grey-text">

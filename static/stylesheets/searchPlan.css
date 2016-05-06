@@ -53,6 +53,7 @@ button.search-plan {
 /* SEARCH BOX STYLING */
 
 #searchcard {
+    padding:13px;
     width: 50%;
     height: 55px;
     margin: auto;
@@ -67,9 +68,9 @@ button.search-plan {
 #searchcard textarea#searchbox {
     resize: none;
     border: none;
-    text-align: center;
     height: 35px;
-    margin-top: -8px;
+    margin:0px;
+    text-align: center;
 }
 
 textarea::-webkit-input-placeholder {
