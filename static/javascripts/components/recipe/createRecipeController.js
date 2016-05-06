@@ -49,7 +49,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         var url = constants.API_SERVER + 'biteplans/recipe/recipes/' 
                         + id + '/';
                         if(file){
-                            console.log(file);
                             recipeService.uploadRecipeImage(file, url);
                         }
                     };
@@ -205,11 +204,13 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                         /* create a recipe ingred object to send to server */
                                         var recipeIngred ={
                                             recipe: id,
-                                            ingredient: $scope.ingredientDisplay[i].ingredient
-                                            .id,
+                                            ingredient:
+                                                $scope.ingredientDisplay[i]
+                                                .ingredient.id,
                                             measure: $scope.ingredientDisplay[i]
-                                            .selected_measure.id,
-                                            quantity: $scope.ingredientDisplay[i].quantity
+                                                .selected_measure.id,
+                                            quantity:$scope.ingredientDisplay[i]
+                                                .quantity
                                         } 
                                         
                                         recipeService.createRecipeIng(recipeIngred)
@@ -229,9 +230,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                            Note: it was easier to do this separately since
                                            the other option was to rewrite sending data in 
                                            a form as opposed to urlencoding it */
-                                        $scope.uploadFile(id);
+                                        
                                     }
-
+                                    
+                                    $scope.uploadFile(id);
                                     /* Redirect to view recipe page */
                                     $location.path(
                                         '/viewRecipe/' + id

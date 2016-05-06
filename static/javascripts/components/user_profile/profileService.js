@@ -19,14 +19,16 @@ app.factory('profileService',
         return deferred.promise;
     }
       
-     var uploadProfileImage = function(file, uploadUrl){
+     var uploadProfileImage = function(id, file){
         var fd = new FormData();
         fd.append('image_path', file);
+         var url = constants.API_SERVER 
+            + 'authentication/api/v1/register/' 
+            + id + '/';
         var deferred = $q.defer();
 
-        httpService.httpPatchFile(uploadUrl, fd).then(function(response){
+        httpService.httpPatchFile(url, fd).then(function(response){
     		deferred.resolve(response);
-    		console.log(response);
 
     	}, function(error){
     		console.log(error);
@@ -36,6 +38,23 @@ app.factory('profileService',
     	return deferred.promise;
     };
                 
+    var updateProfile = function(id, obj){
+        var url = constants.API_SERVER 
+            + 'authentication/api/v1/register/' 
+            + id + '/';
+        var deferred = $q.defer();
+        httpService.httpPatch(url, obj).then(function(response){
+    		deferred.resolve(response);
+    		console.log(response);
+
+    	}, function(error){
+    		console.log(error);
+    		deferred.reject(error);
+    	});
+
+    	return deferred.promise;
+    }
+                
 
     return {
         
@@ -44,6 +63,9 @@ app.factory('profileService',
         },
         uploadProfileImage : function(id, file){
             return uploadProfileImage(id, file)
+        },
+        updateProfile : function(id, obj){
+            return updateProfile(id, obj);
         }
 
     };
