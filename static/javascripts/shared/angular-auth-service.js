@@ -321,6 +321,5 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
             forgotPassword: resetPassword,
         };
-
-    }
-]);
+    
+}]);

@@ -108,7 +108,7 @@
 
             <div class="row">
                 <div class="col s12 m6" ng-repeat=
-                "plan in plans | limitTo:4">
+                "plan in plans.results | limitTo:4">
                     <div class="card white">
                         <div class="card-content black-text">
                             <div class="row">
@@ -175,14 +175,25 @@
 
 
                         <div class="card-action">
-                            <a class="teal-text right" href="#">FOLLOW</a>
-                            <a class="teal-text right" href="#">SHORTLIST</a>
+<!--
+                            <form>
+                                <input id="date-birth"  
+                                       ng-change="followPlan()" class="datepicker"
+                                       ng-click="testDatePicker()"
+                                       type="date" ng-model="plan.selectedDate">
+                            </form>
+-->
+<!--                            <input class="btn-flat teal-text datepicker" ng-click="selectFollowDate()" ng-model="selectedDate" pick-a-date="date" pick-a-date-options="{ format: 'yyyy-mm-dd' }" placeholder="Select Date">-->
+                            <button class="datepicker_btn btn-flat teal-text" ng-click="followPlan(plan.id)"
+                                    >FOLLOW</button>
+                            <button class="btn-flat teal-text" href="#">SHORTLIST</button>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
 
+            <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
 
             <div class="row">
                 <div class="col s12">

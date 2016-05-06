@@ -125,12 +125,12 @@ class Account(AbstractBaseUser, PermissionsMixin):
 @receiver(pre_save, sender=Account)
 def skip_saving_file(sender, instance, **kwargs):
     if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
-        setattr(instance, _UNSAVED_FILEFIELD, instance.image)
+        setattr(instance, _UNSAVED_FILEFIELD, instance.image_path)
         instance.image = None
 
         
 @receiver(post_save, sender=Account)
 def save_file(sender, instance, created, **kwargs):
     if created and hasattr(instance, _UNSAVED_FILEFIELD):
-        instance.image = getattr(instance, _UNSAVED_FILEFIELD)
+        instance.image_path = getattr(instance, _UNSAVED_FILEFIELD)
         instance.save()    

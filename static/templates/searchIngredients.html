@@ -1,6 +1,6 @@
 <div class="section" id="planPage">
     <div class="row">
-        <div class="col s12 m3 hide-on-small-only" id="checklist">
+        <div class="col s12 m3 hide-on-small-only" ng-if="filts.length>0" id="checklist">
             <div class="card white">
                 <div class="card-content black-text">
                     <form action="#" class="planform">
@@ -8,57 +8,22 @@
 
 
                         <div class="center-btn">
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box1" type="checkbox"> <label for=
-                            "filled-in-box1">Vegetarian</label></p>
+                            <div><b class="pull-left">Filters</b> <i class="fa fa-filter pull right"></i></div>
+                            <br>
+                            <br>
 
-
-                            <p><input class="filled-in" id="filled-in-box2"
-                            type="checkbox"> <label for="filled-in-box2">Non
-                            Vegetarian</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box3" type="checkbox"> <label for=
-                            "filled-in-box3">Dairy</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box4" type="checkbox"> <label for=
-                            "filled-in-box4">Non Dairy</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box5" type="checkbox"> <label for=
-                            "filled-in-box5">Protien Rich</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box6" type="checkbox"> <label for=
-                            "filled-in-box6">Fruits</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box7" type="checkbox"> <label for=
-                            "filled-in-box7">Vegetables</label></p>
+                            <p ng-repeat="filter in filts track by $index"><input checked="checked" class="filled-in" id=
+                            "filled-in-box1{{$index}}" type="checkbox" checklist-model="foodgroup"
+                            checklist-value="filter['0']"> <label for=
+                            "filled-in-box1{{$index}}">{{filter['0']}}</label></p>
                             <br>
                             <br>
+                            <div><b class="pull-left">Sortby</b> <i class="fa fa-reorder pull right"></i></div>
                             <br>
                             <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
+                            <p ng-repeat="filter in details.sortlist track by $index"><input id=
+                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-change="search(1, sortby)"><label
+                            for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
                         </div>
                     </form>
                 </div>
@@ -67,7 +32,7 @@
         <!-- END OF CHECKLIST -->
 
 
-        <div class="col s12 m9 smallmid">
+        <div class="smallmid" ng-class="{'col s12 m9':filts!==undefined&&filts.length>0, 'col s12 m12':filts===undefined||filts===null}">
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card white" id="searchcard">
@@ -80,7 +45,7 @@
                                 ng-model="query" placeholder=
                                 "Search people & places"></textarea>
                                 <button class="fa fa-search search-ingredient"
-                                href="#" ng-click="search()" type=
+                                href="#" ng-click="search(1)" type=
                                 "submit"></button>
                             </form>
                         </div>
@@ -96,7 +61,9 @@
                     "'static/templates/searchIngredientsResults.html'">
                     </div>
                 </div>
+
             </div>
+             
         </div>
     </div>
     <!--
@@ -107,8 +74,40 @@
                     </div>
                   </div>
                 </div>
+
+
 -->
+
+<div class="row center">
+<paging
+                class="small"
+                page="currentPage" 
+                page-size="6" 
+                total="pageSize"
+                hide-if-empty="{{hideIfEmpty}}"
+                ul-class="{{ulClass}}"
+                li-class="lipageclass"
+                active-class="{{activeClass}}"
+                disabled-class="{{disabledClass}}"
+                show-prev-next="true"
+                show-first-last="true"
+                text-next-class="acti fa fa-chevron-right"
+                text-prev-class="acti fa fa-chevron-left"
+                text-first-class="acti fa fa-backward"
+                text-last-class="acti fa fa-forward"
+  text-title-page="Page {page}"
+  text-title-first="First Page"
+  text-title-last="Last Page"
+  text-title-next="Next Page"
+  text-title-prev="Previous" 
+  paging-action="search(page)" 
+  >
+            </paging> 
+                
 </div>
+</div>
+
+
 <script>
 $(document).ready(function() {
     $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key

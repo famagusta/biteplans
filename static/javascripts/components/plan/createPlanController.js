@@ -180,7 +180,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             planService.updateMealIngredient(obje,
                                     obj.id)
                                 .then(function(response) {
-                                    console.log(response);
+//                                    console.log(response);
                                 }, function(error) {
                                     console.log(error);
                                 });
@@ -220,6 +220,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 .mealingredient.length;
                             //give a more sensible name to this variable
                             var x = $scope.nutrientValue.slice();
+                            console.log(currlength);
 
                             //STRANGE LOOKING FOR LOOP
                             for (var i = 0; i < x.length; i++) {
@@ -230,7 +231,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                             ingredient: x[i],
                                             unit: x[i].measure[
                                                 0],
-                                            quantity: 1.00
+                                            quantity: 1.00,
                                         })
                                 }
                                 else {
@@ -239,7 +240,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         .push({
                                             ingredient: x[i],
                                             unit: x[i].measure,
-                                            quantity: 1.00
+                                            quantity: 1.00,
+
                                         });
                                 }
                             }
@@ -452,13 +454,17 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     'unit': temp[i].unit.id
                                 };
 
-                                planService.createMealIngredient(
+                                (function(cntr, obj){
+                                        // here the value of i was passed into as the argument cntr
+                                        // and will be captured in this function closure so each
+                                        // iteration of the loop can have it's own value
+                                        planService.createMealIngredient(
                                         obj)
                                     .then(
                                         function(response) {
+                                            console.log(response, cntr);
                                             $scope.mealPlanNameArray[
-                                                    current].mealingredient[
-                                                    saveind].id =
+                                                    current].mealingredient[cntr].id =
                                                 response.meal_ingredient_id;
 
                                         },
@@ -466,6 +472,10 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                             console.log(error);
                                         }
                                     );
+                                        
+                                    })(i, obj);
+
+                                
                             }
                         };
                     }

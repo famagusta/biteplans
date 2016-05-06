@@ -1,19 +1,57 @@
 'use strict';
 // Controller to display search results on ingredients page
 
-app.controller('ingredientsController', ['$scope', 'searchService', 'Data',
-    function($scope, searchService, Data) {
-
-        $scope.Data = Data;
+app.controller('ingredientsController', ['$scope', 'searchService',
+    function($scope, searchService) {
         // function to search for ingredients 
-        $scope.search = function() {
+        $scope.foodgroup=[];
+
+        $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
+
+            $scope.search(1);
+
+
+         });
+
+        $scope.search = function(page, sortby) {
+            
             var query = $scope.query;
-            console.log(query);
-            if (query) {
-                searchService.search_ingredient(query)
+            console.log(query, page, sortby);
+            if (query && $scope.foodgroup.length >0) {
+                searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
                     .then(function(response) {
-                        $scope.details = response; //model for storing response from API                
+                        $scope.details = response;
+                        $scope.filts = response.filters; //model for storing response from API                
                         console.log($scope.details);
+                        // pagination
+                        $scope.currentPage = page;
+                        $scope.pageSize = response.total*6;
+                    }, function(error) {
+                        console.log(error);
+                    });
+            }
+            else if (query && $scope.foodgroup.length ===0) {
+                searchService.search_ingredient(query, page, null, sortby)
+                    .then(function(response) {
+                        $scope.details = response;
+                        $scope.filts = response.filters; //model for storing response from API                
+                        console.log($scope.details);
+                        // pagination
+        $scope.currentPage = page;
+        $scope.pageSize = response.total*6;
+                    }, function(error) {
+                        console.log(error);
+                    });
+            }
+            else{
+                searchService.search_ingredient(query, page, null, sortby)
+                    .then(function(response) {
+                        $scope.details = response;
+                        $scope.filts = response.filters; //model for storing response from API                
+                        console.log($scope.details);
+                        // pagination
+        $scope.currentPage = page;
+        $scope.pageSize = response.total*6;
                     }, function(error) {
                         console.log(error);
                     });
@@ -22,14 +60,11 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'Data',
         };
         // function for modal when ingredient card is clicked
         $scope.openIngredientsModal = function(index) {
-            $('#modal6')
-                .openModal();
+            $('#modal6').openModal();
             $scope.selected = index; // stores index of every card 
         };
 
-        // pagination
-        $scope.currentPage = 1;
-        $scope.pageSize = 100;
+        
 
     }
 ]);
