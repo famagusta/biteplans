@@ -3,13 +3,13 @@
 }
 
 .recipe-view {
-    overflow: hidden !important;
+    overflow: none !important;
 }
 
 .nutinfo-card {
     background-color: #fff;
     max-height: 1112px;
-    height: 1115px;
+    position: fixed;
 }
 
 .create-recipe-content {

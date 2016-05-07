@@ -25,7 +25,9 @@
     "jt.timepicker": "jquery-timepicker-jt#^1.8.11",
     "material-calendar": "^0.2.14",
     "angular-svg-round-progressbar": "^0.4.2",
-    "angular-mocks": "^1.5.5"
+    "angular-mocks": "^1.5.5",
+    "angular-google-chart": "^0.1.0",
+    "angular-tek-progress-bar": "^0.2.0"
   },
   "resolutions": {
     "angular": "^1.4.9",

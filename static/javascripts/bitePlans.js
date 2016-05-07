@@ -1,7 +1,8 @@
 'use strict'; /* global app: true */
 var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'angularUtils.directives.dirPagination',
-    'angular-svg-round-progressbar', "ngMaterial", "materialCalendar"
+    'ngMaterial', 'materialCalendar',
+    'angular-svg-round-progressbar'
 ]);
 app.run(
     function() {

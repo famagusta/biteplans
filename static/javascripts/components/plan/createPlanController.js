@@ -17,8 +17,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         /*if authed then create these objects*/
 
                         /* main object storing the plan data */
-                        $scope.plan = {};
-
+                       
+                        
                         /* week & day count for current plan */
                         $scope.weekCount = [];
                         $scope.dayCount = [];
@@ -180,7 +180,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             planService.updateMealIngredient(obje,
                                     obj.id)
                                 .then(function(response) {
-                                    console.log(response);
+//                                    console.log(response);
                                 }, function(error) {
                                     console.log(error);
                                 });
@@ -220,6 +220,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 .mealingredient.length;
                             //give a more sensible name to this variable
                             var x = $scope.nutrientValue.slice();
+//                            console.log(currlength);
 
                             //STRANGE LOOKING FOR LOOP
                             for (var i = 0; i < x.length; i++) {
@@ -230,7 +231,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                             ingredient: x[i],
                                             unit: x[i].measure[
                                                 0],
-                                            quantity: 1.00
+                                            quantity: 1.00,
                                         })
                                 }
                                 else {
@@ -239,7 +240,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         .push({
                                             ingredient: x[i],
                                             unit: x[i].measure,
-                                            quantity: 1.00
+                                            quantity: 1.00,
+
                                         });
                                 }
                             }
@@ -360,22 +362,34 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     .ingredient[field]);
                             }
                             return total;
+
                         };
 
                         $scope.calculateGlobalMacros = function(field) {
 
-                            var total = 0;
-                            for (i = 0; i < $scope.mealPlanNameArray
+                            var GlobalTotal = 0;
+                            
+                            if(!$scope.mealPlanNameArray) {
+                                return;
+                            }
+                            else {
+                              for (i = 0; i < $scope.mealPlanNameArray
                                 .length; i++) {
+                                  var mealTotal = 0;
                                 for (j = 0; j < $scope.mealPlanNameArray[
                                     i].mealingredient.length; j++) {
-                                    total +=
+                                    mealTotal +=
                                         parseFloat($scope.mealPlanNameArray[
                                                 i].mealingredient[j]
                                             .ingredient[field]);
                                 }
+                                  GlobalTotal += mealTotal;
+                                  $scope.mealPlanNameArray[i].mealNutrition[field] = mealTotal;
+                                  console.log($scope.mealPlanNameArray[i]);
+                            }  
                             }
-                            return total;
+                            
+                            return GlobalTotal;
                         };
 
                         //function to get current dayplan details including all meals and mealings
@@ -424,7 +438,68 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                                     $scope.mealPlanNameArray =
                                         response.mealplan;
+                                    for(var i=0; i< $scope.mealPlanNameArray.length; i++){
+                                        $scope.mealPlanNameArray[i].mealNutrition = {};
+                                    }
+                                        
+                                google.charts.load('current', {'packages':['corechart']});
 
+                                  // Set a callback to run when the Google Visualization API is loaded.
+                                  google.charts.setOnLoadCallback(drawChart);
+
+                                  // Callback that creates and populates a data table,
+                                  // instantiates the pie chart, passes in the data and
+                                  // draws it.
+
+                                    $scope.extractComponent =[];
+                                    for(var i=0; i<$scope.mealPlanNameArray.length; i++){
+//                                        console.log($scope.mealPlanNameArray[i]);
+                                        var total=0;
+                                        for (var j=0; j<$scope.mealPlanNameArray[i].mealingredient.length; j++){
+                                            total +=
+                                                parseFloat($scope.mealPlanNameArray[
+                                                    i].mealingredient[j]
+                                                .ingredient['energy_kcal']);
+                                        }
+//                                        console.log(total);
+                                        $scope.extractComponent.push([$scope.mealPlanNameArray[i].mealname, total]);
+                                    }
+                                
+                                    $scope.extractComponent.push(['Total', $scope.calculateGlobalMacros('energy_kcal')]);
+                                  function drawChart() {
+
+                                    // Create the data table.
+                                    var data = new google.visualization.DataTable();
+                                    data.addColumn('string', 'Topping');
+                                    data.addColumn('number', 'Kcal');
+                                    console.log($scope.extractComponent);
+                                    data.addRows($scope.extractComponent);
+
+                                    // Set chart options
+                                   var options = {
+                                    chartArea: {width: '50%'},
+                                    hAxis: {
+                                      minValue: 0,
+                                      gridlines: {
+                                        color: 'none'
+                                }
+                                    },
+                                    vAxis: {
+                                      minValue: 0,
+                                    gridlines: {
+                                        color: 'none'
+                                }
+
+                                    },
+                                       colors: ['green'],
+                                  };
+                                      
+
+                                    // Instantiate and draw our chart, passing in some options.
+                                    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+                                    chart.draw(data, options);
+                                  }
+                                
                                 }, function(response) {
                                     console.log(response);
                                 });
@@ -452,13 +527,17 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     'unit': temp[i].unit.id
                                 };
 
-                                planService.createMealIngredient(
+                                (function(cntr, obj){
+                                        // here the value of i was passed into as the argument cntr
+                                        // and will be captured in this function closure so each
+                                        // iteration of the loop can have it's own value
+                                        planService.createMealIngredient(
                                         obj)
                                     .then(
                                         function(response) {
+                                            console.log(response, cntr);
                                             $scope.mealPlanNameArray[
-                                                    current].mealingredient[
-                                                    saveind].id =
+                                                    current].mealingredient[cntr].id =
                                                 response.meal_ingredient_id;
 
                                         },
@@ -466,6 +545,10 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                             console.log(error);
                                         }
                                     );
+                                        
+                                    })(i, obj);
+
+                                
                             }
                         };
                     }
@@ -477,6 +560,40 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     console.log(error);
                     $location.path('/');
                 });
-
+        
+//
+//     $scope.extractComponent =[];
+//                                    for(var i=0; i<$scope.mealPlanNameArray.length; i++){
+////                                        console.log($scope.mealPlanNameArray[i]);
+//                                        var total=0;
+//                                        for (var j=0; j<$scope.mealPlanNameArray[i].mealingredient.length; j++){
+//                                            total +=
+//                                                parseFloat($scope.mealPlanNameArray[
+//                                                    i].mealingredient[j]
+//                                                .ingredient['energy_kcal']);
+//                                        }
+////                                        console.log(total);
+//                                        $scope.extractComponent.push([$scope.mealPlanNameArray[i].mealname, total]);
+//                                    }
+//        
+//        $scope.progress = function(percent, element) {
+//				var progressBarWidth = percent * element.width() / 100;
+//				// With labels:
+//				element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
+//				
+//				// Without labels:
+//				//element.find('div').animate({ width: progressBarWidth }, 500);
+//			}
+//			
+//			$(document).ready(function() { 
+//				$('.progressBar').each(function() { 
+//					//alert('Hello');
+//					var bar = $(this);
+//					var max = $(this).attr('id');
+//					max = max.substring(3);
+//
+//					$scope.progress(max, bar);
+//				});
+//			});
     }
 ]);
