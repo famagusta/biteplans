@@ -59,7 +59,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     //if not, then only make the request, if the order is same and filters are same,
                     //then do not make the request.
                     $scope.search = function(page, sortby, filter_changed) {
-                        if($scope.sortby!==sortby || $scope.sortby ===undefined || filter_changed===true){
+                        $scope.details = undefined;
+                        if($scope.sortby!==sortby || $scope.sortby ===undefined && $scope.query!==undefined){
 
                         $scope.sortby = sortby;
                         $scope.checklistIngredients = $scope.checklistIngredients.concat(
@@ -68,7 +69,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         
                         var query = $scope.query;
                         console.log(query, page, sortby);
-                        if (query && $scope.foodgroup.length >0) {
+                        if (query !==undefined && $scope.foodgroup.length >0) {
                             searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
                                 .then(function(response) {
                                     $scope.details = response;
@@ -81,15 +82,15 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     console.log(error);
                                 });
                         }
-                        else if (query && $scope.foodgroup.length ===0) {
+                        else if (query != undefined && $scope.foodgroup.length ===0) {
                             searchService.search_ingredient(query, page, null, sortby)
                                 .then(function(response) {
                                     $scope.details = response;
                                     $scope.filts = response.filters; //model for storing response from API                
                                     console.log($scope.details);
                                     // pagination
-                    $scope.currentPage = page;
-                    $scope.pageSize = response.total*6;
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
                                 }, function(error) {
                                     console.log(error);
                                 });
@@ -101,8 +102,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     $scope.filts = response.filters; //model for storing response from API                
                                     console.log($scope.details);
                                     // pagination
-                    $scope.currentPage = page;
-                    $scope.pageSize = response.total*6;
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
                                 }, function(error) {
                                     console.log(error);
                                 });
@@ -189,7 +190,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         /*loop over the checklist mode (nutrient value) and
                           add to the ingredients */
 
-                        for (var j = $scope.checklistIngredients.length; j <
+                        console.log($scope.checklistIngs);
+                        console.log($scope.checklistIngredients);
+
+                        for (var j = 0; j <
                             $scope.checklistIngs.length; j++
                         ) {
                             $scope.checklistIngredients.push($scope.checklistIngs[j]);
@@ -219,7 +223,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                         /* cleanup checklist and search results */
                         $scope.lastChecked = null;
-                        $scope.details = [];
+                        $scope.details = undefined;
                         $scope.filts = undefined;
                         $scope.query = undefined;
                         $scope.pageSize = null;
