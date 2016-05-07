@@ -1,6 +1,5 @@
 <!--CREATE PLAN PAGE 1-->
 <section class="full-length" id="create-plan">
-    <div id="planPage">
         <div class="row">
             <div class="col s12 m12">
                 <div class="card white darken-1">
@@ -83,17 +82,16 @@
                                     <input class="validate" id="goal" ng-model=
                                     "plan.goal" type="text">
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12 m5 push-m1">
+                                 <div class="input-field col s12 m5 push-m1">
                                     <input class="form-control validate" id=
                                     "weight" ng-model="plan.weight" required=""
                                     type="number"> <label for="weight">Weight
                                     (in kgs)</label>
                                 </div>
+                            </div>
 
-                                <div class="right s12 m5 push-m1" id="gender">
+                            <div class="row">
+                                <div class="col s12 m5 push-m1" id="gender">
                                     <div class="row">
                                         <div class="col m3 s3">
                                             <span class="push-m1">Gender</span>
@@ -135,8 +133,6 @@
                                         "waves-effect waves-light btn" type=
                                         "submit">Next</button>
                                     </div>
-                                    <br>
-                                    <br>
                                 </div>
                             </div>
                             
@@ -145,8 +141,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+</section>
     <script>
     $(document).ready(function(){
      $('label').addClass('active');
@@ -165,4 +160,3 @@
 
         
     </script>
-</section>

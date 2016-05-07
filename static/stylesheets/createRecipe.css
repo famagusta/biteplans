@@ -2,6 +2,23 @@
     height: 60px !important;
 }
 
+.recipe-view {
+    overflow: none !important;
+}
+
+.nutinfo-card {
+    background-color: #fff;
+    max-height: 1112px;
+    position: fixed;
+}
+
+.create-recipe-content {
+    max-height: 1112px;
+    height: 1115px;
+    overflow-x: none;
+    overflow-y: scroll;
+}
+
 #recipe-title {
     text-align: center !important;
     font-size: 18px;

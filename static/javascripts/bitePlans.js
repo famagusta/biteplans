@@ -1,7 +1,8 @@
 'use strict'; /* global app: true */
 var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'bw.paging',
-    'ngMaterial', 'materialCalendar'
+    'ngMaterial', 'materialCalendar', 
+    'angular-svg-round-progressbar'
 ]);
 
 var constantData = {

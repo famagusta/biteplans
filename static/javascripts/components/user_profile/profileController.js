@@ -34,10 +34,13 @@ app.controller('profileController', ['$scope', 'AuthService',
                             $scope.placeHolderDOB = dob.toLocaleDateString('en-GB',
                                                                            $scope.options);
                         }, function(error) {
-                            console.log(error);
-                        });
+                                    console.log(error);
+                    });
+                           
+
                     
-                    $scope.updateDOB = function(){
+                    
+                $scope.updateDOB = function(){
                         
                         var $input = $('.datepicker_btn').pickadate({
                             format : 'd mmmm yyyy',
@@ -89,5 +92,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                                                      update_params);
                     }
                 }
-        });
+     
+          });
+        
     }]);

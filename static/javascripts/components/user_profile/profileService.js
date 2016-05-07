@@ -18,8 +18,23 @@ app.factory('profileService',
         });
         return deferred.promise;
     }
+    
+    var updateSavedPlan = function(obj, id ) {
+        //?? what is this doing here/??
+            var url = 'authentication/api/v1/register/' + id + '/';
+        console.log(obj);
+            var deferred = $q.defer();
+            httpService.httpPatch(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+    }
       
      var uploadProfileImage = function(id, file){
+         //seperate service to save a profile image
         var fd = new FormData();
         fd.append('image_path', file);
          var url = constants.API_SERVER 
@@ -66,11 +81,9 @@ app.factory('profileService',
         },
         updateProfile : function(id, obj){
             return updateProfile(id, obj);
+        },
+        updateSavedPlan : function(obj, id){
+            return updateSavedPlan(obj, id)
         }
-
     };
-
-
-
-
-   }]);
+}]);
