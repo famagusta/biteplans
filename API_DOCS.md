@@ -2,7 +2,9 @@ API DOCS
 
 
 1)Search ingredients, recipes or plans
-    url = /bitespace/search/
+
+    /*POST REQUEST*/
+    url = /bitespace/search/?page=int
     x-www-form-urlencoded
 
     For Ingredients
@@ -10,12 +12,17 @@ API DOCS
         request = {
             query : query_term
             type : ingredients
+            food_group:[array of food_group filters] //If only filters are applicable
+            sortby:sortby //if only sortby are there
         }
 
         response = {
             headers:'',
-            data:[array if object],
-            status:''	
+            result:[array if object](will contain 6 instances),
+            status:'',
+            total:int(number of pages),
+            sortl:[] //list of sortby applicable
+            filter:[] //list of filters applicable	
         }
 
     For Recipes
@@ -106,7 +113,7 @@ request{
 }
 
 
-6) To create a recipes
+6) a) To create a recipes
     url = /biteplans/recipe/recipes/
     x-www-form-urlencoded
     
@@ -123,8 +130,45 @@ request{
         
         headers 
         Authorization : JTW <token>
+
+    b)UPDATE:
+
+        i) /*PUT ALLOWED FOR ONLY CREATOR OF RECIPE and used for COMPLETE UPDATE*/
+        request = {
+            name: reipce_name,
+            description : recipe_description
+            directions : recipe_directions,
+            servings : recipe_servings,
+            cook_time : cook_time,
+            prep_time : prep_time
+            
+        }
+        
+        headers 
+        Authorization : JTW <token>
+
+        ii) /*PATCH ALLOWED FOR ONLY CREATOR OF RECIPE and used for COMPLETE UPDATE*/
+        request = {
+            <field _to_be_updated>:'value'
+            
+        }
+        
+        headers 
+        Authorization : JTW <token>
+
+    c) /* DELETE (ALLOWED FOR ONLY OWNER OF RECIPE)*/
+        append instance pk to the url url = /biteplans/recipe/recipes/<pk>
+        
+        headers 
+        Authorization : JTW <token>
+
+        make a delete method request
+
+
         
 7) To retrieve a recipe (by id)
+
+    /* GET ONLY */
     url = /biteplans/recipe/recipes/{id}/
     x-www-form-urlencoded
     
@@ -149,22 +193,75 @@ request{
         headers 
         Authorization : JTW <token>
 
+
+        /*PUT for total update*/
+   request = {
+          name: plan_name,
+          goal: plan_goal,
+          description: plan_description,
+          duration: duration_weeks,
+          age: plan_age,
+          gender: plan_gender,
+          height: plan_height,
+          weight: plan_weight
+   }
+        
+        headers 
+        Authorization : JTW <token>
+
+        /*PATCH for partial update*/
+   request = {
+          field: value
+   }
+        
+        headers 
+        Authorization : JTW <token>
+
 9) To retrieve a plan (by id)
+
+    /* GET ONLY */
     url = /biteplans/diet/dietplans/{id}/
     x-www-form-urlencoded
     
     no headers or body required
     
-10) Get a specific day of a week in the plan
-    url = /biteplans/plan/dayplan/{diet_id}/{day_no}/{week_no}/
-    x-www-form-urlencoded
-    
-    no headers or body required
 
-11) Get a specific day of a week in the plan
+10) Get a specific day of a week in the plan:
+
+    /*GET ONLY*/
     url = /biteplans/plan/dayplan/{diet_id}/{day_no}/{week_no}/
     x-www-form-urlencoded
     
     no headers or body required
 
     you will get all meal plans of that day
+
+11) API TO FOLLOW PLANS
+
+ url = /biteplans/calendar/follow/
+ /*POST*/
+ request = {
+          start_date: yyyy-mm-dd,
+          is_active:true/false,
+          dietplan :<pk> of dietplan to be followed
+   }
+
+   response={
+   <pk>:pk of followed dietplan entry
+   }
+
+12)API TO GET SCHEDULE OF A DAY OF USER
+
+/*GET ONLY*/
+request : url /biteplans/calendar/getPlanSummary/?date=yyy-mm-dd
+response :{
+    "count": 0,
+    "next": null,
+    "previous": null,
+    "results": [
+
+    {followed_plan_details that need to be done on this date with ingredients and recipes}
+
+    ]
+}
+

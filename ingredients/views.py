@@ -37,6 +37,7 @@ class GlobalSearchList(generics.GenericAPIView):
             self.sortlist = Recipe._meta.fields
             return Recipe.objects.filter(name__search=query)
         elif self.request.data['type'] == 'plans':
+            print query
             self.sortlist = DietPlan._meta.fields
             return DietPlan.objects.filter(name__search=query)
 

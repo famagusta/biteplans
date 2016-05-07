@@ -18,7 +18,7 @@ class UserPlanHistory(models.Model):
 
     # Even if the dietplan is deleted. let the populated
     # meal history remain. COOL!!
-    dietplan = models.ForeignKey(DietPlan, on_delete=models.CASCADE)
+    dietplan = models.ForeignKey(DietPlan, null=True, on_delete=models.SET_NULL)
     start_date = models.DateField()
     created_on = models.DateTimeField()
     updated_on = models.DateTimeField()
@@ -51,11 +51,17 @@ class MealHistory(models.Model):
     name = models.CharField(default="Ad Hoc Meal", max_length=191)
     user_dietplan = models.ForeignKey(UserPlanHistory,
                                       on_delete=models.CASCADE,
-                                      related_name="FollowPlanMealPlans")
+                                      related_name="FollowPlanMealPlans",
+                                      null=True)
     user_mealplan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
 
-    date_time = models.DateTimeField(unique=True)
+    date = models.DateField()
+    time = models.TimeField()
     updated_on = models.DateTimeField()
+
+    class Meta:
+      '''unique fields composite'''
+      unique_together = ('date', 'time')
 
     def save(self, **kwargs):
         self.updated_on = datetime.now()
@@ -121,13 +127,14 @@ def assosiate_mealhistory(sender, instance, created, **kwargs):
             mealplanarr = daylist[i].mealplan.all()
             for j in range(len(mealplanarr)):
                 date = instance.start_date + timedelta(
-                                                days=daylist[i].day_no + (daylist[i].week_no-1)*7)
+                          days=daylist[i].day_no + (daylist[i].week_no-1)*7)
                 time = mealplanarr[j].time
-                MealHistory.objects.create(name=mealplanarr[j].name, user=instance.user,
+                MealHistory.objects.create(name=mealplanarr[j].name,
+                                           user=instance.user,
                                            user_dietplan=instance,
                                            user_mealplan=mealplanarr[j],
-                                           date_time=\
-                                           datetime.combine(date, time))
+                                           date=date,
+                                           time=time)
 
 @receiver(post_save, sender=MealHistory)
 def assosiate_mealingres(sender, instance, created, **kwargs):
