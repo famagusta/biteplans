@@ -325,7 +325,7 @@
             <!-- PROFILE VIEW -->
 
 
-            <div ng-if="tab==2">
+            <div ng-if="tab==2" ng-controller="profileController">
                 <div class="col s6">
                     <div class="card white top_mar">
                         <div class="card-content cyan-text">
@@ -441,12 +441,11 @@
 
 
             <div ng-if="tab==3">
-                <div class="col m6">
-                    <div class="card white darken-1 top_mar">
-                        <div class="card-content black-text">
-                            <div ng-include="'static/templates/calendar.html'">
+                <div class="col s10">
+                    <div class="card top_mar" >
+                            <div ng-include="'static/templates/calendar.html'" style="height: 680px !important;">
                             </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

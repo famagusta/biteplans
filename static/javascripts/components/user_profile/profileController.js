@@ -15,7 +15,9 @@ app.controller('profileController', ['$scope', 'AuthService',
                     $scope.profile_image_file = {};
                     $scope.profile_image_file.src="";
                     $scope.placeHolderDOB = new Date();
-                    
+                    $scope.options = { year: 'numeric',
+                                           month: 'long', 
+                                           day: 'numeric' };
                     profileService.getProfile()
                     .then(function(response) {
                             //model for storing response from API
@@ -27,12 +29,10 @@ app.controller('profileController', ['$scope', 'AuthService',
                             
                             $scope.profileInfo = response; 
                             var dob = new Date($scope.profileInfo.date_of_birth);
-                            var options = { year: 'numeric',
-                                           month: 'long', 
-                                           day: 'numeric' };
+                            
 
                             $scope.placeHolderDOB = dob.toLocaleDateString('en-GB',
-                                                                           options);
+                                                                           $scope.options);
                         }, function(error) {
                             console.log(error);
                         });
@@ -52,12 +52,19 @@ app.controller('profileController', ['$scope', 'AuthService',
                                 //make api call to follow the plan on setting of date
                                 /* convert to ISO 8601 date time string for serializer
                                   acceptance*/
-                                var date_to_set = new Date(context.select);
-                                $scope.placeHolderDOB = date_to_set;
-                                var dob_str = date_to_set.getFullYear() + '-' 
-                                    + date_to_set.getMonth() + '-' 
-                                    + date_to_set.getDate();
-                                $scope.profileInfo.date_of_birth = dob_str;
+                                // only if a date is selected will we change stuff
+                                if(context.select){
+                                    var date_to_set = new Date(context.select);
+
+                                    $scope.placeHolderDOB = date_to_set.toLocaleDateString('en-GB',
+                                                                               $scope.options);
+                                    // plus 1 fixed the problem that date returns month in 0 to 11
+                                    var dob_str = date_to_set.getFullYear() + '-' 
+                                        + (date_to_set.getMonth() + 1) + '-' 
+                                        + date_to_set.getDate();
+                                    console.log(dob_str);
+                                    $scope.profileInfo.date_of_birth = dob_str;
+                                }
                             }
                         })
                     }

@@ -175,19 +175,8 @@
 
 
                         <div class="card-action">
-<!--
-                            <form>
-                                <input id="date-birth"  
-                                       ng-change="followPlan()" class="datepicker"
-                                       ng-click="testDatePicker()"
-                                       type="date" ng-model="plan.selectedDate">
-                            </form>
--->
-<!--                            <input class="btn-flat teal-text datepicker" ng-click="selectFollowDate()" ng-model="selectedDate" pick-a-date="date" pick-a-date-options="{ format: 'yyyy-mm-dd' }" placeholder="Select Date">-->
-                            <button class="datepicker_btn btn-flat teal-text" ng-click="followPlan(plan.id)"
-                                    >FOLLOW</button>
-                            <button class="btn-flat teal-text" href="#">SHORTLIST</button>
-                            
+                            <a class="datepicker_btn btn-flat teal-text" ng-click="followPlan(plan.id)" href="#">FOLLOW</a>
+                            <a class="btn-flat teal-text" href="#">SHORTLIST</a>
                         </div>
                     </div>
                 </div>

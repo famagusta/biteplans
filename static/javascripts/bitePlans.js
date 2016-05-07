@@ -1,7 +1,7 @@
 'use strict'; /* global app: true */
 var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'bw.paging',
-    'ngMaterial'
+    'ngMaterial', 'materialCalendar'
 ]);
 
 var constantData = {
@@ -68,10 +68,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'viewRecipeController',
                 templateUrl: 'static/templates/viewRecipe.html'
             })
-            .when('/dashboard/2', {
-                controller: 'profileController',
-                templateUrl: 'static/templates/dashboard.html'
-            })
+//            .when('/dashboard/2', {
+//                controller: 'profileController',
+//                templateUrl: 'static/templates/dashboard.html'
+//            })
+//            .when('/dashboard/calendar', {
+//                controller: 'calendarCtrl',
+//                templateUrl: 'static/templates/calendar.html'
+//            })
             .otherwise('/');
         $authProvider.facebook({
             url: constantData['constants']['API_SERVER'] +

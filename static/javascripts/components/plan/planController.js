@@ -45,6 +45,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
            since we wanted a button to trigger the series
            of events */
         $scope.followPlan = function(planId){
+            console.log("follow");
             var $input = $('.datepicker_btn').pickadate({
                 format : 'yyyy-mm-dd',
                 formatSubmit: false,
@@ -75,20 +76,5 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 }
             })
         }
-        
-        
-        $scope.myDate = new Date();
-  $scope.minDate = new Date(
-      $scope.myDate.getFullYear(),
-      $scope.myDate.getMonth() - 2,
-      $scope.myDate.getDate());
-  $scope.maxDate = new Date(
-      $scope.myDate.getFullYear(),
-      $scope.myDate.getMonth() + 2,
-      $scope.myDate.getDate());
-  $scope.onlyWeekendsPredicate = function(date) {
-    var day = date.getDay();
-    return day === 0 || day === 6;
-  }
     }
 ]);
