@@ -621,6 +621,28 @@
 
 
                         <div class="row smallpaginate">
+                            <paging ng-if="details !== undefined && details !== []"
+                                class="small"
+                                page="currentPage" 
+                                page-size="6" 
+                                total="pageSize"
+                                hide-if-empty="{{hideIfEmpty}}"
+                                ul-class="{{ulClass}}"
+                                li-class="lipageclass"
+                                active-class="{{activeClass}}"
+                                disabled-class="{{disabledClass}}"
+                                show-prev-next="true"
+                                text-next-class="acti fa fa-chevron-right"
+                                text-prev-class="acti fa fa-chevron-left"
+                                text-first-class="acti fa fa-backward"
+                                text-last-class="acti fa fa-forward"
+                                text-title-page="Page {page}"
+                                text-title-first="First Page"
+                                text-title-last="Last Page"
+                                text-title-next="Next Page"
+                                text-title-prev="Previous" 
+                                paging-action="search(page)">
+                            </paging> 
                         </div>
                     </div>
 
