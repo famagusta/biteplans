@@ -22,7 +22,7 @@
                             <br>
                             <br>
                             <p ng-repeat="filter in details.sortlist track by $index"><input id=
-                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-change="search(1, sortby)"><label
+                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search(1, sortby)"><label
                             for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
                         </div>
                     </form>

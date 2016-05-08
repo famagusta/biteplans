@@ -65,12 +65,12 @@ class MealHistorySerializer(serializers.ModelSerializer):
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = MealHistory
-		read_only_fields = ('id', 'updated_on', )
+		read_only_fields = ('id', 'updated_on', 'date', 'time', )
 
 class MealHistoryWriteSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = MealHistory
-		read_only_fields = ('id', 'updated_on', )
+		read_only_fields = ('id', 'updated_on', 'date', 'time', )
 

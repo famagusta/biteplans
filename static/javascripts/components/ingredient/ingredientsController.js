@@ -14,6 +14,9 @@ app.controller('ingredientsController', ['$scope', 'searchService',
          });
 
         $scope.search = function(page, sortby) {
+            if($scope.sortby!==sortby || $scope.sortby ===undefined){
+
+            $scope.sortby = sortby
             
             var query = $scope.query;
             console.log(query, page, sortby);
@@ -57,7 +60,7 @@ app.controller('ingredientsController', ['$scope', 'searchService',
                     });
             }
 
-        };
+        }};
         // function for modal when ingredient card is clicked
         $scope.openIngredientsModal = function(index) {
             $('#modal6').openModal();

@@ -25,11 +25,37 @@
     margin: -14px !important;
 }
 
+.filter-ul{
+    height:250px !important;
+    overflow-y:scroll !important;
+    padding:10px !important;
+
+}
+
+.filter-ul>li{
+    padding:10px !important;
+
+}
+
 .add-ing {
     font-size: 16px;
     font-weight: 600;
 }
+#add-ingredients-modal{
 
+    width:80% !important;
+    max-height:90% !important;
+    top:20px !important;
+
+}
+.searchresult-create{
+    height:85% !important;
+    overflow-y:scroll !important;
+}
+
+.smallpaginate{
+    font-size:8px !important;
+}
 h5.recipe-subheading {
     color: #4f4f4f;
     font-weight: 600;

@@ -1,8 +1,8 @@
 # Create your views here.
 '''Views for planCalendar'''
-from plan_calendar.models import UserPlanHistory
+from plan_calendar.models import UserPlanHistory, MealHistory
 from plan_calendar.serializers import UserPlanHistorySerializer,\
-UserPlnHistorySerializer
+UserPlnHistorySerializer, MealHistorySerializer, MealHistoryWriteSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -25,6 +25,7 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 			self.serializer_class = UserPlanHistorySerializer
 			return (permissions.IsAuthenticated(), )
 		if self.request.method == 'POST':
+			print self.request.user, "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 			self.serializer_class = UserPlnHistorySerializer
 			return (permissions.IsAuthenticated(), )
 		else:
@@ -33,6 +34,7 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 
 	def create(self, request):
 		'''Creates the model instance dietplans'''
+		print request.user, "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
 			print serializer.validated_data
@@ -43,3 +45,18 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 		else:
 			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class MealHistoryViewSet(viewsets.ReadOnlyModelViewSet):
+	'''view to allow users to follow plans'''
+	serializer_class = MealHistorySerializer
+
+	def get_queryset(self):
+		'''returns queryset for get method'''
+		date = self.request.GET.get('date')
+		return MealHistory.objects.filter(date=date)
+
+	def get_permissions(self):
+		'''return allowed permissions'''
+		if self.request.method in permissions.SAFE_METHODS:
+			return (permissions.IsAuthenticated(), )

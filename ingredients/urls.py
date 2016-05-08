@@ -23,6 +23,8 @@ reciperouter.register(r'recipeingredient', recipeView.RecipeIngredientViewSet)
 
 followrouter = routers.SimpleRouter()
 followrouter.register(r'follow', plnView.FollowDietViewSet)
+followrouter.register(r'getPlanSummary', plnView.MealHistoryViewSet,
+                      base_name="date")
 
 urlpatterns = patterns('',
                        url(r'^search/$', views.GlobalSearchList.as_view(),
