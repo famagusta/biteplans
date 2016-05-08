@@ -49,7 +49,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
 
-                        $scope.search(1, undefined, true);
+                        $scope.search(1, $scope.sortby);
 
 
                      });
@@ -58,9 +58,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     //checks whether applied sort order is same as previous sort order or not, 
                     //if not, then only make the request, if the order is same and filters are same,
                     //then do not make the request.
-                    $scope.search = function(page, sortby, filter_changed) {
+                    $scope.search = function(page, sortby) {
                         $scope.details = undefined;
-                        if($scope.sortby!==sortby || $scope.sortby ===undefined && $scope.query!==undefined){
+                        if($scope.query!==undefined){
 
                         $scope.sortby = sortby;
                         $scope.checklistIngredients = $scope.checklistIngredients.concat(

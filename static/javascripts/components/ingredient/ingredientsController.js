@@ -8,19 +8,19 @@ app.controller('ingredientsController', ['$scope', 'searchService',
 
         $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
 
-            $scope.search(1);
+            $scope.search(1, $scope.sortby);
 
 
          });
 
         $scope.search = function(page, sortby) {
-            if($scope.sortby!==sortby || $scope.sortby ===undefined){
+            if($scope.query !== undefined){
 
             $scope.sortby = sortby
             
             var query = $scope.query;
             console.log(query, page, sortby);
-            if (query && $scope.foodgroup.length >0) {
+            if (query!== undefined && $scope.foodgroup.length >0) {
                 searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
                     .then(function(response) {
                         $scope.details = response;
@@ -33,7 +33,7 @@ app.controller('ingredientsController', ['$scope', 'searchService',
                         console.log(error);
                     });
             }
-            else if (query && $scope.foodgroup.length ===0) {
+            else if (query!== undefined && $scope.foodgroup.length ===0) {
                 searchService.search_ingredient(query, page, null, sortby)
                     .then(function(response) {
                         $scope.details = response;
