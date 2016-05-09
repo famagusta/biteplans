@@ -122,6 +122,7 @@
         </div>
     </div>
 
+<!--
 
     <div class="row">
         <div class="col s12 m12">
@@ -175,7 +176,232 @@
             </div>
         </div>
     </div>
+-->
+<div class="row">
+        <div class="col s12 m12">
+            <div class="card white">
+                <div class="card-content black-text">
+                    <span class="card-title">NUTRITION INFORMATION (per serving)</span>
 
+                    <div class="row">
+                        <div class="col s6">
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Calories:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateNutritionTotal('energy_kcal') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Carbohydrates:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateNutritionTotal('carbohydrate_tot') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s8 ">
+                                    <p class="ing-text">Sugar:</p>
+                                </div>
+
+
+                                <div class="col s4">
+                                    <p class="meal-text">{{ calculateNutritionTotal('sugar_tot') |
+                                    number}}</p>
+                                </div>
+                            </div>
+
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Proteins:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateNutritionTotal('protein_tot') |
+                                    number}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Fats:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateNutritionTotal('fat_tot') | number
+                                    }}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s8 ">
+                                    <p class="ing-text">Polyunsaturated Fats:</p>
+                                </div>
+
+
+                                <div class="col s4">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_poly_g') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s8 ">
+                                    <p class="ing-text">Monounsaturated Fats:</p>
+                                </div>
+
+
+                                <div class="col s4">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_mono_g') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="col s6 offset-s1 row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Saturated Fats:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_sat_g') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                             <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Fiber:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateNutritionTotal('fiber_tot') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="col s6">
+                                
+                            <div class="row horizontal-line">
+                                <div class="col s6">
+                                    <p class="ing-text">Cholesterol:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('cholestrl_mg') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Sodium:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('sodium_mg') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Calcium:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('calcium_mg') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Iron:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('iron_mg') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin A(IU):</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_a_iu') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin C:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_c_mg') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin D:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_d_mcg') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row horizontal-line">
+                                <div class="col s6 ">
+                                    <p class="ing-text">Vitamin E:</p>
+                                </div>
+
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_e_mg') |
+                                    number}}</p>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col s12">

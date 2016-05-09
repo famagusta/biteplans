@@ -1,18 +1,17 @@
 'use strict';
 app.controller('dashboardController', ['$scope', '$window', '$location',
-    'AuthService', 'searchService', 'Data',
+    'AuthService', 'searchService', 'profileService',
     function($scope, $window, $location, AuthService, searchService,
-        Data) {
+        profileService) {
 
         $scope.token = $window.localStorage.token;
         $scope.username = $window.localStorage.username;
-
-        $scope.Data = Data;
 
         $scope.tab = 1;
 
         $scope.setTab = function(tabId) {
             $scope.tab = tabId;
+//            $location.path('/dashboard/' + tabId)
         };
 
         $scope.isSet = function(tabId) {
@@ -24,6 +23,8 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
         $scope.editProfileForm = function() {
             $scope.edit = 1;
         }
+        
+        
     }
 ]);
 

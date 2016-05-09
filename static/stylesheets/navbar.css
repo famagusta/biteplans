@@ -46,6 +46,10 @@ nav ul li.active a {
     height: 60px;
     overflow: hidden;
     background-color: transparent !important;
+    box-shadow: none;
+    border: none;
+    position: relative;
+    right: 14px;
 }
 
 .btn-thumb:active{
@@ -53,9 +57,16 @@ nav ul li.active a {
 }
 
 #small_logo {
-    height: 75% !important;
-    margin-top: 7px;
-    margin-left: 35px;
+    height: 67% !important;
+    margin-top: 9px;
+    margin-left: 14px;
+}
+
+#smallLogo {
+    height: 41px;
+    position: relative;
+    top: 7px;
+    left: 20px;
 }
 
 li>a>#user_dp {

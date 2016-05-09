@@ -176,6 +176,20 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
                 });
             return deferred.promise;
         };
+        
+        /* function that makes a user follow a dietplan given a start date*/
+        var followDietPlan = function(obj){
+            var url = 'biteplans/calendar/follow/';
+            var deferred = $q.defer();
+            /* cast our parameters into an object */
+            httpService.httpPost(url,obj)
+                .then(function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+                return deferred.promise;
+            }
 
 
         return {
@@ -217,6 +231,9 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             },
             deleteMealRecipe: function(obj) {
                 return deleteMealRecipe(obj);
+            },
+            followDietPlan : function(obj){
+                return followDietPlan(obj);
             },
         };
 

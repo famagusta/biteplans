@@ -1,16 +1,16 @@
 'use strict';
 
 app.controller('createRecipeController', ['$scope', 'AuthService',
-    '$routeParams',
+    '$routeParams', 'constants',
     'searchService', '$location', 'recipeService',
-    function($scope, AuthService, $routeParams, searchService,
+    function($scope, AuthService, $routeParams, constants,
+        searchService,
         $location,
         recipeService) {
 
         AuthService.isAuthenticated()
             .then(function(response) {
                 var isAuthenticated = response.status;
-                console.log(response);
                 if (isAuthenticated) {
 
                     /* initialize scope variables to interact with DOM */
@@ -29,30 +29,101 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     //stores the last ingredient added to the recipe
                     $scope.lastChecked = null;
+                    $scope.AdditionalIngredientInfo = [];
 
                     //variables to gather additional information
-                    $scope.prep_hours = 0;
-                    $scope.prep_mins = 0;
-                    $scope.cook_hours = 0;
-                    $scope.cook_mins = 0;
+                    $scope.prepHours = 0;
+                    $scope.prepMins = 0;
+                    $scope.cookHours = 0;
+                    $scope.cookMins = 0;
+                    $scope.recipe = {};
 
                     // route to navigate to view the recipe after creation
                     $scope.view_recipe = '/viewRecipe/' +
                         $routeParams.id;
 
+                    /* variables & functions to upload image file for recipe */
+                    $scope.formdata = new FormData();
+                    $scope.getTheFiles = function($files) {
+                        angular.forEach($files, function(value,
+                            key) {
+                            $scope.formdata.append(
+                                'file', value);
+                        });
+
+                    };
+
+                    $scope.uploadFile = function(id) {
+                        var file = $scope.recipe_image_file;
+                        var url = constants.API_SERVER +
+                            'biteplans/recipe/recipes/' + id +
+                            '/';
+                        if (file) {
+                            recipeService.uploadRecipeImage(
+                                file, url);
+                        }
+                    };
+
+
+                    /* Nutritional Information calculations based on changes to
+                        selected ingredients */
+                    $scope.calculateNutritionTotal = function(
+                            nutrient) {
+                            var total = 0;
+                            var servings = parseInt($scope.recipe.servings);
+                            //prevent divide by zero
+                            if (!servings) {
+                                servings = 1;
+                            }
+                            for (var i = 0; i < $scope.ingredientDisplay
+                                .length; i++) {
+                                total += parseFloat($scope.ingredientDisplay[
+                                        i].ingredient[nutrient]) *
+                                    parseFloat($scope.ingredientDisplay[
+                                        i].quantity) * parseFloat(
+                                        $scope.ingredientDisplay[i]
+                                        .selected_measure.weight) /
+                                    (100 * servings);
+                            }
+                            return total;
+                        }
+                        /* calculates additional nutritional information */
+                    $scope.calculateAddtnlNutritionTotal = function(
+                        nutrient) {
+                        var total = 0;
+                        var servings = parseInt($scope.recipe.servings);
+                        //prevent divide by 0
+                        if (!servings) {
+                            servings = 1;
+                        }
+                        for (var i = 0; i < $scope.AdditionalIngredientInfo
+                            .length; i++) {
+                            total += parseFloat($scope.AdditionalIngredientInfo[
+                                    i][nutrient]) * parseFloat(
+                                    $scope.ingredientDisplay[i]
+                                    .quantity) * parseFloat(
+                                    $scope.ingredientDisplay[i]
+                                    .selected_measure.weight) /
+                                (100 * servings)
+                        }
+                        return total;
+                    }
+
+
                     /* search function for the ingredient modal */
-                    $scope.foodgroup=[];
+                    $scope.foodgroup = [];
 
 
                     //Checks for applied filters, as soon as a new filter is applied or removed
                     //search result is changed.
 
-                    $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
+                    $scope.$watchCollection('foodgroup', function(
+                        newVal, oldVal) {
 
                         $scope.search(1, $scope.sortby);
 
 
-                     });
+                    });
 
                     //main search fn, executed on page change(page specifies page number to be displayed)
                     //checks whether applied sort order is same as previous sort order or not, 
@@ -109,7 +180,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 });
                         }
 
-                    }};
+                        }
+                    };
 
                     /* function that opens the modal */
                     // is create recipe a modal anymore??
@@ -121,100 +193,139 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* watch the value of nutrient value to detect change 
                       and update the last checked value */
-                    $scope.$watchCollection('checklistIngs', function(
-                        newVal, oldVal) {
-                        if (newVal.length > 0) {
-                            $scope.lastChecked = newVal[
-                                newVal.length - 1];
-                        }
-                    }, true);
+                    $scope.$watchCollection('checklistIngs',
+                        function(
+                            newVal, oldVal) {
+                            if (newVal.length > 0) {
+                                $scope.lastChecked = newVal[
+                                    newVal.length - 1];
+                            }
+                        }, true);
 
                     /* function to remove an ingredient from the recipe checklist and templist */
                     $scope.removeIngredient = function(element) {
-                        console.log(element);
+//                        console.log(element);
                         // remove ingredient from checklist temp array
                         var index1 = $scope.checklistIngs
                             .indexOf(element);
 
-                        if(index1>=0){
-                        $scope.checklistIngs.splice(
-                            index1, 1);
-}
+                        if (index1 >= 0) {
+                            $scope.checklistIngs.splice(
+                                index1, 1);
+                        }
 
                         // remove ingredient from checklist array
+
+                        //                        var index = $scope.checklistIngredients.filter(function(el) {
+                        //                            return el.id === element; // Filter out the appropriate one
+                        //                        })
                         var index2 = $scope.checklistIngredients
                             .indexOf(element);
-                        if(index2>=0){
-                        $scope.checklistIngredients.splice(
-                            index2, 1);}
+                        if (index2 >= 0) {
+                            $scope.checklistIngredients.splice(
+                                index2, 1);
+                        }
 
                         // remove ingredient from recipe ingredients
                         var index3 = -1;
-                        for(var ind=0; ind<$scope.ingredientDisplay.length;ind++){
-                            if(element.id===$scope.ingredientDisplay[ind].ingredient){
+                        for (var ind = 0; ind < $scope.ingredientDisplay
+                            .length; ind++) {
+//                            console.log(element.id);
+//                            console.log($scope.ingredientDisplay[
+//                                ind]);
+                            if (element.id === $scope.ingredientDisplay[
+                                ind].ingredient.id) {
                                 index3 = ind;
                                 break;
                             }
                         }
-                        if(index3>=0){
-                        $scope.ingredientDisplay.splice(index3,
-                            1);}
+                        if (index3 >= 0) {
+                            $scope.ingredientDisplay.splice(
+                                index3,
+                                1);
+                        }
 
-                        console.log(index1, index2, index3);
+//                        console.log(index1, index2, index3);
                     };
 
                     /* function to remove an ingredient from the recipe */
                     $scope.removeIngs = function(index) {
-                        console.log(index);
-                        
+//                        console.log(index);
+
 
                         // remove ingredient from checklist array
                         var index2 = -1;
-                        for(var i=0; i<$scope.checklistIngredients.length;i++){
-                            if($scope.checklistIngredients[i].id===$scope.ingredientDisplay[index].ingredient)
-                            {index2 = i;}
+                        for (var i = 0; i < $scope.checklistIngredients
+                            .length; i++) {
+                            if ($scope.checklistIngredients[i].id ===
+                                $scope.ingredientDisplay[index]
+                                .ingredient.id) {
+                                index2 = i;
+                            }
                         }
-                        if(index2>=0){
-                        $scope.checklistIngredients.splice(
-                            index2, 1);}
+                        if (index2 >= 0) {
+                            $scope.checklistIngredients.splice(
+                                index2, 1);
+                        }
 
                         // remove ingredient from recipe ingredients
+
                         $scope.ingredientDisplay.splice(index,
                             1);
 
+                        // remove ingredient from recipe ingredients
+                        $scope.AdditionalIngredientInfo.splice(
+                            index,
+                            1);
                     };
 
 
                     /* add contents from the modal to the recipe */
                     $scope.addContents = function() {
                         /*loop over the checklist mode (nutrient value) and
-                          add to the ingredients */
+                          add to the ingredients 
+                          also, add the weight of each ingredient measure to 
+                          use in calculating total nutrient
 
-                        console.log($scope.checklistIngs);
-                        console.log($scope.checklistIngredients);
+                        add to the ingredients */
+
+//                        console.log($scope.checklistIngs);
+//                        console.log($scope.checklistIngredients);
 
                         for (var j = 0; j <
                             $scope.checklistIngs.length; j++
                         ) {
-                            $scope.checklistIngredients.push($scope.checklistIngs[j]);
+                            $scope.checklistIngredients.push(
+                                $scope.checklistIngs[j]);
                         }
-                        $scope.checklistIngs=[];
+                        $scope.checklistIngs = [];
+
 
                         for (var i = $scope.ingredientDisplay.length; i <
                             $scope.checklistIngredients.length; i++
                         ) {
+                            // call API to get addtional ingredient information
+
+                            searchService.get_ingredient_addtnl_info(
+                                    $scope
+                                    .checklistIngredients[i]
+                                    .id)
+                                .then(function(response) {
+                                    //model for storing response from API                
+                                    $scope.AdditionalIngredientInfo
+                                        .push(response);
+                                }, function(error) {
+                                    console.log(error);
+                                });
+
+
                             $scope.ingredientDisplay.push({
                                 ingredient: $scope.checklistIngredients[
-                                    i].id,
-                                measure: $scope.checklistIngredients[
-                                    i].measure[0].id,
-                                carbohydrate: $scope.checklistIngredients[
-                                    i].carbohydrate_tot,
-                                fats: $scope.checklistIngredients[
-                                    i].fat_tot,
-                                protein: $scope.checklistIngredients[
-                                    i].protein_tot,
-                                quantity: 1
+                                    i],
+                                selected_measure: $scope
+                                    .checklistIngredients[
+                                        i].measure[0],
+                                quantity: 1,
                             });
                         }
 
@@ -222,18 +333,20 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             .closeModal();
 
                         /* cleanup checklist and search results */
-                        $scope.lastChecked = null;
                         $scope.details = undefined;
                         $scope.filts = undefined;
                         $scope.query = undefined;
                         $scope.pageSize = null;
                         $scope.currentPage = null;
+                        console.log($scope.lastChecked);
 
                     };
                     //checks whether an ingredient is already selected or not
-                    $scope.checkIfSelected = function(index){
-                        for(var i=0; i<$scope.checklistIngredients.length; i++){
-                            if($scope.checklistIngredients[i].id===index){
+                    $scope.checkIfSelected = function(index) {
+                        for (var i = 0; i < $scope.checklistIngredients
+                            .length; i++) {
+                            if ($scope.checklistIngredients[i].id ===
+                                index) {
                                 return true;
                             }
                         }
@@ -254,25 +367,50 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             .then(
                                 function(response) {
                                     var id = response.recipe_id;
+
                                     for (var i = 0; i < $scope.ingredientDisplay
                                         .length; i++) {
-                                        $scope.ingredientDisplay[
-                                            i].recipe = id;
+                                        /* create a recipe ingred object to send to server */
+                                        var recipeIngred = {
+                                            recipe: id,
+                                            ingredient: $scope
+                                                .ingredientDisplay[
+                                                    i]
+                                                .ingredient
+                                                .id,
+                                            measure: $scope
+                                                .ingredientDisplay[
+                                                    i]
+                                                .selected_measure
+                                                .id,
+                                            quantity: $scope
+                                                .ingredientDisplay[
+                                                    i]
+                                                .quantity
+                                        }
+
                                         recipeService.createRecipeIng(
-                                                $scope.ingredientDisplay[
-                                                    i])
+                                                recipeIngred)
                                             .then(
                                                 function(
                                                     response) {
-                                                    //TODO: Add meaningful behaviour on successful return
+                                                    //TODO: Add meaningful behaviour
+                                                    //    on successful return
                                                 }, function(
                                                     error) {
                                                     console.log(
                                                         error
                                                     );
                                                 });
+
+                                        /* upload image file to server upon id creation 
+                                           Note: it was easier to do this separately since
+                                           the other option was to rewrite sending data in 
+                                           a form as opposed to urlencoding it */
+
                                     }
 
+                                    $scope.uploadFile(id);
                                     /* Redirect to view recipe page */
                                     $location.path(
                                         '/viewRecipe/' + id
@@ -284,38 +422,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 });
                     };
 
-                    /* Nutritional Information calculations */
-                    $scope.totalCarb = 0;
-                    $scope.totalProtein = 0;
-                    $scope.totalFat = 0;
-                    $scope.$watch('ingredientDisplay', function() {
-                        for (var i = 0; i < $scope.ingredientDisplay
-                            .length; i++) {
-                            $scope.totalCarb += parseFloat(
-                                $scope.ingredientDisplay[
-                                    i]
-                                .carbohydrate *
-                                $scope.ingredientDisplay[
-                                    i]
-                                .quantity);
-                            $scope.totalProtein +=
-                                parseFloat($scope.ingredientDisplay[
-                                        i]
-                                    .protein * $scope
-                                    .ingredientDisplay[i].quantity
-                                );
-                            $scope.totalFat += parseFloat(
-                                $scope.ingredientDisplay[
-                                    i]
-                                .fats * $scope.ingredientDisplay[
-                                    i]
-                                .quantity);
-                        }
 
-                    }, true);
 
                     /* function called for saving the plan */
-                    $scope.finalizeRecipeCreation = function() {
+                    $scope.finalizeRecipeCreation = function($files) {
                         $scope.recipe.directions = '';
                         for (var i = 0; i < $scope.stepsToCreateRecipes
                             .length; i++) {
@@ -323,12 +433,14 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 .directions + ' \n' + $scope.stepsToCreateRecipes[
                                     i];
                         }
-                        $scope.recipe.prep_time = $scope.prep_hours +
-                            ':' + $scope.prep_mins + ':00';
-                        $scope.recipe.cook_time = $scope.cook_hours +
-                            ':' + $scope.cook_mins + ':00';
+                        $scope.recipe.prep_time = $scope.prepHours +
+                            ':' + $scope.prepMins + ':00';
+                        $scope.recipe.cook_time = $scope.cookHours +
+                            ':' + $scope.cookMins + ':00';
                         createRecipe($scope.recipe);
                     };
+
+
                 }
                 else {
                     $location.path('/');

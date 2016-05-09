@@ -131,6 +131,9 @@ a {
     border-radius: 10px !important;
 }
 
+.dropdown-content li>span {
+    color: #00bcd4;
+}
 .centerme{
   margin:auto !important;
 }
@@ -155,4 +158,3 @@ paging{
       margin-top: 20px;
   }
 }
-

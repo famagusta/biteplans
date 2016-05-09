@@ -1,8 +1,8 @@
 'use strict';
 
 app.factory('recipeService',
-            ['httpService', 'AuthService', '$location', 'constants','$q', '$window', '$rootScope', '$auth', 
-            function(httpService, AuthService, $location, constants, $q, $window, $rootScope, $auth){
+            ['httpService', 'AuthService', '$location', 'constants','$q', '$window', '$rootScope', '$auth', '$http',
+            function(httpService, AuthService, $location, constants, $q, $window, $rootScope, $auth, $http){
     /* Function to do the search ingredients */
     var createRecipe = function(recipeObject){
     	var url = constants.API_SERVER+'biteplans/recipe/recipes/';
@@ -10,7 +10,6 @@ app.factory('recipeService',
     	var obj = null;
     	httpService.httpPost(url, recipeObject).then(function(response){
     		deferred.resolve(response);
-    		console.log(response);
 
     	}, function(error){
     		console.log(error);
@@ -20,6 +19,23 @@ app.factory('recipeService',
     	return deferred.promise;
     };
 
+    var uploadRecipeImage = function(file, uploadUrl){
+        var fd = new FormData();
+        fd.append('image', file);
+        var deferred = $q.defer();
+
+        httpService.httpPatchFile(uploadUrl, fd).then(function(response){
+    		deferred.resolve(response);
+
+    	}, function(error){
+    		console.log(error);
+    		deferred.reject(error);
+    	});
+
+    	return deferred.promise;
+    };
+           
+                
     var createRecipeIngredients = function(obj){
 
     	var url = constants.API_SERVER + 'biteplans/recipe/recipeingredient/';
@@ -27,7 +43,6 @@ app.factory('recipeService',
 
     	httpService.httpPost(url, obj).then(function(response){
     		deferred.resolve(response);
-    		console.log(response);
 
     	}, function(error){
     		console.log(error);
@@ -62,11 +77,11 @@ app.factory('recipeService',
         
         getRecipe : function(id){
             return getRecipe(id);
+        },
+        uploadRecipeImage : function(id, file){
+            return uploadRecipeImage(id, file)
         }
 
     };
-
-
-
 
    }]);

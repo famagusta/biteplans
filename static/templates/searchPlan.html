@@ -174,18 +174,15 @@
                         </div>
 
 
-                        <div class="card-action datepickerdemoBasicUsage">
-                             <input type="date" class="datepicker" ng-change="followPlan()"
-                                    ng-model="selectedDate">
-                            
-
-                            <button class="btn-flat teal-text" href="#">SHORTLIST</button>
+                        <div class="card-action">
+                            <a class="datepicker_btn btn-flat teal-text" ng-click="followPlan(plan.id)" href="#">FOLLOW</a>
+                            <a class="btn-flat teal-text" href="#">SHORTLIST</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
 
+            <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
 
             <div class="row">
                 <div class="col s12">
@@ -195,10 +192,6 @@
                     </div>
                 </div>
             </div>
-            
-            
-
-            
         </div>
     </div>
 </div>

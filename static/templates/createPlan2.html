@@ -1,82 +1,183 @@
-<div class="col s12 m12 create_card">
-    <div id="cont-create">
+<section id="planPage">
+<div class="row">
         <div class="col s12 m12">
-            <div class="card white">
-                <div class="container cont-create">
-                    <div class="card-content black-text">
-                        <div class="row">
-                            <div class="col s12 m12">
-                                <div class="row">
-                                    <div class=
-                                    "col s2 top-line vertical-line horizontal-line">
-                                    <p class="center ing-text">Your food
-                                    for</p>
-                                    </div>
-
-
-                                    <div class=
-                                    "col s4 top-line vertical-line horizontal-line">
-                                    <div class="col s1">
-                                            <a href="#" ng-click=
-                                            "updateDayPlan('week_no','-1')"><i class="material-icons">
-                                            chevron_left</i></a>
-                                        </div>
-
-
+          <div class="card white" id="graph-card">
+            <div class="card-content black-text">
+                                   
+                        <!-- GRAPHS -->
+                        
+                        <!--LINEAR PROGRESSBARS-->
+                        <div class="row" id="graph-area">
+                            <div class="col s12 m5">
+                                <div ng-repeat="key in mealPlanNameArray track by $index">
+                                    <div class="row">
                                         <div class="col s3">
-                                            <p class="meal-text" ng-model=
-                                            "dayplan.week_no">Week
-                                            {{dayplan.week_no}}</p>
+                                            <p class="ing-text progress_label">{{key.mealname}}</p>
                                         </div>
-
-
-                                        <div class="col s1">
-                                            <a href="#" ng-click=
-                                            "updateDayPlan('week_no','1')"><i class="material-icons">
-                                            chevron_right</i></a>
+                                        <div class="col s9">
+                                            <div class="progress progress-spacing">
+                                                <div class="determinate" style="width: {{(key.mealNutrition.energy_kcal / calculateGlobalMacros('energy_kcal'))*100}}%"></div>
+                                            </div> 
                                         </div>
                                     </div>
+                                </div>
+                                <p class="ing-text" style="position:relative; left:5em">Total Calories : {{calculateGlobalMacros('energy_kcal')}} Kcal</p>
+                            </div>
+                            
 
-
-                                    <div class=
-                                    "col s4 top-line vertical-line horizontal-line">
-                                    <div class="col s1">
-                                            <a href="#" ng-click=
-                                            "updateDayPlan('day_no','-1')"><i class="material-icons">
-                                            chevron_left</i></a>
-                                        </div>
-
-
-                                        <div class="col s3">
-                                            <p class="meal-text" ng-model=
-                                            "dayplan.week_no">Day
-                                            {{dayplan.day_no}}</p>
-                                        </div>
-
-
-                                        <div class="col s1">
-                                            <a href="#" ng-click=
-                                            "updateDayPlan('day_no','1')"><i class="material-icons">
-                                            chevron_right</i></a>
-                                        </div>
+    
+                            <!-- ROUND PROGRESSBARS -->
+                            <div class="col s12 m7">
+                                <div clas="row">
+                                    <div class="col s12 m4 center">
+                                        <div
+                                        round-progress
+                                        max="100"
+                                        current="(calculateGlobalMacros('carbohydrate_tot')*4)/(calculateGlobalMacros('energy_kcal')/100)"
+                                        color="#0764fa"
+                                        bgcolor="#eaeaea"
+                                        radius="70"
+                                        stroke="4"
+                                        semi="false"
+                                        rounded="true"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="800"
+                                        animation="easeInOutQuart"
+                                        animation-delay="0"></div>
+                                        <p class="center graph-text">CARBS</p>
+                                       <p class="center graph-value">{{((calculateGlobalMacros('carbohydrate_tot')*4) / ((calculateGlobalMacros('energy_kcal'))/100)) | number}} %</p>
+                                        <p class="ing-text nutgraph_val">{{calculateGlobalMacros('carbohydrate_tot') | number}} g</p>
                                     </div>
-
-
-                                    <div class=
-                                    "col sw top-line vertical-line horizontal-line">
-                                    <p class="ing-text">Copy to <i class=
-                                    "material-icons">date_range</i></p>
+                                    
+                                    <div class="col s12 m4 center">
+                                        <div
+                                        round-progress
+                                        max="100"
+                                        current="(calculateGlobalMacros('protein_tot')*4)/(calculateGlobalMacros('energy_kcal')/100)"
+                                        color="#ff5252"
+                                        bgcolor="#eaeaea"
+                                        radius="70"
+                                        stroke="4"
+                                        semi="false"
+                                        rounded="true"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="800"
+                                        animation="easeInOutQuart"
+                                        animation-delay="0"></div>
+                                         <p class="center graph-text">PROTEINS</p>
+                                        <p class="center graph-value">{{(calculateGlobalMacros('protein_tot')*4) / ((calculateGlobalMacros('energy_kcal'))/100) | number}} %</p>
+                                         <p class="ing-text nutgraph_val">{{calculateGlobalMacros('protein_tot') | number}} g</p>
+                                    </div>
+     
+                                    <div class="col s12 m4 center">
+                                        <div
+                                        round-progress
+                                        max="100"
+                                        current="(calculateGlobalMacros('fat_tot')*9)/(calculateGlobalMacros('energy_kcal')/100)"
+                                        color="#faf60a"
+                                        bgcolor="#eaeaea"
+                                        radius="70"
+                                        stroke="4"
+                                        semi="false"
+                                        rounded="true"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="800"
+                                        animation="easeInOutQuart"
+                                        animation-delay="0"></div>
+                                        <p class="center graph-text">FATS</p>
+                                        <p class="center graph-value">{{(calculateGlobalMacros('fat_tot')*9) / ((calculateGlobalMacros('energy_kcal'))/100) | number}} %</p> 
+                                        <p class="ing-text nutgraph_val">{{calculateGlobalMacros('fat_tot') | number}} g</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+            </div>
+          </div>
+        </div>
+      </div>
+            
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="card white">
+                <div class="container cont-create">
+                    <div class="card-content black-text">
+                        <br>
+                        <div class="row">
+                            <div class=
+                                    "col s3 horizontal-line vertical-line top-line left-line">
+                                    <p class="center ing-text">Your food plan
+                                    for</p>
+                                    </div>
 
+
+                                    <div class=
+                                    "col s2">
+                                        <div class="row horizontal-line top-line left-line">
+                                            <div class="col s3">
+                                                 <a href="#" ng-click=
+                                                "updateDayPlan('week_no','-1')" class="ing-text right"><i class="material-icons left_arrow_pos">
+                                                arrow_drop_up</i></a>
+                                            </div>
+                                             
+                                            <div class="col s6">
+                                                <p class="ing-text center" ng-model=
+                                                "dayplan.week_no">Week
+                                                {{dayplan.week_no}}</p>
+                                            </div>
+                                            
+                                            <div class="col s3">
+                                                <a href="#" ng-click=
+                                                "updateDayPlan('week_no','1')" class="ing-text"><i class="material-icons right_arrow_pos">
+                                                arrow_drop_down</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col s2">
+                                        <div class="row horizontal-line top-line left-line">
+                                            <div class="col s3 center">
+                                                <a href="#" ng-click=
+                                                "updateDayPlan('day_no','-1')" class="ing-text center"><i class="material-icons left_arrow_pos">
+                                               arrow_drop_up</i></a>
+                                            </div>
+                                            
+                                            <div class="col s6 center">
+                                                 <p class="ing-text" ng-model=
+                                                "dayplan.week_no">Day
+                                                {{dayplan.day_no}}</p>
+                                            </div>
+                                            
+                                            <div class="col s3 center">
+                                                  <a href="#" ng-click=
+                                                "updateDayPlan('day_no','1')" class="ing-text"><i class="material-icons right_arrow_pos">
+                                                arrow_drop_down</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col s5">
+                                        <div class="row horizontal-line top-line left-line">
+                                            <div class="col s4">
+                                                <p class="ing-text center">Copy to</p>
+                                            </div>
+                                            <div class="col s8 meal-text">
+                                                <i class="material-icons copy_icon">date_range</i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                </div>
+
+                        <div id="meal_list_card">
                         <div class="hor-line" ng-repeat=
                         "key in mealPlanNameArray track by $index">
                             <div class="row">
-                                <div class="col m12">
-                                    <div class="row">
                                         <div class="col m1 center">
                                             <a ng-click=
                                             "clearMeal($index)"><i class=
@@ -84,25 +185,25 @@
                                             delete</i></a>
                                         </div>
 
-
-                                        <div class="col m2">
-                                            <div class="editabletext"
+                                        <div class="col m2 center">
+                                            <div class="editabletext ing-text"
                                             contenteditable="" id="meals"
                                             ng-blur="updateDayMealPlan($index)"
                                             ng-model="key.mealname">
                                             </div>
                                         </div>
+                                        
+                                        <div class="col m1 center">
+                                            <span class="separate">|</span>
+                                        </div>
 
-
-                                        <div class="col m2">
+                                        <div class="col m2 center">
                                             <input id="exampleInput" name=
                                             "input" ng-blur=
                                             "updateDayMealPlan($index)"
                                             ng-model="key.time" placeholder=
                                             "HH:mm:ss" required="" type="time">
                                         </div>
-                                    </div>
-                                </div>
                             </div>
 
 
@@ -225,6 +326,7 @@
                                 </div>
                             </div>
                         </div>
+                        </div>
                         <br>
 
 
@@ -251,8 +353,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        </div>
+    
 
 
 <div class="container" id="create-container">
@@ -261,7 +363,7 @@
             <div class="card white">
                 <div class="card-content black-text">
                     <span class="card-title">Nutritional Information</span>
-
+                    <br>
                     <div class="row">
                         <div class="col s2">
                             &nbsp;&nbsp;
@@ -307,26 +409,18 @@
 
                         <div class="col s2">
                             <div class="row horizontal-line">
-                                <!--                            <div class="col s6">-->
-
-
                                 <p class="meal-text">&nbsp;&nbsp; {{
                                 calculateGlobalMacros('energy_kcal') | number
                                 }}</p>
-                                <!--                            </div>-->
                             </div>
                         </div>
 
 
                         <div class="col s2">
                             <div class="row horizontal-line">
-                                <!--                            <div class="col s6">-->
-
-
                                 <p class="meal-text">&nbsp;&nbsp; {{
                                 calculateGlobalMacros('carbohydrate_tot') |
                                 number }}</p>
-                                <!--                            </div>-->
                             </div>
                         </div>
 
@@ -342,35 +436,25 @@
 
                         <div class="col s2">
                             <div class="row horizontal-line">
-                                <!--                            <div class="col s6">-->
-
-
                                 <p class="meal-text">&nbsp;&nbsp; {{
                                 calculateGlobalMacros('fat_tot') | number
                                 }}</p>
-                                <!--                            </div>-->
                             </div>
                         </div>
 
 
                         <div class="col s2">
                             <div class="row horizontal-line">
-                                <!--                            <div class="col s6">-->
-
-
                                 <p class="meal-text">&nbsp;&nbsp; {{
                                 calculateGlobalMacros('fiber_tot') | number
                                 }}</p>
-                                <!--                            </div>-->
                             </div>
                         </div>
                     </div>
 
 
+<!--
                     <div ng-repeat="key in mealPlanNameArray track by $index">
-                        <!--                    <div ng-if="key.mealIngredient.length>0">-->
-
-
                         <div class="row">
                             <div class="col s2">
                                 <div class="row">
@@ -425,8 +509,8 @@
                                 </div>
                             </div>
                         </div>
-                        <!--                </div>-->
                     </div>
+-->
                 </div>
             </div>
         </div>
@@ -671,3 +755,4 @@
         </div>
     </div>
 </div>
+</section>

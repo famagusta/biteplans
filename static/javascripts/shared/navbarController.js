@@ -1,25 +1,25 @@
 'use strict';
 
-app.controller('navbarController', ['$scope', '$location', 'AuthService', function ($scope, $location, AuthService) {
+app.controller('navbarController', ['$scope', '$location', 'AuthService', 'profileService', function ($scope, $location, AuthService, profileService) {
    // function to check whether the person is logged in or not
     var checkLoggedIn = function () {
         AuthService.isAuthenticated().then(function(response){
-//            console.log($scope.isLoggedIn);
             $scope.isLoggedIn = response.status;
-//                        console.log($scope.isLoggedIn);
-//            console.log(response);
         },function(error){
             $scope.isLoggedIn = false;
         })
         
     };
     checkLoggedIn();
-    
-//    $scope.$watch('AuthService.isAuthenticated', function(newVal, oldVal) {
-//        console.log(newVal);
-//        console.log(oldVal);
-//    });
-    
+    profileService.getProfile().then(function(response){
+        if (response.image_path){
+            $scope.user_thum = response.image_path;
+        }else{
+            $scope.user_thum = response.social_thumb;
+        }
+    }, function(error){
+        console.log(error);
+    });
     //by default first modal viw will be visible;
     $scope.modal1 = true;  
     $scope.modal2 = false;
@@ -36,11 +36,10 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', functi
     $scope.forgot={};      
 
 //Function to switch the views within modal;
-    $scope.switchToModal = function (number) {     // function to change the content in modal window
+    $scope.switchToModal = function (number) {
+        // function to change the content in modal window
    
-//    console.log(number+typeof(number));
-
-    //show second modal view
+        //show second modal view
     
        if (number===2 && $scope.modal2 !== true) {
            $scope.modal2 = true;

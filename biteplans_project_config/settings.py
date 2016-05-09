@@ -172,7 +172,7 @@ DATABASES = {
         'NAME': os.environ.get('BITEPLANS_DB_NAME'),
         'USER': os.environ.get('BITEPLANS_DB_ROOT_USER'),
         'PASSWORD': os.environ.get('BITEPLANS_DB_ROOT_USER_PWD'),
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': os.environ.get('BITEPLANS_DB_IP'), # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -198,12 +198,14 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = 'staticfiles'
 
-STATICFILES_DIRS = (
-    STATIC_PATH,
-)
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS = (
+    STATIC_PATH, MEDIA_ROOT
+)
+
+
 # Absolute path to the media directory
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

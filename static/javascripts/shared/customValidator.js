@@ -19,6 +19,12 @@ app.filter('addSpace', function () {
    };
 });
 
+app.filter('num', function() {
+    return function(input) {
+      return parseInt(input, 10);
+    };
+});
+
 app.directive('materialSelect', function() {
    return {
       restrict: 'A',
