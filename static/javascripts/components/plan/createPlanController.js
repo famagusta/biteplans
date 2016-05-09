@@ -22,6 +22,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         /* week & day count for current plan */
                         $scope.weekCount = [];
                         $scope.dayCount = [];
+                        $scope.checklistIngs = [];
+                        $scope.foodgroup = [];
 
                         /* get the diet plan in question from the server */
                         planService.getDietPlan($routeParams.id)
@@ -186,19 +188,83 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 });
                         };
 
+
+                        //watch the filter and request new results as soon as filters are changed
+                        $scope.$watchCollection('foodgroup', function(
+                        newVal, oldVal) {
+
+                        $scope.search(1, $scope.sortby);
+
+
+                    });
+
                         //searches recipes or ingredients
                         //only works for ingredients right now
-                        $scope.searchPlan = function(query) {
+                        $scope.searchPlan = function(query, page, sortby) {
+
+                            $scope.query = query;
                             if (query) {
-                                searchService.search_ingredient(query)
-                                    .then(function(response) {
-                                        $scope.details =
-                                            response; //model for storing response from API 
-                                    }, function(error) {
-                                        console.log(error);
-                                    });
+                                $scope.search(page, sortby);
                             }
                         };
+
+                        //main search fn, executed on page change(page specifies page number to be displayed)
+                    //checks whether applied sort order is same as previous sort order or not, 
+                    //if not, then only make the request, if the order is same and filters are same,
+                    //then do not make the request.
+                    $scope.search = function(page, sortby) {
+                        $scope.details = undefined;
+                        if($scope.query!==undefined){
+
+                        $scope.sortby = sortby;
+                        $scope.nutrientValue = $scope.nutrientValue.concat(
+                                                        $scope.checklistIngs.splice(0,$scope.checklistIngs.length
+                                                        ));
+                        
+                        var query = $scope.query;
+                        console.log(query, page, sortby);
+                        if (query !==undefined && $scope.foodgroup.length >0) {
+                            searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else if (query != undefined && $scope.foodgroup.length ===0) {
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else{
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+
+                        }
+                    };
 
                         //opens modal to add ingredients/recipes on a current mealplan
                         $scope.openCreatePlanModal = function(index) {
@@ -215,6 +281,15 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             // currentmealPlanname, nutrientvalue
                             // these should be used to create a post request  to create meal
                             // THIS SHOULD BE SHORTER
+
+                            for (var j = 0; j <
+                            $scope.checklistIngs.length; j++
+                        ) {
+                            $scope.nutrientValue.push(
+                                $scope.checklistIngs[j]);
+                        }
+                        $scope.checklistIngs = [];
+
                             var currlength =
                                 $scope.mealPlanNameArray[$scope.currentMealPlanName]
                                 .mealingredient.length;
@@ -384,7 +459,6 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 }
                                   GlobalTotal += mealTotal;
                                   $scope.mealPlanNameArray[i].mealNutrition[field] = mealTotal;
-                                  console.log($scope.mealPlanNameArray[i]);
                             }  
                             }
                             
@@ -441,63 +515,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         $scope.mealPlanNameArray[i].mealNutrition = {};
                                     }
                                         
-                                google.charts.load('current', {'packages':['corechart']});
-
-                                  // Set a callback to run when the Google Visualization API is loaded.
-                                  google.charts.setOnLoadCallback(drawChart);
-
-                                  // Callback that creates and populates a data table,
-                                  // instantiates the pie chart, passes in the data and
-                                  // draws it.
-
-                                    $scope.extractComponent =[];
-                                    for(var i=0; i<$scope.mealPlanNameArray.length; i++){
-//                                        console.log($scope.mealPlanNameArray[i]);
-                                        var total=0;
-                                        for (var j=0; j<$scope.mealPlanNameArray[i].mealingredient.length; j++){
-                                            total +=
-                                                parseFloat($scope.mealPlanNameArray[
-                                                    i].mealingredient[j]
-                                                .ingredient['energy_kcal']);
-                                        }
-//                                        console.log(total);
-                                        $scope.extractComponent.push([$scope.mealPlanNameArray[i].mealname, total]);
-                                    }
                                 
-                                    $scope.extractComponent.push(['Total', $scope.calculateGlobalMacros('energy_kcal')]);
-                                  function drawChart() {
-
-                                    // Create the data table.
-                                    var data = new google.visualization.DataTable();
-                                    data.addColumn('string', 'Topping');
-                                    data.addColumn('number', 'Kcal');
-                                    console.log($scope.extractComponent);
-                                    data.addRows($scope.extractComponent);
-
-                                    // Set chart options
-                                   var options = {
-                                    chartArea: {width: '50%'},
-                                    hAxis: {
-                                      minValue: 0,
-                                      gridlines: {
-                                        color: 'none'
-                                }
-                                    },
-                                    vAxis: {
-                                      minValue: 0,
-                                    gridlines: {
-                                        color: 'none'
-                                }
-
-                                    },
-                                       colors: ['green'],
-                                  };
-                                      
-
-                                    // Instantiate and draw our chart, passing in some options.
-                                    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-                                    chart.draw(data, options);
-                                  }
                                 
                                 }, function(response) {
                                     console.log(response);
