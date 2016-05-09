@@ -47,21 +47,22 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_cleanup',
+    'ingredients',
+    'authentication',
+    'dietplans',
     'rest_framework',
+    'imported_recipes',
+    'recipes',
+    'markdown',
+    'plan_calendar',
     'rest_framework.authtoken',
-    'rest_social_auth',
-    'social.apps.django_app.default',
     'djoser',
     'django_filters',
     'import_export',
-    'markdown',
-    'authentication',
-    'ingredients',
-    'recipes',
-    'imported_recipes',
-    'dietplans',
-    'plan_calendar',
+    'social.apps.django_app.default',
+    'rest_social_auth',
+    'django_cleanup'
+    #'schedule',     # support for calendars
 )
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
@@ -168,10 +169,10 @@ WSGI_APPLICATION = 'biteplans_project_config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BITEAPP_DB', 
-        'USER': 'keshav' ,
-        'PASSWORD': 'keshav1234', 
-        'HOST': 'localhost',#os.environ.get('BITEPLANS_DB_IP'), # Or an IP Address that your DB is hosted on
+        'NAME': os.environ.get('BITEPLANS_DB_NAME'),
+        'USER': os.environ.get('BITEPLANS_DB_ROOT_USER'),
+        'PASSWORD': os.environ.get('BITEPLANS_DB_ROOT_USER_PWD'),
+        'HOST': os.environ.get('BITEPLANS_DB_IP'), # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }

@@ -247,7 +247,7 @@ input[type=time] {
 }
 
 .nutsection {
-    max-height: 250px;
+    height: 250px;
     overflow-y: scroll;
     overflow-x: hidden;
 }

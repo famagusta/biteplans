@@ -17,7 +17,14 @@ class UserPlanHistorySerializer(serializers.ModelSerializer):
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = UserPlanHistory
-		read_only_fields = ('id', 'created_on', 'updated_on', )
+		read_only_fields = ('id', 'created_on', 'updated_on', 'user', )
+
+class UserPlnHistorySerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = UserPlanHistory
+		read_only_fields = ('id', 'created_on', 'updated_on', 'user', )
 
 class EventRecipeSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
@@ -58,12 +65,12 @@ class MealHistorySerializer(serializers.ModelSerializer):
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = MealHistory
-		read_only_fields = ('id', 'updated_on', )
+		read_only_fields = ('id', 'updated_on', 'date', 'time', )
 
 class MealHistoryWriteSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = MealHistory
-		read_only_fields = ('id', 'updated_on', )
+		read_only_fields = ('id', 'updated_on', 'date', 'time', )
 

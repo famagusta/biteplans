@@ -132,5 +132,5 @@ def skip_saving_file(sender, instance, **kwargs):
 @receiver(post_save, sender=Account)
 def save_file(sender, instance, created, **kwargs):
     if created and hasattr(instance, _UNSAVED_FILEFIELD):
-        instance.image = getattr(instance, _UNSAVED_FILEFIELD)
+        instance.image_path = getattr(instance, _UNSAVED_FILEFIELD)
         instance.save()    

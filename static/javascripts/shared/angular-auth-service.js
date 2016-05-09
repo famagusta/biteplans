@@ -204,10 +204,11 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
         /* function to update a user profile */
         var updateProfile = function(args, id){
-            var url = constant['API_SERVER'] + 'authentication/api/v1/register/' + id + '/'
+            var url = constants['API_SERVER'] + 'authentication/api/v1/register/' + id + '/'
         }
         
         /*User resource for sharing between different controllers */
+        // I think this doesnt work anumore
         var userOb = {};
         userOb.current = {};
         userOb.set_user = function(response) {
@@ -246,10 +247,11 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         };
 
         //stores the info of current user to share amongst different controllers.
+        // I think this doesnt work anymore
         var getCurrentUserDetails = function() {
             if ($auth.getToken()) {
                 httpService.httpGet(
-                        'http://bitespacetest.com:8000/authentication/api/v1/jwt_user/'
+                       constants['API_SERVER'] +  'authentication/api/v1/jwt_user/'
                     )
                     .then(function(response) {
                         userOb.set_user(response);
@@ -321,6 +323,5 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
             forgotPassword: resetPassword,
         };
-
-    }
-]);
+    
+}]);

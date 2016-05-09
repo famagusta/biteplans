@@ -34,6 +34,23 @@ app.directive('materialSelect', function() {
    };
 });
 
+app.directive('dropdownButton', function() {
+   return {
+      restrict: 'A',
+      link: function(scope, elem) {
+         $(elem).dropdown({
+                    belowOrigin: true, 
+                    alignment: 'left', 
+                    inDuration: 200,
+                    outDuration: 150,
+                    constrain_width: false,
+                    hover: false, 
+                    gutter: 1
+                  });
+      }
+   };
+});
+
 
 app.directive('clickAnywhereButHere', ['$document', function ($document) {
         var directiveDefinitionObject = {

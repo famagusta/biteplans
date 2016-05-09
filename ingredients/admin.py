@@ -13,6 +13,9 @@ from dietplans.models import DietPlan, DayPlan, MealPlan, MealRecipe
 from imported_recipes.models import ImportedRecipe, ImportedRecipeIngredients, \
     ImportedIngredientQuantity
 
+from plan_calendar.models import UserPlanHistory, MealHistory, \
+EventIngredient, EventRecipe, UserLoggedIngredient, UserLoggedRecipe
+
 
 class IngResource(resources.ModelResource):
     ''' Made a resource abstracting the model to import the data from
@@ -39,3 +42,9 @@ admin.site.register(MealRecipe)
 admin.site.register(ImportedRecipe)
 admin.site.register(ImportedRecipeIngredients)
 admin.site.register(ImportedIngredientQuantity)
+admin.site.register(UserPlanHistory)
+admin.site.register(MealHistory)
+admin.site.register(EventIngredient)
+admin.site.register(EventRecipe)
+admin.site.register(UserLoggedIngredient)
+admin.site.register(UserLoggedRecipe)

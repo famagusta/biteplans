@@ -7,6 +7,9 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         $scope.query_plan = '';
         $scope.plans = {};
         
+        /* date that user selects to start following a plan*/
+        $scope.followDate = '';
+        
         $scope.search_plan = function() {
             var query = $scope.query_plan;
             if (query) {
@@ -28,7 +31,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
 
             planService.createPlan($scope.plan)
                 .then(function(response) {
-                    console.log(response);
                     $location.path('/plan/' + response.dietplan_id);
                     $('#small-modal')
                         .closeModal();
@@ -37,5 +39,42 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     console.log(error);
                 })
         };
+        
+        /* function to follow a plan given a dietplan id
+           and user selected date. did this using jquery 
+           since we wanted a button to trigger the series
+           of events */
+        $scope.followPlan = function(planId){
+            console.log("follow");
+            var $input = $('.datepicker_btn').pickadate({
+                format : 'yyyy-mm-dd',
+                formatSubmit: false,
+                closeOnSelect: true,
+
+                onSet: function(context) {
+                    //make api call to follow the plan on setting of date
+                    /* convert to ISO 8601 date time string for serializer
+                      acceptance*/
+                    if(context.select){
+                        var date_to_set = new Date(context.select).toISOString();
+                        $scope.followDate = date_to_set;
+
+                        //close the date picker
+                        this.close();
+
+                        var followPlanObject = {
+                            dietplan:planId,
+                            start_date: $scope.followDate
+                        }
+                        planService.followDietPlan(followPlanObject)
+                            .then(function(response){
+                                console.log(response);
+                        }, function(error){
+                            console.log(error);
+                        });
+                    }
+                }
+            })
+        }
     }
 ]);

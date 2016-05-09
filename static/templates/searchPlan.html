@@ -108,7 +108,7 @@
 
             <div class="row">
                 <div class="col s12 m6" ng-repeat=
-                "plan in plans | limitTo:4">
+                "plan in plans.results | limitTo:4">
                     <div class="card white">
                         <div class="card-content black-text">
                             <div class="row">
@@ -175,14 +175,14 @@
 
 
                         <div class="card-action">
-                            <a class="teal-text right" href="#">FOLLOW</a>
-                            <a class="teal-text right" href="#">SHORTLIST</a>
+                            <a class="datepicker_btn btn-flat teal-text" ng-click="followPlan(plan.id)" href="#">FOLLOW</a>
+                            <a class="btn-flat teal-text" href="#">SHORTLIST</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
 
+            <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
 
             <div class="row">
                 <div class="col s12">

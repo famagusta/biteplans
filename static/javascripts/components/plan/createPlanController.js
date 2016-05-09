@@ -22,6 +22,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         /* week & day count for current plan */
                         $scope.weekCount = [];
                         $scope.dayCount = [];
+                        $scope.checklistIngs = [];
+                        $scope.foodgroup = [];
 
                          /* phase of the day */
                         $scope.amPmArray = ["AM", "PM"];
@@ -192,7 +194,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         
                         // function to populate additional ingredients info inside mealplan array
                         $scope.getAdditionalIngredientsInfo = function(){
-                            if($scope.mealPlanNameArray){
+                            if($scope.mealPlanNameArray!==undefined){
                                 for(var i=0; i< $scope.mealPlanNameArray.length; i++){
                                     console.log($scope.mealPlanNameArray[i]);
                                     if($scope.mealPlanNameArray[i].mealingredient!==undefined){
@@ -273,19 +275,83 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 });
                         };
 
+
+                        //watch the filter and request new results as soon as filters are changed
+                        $scope.$watchCollection('foodgroup', function(
+                        newVal, oldVal) {
+
+                        $scope.search(1, $scope.sortby);
+
+
+                    });
+
                         //searches recipes or ingredients
                         //only works for ingredients right now
-                        $scope.searchPlan = function(query) {
+                        $scope.searchPlan = function(query, page, sortby) {
+
+                            $scope.query = query;
                             if (query) {
-                                searchService.search_ingredient(query)
-                                    .then(function(response) {
-                                        $scope.details =
-                                            response; //model for storing response from API 
-                                    }, function(error) {
-                                        console.log(error);
-                                    });
+                                $scope.search(page, sortby);
                             }
                         };
+
+                        //main search fn, executed on page change(page specifies page number to be displayed)
+                    //checks whether applied sort order is same as previous sort order or not, 
+                    //if not, then only make the request, if the order is same and filters are same,
+                    //then do not make the request.
+                    $scope.search = function(page, sortby) {
+                        $scope.details = undefined;
+                        if($scope.query!==undefined){
+
+                        $scope.sortby = sortby;
+                        $scope.ingredientInModal = $scope.ingredientInModal.concat(
+                                                        $scope.checklistIngs.splice(0,$scope.checklistIngs.length
+                                                        ));
+                        
+                        var query = $scope.query;
+                        console.log(query, page, sortby);
+                        if (query !==undefined && $scope.foodgroup.length >0) {
+                            searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else if (query != undefined && $scope.foodgroup.length ===0) {
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else{
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+
+                        }
+                    };
 
                         //opens modal to add ingredients/recipes on a current mealplan
                         $scope.openCreatePlanModal = function(index) {
@@ -302,12 +368,22 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             // currentmealPlanname, nutrientvalue
                             // these should be used to create a post request  to create meal
                             // THIS SHOULD BE SHORTER
+
+                            for (var j = 0; j <
+                            $scope.checklistIngs.length; j++
+                        ) {
+                            $scope.ingredientInModal.push(
+                                $scope.checklistIngs[j]);
+                        }
+                        $scope.checklistIngs = [];
+
                             var currlength =
                                 $scope.mealPlanNameArray[$scope.currentMealPlanName]
                                 .mealingredient.length;
                             //give a more sensible name to this variable
                             var x = $scope.ingredientInModal.slice();
 //                            console.log(currlength);
+
 
                             //STRANGE LOOKING FOR LOOP
                             for (var i = 0; i < x.length; i++) {
@@ -458,6 +534,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                             total += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
                                                 * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
                                                 * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
+
                                         }
                                     }
 
@@ -514,7 +591,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         obj)
                                     .then(
                                         function(response) {
-                                            console.log(response, cntr);
+//                                            console.log(response, cntr);
                                             $scope.mealPlanNameArray[
                                                     current].mealingredient[cntr].id =
                                                 response.meal_ingredient_id;

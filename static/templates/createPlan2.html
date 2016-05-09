@@ -1,3 +1,19 @@
+<ul class="dropdown-content filter-ul" id="dropdown2">
+        <li ng-repeat="filter in filts track by $index"><input checked=
+        "checked" checklist-model="foodgroup" checklist-value="filter['0']"
+        class="filled-in" id="filled-in-box1{{$index}}" type="checkbox">
+        <label for="filled-in-box1{{$index}}">{{filter['0']}}</label></li>
+    </ul>
+
+
+    <ul class="dropdown-content filter-ul" id="dropdown3">
+        <li ng-repeat="filter in details.sortlist track by $index">
+        <input class="filled-in" id="filledin{{$index}}" name="sortradio"
+        ng-click="search(1, sortby)" ng-model="sortby" type="radio" value=
+        "{{filter}}"> <label for="filledin{{$index}}">{{filter.split('_',
+        1)[0]}}</label></li>
+    </ul>
+
 <section id="planPage">
             
     <div class="row">
@@ -207,7 +223,7 @@
 
 
                             <div class="row center lowbo" ng-if=
-                            "key.mealingredient.length&gt;0">
+                            "key.mealingredient.length>0">
                                 <div class="col m4 namecol">
                                     <p class="meal-text">Name</p>
                                 </div>
@@ -258,7 +274,8 @@
 
                                     <div class="col m1">
                                         <input class="serving" ng-model=
-                                        "item1.quantity" ng-pattern=
+                                        "item1.quantity" ng-change=
+                                        "updateMealIngredient(item1)" ng-pattern=
                                         "/^[0-9]+(\.[0-9]{1,2})?$/" step="0.25"
                                         type="number">
                                     </div>
@@ -596,182 +613,236 @@
 <!-- CREATE PLAN MODAL -->
 
 
+
+
 <div class="modal" id="create-plan-modal">
-    <a class=
-    " modal-action modal-close waves-effect waves-green btn-flat right"
-    ng-click="emptyModalContents()">X</a>
+            <a class=
+            "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
 
-    <div class="modal-content">
-        <div class="row">
-            <div class="col m6">
-                <div class="card white create-search-box" id="searchcard">
-                    <!-- SEARCH-BOX -->
-
-
-                    <div class="card-content black-text">
-                        <textarea class="form-control" id="searchbox" ng-model=
-                        "query" placeholder=
-                        "Search people & places"></textarea> <button class=
-                        "fa fa-search search-ingredient" ng-click=
-                        "searchPlan(query)" type="submit"></button>
-                    </div>
-                    <!-- END OF SEARCH-BOX -->
-                </div>
-            </div>
-
-
-            <div class="col m6">
-                <!-- GET RID OF THIS -->
-
-
-                <p>Hello</p>
-            </div>
-            <br>
-
-
-            <div class="row">
-                <div class="col m6 create-modal-half1">
-                    <div ng-repeat=
-                    "detail in details | limitTo:7 track by $index">
-                        <p><input checklist-model="nutrientValue"
-                        checklist-value="detail" class="filled-in" id=
-                        "filled-in-box{{$index}}" ng-disabled=
-                        "checkToDisable(detail.id)" type="checkbox">
-                        <label class="ing-text" for="filled-in-box{{$index}}"
-                        id="check-label">{{detail.name}}</label></p>
-                    </div>
-                </div>
-
-
-                <div class="col m6">
-                    <div class="nutsection" ng-if="nutrientValue.length&gt;0">
-                        <div class="row hline">
-                            <div class="col m3">
-                                <p class="a ahead servehead">Serving:</p>
+            <div class="modal-content">
+                <div class="row">
+                    <div class="col m8 push-m2">
+                        <div class="row">
+                            <div ng-class=
+                            "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
+                            ng-show="filts !==undefined && filts.length&gt;0">
+                                <button class='fa fa-filter search-filter'
+                                data-activates='dropdown2' data-beloworigin=
+                                "true" dropdown-button=""></button>
                             </div>
 
 
-                            <div class="col m2">
-                                <input id="serving" ng-model="ingQuantity"
-                                type="text" value="1">
+                            <div ng-class=
+                            "{'col s1 m1': filts!==undefined && filts.length&gt;0}"
+                            ng-show="filts !==undefined && filts.length&gt;0">
+                                <button class='fa fa-reorder search-filter'
+                                data-activates='dropdown3' data-beloworigin=
+                                "true" dropdown-button=""></button>
                             </div>
 
 
-                            <div class="col m3">
-                                <p class="a ahead">Amt</p>
-                            </div>
+                            <div ng-class=
+                            "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
+                            <div class="card white create-search-box" id=
+                            "searchcard">
+                                    <!-- SEARCH-BOX -->
 
 
-                            <div class="col m2">
-                                <p class="a ahead">Amt</p>
+                                    <div class="card-content black-text">
+                                        <textarea class="form-control" id=
+                                        "searchbox" ng-model="query"
+                                        placeholder=
+                                        "Search Ingredient"></textarea>
+                                        <button class=
+                                        "fa fa-search search-ingredient"
+                                        ng-click="searchPlan(query)" type=
+                                        "submit"></button>
+                                    </div>
+                                </div>
+                                <!-- END OF SEARCH-BOX -->
                             </div>
                         </div>
-
-
-                        <div class="row hline">
-                            <div class="col m6">
-                                <p class="a b ahead">Calories (kcal)</p>
-                            </div>
-
-
-                            <div class="col m6">
-                                <p class="a b">
-                                {{nutrientValue[nutrientValue.length-1].energy_kcal
-                                | number }}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row hline">
-                            <div class="col m6">
-                                <p class="a b ahead">Proteins</p>
-                            </div>
-
-
-                            <div class="col m6">
-                                <p class="a b">
-                                {{nutrientValue[nutrientValue.length-1].protein_tot
-                                | number }}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row hline">
-                            <div class="col m6">
-                                <p class="a b ahead">Fats</p>
-                            </div>
-
-
-                            <div class="col m6">
-                                <p class="a b">
-                                {{nutrientValue[nutrientValue.length-1].fat_tot
-                                | number }}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row hline">
-                            <div class="col m6">
-                                <p class="a b ahead">Carbohydrates</p>
-                            </div>
-
-
-                            <div class="col m6">
-                                <p class="a b">
-                                {{nutrientValue[nutrientValue.length-1].carbohydrate_tot
-                                | number }}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row hline">
-                            <div class="col m6">
-                                <p class="a b ahead">Fiber</p>
-                            </div>
-
-
-                            <div class="col m6">
-                                <p class="a b">
-                                {{nutrientValue[nutrientValue.length-1].fiber_tot
-                                | number }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="container" id="create-container">
-                        <p class="ing-text">
-                        {{mealPlanNameArray[currentMealPlanName].mealname}}</p>
                     </div>
                     <br>
-                    <br>
+                </div>
 
 
-                    <div class="row" ng-repeat="item in nutrientValue">
-                        <div class="col m10 meal-list">
-                            <p class="ing-text meal-list" ng-if=
-                            "nutrientValue.length&gt;0">{{item.name}}</p>
+                <div class="row">
+                    <div class="col m6 create-modal-half1">
+                        <div class="searchresult-create row">
+                            <div ng-repeat=
+                            "detail in details.results track by $index">
+                                <p><input checklist-model="checklistIngs"
+                                checklist-value="detail" class="filled-in" id=
+                                "filled-in-box{{$index}}" ng-disabled=
+                                "checkToDisable(detail.id)" type="checkbox">
+                                <label class="ing-text highlight" for=
+                                "filled-in-box{{$index}}" id=
+                                "check-label">{{detail.name}}</label></p>
+                            </div>
                         </div>
 
 
-                        <div class="col m2 meal-list">
+                        <div class="row smallpaginate">
+                            <paging ng-if="details !== undefined && details !== []"
+                                class="small"
+                                page="currentPage" 
+                                page-size="6" 
+                                total="pageSize"
+                                hide-if-empty="{{hideIfEmpty}}"
+                                ul-class="{{ulClass}}"
+                                li-class="lipageclass"
+                                active-class="{{activeClass}}"
+                                disabled-class="{{disabledClass}}"
+                                show-prev-next="true"
+                                text-next-class="acti fa fa-chevron-right"
+                                text-prev-class="acti fa fa-chevron-left"
+                                text-first-class="acti fa fa-backward"
+                                text-last-class="acti fa fa-forward"
+                                text-title-page="Page {page}"
+                                text-title-first="First Page"
+                                text-title-last="Last Page"
+                                text-title-next="Next Page"
+                                text-title-prev="Previous" 
+                                paging-action="searchPlan(query, page)">
+                            </paging> 
+                        </div>
+                    </div>
+
+
+                    <div class="col m6">
+                        <div class="nutsection">
+                            <div class="row hline" ng-if="checklistIngs[checklistIngs.length-1]">
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a ahead servehead">Serving per 100 grams:</p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row hline" ng-if="checklistIngs[checklistIngs.length-1]">
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b ahead">Calories (kcal)</p>
+                                </div>
+
+
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b">
+                                    {{checklistIngs[checklistIngs.length-1].energy_kcal}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row hline"  ng-if="checklistIngs[checklistIngs.length-1]">
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b ahead">Proteins</p>
+                                </div>
+
+
+                                <div class="col m6">
+                                    <p class="a b" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    {{checklistIngs[checklistIngs.length-1].protein_tot}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row hline" ng-if="checklistIngs[checklistIngs.length-1]">
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b ahead">Fats</p>
+                                </div>
+
+
+                                <div class="col m5" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b">{{checklistIngs[checklistIngs.length-1].fat_tot}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row hline" ng-if="checklistIngs[checklistIngs.length-1]">
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b ahead">Carbohydrates</p>
+                                </div>
+
+
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b">
+                                    {{checklistIngs[checklistIngs.length-1].carbohydrate_tot}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row hline" ng-if="checklistIngs[checklistIngs.length-1]">
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b ahead">Fiber</p>
+                                </div>
+
+
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b">
+                                    {{checklistIngs[checklistIngs.length-1].fiber_tot}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row hline" ng-if="checklistIngs[checklistIngs.length-1]">
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b ahead">Water</p>
+                                </div>
+
+
+                                <div class="col m6" ng-if="checklistIngs[checklistIngs.length-1]">
+                                    <p class="a b">{{checklistIngs[checklistIngs.length-1].water}}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br>
+                        <br>
+
+
+                        <div class="row" ng-repeat=
+                        "item in ingredientInModal">
+                            <div class="col m10 meal-list">
+                                <p class="ing-text meal-list" ng-if=
+                                "ingredientInModal.length&gt;0">
+                                {{item.name}}</p>
+                            </div>
+
+
+                            <div class="col m2 meal-list">
+                                <a href="#" ng-click=
+                                "removeIngredient(item)"><i class=
+                                "material-icons meal-list right dustbin" ng-if=
+                                "ingredientInModal.length&gt;0">delete</i></a>
+                            </div>
+                        </div>
+
+
+                        <div class="row" ng-repeat="item in checklistIngs">
+                            <div class="col m10 meal-list">
+                                <p class="ing-text meal-list" ng-if=
+                                "checklistIngs.length&gt;0">{{item.name}}</p>
+                            </div>
+
+
+                            <div class="col m2 meal-list">
                             <a href="#" ng-click=
                             "removeIngredient(item)"><i class=
                             "material-icons meal-list right dustbin" ng-if=
-                            "nutrientValue.length&gt;0">delete</i></a>
+                            "checklistIngs.length>0">delete</i></a>
+                        </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="row">
-            <div class="col m12 center">
-                <a class="waves-effect waves-light btn btn-social largebtn"
-                ng-click="addContents()">Add</a>
+            <div class="row">
+                <div class="col m12 center">
+                    <a class="waves-effect waves-light btn btn-social largebtn"
+                    ng-click=
+                    "addContents();calculateTotalInfoForRecipes()">Add</a>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 </section>

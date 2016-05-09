@@ -1,8 +1,7 @@
 <div class="full-length" id="result-list">
-    <div ng-if="details!=null && details!=undefined && details.length!=0">
+    <div ng-if="details.results!=null && details.results!=undefined && details.results.length!=0">
         <div class="row">
-            <div class="col s12 m6" current-page="currentPage" dir-paginate=
-            "detail in details | itemsPerPage: pageSize" ng-click="openIngredientsModal($index)">
+            <div class="col s12 m6" ng-repeat="detail in details.results track by $index " ng-click="openIngredientsModal($index)">
                 <div class="card white big result-card" id=
                 "ingredient-result-card">
                     <div class="card-content grey-text">
@@ -72,11 +71,12 @@
         <div class="modal" id="modal6">
             <a class=
             " modal-action modal-close waves-effect waves-green btn-flat right"
+
         >X</a>
 
             <div class="modal-content">
                 <h4 class="cyan-text ingredient-title">
-                {{details[selected].name}}</h4>
+                {{details.results[selected].name}}</h4>
                 <br>
 
 
@@ -121,7 +121,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details[selected].carbohydrate_tot}}</p>
+                                {{details.results[selected].carbohydrate_tot}}</p>
                             </div>
 
 
@@ -132,7 +132,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details[selected].protein_tot}}</p>
+                                {{details.results[selected].protein_tot}}</p>
                             </div>
 
 
@@ -143,7 +143,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details[selected].fat_tot}}</p>
+                                {{details.results[selected].fat_tot}}</p>
                             </div>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details[selected].fiber_tot}}</p>
+                                {{details.results[selected].fiber_tot}}</p>
                             </div>
 
 
@@ -172,7 +172,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details[selected].water}}</p>
+                                {{details.results[selected].water}}</p>
                             </div>
 
 
@@ -183,7 +183,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details[selected].sugar_tot}}</p>
+                                {{details.results[selected].sugar_tot}}</p>
                             </div>
                         </div>
                     </div>

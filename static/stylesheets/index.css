@@ -8,10 +8,19 @@ body {
     -moz-overflow-x: hidden;
 }
 
-a, span, div, input {
+
+span, div, input {
   font-family: 'Raleway',sans-serif !important;
 
 }
+
+.pagination li.active a {
+    color: #00bcd4 !important;
+    font-weight: bold;
+}
+
+
+
 
 input:focus {
     border-color: #00bcd4 !important;
@@ -78,10 +87,6 @@ a {
     color: #00bcd4;
 }
 
-p {
-    line-height: 2rem;
-}
-
 #articleSection > .section > .row > .col >.card{
   padding:12px;
 }
@@ -130,6 +135,13 @@ p {
 .dropdown-content li>span {
     color: #00bcd4;
 }
+.centerme{
+  margin:auto !important;
+}
+
+paging{
+  margin:auto !important;
+}
 
 
 @media only screen and (max-width : 992px) {
@@ -148,5 +160,4 @@ p {
   }
 }
 
-/* 960 grid */
 

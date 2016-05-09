@@ -26,7 +26,6 @@ app.factory('recipeService',
 
         httpService.httpPatchFile(uploadUrl, fd).then(function(response){
     		deferred.resolve(response);
-    		console.log(response);
 
     	}, function(error){
     		console.log(error);
@@ -84,8 +83,5 @@ app.factory('recipeService',
         }
 
     };
-
-
-
 
    }]);
