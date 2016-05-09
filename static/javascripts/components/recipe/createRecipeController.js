@@ -91,6 +91,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     }
                     
                     
+                    
                     /* search function for the ingredient modal */
                     $scope.search = function() {
                         var query = $scope.query;

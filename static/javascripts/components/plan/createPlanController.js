@@ -23,6 +23,29 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         $scope.weekCount = [];
                         $scope.dayCount = [];
 
+                         /* phase of the day */
+                        $scope.amPmArray = ["AM", "PM"];
+
+                        /* urls for previous and next buttons */
+                        $scope.backUrl3 = '/plan2/' + $routeParams.id;
+                        $scope.backUrl2 = '/plan/' + $routeParams.id;
+                        $scope.nextUrl2 = '/plan3/' + $routeParams.id;
+
+                        /* Function that updates the main descriptors of a diet plan
+                        from the first create plan page */
+                        $scope.initialize_plan = function() {
+                            var id = $routeParams.id;
+                            planService.updatePlan($scope.plan, id)
+                                .then(function(response) {
+                                    $location.path('/plan2/' +
+                                        response.id);
+
+                                }, function(error) {
+                                    console.log(error);
+                                });
+
+                        };
+                        
                         /* get the diet plan in question from the server */
                         planService.getDietPlan($routeParams.id)
                             .then(function(response) {
@@ -107,29 +130,95 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             }
                         };
 
-
-                        /* phase of the day */
-                        $scope.amPmArray = ["AM", "PM"];
-
-                        /* urls for previous and next buttons */
-                        $scope.backUrl3 = '/plan2/' + $routeParams.id;
-                        $scope.backUrl2 = '/plan/' + $routeParams.id;
-                        $scope.nextUrl2 = '/plan3/' + $routeParams.id;
-
-                        /* Function that updates the main descriptors of a diet plan
-                        from the first create plan page */
-                        $scope.initialize_plan = function() {
+                        //function to get current dayplan details including all meals and mealings
+                        // TODO: update for API
+                        $scope.getDayPlan = function(day, week) {
                             var id = $routeParams.id;
-                            planService.updatePlan($scope.plan, id)
+                            planService.getdayplan(id, day, week)
                                 .then(function(response) {
-                                    $location.path('/plan2/' +
-                                        response.id);
+                                    for (var i = 0; i <
+                                        response.mealplan.length; i++
+                                    ) {
+                                        response.mealplan[i].mealname =
+                                            response.mealplan[i]
+                                            .name;
+                                        delete response.mealplan[
+                                            i].name;
+                                        var dateStr =
+                                            "July 21, 1983 " +
+                                            response.mealplan[i]
+                                            .time;
+                                        var b = new Date(
+                                            dateStr);
+                                        response.mealplan[i].time =
+                                            b;
+                                        response.mealplan[i].counter =
+                                            i;
 
-                                }, function(error) {
-                                    console.log(error);
+                                        /* coerce string responses into floats to avoid angular error
+                                        do samething for recipes as well. check null cases */
+                                        for (var j = 0; j <
+                                            response.mealplan[i]
+                                            .mealingredient.length; j++
+                                        ) {
+                                            response.mealplan[i]
+                                                .mealingredient[
+                                                    j].quantity =
+                                                parseFloat(
+                                                    response.mealplan[
+                                                        i].mealingredient[
+                                                        j].quantity
+                                                );
+                                        }
+
+                                        // TODO: similar thing for recipes
+                                    }
+
+                                    $scope.mealPlanNameArray =
+                                        response.mealplan;
+                                    for(var i=0; i< $scope.mealPlanNameArray.length; i++){
+                                        $scope.mealPlanNameArray[i].mealNutrition = {};
+                                    }
+                                        
+                                
+                                }, function(response) {
+                                    console.log(response);
                                 });
-
                         };
+
+                        //get initial data for day1 and week 1 of the plan
+                        $scope.getDayPlan($scope.dayplan.day_no, $scope
+                            .dayplan.week_no);
+                        
+                        // function to populate additional ingredients info inside mealplan array
+                        $scope.getAdditionalIngredientsInfo = function(){
+                            if($scope.mealPlanNameArray){
+                                for(var i=0; i< $scope.mealPlanNameArray.length; i++){
+                                    console.log($scope.mealPlanNameArray[i]);
+                                    if($scope.mealPlanNameArray[i].mealingredient!==undefined){
+                                    for(var j=0; j< $scope.mealPlanNameArray[i].mealingredient.length; j++){
+                                        //callback function to deal with the asynchronous call within for loop
+                                       (function(cntr_i, cntr_j){ 
+                                          $scope.mealPlanNameArray[cntr_i].mealingredient[cntr_j].additionalIngInfo = {};
+                                           searchService.get_ingredient_addtnl_info($scope.mealPlanNameArray[cntr_i]
+                                                                                    .mealingredient[cntr_j].ingredient.id)
+                                                        .then(function(response) {
+                                                //model for storing response from API 
+                                                        $scope.mealPlanNameArray[cntr_i].mealingredient[cntr_j].additionalIngInfo=response; 
+                                            }, function(error) {
+                                                console.log(error);
+                                            });
+                                                           })(i, j)
+                                    }
+                                }
+                            }
+                        }
+                        }
+                        
+                        
+                        $scope.$watchCollection('mealPlanNameArray', function(newValue, oldValue){
+                            $scope.getAdditionalIngredientsInfo();
+                        })
 
                         // FIGURE OUT WHAT THIS DOES
                         $scope.addMealHours = [];
@@ -144,9 +233,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             $scope.addMealMinutes.push(j);
                         }
 
-                        // WHAT DO THESE DO?
-                        $scope.mealEdit = null;
-                        // WHAT DO THESE DO?
+                        // updates name and time of a meal plan
                         $scope.updateDayMealPlan = function(index) {
                             var obj = {
                                 'name': $scope.mealPlanNameArray[
@@ -168,7 +255,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         };
 
 
-                        // YEH KYA HAI?
+                        // updates meal ingredient in a meal plan
                         $scope.updateMealIngredient = function(obj) {
                             // CONSIDER RENAMING THIS
                             var obje = {
@@ -180,7 +267,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             planService.updateMealIngredient(obje,
                                     obj.id)
                                 .then(function(response) {
-//                                    console.log(response);
+                                // TODO: update msg to user
                                 }, function(error) {
                                     console.log(error);
                                 });
@@ -208,7 +295,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         };
 
                         // array to store the nutrient values in modal for every ingredient checked
-                        $scope.nutrientValue = [];
+                        $scope.ingredientInModal = [];  //earlier called nutrientValue
 
                         // copies the ingredients selected in the respective meal array
                         $scope.addContents = function() {
@@ -219,11 +306,12 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 $scope.mealPlanNameArray[$scope.currentMealPlanName]
                                 .mealingredient.length;
                             //give a more sensible name to this variable
-                            var x = $scope.nutrientValue.slice();
+                            var x = $scope.ingredientInModal.slice();
 //                            console.log(currlength);
 
                             //STRANGE LOOKING FOR LOOP
                             for (var i = 0; i < x.length; i++) {
+                                // handle case where measure is only 100g or not an array
                                 if (x[i].measure.length !== 0) {
                                     $scope.mealPlanNameArray[$scope
                                             .currentMealPlanName].mealingredient
@@ -248,7 +336,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                             //post ingredients to db via url endpoint
                             $scope.fillMealPlan(currlength, $scope.currentMealPlanName);
-                            $scope.nutrientValue.length = 0;
+                            $scope.ingredientInModal.length = 0;
                             $('#create-plan-modal')
                                 .closeModal();
                         };
@@ -331,9 +419,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                         // removes ingredients from the modal
                         $scope.removeIngredient = function(element) {
-                            var index = $scope.nutrientValue.indexOf(
+                            var index = $scope.ingredientInModal.indexOf(
                                 element);
-                            $scope.nutrientValue.splice(index, 1);
+                            $scope.ingredientInModal.splice(index, 1);
                         };
 
                         // removes ingredients which are saved in meal
@@ -352,195 +440,53 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     });
                             };
 
-                        $scope.calculateTotalInfo = function(index,
-                            field) {
+                         /* Calculates total value of a nutrient across a days plan */
+                          $scope.calcDayNutrientVal = function(nutrient,isAdditional){
                             var total = 0;
-                            for (i = 0; i < $scope.mealPlanNameArray[
-                                index].mealingredient.length; i++) {
-                                total += parseFloat($scope.mealPlanNameArray[
-                                        index].mealingredient[i]
-                                    .ingredient[field]);
-                            }
-                            return total;
+                            if($scope.mealPlanNameArray){
+                                for (var i = 0 ; i < $scope.mealPlanNameArray.length ; i++) {
+                                    for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
+                                        if(isAdditional){
+                                            if($scope.mealPlanNameArray[i].mealingredient[j].additionalIngInfo[nutrient] !== null){
+                                                total += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].additionalIngInfo[nutrient])
+                                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
+                                            }else{
+                                                total += 0;
+                                            }
+                                        }else{
+                                            total += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
+                                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
+                                        }
+                                    }
 
-                        };
-
-                        $scope.calculateGlobalMacros = function(field) {
-
-                            var GlobalTotal = 0;
-                            
-                            if(!$scope.mealPlanNameArray) {
-                                return;
-                            }
-                            else {
-                              for (i = 0; i < $scope.mealPlanNameArray
-                                .length; i++) {
-                                  var mealTotal = 0;
-                                for (j = 0; j < $scope.mealPlanNameArray[
-                                    i].mealingredient.length; j++) {
-                                    mealTotal +=
-                                        parseFloat($scope.mealPlanNameArray[
-                                                i].mealingredient[j]
-                                            .ingredient[field]);
                                 }
-                                  GlobalTotal += mealTotal;
-                                  $scope.mealPlanNameArray[i].mealNutrition[field] = mealTotal;
-                            }  
                             }
-                            
-                            return GlobalTotal;
-                        };
-                        
-                        $scope.calculateNutritionTotal = function(nutrient){
-                            var total = 0;
-                        for (var i = 0 ; i < $scope.mealPlanNameArray.length ; i++) {
-                            for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
-                                total += parseFloat($scope.mealPlanNameArray[i].mealNutrition[nutrient])
-                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
-                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight);
-
-                            }
-                            console.log($scope.mealPlanNameArray[i]);
-
-                        }
                             return total;
-                        }
-                        
-                         $scope.calculateAddTotal = function(index, nutrient){
+                            }
+
+                        /* calculates total value of a nutrient for a given meal */
+                         $scope.calcMealNutrientVal = function(index, nutrient, isAdditional){
                              var total = [];
-                             var q = 0;
-                           for (var i=0; i< $scope.mealPlanNameArray.length;i++) {
-                               for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
-                               q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
-                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
-                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight);
+                            if($scope.mealPlanNameArray){
+                               for (var i=0; i< $scope.mealPlanNameArray.length;i++) {
+                                   var q = 0;
+                                   for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
+                                   q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
+                                        * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
+                                   }
+                                   
+                                  
+                                   
+                                   total.push(q); 
                                }
-                               total.push(q); 
-                           }
-                         
-
+                            }
                              return total[index];
-
                         }
-
-                        
                     
-                        //function to get current dayplan details including all meals and mealings
-                        // TODO: update for API
-                        $scope.getDayPlan = function(day, week) {
-                            var id = $routeParams.id;
-                            planService.getdayplan(id, day, week)
-                                .then(function(response) {
-                                    for (var i = 0; i <
-                                        response.mealplan.length; i++
-                                    ) {
-                                        response.mealplan[i].mealname =
-                                            response.mealplan[i]
-                                            .name;
-                                        delete response.mealplan[
-                                            i].name;
-                                        var dateStr =
-                                            "July 21, 1983 " +
-                                            response.mealplan[i]
-                                            .time;
-                                        var b = new Date(
-                                            dateStr);
-                                        response.mealplan[i].time =
-                                            b;
-                                        response.mealplan[i].counter =
-                                            i;
-
-                                        /* coerce string responses into floats to avoid angular error
-                                        do samething for recipes as well. check null cases */
-                                        for (var j = 0; j <
-                                            response.mealplan[i]
-                                            .mealingredient.length; j++
-                                        ) {
-                                            response.mealplan[i]
-                                                .mealingredient[
-                                                    j].quantity =
-                                                parseFloat(
-                                                    response.mealplan[
-                                                        i].mealingredient[
-                                                        j].quantity
-                                                );
-                                        }
-
-                                        // TODO: similar thing for recipes
-                                    }
-
-                                    $scope.mealPlanNameArray =
-                                        response.mealplan;
-                                    for(var i=0; i< $scope.mealPlanNameArray.length; i++){
-                                        $scope.mealPlanNameArray[i].mealNutrition = {};
-                                    }
-                                        
-                                google.charts.load('current', {'packages':['corechart']});
-
-                                  // Set a callback to run when the Google Visualization API is loaded.
-                                  google.charts.setOnLoadCallback(drawChart);
-
-                                  // Callback that creates and populates a data table,
-                                  // instantiates the pie chart, passes in the data and
-                                  // draws it.
-
-                                    $scope.extractComponent =[];
-                                    for(var i=0; i<$scope.mealPlanNameArray.length; i++){
-//                                        console.log($scope.mealPlanNameArray[i]);
-                                        var total=0;
-                                        for (var j=0; j<$scope.mealPlanNameArray[i].mealingredient.length; j++){
-                                            total +=
-                                                parseFloat($scope.mealPlanNameArray[
-                                                    i].mealingredient[j]
-                                                .ingredient['energy_kcal']);
-                                        }
-//                                        console.log(total);
-                                        $scope.extractComponent.push([$scope.mealPlanNameArray[i].mealname, total]);
-                                    }
-                                
-                                    $scope.extractComponent.push(['Total', $scope.calculateGlobalMacros('energy_kcal')]);
-                                  function drawChart() {
-
-                                    // Create the data table.
-                                    var data = new google.visualization.DataTable();
-                                    data.addColumn('string', 'Topping');
-                                    data.addColumn('number', 'Kcal');
-                                    console.log($scope.extractComponent);
-                                    data.addRows($scope.extractComponent);
-
-                                    // Set chart options
-                                   var options = {
-                                    chartArea: {width: '50%'},
-                                    hAxis: {
-                                      minValue: 0,
-                                      gridlines: {
-                                        color: 'none'
-                                }
-                                    },
-                                    vAxis: {
-                                      minValue: 0,
-                                    gridlines: {
-                                        color: 'none'
-                                }
-
-                                    },
-                                       colors: ['green'],
-                                  };
-                                      
-
-                                    // Instantiate and draw our chart, passing in some options.
-                                    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-                                    chart.draw(data, options);
-                                  }
-                                
-                                }, function(response) {
-                                    console.log(response);
-                                });
-                        };
-
-                        //get initial data for day1 and week 1 of the plan
-                        $scope.getDayPlan($scope.dayplan.day_no, $scope
-                            .dayplan.week_no);
+                        
 
                         //function to create meal ingredients related to given mealplan
                         $scope.fillMealPlan = function(ind, current) {

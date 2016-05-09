@@ -8,7 +8,7 @@ body {
     -moz-overflow-x: hidden;
 }
 
-a, span, button, div, input {
+a, span, div, input {
   font-family: 'Raleway',sans-serif !important;
 
 }
