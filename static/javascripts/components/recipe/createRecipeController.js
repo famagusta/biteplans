@@ -69,6 +69,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 * parseFloat($scope.ingredientDisplay[i].quantity)
                                 * parseFloat($scope.ingredientDisplay[i].selected_measure.weight)
                                 / (100 * servings);
+                            console.log($scope.ingredientDisplay[i]);
                         }
                         return total;
                     }

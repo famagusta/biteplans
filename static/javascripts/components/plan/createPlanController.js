@@ -385,13 +385,46 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 }
                                   GlobalTotal += mealTotal;
                                   $scope.mealPlanNameArray[i].mealNutrition[field] = mealTotal;
-                                  console.log($scope.mealPlanNameArray[i]);
                             }  
                             }
                             
                             return GlobalTotal;
                         };
+                        
+                        $scope.calculateNutritionTotal = function(nutrient){
+                            var total = 0;
+                        for (var i = 0 ; i < $scope.mealPlanNameArray.length ; i++) {
+                            for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
+                                total += parseFloat($scope.mealPlanNameArray[i].mealNutrition[nutrient])
+                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight);
 
+                            }
+                            console.log($scope.mealPlanNameArray[i]);
+
+                        }
+                            return total;
+                        }
+                        
+                         $scope.calculateAddTotal = function(index, nutrient){
+                             var total = [];
+                             var q = 0;
+                           for (var i=0; i< $scope.mealPlanNameArray.length;i++) {
+                               for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
+                               q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
+                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight);
+                               }
+                               total.push(q); 
+                           }
+                         
+
+                             return total[index];
+
+                        }
+
+                        
+                    
                         //function to get current dayplan details including all meals and mealings
                         // TODO: update for API
                         $scope.getDayPlan = function(day, week) {
@@ -561,39 +594,5 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     $location.path('/');
                 });
         
-//
-//     $scope.extractComponent =[];
-//                                    for(var i=0; i<$scope.mealPlanNameArray.length; i++){
-////                                        console.log($scope.mealPlanNameArray[i]);
-//                                        var total=0;
-//                                        for (var j=0; j<$scope.mealPlanNameArray[i].mealingredient.length; j++){
-//                                            total +=
-//                                                parseFloat($scope.mealPlanNameArray[
-//                                                    i].mealingredient[j]
-//                                                .ingredient['energy_kcal']);
-//                                        }
-////                                        console.log(total);
-//                                        $scope.extractComponent.push([$scope.mealPlanNameArray[i].mealname, total]);
-//                                    }
-//        
-//        $scope.progress = function(percent, element) {
-//				var progressBarWidth = percent * element.width() / 100;
-//				// With labels:
-//				element.find('div').animate({ width: progressBarWidth }, 500).html(percent + "%&nbsp;");
-//				
-//				// Without labels:
-//				//element.find('div').animate({ width: progressBarWidth }, 500);
-//			}
-//			
-//			$(document).ready(function() { 
-//				$('.progressBar').each(function() { 
-//					//alert('Hello');
-//					var bar = $(this);
-//					var max = $(this).attr('id');
-//					max = max.substring(3);
-//
-//					$scope.progress(max, bar);
-//				});
-//			});
     }
 ]);
