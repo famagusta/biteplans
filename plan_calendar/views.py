@@ -25,7 +25,6 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 			self.serializer_class = UserPlanHistorySerializer
 			return (permissions.IsAuthenticated(), )
 		if self.request.method == 'POST':
-			print self.request.user, "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 			self.serializer_class = UserPlnHistorySerializer
 			return (permissions.IsAuthenticated(), )
 		else:
@@ -34,16 +33,13 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 
 	def create(self, request):
 		'''Creates the model instance dietplans'''
-		print request.user, "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
-			print serializer.validated_data
 			obj = UserPlanHistory.objects.create(user=request.user,
 		                              **serializer.validated_data)
 			return Response({'userplanhistory_id':obj.id},
 		                status=status.HTTP_201_CREATED)
 		else:
-			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
