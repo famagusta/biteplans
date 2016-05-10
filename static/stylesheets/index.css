@@ -8,6 +8,7 @@ body {
     -moz-overflow-x: hidden;
 }
 
+
 span, div, input {
   font-family: 'Raleway',sans-serif !important;
 
@@ -158,3 +159,5 @@ paging{
       margin-top: 20px;
   }
 }
+
+

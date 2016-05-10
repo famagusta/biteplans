@@ -648,101 +648,86 @@
 
 
                     <div class="col m6">
-                        <div class="nutsection" ng-if="lastChecked">
-                            <div class="row hline">
-                                <div class="col m3">
-                                    <p class="a ahead servehead">Serving:</p>
+                        <div class="nutsection">
+                            <div class="row hline" ng-if="lastChecked">
+                                <div class="col m6" ng-if="lastChecked">
+                                    <p class="a ahead servehead">Serving per 100 grams:</p>
                                 </div>
 
-
-                                <div class="col m2">
-                                    <input id="serving" ng-model="ingQuantity"
-                                    type="text" value="1">
-                                </div>
-
-
-                                <div class="col m3">
-                                    <p class="a ahead">Amt</p>
-                                </div>
-
-
-                                <div class="col m2">
-                                    <p class="a ahead">Amt</p>
-                                </div>
                             </div>
 
 
-                            <div class="row hline">
-                                <div class="col m6">
+                            <div class="row hline" ng-if="lastChecked">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b ahead">Calories (kcal)</p>
                                 </div>
 
 
-                                <div class="col m6">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b">
                                     {{lastChecked.energy_kcal}}</p>
                                 </div>
                             </div>
 
 
-                            <div class="row hline">
-                                <div class="col m6">
+                            <div class="row hline"  ng-if="lastChecked">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b ahead">Proteins</p>
                                 </div>
 
 
                                 <div class="col m6">
-                                    <p class="a b">
+                                    <p class="a b" ng-if="lastChecked">
                                     {{lastChecked.protein_tot}}</p>
                                 </div>
                             </div>
 
 
-                            <div class="row hline">
-                                <div class="col m6">
+                            <div class="row hline" ng-if="lastChecked">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b ahead">Fats</p>
                                 </div>
 
 
-                                <div class="col m5">
+                                <div class="col m5" ng-if="lastChecked">
                                     <p class="a b">{{lastChecked.fat_tot}}</p>
                                 </div>
                             </div>
 
 
-                            <div class="row hline">
-                                <div class="col m6">
+                            <div class="row hline" ng-if="lastChecked">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b ahead">Carbohydrates</p>
                                 </div>
 
 
-                                <div class="col m6">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b">
                                     {{lastChecked.carbohydrate_tot}}</p>
                                 </div>
                             </div>
 
 
-                            <div class="row hline">
-                                <div class="col m6">
+                            <div class="row hline" ng-if="lastChecked">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b ahead">Fiber</p>
                                 </div>
 
 
-                                <div class="col m6">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b">
                                     {{lastChecked.fiber_tot}}</p>
                                 </div>
                             </div>
 
 
-                            <div class="row hline">
-                                <div class="col m6">
+                            <div class="row hline" ng-if="lastChecked">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b ahead">Water</p>
                                 </div>
 
 
-                                <div class="col m6">
+                                <div class="col m6" ng-if="lastChecked">
                                     <p class="a b">{{lastChecked.water}}</p>
                                 </div>
                             </div>

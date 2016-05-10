@@ -48,7 +48,7 @@ div#create-form {
 }
 
 #create-container {
-    width: 92%;
+    width: 96%;
 }
 
 form#createPlan input {
@@ -86,6 +86,11 @@ span.active-plan {
 
 .cont-create {
     width: 85%;
+    margin: 0 auto;
+}
+
+.graph_cont {
+    width: 93%;
     margin: 0 auto;
 }
 
@@ -128,11 +133,14 @@ ul.food-timing li {
     font-weight: 600;
 }
 
+/*
 #meal_list_card {
     height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
+    max-height: 1000px;
 }
+*/
 
 
 i.add-button {
@@ -239,7 +247,7 @@ input[type=time] {
 }
 
 .nutsection {
-    max-height: 250px;
+    height: 250px;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -434,10 +442,13 @@ select {
 }
 
 /*extras*/
+#graph-card {
+    height: 150px;
+}
 
 #graph-area {
     position: relative;
-    top: 3em;
+    top: 2em;
 }
 #graphs {
     position: relative;
@@ -447,45 +458,95 @@ select {
 .graph-text {
     position: relative !important;
     bottom: 6em !important;
-    left: -18px !important;
-    color: #4f4f4f;
+    left: 0;
+    color: #949494 !important;
     font-weight: 600;
+    font-size: 13px;
+    font-family: 'Roboto';
 }
 
 .graph-value {
     position: relative;
     bottom: 6em;
-    color: #4f4f4f;
-    font-weight: 600;
-    left: -12px;
+    color: #606060 !important;
+    font-family: 'Roboto';
+    font-weight: bold;
+    left: 4px;
+    font-size: 13px;
 }
 
 .nutgraph_val {
     position: relative;
-    bottom: 3em;
-    right: 1em;
+    bottom: 5em;
+    right: 0em;
+    font-size: 13px;
+    color: #616161 !important;
 }
 
 
 /*Progresssbar*/
 
 .progress {
-    width: 70%;
-    height: 10px;
+    width: 115%;
+    height: 14px !important;
     background-color: #eee;
+    border-radius: 5px;
+}
+
+.progress_label {
+    font-size: 12px;
+    margin-top: -28px !important;
 }
 
 .progress-spacing {
     position: relative;
+    bottom: 0px;
+/*
     margin: 16px;
     padding: 10px;
+*/
 }
 
 .progress .determinate { 
-    background-color: #5cd44e;
+    background-color: #8cc34b;
 }
 
-.progress_label {
-    margin-top: 8px !important;
-    padding: 0;
+.linear_val {
+    position: relative;
+    left: 3em;
+    font-size: 14px;
+}
+
+.prog-text {
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #9d9d9d !important;
+    position: relative;
+    left: 3em;
+}
+
+.h {
+    position: relative;
+    top: 23px;
+}
+
+@media only screen and (max-width : 768px) {
+    #graph-card {
+        height: 450px;
+    }
+    
+    .progress {
+    width: 100%;
+    height: 10px !important;
+    background-color: #eee;
+    }
+    
+    .linear_val {
+    position: relative;
+    right: 0em;
+}
+    .tab_head {
+        font-size: 13px;
+    }
+
 }

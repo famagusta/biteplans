@@ -67,6 +67,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* Nutritional Information calculations based on changes to
                         selected ingredients */
+
                     $scope.calculateNutritionTotal = function(
                             nutrient) {
                             var total = 0;
@@ -110,6 +111,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     }
 
 
+
                     /* search function for the ingredient modal */
                     $scope.foodgroup = [];
 
@@ -120,7 +122,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.$watchCollection('foodgroup', function(
                         newVal, oldVal) {
 
-                        $scope.search(1, undefined, true);
+                        $scope.search(1, $scope.sortby);
 
 
                     });
@@ -129,86 +131,56 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     //checks whether applied sort order is same as previous sort order or not, 
                     //if not, then only make the request, if the order is same and filters are same,
                     //then do not make the request.
-                    $scope.search = function(page, sortby,
-                        filter_changed) {
+                    $scope.search = function(page, sortby) {
                         $scope.details = undefined;
-                        if ($scope.sortby !== sortby || $scope.sortby ===
-                            undefined && $scope.query !==
-                            undefined) {
+                        if($scope.query!==undefined){
 
-                            $scope.sortby = sortby;
-                            $scope.checklistIngredients =
-                                $scope.checklistIngredients.concat(
-                                    $scope.checklistIngs.splice(
-                                        0, $scope.checklistIngs
-                                        .length
-                                    ));
-
-                            var query = $scope.query;
-
-//                            console.log(query, page, sortby);
-                            if (query !== undefined && $scope.foodgroup
-                                .length > 0) {
-                                searchService.search_ingredient(
-                                        query, page, $scope.foodgroup,
-                                        sortby)
-                                    .then(function(response) {
-                                        $scope.details =
-                                            response;
-                                        $scope.filts =
-                                            response.filters; //model for storing response from API                
-//                                        console.log($scope.details);
-                                        // pagination
-                                        $scope.currentPage =
-                                            page;
-                                        $scope.pageSize =
-                                            response.total *
-                                            6;
-                                    }, function(error) {
-                                        console.log(error);
-                                    });
-                            }
-                            else if (query != undefined &&
-                                $scope.foodgroup.length === 0) {
-                                searchService.search_ingredient(
-                                        query, page, null,
-                                        sortby)
-                                    .then(function(response) {
-                                        $scope.details =
-                                            response;
-                                        $scope.filts =
-                                            response.filters; //model for storing response from API                
-//                                        console.log($scope.details);
-                                        // pagination
-                                        $scope.currentPage =
-                                            page;
-                                        $scope.pageSize =
-                                            response.total *
-                                            6;
-                                    }, function(error) {
-                                        console.log(error);
-                                    });
-                            }
-                            else {
-                                searchService.search_ingredient(
-                                        query, page, null,
-                                        sortby)
-                                    .then(function(response) {
-                                        $scope.details =
-                                            response;
-                                        $scope.filts =
-                                            response.filters; //model for storing response from API                
-//                                        console.log($scope.details);
-                                        // pagination
-                                        $scope.currentPage =
-                                            page;
-                                        $scope.pageSize =
-                                            response.total *
-                                            6;
-                                    }, function(error) {
-                                        console.log(error);
-                                    });
-                            }
+                        $scope.sortby = sortby;
+                        $scope.checklistIngredients = $scope.checklistIngredients.concat(
+                                                        $scope.checklistIngs.splice(0,$scope.checklistIngs.length
+                                                        ));
+                        
+                        var query = $scope.query;
+                        console.log(query, page, sortby);
+                        if (query !==undefined && $scope.foodgroup.length >0) {
+                            searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else if (query != undefined && $scope.foodgroup.length ===0) {
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else{
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
 
                         }
                     };
@@ -363,12 +335,12 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             .closeModal();
 
                         /* cleanup checklist and search results */
-                        $scope.lastChecked = null;
                         $scope.details = undefined;
                         $scope.filts = undefined;
                         $scope.query = undefined;
                         $scope.pageSize = null;
                         $scope.currentPage = null;
+                        console.log($scope.lastChecked);
 
                     };
                     //checks whether an ingredient is already selected or not
