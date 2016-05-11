@@ -31,13 +31,13 @@ class EventRecipeSerializer(serializers.ModelSerializer):
     meal_recipe = RecipeSerializer(many=False, read_only=True)
     class Meta:
         '''Meta data, or config for the serializer'''
-        model = MealRecipe
+        model = EventRecipe
 
 class EventRecpSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 	class Meta:
 		'''Meta data, or config for the serializer'''
-		model = MealRecipe
+		model = EventRecipe
 
 
 class EventIngredientSerializer(serializers.ModelSerializer):
@@ -47,14 +47,14 @@ class EventIngredientSerializer(serializers.ModelSerializer):
 	meal_ingredient = IngredientSerializer(many=False, read_only=True)
 	class Meta:
 		'''Meta data, or config for the serializer'''
-		model = MealIngredient
+		model = EventIngredient
 
 
 class EventIngSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 	class Meta:
 		'''Meta data, or config for the serializer'''
-		model = MealIngredient
+		model = EventIngredient
 
 
 class MealHistorySerializer(serializers.ModelSerializer):
