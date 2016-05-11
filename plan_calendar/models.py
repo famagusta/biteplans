@@ -127,7 +127,8 @@ def assosiate_mealhistory(sender, instance, created, **kwargs):
             mealplanarr = daylist[i].mealplan.all()
             for j in range(len(mealplanarr)):
                 date = instance.start_date + timedelta(
-                          days=daylist[i].day_no + (daylist[i].week_no-1)*7)
+                          days=(daylist[i].day_no) - \
+                          1 + (daylist[i].week_no - 1) * 7)
                 time = mealplanarr[j].time
                 MealHistory.objects.create(name=mealplanarr[j].name,
                                            user=instance.user,
