@@ -58,15 +58,15 @@
         <div >
             <span class="card-title center-align"></span>
 
-            <div ng-repeat="x in plan_data">
+            <div ng-repeat="meal in plan_data">
                 <span class="card-title center-align"></span>
 
                 <h5 class='left-align'><span class=
-                "card-title center-align">{{x.title}}</span>
+                "card-title center-align">{{meal.name}}</span>
                 </h5>
 
 
-                <div ng-repeat='y in x.ingredient'>
+                <div ng-repeat='ingredient in meal.followingMealPlanIngredient'>
                     <span class="card-title center-align"></span>
 
                     <div class="row">
@@ -75,22 +75,24 @@
                         <div class="col s3 m3">
                             <span class="card-title center-align"></span>
 
-                            <h6><span class=
-                            "card-title center-align">{{y.name[0]}}</span>
+                            <h6><span class="center-align">
+                                {{ingredient.meal_ingredient.ingredient.name}}
+                                </span>
                             </h6>
                         </div>
 
 
                         <div class="col s2">
-                            <span class="card-title center-align"><input class=
+                            <span class="center-align"><input class=
                             "validate" id="servings" type="text" value=
-                            "{{y.name[1]}}"></span>
+                            "{{ingredient.quantity}}"></span>
                         </div>
-                        <span class="card-title center-align"></span>
 
                         <div class="col s4">
-                            <span class="card-title center-align"><label for=
-                            "servings">{{y.name[2]}}</label></span>
+                            <h6><span class="center-align">
+                                {{ingredient.unit_desc.description}}
+                                </span>
+                            </h6>
                         </div>
                         <span class="card-title center-align"></span>
 

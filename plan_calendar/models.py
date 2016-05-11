@@ -85,7 +85,7 @@ class EventIngredient(models.Model):
 class EventRecipe(models.Model):
     ''' stores an recipe from a meal plan or log for a given day
         and whether the user has ticked it in his dashboard'''
-    meal_recipe = models.ForeignKey(MealRecipe, on_delete=models.CASCADE)
+    meal_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE,
                                      related_name="followingMealPlanRecipe")
     is_checked = models.BooleanField(default=False)
@@ -108,7 +108,7 @@ class UserLoggedIngredient(models.Model):
 
 class UserLoggedRecipe(models.Model):
     '''stores recipes logged of bookmarked by users'''
-    meal_recipe = models.ForeignKey(MealRecipe, on_delete=models.CASCADE)
+    meal_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="loggedrecipes")
     is_checked = models.BooleanField(default=False)

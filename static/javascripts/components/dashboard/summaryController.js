@@ -20,14 +20,15 @@ app.controller('summaryCtrl', ['$scope', 'summaryService',function ($scope, summ
     $scope.getDayPlan = function(dateString){
         summaryService.getUserDayPlan(dateString)
             .then(function(response){
-                $scope.plan_data = [];
-                for(var i=0; i<response.length; i++){
-                    var objToShow = {
-                        title: response[i].name,
-                    }
-                    $scope.plan_data.push(objToShow);
-                }
-                console.log($scope.plan_data);
+                $scope.plan_data = response;
+            console.log(response);
+//                for(var i=0; i<response.length; i++){
+//                    var objToShow = {
+//                        title: response[i].name,
+//                    }
+//                    $scope.plan_data.push(objToShow);
+//                }
+//                console.log($scope.plan_data);
             }, function(error){
                 console.log(error);
           });
