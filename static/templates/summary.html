@@ -57,8 +57,8 @@
 
         <div >
             <span class="card-title center-align"></span>
-
-            <div ng-repeat="meal in plan_data">
+            <!--This is how you use ngRepeat for nested listing -->
+            <div ng-repeat="(index1, meal) in plan_data">
                 <span class="card-title center-align"></span>
 
                 <h5 class='left-align'><span class=
@@ -66,9 +66,9 @@
                 </h5>
 
 
-                <div ng-repeat='ingredient in meal.followingMealPlanIngredient'>
+                <div ng-repeat='(index2, ingredient) in meal.followingMealPlanIngredient'>
                     <span class="card-title center-align"></span>
-
+    
                     <div class="row">
                         <span class="card-title center-align"></span>
 
@@ -76,16 +76,19 @@
                             <span class="card-title center-align"></span>
 
                             <h6><span class="center-align">
-                                {{ingredient.meal_ingredient.ingredient.name}}
+                                {{ingredient.meal_ingredient.name}}
                                 </span>
                             </h6>
                         </div>
 
 
                         <div class="col s2">
-                            <span class="center-align"><input class=
-                            "validate" id="servings" type="text" value=
-                            "{{ingredient.quantity}}"></span>
+                            <span class="center-align">
+                            <input type="number" class="serving" 
+                                ng-change="updateMealIngredientQuantity(ingredient)"
+                                id="servings"  step="0.25"
+                                string-to-number
+                                ng-model="ingredient.quantity"></span>
                         </div>
 
                         <div class="col s4">
@@ -98,10 +101,13 @@
 
                         <div class="col s2 m1">
                             <span class=
-                            "card-title center-align"><input checked="checked"
-                            class="filled-in" id="filled-in-box1" type=
-                            "checkbox"> <label for=
-                            "filled-in-box1"></label></span>
+                            "center-align"><input checklist-model="checklistIngredients"
+                                class="filled-in" checklist-value="ingredient"
+                                ng-change="updateMealIngredientCheck(ingredient)"
+                                id="filled-in-box-{{index1}}-{{index2}}"  type="checkbox">
+                                <label class="ing-text highlight" for=
+                                "filled-in-box-{{index1}}-{{index2}}" id=
+                                "check-label"></label></span>
                         </div>
                         <span class="card-title center-align"></span>
 
