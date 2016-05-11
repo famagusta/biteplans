@@ -5,7 +5,7 @@ from dietplans.models import DietPlan, DayPlan, MealPlan, MealRecipe,\
     MealIngredient
 from recipes.serializers import RecipeSerializer
 from plan_calendar.models import UserPlanHistory, MealHistory, \
-EventIngredient, EventRecipe
+EventIngredient, EventRecipe, UserLoggedIngredient, UserLoggedRecipe
 
 from ingredients.serializers import IngredientSerializer, \
 IngredientMeasureSerializer
@@ -48,6 +48,40 @@ class EventIngredientSerializer(serializers.ModelSerializer):
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = EventIngredient
+
+
+
+class MyIngredientSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+
+	unit_desc = IngredientMeasureSerializer(many=False, read_only=True)
+	meal_ingredient = IngredientSerializer(many=False, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = UserLoggedIngredient
+		read_only_fields = ('id', 'user', )
+
+class MyIngredientWriteSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = UserLoggedIngredient
+		read_only_fields = ('id', 'user', )
+
+class MyRecipeSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	meal_recipe = RecipeSerializer(many=False, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = UserLoggedRecipe
+		read_only_fields = ('id', 'user', )
+
+class MyRecipeWriteSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = UserLoggedRecipe
+		read_only_fields = ('id', 'user', )
 
 
 class EventIngSerializer(serializers.ModelSerializer):
