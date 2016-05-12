@@ -9,7 +9,8 @@ EventIngredient, EventRecipe
 
 from ingredients.serializers import IngredientSerializer, \
 IngredientMeasureSerializer
-from dietplans.serializers import DietPlanSerializer
+from dietplans.serializers import DietPlanSerializer, \
+MealIngredientSerializer, MealRecipeSerializer
 
 class UserPlanHistorySerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
@@ -28,33 +29,33 @@ class UserPlnHistorySerializer(serializers.ModelSerializer):
 
 class EventRecipeSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
-    meal_recipe = RecipeSerializer(many=False, read_only=True)
+    meal_recipe = MealRecipeSerializer(many=False, read_only=True)
     class Meta:
         '''Meta data, or config for the serializer'''
-        model = MealRecipe
+        model = EventRecipe
 
 class EventRecpSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 	class Meta:
 		'''Meta data, or config for the serializer'''
-		model = MealRecipe
+		model = EventRecipe
 
 
 class EventIngredientSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 
 	unit_desc = IngredientMeasureSerializer(many=False, read_only=True)
-	meal_ingredient = IngredientSerializer(many=False, read_only=True)
+	meal_ingredient = MealIngredientSerializer(many=False, read_only=True)
 	class Meta:
 		'''Meta data, or config for the serializer'''
-		model = MealIngredient
+		model = EventIngredient
 
 
 class EventIngSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 	class Meta:
 		'''Meta data, or config for the serializer'''
-		model = MealIngredient
+		model = EventIngredient
 
 
 class MealHistorySerializer(serializers.ModelSerializer):

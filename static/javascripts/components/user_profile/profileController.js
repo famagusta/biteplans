@@ -15,6 +15,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                     $scope.profile_image_file = {};
                     $scope.profile_image_file.src="";
                     $scope.placeHolderDOB = new Date();
+                    $scope.user_thum = "";
                     $scope.options = { year: 'numeric',
                                            month: 'long', 
                                            day: 'numeric' };
@@ -27,6 +28,13 @@ app.controller('profileController', ['$scope', 'AuthService',
                             response.weight = parseFloat(response.weight);
                             response.height = parseFloat(response.height);
                             
+                            if (response.image_path){
+                                $scope.user_thum = response.image_path;
+                            }else if(response.social_thumb){
+                                $scope.user_thum = response.social_thumb;
+                            }else{
+                                $scope.user_thum = 'static/images/default-user.png'
+                            }
                             $scope.profileInfo = response; 
                             var dob = new Date($scope.profileInfo.date_of_birth);
                             
