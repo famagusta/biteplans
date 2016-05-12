@@ -37,6 +37,14 @@ class IsFollowing(permissions.BasePermission):
 			return plan.user == request.user
 		return False
 
+class IsEventMealHistoryOwner(permissions.BasePermission):
+	'''check if user is following plan assosiated with event ingredient/recipe
+	being accessed'''
+	def has_object_permission(self, request, view, eventIngredientOrRecipe):
+		if request.user:
+			return eventIngredientOrRecipe.meal_history.user == request.user
+		return False
+
 class IsRecipeIngOwner(permissions.BasePermission):
 	'''check if user is creator of recipe requested
 	or being modified from the

@@ -53,7 +53,8 @@ class MealHistory(models.Model):
                                       on_delete=models.CASCADE,
                                       related_name="FollowPlanMealPlans",
                                       null=True)
-    user_mealplan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
+    user_mealplan = models.ForeignKey(MealPlan, on_delete=models.SET_NULL,
+                                      null=True)
 
     date = models.DateField()
     time = models.TimeField()
@@ -92,28 +93,19 @@ class EventRecipe(models.Model):
     no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
 
 
-class UserLoggedIngredient(models.Model):
+class MyIngredient(models.Model):
     '''stores ingredients logged of bookmarked by users'''
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="loggedIngredients")
     meal_ingredient = models.ForeignKey(Ingredient,
                                         on_delete=models.CASCADE)
-    is_checked = models.BooleanField(default=False)
-    quantity = models.DecimalField(max_digits=11, decimal_places=3)
-    unit_desc = models.ForeignKey(IngredientCommonMeasures,
-                                  on_delete=models.CASCADE,
-                                  related_name="logged_ing_qty")
-    date_time = models.DateTimeField(unique=True)
 
 
-class UserLoggedRecipe(models.Model):
+class MyRecipe(models.Model):
     '''stores recipes logged of bookmarked by users'''
     meal_recipe = models.ForeignKey(MealRecipe, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="loggedrecipes")
-    is_checked = models.BooleanField(default=False)
-    no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
-    date_time = models.DateTimeField(unique=True)
 
 
 
@@ -139,7 +131,7 @@ def assosiate_mealhistory(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=MealHistory)
 def assosiate_mealingres(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.user_mealplan != None:
         mealplan = instance.user_mealplan
         mealingredient = mealplan.mealingredient
         mealrecipe = mealplan.mealrecipe

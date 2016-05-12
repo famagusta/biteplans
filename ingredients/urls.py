@@ -22,9 +22,11 @@ reciperouter.register(r'recipes', recipeView.RecipeViewSet)
 reciperouter.register(r'recipeingredient', recipeView.RecipeIngredientViewSet)
 
 followrouter = routers.SimpleRouter()
-followrouter.register(r'follow', plnView.FollowDietViewSet)
+followrouter.register(r'follow', plnView.FollowDietViewSet,
+                      base_name="calendar")
 followrouter.register(r'getPlanSummary', plnView.MealHistoryViewSet,
                       base_name="date")
+followrouter.register(r'eventingredients', plnView.EventIngredientsViewSet)
 followrouter.register(r'myingredients', plnView.MyIngredientsViewset)
 followrouter.register(r'myrecipes', plnView.MyRecipeViewset)
 

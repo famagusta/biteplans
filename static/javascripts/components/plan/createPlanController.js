@@ -366,6 +366,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                         // adds new mealname
                         $scope.addMeal = function(key) {
+                            console.log(key, $scope.dayplan);
                             key.day = $scope.dayplan.id;
                             var tm = key.time;
                             key.time = key.time.getHours() + ":" +
@@ -471,6 +472,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             var id = $routeParams.id;
                             planService.getdayplan(id, day, week)
                                 .then(function(response) {
+                                    $scope.dayplan = response.id;
                                     for (var i = 0; i <
                                         response.mealplan.length; i++
                                     ) {

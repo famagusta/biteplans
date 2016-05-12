@@ -548,7 +548,7 @@
     <div class="modal-content">
         <div class="row">
             <div class="input-field col s12">
-                <input class="validate" id="meal_name" ng-model="meal" type=
+                <input class="validate" id="meal_name" ng-model="meal.name" type=
                 "text"> <label for="meal_name">Meal name</label>
             </div>
         </div>
@@ -557,26 +557,8 @@
         <div class="row">
             <p>Meal Time</p>
 
+                <input id="exampleInput" name="input" ng-model="meal.time" placeholder="HH:mm:ss" required="" type="time">
 
-            <div class="input-field col s3">
-                <select material-select="" ng-model="hours" ng-options=
-                "i for i in addMealHours">
-                    </select>
-            </div>
-
-
-            <div class="input-field col s3">
-                <select material-select="" ng-model="minutes" ng-options=
-                "i for i in addMealMinutes">
-                    </select>
-            </div>
-
-
-            <div class="input-field col s3">
-                <select material-select="" ng-model="ampm" ng-options=
-                "i for i in amPmArray">
-                    </select>
-            </div>
         </div>
 
 
