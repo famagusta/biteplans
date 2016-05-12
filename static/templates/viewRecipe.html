@@ -4,84 +4,95 @@
             <div class="card white">
                 <div class="card-content black-text">
                     <div class="row">
-                        <div class="row">
-                            <div class="col s12 m6">
+                        <div class="col s8">
+                              <div class="row">
+                            <div class="col s12 m3">
                                 <p class="ing-text" style=
                                 "text-transform:uppercase">Name of Recipe :</p>
                             </div>
 
 
-                            <div class="col s12 m6">
-                                <p class="meal-text" style=
-                                "text-transform:uppercase">{{recipe.name}}</p>
+                            <div class="col s12 m4">
+                                <p class="meal-text">{{recipe.name}}</p>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col s12 m6">
+                            <div class="col s12 m3">
                                 <p class="ing-text" style=
                                 "text-transform:uppercase">Description :</p>
                             </div>
 
 
-                            <div class="col s12 m6">
-                                <p class="meal-text" style=
-                                "text-transform:uppercase">
+                            <div class="col s12 m4">
+                                <p class="meal-text">
                                 {{recipe.description}}</p>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col s12 m6">
-                                <p class="ing-text" style=
-                                "text-transform:uppercase">Serving (No of
+                            <div class="col s12 m3">
+                                <p class="ing-text">SERVING (No of
                                 people)</p>
                             </div>
 
 
-                            <div class="col s12 m6">
-                                <p class="meal-text" style=
-                                "text-transform:uppercase">
+                            <div class="col s12 m4">
+                                <p class="meal-text">
                                 {{recipe.servings}}</p>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col s12 m6">
+                            <div class="col s12 m3">
                                 <p class="ing-text" style=
                                 "text-transform:uppercase">Prep Time</p>
                             </div>
 
 
-                            <div class="col s12 m6">
-                                <p class="meal-text" style=
-                                "text-transform:uppercase">
+                            <div class="col s12 m4">
+                                <p class="meal-text">
                                 {{recipe.prep_time}}</p>
                             </div>
                         </div>
 
 
                         <div class="row">
-                            <div class="col s12 m6">
+                            <div class="col s12 m3">
                                 <p class="ing-text" style=
                                 "text-transform:uppercase">Cook Time</p>
                             </div>
 
 
-                            <div class="col s12 m6">
-                                <p class="meal-text" style=
-                                "text-transform:uppercase">
+                            <div class="col s12 m4">
+                                <p class="meal-text">
                                 {{recipe.cook_time}}</p>
                             </div>
                         </div>
 
-
+                        <br>
+                        <div ng-if="ingredient.length!=0">
+                            <div class="row">
+                                <div class="col s5">
+                                   <p class="ing-text">Ingredients</p>
+                                </div>
+                                
+                                <div class="col s1">
+                                   <p class="meal-text">Amt</p>
+                                </div>
+                                
+                                 <div class="col s2">
+                                   <p class="meal-text">Desc</p>
+                                </div>
+                            </div>
+                            </div>
+                        <br>
                         <div class="row" ng-repeat=
                         "ingredient in recipe.recipeIngredients">
-                            <div class="col s4">
+                            <div class="col s5">
                                 <p class="meal-text">
                                 {{ingredient.ingredient.name}}</p>
                             </div>
@@ -89,11 +100,11 @@
 
                             <div class="col m1">
                                 <p class="meal-text">
-                                {{ingredient.quantity}}</p>
+                                {{ingredient.quantity | number}}</p>
                             </div>
 
 
-                            <div class="col m1">
+                            <div class="col m2">
                                 <p class="meal-text">
                                 {{ingredient.measure.description}}</p>
                             </div>
@@ -114,76 +125,29 @@
                                 <p class="meal-text">{{direction}}</p>
                             </div>
                         </div>
-                        <br>
-                        <!-- TIME TAKEN TO CREATE RECIPES -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!--
-
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="card white">
-                <div class="card-content black-text">
-                    <span class="card-title">Nutritional Information</span>
-
-                    <div class="row">
-                        <div class="col s6">
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Total
-                                    Carbohydrates:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ totalCarb |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Total Proteins:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ totalProtein |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Total Fats:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ totalFat | number
-                                    }}</p>
-                                </div>
-                            </div>
+                        </div>
+                        
+                        <div class="col s4">
+                            <img class="recipe_img center" ng-src="{{recipe.image}}">
                         </div>
                     </div>
+                  
+                        <br>
+                        <!-- TIME TAKEN TO CREATE RECIPES -->
                 </div>
             </div>
         </div>
     </div>
--->
+
+
 <div class="row">
         <div class="col s12 m12">
             <div class="card white">
                 <div class="card-content black-text">
-                    <span class="card-title">NUTRITION INFORMATION (per serving)</span>
+                    <span class="card-title">Nutritional Information (per serving)</span>
+                    <a ng-click="showNutritionInfo=!showNutritionInfo"><i class="material-icons cyan-text right nutinfo_dropdown">expand_more</i></a>
 
-                    <div class="row">
+                    <div class="row" ng-if="showNutritionInfo">
                         <div class="col s6">
                             <div class="row horizontal-line">
                                 <div class="col s6">
@@ -209,13 +173,14 @@
                                 </div>
                             </div>
                             
-                             <div class="col s6 offset-s1 row horizontal-line">
-                                <div class="col s8 ">
+                        
+                             <div class="row horizontal-line">
+                                <div class="col s6">
                                     <p class="ing-text">Sugar:</p>
                                 </div>
 
 
-                                <div class="col s4">
+                                <div class="col s6">
                                     <p class="meal-text">{{ calculateNutritionTotal('sugar_tot') |
                                     number}}</p>
                                 </div>
@@ -246,32 +211,32 @@
                                 </div>
                             </div>
                             
-                             <div class="col s6 offset-s1 row horizontal-line">
-                                <div class="col s8 ">
+                             <div class="row horizontal-line">
+                                <div class="col s6">
                                     <p class="ing-text">Polyunsaturated Fats:</p>
                                 </div>
 
 
-                                <div class="col s4">
+                                <div class="col s6">
                                     <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_poly_g') |
                                     number}}</p>
                                 </div>
                             </div>
                             
-                             <div class="col s6 offset-s1 row horizontal-line">
-                                <div class="col s8 ">
+                             <div class="row horizontal-line">
+                                <div class="col s6">
                                     <p class="ing-text">Monounsaturated Fats:</p>
                                 </div>
 
 
-                                <div class="col s4">
+                                <div class="col s6">
                                     <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_mono_g') |
                                     number}}</p>
                                 </div>
                             </div>
                             
-                             <div class="col s6 offset-s1 row horizontal-line">
-                                <div class="col s6 ">
+                             <div class="row horizontal-line">
+                                <div class="col s6>
                                     <p class="ing-text">Saturated Fats:</p>
                                 </div>
 

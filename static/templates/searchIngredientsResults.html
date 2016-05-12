@@ -83,32 +83,23 @@
                 <div class="row">
                     <div class="col s12 m12">
                         <div class="row">
-                            <div class="col s6 m6 center">
-                                <input class="with-gap center" id="large" name=
-                                "group3" type="radio"> <label for=
-                                "large">Large</label>
-                            </div>
-
-
-                            <div class="col s6 m6 center">
-                                <input class="with-gap center" id="extra-large"
-                                name="group3" type="radio"> <label for=
-                                "extra-large">Extra Large</label>
+                            <div class="col s12 m4">
+                                <select ng-if="selected!==undefined && details.results[selected].measure.length>0" material-select ng-options="measure as measure.description for measure in details.results[selected].measure" ng-model="openModal.measure"></select>
                             </div>
                         </div>
+                                
                     </div>
                 </div>
 
 
                 <div class="row">
                     <div class="col s12 m12">
-                        <h6 class="nutri">Nutritional Information (Large
-                        50gm)</h6>
+                        <h6 class="nutri">Nutritional Information ({{openModal.measure.description}} {{openModal.measure.weight | number}} gm)</h6>
                     </div>
                 </div>
 
 
-                <div class="row">
+                <div class="row" ng-if="selected!==undefined && openModal.measure!==undefined">
                     <div class="col s12 m6">
                         <p class="grey-text">Macronutrients</p>
 
@@ -121,7 +112,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details.results[selected].carbohydrate_tot}}</p>
+                                {{calculateIngredientInfo('carbohydrate_tot') | number}}</p>
                             </div>
 
 
@@ -132,7 +123,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details.results[selected].protein_tot}}</p>
+                                {{calculateIngredientInfo('protein_tot') | number}}</p>
                             </div>
 
 
@@ -143,7 +134,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details.results[selected].fat_tot}}</p>
+                                {{calculateIngredientInfo('fat_tot') | number}}</p>
                             </div>
                         </div>
                     </div>
@@ -161,7 +152,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details.results[selected].fiber_tot}}</p>
+                                {{calculateIngredientInfo('fat_tot') | number}}</p>
                             </div>
 
 
@@ -172,7 +163,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details.results[selected].water}}</p>
+                                {{calculateIngredientInfo('water') | number}}</p>
                             </div>
 
 
@@ -183,7 +174,7 @@
 
                             <div class="col s6 m6 nutrient-table-line">
                                 <p class="grey-text">
-                                {{details.results[selected].sugar_tot}}</p>
+                                {{calculateIngredientInfo('sugar_tot') | number}}</p>
                             </div>
                         </div>
                     </div>

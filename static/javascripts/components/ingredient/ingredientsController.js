@@ -5,6 +5,7 @@ app.controller('ingredientsController', ['$scope', 'searchService',
     function($scope, searchService) {
         // function to search for ingredients 
         $scope.foodgroup=[];
+        $scope.openModal ={};
 
         $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
 
@@ -15,6 +16,7 @@ app.controller('ingredientsController', ['$scope', 'searchService',
 
         $scope.search = function(page, sortby) {
             if($scope.query !== undefined){
+                $scope.details = null;
 
             $scope.sortby = sortby
             
@@ -63,11 +65,20 @@ app.controller('ingredientsController', ['$scope', 'searchService',
         }};
         // function for modal when ingredient card is clicked
         $scope.openIngredientsModal = function(index) {
+            $scope.selected = index;
+            $scope.openModal.measure = $scope.details.results[$scope.selected].measure[0];
             $('#modal6').openModal();
-            $scope.selected = index; // stores index of every card 
+            // stores index of every card 
         };
-
         
-
+        $scope.calculateIngredientInfo = function(nutrient) {
+                var total=0;
+                
+                total += $scope.details.results[$scope.selected][nutrient] * $scope.openModal.measure.weight;
+            
+            return total;
+                
+        
+        }
     }
 ]);

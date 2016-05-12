@@ -23,6 +23,12 @@ button.search-filter {
    margin-bottom: 15px;
 }
 
+ span:focus {
+    outline: none;
+    border: 0;
+ }
+
+
 #searchcard .card-content{
   padding:0px !important;
 }

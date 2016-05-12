@@ -11,12 +11,13 @@ app.controller('recipesController', ['$scope', 'searchService',
                 searchService.search_recipe(query)
                     .then(function(response) {
                         $scope.recipeDetails = response;
+                    console.log($scope.recipeDetails);
                     }, function(error) {
                         console.log(error);
                     });
             }
         };
-
+     
         //function to open modal for viewing full content of recipe
 
         $scope.openReadMoreContent = function(index) {
