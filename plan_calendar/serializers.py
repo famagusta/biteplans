@@ -10,7 +10,7 @@ EventIngredient, EventRecipe
 from ingredients.serializers import IngredientSerializer, \
 IngredientMeasureSerializer
 from dietplans.serializers import DietPlanSerializer, \
-MealIngredientSerializer
+MealIngredientSerializer, MealRecipeSerializer
 
 class UserPlanHistorySerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''

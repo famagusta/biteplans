@@ -2,8 +2,8 @@
 
 /* Angular Controller for summary tab on dashboard. Allows a user to check followed items of a plan */
 
-app.controller('summaryCtrl', ['$scope', 'summaryService',
-    function($scope, summaryService) {
+app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
+    function($scope, summaryService, searchService) {
         $scope.plan_data = [];
         $scope.today = moment();
         $scope.navDates = {
@@ -194,8 +194,38 @@ app.controller('summaryCtrl', ['$scope', 'summaryService',
             }
         }
 
+        
+        //opens modal to add ingredients/recipes on a current mealplan
+        $scope.openCreatePlanModal = function(index) {
+            $('#add-food-modal')
+                .openModal();
+            $scope.currentMealPlanName = index;
+        };
 
+        // Add Hours and Minutes for a meal time
+        $scope.addMealHours = [];
+        // WHAT DOES THIS LOOP DO?
+        for (var i = 0; i <= 23; i++) {
+            $scope.addMealHours.push(i);
+        }
 
+        $scope.addMealMinutes = [];
+
+        for (var j = 0; j <= 59; j++) {
+            $scope.addMealMinutes.push(j);
+        }
+
+        // adds new mealname
+        $scope.addMeal = function(key) {
+            key.day = $scope.navDates.current;
+            var tm = key.time;
+            key.time = key.time.getHours() + ":" +
+                key.time.getMinutes() + ":00";
+            
+
+            $('#add-meal-modal')
+                .closeModal();
+        };
 
 
     }

@@ -14,8 +14,10 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', 'profi
     profileService.getProfile().then(function(response){
         if (response.image_path){
             $scope.user_thum = response.image_path;
-        }else{
+        }else if(response.social_thumb){
             $scope.user_thum = response.social_thumb;
+        }else{
+            $scope.user_thum = 'static/images/default-user.png'
         }
     }, function(error){
         console.log(error);
