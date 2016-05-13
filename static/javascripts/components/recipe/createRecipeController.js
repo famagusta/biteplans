@@ -67,6 +67,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* Nutritional Information calculations based on changes to
                         selected ingredients */
+
                     $scope.calculateNutritionTotal = function(
                             nutrient) {
                             var total = 0;
@@ -108,6 +109,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         }
                         return total;
                     }
+
 
 
                     /* search function for the ingredient modal */

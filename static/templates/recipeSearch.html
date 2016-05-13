@@ -2,29 +2,19 @@
     <div ng-if=
     "recipeDetails!=null && recipeDetails!=undefined && recipeDetails.results.length!=0">
     <div class="row">
-            <div class="col s12 m6" current-page="currentPage" ng-repeat=
+            <div class="col s12 m4" current-page="currentPage" ng-repeat=
             "recipe in recipeDetails.results track by $index">
-                <div class="card white big recipe-result-card" id=
-                "recipes-result-card">
-                    <div class="card-content grey-text">
-                        <div class="row">
+                      <div class="card">
+                        <div class="card-image">
+                          <img class="recipe_img" ng-src="{{recipe.image}}">
+                        </div>
+                        <div class="card-content">
+                           <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
                                 {{recipe.name | addSpace}}</h5>
                             </div>
                         </div>
-
-
-                        <div ng-click="openDetailedInfo($index)">
-                            <div class="row">
-                                <div class="col s12 m12">
-                                    <h6 class="nutri">Ingredients</h6>
-                                </div>
-                            </div>
-
-                            <pre>
-                    <br>{{recipe.ingredients | limitTo:50}}.....
-                    </pre>
 
                             <div class="row raise">
                                 <div class="col s12 m12">
@@ -38,7 +28,7 @@
                                 <div class="col s12 m12">
                                     <p class="recipe-card-info">
                                     {{recipe.description |
-                                    limitTo:50}}.....</p>
+                                    limitTo:50}}</p>
                                 </div>
                             </div>
                             <br>
@@ -55,13 +45,21 @@
                             <div class="row raise">
                                 <div class="col s12 m12">
                                     <p class="recipe-card-info">{{recipe.url |
-                                    limitTo:50}}.....</p>
+                                    limitTo:50}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row raise">
+                                <div class="col s12">
+                                     <a class="read-more right cyan-text" ng-href="viewRecipe/{{recipe.id}}">READ MORE</a>
                                 </div>
                             </div>
                         </div>
+                
+                      </div>
+
                     </div>
-                    <span class="read-more right cyan-text" ng-click=
-                    "openReadMoreContent($index)">READ MORE</span>
+                   
                 </div>
             </div>
         </div>

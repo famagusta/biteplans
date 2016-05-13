@@ -48,7 +48,7 @@ div#create-form {
 }
 
 #create-container {
-    width: 92%;
+    width: 96%;
 }
 
 form#createPlan input {
@@ -86,6 +86,11 @@ span.active-plan {
 
 .cont-create {
     width: 85%;
+    margin: 0 auto;
+}
+
+.graph_cont {
+    width: 93%;
     margin: 0 auto;
 }
 
@@ -128,11 +133,14 @@ ul.food-timing li {
     font-weight: 600;
 }
 
+/*
 #meal_list_card {
     height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
+    max-height: 1000px;
 }
+*/
 
 
 i.add-button {
@@ -143,14 +151,14 @@ i.add-button {
 
 .left_arrow_pos {
     position: relative;
-    top: 3px;
+    top: -1px;
     left: 23px;
     transform: rotate(-90deg);
 }
 
 .right_arrow_pos {
     position: relative;
-    top: 3px;
+    top: -1px;
     right: 23px;
     transform: rotate(-90deg);
 }
@@ -172,7 +180,7 @@ hr {
     margin-top: 12px;
 }
 
-#create-plan-modal {
+#add-food-modal {
     height: 120% !important;
     width: 70% !important; 
 }
@@ -264,6 +272,11 @@ input[type=time] {
 
 .meal-text::first-letter {
     text-transform: uppercase;
+}
+
+.tab_head {
+    position: relative;
+    top: 1em;
 }
 
 .btn-floating {
@@ -381,7 +394,7 @@ input[type=number].time-input {
 /* ADD NEW MEAL MODAL */
 
 #add-meal-modal {
-    height: 80% !important;
+    height: 55% !important;
     width: 50% !important;
 }
 
@@ -434,10 +447,13 @@ select {
 }
 
 /*extras*/
+#graph-card {
+    height: 150px;
+}
 
 #graph-area {
     position: relative;
-    top: 3em;
+    top: 2em;
 }
 #graphs {
     position: relative;
@@ -446,46 +462,103 @@ select {
 
 .graph-text {
     position: relative !important;
-    bottom: 6em !important;
-    left: -18px !important;
-    color: #4f4f4f;
+    bottom: 73px !important;
+    left: 3px;
+    color: #949494 !important;
     font-weight: 600;
+    font-size: 14px;
+    font-family: 'Roboto';
 }
 
 .graph-value {
     position: relative;
-    bottom: 6em;
-    color: #4f4f4f;
-    font-weight: 600;
-    left: -12px;
+    bottom: 5em;
+    color: #606060 !important;
+    font-family: 'Roboto';
+    font-weight: bold;
+    left: 8px;
+    font-size: 14px;
 }
 
 .nutgraph_val {
     position: relative;
     bottom: 3em;
-    right: 1em;
+    right: 0em;
+    font-size: 14px;
+    color: #616161 !important;
+    font-family: 'Roboto';
 }
 
 
 /*Progresssbar*/
 
 .progress {
-    width: 70%;
-    height: 10px;
+    width: 115%;
+    height: 14px !important;
     background-color: #eee;
+    border-radius: 5px;
+}
+
+.progress_label {
+    font-size: 12px;
+    
+}
+
+.progress-div {
+    margin-top: -28px !important;
+}
+
+.progress-div > div{
+    margin-bottom: -17px !important;
 }
 
 .progress-spacing {
     position: relative;
-    margin: 16px;
-    padding: 10px;
+    bottom: 0px;
 }
 
 .progress .determinate { 
-    background-color: #5cd44e;
+    background-color: #8cc34b;
 }
 
-.progress_label {
-    margin-top: 8px !important;
-    padding: 0;
+.linear_val {
+    position: relative;
+    left: 3em;
+    left: 5em;
+    font-size: 14px;
+}
+
+.prog-text {
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: #9d9d9d !important;
+    position: relative;
+    left: 3em;
+    top: 5px;
+}
+
+.h {
+    position: relative;
+    top: 23px;
+}
+
+@media only screen and (max-width : 768px) {
+    #graph-card {
+        height: 450px;
+    }
+    
+    .progress {
+    width: 100%;
+    height: 10px !important;
+    background-color: #eee;
+    }
+    
+    .linear_val {
+    position: relative;
+    right: 0em;
+}
+    .tab_head {
+        font-size: 13px;
+    }
+
 }

@@ -49,7 +49,6 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 		'''Creates the model instance dietplans'''
 		serializer = self.serializer_class(data=request.data)
 		if serializer.is_valid():
-			print serializer.validated_data
 			obj = UserPlanHistory.objects.create(user=request.user,
 		                              **serializer.validated_data)
 			return Response({'userplanhistory_id':obj.id},
@@ -57,6 +56,7 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 		else:
 			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class MealHistoryViewSet(viewsets.ModelViewSet):
@@ -126,6 +126,7 @@ class MyIngredientsViewset(viewsets.ModelViewSet):
 		if self.request.method in permissions.SAFE_METHODS:
 			self.serializer_class = MyIngredientSerializer
 			return (permissions.IsAuthenticated(), )
+
 		if self.request.method == 'POST':
 			self.serializer_class = MyIngredientWriteSerializer
 			return (permissions.IsAuthenticated(), )
@@ -145,6 +146,7 @@ class MyIngredientsViewset(viewsets.ModelViewSet):
 		else:
 			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class MyRecipeViewset(viewsets.ModelViewSet):
 	queryset = MyRecipe.objects.all()
@@ -175,4 +177,3 @@ class MyRecipeViewset(viewsets.ModelViewSet):
 		else:
 			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-

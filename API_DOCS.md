@@ -289,6 +289,11 @@ request{
    response={
    <pk>:pk of followed dietplan entry
    }
+   
+ /* GET */
+ url = /biteplans/calendar/follow/?date=YYYY-MM-DD
+ just doing a simple get with the auth token gets the plan history 
+ of the user for a given month
 
 12)API TO GET SCHEDULE OF A DAY OF USER
 

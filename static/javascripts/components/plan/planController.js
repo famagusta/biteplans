@@ -57,7 +57,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                       acceptance*/
                     if(context.select){
                         var date_to_set = new Date(context.select).toISOString();
-                        $scope.followDate = date_to_set;
+                        $scope.followDate = moment(date_to_set).format('YYYY-MM-DD');
 
                         //close the date picker
                         this.close();
@@ -66,6 +66,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                             dietplan:planId,
                             start_date: $scope.followDate
                         }
+                        console.log(followPlanObject);
                         planService.followDietPlan(followPlanObject)
                             .then(function(response){
                                 console.log(response);
