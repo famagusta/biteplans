@@ -372,6 +372,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             // these should be used to create a post request  to create meal
                             // THIS SHOULD BE SHORTER
 
+                            console.log($scope.mealPlanNameArray);
                             for (var j = 0; j <
                             $scope.checklistIngs.length; j++
                         ) {
@@ -385,7 +386,6 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 .mealingredient.length;
                             //give a more sensible name to this variable
                             var x = $scope.ingredientInModal.slice();
-//                            console.log(currlength);
 
 
                             //STRANGE LOOKING FOR LOOP

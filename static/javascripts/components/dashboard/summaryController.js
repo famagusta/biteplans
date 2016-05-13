@@ -5,6 +5,15 @@
 app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
     function($scope, summaryService, searchService) {
         $scope.plan_data = [];
+                                $scope.checklistIngs = [];
+         $scope.ingredientInModal = [];
+        $scope.foodgroup = [];
+        $scope.currentMealPlanName=-1;
+        
+        $scope.$watch('currentMealPlanName', function(newVal, oldVal){
+            console.log("NewVA : " + newVal);
+            console.log("OLD VA : " + oldVal);
+        })
         $scope.today = moment();
         $scope.navDates = {
             current: moment(),
@@ -193,14 +202,186 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 }
             }
         }
-
         
-        //opens modal to add ingredients/recipes on a current mealplan
+                //opens modal to add ingredients/recipes on a current mealplan
         $scope.openCreatePlanModal = function(index) {
+             $scope.currentMealPlanName = index;
+            console.log($scope.currentMealPlanName);
             $('#add-food-modal')
                 .openModal();
-            $scope.currentMealPlanName = index;
+           
         };
+        
+         $scope.removeIngredientsFromSavedMeal =
+                            function(key1, key2) {
+                                var temp = $scope.plan_data[key1]
+                                    .followingMealPlanIngredient[key2].ingredient;
+                            console.log(temp);
+                               summaryService.deleteMealIngredient(temp.id)
+                                    .then(function(response) {
+                                        $scope.plan_data[
+                                                key1].followingMealPlanIngredient.splice(key2, 1);
+                                
+                                    }, function(response) {
+                                        console.log(response);
+                                    });
+                            };
+        
+                $scope.search = function(page, sortby) {
+                        $scope.details = undefined;
+                        if($scope.query!==undefined){
+
+                        $scope.sortby = sortby;
+                        $scope.ingredientInModal = $scope.ingredientInModal.concat(
+                                                        $scope.checklistIngs.splice(0,$scope.checklistIngs.length
+                                                        ));
+                        
+                        var query = $scope.query;
+                        console.log(query, page, sortby);
+                        if (query !==undefined && $scope.foodgroup.length >0) {
+                            searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else if (query != undefined && $scope.foodgroup.length ===0) {
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+                        else{
+                            searchService.search_ingredient(query, page, null, sortby)
+                                .then(function(response) {
+                                    $scope.details = response;
+                                    $scope.filts = response.filters; //model for storing response from API                
+                                    console.log($scope.details);
+                                    // pagination
+                                    $scope.currentPage = page;
+                                    $scope.pageSize = response.total*6;
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        }
+
+                        }
+                    };
+
+         $scope.searchPlan = function(query, page, sortby) {
+                console.log($scope.currentMealPlanName);
+                            $scope.query = query;
+                            if (query) {
+                                $scope.search(page, sortby);
+                            }
+                        };
+        
+                $scope.addContents = function() {
+                            // currentmealPlanname, nutrientvalue
+                            // these should be used to create a post request  to create meal
+                            // THIS SHOULD BE SHORTER
+                            for (var j = 0; j <
+                            $scope.checklistIngs.length; j++
+                        ) {
+                            $scope.ingredientInModal.push(
+                                $scope.checklistIngs[j]);
+                        }
+                        $scope.checklistIngs = [];
+
+                            var currlength =
+                                $scope.plan_data[$scope.currentMealPlanName].followingMealPlanIngredient.length;
+                                
+                            //give a more sensible name to this variable
+                            var x = $scope.ingredientInModal.slice();
+            
+                            //STRANGE LOOKING FOR LOOP
+                            for (var i = 0; i < x.length; i++) {
+                                // handle case where measure is only 100g or not an array
+                                if (x[i].measure.length !== 0) {
+                                    $scope.plan_data[$scope
+                                            .currentMealPlanName].followingMealPlanIngredient
+                                        .push({
+                                            ingredient: x[i],
+                                            unit: x[i].measure[
+                                                0],
+                                            quantity: 1.00,
+                                        })
+                                }
+                                else {
+                                    $scope.plan_data[$scope
+                                            .currentMealPlanName].followingMealPlanIngredient
+                                        .push({
+                                            ingredient: x[i],
+                                            unit: x[i].measure,
+                                            quantity: 1.00,
+
+                                        });
+                                }
+                                console.log($scope.plan_data);
+                            }
+
+                            //post ingredients to db via url endpoint
+                            $scope.fillMealPlan(currlength, $scope.currentMealPlanName);
+                            $scope.ingredientInModal.length = 0;
+                            $('#add-food-modal')
+                                .closeModal();
+                        };
+        
+                    $scope.fillMealPlan = function(ind, current) {
+                            var temp = $scope.plan_data[
+                                current].followingMealPlanIngredient;
+
+                            for (var i = ind; i < temp.length; i++) {
+                                var saveind = i;
+                                // CONSIDER RENAMING THIS HORRIBLY NAMED OBJECT
+                                var obj = {
+                                    'ingredient': temp[i].ingredient
+                                        .id,
+                                    'meal_plan': $scope.mealPlanNameArray[
+                                        current].id,
+                                    'quantity': parseFloat(temp[
+                                        i].quantity),
+                                    'unit': temp[i].unit.id
+                                };
+
+                                (function(cntr, obj){
+                                        // here the value of i was passed into as the argument cntr
+                                        // and will be captured in this function closure so each
+                                        // iteration of the loop can have it's own value
+                                        planService.createMealIngredient(
+                                        obj)
+                                    .then(
+                                        function(response) {
+//                                            console.log(response, cntr);
+                                            $scope.mealPlanNameArray[
+                                                    current].mealingredient[cntr].id =
+                                                response.meal_ingredient_id;
+
+                                        },
+                                        function(error) {
+                                            console.log(error);
+                                        }
+                                    );
+                                        
+                                    })(i, obj);
+
+                                
+                            }
+                        };
+
 
         // Add Hours and Minutes for a meal time
         $scope.addMealHours = [];

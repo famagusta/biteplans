@@ -1,11 +1,25 @@
-<div class="card-content" ng-controller='summaryCtrl'>
+<ul class="dropdown-content filter-ul" id="dropdown2">
+        <li ng-repeat="filter in filts track by $index"><input checked=
+        "checked" checklist-model="foodgroup" checklist-value="filter['0']"
+        class="filled-in" id="filled-in-box1{{$index}}" type="checkbox">
+        <label for="filled-in-box1{{$index}}">{{filter['0']}}</label></li>
+    </ul>
+
+
+    <ul class="dropdown-content filter-ul" id="dropdown3">
+        <li ng-repeat="filter in details.sortlist track by $index">
+        <input class="filled-in" id="filledin{{$index}}" name="sortradio"
+        ng-click="search(1, sortby)" ng-model="sortby" type="radio" value=
+        "{{filter}}"> <label for="filledin{{$index}}">{{filter.split('_',
+        1)[0]}}</label></li>
+    </ul>
+<section ng-controller='summaryCtrl'>
+<div class="card-content" >
     <span class="card-title center-align"></span>
 
     <div class="row">
-        <span class="card-title center-align"></span>
 
         <div class="col s12 m12">
-            <span class="card-title center-align"></span>
 
             <ul class="day-list">
                 <li><span class="card-title center-align"><a href="#" ng-click=
@@ -20,7 +34,7 @@
 
 
                 <li><span class="card-title center-align"><i class=
-                "cyan-text">{{navTitles.current}}</i></span>
+                "cyan-text" style="font-style:bold">{{navTitles.current}}</i></span>
                 </li>
 
 
@@ -36,12 +50,13 @@
 
 
                 <li><span class="card-title center-align"><i class=
-                "material-icons silver-text">date_range</i></span>
+                "material-icons">date_range</i></span>
                 </li>
             </ul>
         </div>
+    </div>
 
-
+    <div class="row">
         <div class="col s12 m12">
             <span class="card-title center-align"></span>
 
@@ -49,39 +64,40 @@
             "card-title center-align">Weight Loss in 2 weeks</span>
             </h5>
         </div>
+    </div>
         <!--POPULATE DASHBOARD WITH RANDOM DATA-->
 
 
-        <div>
-            <span class="card-title center-align"></span> 
-            <!--This is how you use ngRepeat for nested listing -->
-
-
+        <div class="row">
+            <div class="col s12">
             <div ng-repeat="(index1, meal) in plan_data">
-                <span class="card-title center-align"></span>
-
-                <h5 class='left-align'><span class=
-                "card-title center-align">{{meal.name}}</span>
-                </h5>
-
+                <div class="row">
+                     <div class="col s1">
+                        <a class="btn-floating btn-small waves-effect waves-light" id="add-meal-button" ng-click="openCreatePlanModal(index1)">
+                            <i class="material-icons add-button routine">add</i>
+                         </a>
+                     </div>
+                    
+                    <div class="col s3">
+                      <p class="ing-text">{{meal.name}}</p>
+                    </div>
+                    
+                    <div class="col s2">
+                        <p class="cyan-text">{{meal.time}}</p>
+                    </div>
+                </div>
+              
 
                 <div ng-repeat=
-                '(index2, ingredient) in meal.followingMealPlanIngredient'>
-                    <span class="card-title center-align"></span>
-
+                '(index2, ingredient) in meal.followingMealPlanIngredient track by $index'>
+                    
                     <div class="row">
-                        <span class="card-title center-align"></span>
-
-                        <div class="col s3 m3">
-                            <span class="card-title center-align"></span>
-
-                            <h6><span class=
-                            "center-align">{{ingredient.meal_ingredient.ingredient.name}}</span>
-                            </h6>
+                        <div class="col s3 m7">
+                            <p class=
+                            "meal-text">{{ingredient.ingredient.name}}</p>
                         </div>
 
-
-                        <div class="col s2">
+                        <div class="col s2 m2">
                             <span class="center-align"><input class="serving"
                             id="servings" ng-change=
                             "updateMealIngredientQuantity(ingredient)"
@@ -90,10 +106,8 @@
                         </div>
 
 
-                        <div class="col s4">
-                            <h6><span class=
-                            "center-align">{{ingredient.unit_desc.description}}</span>
-                            </h6>
+                        <div class="col s2 m2">
+                
                         </div>
                         <span class="card-title center-align"></span>
 
@@ -111,23 +125,13 @@
 
                         <div class="col m1 center">
                             <span class="card-title center-align"><a ng-click=
-                            "removeIngredientsFromSavedMeal(value)"><i class=
+                            "removeIngredientsFromSavedMeal(index1,index2)"><i class=
                             "material-icons b">delete</i></a></span>
                         </div>
                         <span class="card-title center-align"></span>
                     </div>
-
-
-                    <div class="row">
-                        <div class="col s12">
-                            <span id="shortcut-menu"><a class="cyan-text">Quick
-                            Tools</a>&nbsp;&nbsp; <span class=
-                            "cyan-text">|</span>&nbsp;&nbsp; <a class=
-                            "cyan-text" ng-click=
-                            "openCreatePlanModal($index)">Add Food</a></span>
-                        </div>
-                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -182,7 +186,7 @@
             </div>
         </div>
     </div>
-</div
+</div>
     
 <!-- ADD FOOD MODAL -->
 
@@ -401,7 +405,8 @@
     <div class="row">
         <div class="col m12 center">
             <a class="waves-effect waves-light btn btn-social largebtn"
-            ng-click="addContents();calculateTotalInfoForRecipes()">Add</a>
+            ng-click="addContents()">Add</a>
         </div>
     </div>
 </div>
+</section>
