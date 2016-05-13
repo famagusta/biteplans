@@ -23,7 +23,7 @@
                 <div class="container graph_cont">
                     <div class="card-content black-text">
                                  <div class="row" id="graph-area">
-                            <div class="col s12 m8 h">
+                            <div class="col s12 m8 progress-div">
                                 <div ng-repeat="key in mealPlanNameArray track by $index">
                                     <div class="row progress_label">
                                         <div class="col s12 m2">
@@ -121,17 +121,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                   <div class="row horizontal-line vertical-line top-line left-line">
                             <div class=
-                                    "col s4 m3 horizontal-line vertical-line top-line left-line">
+                                    "col s4 m3">
                                     <p class="center tab_head ing-text">Your food plan
                                     for</p>
                                     </div>
 
 
                                     <div class=
-                                    "col s4 m2">
-                                        <div class="row horizontal-line top-line left-line">
+                                    "col s4 m2 left-line">
+                                        <div class="row">
                                             <div class="col s3">
                                                  <a href="#" ng-click=
                                                 "updateDayPlan('week_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos">
@@ -153,8 +153,8 @@
                                     </div>
 
 
-                                    <div class="col s3 m2">
-                                        <div class="row horizontal-line top-line left-line">
+                                    <div class="col s3 m2 left-line">
+                                        <div class="row">
                                             <div class="col s3 center">
                                                 <a href="#" ng-click=
                                                 "updateDayPlan('day_no','-1')" class="ing-text tab_head center"><i class="material-icons left_arrow_pos">
@@ -176,8 +176,8 @@
                                     </div>
 
 
-                                    <div class="col s5">
-                                        <div class="row horizontal-line top-line left-line">
+                                    <div class="col s5 left-line">
+                                        <div class="row">
                                             <div class="col s4">
                                                 <p class="ing-text tab_head center">Copy to</p>
                                             </div>
@@ -277,7 +277,7 @@
                                         "item1.quantity" ng-change=
                                         "updateMealIngredient(item1)" ng-pattern=
                                         "/^[0-9]+(\.[0-9]{1,2})?$/" step="0.25"
-                                        type="number">
+                                        type="number"min="0">
                                     </div>
 
 
@@ -500,7 +500,7 @@
                             
                              <div class="row">
                                 <div class="col s6">
-                                    <p class="ing-text">Vitamin A</p>
+                                    <p class="ing-text">Vitamin&nbsp;A</p>
                                 </div>
                                 <div class="col s6">
                                     <p class="meal-text">{{calcDayNutrientVal('vitamin_a_iu', true) | number}}</p>
@@ -509,7 +509,7 @@
                             
                              <div class="row">
                                 <div class="col s6">
-                                    <p class="ing-text">Vitamin B</p>
+                                    <p class="ing-text">Vitamin&nbsp;B</p>
                                 </div>
                                 <div class="col s6">
                                     <p class="meal-text">{{calcDayNutrientVal('vitamin_b12_mcg', true) | number}}</p>
@@ -518,7 +518,7 @@
                             
                              <div class="row">
                                 <div class="col s6">
-                                    <p class="ing-text">Vitamin C</p>
+                                    <p class="ing-text">Vitamin&nbsp;C</p>
                                 </div>
                                 <div class="col s6">
                                     <p class="meal-text">{{calcDayNutrientVal('vitamin_c_mg', true) | number}}</p>
@@ -527,7 +527,7 @@
                             
                             <div class="row">
                                 <div class="col s6">
-                                    <p class="ing-text">Vitamin D</p>
+                                    <p class="ing-text">Vitamin&nbsp;D</p>
                                 </div>
                                 <div class="col s6">
                                     <p class="meal-text">{{calcDayNutrientVal('vitamin_d_mcg', true) | number}}</p>
@@ -536,7 +536,7 @@
                             
                             <div class="row">
                                 <div class="col s6">
-                                    <p class="ing-text">Vitamin E</p>
+                                    <p class="ing-text">Vitamin&nbsp;E</p>
                                 </div>
                                 <div class="col s6">
                                     <p class="meal-text">{{calcDayNutrientVal('vitamin_e_mg', true) | number}}</p>
@@ -575,8 +575,17 @@
 
 
         <div class="row">
-            <p>Meal Time</p>
+            <div class="col s6">
+                <p>Meal Time</p>
 
+             <input id="exampleInput" name=
+                                            "input" ng-blur=
+                                            "updateDayMealPlan($index)"
+                                            ng-model="key.time" placeholder=
+                                            "HH:mm:ss" required="" type="time">
+            </div>
+<!--
+            
 
             <div class="input-field col s3">
                 <select material-select="" ng-model="hours" ng-options=
@@ -597,6 +606,8 @@
                 "i for i in amPmArray">
                     </select>
             </div>
+-->
+            
         </div>
 
 

@@ -41,6 +41,17 @@ p.recipe-card-info {
     right: 14px
 }
 
+.nutinfo_dropdown {
+    font-size: 30px;
+    position: relative;
+    top: 8px;
+}
+
+.recipe_img {
+    height: 40%;
+    width: 40%;
+}
+
 @media only screen and (max-width : 768px) {
     #planPage {
         min-height: 640px;
