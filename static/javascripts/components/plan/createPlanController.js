@@ -367,7 +367,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         // adds new mealname
                         $scope.addMeal = function(key) {
                             console.log(key, $scope.dayplan);
-                            key.day = $scope.dayplan.id;
+                            key.day = $scope.dayplan;
                             var tm = key.time;
                             key.time = key.time.getHours() + ":" +
                                 key.time.getMinutes() + ":00";
@@ -383,8 +383,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         'counter': $scope
                                             .mealPlanNameArray
                                             .length,
-                                        'day': $scope.dayplan
-                                            .id
+                                        'day': $scope.dayplan,
+                                        'mealNutrition':{}
                                     });
                                 }, function(error) {
                                     console.log('cant', error);
@@ -459,6 +459,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                             .ingredient[field]);
                                 }
                                   GlobalTotal += mealTotal;
+                                  if($scope.mealPlanNameArray[i].mealNutrition !==undefined)
                                   $scope.mealPlanNameArray[i].mealNutrition[field] = mealTotal;
                             }  
                             }
