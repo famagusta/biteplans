@@ -53,7 +53,8 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
         for(var i=0; i<timetable.length; i++){
             /* declare start and end date of a given diet plan */
             var start_date = moment(timetable[i].start_date);
-            var end_date = moment(timetable[i].start_date).add(timetable[i].dietplan.duration, "w");
+            var end_date = moment(timetable[i].start_date)
+                            .add(timetable[i].dietplan.duration, "w");
             
             /* check if given key date is between start and end date of any dietplan */
             if (key.isSameOrAfter(start_date) && key.isBefore(end_date)){
@@ -63,25 +64,42 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
     }
                                     
 
+    $scope.currMonthPromise = null;
+    $scope.currMonthContext = null;                                
     /* This function sets the contents of a day and is called asynchronously*/
     $scope.setDayContent = function(date) {
-
-        var key = moment(date).format('YYYY-MM-DD');
-        var deferred = $q.defer();
-        var url = '/biteplans/calendar/follow/' + '?date=' + key;
         
-        /* get request for getting the dietplans a user is following in a month */
-        httpService.httpGet(url)
-                .then(function(response) {
-                    deferred.resolve(response);
-                }, function(error) {
-                    deferred.reject(error);
-                });
-        /* chained promises to get the correct text represnetation of the 
-        date */
-        var promiseB = deferred.promise.then(function(result){
-            return $scope.getDietCalendarTitle(key, result);
-        })
-        return promiseB;
+        var key = moment(date).format('YYYY-MM-DD');
+//        console.log($scope.currMonthContext !== moment(date).month);
+        if ($scope.currMonthContext !== moment(date).month()){
+
+            $scope.currMonthContext = moment(date).month();
+            
+            var deferred = $q.defer();
+            var url = '/biteplans/calendar/follow/' + '?date=' + key;
+
+            /* get request for getting the dietplans a user is following in a month */
+            httpService.httpGet(url)
+                    .then(function(response) {
+                        deferred.resolve(response);
+                    }, function(error) {
+                        deferred.reject(error);
+                    });
+            /* chained promises to get the correct text represnetation of the 
+            date */
+            var promiseB = deferred.promise.then(function(result){
+                return $scope.getDietCalendarTitle(key, result);
+            })
+            $scope.currMonthPromise = deferred;
+            return promiseB;
+        
+        } else {
+            
+            var promiseB = $scope.currMonthPromise.promise.then(function(result){
+                return $scope.getDietCalendarTitle(key, result);
+            });
+            return promiseB;
+        } 
+        
     };
 }]);
