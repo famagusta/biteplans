@@ -190,6 +190,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                                     $scope.mealPlanNameArray =
                                         response.mealplan;
+                                    
                                     for (var m = 0; m < $scope.mealPlanNameArray
                                         .length; m++) {
                                         $scope.mealPlanNameArray[
@@ -524,18 +525,23 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         // adds new mealname
                         $scope.addMeal = function(key) {
                             console.log(key, $scope.dayplan);
-                            key.day = $scope.dayplan.id;
                             var tm = key.time;
-                            key.time = tm.getHours()+':'+tm.getMinutes()+':00';
+                            var mealObjToUpdate = {
+                                day : $scope.dayplan.id,
+                                name : key.name,
+                                time : moment(tm).format('HH:mm:ss')
+                            }
+                            //convert to JS date format for rendering
+                            var newtm = new Date(moment(tm));
                             
                             /* update the database */
-                            planService.createMealPlan(key)
+                            planService.createMealPlan(mealObjToUpdate)
                                 .then(function(response) {
                                     /* update the view variables for meals */
                                     $scope.mealPlanNameArray.push({
                                         'mealname': key.name,
                                         'mealingredient': [],
-                                        'time': key.time,
+                                        'time': tm,
                                         'mealrecipe': [],
                                         'id': response.mealplanid,
                                         'counter': $scope
