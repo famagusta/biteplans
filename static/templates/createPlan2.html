@@ -32,7 +32,7 @@
                                         
                                         <div class="col s6">
                                             <div class="progress progress-spacing">
-                                                <div class="determinate" style="width: {{(calcMealNutrientVal($index, 'energy_kcal') / calcDayNutrientVal('energy_kcal') )*100}}%">
+                                                <div class="determinate" style="width: {{(calcMealNutrientVal($index, 'energy_kcal') / calcDayNutrientVal('energy_kcal', false) )*100}}%">
                                                 </div>
                                             </div>
 <!--
@@ -44,7 +44,7 @@
                                         </div>
                                         
                                         <div class="col s3 m4">
-                                            <p class="prog-text linear_val">{{calcMealNutrientVal($index, 'energy_kcal') | number}} Calories</p>
+                                            <p class="prog-text linear_val">{{calcMealNutrientVal($index, 'energy_kcal', false) | number}} Calories</p>
                                         </div>
                                     </div>    
                                 </div>
@@ -73,8 +73,8 @@
                                         animation="easeInOutQuart"
                                         animation-delay="0"></div>
                                         <p class="center graph-text">PROTEINS</p>
-                                       <p class="center graph-value">{{((calcDayNutrientVal('protein_tot')*4)/calcDayNutrientVal('energy_kcal'))*100 |number }} %</p>
-                                        <p class="ing-text nutgraph_val">{{calcDayNutrientVal('protein_tot') | number}}g</p>
+                                       <p class="center graph-value">{{((calcDayNutrientVal('protein_tot', false)*4)/calcDayNutrientVal('energy_kcal', false))*100 |number }} %</p>
+                                        <p class="ing-text nutgraph_val">{{calcDayNutrientVal('protein_tot', false) | number}}g</p>
                                     </div>
                                     
                                     <div class="col s4 m4 center">
@@ -94,15 +94,15 @@
                                         animation="easeInOutQuart"
                                         animation-delay="0"></div>
                                          <p class="center graph-text">CARBS</p>
-                                        <p class="center graph-value">{{((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal'))*100 |number }}%</p>
-                                         <p class="ing-text nutgraph_val">{{calcDayNutrientVal('carbohydrate_tot') | number}} g</p>
+                                        <p class="center graph-value">{{((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal', false))*100 |number }}%</p>
+                                         <p class="ing-text nutgraph_val">{{calcDayNutrientVal('carbohydrate_tot', false) | number}} g</p>
                                     </div>
      
                                     <div class="col s4 m4 center">
                                         <div
                                         round-progress
                                         max="100"
-                                        current="((calcDayNutrientVal('fat_tot')*9)/calcDayNutrientVal('energy_kcal'))*100"
+                                        current="((calcDayNutrientVal('fat_tot', false)*9)/calcDayNutrientVal('energy_kcal', false))*100"
                                         color="#fdc106"
                                         bgcolor="#eaeaea"
                                         radius="50"
@@ -115,8 +115,8 @@
                                         animation="easeInOutQuart"
                                         animation-delay="0"></div>
                                         <p class="center graph-text">FATS</p>
-                                        <p class="center graph-value">{{((calcDayNutrientVal('fat_tot')*9)/calcDayNutrientVal('energy_kcal'))*100 |number }} %</p> 
-                                        <p class="ing-text nutgraph_val">{{calcDayNutrientVal('fat_tot') | number}} g</p>
+                                        <p class="center graph-value">{{((calcDayNutrientVal('fat_tot', false)*9)/calcDayNutrientVal('energy_kcal', false))*100 |number }} %</p> 
+                                        <p class="ing-text nutgraph_val">{{calcDayNutrientVal('fat_tot', false) | number}} g</p>
                                     </div>
                                 </div>
                             </div>
@@ -338,6 +338,10 @@
                                     "cyan-text" ng-click=
                                     "openCreatePlanModal($index)">Add
                                     Food</a></span>
+                                   <span class=
+                                    "cyan-text">|</span>&nbsp;&nbsp; <a class=
+                                    "cyan-text" ng-click=
+                                    "openMealInfoModal($index)">Meal Info</a></span>
                                 </div>
                             </div>
                         </div>
@@ -856,4 +860,173 @@
                 </div>
             </div>
         </div>
+
+<!-- MEAL INFO MODAL-->
+
+<div id="meal-info-modal" class="modal">
+    <div class="modal-content">
+      <h5 class="cyan-text center">{{mealPlanNameArray[selected].mealname}}</h5>
+        
+        <div class="row">
+            <div class="col s4">
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Proteins</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'protein_tot') | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Carbs</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'carbohydrate_tot') | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Fats</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'fat_tot') | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Sodium</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'sodium_mg', true) | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Iron</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'iron_mg', true) | number}}</p>
+            </div>
+        </div>
+     </div>
+            
+                        <div class="col s4">
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Calcium</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'calcium_mg', true) | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text"></p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'carbohydrate_tot') | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Fats</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'fat_tot', false) | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Sodium</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'sodium_mg', true) | number}}</p>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Vitamin A</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'vitamin_a_iu', true) | number}}</p>
+            </div>
+        </div>
+     </div>
+            
+            <div class="col s4">
+                 <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Vitamin A</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'vitamin_a_iu', true) | number}}</p>
+            </div>
+        </div>
+                
+                 <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Vitamin B</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'vitamin_b12_mcg', true) | number}}</p>
+            </div>
+        </div>
+                
+                 <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Vitamin C</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'vitamin_c_mg', true) | number}}</p>
+            </div>
+        </div>
+                
+                 <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Vitamin D</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'vitamin_d_mcg', true) | number}}</p>
+            </div>
+        </div>
+                
+                 <div class="row">
+            <div class="col s6">
+                <p class="ing-text">Vitamin K</p>
+            </div>
+        
+             <div class="col s6">
+                <p class="meal-text">{{calcMealNutrientVal(selected, 'vitamin_k_mcg', true) | number}}</p>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+  </div>
+          
 </section>

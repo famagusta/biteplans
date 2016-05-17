@@ -330,7 +330,7 @@ input[type=time] {
     font-family: 'Raleway' !important;
     font-size: 14px !important;
     font-weight: 600;
-    margin-left: 79px;
+    margin-left: 60px;
 }
 
 .hor-line {
@@ -565,17 +565,3 @@ select {
 
 
 
- $scope.removeIngredientsFromSavedMeal =
-                            function(key1, key2) {
-                                var temp = $scope.plan_data[key1]
-                                    .followingMealPlanIngredient[key2].meal_ingredient;
-    
-                               summaryService.deleteMealIngredient(temp.id)
-                                    .then(function(response) {
-                                        $scope.plan_data[
-                                                key1].followingMealPlanIngredient.splice(key2, 1);
-                                
-                                    }, function(response) {
-                                        console.log(response);
-                                    });
-                            };

@@ -24,6 +24,9 @@
     margin-top: 29px;
 }
 
+.dropdown-content li>a {
+    padding: 14px 10px !important;
+}
 /*
 a:focus{
     background-color: #ff5252;
@@ -31,6 +34,11 @@ a:focus{
     border-radius: 25px
 }
 */
+
+calendar-md .md-toolbar-tools h2 {
+    font-size: 14px !important;
+}
+
 
  .db_list_text {
     color: #58595b !important;
@@ -56,9 +64,24 @@ a:focus{
 
 ul.day-list li {
     display: inline-block;
-    margin-left: 20px;
+/*    margin-left: 20px;*/
+    font-size: 12px !important;
+    min-width: 100px;
 }
 
+ul.day-list li span,i {
+    font-family: 'Roboto';
+    font-style: normal;
+  
+}
+
+ul.day-list {
+    width: 40em !important;
+}
+
+.day_list {
+    font-size: 20px;
+}
 /*
 .active a {
     border-bottom: 3px solid #ff5252; !important;
@@ -78,6 +101,11 @@ ul.day-list li {
 input:disabled {
     border-bottom: 1px solid rgba(0,0,0,0.26) !important;
 }
+
+
+/* SUMMARY PAGE */
+
+
 
 @media only screen and (max-width : 600px) {
     ul.day-list li {

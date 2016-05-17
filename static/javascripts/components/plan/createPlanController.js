@@ -520,7 +520,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             };
 
                          /* Calculates total value of a nutrient across a days plan */
-                          $scope.calcDayNutrientVal = function(nutrient,isAdditional){
+                       $scope.calcDayNutrientVal = function(nutrient,isAdditional){
                             var total = 0;
                             if($scope.mealPlanNameArray){
                                 for (var i = 0 ; i < $scope.mealPlanNameArray.length ; i++) {
@@ -553,18 +553,30 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                for (var i=0; i< $scope.mealPlanNameArray.length;i++) {
                                    var q = 0;
                                    for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
-                                   q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
+                                       if (isAdditional){
+                                           if($scope.mealPlanNameArray[i].mealingredient[j].additionalIngInfo[nutrient] !== null){
+                                   q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].additionalIngInfo[nutrient])
                                         * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
                                     * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
                                    }
-                                   
-                                  
-                                   
+                                    else {
+                                        q +=0;
+                                    }
+                                       }
+                                    else {
+                                        q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
+                                        * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
+                                    }
+                                   }
                                    total.push(q); 
+
                                }
-                            }
                              return total[index];
-                        }
+                                                               }
+
+
+                            }
                     
                         
 
@@ -619,6 +631,11 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     console.log(error);
                     $location.path('/');
                 });
+        
+        $scope.openMealInfoModal = function(index) {
+            $('#meal-info-modal').openModal();
+            $scope.selected = index;
+        }
         
     }
 ]);
