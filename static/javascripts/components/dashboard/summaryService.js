@@ -43,7 +43,32 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                     deferred.reject(error);
                 });
             return deferred.promise;
-        }
+        };
+
+
+        var getShortlistIngredients = function(){
+            var deferred = $q.defer();
+            var url = constants['API_SERVER'] + 'biteplans/calendar/myingredients/';
+
+            httpService.httpGet(url).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var getShortlistRecipes = function(){
+            var deferred = $q.defer();
+            var url = constants['API_SERVER'] + 'biteplans/calendar/myrecipes/';
+
+            httpService.httpGet(url).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
        
 
         return {
@@ -55,6 +80,12 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             },
              deleteMealIngredient: function(obj) {
                 return deleteMealIngredient(obj);
+            },
+            getShortlistRecipes: function(){
+                return getShortlistRecipes();
+            },
+            getShortlistIngredients: function(){
+                return getShortlistIngredients();
             }
         };
 

@@ -205,33 +205,23 @@
             <div ng-if="tab==3">
                 <div class="col s10">
                     <div class="card top_mar" >
-                        <div ng-include="'static/templates/calendar.html'" style="height: 680px !important;"></div>
+                        <div ng-include="'static/templates/calendar.html'"></div>
                     </div>
                 </div>
             </div>
 
+            <div ng-if="tab==7">
+                <div class="col s10">
+                    <div class="top_mar" ng-controller="shortlistedRecipesController">
+                        <div ng-include="'static/templates/myrecipes.html'" ></div>
+                    </div>
+                </div>
+            </div>
 
             <div ng-if="tab==9">
-                <div class="col s6">
-                    <div class="card white darken-1 top_mar">
-                        <div class="card-content black-text">
-                            {{alpha.carba}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col m4">
-                <div class="card white top_mar">
-                    <div class="card-content cyan-text">
-                        <h5 class="card-title center-align">Recent
-                        Activity</h5>
-
-
-                        <p>I am a very simple card. I am good at containing
-                        small bits of information. I am convenient because I
-                        require little markup to use effectively.</p>
+                <div class="col s10">
+                    <div class="top_mar" ng-controller="shortlistedIngredientsController">
+                        <div ng-include="'static/templates/myingredients.html'"></div>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,6 @@ app.factory('recipeService',
     var createRecipe = function(recipeObject){
     	var url = constants.API_SERVER+'biteplans/recipe/recipes/';
     	var deferred = $q.defer();
-    	var obj = null;
     	httpService.httpPost(url, recipeObject).then(function(response){
     		deferred.resolve(response);
 
@@ -17,6 +16,20 @@ app.factory('recipeService',
     	});
 
     	return deferred.promise;
+    };
+
+
+    var getRecipesMadeByMe = function(){
+        var url = constants.API_SERVER+'biteplans/recipe/recipes/';
+        var deferred = $q.defer();
+        httpService.httpGet(url).then(function(response){
+            deferred.resolve(response);
+
+        }, function(error){
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
     };
 
     var uploadRecipeImage = function(file, uploadUrl){
@@ -61,7 +74,7 @@ app.factory('recipeService',
             deferred.reject(error);
         });
         return deferred.promise;
-    }
+    };
                 
                 
 
@@ -79,8 +92,11 @@ app.factory('recipeService',
             return getRecipe(id);
         },
         uploadRecipeImage : function(id, file){
-            return uploadRecipeImage(id, file)
-        }
+            return uploadRecipeImage(id, file);
+        },
+        getRecipesMadeByMe : function(){
+            return getRecipesMadeByMe();
+        } 
 
     };
 

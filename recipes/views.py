@@ -1,6 +1,7 @@
 '''Views for recipes'''
 from recipes.models import Recipe, RecipeIngredients
-from recipes.serializers import RecipeSerializer, RecipeIngSerializer
+from recipes.serializers import RecipeSerializer, \
+RecipeReadSerializer, RecipeIngSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -38,7 +39,19 @@ class RecipeViewSet(viewsets.ModelViewSet):
 			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-	
+
+	def list(self, request):
+		'''returns queryset for get method'''
+		user = request.user
+		self.serializer_class = RecipeReadSerializer
+		if user != None:
+			obj = self.queryset.filter(created_by=request.user)
+		else:
+			obj = self.queryset
+
+		obj = self.serializer_class(obj, many=True)
+		return Response(obj.data, status=status.HTTP_200_OK)
+
 
 class RecipeIngredientViewSet(viewsets.ModelViewSet):
 	queryset = RecipeIngredients.objects.all()
