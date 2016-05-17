@@ -1,7 +1,9 @@
 
+/*
 #featuredPlan p, #articleSection p {
     text-transform: uppercase;
 }
+*/
 
 .overlay {
     top:0;
@@ -11,6 +13,13 @@
 
 nav {
     background-color: #fff;
+}
+
+.veg_head {
+    font-size: 24px;
+    position: relative;
+    bottom: 35px;
+    
 }
 
 #index-banner {
@@ -29,12 +38,35 @@ nav {
     bottom: 70px;
 }
 
+.v {
+    position: relative;
+    bottom: 4em;
+}
+
+.w {
+    position: relative;
+    bottom: 2em;
+}
+
 .big-logo {
     text-align: center !important;
     padding: 12px !important;
     margin-top: -40px !important;
 }
 
+.landing_card {
+    height: 13em;
+    width: 20em;
+}
+
+.right_card {
+    width: 20em;
+    height: 12em;
+}
+.round_icon {
+    position: relative;
+    bottom: 29px;
+}
 
 h3 {
     color: #00bcd4;
@@ -110,6 +142,18 @@ video {
         padding: 242px 0 0 0;
     }
     
+    .landing_card {
+        width: 20em;
+        height: 16em;
+        position: relative;
+        left: 1em;
+    }
+    
+    .card2 {
+        position: relative;
+        top: 3em;
+    }
+    
 /*
     .non-veg-card {
         padding: 32px 0 0 0 !important;
@@ -142,6 +186,12 @@ video {
     }
 }
 
+@media only screen and (min-width : 725px) and (max-width : 1500px) {
+    .landing_card {
+        width: 15em !important;
+    }
+}
+
 @media only screen and (min-width : 300px) and (max-width : 600px) {
     ul#landingMenu li {
         font-size: 22px !important;
@@ -171,3 +221,4 @@ video {
     padding-bottom: 50px;
 
 }
+

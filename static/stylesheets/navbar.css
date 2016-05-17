@@ -103,6 +103,13 @@ nav ul li {
     border-bottom: 1px solid #eeeeee;
 }
 
+.mobile_dp {
+    position: relative;
+    left: 6em;
+    top: 1em;
+    border-radius: 50%;
+}
+
 /* LOGIN AND SIGNUP MODAL */
 
 

@@ -330,7 +330,7 @@ input[type=time] {
     font-family: 'Raleway' !important;
     font-size: 14px !important;
     font-weight: 600;
-    margin-left: 79px;
+    margin-left: 60px;
 }
 
 .hor-line {
@@ -562,3 +562,6 @@ select {
     }
 
 }
+
+
+
