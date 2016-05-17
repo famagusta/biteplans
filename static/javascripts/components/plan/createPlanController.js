@@ -525,6 +525,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 });
                         };
 
+
                         // adds new mealname
                         $scope.addMeal = function(key) {
                             console.log(key, $scope.dayplan);
