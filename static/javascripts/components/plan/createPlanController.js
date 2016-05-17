@@ -285,7 +285,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                         // updates name and time of a meal plan
                         $scope.updateDayMealPlan = function(index) {
-                            var obj = {
+
+                            if($scope.mealPlanNameArray[index] !== undefined )
+                            {var obj = {
                                 'name': $scope.mealPlanNameArray[
                                     index].mealname,
                                 'time': $scope.mealPlanNameArray[
@@ -301,7 +303,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                                 }, function(error) {
                                     console.log(error);
-                                });
+                                });};
                         };
 
 
@@ -440,6 +442,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             // currentmealPlanname, nutrientvalue
                             // these should be used to create a post request  to create meal
 
+                            console.log($scope.mealPlanNameArray);
                             for (var j = 0; j <
                                 $scope.checklistIngs.length; j++
                             ) {
@@ -589,9 +592,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     });
                             };
 
-                        /* Calculates total value of a nutrient across a days plan */
-                        $scope.calcDayNutrientVal = function(nutrient,
-                            isAdditional) {
+
+                         /* Calculates total value of a nutrient across a days plan */
+                       $scope.calcDayNutrientVal = function(nutrient,isAdditional){
                             var total = 0;
                             if ($scope.mealPlanNameArray) {
                                 for (var i = 0; i < $scope.mealPlanNameArray
@@ -685,37 +688,37 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
 
 
-                        /* calculates total value of a nutrient for a given meal */
-                        $scope.calcMealNutrientVal = function(index, nutrient) {
-                            var total = [];
-                            if ($scope.mealPlanNameArray) {
-                                for (var i = 0; i < $scope.mealPlanNameArray
-                                    .length; i++) {
-                                    var q = 0;
-                                    for (var j = 0; j < $scope.mealPlanNameArray[
-                                        i].mealingredient.length; j++) {
-                                        q += parseFloat($scope.mealPlanNameArray[
-                                                i].mealingredient[
-                                                j].ingredient[
-                                                nutrient]) *
-                                            parseFloat($scope.mealPlanNameArray[
-                                                i].mealingredient[
-                                                j].quantity) *
-                                            parseFloat($scope.mealPlanNameArray[
-                                                i].mealingredient[
-                                                j].unit.weight) /
-                                            100;
+                         $scope.calcMealNutrientVal = function(index, nutrient, isAdditional){
+                             var total = [];
+                            if($scope.mealPlanNameArray){
+                               for (var i=0; i< $scope.mealPlanNameArray.length;i++) {
+                                   var q = 0;
+                                   for (var j = 0 ; j < $scope.mealPlanNameArray[i].mealingredient.length ; j++) {
+                                       if (isAdditional && $scope.mealPlanNameArray[i].mealingredient[j].additionalIngInfo !== undefined){
+                                           if($scope.mealPlanNameArray[i].mealingredient[j].additionalIngInfo[nutrient] !== null){
+                                   q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].additionalIngInfo[nutrient])
+                                        * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
+                                   }
+                                    else {
+                                        q +=0;
                                     }
+                                       }
+                                    else {
+                                        q += parseFloat($scope.mealPlanNameArray[i].mealingredient[j].ingredient[nutrient])
+                                        * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].quantity)
+                                    * parseFloat($scope.mealPlanNameArray[i].mealingredient[j].unit.weight)/100;
+                                    }
+                                   }
+                                   total.push(q); 
+
+                               }
+                             return total[index];
+                                                               }
 
 
-
-                                    total.push(q);
-                                }
-                            }
-                            return total[index];
-                        };
-
-
+                            };
+                
 
                         //function to create meal ingredients related to given mealplan
                         $scope.fillMealPlan = function(ind, current) {
@@ -761,6 +764,11 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
                             }
                         };
+
+                         $scope.openMealInfoModal = function(index) {
+                                $('#meal-info-modal').openModal();
+                                $scope.selected = index;
+                            };
                     }
                     else {
                         $location.path('/');
@@ -770,6 +778,5 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     console.log(error);
                     $location.path('/');
                 });
-
     }
 ]);

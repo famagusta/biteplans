@@ -30,6 +30,21 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                 });
             return deferred.promise;
         };
+        
+        
+        //* TDB
+        var deleteMealIngredient = function(id) {
+            var url = '/biteplans/diet/mealing/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpDelete(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        }
+       
 
         return {
             getUserDayPlan: function(dateString) {
@@ -37,6 +52,9 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             },
             updateEventIngredient: function(obj, id){
                 return updateEventIngredient(obj, id);
+            },
+             deleteMealIngredient: function(obj) {
+                return deleteMealIngredient(obj);
             }
         };
 
