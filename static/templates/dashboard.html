@@ -9,9 +9,9 @@
 
 
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(1)"><img ng-if="tab!=1"
+                                <a ng-click="setTab(1)"><img ng-if="tab.tab!=1"
                                 class="icon-orig" src="static/images/summary_deselect.png">
-                                <img ng-if="tab==1" class="icon-orig" src=
+                                <img ng-if="tab.tab==1" class="icon-orig" src=
                                 "static/images/summary.png"></a>
                             </div>
 
@@ -27,9 +27,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(2)"><img ng-if="tab!=2"
+                                <a ng-click="setTab(2)"><img ng-if="tab.tab!=2"
                                 class="icon-orig" src="static/images/profile_deselect.png">
-                                <img ng-if="tab==2" src=
+                                <img ng-if="tab.tab==2" src=
                                 "static/images/profile.png"></a>
                             </div>
 
@@ -45,9 +45,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(3)"><img ng-if="tab!=3"
+                                <a ng-click="setTab(3)"><img ng-if="tab.tab!=3"
                                 class="icon-orig" src="static/images/calendar_deselect.png">
-                                <img ng-if="tab==3" src=
+                                <img ng-if="tab.tab==3" src=
                                 "static/images/calendar.png"></a>
                             </div>
 
@@ -62,9 +62,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(4)"><img ng-if="tab!=4"
+                                <a ng-click="setTab(4)"><img ng-if="tab.tab!=4"
                                 class="icon-orig" src="static/images/progress_deselect.png">
-                                <img ng-if="tab==4" src=
+                                <img ng-if="tab.tab==4" src=
                                 "static/images/progress.png"></a>
                             </div>
 
@@ -183,7 +183,7 @@
             <!--SUMMARY VIEW -->
 
 
-            <div ng-if="tab==1" ng-controller="summaryCtrl">
+            <div ng-if="tab.tab==1" ng-controller="summaryCtrl">
                 <div class="col s6">
                     <div class="card white top_mar">
                         <div ng-include="'static/templates/summary.html'"></div>
@@ -194,7 +194,7 @@
             <!-- PROFILE VIEW -->
 
 
-            <div ng-if="tab==2" ng-controller="profileController">
+            <div ng-if="tab.tab==2" ng-controller="profileController">
                 <div class="col s6">
                     <div ng-include="'static/templates/profile.html'"></div>
                 </div>
@@ -202,7 +202,7 @@
             <!-- CALENDAR VIEW -->
 
 
-            <div ng-if="tab==3">
+            <div ng-if="tab.tab==3">
                 <div class="col s10">
                     <div class="card top_mar" >
                         <div ng-include="'static/templates/calendar.html'" style="height: 680px !important;"></div>

@@ -8,8 +8,11 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.foodgroup = [];
         $scope.currentMealPlanName = -1;
 
-
         $scope.today = moment();
+        
+        var contextDate = moment();
+        
+        
         $scope.navDates = {
             current: moment(),
             next: moment()
@@ -17,11 +20,73 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             prev: moment()
                 .subtract(1, "days")
         }
+        
+        
         $scope.navTitles = {
             current: "Today",
             prev: "Yesterday",
             next: "Tomorrow"
         }
+        
+        /*check whether selected date is same as today, 
+    yesterday or tomorrow and set titles accordingly*/
+        $scope.checkNavTitle = function() {
+            var diff = Math.round($scope.today.diff($scope.navDates
+                .current, 'days', true));
+            if (diff === 0) {
+                $scope.navTitles = {
+                    current: "Today",
+                    prev: "Yesterday",
+                    next: "Tomorrow"
+                }
+            }
+            else if (diff === -1) {
+                $scope.navTitles = {
+                    current: "Tomorrow",
+                    prev: "Today",
+                    next: $scope.navDates.next.format(
+                        'YYYY-MM-DD')
+                }
+            }
+            else if (diff === 1) {
+                $scope.navTitles = {
+                    current: "Yesterday",
+                    prev: $scope.navDates.prev.format(
+                        'YYYY-MM-DD'),
+                    next: "Today"
+                }
+            }
+            else if (diff === -2) {
+                $scope.navTitles = {
+                    current: $scope.navDates.current.format(
+                        'YYYY-MM-DD'),
+                    prev: "Tomrrow",
+                    next: $scope.navDates.next.format(
+                        'YYYY-MM-DD')
+                }
+            }
+            else if (diff === 2) {
+                $scope.navTitles = {
+                    current: $scope.navDates.current.format(
+                        'YYYY-MM-DD'),
+                    prev: $scope.navDates.prev.format(
+                        'YYYY-MM-DD'),
+                    next: "Yesterday"
+                }
+            }
+            else {
+                $scope.navTitles = {
+                    current: $scope.navDates.current.format(
+                        'YYYY-MM-DD'),
+                    prev: $scope.navDates.prev.format(
+                        'YYYY-MM-DD'),
+                    next: $scope.navDates.next.format(
+                        'YYYY-MM-DD')
+                }
+            }
+        }
+        
+        
 
         // array to store modal ingredients to add
         $scope.MealIngredients2Add = [];
@@ -89,6 +154,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             }
             //function to retrieve a particular days diet plan
         $scope.getDayPlan = function(dateString) {
+            
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
                     $scope.plan_data = response;
@@ -114,10 +180,24 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 });
         }
 
-        var dateString = $scope.today.format('YYYY-MM-DD');
-        $scope.getDayPlan(dateString);
+//        var dateString = $scope.today;
+        
 
+        // check if we are being redirected from the calendar page
+        if($scope.tab.dateClick != undefined){
+            $scope.navDates = {
+                current: moment($scope.tab.dateClick),
+                next: moment($scope.tab.dateClick)
+                    .add(1, "days"),
+                prev: moment($scope.tab.dateClick)
+                    .subtract(1, "days")
+            }
+            $scope.checkNavTitle();
+            $scope.getDayPlan(contextDate.format('YYYY-MM-DD'));
+        }
 
+        $scope.getDayPlan(contextDate.format('YYYY-MM-DD'));
+        
         $scope.getNextDay = function(direction) {
             if (direction === 1) {
                 $scope.navDates.current.add(1, "days");
@@ -134,63 +214,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 'YYYY-MM-DD'));
         }
 
-        /*check whether selected date is same as today, 
-    yesterday or tomorrow and set titles accordingly*/
-        $scope.checkNavTitle = function() {
-            var diff = Math.round($scope.today.diff($scope.navDates
-                .current, 'days', true));
-            if (diff === 0) {
-                $scope.navTitles = {
-                    current: "Today",
-                    prev: "Yesterday",
-                    next: "Tomorrow"
-                }
-            }
-            else if (diff === -1) {
-                $scope.navTitles = {
-                    current: "Tomorrow",
-                    prev: "Today",
-                    next: $scope.navDates.next.format(
-                        'YYYY-MM-DD')
-                }
-            }
-            else if (diff === 1) {
-                $scope.navTitles = {
-                    current: "Yesterday",
-                    prev: $scope.navDates.prev.format(
-                        'YYYY-MM-DD'),
-                    next: "Today"
-                }
-            }
-            else if (diff === -2) {
-                $scope.navTitles = {
-                    current: $scope.navDates.current.format(
-                        'YYYY-MM-DD'),
-                    prev: "Tomrrow",
-                    next: $scope.navDates.next.format(
-                        'YYYY-MM-DD')
-                }
-            }
-            else if (diff === 2) {
-                $scope.navTitles = {
-                    current: $scope.navDates.current.format(
-                        'YYYY-MM-DD'),
-                    prev: $scope.navDates.prev.format(
-                        'YYYY-MM-DD'),
-                    next: "Yesterday"
-                }
-            }
-            else {
-                $scope.navTitles = {
-                    current: $scope.navDates.current.format(
-                        'YYYY-MM-DD'),
-                    prev: $scope.navDates.prev.format(
-                        'YYYY-MM-DD'),
-                    next: $scope.navDates.next.format(
-                        'YYYY-MM-DD')
-                }
-            }
-        }
+        
 
         //opens modal to add ingredients/recipes on a current mealplan
         $scope.openCreatePlanModal = function(index) {
@@ -234,7 +258,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                         .then(function(response) {
                             $scope.details = response;
                             $scope.filts = response.filters; //model for storing response from API                
-                            console.log($scope.details);
                             // pagination
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
@@ -250,7 +273,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                         .then(function(response) {
                             $scope.details = response;
                             $scope.filts = response.filters; //model for storing response from API                
-                            console.log($scope.details);
                             // pagination
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
@@ -265,7 +287,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                         .then(function(response) {
                             $scope.details = response;
                             $scope.filts = response.filters; //model for storing response from API                
-                            console.log($scope.details);
                             // pagination
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
@@ -279,7 +300,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         };
 
         $scope.searchPlan = function(query, page, sortby) {
-            console.log($scope.currentMealPlanName);
             $scope.query = query;
             if (query) {
                 $scope.search(page, sortby);
@@ -305,7 +325,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
             //STRANGE LOOKING FOR LOOP
             for (var i = 0; i < x.length; i++) {
-                console.log(x);
 
                 // handle case where measure is only 100g or not an array
                 if (x[i].measure.length !== 0) {

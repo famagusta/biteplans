@@ -6,16 +6,17 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
 
         $scope.token = $window.localStorage.token;
         $scope.username = $window.localStorage.username;
-
-        $scope.tab = 1;
+        $scope.tab = {}
+        $scope.tab.tab = 1;
 
         $scope.setTab = function(tabId) {
-            $scope.tab = tabId;
+            $scope.tab.tab = tabId;
 //            $location.path('/dashboard/' + tabId)
+            console.log($scope.tab);
         };
 
         $scope.isSet = function(tabId) {
-            return $scope.tab === tabId;
+            return $scope.tab.tab === tabId;
         };
 
         $scope.edit = 0;
@@ -24,7 +25,9 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
             $scope.edit = 1;
         }
         
-        
+        $scope.calendar = function(){
+            $scope.tab.tab = 3;
+        }
     }
 ]);
 
