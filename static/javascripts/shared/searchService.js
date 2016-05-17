@@ -101,7 +101,35 @@ app.factory('searchService',
                 deferred.reject(error);
             });
             return deferred.promise;
-        }
+        };
+
+        var shortlistIngredients = function(id){
+            var deferred = $q.defer();
+            var url = constants['API_SERVER'] + 'biteplans/calendar/myingredients/';
+
+            httpService.httpPost(url, {
+                'meal_ingredient':id
+            }).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+
+        var shortlistRecipes = function(id){
+            var deferred = $q.defer();
+            var url = constants['API_SERVER'] + 'biteplans/calendar/myrecipes/';
+
+            httpService.httpPost(url, {
+                'meal_recipe':id
+            }).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
 
     return {
         search_ingredient : function(query, page, food_group, sortby) {
@@ -115,6 +143,12 @@ app.factory('searchService',
         },
         search_plan : function(query, page, sortby) {
             return search_plan(query, page, sortby); 
+        },
+        shortlistRecipes : function(id) {
+            return shortlistRecipes(id); 
+        },
+        shortlistIngredients : function(id) {
+            return shortlistIngredients(id); 
         }
     };
     

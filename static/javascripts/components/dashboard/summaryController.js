@@ -1,4 +1,4 @@
-'use strict'
+
 
 /* Angular Controller for summary tab on dashboard. Allows a user to check followed items of a plan */
 
@@ -85,6 +85,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         }
             //function to retrieve a particular days diet plan
         $scope.getDayPlan = function(dateString) {
+            console.log("caller is " + arguments.callee.caller.toString());;
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
                     $scope.plan_data = response;

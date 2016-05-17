@@ -7,6 +7,8 @@ app.controller('ingredientsController', ['$scope', 'searchService',
         $scope.foodgroup=[];
         $scope.openModal ={};
 
+        $scope.searchService = searchService;
+
         $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
 
             $scope.search(1, $scope.sortby);
