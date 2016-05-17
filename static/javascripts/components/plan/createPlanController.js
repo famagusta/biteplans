@@ -536,7 +536,6 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             }
                             //convert to JS date format for rendering
                             var newtm = new Date(moment(tm));
-                            
                             /* update the database */
                             planService.createMealPlan(mealObjToUpdate)
                                 .then(function(response) {
