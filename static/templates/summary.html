@@ -19,39 +19,75 @@
 
     <div class="row">
 
-        <div class="col s12 m12">
-
-            <ul class="day-list center">
-                <li><span class="card-title center-align"><a ng-click=
+        <div class="col s10 m10 push-s1 push-m1">
+            <div class="row center">
+                <div class="col s1">
+                     <span class="card-title center-align date_change"><a ng-click=
                 "getNextDay(-1)"><i class=
                 "fa fa-chevron-left cyan-text"></i></a></span>
-                </li>
-
-
+                
+                    </div>
+                
+               <div class="col s10">
+                        <ul class="day-list center">
+                    
                 <li><span class=
                 "day_list center-align">{{navTitles.prev}}</span>
                 </li>
 
 
-                <li><span class="day_list center-align"><i class=
-                "cyan-text" style="font-style:bold">{{navTitles.current}}</i></span>
+                <li><span class="day_list center-align "><i class=
+                "cyan-text date_change" style="font-style:bold">{{navTitles.current}}</i></span>
                 </li>
 
 
                 <li><span class=
                 "day_list center-align">{{navTitles.next}}</span>
                 </li>
-
-
-                <li><span class="card-title center-align"><a ng-click=
+                            </ul>
+                    </div>
+                
+                
+                <div class="col s1">
+                    
+                <span class="card-title center-align"><a ng-click=
                 "getNextDay(1)"><i class=
                 "fa fa-chevron-right cyan-text"></i></a></span>
-                </li>
+                
+                    </div>
+             
+            
+            
+            
+            
+            
+            
+            </div>
 
-                <li><span class="card-title center-align meal-text"><i class=
+            
+                
+                    
+                    
+                   
+                    
+                    
+                   
+        </div>
+        <div class="col s1 m1  shift_right">
+                 
+                
+                <span class="card-title center-align meal-text"><i class=
                 "material-icons">date_range</i></span>
-                </li>
-            </ul>
+                    </div>
+            
+               
+
+
+
+
+
+                
+            
     </div>
 
     <div class="row">

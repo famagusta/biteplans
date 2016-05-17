@@ -96,7 +96,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         $scope.unit = 0;
 
                         /* Function to update day_no or week_no */
-                        $scope.updateDayPlan = function(param, val,index) {
+                        $scope.updateDayPlan = function(param, val) {
                             
                             if (index === 1){
 

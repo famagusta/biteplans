@@ -64,9 +64,19 @@ calendar-md .md-toolbar-tools h2 {
 
 ul.day-list li {
     display: inline-block;
-/*    margin-left: 20px;*/
     font-size: 12px !important;
-    min-width: 100px;
+    margin:auto;
+}
+
+ul.day-list li:nth-child(2) {
+    display: inline-block;
+    font-size: 12px !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+}
+
+.date_change {
+    margin-top: 4px !important;
 }
 
 ul.day-list li span,i {
@@ -75,9 +85,12 @@ ul.day-list li span,i {
   
 }
 
-ul.day-list {
-    width: 40em !important;
+.shift_right {
+    margin-left: 33px !important;
+    margin-top: 3px !important;
 }
+
+
 
 .day_list {
     font-size: 20px;
