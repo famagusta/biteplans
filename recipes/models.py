@@ -5,6 +5,7 @@ from ingredients.models import Ingredient,\
 from authentication.models import Account
 from django.db.models.signals import pre_delete, pre_save, post_save
 from django.dispatch.dispatcher import receiver
+import decimal
 
 _UNSAVED_FILEFIELD = 'unsaved_filefield'
 
@@ -234,25 +235,33 @@ def save_nutrition(sender, instance, created, **kwargs):
         if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
                 nutrient_field.append(i)
     sortlist = None
-    ingredient = instance.ingredient
-    additionalinginfo = AddtnlIngredientInfo.objects.get(ingredient=ingredient)
     recipenutri = instance.recipe.recipeNutritionInfo
-    for i in nutrient_field:
+    recipeings = instance.recipe.recipeIngredients.all()
 
-        if hasattr(ingredient, i.name) and getattr(ingredient, i.name) != None:
-            old = getattr(recipenutri, i.name)
-            if created:
-                print "HFFSDADSADASDAS >>>>>>>>>>>>>>>>>>>>>>>>>>"
+    for i in nutrient_field:
+        setattr(recipenutri, i.name, 0.000)
+
+    recipenutri.save()
+
+    for j in recipeings:
+        additionalinginfo = AddtnlIngredientInfo.objects.get(
+                                                ingredient=j.ingredient)
+        for i in nutrient_field:
+            if hasattr(j.ingredient, i.name) and getattr(j.ingredient,
+                                                       i.name) != None:
+                old = getattr(recipenutri, i.name)
                 setattr(recipenutri, i.name,
-                        old + \
-                        instance.quantity * getattr(ingredient, i.name))
-        elif getattr(additionalinginfo, i.name) != None:
-            old = getattr(recipenutri, i.name)
-            if created:
-                print "<<<<<<<<<<<<<<<<<<<<HFFSDADSADASDAS >>>>>>>>>>>>>>>>>>>>>>>>>>"
+                        decimal.Decimal(old) + \
+                        decimal.Decimal(j.quantity) * decimal.Decimal(getattr(j.ingredient, i.name))\
+                         * decimal.Decimal(j.measure.weight/100))
+            elif hasattr(additionalinginfo, i.name) and \
+            getattr(additionalinginfo, i.name) != None:
+                old = getattr(recipenutri, i.name)
                 setattr(recipenutri, i.name,
-                        old + \
-                        instance.quantity * getattr(additionalinginfo, i.name))
+                        decimal.Decimal(old) + \
+                        decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
+                         * decimal.Decimal(j.measure.weight/100))
+
         recipenutri.save()
 
 @receiver(pre_delete, sender=RecipeIngredients)
@@ -271,14 +280,16 @@ def delete_nutrition(sender, instance, **kwargs):
         if hasattr(ingredient, i.name) and getattr(ingredient, i.name) != None:
             old = getattr(recipenutri, i.name)
 
-            if old != 0.000:
+            if old > 0.000:
                 setattr(recipenutri, i.name,
-                        getattr(recipenutri, i.name) - \
-                        instance.quantity * getattr(ingredient, i.name))
+                        decimal.Decimal(getattr(recipenutri, i.name)) - \
+                        instance.quantity * getattr(ingredient, i.name)\
+                         * decimal.Decimal(instance.measure.weight/100))
         elif getattr(additionalinginfo, i.name) != None:
             old = getattr(recipenutri, i.name)
-            if old != 0.000:
+            if old > 0.000:
                 setattr(recipenutri, i.name,
-                        getattr(recipenutri, i.name) - \
-                        instance.quantity * getattr(additionalinginfo, i.name))
+                        decimal.Decimal(getattr(recipenutri, i.name)) - \
+                        decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
+                        * decimal.Decimal(instance.measure.weight/100))
         recipenutri.save()
