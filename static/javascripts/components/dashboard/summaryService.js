@@ -20,7 +20,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
         };
 
         var updateEventIngredient = function(obj, id) {
-            var url = '/biteplans/calendar/dayPlanIngredient/' + id + '/';
+            var url = '/biteplans/calendar/eventingredients/' + id + '/';
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
                 .then(function(response) {
@@ -31,8 +31,23 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         };
         
+        // add ingredient to a meal
+        var addEventIngredient = function(obj) {
+            var url = '/biteplans/calendar/eventingredients/';
+            var deferred = $q.defer();
+            httpService.httpPost(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+        
+        
+        //* TDB
         var deleteMealIngredient = function(id) {
-            var url = '/biteplans/diet/mealing/' + id + '/';
+            var url = '/biteplans/calendar/eventingredients/' + id + '/';
             var deferred = $q.defer();
             httpService.httpDelete(url)
                 .then(function(response) {
@@ -43,7 +58,20 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         }
        
-
+        /* function to create a meal on a particular day
+           to be tested*/
+        var createMeal = function(obj, id) {
+            var url = '/biteplans/calendar/getPlanSummary/';
+            var deferred = $q.defer();
+            httpService.httpPost(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+        
         return {
             getUserDayPlan: function(dateString) {
                 return getUserDayPlan(dateString);
@@ -53,6 +81,12 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             },
              deleteMealIngredient: function(obj) {
                 return deleteMealIngredient(obj);
+            },
+            addEventIngredient: function(obj){
+                return addEventIngredient(obj);
+            },
+            createMeal : function(obj, id){
+                return createMeal(obj);
             }
         };
 

@@ -1,10 +1,11 @@
 from django.db import models
 from datetime import datetime
 from ingredients.models import Ingredient,\
-    IngredientCommonMeasures
+    IngredientCommonMeasures, AddtnlIngredientInfo
 from authentication.models import Account
 from django.db.models.signals import pre_delete, pre_save, post_save
 from django.dispatch.dispatcher import receiver
+import decimal
 
 _UNSAVED_FILEFIELD = 'unsaved_filefield'
 
@@ -39,6 +40,141 @@ class Recipe(models.Model):
         return self.name
 
 
+class RecipeNutrition(models.Model):
+    '''Model to keep track of recipe_info'''
+    id = models.AutoField(primary_key=True)
+
+    # empty name is not allowed for recipe
+    recipe = models.OneToOneField(Recipe, on_delete=models.CASCADE,
+                                  related_name="recipeNutritionInfo")
+    # moisture content of food in grams
+    water = models.DecimalField(default=0.00,
+
+                                max_digits=11,
+                                decimal_places=3)
+    # energy content of food in kilo calories
+    energy_kcal = models.DecimalField(max_digits=11,
+                                      decimal_places=3,
+                                      default=0.00)
+    # protein content in food in grams
+    protein_tot = models.DecimalField(default=0.00,
+
+                                      max_digits=11,
+                                      decimal_places=3)
+    # total fat (sat + unsat) content in food in grams
+    fat_tot = models.DecimalField(default=0.00,
+
+                                  max_digits=11,
+                                  decimal_places=3)
+    # total carbohydrate content (all sugars + fiber) in food in grams
+    carbohydrate_tot = models.DecimalField(default=0.00,
+
+                                           max_digits=11,
+                                           decimal_places=3)
+
+    # total fiber content in food in grams
+    fiber_tot = models.DecimalField(max_digits=11,
+                                    decimal_places=3,
+                                    default=0.00)
+
+
+    # total sugar content
+    sugar_tot = models.DecimalField(default=0.00,
+
+                                    max_digits=11,
+                                    decimal_places=3)
+
+    # Metallic Minerals
+    calcium_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                     decimal_places=3)
+    # phosphorous in mg
+    phosphorus_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                        decimal_places=3)
+    # magnesium in mg
+    magnesium_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                       decimal_places=3)
+    # iron in mg
+    iron_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                  decimal_places=3)
+    potassium_mg = models.DecimalField(max_digits=11, decimal_places=3,
+                                       default=0.00)
+    sodium_mg = models.DecimalField(max_digits=11, decimal_places=3,
+                                    default=0.00)
+    zinc_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                  decimal_places=3)
+    copper_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                    decimal_places=3)
+    manganese_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                       decimal_places=3)
+    selenium_mcg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                       decimal_places=3)
+    # Vitamins
+    # find out different types of vit a
+    vitamin_a_iu = models.DecimalField(default=0.00,
+ max_digits=11,
+                                       decimal_places=3)
+    vitamin_a_rae_mcg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                            decimal_places=3)
+    retinol_mcg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                      decimal_places=3)
+    thiamine_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                      decimal_places=3)
+    riboflavin_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                        decimal_places=3)
+    niacin_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                    decimal_places=3)
+    total_b6_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                      decimal_places=3)
+    folic_acid_total_mcg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                               decimal_places=3)
+    vitamin_c_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                       decimal_places=3)
+    vitamin_b12_mcg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                          decimal_places=3)
+    vitamin_e_mg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                       decimal_places=3)
+    vitamin_d_mcg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                        decimal_places=3)
+    vitamin_k_mcg = models.DecimalField(default=0.00,
+ max_digits=11,
+                                        decimal_places=3)
+
+    # Lipids & Cholesterol
+    fa_sat_g = models.DecimalField(default=0.00,
+ max_digits=11,
+                                   decimal_places=3)
+    fa_mono_g = models.DecimalField(default=0.00,
+ max_digits=11,
+                                    decimal_places=3)
+    fa_poly_g = models.DecimalField(default=0.00,
+ max_digits=11,
+                                    decimal_places=3)
+    cholestrl_mg = models.DecimalField(max_digits=11, decimal_places=3,
+                                       default=0.00)
+
+    def __unicode__(self):
+        return self.recipe.name + " Nutrition info"
+
+
 class RecipeIngredients(models.Model):
     '''Model to match the one to many relationshsip
        between recipe & ingredients. One recipe will
@@ -71,7 +207,7 @@ class RecipeIngredients(models.Model):
     class Meta:
         '''Meta details, defines a composite unique key'''
         unique_together = ('recipe', 'ingredient')
- 
+
 
 @receiver(pre_save, sender=Recipe)
 def skip_saving_file(sender, instance, **kwargs):
@@ -79,10 +215,81 @@ def skip_saving_file(sender, instance, **kwargs):
         setattr(instance, _UNSAVED_FILEFIELD, instance.image)
         instance.image = None
 
-        
+
 @receiver(post_save, sender=Recipe)
 def save_file(sender, instance, created, **kwargs):
     if created and hasattr(instance, _UNSAVED_FILEFIELD):
         instance.image = getattr(instance, _UNSAVED_FILEFIELD)
-        instance.save()        
+        instance.save()
 
+    if created:
+        RecipeNutrition.objects.create(recipe=instance)
+
+
+
+@receiver(post_save, sender=RecipeIngredients)
+def save_nutrition(sender, instance, created, **kwargs):
+    sortlist = RecipeNutrition._meta.fields
+    nutrient_field = []
+    for i in sortlist:
+        if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
+                nutrient_field.append(i)
+    sortlist = None
+    recipenutri = instance.recipe.recipeNutritionInfo
+    recipeings = instance.recipe.recipeIngredients.all()
+
+    for i in nutrient_field:
+        setattr(recipenutri, i.name, 0.000)
+
+    recipenutri.save()
+
+    for j in recipeings:
+        additionalinginfo = AddtnlIngredientInfo.objects.get(
+                                                ingredient=j.ingredient)
+        for i in nutrient_field:
+            if hasattr(j.ingredient, i.name) and getattr(j.ingredient,
+                                                       i.name) != None:
+                old = getattr(recipenutri, i.name)
+                setattr(recipenutri, i.name,
+                        decimal.Decimal(old) + \
+                        decimal.Decimal(j.quantity) * decimal.Decimal(getattr(j.ingredient, i.name))\
+                         * decimal.Decimal(j.measure.weight/100))
+            elif hasattr(additionalinginfo, i.name) and \
+            getattr(additionalinginfo, i.name) != None:
+                old = getattr(recipenutri, i.name)
+                setattr(recipenutri, i.name,
+                        decimal.Decimal(old) + \
+                        decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
+                         * decimal.Decimal(j.measure.weight/100))
+
+        recipenutri.save()
+
+@receiver(pre_delete, sender=RecipeIngredients)
+def delete_nutrition(sender, instance, **kwargs):
+    sortlist = RecipeNutrition._meta.fields
+    nutrient_field = []
+    for i in sortlist:
+        if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
+                nutrient_field.append(i)
+    sortlist = None
+    ingredient = instance.ingredient
+    additionalinginfo = AddtnlIngredientInfo.objects.get(ingredient=ingredient)
+    recipenutri = instance.recipe.recipeNutritionInfo
+    for i in nutrient_field:
+
+        if hasattr(ingredient, i.name) and getattr(ingredient, i.name) != None:
+            old = getattr(recipenutri, i.name)
+
+            if old > 0.000:
+                setattr(recipenutri, i.name,
+                        decimal.Decimal(getattr(recipenutri, i.name)) - \
+                        instance.quantity * getattr(ingredient, i.name)\
+                         * decimal.Decimal(instance.measure.weight/100))
+        elif getattr(additionalinginfo, i.name) != None:
+            old = getattr(recipenutri, i.name)
+            if old > 0.000:
+                setattr(recipenutri, i.name,
+                        decimal.Decimal(getattr(recipenutri, i.name)) - \
+                        decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
+                        * decimal.Decimal(instance.measure.weight/100))
+        recipenutri.save()

@@ -7,14 +7,14 @@ from import_export.admin import ImportExportModelAdmin
 from import_export import resources
 from ingredients.models import Ingredient, IngredientCommonMeasures,\
     AddtnlIngredientInfo
-from recipes.models import Recipe, RecipeIngredients
+from recipes.models import Recipe, RecipeIngredients, RecipeNutrition
 from authentication.models import Account
 from dietplans.models import DietPlan, DayPlan, MealPlan, MealRecipe
 from imported_recipes.models import ImportedRecipe, ImportedRecipeIngredients, \
     ImportedIngredientQuantity
 
 from plan_calendar.models import UserPlanHistory, MealHistory, \
-EventIngredient, EventRecipe, UserLoggedIngredient, UserLoggedRecipe
+EventIngredient, EventRecipe, MyIngredient, MyRecipe
 
 
 class IngResource(resources.ModelResource):
@@ -46,5 +46,6 @@ admin.site.register(UserPlanHistory)
 admin.site.register(MealHistory)
 admin.site.register(EventIngredient)
 admin.site.register(EventRecipe)
-admin.site.register(UserLoggedIngredient)
-admin.site.register(UserLoggedRecipe)
+admin.site.register(MyIngredient)
+admin.site.register(MyRecipe)
+admin.site.register(RecipeNutrition)

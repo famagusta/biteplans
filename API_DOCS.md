@@ -289,6 +289,11 @@ request{
    response={
    <pk>:pk of followed dietplan entry
    }
+   
+ /* GET */
+ url = /biteplans/calendar/follow/?date=YYYY-MM-DD
+ just doing a simple get with the auth token gets the plan history 
+ of the user for a given month
 
 12)API TO GET SCHEDULE OF A DAY OF USER
 
@@ -305,3 +310,55 @@ response :{
     ]
 }
 
+13)##Log meal history
+request : url /biteplans/calendar/getPlanSummary/
+/*GET ONLY*/
+request : url /biteplans/calendar/getPlanSummary/?date=yyyy-mm-dd
+data ={
+  name:<name>,
+  date:<date>,(yyyy-mm-dd)
+  time:hh:mm:ss}
+
+
+response :{
+    mealhistory_id:pk
+}
+
+delete, patch api would like before, just send primary key in the url as
+url : url /biteplans/calendar/getPlanSummary/pk
+
+and httpdelete for delete, httppatch for update with required fields
+
+
+14)##Event Ingredient
+##API made by robin doc to be done by robin
+/*POST*/
+{
+meal_history:<pk>,
+meal_ingredient:<pk>,
+unit_desc:<pk>,
+quantity:<int>,
+is_checked:<boolean>
+
+}
+
+
+15) Shortlisting ingredient and recipe
+url /biteplans/calendar/myingredients(for ingredients)
+url /biteplans/calendar/myrecipes(for recipes)
+
+##POST
+request for shortlisting ingredients {
+  meal_ingredient: <pk of ingredient> 
+}
+##POST
+request for shortlisting recipes {
+  meal_recipe:<pk of recipe>
+}
+
+###for unfollow
+
+##Delete
+httpDelete,
+url /biteplans/calendar/myingredients/pk/(for ingredients)
+url /biteplans/calendar/myrecipes/pk/(for recipes)

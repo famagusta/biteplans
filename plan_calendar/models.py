@@ -53,7 +53,8 @@ class MealHistory(models.Model):
                                       on_delete=models.CASCADE,
                                       related_name="FollowPlanMealPlans",
                                       null=True)
-    user_mealplan = models.ForeignKey(MealPlan, on_delete=models.CASCADE)
+    user_mealplan = models.ForeignKey(MealPlan, on_delete=models.SET_NULL,
+                                      null=True)
 
     date = models.DateField()
     time = models.TimeField()
@@ -73,7 +74,7 @@ class EventIngredient(models.Model):
         and whether the user has ticked it in his dashboard'''
     meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE,
                                      related_name="followingMealPlanIngredient")
-    meal_ingredient = models.ForeignKey(MealIngredient,
+    meal_ingredient = models.ForeignKey(Ingredient,
                                         on_delete=models.CASCADE)
     is_checked = models.BooleanField(default=False)
     quantity = models.DecimalField(max_digits=11, decimal_places=3)
@@ -85,35 +86,26 @@ class EventIngredient(models.Model):
 class EventRecipe(models.Model):
     ''' stores an recipe from a meal plan or log for a given day
         and whether the user has ticked it in his dashboard'''
-    meal_recipe = models.ForeignKey(MealRecipe, on_delete=models.CASCADE)
+    meal_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE,
                                      related_name="followingMealPlanRecipe")
     is_checked = models.BooleanField(default=False)
     no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
 
 
-class UserLoggedIngredient(models.Model):
+class MyIngredient(models.Model):
     '''stores ingredients logged of bookmarked by users'''
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="loggedIngredients")
     meal_ingredient = models.ForeignKey(Ingredient,
                                         on_delete=models.CASCADE)
-    is_checked = models.BooleanField(default=False)
-    quantity = models.DecimalField(max_digits=11, decimal_places=3)
-    unit_desc = models.ForeignKey(IngredientCommonMeasures,
-                                  on_delete=models.CASCADE,
-                                  related_name="logged_ing_qty")
-    date_time = models.DateTimeField(unique=True)
 
 
-class UserLoggedRecipe(models.Model):
+class MyRecipe(models.Model):
     '''stores recipes logged of bookmarked by users'''
     meal_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="loggedrecipes")
-    is_checked = models.BooleanField(default=False)
-    no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
-    date_time = models.DateTimeField(unique=True)
 
 
 
@@ -127,7 +119,8 @@ def assosiate_mealhistory(sender, instance, created, **kwargs):
             mealplanarr = daylist[i].mealplan.all()
             for j in range(len(mealplanarr)):
                 date = instance.start_date + timedelta(
-                          days=daylist[i].day_no + (daylist[i].week_no-1)*7)
+                          days=(daylist[i].day_no) - \
+                          1 + (daylist[i].week_no - 1) * 7)
                 time = mealplanarr[j].time
                 MealHistory.objects.create(name=mealplanarr[j].name,
                                            user=instance.user,
@@ -138,21 +131,21 @@ def assosiate_mealhistory(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=MealHistory)
 def assosiate_mealingres(sender, instance, created, **kwargs):
-    if created:
+    if created and instance.user_mealplan != None:
         mealplan = instance.user_mealplan
         mealingredient = mealplan.mealingredient
         mealrecipe = mealplan.mealrecipe
 
         for i in mealingredient.all():
             EventIngredient.objects.create(meal_history=instance,
-                                           meal_ingredient=i,
+                                           meal_ingredient=i.ingredient,
                                            quantity=i.quantity,
                                            unit_desc=i.unit
                                            )
 
         for i in mealrecipe.all():
             EventRecipe.objects.create(meal_history=instance,
-                                       meal_recipe=i,
+                                       meal_recipe=i.recipe,
                                        no_of_servings=i.no_of_servings
                                        )
 

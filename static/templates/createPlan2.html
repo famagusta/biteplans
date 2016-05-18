@@ -372,11 +372,10 @@
                 </div>
             </div>
         </div>
-        </div>
-        </div>
+    </div>
+
+    <!--    Nutritional Information -->
     
-
-
 <div class="container" id="create-container">
     <div class="row">
         <div class="col s12 m12">
@@ -572,7 +571,7 @@
     <div class="modal-content">
         <div class="row">
             <div class="input-field col s12">
-                <input class="validate" id="meal_name" ng-model="meal" type=
+                <input class="validate" id="meal_name" ng-model="meal.name" type=
                 "text"> <label for="meal_name">Meal name</label>
             </div>
         </div>
@@ -583,9 +582,8 @@
                 <p>Meal Time</p>
 
              <input id="exampleInput" name=
-                                            "input" ng-blur=
-                                            "updateDayMealPlan($index)"
-                                            ng-model="key.time" placeholder=
+                                            "input"
+                                            ng-model="meal.time" placeholder=
                                             "HH:mm:ss" required="" type="time">
             </div>
 <!--
@@ -630,7 +628,7 @@
 
 
 
-<div class="modal" id="create-plan-modal">
+<div class="modal" id="add-food-modal">
             <a class=
             "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
 
