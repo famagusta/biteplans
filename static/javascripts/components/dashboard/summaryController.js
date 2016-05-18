@@ -192,6 +192,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 prev: moment($scope.tab.dateClick)
                     .subtract(1, "days")
             }
+            contextDate = moment($scope.tab.dateClick);
             $scope.checkNavTitle();
             $scope.getDayPlan(contextDate.format('YYYY-MM-DD'));
         }

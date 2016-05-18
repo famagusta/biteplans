@@ -42,7 +42,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: '/static/templates/searchIngredients.html'
             })
             .when('/dashboard', {
-                controller: 'dashboardController',
+//                controller: 'dashboardController',
                 templateUrl: '/static/templates/dashboard.html'
             })
             .when('/plan/:id', {
