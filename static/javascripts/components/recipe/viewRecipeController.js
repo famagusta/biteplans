@@ -16,7 +16,9 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
                 $scope.recipe = response;
                 $scope.parsed_directions = $scope.recipe.directions
                     .split('\n');
+            console.log($scope.recipe.recipeIngredients.length);
                 for(var i=0; i< $scope.recipe.recipeIngredients.length; i++){
+                    console.log("heheheheheh");
                     searchService.get_ingredient_addtnl_info($scope.recipe.recipeIngredients[i].ingredient.id)
                             .then(function(response) {
                                 $scope.AdditionalIngredientInfo.push(response); //model for storing response from API                

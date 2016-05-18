@@ -51,6 +51,15 @@ app.directive('dropdownButton', function() {
    };
 });
 
+app.directive('adjustPlaceholder', function() {
+    return{
+        restrict: 'A',
+        link: function(scope, elem) {
+            $(elem).addClass('active');
+        }
+    }
+});
+
 
 app.directive('clickAnywhereButHere', ['$document', function ($document) {
         var directiveDefinitionObject = {
