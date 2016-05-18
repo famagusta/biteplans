@@ -39,7 +39,9 @@ class RecipeSerializer(serializers.ModelSerializer):
 #        fields = ('id', 'name', 'description', 'directions', 'prep_time',
 #            'cook_time', 'servings', 'source', 'url', 'created_by',
 #            'image', 'recipeIngredients')
-        read_only_fields = ('date_published', 'created_by', )
+        read_only_fields = ('date_published', 'created_by', 'carbohydrate_tot',\
+                            'water', 'fat_tot', 'fiber_tot', 'protein_tot', \
+                            'energy_kal', 'sugar_tot', )
 
 
 class RecipeReadSerializer(serializers.ModelSerializer):
@@ -50,4 +52,6 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 #        fields = ('id', 'name', 'description', 'directions', 'prep_time',
 #            'cook_time', 'servings', 'source', 'url', 'created_by',
 #            'image', 'recipeIngredients')
-        read_only_fields = ('date_published', 'created_by', )
+        read_only_fields = ('date_published', 'created_by', 'carbohydrate_tot',\
+                            'water', 'fat_tot', 'fiber_tot', 'protein_tot', \
+                            'energy_kal', 'sugar_tot', )

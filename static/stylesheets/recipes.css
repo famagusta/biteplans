@@ -13,6 +13,11 @@ pre {
  white-space: -o-pre-wrap;    /* Opera 7 */
  word-wrap: break-word;   
 }
+.recipeCheckCard{
+
+    height:500px;
+
+}
 
 pre p {
     line-height: 26px;

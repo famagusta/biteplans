@@ -1,6 +1,6 @@
 '''api views for our ingredients'''
 from ingredients.models import Ingredient, AddtnlIngredientInfo
-from recipes.models import Recipe
+from recipes.models import Recipe, RecipeNutrition
 from authentication.models import Account
 from dietplans.models import DietPlan
 from dietplans.serializers import DietPlanSerializer
@@ -44,38 +44,55 @@ class GlobalSearchList(generics.GenericAPIView):
     def post(self, request):
         '''Handles post request'''
         result = self.get_queryset()
-        food_group = request.POST.get('food_group', False)
-        filters = None
-
-
         ##Filters are only applicable for ingredients,
         ##so this gathers the list of possible filters
-        if request.POST.get('type', False) == 'ingredients':
+        if request.POST.get('type', False) == 'ingredients' \
+        or request.POST.get('type', False) == 'plans':
             filters = result.values_list("food_group").distinct()
 
-        ##This gather the list of sort options
-        sortl = []
-        for i in self.sortlist:
-            if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
-                sortl.append(i.name)
-        self.sortlist = None
+            food_group = request.POST.get('food_group', False)
 
-        ##this  hecks if sort by is reuested and applies it if 
-        ##that is the case
+            ##This gather the list of sort options
+            sortl = []
+            for i in self.sortlist:
+                if str(type(i)) == \
+                "<class 'django.db.models.fields.DecimalField'>":
+                    sortl.append(i.name)
+            self.sortlist = None
 
-        sortby = request.POST.get('sortby', False)
-        if sortby != False:
-            result = result.order_by('-'+sortby)
+            ##this  hecks if sort by is reuested and applies it if
+            ##that is the case
 
-        ##this applies filters
-        if food_group != False:
-            food_group = json.loads(food_group)
-            res = []
-            for i in food_group:
-                res += result.filter(food_group=i)
-            result = res
+            sortby = request.POST.get('sortby', False)
+            if sortby != False:
+                result = result.order_by('-'+sortby)
 
-        ##total number of pages 
+            ##this applies filters
+            if food_group != False:
+                food_group = json.loads(food_group)
+                res = []
+                for i in food_group:
+                    res += result.filter(food_group=i)
+                result = res
+
+        elif request.POST.get('type', False) == 'recipes':
+            ##This gather the list of sort options
+            sortl = []
+            filters = None
+            for i in self.sortlist:
+                if str(type(i)) == \
+                "<class 'django.db.models.fields.DecimalField'>":
+                    sortl.append(i.name)
+            self.sortlist = None
+
+            ##this  hecks if sort by is reuested and applies it if
+            ##that is the case
+
+            sortby = request.POST.get('sortby', False)
+            if sortby != False:
+                result = result.order_by('-'+sortby)
+
+        ##total number of pages
         total = math.ceil(len(result)/6.0)
 
         ##pagination for 6 results in each page
@@ -88,7 +105,8 @@ class GlobalSearchList(generics.GenericAPIView):
             # If page is not an integer, deliver first page.
             result = paginator.page(1)
         except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
+            # If page is out of range (e.g. 9999),
+            ##deliver last page of results.
             result = paginator.page(paginator.num_pages)
 
         result = serializer(result, many=True)

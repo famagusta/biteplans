@@ -47,17 +47,31 @@ app.factory('searchService',
         return deferred.promise;};
     
        // Function to search recipes
-        var search_recipe = function(quer, page) {
+        var search_recipe = function(quer, page, sortby) {
             var url = constants['API_SERVER'] + 'biteplans/search/';
             if(page!==undefined && page!==null)
                 {
                     url += '?page'+'='+page;
                 }
+
+            var obj = {};
             var deferred = $q.defer();
-            httpService.httpPost(url, {
-                             'query':quer,
-                             'type':"recipes"
-                         }).then(
+
+            if(sortby!==undefined && sortby!==null){
+                obj = {
+                    'query':quer,
+                    'type':'recipes',
+                    'sortby':sortby,
+                };
+            }
+            else{
+                obj = {
+                    'query':quer,
+                    'type':'recipes'
+                };
+
+            }
+            httpService.httpPost(url, obj).then(
           function(response) {
             deferred.resolve(response);
 

@@ -5,10 +5,10 @@ app.controller('recipesController', ['$scope', 'searchService',
         $scope.selected = 0;
         $scope.query_recipe = '';
         
-        $scope.search_recipe = function() {
-            var query = $scope.query_recipe
+        $scope.search_recipe = function(page, sortby) {
+            var query = $scope.query_recipe;
             if (query) {
-                searchService.search_recipe(query)
+                searchService.search_recipe(query, page, sortby)
                     .then(function(response) {
                         $scope.recipeDetails = response;
                     console.log($scope.recipeDetails);
