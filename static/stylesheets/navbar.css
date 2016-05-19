@@ -57,7 +57,8 @@ nav ul li.active a {
 }
 
 #small_logo {
-    height: 67% !important;
+    height: 45px !important;
+    width: 45px !important;
     margin-top: 9px;
     margin-left: 14px;
 }

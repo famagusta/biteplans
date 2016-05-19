@@ -189,7 +189,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
                     deferred.reject(error);
                 });
                 return deferred.promise;
-            }
+            };
 
 
         return {

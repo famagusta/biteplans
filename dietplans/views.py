@@ -150,11 +150,11 @@ class MealRecipeViewSet(viewsets.ModelViewSet):
 		print request.data
 		if serializer.is_valid():
 			# dayplan = DayPlan.objects.get(request.data['day'])
-			obj = MealIngredient.objects.create(
-			                              **serializer.validated_data)
+			obj = MealRecipe.objects.create(
+			                              		**serializer.validated_data)
 
 			obj.save()
-			return Response({'meal_receipe_id':obj.id},
+			return Response({'meal_recipe_id':obj.id},
 			                status=status.HTTP_201_CREATED)
 		else:
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
