@@ -190,8 +190,7 @@
                                 </div>
 
                         <div id="meal_list_card">
-                        <div class="hor-line" ng-repeat=
-                        "key in mealPlanNameArray track by $index">
+                        <div class="hor-line" ng-repeat="key in mealPlanNameArray track by $index">
                             <div class="row">
                                         <div class="col s1 m1">
                                             <a ng-click=
@@ -221,9 +220,8 @@
                                         </div>
                             </div>
 
-
-                            <div class="row center lowbo" ng-if=
-                            "key.mealingredient.length>0">
+                            <div class="row center lowbo" ng-if="key.mealingredient.length>0"><b>Ingredients:</b></div>
+                            <div class="row center lowbo" ng-if="key.mealingredient.length>0">
                                 <div class="col m4 namecol">
                                     <p class="meal-text">Name</p>
                                 </div>
@@ -261,7 +259,6 @@
                             </div>
                             <br>
 
-
                             <div class="row" ng-repeat=
                             "item1 in key.mealingredient track by $index">
                                 <div class="row selected-meal-ingredient-list">
@@ -274,7 +271,7 @@
 
                                     <div class="col m1">
                                         <input class="serving" ng-model=
-                                        "item1.quantity" ng-change=
+                                        "item1.quantity" ng-blur=
                                         "updateMealIngredient(item1)" ng-pattern=
                                         "/^[0-9]+(\.[0-9]{1,2})?$/" step="0.25"
                                         type="number"min="0">
@@ -329,6 +326,102 @@
                             </div>
 
 
+                            <div class="row center lowbo" ng-if="key.mealrecipe.length>0"><b>Recipes:</b></div>
+
+
+                            <div class="row center lowbo" ng-if="key.mealrecipe.length>0">
+                                <div class="col m4 namecol">
+                                    <p class="meal-text">Name</p>
+                                </div>
+
+
+                                <div class="col m1">
+                                    <p class="meal-text">&nbsp;&nbsp;
+                                    &nbsp;&nbsp; Amt</p>
+                                </div>
+
+
+                                <div class="col m1">
+                                    <p class="meal-text">Carbs</p>
+                                </div>
+
+
+                                <div class="col m1">
+                                    <p class="meal-text">Proteins</p>
+                                </div>
+
+
+                                <div class="col m1">
+                                    <p class="meal-text">Fats</p>
+                                </div>
+
+
+                                <div class="col m1">
+                                    <p class="meal-text">Fiber</p>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="row" ng-repeat=
+                            "item1 in key.mealrecipe track by $index">
+                                <div class="row selected-meal-ingredient-list">
+                                    <div class="col m4">
+                                        <p class="meal-text" ng-model=
+                                        "plan.ingredientData">
+                                        {{item1.recipe.name}}</p>
+                                    </div>
+
+
+                                    <div class="col m1">
+                                        <input class="serving" ng-model=
+                                        "item1.servings" ng-blur=
+                                        "updateMealRecipe(item1)" ng-pattern=
+                                        "/^[0-9]+(\.[0-9]{1,2})?$/" step="0.25"
+                                        type="number"min="0">
+                                    </div>
+
+
+
+
+                                    <div class="col m1">
+                                        <p class="meal-text">
+                                        {{item1.recipe.carbohydrate_tot *
+                                        item1.servings | number}}</p>
+                                    </div>
+
+
+                                    <div class="col m1 namecol">
+                                        <p class="meal-text">
+                                        {{item1.recipe.protein_tot *
+                                        item1.servings | number}}</p>
+                                    </div>
+
+
+                                    <div class="col m1 namecol">
+                                        <p class="meal-text">
+                                        {{item1.recipe.fat_tot *
+                                        item1.servings | number}}</p>
+                                    </div>
+
+
+                                    <div class="col m1">
+                                        <p class="meal-text">
+                                        {{item1.recipe.fiber_tot *
+                                        item1.servings | number}}</p>
+                                    </div>
+
+
+                                    <div class="col m1">
+                                        <a ng-click=
+                                        "removeIngredientsFromSavedMealRecipe(key.counter, $index)">
+                                        <i class=
+                                        "material-icons b">delete</i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="row">
                                 <div class="col s12">
                                     <span id="shortcut-menu"><a class=
@@ -341,7 +434,7 @@
                                    <span class=
                                     "cyan-text">|</span>&nbsp;&nbsp; <a class=
                                     "cyan-text" ng-click=
-                                    "openMealInfoModal($index)">Meal Info</a></span>
+                                    "openMealInfoModal($index)"><b>Meal Info</b></a>
                                 </div>
                             </div>
                         </div>

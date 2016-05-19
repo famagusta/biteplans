@@ -147,6 +147,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             var id = $routeParams.id;
                             planService.getdayplan(id, day, week)
                                 .then(function(response) {
+                                    console.log(response);
                                     $scope.dayplan.id = response.id;
                                     $scope.dayplan.day_no = response.day_no;
                                     $scope.dayplan.week_no = response.week_no;
@@ -187,6 +188,20 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         }
 
                                         // TODO: similar thing for recipes
+
+                                        for (var j = 0; j <
+                                            response.mealplan[i]
+                                            .mealrecipe.length; j++
+                                        ) {
+                                            response.mealplan[i]
+                                                .mealrecipe[
+                                                    j].servings =
+                                                parseFloat(
+                                                    response.mealplan[
+                                                        i].mealrecipe[
+                                                        j].servings
+                                                );
+                                        }
                                     }
 
                                     $scope.mealPlanNameArray =
@@ -318,6 +333,24 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             };
 
                             planService.updateMealIngredient(obje,
+                                    obj.id)
+                                .then(function() {
+                                    // TODO: update msg to user
+                                }, function(error) {
+                                    console.log(error);
+                                });
+                        };
+
+
+                        // updates meal ingredient in a meal plan
+                        $scope.updateMealRecipe = function(obj) {
+                            // CONSIDER RENAMING THIS
+                            var obje = {
+                                'servings': parseFloat(obj.servings),
+                                'ingredient': obj.recipe.id,
+                            };
+
+                            planService.updateMealRecipe(obje,
                                     obj.id)
                                 .then(function() {
                                     // TODO: update msg to user
@@ -495,7 +528,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         .push({
 
                                             recipe : x[i],
-                                            quantity: 1.00,
+                                            servings: 1.00,
                                         });
 
 
@@ -632,6 +665,23 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     .then(function(response) {
                                         $scope.mealPlanNameArray[
                                                 key].mealingredient
+                                            .splice(element, 1);
+                                    }, function(response) {
+                                        console.log(response);
+                                    });
+                            };
+
+
+                            // removes recipes which are saved in meal
+                        $scope.removeIngredientsFromSavedMealRecipe =
+                            function(key, element) {
+
+                                var temp = $scope.mealPlanNameArray[key]
+                                    .mealrecipe[element];
+                                planService.deleteMealRecipe(temp.id)
+                                    .then(function(response) {
+                                        $scope.mealPlanNameArray[
+                                                key].mealrecipe
                                             .splice(element, 1);
                                     }, function(response) {
                                         console.log(response);
@@ -818,12 +868,12 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             for (var i = recipeind; i < temprecipearr.length; i++) {
                                 // CONSIDER RENAMING THIS HORRIBLY NAMED OBJECT
                                 var obj = {
-                                    'reciple': temprecipearr[i].recipe
+                                    'recipe': temprecipearr[i].recipe
                                         .id,
                                     'meal_plan': $scope.mealPlanNameArray[
                                         current].id,
                                     'servings': parseFloat(temprecipearr[
-                                        i].quantity)
+                                        i].servings)
                                 };
 
                                 (function(cntr, obj) {
