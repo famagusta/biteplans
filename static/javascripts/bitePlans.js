@@ -22,9 +22,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     function($routeProvider, $locationProvider, $httpProvider,
         $authProvider, $controllerProvider, httpMethodInterceptorProvider) {
         
+        /* whitelist auth domains to activate spinner */
         httpMethodInterceptorProvider.whitelistDomain('google.com');
         httpMethodInterceptorProvider.whitelistDomain('facebook.com');
 
+        /* intercept http requests to show spinners */
         $httpProvider.interceptors.push(function($q) {
             return {
              'request': function(config) {
