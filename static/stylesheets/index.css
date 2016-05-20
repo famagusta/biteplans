@@ -19,9 +19,21 @@ span, div, input {
     font-weight: bold;
 }
 
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #ff5252 !important; 
+    border: 2px solid #ff5252 !important;
+}
 
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after {
+    border: 2px solid #ff5252 !important;
+    
+}
 
-
+[type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after {
+    background-color: #ff5252 !important;
+    border-color: #ff5252 !important;
+}
+    
 input:focus {
     border-color: #00bcd4 !important;
 }

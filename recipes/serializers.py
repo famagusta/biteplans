@@ -39,4 +39,19 @@ class RecipeSerializer(serializers.ModelSerializer):
 #        fields = ('id', 'name', 'description', 'directions', 'prep_time',
 #            'cook_time', 'servings', 'source', 'url', 'created_by',
 #            'image', 'recipeIngredients')
-        read_only_fields = ('date_published', 'created_by', )
+        read_only_fields = ('date_published', 'created_by', 'carbohydrate_tot',\
+                            'water', 'fat_tot', 'fiber_tot', 'protein_tot', \
+                            'energy_kal', 'sugar_tot', )
+
+
+class RecipeReadSerializer(serializers.ModelSerializer):
+    '''serializes a python object into JSON serializabale format'''
+    class Meta:
+        '''defines the model to be serialized'''
+        model = Recipe
+#        fields = ('id', 'name', 'description', 'directions', 'prep_time',
+#            'cook_time', 'servings', 'source', 'url', 'created_by',
+#            'image', 'recipeIngredients')
+        read_only_fields = ('date_published', 'created_by', 'carbohydrate_tot',\
+                            'water', 'fat_tot', 'fiber_tot', 'protein_tot', \
+                            'energy_kal', 'sugar_tot', )

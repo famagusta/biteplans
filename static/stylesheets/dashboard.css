@@ -20,8 +20,33 @@
     width: 94%;
 }
 
+
 .top_mar {
-    margin-top: 29px;
+    margin-top: 8px;
+}
+
+.dash_graphcard {
+    height: 40em !important;
+}
+.sidemenu_margin {
+    margin-top: 26px;
+}
+
+.heart {
+    position: relative !important;
+    right: 16em !important;
+    top: 2em;
+}
+
+.cmenu {
+    position: relative;
+    top: -11px;
+}
+.dash_progress {
+    width: 95%;
+    height: 14px !important;
+    background-color: #eee;
+    border-radius: 5px;
 }
 
 .dropdown-content li>a {
@@ -47,11 +72,48 @@ calendar-md .md-toolbar-tools h2 {
     font-size: 16px;
 }
 
+.meal_lst{
+    margin-top: -14px !important;
+}
+
+.myrecipe_card {
+    height: 34em !important;
+}
+
+.prof_edit {
+    position: relative;
+    left: 15em;
+}
+
+.recipe_img {
+    height: 100% !important;
+}
+
+.recipe-im {
+    height: 40%;
+}
+
+.recipe-content {
+    height: 50% !important;
+}
+
+.select-wrapper input.select-dropdown {
+    color: #9e9e9e !important;
+}
 
 /*
     margin-top: 0;
     margin-left: -19px;
 */
+
+#dash_servings {
+    border: none;
+    width: 193% !important;
+}
+
+.bin {
+    position: relative !important;
+    bottom: 11px !important;
 }
 
 .click_icon::focus {
@@ -64,10 +126,22 @@ calendar-md .md-toolbar-tools h2 {
 
 ul.day-list li {
     display: inline-block;
-/*    margin-left: 20px;*/
     font-size: 12px !important;
-    min-width: 100px;
+    margin:auto;
 }
+
+ul.day-list li:nth-child(2) {
+    display: inline-block;
+    font-size: 12px !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+}
+
+.date_change {
+    position: relative;
+    top: 8px;
+}
+
 
 ul.day-list li span,i {
     font-family: 'Roboto';
@@ -75,9 +149,12 @@ ul.day-list li span,i {
   
 }
 
-ul.day-list {
-    width: 40em !important;
+.shift_right {
+    margin-left: 33px !important;
+    margin-top: 3px !important;
 }
+
+
 
 .day_list {
     font-size: 20px;

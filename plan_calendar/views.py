@@ -118,7 +118,6 @@ class EventIngredientsViewSet(viewsets.ModelViewSet):
 
 class MyIngredientsViewset(viewsets.ModelViewSet):
 	queryset = MyIngredient.objects.all()
-	lookup_field = 'user'
 	serializer_class = MyIngredientSerializer
 
 	def get_permissions(self):
@@ -147,10 +146,21 @@ class MyIngredientsViewset(viewsets.ModelViewSet):
 			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+	def list(self, request):
+		'''returns queryset for get method'''
+		user = request.user
+		if user != None:
+			obj = self.queryset.filter(user=request.user)
+		else:
+			obj = self.queryset
+
+		obj = self.serializer_class(obj, many=True)
+		return Response(obj.data, status=status.HTTP_200_OK)
+
+
 
 class MyRecipeViewset(viewsets.ModelViewSet):
 	queryset = MyRecipe.objects.all()
-	lookup_field = 'user'
 	serializer_class = MyRecipeSerializer
 
 	def get_permissions(self):
@@ -177,3 +187,14 @@ class MyRecipeViewset(viewsets.ModelViewSet):
 		else:
 			print serializer.errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def list(self, request):
+		'''returns queryset for get method'''
+		user = request.user
+		if user != None:
+			obj = self.queryset.filter(user=request.user)
+		else:
+			obj = self.queryset
+
+		obj = self.serializer_class(obj, many=True)
+		return Response(obj.data, status=status.HTTP_200_OK)

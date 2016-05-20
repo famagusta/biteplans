@@ -10,19 +10,6 @@ IngredientMeasureSerializer
 
 class DietPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
-   
-    # age = serializers.DecimalField(read_only=False, required=False,
-    #                   allow_null=True, max_digits=11, decimal_places=3)
-    # gender = serializers.CharField(read_only=False, required=False,
-    #                   allow_null=True, allow_blank=True)
-    # height = serializers.DecimalField(read_only=False, required=False,
-    #                   allow_null=True, max_digits=11, decimal_places=3)
-    # weight = serializers.DecimalField(read_only=False, required=False,
-    #                   allow_null=True, max_digits=11, decimal_places=3)
-    # goal = serializers.CharField(read_only=False, required=False,
-    #                   allow_null=True, allow_blank=True)
-    # description = serializers.CharField(read_only=False, required=False,
-    #                   allow_null=True, allow_blank=True, max_length=None, min_length=None)
 
     class Meta:
         '''Meta data, or config for the serializer'''
@@ -32,7 +19,7 @@ class DietPlanSerializer(serializers.ModelSerializer):
 
 class MealRecipeSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
-    reciple = RecipeSerializer(many=False, read_only=True)
+    recipe = RecipeSerializer(many=False, read_only=True)
     class Meta:
         '''Meta data, or config for the serializer'''
         model = MealRecipe
@@ -82,3 +69,11 @@ class DayPlanSerializer(serializers.ModelSerializer):
     class Meta:
         '''Meta data, or config for the serializer'''
         model = DayPlan
+
+class CopySerializer(serializers.Serializer):
+    '''Serializer to convert the recieved data into suitable python dict'''
+    from_day = serializers.IntegerField(min_value=1, max_value=7)
+    from_week = serializers.IntegerField(min_value=1)
+    to_day = serializers.IntegerField(min_value=1, max_value=7)
+    to_week = serializers.IntegerField(min_value=1)
+    dietplan = serializers.IntegerField(min_value=0)

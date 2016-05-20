@@ -10,7 +10,7 @@
                                 <p class="ing-text" style=
                                 "text-transform:uppercase">Name of Recipe :</p>
                             </div>
-
+                                  <a ng-href="editRecipe/{{recipe.id}}">Edit Recipe</a>
 
                             <div class="col s12 m4">
                                 <p class="meal-text">{{recipe.name}}</p>
@@ -236,7 +236,7 @@
                             </div>
                             
                              <div class="row horizontal-line">
-                                <div class="col s6>
+                                <div class="col s6">
                                     <p class="ing-text">Saturated Fats:</p>
                                 </div>
 
@@ -393,7 +393,7 @@
                         <div class="card-content black-text">
                             <textarea class="form-control" id="searchbox"
                             ng-model="query" placeholder=
-                            "Search Ingredient"></textarea> <button class=
+                            "Search Ingredient"></textarea> <button fire-enter class=
                             "fa fa-search search-ingredient" ng-click=
                             "search()" type="submit"></button>
                         </div>

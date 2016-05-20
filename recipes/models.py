@@ -36,22 +36,6 @@ class Recipe(models.Model):
     date_published = models.DateField(auto_now_add=True, blank=True)
     image = models.ImageField(null= True, blank=True, upload_to=upload_to)
 
-    def __unicode__(self):
-        return self.name
-
-
-class RecipeNutrition(models.Model):
-    '''Model to keep track of recipe_info'''
-    id = models.AutoField(primary_key=True)
-
-    # empty name is not allowed for recipe
-    recipe = models.OneToOneField(Recipe, on_delete=models.CASCADE,
-                                  related_name="recipeNutritionInfo")
-    # moisture content of food in grams
-    water = models.DecimalField(default=0.00,
-
-                                max_digits=11,
-                                decimal_places=3)
     # energy content of food in kilo calories
     energy_kcal = models.DecimalField(max_digits=11,
                                       decimal_places=3,
@@ -83,6 +67,24 @@ class RecipeNutrition(models.Model):
 
                                     max_digits=11,
                                     decimal_places=3)
+
+    # moisture content of food in grams
+    water = models.DecimalField(default=0.00,
+
+                                max_digits=11,
+                                decimal_places=3)
+
+    def __unicode__(self):
+        return self.name
+
+
+class RecipeNutrition(models.Model):
+    '''Model to keep track of recipe_info'''
+    id = models.AutoField(primary_key=True)
+
+    # empty name is not allowed for recipe
+    recipe = models.OneToOneField(Recipe, on_delete=models.CASCADE,
+                                  related_name="recipeNutritionInfo")
 
     # Metallic Minerals
     calcium_mg = models.DecimalField(default=0.00,
@@ -228,19 +230,31 @@ def save_file(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=RecipeIngredients)
 def save_nutrition(sender, instance, created, **kwargs):
-    sortlist = RecipeNutrition._meta.fields
+    sortlist = Recipe._meta.fields
     nutrient_field = []
+
     for i in sortlist:
         if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
                 nutrient_field.append(i)
-    sortlist = None
+
+    sortlist = RecipeNutrition._meta.fields
+
+    for i in sortlist:
+        if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
+                nutrient_field.append(i)
+
+    recipe = instance.recipe
     recipenutri = instance.recipe.recipeNutritionInfo
     recipeings = instance.recipe.recipeIngredients.all()
 
     for i in nutrient_field:
-        setattr(recipenutri, i.name, 0.000)
+        if hasattr(recipenutri, i.name):
+            setattr(recipenutri, i.name, 0.000)
+        elif hasattr(recipe, i.name):
+            setattr(recipe, i.name, 0.000)
 
     recipenutri.save()
+    recipe.save()
 
     for j in recipeings:
         additionalinginfo = AddtnlIngredientInfo.objects.get(
@@ -248,47 +262,58 @@ def save_nutrition(sender, instance, created, **kwargs):
         for i in nutrient_field:
             if hasattr(j.ingredient, i.name) and getattr(j.ingredient,
                                                        i.name) != None:
-                old = getattr(recipenutri, i.name)
-                setattr(recipenutri, i.name,
+                old = getattr(recipe, i.name)
+                setattr(recipe, i.name,
                         decimal.Decimal(old) + \
                         decimal.Decimal(j.quantity) * decimal.Decimal(getattr(j.ingredient, i.name))\
-                         * decimal.Decimal(j.measure.weight/100))
+                         * decimal.Decimal(j.measure.weight/(100 * recipe.servings)))
             elif hasattr(additionalinginfo, i.name) and \
             getattr(additionalinginfo, i.name) != None:
                 old = getattr(recipenutri, i.name)
                 setattr(recipenutri, i.name,
                         decimal.Decimal(old) + \
                         decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
-                         * decimal.Decimal(j.measure.weight/100))
+                         * decimal.Decimal(j.measure.weight/(100 * recipe.servings)))
 
         recipenutri.save()
+        recipe.save()
 
 @receiver(pre_delete, sender=RecipeIngredients)
 def delete_nutrition(sender, instance, **kwargs):
-    sortlist = RecipeNutrition._meta.fields
+
+    sortlist = Recipe._meta.fields
     nutrient_field = []
+
+    for i in sortlist:
+        if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
+                nutrient_field.append(i)
+
+    sortlist = RecipeNutrition._meta.fields
     for i in sortlist:
         if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
                 nutrient_field.append(i)
     sortlist = None
     ingredient = instance.ingredient
+    recipe = instance.recipe
     additionalinginfo = AddtnlIngredientInfo.objects.get(ingredient=ingredient)
     recipenutri = instance.recipe.recipeNutritionInfo
     for i in nutrient_field:
 
         if hasattr(ingredient, i.name) and getattr(ingredient, i.name) != None:
-            old = getattr(recipenutri, i.name)
+            old = getattr(recipe, i.name)
 
             if old > 0.000:
-                setattr(recipenutri, i.name,
-                        decimal.Decimal(getattr(recipenutri, i.name)) - \
+                setattr(recipe, i.name,
+                        decimal.Decimal(old) - \
                         instance.quantity * getattr(ingredient, i.name)\
-                         * decimal.Decimal(instance.measure.weight/100))
-        elif getattr(additionalinginfo, i.name) != None:
+                         * decimal.Decimal(instance.measure.weight/(100 * recipe.servings)))
+        elif hasattr(additionalinginfo, i.name) and getattr(additionalinginfo, i.name) != None:
             old = getattr(recipenutri, i.name)
             if old > 0.000:
                 setattr(recipenutri, i.name,
-                        decimal.Decimal(getattr(recipenutri, i.name)) - \
+                        decimal.Decimal(old) - \
                         decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
-                        * decimal.Decimal(instance.measure.weight/100))
+                        * decimal.Decimal(instance.measure.weight/(100 * recipe.servings)))
         recipenutri.save()
+        recipe.save()
+

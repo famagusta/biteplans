@@ -92,6 +92,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'viewRecipeController',
                 templateUrl: 'static/templates/viewRecipe.html'
             })
+            .when('/editRecipe/:id', {
+                controller: 'editRecipeController',
+                templateUrl: 'static/templates/editRecipe.html'
+            })
 //            .when('/dashboard/2', {
 //                controller: 'profileController',
 //                templateUrl: 'static/templates/dashboard.html'

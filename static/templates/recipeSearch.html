@@ -1,12 +1,18 @@
+
+
+
+
 <div id="result-list">
     <div ng-if=
     "recipeDetails!=null && recipeDetails!=undefined && recipeDetails.results.length!=0">
     <div class="row">
+
+            
             <div class="col s12 m4" current-page="currentPage" ng-repeat=
             "recipe in recipeDetails.results track by $index">
                       <div class="card">
                         <div class="card-image">
-                          <img class="recipe_img" ng-src="{{recipe.image}}">
+                          <img class="recipe_img" ng-src="{{recipeImage}}">
                         </div>
                         <div class="card-content">
                            <div class="row">
@@ -52,6 +58,7 @@
                             <div class="row raise">
                                 <div class="col s12">
                                      <a class="read-more right cyan-text" ng-href="viewRecipe/{{recipe.id}}">READ MORE</a>
+                                    <a class="read-more heart" ng-click="searchService.shortlistRecipes(recipe.id)"><i class="material-icons">favorite</i></a>
                                 </div>
                             </div>
                         </div>
@@ -63,87 +70,7 @@
                 </div>
             </div>
         </div>
-        <!-- MODAL FOR COMPLETE INFORMATION OF RECIPE -->
-
-
-        <div class="modal" id="modal7">
-            <a class=
-            " modal-action modal-close waves-effect waves-green btn-flat right"
-            href="#!" ng-click="closeReadMoreContent()">X</a>
-
-            <div class="modal-content">
-                <div class="row">
-                    <div class="col s12">
-                        <h5 class="cyan-text center ingredient-title">
-                        {{recipeDetails[selected].name}}</h5>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col s12 m12">
-                        <h6 class="nutri">Ingredients</h6>
-                    </div>
-                </div>
-
-                <pre>
-                <br>{{recipeDetails[selected].ingredients}}
-                </pre>
-
-                <div class="row raise">
-                    <div class="col s12 m12">
-                        <h6 class="nutri">Description</h6>
-                    </div>
-                    <br>
-                </div>
-
-
-                <div class="row raise">
-                    <div class="col s12 m12">
-                        <p class="recipe-card-info">
-                        {{recipeDetails[selected].description}}</p>
-                    </div>
-                </div>
-                <br>
-                <br>
-
-
-                <div class="row raise">
-                    <div class="col s12 m12">
-                        <h6 class="nutri">Source</h6>
-                    </div>
-                </div>
-
-
-                <div class="row raise">
-                    <div class="col s12 m12">
-                        <p class="recipe-card-info">
-                        {{recipeDetails[selected].url}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="modal" id="modal8">
-            <div class="modal-content">
-                <h4>Modal Header</h4>
-
-
-                <p>A bunch of text</p>
-            </div>
-
-
-            <div class="modal-footer">
-                <a class=
-                " modal-action modal-close waves-effect waves-green btn-flat"
-                href="#!">Agree</a>
-            </div>
-        </div>
-        <br>
-        <!-- PAGINATION-->
-    </div>
-</div>
+        
 <!-- When the user has not entered anything for search -->
 
 

@@ -1,0 +1,157 @@
+<b>You created:<b>
+
+<div id="result-list">
+    <div ng-if=
+    "createdRecipes!=null && createdRecipes!=undefined && createdRecipes.length!=0">
+    <div class="row">
+            <div class="col s12 m4 carousel-item" current-page="currentPage" ng-repeat=
+            "recipe in createdRecipes track by $index">
+                      <div class="card myrecipe_card">
+                        <div class="card-image recipe-im">
+                          <img class="recipe_img" ng-src="{{myRecipesImage}}">
+                        </div>
+                        <div class="card-content recipe-content">
+                           <div class="row">
+                            <div class="col s12">
+                                <h5 class="cyan-text center ingredient-title">
+                                {{recipe.name | addSpace}}</h5>
+                            </div>
+                        </div>
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <h6 class="nutri">Description</h6>
+                                </div>
+                                <br>
+                            </div>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <p class="recipe-card-info">
+                                    {{recipe.description |
+                                    limitTo:20}}...</p>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <h6 class="nutri">Source</h6>
+                                </div>
+                            </div>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <a ng-href="{{recipe.url}}" target="_blank" class="recipe-card-info cyan-text">{{recipe.url |
+                                    limitTo:50}}</a>
+                                </div>
+                            </div>
+                            
+                             
+                            
+                        </div>
+                          <div class="card-action">
+                                  <a href="#" class="right cyan-text" ng-href="editRecipe/{{recipe.id}}">EDIT</a>
+                                  <a href="#" class="right cyan-text" ng-href="viewRecipe/{{recipe.id}}">VIEW</a>
+                             </div>
+                
+                      </div>
+
+                    </div>
+                   
+                </div>
+            </div>
+    
+        </div>
+
+
+
+<b>You shortlisted:<b>
+
+<div id="result-list">
+    <div ng-if=
+    "myRecipes!=null && myRecipes!=undefined && myRecipes.length!=0">
+    <div class="row">
+             
+            <div class="col s12 m4" current-page="currentPage" ng-repeat=
+            "recipe in myRecipes track by $index">
+                      <div class="card myrecipe_card">
+                        <div class="card-image recipe-im">
+                          <img class="recipe_img" ng-src="{{myRecipesImage}}">
+                        </div>
+                        <div class="card-content recipe-content">
+                           <div class="row">
+                            <div class="col s12">
+                                <h5 class="cyan-text center ingredient-title">
+                                {{recipe.meal_recipe.name | addSpace}}</h5>
+                            </div>
+                        </div>
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <h6 class="nutri">Description</h6>
+                                </div>
+                                <br>
+                            </div>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <p class="recipe-card-info">
+                                    {{recipe.meal_recipe.description |
+                                    limitTo:50}}</p>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <h6 class="nutri">Source</h6>
+                                </div>
+                            </div>
+
+
+                            <div class="row raise">
+                                <div class="col s12 m12">
+                                    <p class="recipe-card-info cyan-text">{{myRecipeUrl |
+                                    limitTo:50}}</p>
+                                </div>
+                            </div>
+                            
+<!--
+                            <div class="row raise">
+                                <div class="col s12">
+                                     <a class="read-more right cyan-text" ng-href="viewRecipe/{{recipe.meal_recipe.id}}">READ MORE</a>
+                                    <a class="read-more right cyan-text">View</a>
+                                </div>
+                            </div>
+-->
+                        </div>
+                          
+                          <div class="card-action">
+                                <a class="right cyan-text" ng-href="viewRecipe/{{recipe.meal_recipe.id}}">READ MORE</a>
+                                <a class="cmenu cyan-text" ng-href="editRecipe/{{recipe.meal_recipe.id}}">View</a>
+                          </div>
+                        
+                
+                      </div>
+
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    
+<!--
+    <script>
+     $(document).ready(function(){
+      $('.carousel').carousel();
+    });
+        
+    </script>-->

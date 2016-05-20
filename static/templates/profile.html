@@ -1,7 +1,7 @@
 <div class="card white top_mar">
     <div class="card-content cyan-text">
         <a class="cyan-text" ng-click="editIt=!editIt"><i class=
-        "material-icons edit_content_icon">mode_edit</i><span class="right" id=
+        "material-icons edit_content_icon prof_edit">mode_edit</i><span class="right" id=
         "edit_content_db">EDIT PROFILE</span></a>
 
         <div class="row">
@@ -20,7 +20,7 @@
 
                 <div class="row">
                     <div class="input-field col s6">
-                        <label for="first_name">Current Weight (in kgs)</label>
+                        <label adjust-placeholder for="first_name">Current Weight (in kgs)</label>
                         <input class="validate" id="first_name" ng-disabled=
                         "!editIt" ng-model="profileInfo.weight" type="number">
                     </div>
@@ -45,7 +45,7 @@
                     <div class="input-field col s12">
                         <input class="validate" id="height" ng-disabled=
                         "!editIt" ng-model="profileInfo.height" type="number">
-                        <label for="height">Height (in cms)</label>
+                        <label adjust-placeholder for="height">Height (in cms)</label>
                     </div>
                 </div>
 
