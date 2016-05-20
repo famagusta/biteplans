@@ -69,3 +69,11 @@ class DayPlanSerializer(serializers.ModelSerializer):
     class Meta:
         '''Meta data, or config for the serializer'''
         model = DayPlan
+
+class CopySerializer(serializers.Serializer):
+    '''Serializer to convert the recieved data into suitable python dict'''
+    from_day = serializers.IntegerField(min_value=1, max_value=7)
+    from_week = serializers.IntegerField(min_value=1)
+    to_day = serializers.IntegerField(min_value=1, max_value=7)
+    to_week = serializers.IntegerField(min_value=1)
+    dietplan = serializers.IntegerField(min_value=0)
