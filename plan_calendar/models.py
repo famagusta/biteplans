@@ -6,7 +6,8 @@ from dietplans.models import DietPlan, MealPlan, MealIngredient,\
 from ingredients.models import Ingredient, IngredientCommonMeasures
 from recipes.models import Recipe
 from datetime import datetime, timedelta
-from django.db.models.signals import post_save, post_delete, pre_save
+from django.db.models.signals import post_save, post_delete, pre_save,\
+    pre_delete
 from django.dispatch import receiver
 
 class UserPlanHistory(models.Model):
@@ -50,7 +51,7 @@ class MealHistory(models.Model):
                              related_name="userSchedule")
     name = models.CharField(default="Ad Hoc Meal", max_length=191)
     user_dietplan = models.ForeignKey(UserPlanHistory,
-                                      on_delete=models.CASCADE,
+                                      on_delete=models.SET_NULL,
                                       related_name="FollowPlanMealPlans",
                                       null=True)
     user_mealplan = models.ForeignKey(MealPlan, on_delete=models.SET_NULL,
@@ -149,4 +150,22 @@ def assosiate_mealingres(sender, instance, created, **kwargs):
                                        no_of_servings=i.no_of_servings
                                        )
 
-
+@receiver(pre_delete, sender=UserPlanHistory)
+def userLogChecker(sender, instance, **kwargs):
+# check if the user has logged some ingredients from a dietplan
+    meals = MealHistory.objects.filter(user_dietplan=instance.id)
+#    print meals
+    for meal in meals:
+        # by default, delete the meal plan
+        meal_to_delete = True
+        eventIngredients = EventIngredient.objects.filter(meal_history=meal.id)
+        for ingredient in eventIngredients:
+            if ingredient.is_checked:
+                # if any ingredient is checked by user, do not delete meal plan
+                # or the ingredient
+                meal_to_delete = False
+            else:
+                # ingredient is not checked - delete it
+                ingredient.delete()
+        if meal_to_delete:
+            meal.delete()
