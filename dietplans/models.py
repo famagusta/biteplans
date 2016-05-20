@@ -79,9 +79,9 @@ class MealRecipe(models.Model):
     id = models.AutoField(primary_key=True)
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE,
                                   related_name="mealrecipe")
-    reciple = models.ForeignKey(Recipe, on_delete=models.CASCADE,
-                                related_name="recipe")
-    no_of_servings = models.DecimalField(max_digits=11, decimal_places=3)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
+                                related_name="meal_recipe")
+    servings = models.DecimalField(max_digits=11, decimal_places=3)
 
     def __unicode__(self):
         '''string repr of the object'''
@@ -89,7 +89,7 @@ class MealRecipe(models.Model):
 
     class Meta:
         '''name db table'''
-        unique_together = ('meal_plan', 'reciple')
+        unique_together = ('meal_plan', 'recipe')
         db_table = 'dietplans_mealrecipe'
 
 

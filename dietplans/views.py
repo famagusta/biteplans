@@ -15,9 +15,12 @@ import hashlib, datetime, random
 from dietplans.models import DietPlan, DayPlan, MealPlan, \
 MealIngredient, MealRecipe
 from dietplans.serializers import DietPlanSerializer, DayPlanSerializer,\
-MealPlanSerializer, MealIngSerializer, MealRecpSerializer
+MealPlanSerializer, MealIngSerializer, MealRecpSerializer, \
+CopySerializer
 
 from rest_framework import status
+
+import traceback
 
 
 class DietPlanViewset(viewsets.ModelViewSet):
@@ -150,11 +153,104 @@ class MealRecipeViewSet(viewsets.ModelViewSet):
 		print request.data
 		if serializer.is_valid():
 			# dayplan = DayPlan.objects.get(request.data['day'])
-			obj = MealIngredient.objects.create(
-			                              **serializer.validated_data)
+			obj = MealRecipe.objects.create(
+			                              		**serializer.validated_data)
 
 			obj.save()
-			return Response({'meal_receipe_id':obj.id},
+			return Response({'meal_recipe_id':obj.id},
 			                status=status.HTTP_201_CREATED)
 		else:
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CopyViewSet(generics.GenericAPIView):
+	'''copies the day plan to other day plan'''
+	serializer_class = CopySerializer
+
+	def get_permissions(self):
+		'''return allowed permissions'''
+		if self.request.method == 'POST':
+			return (permissions.IsAuthenticated(), )
+
+	def post(self, request):
+		srlzr = self.serializer_class(data=request.data)
+		if srlzr.is_valid():
+			try:
+				dietplan = get_object_or_404(DietPlan,
+				                             id=srlzr.validated_data['dietplan'])
+
+				if dietplan.creator != request.user:
+					raise ValueError("Not authorized for this function")
+
+
+				from_day = get_object_or_404(DayPlan,
+				                             day_no=srlzr.validated_data['from_day'],
+				                             week_no=srlzr.validated_data['from_week'],
+				                             diet=dietplan)
+
+				to_day = get_object_or_404(DayPlan,
+				                             day_no=srlzr.validated_data['to_day'],
+				                             week_no=srlzr.validated_data['to_week'],
+				                             diet=dietplan)
+
+				from_day_mealplan = from_day.mealplan.all()
+				print from_day_mealplan, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+				to_day_mealplan = to_day.mealplan.all()
+				print to_day_mealplan, "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+				for i in range(len(from_day_mealplan), len(to_day_mealplan)):
+					to_day_mealplan[i].delete()
+
+
+				for i in range(len(from_day_mealplan)):
+					if i < len(to_day_mealplan):
+						to_day_mealplan[i].name = from_day_mealplan[i].name
+						to_day_mealplan[i].time = from_day_mealplan[i].time
+						new_meal_plan = to_day_mealplan[i]
+					else:
+						new_meal_plan = MealPlan.objects.create(day=to_day,
+						                             name=from_day_mealplan[i].name,
+						                             time=from_day_mealplan[i].time)
+					mealings = new_meal_plan.mealingredient.all()
+					mealrecipe = new_meal_plan.mealrecipe.all()
+					frommealings = from_day_mealplan[i].mealingredient.all()
+					fromrecipes = from_day_mealplan[i].mealrecipe.all()
+
+					for j in range(len(frommealings), len(mealings)):
+						mealings[j].delete()
+
+
+					for j in range(len(fromrecipes), len(mealrecipe)):
+						mealrecipe[j].delete()
+
+					for k in range(len(frommealings)):
+						if k < len(mealings):
+							mealings[k].ingredient = frommealings[k].ingredient
+							mealings[k].unit = frommealings[k].unit
+							mealings[k].quantity = frommealings[k].quantity
+							mealings[k].meal_plan = new_meal_plan
+
+						else:
+							MealIngredient.objects.create(ingredient=frommealings[k]\
+							                              .ingredient,
+							                              unit=frommealings[k].unit,
+							                              quantity=frommealings[k].quantity,
+							                              meal_plan=new_meal_plan)
+
+					for k in range(len(fromrecipes)):
+						if k < len(mealrecipe):
+							mealrecipe[k].recipe = fromrecipes[k].recipe
+							mealrecipe[k].servings = fromrecipes[k].servings
+							mealrecipe[k].meal_plan = new_meal_plan
+
+						else:
+							MealRecipe.objects.create(recipe=frommealings[k]\
+						                              .recipe,
+						                              servings=frommealings[k].servings,
+						                              meal_plan=new_meal_plan)
+
+				return Response({"success":"copied"}, status=status.HTTP_200_OK)
+			except Exception as error:
+				traceback.print_exc()
+				return Response({"error": repr(error)},
+				                status=status.HTTP_400_BAD_REQUEST)
+

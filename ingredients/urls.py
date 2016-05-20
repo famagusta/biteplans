@@ -17,6 +17,7 @@ router.register(r'mealing',
 router.register(r'mealrecipe',
                 vu.MealRecipeViewSet)
 
+
 reciperouter = routers.SimpleRouter()
 reciperouter.register(r'recipes', recipeView.RecipeViewSet)
 reciperouter.register(r'recipeingredient', recipeView.RecipeIngredientViewSet)
@@ -36,6 +37,7 @@ urlpatterns = patterns('',
                        url(r'^ingredient/(?P<ingredient>[0-9]+)/$',
                            views.GetCompleteIngredientInfo.as_view()),
                        url(r'^diet/', include(router.urls)),
+                       url(r'^diet/copydayplan/', vu.CopyViewSet.as_view()),
 
                        url(r'^recipe/', include(reciperouter.urls)),
 

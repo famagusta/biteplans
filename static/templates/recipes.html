@@ -1,72 +1,29 @@
 <div class="section full-length" id="planPage">
     <div class="row">
-<!--
-        <div class="col s12 m3 hide-on-small-only" id="checklist">
-            <div class="card white">
+<div class="col s12 m3 hide-on-small-only" ng-if="recipeDetails.sortlist.length>0" id="checklist">
+            <div class="card white recipeCheckCard">
                 <div class="card-content black-text">
                     <form action="#" class="planform">
+                        <!-- SEARCH INGREDIENTS CHECKLIST -->
+
+
                         <div class="center-btn">
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box1" type="checkbox"> <label for=
-                            "filled-in-box1">Vegetarian</label></p>
-
-
-                            <p><input class="filled-in" id="filled-in-box2"
-                            type="checkbox"> <label for="filled-in-box2">Non
-                            Vegetarian</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box3" type="checkbox"> <label for=
-                            "filled-in-box3">Dairy</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box4" type="checkbox"> <label for=
-                            "filled-in-box4">Non Dairy</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box5" type="checkbox"> <label for=
-                            "filled-in-box5">Protien Rich</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box6" type="checkbox"> <label for=
-                            "filled-in-box6">Fruits</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box7" type="checkbox"> <label for=
-                            "filled-in-box7">Vegetables</label></p>
+                           
+                            <div><b class="pull-left">Sortby</b> <i class="fa fa-reorder pull right"></i></div>
                             <br>
                             <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
+                            <p ng-repeat="filter in recipeDetails.sortlist track by $index"><input id=
+                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search_recipe(1, sortby)"><label
+                            for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
--->
         <!-- END OF CHECKLIST -->
 
 
-        <div class="col s12 m12 smallmid">
+        <div class="smallmid" ng-class="{'col s12 m9': recipeDetails.sortlist!==undefined&&recipeDetails.sortlist.length>0, 'col s12 m12':recipeDetails.sortlist===undefined||recipeDetails.sortlist===null}">
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card white" id="searchcard">
@@ -79,7 +36,7 @@
                                 ng-model="query_recipe" placeholder=
                                 "Search Recipes"></textarea> <button fire-enter class=
                                 "fa fa-search search-ingredient" ng-click=
-                                "search_recipe()" type="submit"></button>
+                                "search_recipe(1)" type="submit"></button>
                             </form>
                         </div>
                         <!-- END OF SEARCH-BOX -->
