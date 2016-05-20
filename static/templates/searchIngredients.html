@@ -22,7 +22,7 @@
                             <br>
                             <br>
                             <p ng-repeat="filter in details.sortlist track by $index"><input id=
-                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search(1, sortby)"><label
+                            "filled-in-rad{{$index}}"  class="with-gap" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search(1, sortby)"><label
                             for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
                         </div>
                     </form>
@@ -78,8 +78,9 @@
 
 -->
 
-<div class="row center">
-<paging
+<div class="row">
+    <div class="col s12 m6 push-m5">
+    <paging
                 class="small"
                 page="currentPage" 
                 page-size="6" 
@@ -104,6 +105,8 @@
   >
             </paging> 
                 
+    </div>
+
 </div>
 </div>
 

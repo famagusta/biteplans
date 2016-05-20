@@ -525,6 +525,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 });
                         };
 
+
                         // adds new mealname
                         $scope.addMeal = function(key) {
                             console.log(key, $scope.dayplan);
@@ -533,10 +534,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 day : $scope.dayplan.id,
                                 name : key.name,
                                 time : moment(tm).format('HH:mm:ss')
-                            }
+                            };
                             //convert to JS date format for rendering
                             var newtm = new Date(moment(tm));
-                            
                             /* update the database */
                             planService.createMealPlan(mealObjToUpdate)
                                 .then(function(response) {

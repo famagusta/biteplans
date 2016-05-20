@@ -28,6 +28,7 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
         $scope.calendar = function(){
             $scope.tab.tab = 3;
         }
+    
     }
 ]);
 

@@ -1,14 +1,14 @@
 <div class="full-length" id="result-list">
-    <div ng-if="details.results!=null && details.results!=undefined && details.results.length!=0">
+    <div ng-if="myIngredients != null && myIngredients != undefined && myIngredients.length != 0">
         <div class="row">
-            <div class="col s12 m6" ng-repeat="detail in details.results track by $index">
+            <div class="col s12 m4" ng-repeat="detail in myIngredients track by $index " ng-click="openIngredientsModal($index)">
                 <div class="card white big result-card" id=
                 "ingredient-result-card">
-                    <div class="card-content grey-text" ng-click="openIngredientsModal($index)">
+                    <div class="card-content grey-text">
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
-                                {{detail.name| addSpace | limitTo:20}}....</h5>
+                                {{detail.meal_ingredient.name}}</h5>
                             </div>
                         </div>
 
@@ -21,7 +21,7 @@
 
 
                                 <div class="col s6 m6">
-                                    <p>{{detail.protein_tot}}</p>
+                                    <p>{{detail.meal_ingredient.protein_tot}}</p>
                                 </div>
                             </div>
 
@@ -33,7 +33,7 @@
 
 
                                 <div class="col s6 m6">
-                                    <p>{{detail.carbohydrate_tot}}</p>
+                                    <p>{{detail.meal_ingredient.carbohydrate_tot}}</p>
                                 </div>
                             </div>
 
@@ -45,7 +45,7 @@
 
 
                                 <div class="col s6 m6">
-                                    <p>{{detail.fat_tot}}</p>
+                                    <p>{{detail.meal_ingredient.fat_tot}}</p>
                                 </div>
                             </div>
 
@@ -57,13 +57,10 @@
 
 
                                 <div class="col s6 m6">
-                                    <p>{{detail.energy_kcal}}</p>
+                                    <p>{{detail.meal_ingredient.energy_kcal}}</p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                     <div class="card-action">
-                          <a class="cyan-text right"  ng-click="searchService.shortlistIngredients(details.results[selected].id)">Shortlist</a>
                     </div>
                 </div>
             </div>
@@ -79,7 +76,7 @@
 
             <div class="modal-content">
                 <h4 class="cyan-text ingredient-title">
-                {{details.results[selected].name}}</h4>
+                {{myIngredients[selected].meal_ingredient.name}}</h4>
                 <br>
 
 
@@ -87,7 +84,7 @@
                     <div class="col s12 m12">
                         <div class="row">
                             <div class="col s12 m4 push-m4">
-                                <select ng-if="selected!==undefined && details.results[selected].measure.length>0" material-select ng-options="measure as measure.description for measure in details.results[selected].measure" ng-model="openModal.measure" class="center"></select>
+                                <select ng-if="selected!==undefined && myIngredients[selected].meal_ingredient.measure.length>0" material-select ng-options="measure as measure.description for measure in myIngredients[selected].meal_ingredient.measure" ng-model="openModal.measure" class="center"></select>
                             </div>
                         </div>
                                 
@@ -182,13 +179,6 @@
                         </div>
                     </div>
                 </div>
-
-
-                <div class="center-btn">
-                    <button class=
-                    "waves-effect waves-light btn largebtn center" ng-click="searchService.shortlistIngredients(details.results[selected].id)">Add to My
-                    Ingredients</button>
-                </div>
             </div>
         </div>
     </div>
@@ -201,13 +191,11 @@
 <!-- When the user has not entered anything for search -->
 
 
-<div ng-if="details==null || details==undefined">
-    <p>Please enter ingredient</p>
-</div>
+
 <!-- When the user has entered incorrect entry in search -->
 
 
-<div ng-if="details.length==0">
+<div ng-if="myIngredients.length==0">
     <div class="row">
         <div class="col s12 m12">
             <div class="card white">
@@ -218,8 +206,3 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        $('.modal-trigger').leanModal();  
-    });
-</script>

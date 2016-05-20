@@ -60,6 +60,22 @@ app.directive('adjustPlaceholder', function() {
     }
 });
 
+app.directive('fireEnter', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem) {
+          $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
+                if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                    $(elem).click();
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
+    }
+});
+
 
 app.directive('clickAnywhereButHere', ['$document', function ($document) {
         var directiveDefinitionObject = {

@@ -21,7 +21,11 @@
 }
 
 .top_mar {
-    margin-top: 29px;
+    margin-top: 8px;
+}
+
+.sidemenu_margin {
+    margin-top: 26px;
 }
 
 .dropdown-content li>a {
@@ -47,11 +51,48 @@ calendar-md .md-toolbar-tools h2 {
     font-size: 16px;
 }
 
+.meal_lst{
+    margin-top: -14px !important;
+}
+
+.myrecipe_card {
+    height: 34em !important;
+}
+
+.prof_edit {
+    position: relative;
+    left: 15em;
+}
+
+.recipe_img {
+    height: 100% !important;
+}
+
+.recipe-im {
+    height: 40%;
+}
+
+.recipe-content {
+    height: 50% !important;
+}
+
+.select-wrapper input.select-dropdown {
+    color: #9e9e9e !important;
+}
 
 /*
     margin-top: 0;
     margin-left: -19px;
 */
+
+#dash_servings {
+    border: none;
+    width: 193% !important;
+}
+
+.bin {
+    position: relative !important;
+    bottom: 11px !important;
 }
 
 .click_icon::focus {
@@ -76,8 +117,10 @@ ul.day-list li:nth-child(2) {
 }
 
 .date_change {
-    margin-top: 4px !important;
+    position: relative;
+    top: 8px;
 }
+
 
 ul.day-list li span,i {
     font-family: 'Roboto';

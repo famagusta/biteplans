@@ -2,7 +2,7 @@
     <div id="dashboard-page" ng-controller = "dashboardController">
         <div class="row">
             <div class="col s12 m2">
-                <div class="card white darken-1 top_mar">
+                <div class="card white darken-1 sidemenu_margin">
                     <div class="card-content grey-text">
                         <div class="row">
                             <!-- SUMMARY TAB -->
@@ -79,9 +79,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(5)"><img ng-if="tab!=5"
+                                <a ng-click="setTab(5)"><img ng-if="tab.tab!=5"
                                 class="icon-orig" src="static/images/myplans_deselect.png">
-                                <img ng-if="tab==5" src=
+                                <img ng-if="tab.tab==5" src=
                                 "static/images/myplans.png"></a>
                             </div>
 
@@ -96,9 +96,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(6)"><img ng-if="tab!=6"
+                                <a ng-click="setTab(6)"><img ng-if="tab.tab!=6"
                                 class="icon-orig" src="static/images/summary_deselect.png">
-                                <img ng-if="tab==6" src=
+                                <img ng-if="tab.tab==6" src=
                                 "static/images/summary.png"></a>
                             </div>
 
@@ -113,9 +113,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(7)"><img ng-if="tab!=7"
+                                <a ng-click="setTab(7)"><img ng-if="tab.tab!=7"
                                 class="icon-orig" src="static/images/reciepes_deselect.png">
-                                <img ng-if="tab==7" src=
+                                <img ng-if="tab.tab==7" src=
                                 "static/images/reciepes.png"></a>
                             </div>
 
@@ -130,9 +130,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(8)"><img ng-if="tab!=8"
+                                <a ng-click="setTab(8)"><img ng-if="tab.tab!=8"
                                 class="icon-orig" src="static/images/summary_deselect.png">
-                                <img ng-if="tab==8" src=
+                                <img ng-if="tab.tab==8" src=
                                 "static/images/summary.png"></a>
                             </div>
 
@@ -147,9 +147,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(9)"><img ng-if="tab!=9"
+                                <a ng-click="setTab(9)"><img ng-if="tab.tab!=9"
                                 class="icon-orig" src="static/images/searchplan_deselect.png">
-                                <img ng-if="tab==9" src=
+                                <img ng-if="tab.tab==9" src=
                                 "static/images/searchplan.png"></a>
                             </div>
 
@@ -164,17 +164,15 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(10)"><img ng-if="tab!=10"
+                                <a ng-click="setTab(10);redirecToSearchPlan()"><img ng-if="tab.tab!=10"
                                 class="icon-orig" src="static/images/searchplan_deselect.png">
-                                <img ng-if="tab==10" src=
+                                <img ng-if="tab.tab==10" src=
                                 "static/images/searchplan.png"></a>
                             </div>
 
 
                             <div class="col s7 m7 icon-label">
-                                <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(10)}" ng-click=
-                                "setTab(10)">Search Plans</a>
+                                <a class="db_list_text">Search Plans</a>
                             </div>
                         </div>
                     </div>
@@ -195,7 +193,7 @@
 
 
             <div ng-if="tab.tab==2" ng-controller="profileController">
-                <div class="col s6">
+                <div class="col s10">
                     <div ng-include="'static/templates/profile.html'"></div>
                 </div>
             </div>
@@ -205,34 +203,38 @@
             <div ng-if="tab.tab==3">
                 <div class="col s10">
                     <div class="card top_mar" >
-                        <div ng-include="'static/templates/calendar.html'" style="height: 680px !important;"></div>
+                        <div ng-include="'static/templates/calendar.html'"></div>
                     </div>
                 </div>
             </div>
 
-
-            <div ng-if="tab==9">
-                <div class="col s6">
-                    <div class="card white darken-1 top_mar">
-                        <div class="card-content black-text">
-                            {{alpha.carba}}
-                        </div>
+            <div ng-if="tab.tab==7">
+                <div class="col s10">
+                    <div class="top_mar" ng-controller="shortlistedRecipesController">
+                        <div ng-include="'static/templates/myrecipes.html'" ></div>
                     </div>
                 </div>
             </div>
 
-
-            <div class="col m4">
-                <div class="card white top_mar">
-                    <div class="card-content cyan-text">
-                        <h5 class="card-title center-align">Recent
-                        Activity</h5>
-
-
-                        <p>I am a very simple card. I am good at containing
-                        small bits of information. I am convenient because I
-                        require little markup to use effectively.</p>
+            <div ng-if="tab.tab==9">
+                <div class="col s10">
+                    <div class="top_mar" ng-controller="shortlistedIngredientsController">
+                        <div ng-include="'static/templates/myingredients.html'"></div>
                     </div>
+                </div>
+            </div>
+            
+             <div ng-if="tab.tab==10">
+                <div class="col s10">
+                    <div class="top_mar">
+                        <div ng-include="'static/templates/myingredients.html'"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div ng-if="tab.tab==1" ng-controller="summaryCtrl">
+                <div class="col s4">
+                    <div ng-include="'static/templates/summaryGraphs.html'"></div>
                 </div>
             </div>
         </div>

@@ -158,6 +158,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
                     $scope.plan_data = response;
+                console.log(response);
                     for (var i = 0; i < $scope.plan_data.length; i++) {
                         for (var j = 0; j < $scope.plan_data[i]
                             .followingMealPlanIngredient.length; j++
@@ -437,6 +438,11 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             $('#add-meal-modal')
                 .closeModal();
         };
+        
+      
+        
+        
+       
 
 
     }
