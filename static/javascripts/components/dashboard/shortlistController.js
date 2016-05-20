@@ -81,6 +81,7 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     		summaryService.getShortlistRecipes().then(function(response){
 
     			$scope.myRecipes = response;
+                console.log(response);
 
     		}, function(error){
 

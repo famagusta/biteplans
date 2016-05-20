@@ -24,8 +24,28 @@
     margin-top: 8px;
 }
 
+.dash_graphcard {
+    height: 40em !important;
+}
 .sidemenu_margin {
     margin-top: 26px;
+}
+
+.heart {
+    position: relative !important;
+    right: 16em !important;
+    top: 2em;
+}
+
+.cmenu {
+    position: relative;
+    top: -11px;
+}
+.dash_progress {
+    width: 95%;
+    height: 14px !important;
+    background-color: #eee;
+    border-radius: 5px;
 }
 
 .dropdown-content li>a {

@@ -154,11 +154,11 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             }
             //function to retrieve a particular days diet plan
         $scope.getDayPlan = function(dateString) {
-            
+            $scope.plan_data = [];
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
+                    console.log(response);
                     $scope.plan_data = response;
-                console.log(response);
                     for (var i = 0; i < $scope.plan_data.length; i++) {
                         for (var j = 0; j < $scope.plan_data[i]
                             .followingMealPlanIngredient.length; j++
@@ -212,6 +212,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 $scope.navDates.prev.subtract(1, "days");
             }
             $scope.checkNavTitle();
+            console.log($scope.navDates);
             $scope.getDayPlan($scope.navDates.current.format(
                 'YYYY-MM-DD'));
         }
@@ -439,6 +440,38 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 .closeModal();
         };
         
+        
+                    
+        $scope.calcMealPlanValues = function(index, nutrient) {
+            var total = [];
+            console.log($scope.plan_data);
+            for (var i=0;i<$scope.plan_data.length;i++) {
+                 var q=0;
+//                console.log($scope.plan_data[i]);
+                for (var j=0;j<$scope.plan_data[i].followingMealPlanIngredient.length;j++) {
+                    q += $scope.plan_data[i].followingMealPlanIngredient[j].meal_ingredient[nutrient]
+                         * $scope.plan_data[i].followingMealPlanIngredient[j].quantity;
+//                    console.log('dsd');
+                }
+                total.push(q);
+            }
+            return total[index];
+
+        };
+        
+                              /* Calculates total value of a nutrient across a days plan */
+                       $scope.calcDayNutrientVal = function(nutrient){
+                            var total = 0;
+                                for (var i = 0; i < $scope.plan_data
+                                    .length; i++) {
+                                    for (var j = 0; j < $scope.plan_data[
+                                        i].followingMealPlanIngredient.length; j++) {
+                                        total += $scope.plan_data[i].followingMealPlanIngredient[j].meal_ingredient[nutrient] * $scope.plan_data[i].followingMealPlanIngredient[j].quantity;
+                                    }
+
+                                }
+                            return total;
+                        };
       
         
         

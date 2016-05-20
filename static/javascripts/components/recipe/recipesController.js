@@ -2,6 +2,7 @@
 
 app.controller('recipesController', ['$scope', 'searchService',
     function($scope, searchService) {
+        $scope.searchService = searchService;
         $scope.selected = 0;
         $scope.query_recipe = '';
         
@@ -32,8 +33,7 @@ app.controller('recipesController', ['$scope', 'searchService',
         $scope.openReadMoreContent = function(index) {
             $('#modal7')
                 .openModal();
-            $scope.selected = index;
-            console.log($scope.selected);
+    
         };
 
         $scope.openDetailedInfo = function() {

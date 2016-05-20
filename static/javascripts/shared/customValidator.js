@@ -34,6 +34,15 @@ app.directive('materialSelect', function() {
    };
 });
 
+app.directive('carouselEffect', function() {
+   return {
+      restrict: 'A',
+      link: function(scope, elem) {
+         $(elem).carousel();
+      }
+   };
+});
+
 app.directive('dropdownButton', function() {
    return {
       restrict: 'A',

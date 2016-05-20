@@ -181,12 +181,11 @@
             <!--SUMMARY VIEW -->
 
 
-            <div ng-if="tab.tab==1" ng-controller="summaryCtrl">
-                <div class="col s6">
-                    <div class="card white top_mar">
+            <div ng-if="tab.tab==1">
+                <div class="col s10">
                         <div ng-include="'static/templates/summary.html'"></div>
-                    </div>
                 </div>
+                
             </div>
             <!-- END OF SUMMARY WINDOW-->
             <!-- PROFILE VIEW -->
@@ -232,11 +231,13 @@
                 </div>
             </div>
             
+<!--
             <div ng-if="tab.tab==1" ng-controller="summaryCtrl">
                 <div class="col s4">
                     <div ng-include="'static/templates/summaryGraphs.html'"></div>
                 </div>
             </div>
+-->
         </div>
     </div>
 </div>

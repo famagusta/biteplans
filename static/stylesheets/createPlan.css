@@ -497,7 +497,7 @@ select {
 /*Progresssbar*/
 
 .progress {
-    width: 115%;
+    width: 95%;
     height: 14px !important;
     background-color: #eee;
     border-radius: 5px;
