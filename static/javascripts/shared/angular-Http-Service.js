@@ -19,9 +19,3 @@ app.factory('authInterceptor', ['$rootScope', '$q', '$window', function($rootSco
     }
   };
 }]);
-
-
-  
-
-
-

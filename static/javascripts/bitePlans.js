@@ -1,8 +1,10 @@
 'use strict'; /* global app: true */
+
 var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'bw.paging',
     'ngMaterial', 'materialCalendar', 
-    'angular-svg-round-progressbar'
+    'angular-svg-round-progressbar', 
+    'ng.httpLoader'
 ]);
 
 var constantData = {
@@ -16,9 +18,28 @@ app.constant('constants', constantData['constants']);
 /** * @name run * @desc Update xsrf
 $http headers to align with Django's defaults */
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
-    '$authProvider', '$controllerProvider',
+    '$authProvider', '$controllerProvider', 'httpMethodInterceptorProvider',
     function($routeProvider, $locationProvider, $httpProvider,
-        $authProvider, $controllerProvider) {
+        $authProvider, $controllerProvider, httpMethodInterceptorProvider) {
+        
+        httpMethodInterceptorProvider.whitelistDomain('google.com');
+        httpMethodInterceptorProvider.whitelistDomain('facebook.com');
+
+        $httpProvider.interceptors.push(function($q) {
+            return {
+             'request': function(config) {
+                 $('#processing').show();
+                 return config;
+              },
+
+              'response': function(response) {
+                 $('#processing').hide();
+                 return response;
+              }
+            };
+          })
+        
+        
         $controllerProvider.allowGlobals();
         $httpProvider.interceptors.push('authInterceptor');
         $routeProvider.when('/', {
@@ -94,6 +115,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         $locationProvider.hashPrefix('!');
     }
 ]);
+
 app.run(['$http',
     function($http) {
         $http.defaults.xsrfHeaderName = 'X-CSRFToken';

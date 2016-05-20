@@ -13,7 +13,7 @@
     {% include 'stylesheets.html' %}
 
   </head>
-  <body class="ng-cloak" ng-cloak>
+  <body class="ng-cloak" ng-cloak >
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. 
       Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -21,7 +21,21 @@
 
     <!--HEADER WILL CONTAIN NAVBAR WHICH WILLBE COMMON TO EVERY PAGE-->
 
-      
+      <!-- SPINNER FOR BETWEEN REQUESTS-->
+     <div id="processing">
+         <div class="preloader-wrapper active ajax-loader" >
+            <div class="spinner-layer spinner-red-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+      </div>
+
     <div class="header">
         <div ng-include="'static/templates/navbar.html'"></div>
     </div>
@@ -36,6 +50,7 @@
     <div class="footer">
         <div ng-include="'static/templates/footer.html'"></div>
    </div>
+
 
 <div id="fb-root">
     </div>
@@ -115,8 +130,7 @@ $("h5").click(function() {
      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
-
-     
+      
 
 </body>
 </html>

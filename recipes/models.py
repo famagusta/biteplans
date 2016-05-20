@@ -220,7 +220,6 @@ def skip_saving_file(sender, instance, **kwargs):
 def save_file(sender, instance, created, **kwargs):
     if created and hasattr(instance, _UNSAVED_FILEFIELD):
         instance.image = getattr(instance, _UNSAVED_FILEFIELD)
-        instance.save()
 
     if created:
         RecipeNutrition.objects.create(recipe=instance)
