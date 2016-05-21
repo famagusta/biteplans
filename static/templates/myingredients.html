@@ -1,14 +1,14 @@
 <div class="full-length" id="result-list">
     <div ng-if="myIngredients != null && myIngredients != undefined && myIngredients.length != 0">
         <div class="row">
-            <div class="col s12 m6" ng-repeat="detail in myIngredients track by $index " ng-click="openIngredientsModal($index)">
+            <div class="col s12 m4" ng-repeat="detail in myIngredients track by $index " ng-click="openIngredientsModal($index)">
                 <div class="card white big result-card" id=
                 "ingredient-result-card">
                     <div class="card-content grey-text">
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
-                                {{detail.meal_ingredient.name| addSpace}}</h5>
+                                {{detail.meal_ingredient.name}}</h5>
                             </div>
                         </div>
 

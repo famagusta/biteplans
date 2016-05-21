@@ -47,9 +47,46 @@ app.factory('recipeService',
 
     	return deferred.promise;
     };
-           
+        
+    var updateRecipe = function(obj, id) {
+            var url = '/biteplans/recipe/recipes/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpPatch(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
                 
-    var createRecipeIngredients = function(obj){
+    var updateRecipeIngredient = function(obj, id) {
+            var url = '/biteplans/recipe/recipeingredient/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpPatch(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+                                  
+    var deleteRecipeIngredient = function(id) {
+            var url = '/biteplans/recipe/recipeingredient/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpDelete(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+                                  
+    
+                
+    var createRecipeIngredients = function(obj) {
 
     	var url = constants.API_SERVER + 'biteplans/recipe/recipeingredient/';
     	var deferred = $q.defer();
@@ -92,7 +129,19 @@ app.factory('recipeService',
             return getRecipe(id);
         },
         uploadRecipeImage : function(id, file){
-            return uploadRecipeImage(id, file);
+            return uploadRecipeImage(id, file)
+        },
+        
+        updateRecipe: function(obj, id){
+            return updateRecipe(obj, id)
+        },
+        
+        updateRecipeIngredient: function(obj, id){
+            return updateRecipeIngredient(obj, id)
+        },
+        
+        deleteRecipeIngredient: function(id){
+            return deleteRecipeIngredient(id)
         },
         getRecipesMadeByMe : function(){
             return getRecipesMadeByMe();

@@ -165,7 +165,7 @@ i.add-button {
 
 .copy_icon {
     position: relative;
-    top: 2px;
+    top: -2px;
     right: 2em;
 }
 
@@ -178,6 +178,10 @@ hr {
 
 .down-key {
     margin-top: 12px;
+}
+
+.btn-floating i {
+    line-height: 23px !important;
 }
 
 #add-food-modal {
@@ -493,7 +497,7 @@ select {
 /*Progresssbar*/
 
 .progress {
-    width: 115%;
+    width: 95%;
     height: 14px !important;
     background-color: #eee;
     border-radius: 5px;

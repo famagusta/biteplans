@@ -13,27 +13,32 @@
         "{{filter}}"> <label for="filledin{{$index}}">{{filter.split('_',
         1)[0]}}</label></li>
     </ul>
+
 <section ng-controller='summaryCtrl'>
-<div class="card-content" >
-    <span class="card-title center-align"></span>
-
     <div class="row">
+        <div class="col s8">
+            <div class="card white">
+                <div class="card-content">
 
-        <div class="col s12 m12">
-
-            <ul class="day-list center">
-                <li><span class="card-title center-align"><a ng-click=
+        <div class="row">
+        <div class="col s10 m10 push-s1 push-m1">
+            <div class="row center">
+                <div class="col s1">
+                     <span class="card-title center-align date_change"><a ng-click=
                 "getNextDay(-1)"><i class=
                 "fa fa-chevron-left cyan-text"></i></a></span>
-                </li>
-
-
+                </div>
+                
+               <div class="col s10">
+                    
+                   <ul class="day-list center">
+                    
                 <li><span class=
                 "day_list center-align">{{navTitles.prev}}</span>
                 </li>
 
 
-                <li><span class="day_list center-align"><i class=
+                <li><span class="day_list center-align "><i class=
                 "cyan-text" style="font-style:bold">{{navTitles.current}}</i></span>
                 </li>
 
@@ -41,23 +46,29 @@
                 <li><span class=
                 "day_list center-align">{{navTitles.next}}</span>
                 </li>
-
-
-                <li><span class="card-title center-align"><a ng-click=
-                "getNextDay(1)"><i class=
-                "fa fa-chevron-right cyan-text"></i></a></span>
-                </li>
-
-                <li><span class="card-title center-align meal-text"><i class=
-                "material-icons">date_range</i></span>
-                </li>
             </ul>
+                    </div>
+                
+                
+                <div class="col s1">
+                    <span class="card-title center-align date_change"><a ng-click=
+                    "getNextDay(1)"><i class=
+                    "fa fa-chevron-right cyan-text"></i></a></span>
+                </div>            
+            
+            </div>
+
+        </div>
+        <div class="col s1 m1 shift_right">                
+                <span class="card-title center-align meal-text date_change"><a ng-click="calendar()"><i class=
+                "material-icons">date_range</i></a></span>
+                    </div>
     </div>
 
     <div class="row">
         <div class="col s12 m12">
             <span class="card-title center-align"></span>
-
+<!--TITLE OF DIETPLAN SHOULD COME HERE ALONG WITH A LINK FOR THE PLAN PAGE-->
             <h5 class="center-align"><span class=
             "card-title center-align">Weight Loss in 2 weeks</span>
             </h5>
@@ -80,36 +91,48 @@
                       <p class="ing-text">{{meal.name}}</p>
                     </div>
                     
-                    <div class="col s2">
+                    <div class="col s1 pull-s1">
                         <p class="cyan-text">{{meal.time}}</p>
                     </div>
                 </div>
               
 
                 <div ng-repeat=
-                '(index2, ingredient) in meal.followingMealPlanIngredient track by $index'>
+                '(index2, ingredient) in meal.followingMealPlanIngredient track by $index' class="meal_lst">
                     
                     <div class="row">
-                        <div class="col s3 m7">
+                        <div class="col s3 m5 push-m1">
                             <p class=
-                            "meal-text">{{ingredient.ingredient.name}}</p>
+                            "meal-text">{{ingredient.meal_ingredient.name}}</p>
                         </div>
-
-                        <div class="col s2 m2">
-                            <span class="center-align"><input class="serving"
-                            id="servings" ng-change=
-                            "updateMealIngredientQuantity(ingredient)"
-                            ng-model="ingredient.quantity" step="0.25"
-                            string-to-number="" type="number"></span>
+                        
+                        <div class="col s2 m1 center">
+                            <span class="meal-text">-</span>
                         </div>
-
-
-                        <div class="col s2 m2">
-                
-                        </div>
-                        <span class="card-title center-align"></span>
 
                         <div class="col s2 m1">
+                            <span class="center-align"><input class="serving"
+                            id="dash_servings" ng-change=
+                            "updateMealIngredientQuantity(ingredient)"
+                            ng-model="ingredient.quantity" step="0.25"
+                            string-to-number="" type="number" min="0"></span>
+                        </div>
+                        
+                        <div class="col s1 center">
+                             <p class="meal-text">{{(ingredient.unit_desc.weight | number) * (ingredient.quantity)  + '&nbsp;' + 'gms'}}</p>
+
+                        </div>
+                        
+                        <div class="col m1 push-m1 selcol">
+                            <select id="ing_select"
+                                        material-select="" ng-change=
+                                        "updateMealIngredient(item1)" ng-model=
+                                        "ingredient.measure" ng-options=
+                                        "measure as measure.description for measure in ingredient.meal_ingredient.measure">
+                                        </select>
+                        </div>
+
+                        <div class="col s2 m1 push-m1">
                             <span class="center-align"><input checklist-model=
                             "checklistIngredients" checklist-value="ingredient"
                             class="filled-in" id=
@@ -119,14 +142,12 @@
                             "filled-in-box-{{index1}}-{{index2}}" id=
                             "check-label"></label></span>
                         </div>
-                        <span class="card-title center-align"></span>
 
-                        <div class="col m1 center">
+                        <div class="col m1 push-m1 bin">
                             <span class="card-title center-align"><a ng-click=
                             "removeIngredientsFromSavedMeal(index1,index2)"><i class=
-                            "material-icons b">delete</i></a></span>
+                            "material-icons">delete</i></a></span>
                         </div>
-                        <span class="card-title center-align"></span>
                     </div>
                 </div>
                 
@@ -134,6 +155,106 @@
         </div>
     </div>
 </div>
+            </div>
+        </div>
+        
+        <div class="col s4">
+              <div class="row">
+                <div class="col s12 m12">
+                    <div class="card dash_graphcard">
+                    <div class="card-content black-text">
+                        <p class="ing-text">Total</p>
+                        <div class="progress progress-spacing">
+                            <div class="determinate" style="width: {{calcDayNutrientVal('energy_kcal')}}%"></div>
+                        </div>
+                        <p class="meal-text">{{calcDayNutrientVal('energy_kcal')}} Kcal</p>
+
+                        <br>
+<!--                             ROUND PROGRESSBARS -->
+                                <div clas="row">
+                                    <div class="col s4 m12 center">
+                                        <div
+                                        round-progress
+                                        max="100"
+                                        current="((calcDayNutrientVal('protein_tot')*4)/calcDayNutrientVal('energy_kcal'))*100"
+                                        color="#6639b6"
+                                        bgcolor="#eaeaea"
+                                        radius="50"
+                                        stroke="4"
+                                        semi="false"
+                                        rounded="true"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="800"
+                                        animation="easeInOutQuart"
+                                        animation-delay="0"></div>
+                                        <p class="center graph-text">PROTEINS</p>
+                                       <p class="center graph-value">{{((calcDayNutrientVal('protein_tot')*4)/calcDayNutrientVal('energy_kcal'))*100 | number}}%</p>
+                                        <p class="ing-text nutgraph_val">{{calcDayNutrientVal('protein_tot') | number}}g</p>
+                                    </div>
+                                    
+                                    <div class="col s4 m12 center">
+                                        <div
+                                        round-progress
+                                        max="100"
+                                        current="((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal'))*100"
+                                        color="#fe6433"
+                                        bgcolor="#eaeaea"
+                                        radius="50"
+                                        stroke="4"
+                                        semi="false"
+                                        rounded="true"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="800"
+                                        animation="easeInOutQuart"
+                                        animation-delay="0"></div>
+                                         <p class="center graph-text">CARBS</p>
+                                        <p class="center graph-value">{{((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal', false))*100 |number }}%</p>
+                                         <p class="ing-text nutgraph_val">{{calcDayNutrientVal('carbohydrate_tot') | number}} g</p>
+                                    </div>
+     
+                                    <div class="col s4 m12 center">
+                                        <div
+                                        round-progress
+                                        max="100"
+                                        current="((calcDayNutrientVal('fat_tot')*9)/calcDayNutrientVal('energy_kcal', false))*100"
+                                        color="#fdc106"
+                                        bgcolor="#eaeaea"
+                                        radius="50"
+                                        stroke="4"
+                                        semi="false"
+                                        rounded="true"
+                                        clockwise="true"
+                                        responsive="false"
+                                        duration="800"
+                                        animation="easeInOutQuart"
+                                        animation-delay="0"></div>
+                                        <p class="center graph-text">FATS</p>
+                                        <p class="center graph-value">{{((calcDayNutrientVal('fat_tot', false)*9)/calcDayNutrientVal('energy_kcal', false))*100 |number }} %</p> 
+                                        <p class="ing-text nutgraph_val">{{calcDayNutrientVal('fat_tot') | number}} g</p>
+                                    </div>
+                                </div>
+                        
+                    </div>
+                          
+                          </div>
+                          
+                          
+                            
+
+    
+        </div>
+    </div>
+                    </div>
+                  </div>
+                  </div>
+            </div>
+        </div>
+        
+   
+    </div>
+
 
 
 <!-- Add Meal Modal-->
@@ -223,7 +344,7 @@
                             <div class="card-content black-text">
                                 <textarea class="form-control" id="searchbox"
                                 ng-model="query" placeholder=
-                                "Search Ingredient"></textarea> <button class=
+                                "Search Ingredient"></textarea> <button fire-enter class=
                                 "fa fa-search search-ingredient" ng-click=
                                 "searchPlan(query)" type="submit"></button>
                             </div>

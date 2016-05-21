@@ -42,7 +42,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: '/static/templates/searchIngredients.html'
             })
             .when('/dashboard', {
-                controller: 'dashboardController',
+//                controller: 'dashboardController',
                 templateUrl: '/static/templates/dashboard.html'
             })
             .when('/plan/:id', {
@@ -68,6 +68,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             .when('/viewRecipe/:id', {
                 controller: 'viewRecipeController',
                 templateUrl: 'static/templates/viewRecipe.html'
+            })
+            .when('/editRecipe/:id', {
+                controller: 'editRecipeController',
+                templateUrl: 'static/templates/editRecipe.html'
             })
 //            .when('/dashboard/2', {
 //                controller: 'profileController',

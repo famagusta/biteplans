@@ -44,17 +44,6 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
         };
 
 
-    	
-
-
-
-
-
-
-
-
-
-
     }]);
 
 
@@ -67,8 +56,17 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     	var getRecipesMadeByMe = function(){
 
     		recipeService.getRecipesMadeByMe().then(function(response){
-
+                console.log(response);
     			$scope.createdRecipes = response;
+                
+                for(var i=0;i<$scope.createdRecipes.length;i++){
+                    if($scope.createdRecipes[i].image){
+                        $scope.myRecipesImage = $scope.createdRecipes[i].image;
+                    }
+                    else {
+                        $scope.myRecipesImage = 'static/images/default_recipe.png';
+                    }
+                }
 
     		}, function(error){
 
@@ -83,6 +81,7 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     		summaryService.getShortlistRecipes().then(function(response){
 
     			$scope.myRecipes = response;
+                console.log(response);
 
     		}, function(error){
 

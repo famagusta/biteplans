@@ -74,7 +74,7 @@ class EventIngredient(models.Model):
         and whether the user has ticked it in his dashboard'''
     meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE,
                                      related_name="followingMealPlanIngredient")
-    meal_ingredient = models.ForeignKey(MealIngredient,
+    meal_ingredient = models.ForeignKey(Ingredient,
                                         on_delete=models.CASCADE)
     is_checked = models.BooleanField(default=False)
     quantity = models.DecimalField(max_digits=11, decimal_places=3)
@@ -86,7 +86,7 @@ class EventIngredient(models.Model):
 class EventRecipe(models.Model):
     ''' stores an recipe from a meal plan or log for a given day
         and whether the user has ticked it in his dashboard'''
-    meal_recipe = models.ForeignKey(MealRecipe, on_delete=models.CASCADE)
+    meal_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     meal_history = models.ForeignKey(MealHistory, on_delete=models.CASCADE,
                                      related_name="followingMealPlanRecipe")
     is_checked = models.BooleanField(default=False)
@@ -138,14 +138,14 @@ def assosiate_mealingres(sender, instance, created, **kwargs):
 
         for i in mealingredient.all():
             EventIngredient.objects.create(meal_history=instance,
-                                           meal_ingredient=i,
+                                           meal_ingredient=i.ingredient,
                                            quantity=i.quantity,
                                            unit_desc=i.unit
                                            )
 
         for i in mealrecipe.all():
             EventRecipe.objects.create(meal_history=instance,
-                                       meal_recipe=i,
+                                       meal_recipe=i.recipe,
                                        no_of_servings=i.no_of_servings
                                        )
 

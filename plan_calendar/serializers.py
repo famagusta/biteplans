@@ -29,7 +29,7 @@ class UserPlnHistorySerializer(serializers.ModelSerializer):
 
 class EventRecipeSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
-    meal_recipe = MealRecipeSerializer(many=False, read_only=True)
+    meal_recipe = RecipeSerializer(many=False, read_only=True)
     class Meta:
         '''Meta data, or config for the serializer'''
         model = EventRecipe
@@ -45,7 +45,7 @@ class EventIngredientSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 
 	unit_desc = IngredientMeasureSerializer(many=False, read_only=True)
-	meal_ingredient = MealIngredientSerializer(many=False, read_only=True)
+	meal_ingredient = IngredientSerializer(many=False, read_only=True)
 	class Meta:
 		'''Meta data, or config for the serializer'''
 		model = EventIngredient

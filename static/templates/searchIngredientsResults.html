@@ -1,14 +1,14 @@
 <div class="full-length" id="result-list">
     <div ng-if="details.results!=null && details.results!=undefined && details.results.length!=0">
         <div class="row">
-            <div class="col s12 m6" ng-repeat="detail in details.results track by $index " ng-click="openIngredientsModal($index)">
+            <div class="col s12 m6" ng-repeat="detail in details.results track by $index">
                 <div class="card white big result-card" id=
                 "ingredient-result-card">
-                    <div class="card-content grey-text">
+                    <div class="card-content grey-text" ng-click="openIngredientsModal($index)">
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
-                                {{detail.name| addSpace}}</h5>
+                                {{detail.name| addSpace | limitTo:20}}....</h5>
                             </div>
                         </div>
 
@@ -61,6 +61,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                     <div class="card-action">
+                          <a class="cyan-text right"  ng-click="searchService.shortlistIngredients(details.results[selected].id)">Shortlist</a>
                     </div>
                 </div>
             </div>
@@ -183,7 +186,7 @@
 
                 <div class="center-btn">
                     <button class=
-                    "waves-effect waves-light btn largebtn center" ng-click="searchService.shortlistIngredients(details.results[selected].id)">Add to My
+                    "waves-effect waves-light btn largebtn center" ng-click="searchService.shortlistRecipes(details.results[selected].id)">Add to My
                     Ingredients</button>
                 </div>
             </div>

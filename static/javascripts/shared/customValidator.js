@@ -34,6 +34,15 @@ app.directive('materialSelect', function() {
    };
 });
 
+app.directive('carouselEffect', function() {
+   return {
+      restrict: 'A',
+      link: function(scope, elem) {
+         $(elem).carousel();
+      }
+   };
+});
+
 app.directive('dropdownButton', function() {
    return {
       restrict: 'A',
@@ -49,6 +58,31 @@ app.directive('dropdownButton', function() {
                   });
       }
    };
+});
+
+app.directive('adjustPlaceholder', function() {
+    return{
+        restrict: 'A',
+        link: function(scope, elem) {
+            $(elem).addClass('active');
+        }
+    }
+});
+
+app.directive('fireEnter', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, elem) {
+          $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
+                if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
+                    $(elem).click();
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
+    }
 });
 
 

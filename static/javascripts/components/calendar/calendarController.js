@@ -28,6 +28,9 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
 
     $scope.dayClick = function(date) {
         $scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
+        $scope.tab.dateClick = $filter("date")(date, "y-MM-d");
+//        $scope.tab.tab = 1;
+        $scope.setTab(1);
     };
 
     $scope.prevMonth = function(data) {

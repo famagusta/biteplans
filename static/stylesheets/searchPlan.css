@@ -176,6 +176,12 @@ textarea:focus {
 }
 }
 
+@media only screen and (max-width : 1280px) {
+    .createbtn {
+        display: none;
+    }
+} 
+
 
 
 
