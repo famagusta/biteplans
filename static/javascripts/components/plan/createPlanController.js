@@ -87,6 +87,12 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             $('#jump-to-modal').openModal();
                         };
 
+
+                        //function to copy the current day plan and jump to feature
+                        //type determines what is the task
+                        //if type is copy then it will copy
+                        //if type is jump then it will jump
+
                         $scope.daySelect = function(type, week, day){
                             console.log(type, week,day);
                             if(type==='copy'){
@@ -224,6 +230,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         }
 
                                         // TODO: similar thing for recipes
+
+                                        //parse recipe servings to float
 
                                         for (var j = 0; j <
                                             response.mealplan[i]
@@ -378,7 +386,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         };
 
 
-                        // updates meal ingredient in a meal plan
+                        // updates meal recipe in a meal plan
                         $scope.updateMealRecipe = function(obj) {
                             // CONSIDER RENAMING THIS
                             var obje = {
@@ -421,6 +429,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         //if not, then only make the request, if the order is same and filters are same,
                         //then do not make the request.
 
+
+                        //for recipes
+
                         $scope.search_recipe = function(page, sortby){
                             var query = $scope.query;
                             $scope.details = undefined;
@@ -438,6 +449,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         console.log(error);
                              
                         });}};
+
+                        //for ingredients
                         $scope.search = function(page, sortby) {
                             $scope.details = undefined;
                             if ($scope.query !== undefined) {
@@ -692,8 +705,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         };
 
                         // removes ingredients which are saved in meal
-                        $scope.removeIngredientsFromSavedMeal =
-                            function(key, element) {
+                        $scope.removeIngredientsFromSavedMeal = function(key, element) {
 
                                 var temp = $scope.mealPlanNameArray[key]
                                     .mealingredient[element];
@@ -709,8 +721,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
 
                             // removes recipes which are saved in meal
-                        $scope.removeIngredientsFromSavedMealRecipe =
-                            function(key, element) {
+                        $scope.removeIngredientsFromSavedMealRecipe = function(key, element) {
 
                                 var temp = $scope.mealPlanNameArray[key]
                                     .mealrecipe[element];
