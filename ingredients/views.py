@@ -46,8 +46,7 @@ class GlobalSearchList(generics.GenericAPIView):
         result = self.get_queryset()
         ##Filters are only applicable for ingredients,
         ##so this gathers the list of possible filters
-        if request.POST.get('type', False) == 'ingredients' \
-        or request.POST.get('type', False) == 'plans':
+        if request.POST.get('type', False) == 'ingredients':
             filters = result.values_list("food_group").distinct()
 
             food_group = request.POST.get('food_group', False)
@@ -75,7 +74,8 @@ class GlobalSearchList(generics.GenericAPIView):
                     res += result.filter(food_group=i)
                 result = res
 
-        elif request.POST.get('type', False) == 'recipes':
+        elif request.POST.get('type', False) == 'recipes' \
+        or request.POST.get('type', False) == 'plans':
             ##This gather the list of sort options
             sortl = []
             filters = None
