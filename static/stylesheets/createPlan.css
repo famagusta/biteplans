@@ -32,9 +32,56 @@ div#create-form {
     margin-left: 10px;
 }
 
+.weekWidth{
+    width:12% !important;
+    margin-right:10px;
+    padding:10px !important;
+    font-weight:bold !important;
+
+}
+
+.dayWidth{
+    width: 10% !important;
+    border-radius: 7px !important;
+    padding:5px !important;
+    border:2px solid #00bcd4 !important;
+    color:#00bcd4 !important;
+    margin: 5px !important; 
+    cursor:pointer !important;
+}
+
+.dayWidth:hover{
+    width:10% !important;
+    border-radius: 7px !important;
+    padding:5px !important;
+    border:2px solid #00bcd4 !important;
+    background:#00bcd4 !important;
+    color:white !important;
+    cursor:pointer;
+}
+
+.center-me{
+    color:rgba(0,0,0,.87) !important;
+    margin:auto !important;
+    text-align:center;
+    margin-top:15px !important;
+}
+
 #progressbar li{
     display: inline-flex;
    padding: 0 50px 0 13px;   
+}
+
+#jump-to-modal>.modal-content>.row{
+    text-align: center;
+    vertical-align: middle;
+
+}
+
+#jump-to-modal>.modal-content{
+    text-align: center;
+    vertical-align: middle;
+
 }
 
 .graph-text {

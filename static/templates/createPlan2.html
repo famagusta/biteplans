@@ -123,14 +123,14 @@
                         </div>
                    <div class="row horizontal-line vertical-line top-line left-line">
                             <div class=
-                                    "col s4 m3">
-                                    <p class="center tab_head ing-text">Your food plan
+                                    "col s3 m2">
+                                    <p class="center tab_head ing-text">Food plan
                                     for</p>
                                     </div>
 
 
                                     <div class=
-                                    "col s4 m2 left-line">
+                                    "col s3 m2 left-line">
                                         <div class="row">
                                             <div class="col s3">
                                                  <a href="#" ng-click=
@@ -176,12 +176,23 @@
                                     </div>
 
 
-                                    <div class="col s5 left-line">
-                                        <div class="row">
-                                            <div class="col s4">
-                                                <p class="ing-text tab_head center">Copy to</p>
+                                    <div class="col s3 m2 left-line">
+                                        <div class="row" ng-click="openJumpToModal('copy')">
+                                            <div class="col s8 m8">
+                                                <p class="ing-text tab_head center">Copy to&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                             </div>
-                                            <div class="col s8 meal-text tab_head">
+                                            <div class="col s4 m4 meal-text tab_head">
+                                                <i class="material-icons copy_icon">date_range</i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col s3 m2 left-line">
+                                        <div class="row" ng-click="openJumpToModal('jump')">
+                                            <div class="col s8 m8">
+                                                <p class="ing-text tab_head center">Jump to&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                            </div>
+                                            <div class="col s4 m4 meal-text tab_head">
                                                 <i class="material-icons copy_icon">date_range</i>
                                             </div>
                                         </div>
@@ -679,29 +690,6 @@
                                             ng-model="meal.time" placeholder=
                                             "HH:mm:ss" required="" type="time">
             </div>
-<!--
-            
-
-            <div class="input-field col s3">
-                <select material-select="" ng-model="hours" ng-options=
-                "i for i in addMealHours">
-                    </select>
-            </div>
-
-
-            <div class="input-field col s3">
-                <select material-select="" ng-model="minutes" ng-options=
-                "i for i in addMealMinutes">
-                    </select>
-            </div>
-
-
-            <div class="input-field col s3">
-                <select material-select="" ng-model="ampm" ng-options=
-                "i for i in amPmArray">
-                    </select>
-            </div>
--->
             
         </div>
 
@@ -712,6 +700,26 @@
                     <a class="waves-effect waves-light btn largebtn" ng-click=
                     "addMeal(meal)">CREATE A MEAL</a>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 
+Modal for jump to and copy option -->
+<div class="modal modal-fixed-footer" id="jump-to-modal">
+
+    <div class="center-me">
+
+    <h5><b>Select a day of the plan:</b></h5></div>
+    <div class="modal-content">
+        <div class="row" ng-repeat="week in weekCount">
+            <div class="col s2 weekWidth">
+                {{week.name}}
+            </div>
+            <div class="col s2 dayWidth" ng-repeat="day in dayCount" ng-click="daySelect(jumpToModalType, week.id, day.id)">
+                {{day.name}}
             </div>
         </div>
     </div>

@@ -66,21 +66,58 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 for (var i = 1; i <= $scope.plan.duration; i++) {
                                     $scope.weekCount.push({
                                         'id': i,
-                                        'name': 'Week' +
-                                            ' ' + i
+                                        'name': 'Week' + ' '+ i
                                     });
                                 }
                                 for (var j = 1; j <= 7; j++) {
                                     $scope.dayCount.push({
-                                        'id': i,
-                                        'name': 'Day' + ' ' +
-                                            j
+                                        'id': j,
+                                        'name': 'Day' + ' ' +j
                                     });
                                 }
 
                             }, function(error) {
                                 console.log(error);
                             });
+
+
+                        /*opens jump to or copy to modal*/
+                        $scope.openJumpToModal = function(type){
+                            $scope.jumpToModalType = type;
+                            $('#jump-to-modal').openModal();
+                        };
+
+                        $scope.daySelect = function(type, week, day){
+                            console.log(type, week,day);
+                            if(type==='copy'){
+
+                             if(day != $scope.dayplan.day_no || week != $scope.dayplan.week_no){
+
+                                planService.copyDayPlan({
+                                    'from_day':$scope.dayplan.day_no,
+                                    'from_week':$scope.dayplan.week_no,
+                                    'to_day':day,
+                                    'to_week':week,
+                                    'dietplan':$scope.plan.id
+                                }).then(function(response){
+                                    console.log(response);
+                                    alert('copied');
+                                    $('#jump-to-modal').closeModal();
+                                }, function(error){
+
+                                    console.log(error);
+
+                                });
+
+                            }}
+
+                            else if(type==='jump'){
+                                $scope.dayplan.day_no = parseInt(day);
+                                $scope.dayplan.week_no = parseInt(week);
+                                $scope.getDayPlan($scope.dayplan.day_no, $scope.dayplan.week_no);
+                                $('#jump-to-modal').closeModal();
+                            }
+                        };
 
 
                         /* stores the details to get current day plan
