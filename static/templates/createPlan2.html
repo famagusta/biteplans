@@ -35,6 +35,12 @@
                                                 <div class="determinate" style="width: {{(calcMealNutrientVal($index, 'energy_kcal') / calcDayNutrientVal('energy_kcal', false) )*100}}%">
                                                 </div>
                                             </div>
+<!--
+                                             <div class="progress progress-spacing">
+                                                <div class="determinate" style="width: {{(calculateGlobalMacros('energy_kcal'))*100}}%">
+                                                </div>
+                                            </div>
+-->
                                         </div>
                                         
                                         <div class="col s3 m4">
@@ -756,7 +762,7 @@
                                         "searchbox" ng-model="query"
                                         placeholder=
                                         "Search Ingredient"></textarea>
-                                        <button fire-enter class=
+                                        <button class=
                                         "fa fa-search search-ingredient"
                                         ng-click="searchPlan(query)" type=
                                         "submit"></button>

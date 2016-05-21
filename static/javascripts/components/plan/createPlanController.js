@@ -94,9 +94,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         $scope.unit = 0;
 
                         /* Function to update day_no or week_no */
-                        $scope.updateDayPlan = function(param, val) {
-                            
-
+                        $scope.updateDayPlan = function(param, val,
+                            index) {
 
                             if (index === 1) {
                                 /*if possible, write a shorter function using modulo operator
