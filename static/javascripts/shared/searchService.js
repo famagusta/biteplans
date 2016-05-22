@@ -134,15 +134,39 @@ app.factory('searchService',
         var shortlistRecipes = function(id){
             var deferred = $q.defer();
             var url = constants['API_SERVER'] + 'biteplans/calendar/myrecipes/';
-
             httpService.httpPost(url, {
-                'meal_recipe':id
+                'recipe':id
             }).then(function(response){
+                deferred.resolve(response);
+                console.log(response.status);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+                
+        var getMyRecipes = function(){
+            var deferred = $q.defer();
+            var url = constants['API_SERVER'] + 'biteplans/calendar/myrecipes/';
+            httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
             }, function(error){
                 deferred.reject(error);
             });
             return deferred.promise;
+        };
+        
+        var removeFromMyRecipes = function(id){
+          var deferred = $q.defer();
+            var url = constants['API_SERVER'] + 'biteplans/calendar/myrecipes/' + 
+                id + '/';
+            httpService.httpDelete(url).then(function(response){
+                deferred.resolve(response);
+                console.log(response.status);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;  
         };
 
     return {
@@ -163,6 +187,12 @@ app.factory('searchService',
         },
         shortlistIngredients : function(id) {
             return shortlistIngredients(id); 
+        },
+        getMyRecipes : function(){
+            return getMyRecipes();
+        },
+        removeFromMyRecipes : function(id){
+            return removeFromMyRecipes(id);   
         }
     };
     

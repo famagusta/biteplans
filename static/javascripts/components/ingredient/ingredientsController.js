@@ -57,8 +57,8 @@ app.controller('ingredientsController', ['$scope', 'searchService',
                         $scope.filts = response.filters; //model for storing response from API                
                         console.log($scope.details);
                         // pagination
-        $scope.currentPage = page;
-        $scope.pageSize = response.total*6;
+                        $scope.currentPage = page;
+                        $scope.pageSize = response.total*6;
                     }, function(error) {
                         console.log(error);
                     });
@@ -76,7 +76,8 @@ app.controller('ingredientsController', ['$scope', 'searchService',
         $scope.calculateIngredientInfo = function(nutrient) {
                 var total=0;
                 
-                total += $scope.details.results[$scope.selected][nutrient] * $scope.openModal.measure.weight;
+                total += $scope.details.results[$scope.selected][nutrient] 
+                    * $scope.openModal.measure.weight;
             
             return total;
                 

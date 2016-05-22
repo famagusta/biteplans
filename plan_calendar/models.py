@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
+
 class UserPlanHistory(models.Model):
     '''model stores calender associated with each user.
        based on django-scheduler'''
@@ -18,7 +19,8 @@ class UserPlanHistory(models.Model):
 
     # Even if the dietplan is deleted. let the populated
     # meal history remain. COOL!!
-    dietplan = models.ForeignKey(DietPlan, null=True, on_delete=models.SET_NULL)
+    dietplan = models.ForeignKey(DietPlan, null=True,
+                                 on_delete=models.SET_NULL)
     start_date = models.DateField()
     created_on = models.DateTimeField()
     updated_on = models.DateTimeField()
@@ -61,8 +63,8 @@ class MealHistory(models.Model):
     updated_on = models.DateTimeField()
 
     class Meta:
-      '''unique fields composite'''
-      unique_together = ('date', 'time')
+        '''unique fields composite'''
+        unique_together = ('date', 'time')
 
     def save(self, **kwargs):
         self.updated_on = datetime.now()
@@ -97,20 +99,26 @@ class MyIngredient(models.Model):
     '''stores ingredients logged of bookmarked by users'''
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="loggedIngredients")
-    meal_ingredient = models.ForeignKey(Ingredient,
-                                        on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient,
+                                   on_delete=models.CASCADE)
+    class Meta:
+        '''unique fields composite'''
+        unique_together = ('user', 'ingredient')
 
 
 class MyRecipe(models.Model):
     '''stores recipes logged of bookmarked by users'''
-    meal_recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, on_delete=models.CASCADE,
                              related_name="loggedrecipes")
-
+    class Meta:
+        '''unique fields composite'''
+        unique_together = ('user', 'recipe')
 
 
 @receiver(post_save, sender=UserPlanHistory)
 def assosiate_mealhistory(sender, instance, created, **kwargs):
+    '''add meal plans associated with a diet to meal history'''
     if created:
         diet = instance.dietplan
         daylist = diet.dayplan.all()
@@ -119,9 +127,10 @@ def assosiate_mealhistory(sender, instance, created, **kwargs):
             mealplanarr = daylist[i].mealplan.all()
             for j in range(len(mealplanarr)):
                 date = instance.start_date + timedelta(
-                          days=(daylist[i].day_no) - \
-                          1 + (daylist[i].week_no - 1) * 7)
+                    days=(daylist[i].day_no) -
+                    1 + (daylist[i].week_no - 1) * 7)
                 time = mealplanarr[j].time
+                print mealplanarr[j]
                 MealHistory.objects.create(name=mealplanarr[j].name,
                                            user=instance.user,
                                            user_dietplan=instance,
@@ -129,13 +138,15 @@ def assosiate_mealhistory(sender, instance, created, **kwargs):
                                            date=date,
                                            time=time)
 
+
 @receiver(post_save, sender=MealHistory)
 def assosiate_mealingres(sender, instance, created, **kwargs):
-    if created and instance.user_mealplan != None:
+    '''add ingredients and recipes related to meal plans to events'''
+    if created and instance.user_mealplan is not None:
         mealplan = instance.user_mealplan
         mealingredient = mealplan.mealingredient
         mealrecipe = mealplan.mealrecipe
-
+        
         for i in mealingredient.all():
             EventIngredient.objects.create(meal_history=instance,
                                            meal_ingredient=i.ingredient,
@@ -146,7 +157,5 @@ def assosiate_mealingres(sender, instance, created, **kwargs):
         for i in mealrecipe.all():
             EventRecipe.objects.create(meal_history=instance,
                                        meal_recipe=i.recipe,
-                                       no_of_servings=i.no_of_servings
+                                       no_of_servings=i.servings
                                        )
-
-

@@ -45,7 +45,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
            since we wanted a button to trigger the series
            of events */
         $scope.followPlan = function(planId){
-            console.log("follow");
             var $input = $('.datepicker_btn').pickadate({
                 format : 'yyyy-mm-dd',
                 formatSubmit: false,

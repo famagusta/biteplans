@@ -46,6 +46,34 @@ p.recipe-card-info {
     right: 14px
 }
 
+.heart-c {
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+}
+
+.heart-c:hover{
+    color: #ff5252;
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+}
+
+.heart-ok{
+    color: #ff5252;
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+}
 .nutinfo_dropdown {
     font-size: 30px;
     position: relative;

@@ -1,7 +1,3 @@
-
-
-
-
 <div id="result-list">
     <div ng-if=
     "recipeDetails!=null && recipeDetails!=undefined && recipeDetails.results.length!=0">
@@ -56,11 +52,25 @@
                             </div>
                             
                             <div class="row raise">
-                                <div class="col s12">
-                                     <a class="read-more right cyan-text" ng-href="viewRecipe/{{recipe.id}}">READ MORE</a>
-                                    <a class="read-more heart" ng-click="searchService.shortlistRecipes(recipe.id)"><i class="material-icons">favorite</i></a>
+                                <div class="col s6">
+                                    <a class="heart-c right" ng-if=
+                                       "!checkMyRecipes(recipe.id)"
+                                       ng-click="shortlistRecipe(recipe.id)">
+                                        <i class="material-icons">favorite</i></a>
+                                    <a class="heart-ok right" ng-if=
+                                       "checkMyRecipes(recipe.id)"
+                                       ng-click="shortlistRecipe(recipe.id)">
+                                        <i class="material-icons">favorite</i></a>
+                                </div>
+                                <div class="col s6">
+                                     <a class="read-more right cyan-text" 
+                                        ng-href="viewRecipe/{{recipe.id}}">
+                                         READ MORE
+                                    </a>
+                                    
                                 </div>
                             </div>
+                            
                         </div>
                 
                       </div>

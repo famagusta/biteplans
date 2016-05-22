@@ -17,6 +17,7 @@ from rest_framework import viewsets, generics
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
 
+
 class GlobalSearchList(generics.GenericAPIView):
     '''creates serializer of the queryset'''
     sortlist = None
@@ -37,8 +38,6 @@ class GlobalSearchList(generics.GenericAPIView):
             self.sortlist = Recipe._meta.fields
             return Recipe.objects.all().filter(name__search=query)
         elif self.request.data['type'] == 'plans':
-            print query
-            self.sortlist = DietPlan._meta.fields
             return DietPlan.objects.all().filter(name__search=query)
 
     def post(self, request):
@@ -46,8 +45,12 @@ class GlobalSearchList(generics.GenericAPIView):
         result = self.get_queryset()
         ##Filters are only applicable for ingredients,
         ##so this gathers the list of possible filters
-        if request.POST.get('type', False) == 'ingredients' \
-        or request.POST.get('type', False) == 'plans':
+
+        if request.POST.get('type', False) == 'plans':
+            # will do something interesting with this in future
+            sortl = []
+            filters = None
+        elif request.POST.get('type', False) == 'ingredients':
             filters = result.values_list("food_group").distinct()
 
             food_group = request.POST.get('food_group', False)
@@ -74,7 +77,6 @@ class GlobalSearchList(generics.GenericAPIView):
                 for i in food_group:
                     res += result.filter(food_group=i)
                 result = res
-
         elif request.POST.get('type', False) == 'recipes':
             ##This gather the list of sort options
             sortl = []
@@ -84,17 +86,16 @@ class GlobalSearchList(generics.GenericAPIView):
                 "<class 'django.db.models.fields.DecimalField'>":
                     sortl.append(i.name)
             self.sortlist = None
-
-            ##this  hecks if sort by is reuested and applies it if
+            ##this checks if sort by is reuested and applies it if
             ##that is the case
 
             sortby = request.POST.get('sortby', False)
             if sortby != False:
                 result = result.order_by('-'+sortby)
-
+                
         ##total number of pages
         total = math.ceil(len(result)/6.0)
-
+        
         ##pagination for 6 results in each page
         paginator = Paginator(result, 6)
         page = request.GET.get('page')
@@ -108,7 +109,7 @@ class GlobalSearchList(generics.GenericAPIView):
             # If page is out of range (e.g. 9999),
             ##deliver last page of results.
             result = paginator.page(paginator.num_pages)
-
+        
         result = serializer(result, many=True)
         return Response({"results":result.data, "total":total,
                         "filters":filters, "sortlist":sortl})

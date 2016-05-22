@@ -51,38 +51,6 @@ class EventIngredientSerializer(serializers.ModelSerializer):
 		model = EventIngredient
 
 
-
-class MyIngredientSerializer(serializers.ModelSerializer):
-	'''Serializer to convert the recieved data into suitable python dict'''
-	meal_ingredient = IngredientSerializer(many=False, read_only=True)
-	class Meta:
-		'''Meta data, or config for the serializer'''
-		model = MyIngredient
-		read_only_fields = ('id', 'user', )
-
-class MyIngredientWriteSerializer(serializers.ModelSerializer):
-	'''Serializer to convert the recieved data into suitable python dict'''
-	class Meta:
-		'''Meta data, or config for the serializer'''
-		model = MyIngredient
-		read_only_fields = ('id', 'user', )
-
-class MyRecipeSerializer(serializers.ModelSerializer):
-	'''Serializer to convert the recieved data into suitable python dict'''
-	meal_recipe = RecipeSerializer(many=False, read_only=True)
-	class Meta:
-		'''Meta data, or config for the serializer'''
-		model = MyRecipe
-		read_only_fields = ('id', 'user', )
-
-class MyRecipeWriteSerializer(serializers.ModelSerializer):
-	'''Serializer to convert the recieved data into suitable python dict'''
-	class Meta:
-		'''Meta data, or config for the serializer'''
-		model = MyRecipe
-		read_only_fields = ('id', 'user', )
-
-
 class EventIngSerializer(serializers.ModelSerializer):
 	'''Serializer to convert the recieved data into suitable python dict'''
 	class Meta:
@@ -95,7 +63,8 @@ class MealHistorySerializer(serializers.ModelSerializer):
 	followingMealPlanRecipe = EventRecipeSerializer(many=True, read_only=True)
 	followingMealPlanIngredient = EventIngredientSerializer(many=True,
 	                                                        read_only=True)
-	user_dietplan = DietPlanSerializer(many=False, read_only=True)
+    # this did not work
+    # user_dietplan = DietPlanSerializer(many=False, read_only=True)
 
 	class Meta:
 		'''Meta data, or config for the serializer'''
@@ -109,3 +78,42 @@ class MealHistoryWriteSerializer(serializers.ModelSerializer):
 		model = MealHistory
 		read_only_fields = ('id', 'updated_on', 'user', )
 
+        
+class MyIngredientSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	ingredient = IngredientSerializer(many=False, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MyIngredient
+		read_only_fields = ('id', 'user', )
+
+        
+class MyIngredientWriteSerializer(serializers.ModelSerializer):
+    '''Serializer to convert the recieved data into suitable python dict'''
+    user = serializers.PrimaryKeyRelatedField(read_only=True,
+                                              default=serializers.CurrentUserDefault())
+    
+    class Meta:
+        '''Meta data, or config for the serializer'''
+        model = MyIngredient
+        read_only_fields = ('id', 'user', )
+        
+        
+class MyRecipeSerializer(serializers.ModelSerializer):
+	'''Serializer to convert the recieved data into suitable python dict'''
+	recipe = RecipeSerializer(many=False, read_only=True)
+	class Meta:
+		'''Meta data, or config for the serializer'''
+		model = MyRecipe
+		read_only_fields = ('id', 'user', )
+
+        
+class MyRecipeWriteSerializer(serializers.ModelSerializer):
+    '''Serializer to convert the recieved data into suitable python dict'''
+    user = serializers.PrimaryKeyRelatedField(read_only=True,
+                                              default=serializers.CurrentUserDefault())
+    
+    class Meta:
+        '''Meta data, or config for the serializer'''
+        model = MyRecipe
+        read_only_fields = ('id', 'user', )
