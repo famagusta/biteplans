@@ -90,7 +90,8 @@ class MealHistoryViewSet(viewsets.ModelViewSet):
             return Response({'mealhistory_id': obj.id},
                             status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
     def list(self, request):
         '''returns queryset for get method'''
@@ -142,7 +143,7 @@ class MyIngredientsViewset(viewsets.ModelViewSet):
     def create(self, request):
         '''Creates the model instance dietplans'''
         serializer = self.serializer_class(data=request.data,
-                                          context={'request': request})
+                                           context={'request': request})
         if serializer.is_valid():
             obj = MyIngredient.objects.create(**serializer.validated_data)
             return Response({'myingredient': obj.id},
@@ -179,11 +180,9 @@ class MyRecipeViewset(viewsets.ModelViewSet):
         else:
             self.serializer_class = MyRecipeWriteSerializer
             return (IsFollowing(),)
-        
 
     def create(self, request):
         '''Creates the model instance dietplans'''
-        
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
         if serializer.is_valid():

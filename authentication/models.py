@@ -71,7 +71,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # We will send an email to the user on signing up
     # clicking on which will make him
     # active and if he does not click on it then he will be inactive
-    image_path = models.ImageField(null= True, blank=True, upload_to=upload_to)
+    image_path = models.ImageField(null=True, blank=True, upload_to=upload_to)
     activation_key = models.CharField(max_length=40, null=True)
     key_expires = models.DateTimeField(null=True)
 
@@ -120,17 +120,17 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
-    
-    
+
+
 @receiver(pre_save, sender=Account)
 def skip_saving_file(sender, instance, **kwargs):
     if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
         setattr(instance, _UNSAVED_FILEFIELD, instance.image_path)
         instance.image = None
 
-        
+
 @receiver(post_save, sender=Account)
 def save_file(sender, instance, created, **kwargs):
     if created and hasattr(instance, _UNSAVED_FILEFIELD):
         instance.image_path = getattr(instance, _UNSAVED_FILEFIELD)
-        instance.save()    
+        instance.save()

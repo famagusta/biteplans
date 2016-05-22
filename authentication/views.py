@@ -73,7 +73,6 @@ class AccountViewSet(viewsets.ModelViewSet):
             message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://bitespacetest.com:8000/confirm/%s' % (request.data['username'], activation_key)
             tr = send_mail(sub, message, master, [email], fail_silently=False)
             if tr:
-                print serializer.validated_data.pop('confirm_password')
                 account = Account.objects.create_user(
                     **serializer.validated_data)
                 account.activation_key = activation_key
@@ -141,7 +140,6 @@ class UserJWTDetailView(JWTAuthMixin, BaseDetailView):
 def checkAccountStatus(request):
     '''function to check auth status of a user'''
     if request.method == 'GET':
-        print request.user
         if request.user.is_authenticated():
             data = {'status': True,
                     'pk': request.user.id}

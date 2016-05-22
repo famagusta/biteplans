@@ -45,4 +45,4 @@ urlpatterns = patterns('',
 
                        url(r'^plan/dayplan/(?P<diet>[0-9]+)/(?P<day_no>[0-9]+)/(?P<week_no>[0-9]+)/$',
                            vu.DayPlnViewSet.as_view()),
-					)
+                       )

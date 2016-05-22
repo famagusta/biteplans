@@ -4,7 +4,6 @@ from authentication.models import Account
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 
-
 class AccountSerializer(serializers.ModelSerializer):
     '''serializer for auth users'''
     password = serializers.CharField(write_only=True, required=False)

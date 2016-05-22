@@ -80,12 +80,12 @@ class MealRecipe(models.Model):
     meal_plan = models.ForeignKey(MealPlan, on_delete=models.CASCADE,
                                   related_name="mealrecipe")
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
-                                related_name="meal_recipe")
+                               related_name="meal_recipe")
     servings = models.DecimalField(max_digits=11, decimal_places=3)
 
     def __unicode__(self):
         '''string repr of the object'''
-        return 'Meal Recipe for %s' %self.meal_plan
+        return 'Meal Recipe for %s' % self.meal_plan
 
     class Meta:
         '''name db table'''
@@ -107,7 +107,7 @@ class MealIngredient(models.Model):
 
     def __unicode__(self):
         '''string repr of the object'''
-        return 'Meal Ingredient for %s' %self.meal_plan
+        return 'Meal Ingredient for %s' % self.meal_plan
 
     class Meta:
         '''name db table'''
@@ -121,16 +121,26 @@ def create_dayplan(sender, instance, created, **kwargs):
     if created:
         num_of_days = int(math.ceil(instance.duration*7))
         for i in range(num_of_days):
-            DayPlan.objects.create(diet=instance, day_no=i%7+1, week_no=(i/7)+1,
+            day = (i % 7) + 1
+            week = (i / 7) + 1
+            DayPlan.objects.create(diet=instance, day_no=day, week_no=week,
                                    name="Week "+str(i/7+1)+" Day "+str(i+1)
                                    + " of DietPlan "+instance.name)
+
 
 @receiver(post_save, sender=DayPlan)
 def create_mealplan(sender, instance, created, **kwargs):
     '''assosiate one to one calender to the user instance'''
     if created:
-        MealPlan.objects.create(day=instance, name="Breakfast", time="10:00:00")
-        MealPlan.objects.create(day=instance, name="Lunch", time="14:00:00")
-        MealPlan.objects.create(day=instance, name="Snacks", time="18:00:00")
-        MealPlan.objects.create(day=instance, name="Dinner", time="21:00:00")
-        
+        MealPlan.objects.create(day=instance,
+                                name="Breakfast",
+                                time="08:00:00")
+        MealPlan.objects.create(day=instance,
+                                name="Lunch",
+                                time="13:00:00")
+        MealPlan.objects.create(day=instance,
+                                name="Snacks",
+                                time="17:00:00")
+        MealPlan.objects.create(day=instance,
+                                name="Dinner",
+                                time="20:00:00")

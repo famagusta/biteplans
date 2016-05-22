@@ -5,7 +5,7 @@ from authentication.models import Account
 from dietplans.models import DietPlan
 from dietplans.serializers import DietPlanSerializer
 from ingredients.serializers import IngredientSerializer,\
-AddtnlInfoIngSerializer
+    AddtnlInfoIngSerializer
 import json
 from recipes.serializers import RecipeSerializer
 from authentication.serializers import AccountSerializer
@@ -21,6 +21,7 @@ import math
 class GlobalSearchList(generics.GenericAPIView):
     '''creates serializer of the queryset'''
     sortlist = None
+
     def get_serializer_class(self):
         if self.request.data['type'] == 'ingredients':
             return IngredientSerializer
@@ -43,8 +44,8 @@ class GlobalSearchList(generics.GenericAPIView):
     def post(self, request):
         '''Handles post request'''
         result = self.get_queryset()
-        ##Filters are only applicable for ingredients,
-        ##so this gathers the list of possible filters
+        # Filters are only applicable for ingredients,
+        # so this gathers the list of possible filters
 
         if request.POST.get('type', False) == 'plans':
             # will do something interesting with this in future
@@ -55,48 +56,48 @@ class GlobalSearchList(generics.GenericAPIView):
 
             food_group = request.POST.get('food_group', False)
 
-            ##This gather the list of sort options
+            # This gather the list of sort options
             sortl = []
             for i in self.sortlist:
-                if str(type(i)) == \
-                "<class 'django.db.models.fields.DecimalField'>":
+                if str(type(i)) ==\
+                        "<class 'django.db.models.fields.DecimalField'>":
                     sortl.append(i.name)
-            self.sortlist = None
+                    self.sortlist = None
 
-            ##this  hecks if sort by is reuested and applies it if
-            ##that is the case
+            # this checks if sort by is reuested and applies it if
+            # that is the case
 
             sortby = request.POST.get('sortby', False)
-            if sortby != False:
+            if sortby:
                 result = result.order_by('-'+sortby)
 
-            ##this applies filters
-            if food_group != False:
+            # this applies filters
+            if food_group:
                 food_group = json.loads(food_group)
                 res = []
                 for i in food_group:
                     res += result.filter(food_group=i)
                 result = res
         elif request.POST.get('type', False) == 'recipes':
-            ##This gather the list of sort options
+            # This gather the list of sort options
             sortl = []
             filters = None
             for i in self.sortlist:
                 if str(type(i)) == \
-                "<class 'django.db.models.fields.DecimalField'>":
+                        "<class 'django.db.models.fields.DecimalField'>":
                     sortl.append(i.name)
             self.sortlist = None
-            ##this checks if sort by is reuested and applies it if
-            ##that is the case
+            # this checks if sort by is reuested and applies it if
+            # that is the case
 
             sortby = request.POST.get('sortby', False)
-            if sortby != False:
+            if sortby:
                 result = result.order_by('-'+sortby)
-                
-        ##total number of pages
+
+        # total number of pages
         total = math.ceil(len(result)/6.0)
-        
-        ##pagination for 6 results in each page
+
+        # pagination for 6 results in each page
         paginator = Paginator(result, 6)
         page = request.GET.get('page')
         serializer = self.get_serializer_class()
@@ -107,12 +108,12 @@ class GlobalSearchList(generics.GenericAPIView):
             result = paginator.page(1)
         except EmptyPage:
             # If page is out of range (e.g. 9999),
-            ##deliver last page of results.
+            # deliver last page of results.
             result = paginator.page(paginator.num_pages)
-        
+
         result = serializer(result, many=True)
-        return Response({"results":result.data, "total":total,
-                        "filters":filters, "sortlist":sortl})
+        return Response({"results": result.data, "total": total,
+                        "filters": filters, "sortlist": sortl})
 
 
 class GetCompleteIngredientInfo(generics.RetrieveAPIView):

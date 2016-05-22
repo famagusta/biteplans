@@ -14,7 +14,7 @@ from imported_recipes.models import ImportedRecipe, ImportedRecipeIngredients, \
     ImportedIngredientQuantity
 
 from plan_calendar.models import UserPlanHistory, MealHistory, \
-EventIngredient, EventRecipe, MyIngredient, MyRecipe
+    EventIngredient, EventRecipe, MyIngredient, MyRecipe
 
 
 class IngResource(resources.ModelResource):
