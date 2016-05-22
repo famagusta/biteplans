@@ -122,7 +122,7 @@ app.factory('searchService',
             var url = constants['API_SERVER'] + 'biteplans/calendar/myingredients/';
 
             httpService.httpPost(url, {
-                'meal_ingredient':id
+                'ingredient':id
             }).then(function(response){
                 deferred.resolve(response);
             }, function(error){

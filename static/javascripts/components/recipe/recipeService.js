@@ -63,6 +63,8 @@ app.factory('recipeService',
     var updateRecipeIngredient = function(obj, id) {
             var url = '/biteplans/recipe/recipeingredient/' + id + '/';
             var deferred = $q.defer();
+            obj.ingredient = obj.ingredient.id;
+            obj.measure = obj.measure.id;
             httpService.httpPatch(url, obj)
                 .then(function(response) {
                     deferred.resolve(response);

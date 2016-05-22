@@ -28,7 +28,7 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
 
     		
     		$('#modal6').openModal();
-    		$scope.openModal.measure = $scope.myIngredients[index].meal_ingredient.measure[0];
+    		$scope.openModal.measure = $scope.myIngredients[index].ingredient.measure[0];
 
     		$scope.selected = index;
     	};
@@ -36,7 +36,7 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
     	$scope.calculateIngredientInfo = function(nutrient) {
                 var total=0;
                 
-                total += $scope.myIngredients[$scope.selected].meal_ingredient[nutrient] * $scope.openModal.measure.weight;
+                total += $scope.myIngredients[$scope.selected].ingredient[nutrient] * $scope.openModal.measure.weight;
             
             return total;
                 
