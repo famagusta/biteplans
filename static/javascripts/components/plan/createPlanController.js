@@ -66,21 +66,64 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 for (var i = 1; i <= $scope.plan.duration; i++) {
                                     $scope.weekCount.push({
                                         'id': i,
-                                        'name': 'Week' +
-                                            ' ' + i
+                                        'name': 'Week' + ' '+ i
                                     });
                                 }
                                 for (var j = 1; j <= 7; j++) {
                                     $scope.dayCount.push({
-                                        'id': i,
-                                        'name': 'Day' + ' ' +
-                                            j
+                                        'id': j,
+                                        'name': 'Day' + ' ' +j
                                     });
                                 }
 
                             }, function(error) {
                                 console.log(error);
                             });
+
+
+                        /*opens jump to or copy to modal*/
+                        $scope.openJumpToModal = function(type){
+                            $scope.jumpToModalType = type;
+                            $('#jump-to-modal').openModal();
+                        };
+
+
+                        //function to copy the current day plan and jump to feature
+                        //type determines what is the task
+                        //if type is copy then it will copy
+                        //if type is jump then it will jump
+
+                        $scope.daySelect = function(type, week, day){
+                            console.log(type, week,day);
+                            if(type==='copy'){
+
+                             if(day != $scope.dayplan.day_no || week != $scope.dayplan.week_no){
+
+                                planService.copyDayPlan({
+                                    'from_day':$scope.dayplan.day_no,
+                                    'from_week':$scope.dayplan.week_no,
+                                    'to_day':day,
+                                    'to_week':week,
+                                    'dietplan':$scope.plan.id
+                                }).then(function(response){
+                                    console.log(response);
+                                    alert('copied');
+                                    $('#jump-to-modal').closeModal();
+                                }, function(error){
+
+                                    console.log(error);
+
+                                });
+
+                            }}
+
+                            else if(type==='jump'){
+                                $scope.dayplan.day_no = parseInt(day);
+                                $scope.dayplan.week_no = parseInt(week);
+                                $scope.getDayPlan($scope.dayplan.day_no, $scope.dayplan.week_no);
+                                $('#jump-to-modal').closeModal();
+                            }
+                        };
 
 
                         /* stores the details to get current day plan
@@ -187,6 +230,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         }
 
                                         // TODO: similar thing for recipes
+
+                                        //parse recipe servings to float
 
                                         for (var j = 0; j <
                                             response.mealplan[i]
@@ -341,7 +386,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         };
 
 
-                        // updates meal ingredient in a meal plan
+                        // updates meal recipe in a meal plan
                         $scope.updateMealRecipe = function(obj) {
                             // CONSIDER RENAMING THIS
                             var obje = {
@@ -384,6 +429,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         //if not, then only make the request, if the order is same and filters are same,
                         //then do not make the request.
 
+
+                        //for recipes
+
                         $scope.search_recipe = function(page, sortby){
                             var query = $scope.query;
                             $scope.details = undefined;
@@ -401,6 +449,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         console.log(error);
                              
                         });}};
+
+                        //for ingredients
                         $scope.search = function(page, sortby) {
                             $scope.details = undefined;
                             if ($scope.query !== undefined) {
@@ -655,8 +705,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         };
 
                         // removes ingredients which are saved in meal
-                        $scope.removeIngredientsFromSavedMeal =
-                            function(key, element) {
+                        $scope.removeIngredientsFromSavedMeal = function(key, element) {
 
                                 var temp = $scope.mealPlanNameArray[key]
                                     .mealingredient[element];
@@ -672,8 +721,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
 
 
                             // removes recipes which are saved in meal
-                        $scope.removeIngredientsFromSavedMealRecipe =
-                            function(key, element) {
+                        $scope.removeIngredientsFromSavedMealRecipe = function(key, element) {
 
                                 var temp = $scope.mealPlanNameArray[key]
                                     .mealrecipe[element];

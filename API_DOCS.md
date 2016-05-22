@@ -362,3 +362,15 @@ request for shortlisting recipes {
 httpDelete,
 url /biteplans/calendar/myingredients/pk/(for ingredients)
 url /biteplans/calendar/myrecipes/pk/(for recipes)
+
+
+###COPY DAY PLAN
+
+url = /biteplans/bite/copydayplan/
+ request = {
+ from_day:<day no of the dayplan being copied>,
+ from_week:<week no of the dayplan being copied>,
+ to_day:<day no of dayplan to which it is to be copied>,
+ to_week:<day no of dayplan to which it is to be copied>,
+ dietplan:<dietplan id assosiated with this all>
+ }

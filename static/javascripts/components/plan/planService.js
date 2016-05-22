@@ -29,7 +29,20 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
                     deferred.reject(error);
                 });
             return deferred.promise;
-        }
+        };
+
+        var copyDayPlan = function(obj){
+            var url = '/biteplans/diet/copydayplan/';
+            var deferred = $q.defer();
+            httpService.httpPost(url, obj).then(function(response){
+
+                deferred.resolve(response);
+
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
 
         var updatePlan = function(obj, id) {
             var url = '/biteplans/diet/dietplans/' + id + '/';
@@ -234,6 +247,10 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             },
             followDietPlan : function(obj){
                 return followDietPlan(obj);
+            },
+
+            copyDayPlan: function(obj){
+                return copyDayPlan(obj);
             },
         };
 
