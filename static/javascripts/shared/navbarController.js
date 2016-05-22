@@ -167,6 +167,9 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService', 'profi
 };
     
     
+    $scope.closeModal = function(){
+        $('#modal1').closeModal();
+    }
 
 //function to reset password, calls auth service to call forgot password feature. Email is a param
 $scope.resetPassword = function(){

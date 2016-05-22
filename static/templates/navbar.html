@@ -97,12 +97,13 @@
 
         </div>
     </nav>
+    
     <!-- LOGIN & SIGNUP MODAL -->
 
 
     <div class="modal col s12 m6" id="modal1">
         <a class=
-        " modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+        " modal-action modal-close waves-effect waves-green btn-flat right" >X</a>
 
         <div class="modal-content">
             <div ng-if='modal1 && !modal2 && !modal3 && !modal4'>
@@ -113,7 +114,7 @@
 
                 <div class="center-btn">
                     <a class="waves-effect waves-light btn largebtn" ng-click=
-                    "Auth('facebook')">Log In with FACEBOOK</a><br>
+                    "closeModal();Auth('facebook')">Log In with FACEBOOK</a><br>
                 </div>
                 <br>
 
