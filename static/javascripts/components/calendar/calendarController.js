@@ -73,18 +73,18 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
     $scope.setDayContent = function(date) {
         
         var key = moment(date).format('YYYY-MM-DD');
-//        console.log($scope.currMonthContext !== moment(date).month);
         if ($scope.currMonthContext !== moment(date).month()){
 
             $scope.currMonthContext = moment(date).month();
             
             var deferred = $q.defer();
             var url = '/biteplans/calendar/follow/' + '?date=' + key;
-
+            console.log(url);
             /* get request for getting the dietplans a user is following in a month */
             httpService.httpGet(url)
                     .then(function(response) {
                         deferred.resolve(response);
+                        console.log(response);
                     }, function(error) {
                         deferred.reject(error);
                     });

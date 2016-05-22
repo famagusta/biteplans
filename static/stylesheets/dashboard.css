@@ -191,3 +191,7 @@ input:disabled {
         word-spacing: 10px !important;
     }
 }
+
+.calendar {
+    height: 600px;
+}

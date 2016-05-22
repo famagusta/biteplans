@@ -31,7 +31,7 @@ class FollowDietViewSet(viewsets.ModelViewSet):
         if date:
             temparr = date.split('-')
             month = int(temparr[1])
-            year = int(temparr[2])
+            year = int(temparr[0])
             return UserPlanHistory.objects.filter(start_date__month=month,
                                                   start_date__year=year,
                                                   user=self.request.user)
