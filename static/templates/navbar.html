@@ -121,7 +121,7 @@
 
                 <div class="center-btn">
                     <a class="waves-effect waves-light btn largebtn" id=
-                    "googlebtn" ng-click="Auth('google')">Log In with
+                    "googlebtn" ng-click="closeModal();Auth('google')">Log In with
                     GOOGLE</a>
                 </div>
 
@@ -183,14 +183,14 @@
 
                 <div class="center-btn">
                     <a class="waves-effect waves-light btn largebtn" ng-click=
-                    "Auth('facebook')">Sign Up with FACEBOOK</a>
+                    "closeModal();Auth('facebook')">Sign Up with FACEBOOK</a>
                 </div>
                 <br>
 
 
                 <div class="center-btn">
                     <a class="waves-effect waves-light btn largebtn" id=
-                    "googlebtn" ng-click="Auth('google')">Sign Up with
+                    "googlebtn" ng-click="closeModal();Auth('google')">Sign Up with
                     GOOGLE</a>
                 </div>
 
@@ -385,6 +385,7 @@
         </div>
     </div>
 </div>
+
 <script>
 $(document).ready(function() {
      $('.button-collapse').sideNav({
@@ -395,8 +396,7 @@ $(document).ready(function() {
   );
     $(".dropdown-button").dropdown();
 
-    // Initialize collapse button
-  
+  // Initialize collapse button
   // Initialize collapsible (uncomment the line below if you use the dropdown variation)
   $('.collapsible').collapsible();
 });
