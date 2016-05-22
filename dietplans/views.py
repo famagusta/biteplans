@@ -252,8 +252,8 @@ class CopyViewSet(generics.GenericAPIView):
 
                         else:
                             MealRecipe.objects.create(
-                                recipe=frommealings[k].recipe,
-                                servings=frommealings[k].servings,
+                                recipe=fromrecipes[k].recipe,
+                                servings=fromrecipes[k].servings,
                                 meal_plan=new_meal_plan)
 
                 return Response({"success": "copied"},
