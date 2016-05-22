@@ -63,12 +63,7 @@ class MealHistorySerializer(serializers.ModelSerializer):
 	followingMealPlanRecipe = EventRecipeSerializer(many=True, read_only=True)
 	followingMealPlanIngredient = EventIngredientSerializer(many=True,
 	                                                        read_only=True)
-
-    # this did not work
-    # user_dietplan = DietPlanSerializer(many=False, read_only=True)
-
-    # this might work
-    user_dietplan = UserPlanHistorySerializer(many=False, read_only=True)
+	user_dietplan = UserPlanHistorySerializer(many=False, read_only=True)
 
 
 	class Meta:
