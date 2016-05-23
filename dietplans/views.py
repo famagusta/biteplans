@@ -206,6 +206,7 @@ class CopyViewSet(generics.GenericAPIView):
                 from_day_mealplan = from_day.mealplan.all()
                 to_day_mealplan = to_day.mealplan.all()
 
+                # delete any existing mealplans on the to_day
                 for i in range(len(from_day_mealplan), len(to_day_mealplan)):
                     to_day_mealplan[i].delete()
 
@@ -251,9 +252,10 @@ class CopyViewSet(generics.GenericAPIView):
                             mealrecipe[k].meal_plan = new_meal_plan
 
                         else:
+                            print fromrecipes[k]
                             MealRecipe.objects.create(
-                                recipe=frommealings[k].recipe,
-                                servings=frommealings[k].servings,
+                                recipe=fromrecipes[k].recipe,
+                                servings=fromrecipes[k].servings,
                                 meal_plan=new_meal_plan)
 
                 return Response({"success": "copied"},

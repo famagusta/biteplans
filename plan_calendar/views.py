@@ -1,11 +1,12 @@
 # Create your views here.
 '''Views for planCalendar'''
 from plan_calendar.models import UserPlanHistory, MealHistory, \
-    MyIngredient, MyRecipe, EventIngredient
+    MyIngredient, MyRecipe, EventIngredient, EventRecipe
 from plan_calendar.serializers import UserPlanHistorySerializer,\
     UserPlnHistorySerializer, MealHistorySerializer, MealHistoryWriteSerializer, \
     MyIngredientSerializer, MyIngredientWriteSerializer, MyRecipeSerializer, \
-    MyRecipeWriteSerializer, EventIngredientSerializer, EventIngSerializer
+    MyRecipeWriteSerializer, EventIngredientSerializer, EventIngSerializer,\
+    EventRecipeSerializer, EventRecpSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -165,6 +166,23 @@ class MyIngredientsViewset(viewsets.ModelViewSet):
         return Response(obj.data, status=status.HTTP_200_OK)
 
 
+class EventRecipesViewSet(viewsets.ModelViewSet):
+    '''view to allow users to follow plans'''
+    serializer_class = EventRecipeSerializer
+    queryset = EventRecipe.objects.all()
+    # TODO below function is not correct, allow only plan follower
+    # to edit stuff
+
+    def get_permissions(self):
+        '''return allowed permissions'''
+        if self.request.method in permissions.SAFE_METHODS:
+            self.serializer_class = EventRecipeSerializer
+            return (permissions.IsAuthenticated(), )
+        else:
+            self.serializer_class = EventRecpSerializer
+            return (IsEventMealHistoryOwner(), )
+        
+    
 class MyRecipeViewset(viewsets.ModelViewSet):
     queryset = MyRecipe.objects.all()
     serializer_class = MyRecipeSerializer

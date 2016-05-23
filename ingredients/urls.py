@@ -28,6 +28,8 @@ followrouter.register(r'follow', plnView.FollowDietViewSet,
 followrouter.register(r'getPlanSummary', plnView.MealHistoryViewSet,
                       base_name="date")
 followrouter.register(r'eventingredients', plnView.EventIngredientsViewSet)
+followrouter.register(r'eventrecipes', plnView.EventRecipesViewSet)
+
 followrouter.register(r'myingredients', plnView.MyIngredientsViewset)
 followrouter.register(r'myrecipes', plnView.MyRecipeViewset)
 

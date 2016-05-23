@@ -177,23 +177,30 @@
 
 
                                     <div class="col s3 m2 left-line">
-                                        <div class="row" ng-click="openJumpToModal('copy')">
+                                        <div class="row">
                                             <div class="col s8 m8">
-                                                <p class="ing-text tab_head center">Copy to&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                                <p class="ing-text tab_head center">
+                                                    Copy to&nbsp;&nbsp;&nbsp;&nbsp;
+                                                </p>
                                             </div>
                                             <div class="col s4 m4 meal-text tab_head">
-                                                <i class="material-icons copy_icon">date_range</i>
+                                                <i class="material-icons copy_icon"
+                                                   ng-click=
+                                                   "openJumpToModal('copy')">
+                                                    date_range</i>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col s3 m2 left-line">
-                                        <div class="row" ng-click="openJumpToModal('jump')">
+                                        <div class="row">
                                             <div class="col s8 m8">
                                                 <p class="ing-text tab_head center">Jump to&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                             </div>
                                             <div class="col s4 m4 meal-text tab_head">
-                                                <i class="material-icons copy_icon">date_range</i>
+                                                <i class="material-icons copy_icon" 
+                                                   ng-click="openJumpToModal('jump')">
+                                                    date_range</i>
                                             </div>
                                         </div>
                                     </div>

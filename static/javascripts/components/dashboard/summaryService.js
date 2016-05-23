@@ -18,6 +18,18 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                 });
             return deferred.promise;
         };
+        
+        var getUserCurrentDietplan = function(dateString) {
+            var url = '/biteplans/calendar/follow/' + '?date=' + dateString;
+            var deferred = $q.defer();
+            httpService.httpGet(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
 
         var updateEventIngredient = function(obj, id) {
             var url = '/biteplans/calendar/eventingredients/' + id + '/';
@@ -29,6 +41,18 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                     deferred.reject(error);
                 });
             return deferred.promise;
+        };
+        
+        var updateEventRecipe = function(obj, id){
+          var url = '/biteplans/calendar/eventrecipes/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpPatch(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;  
         };
         
         // add ingredient to a meal
@@ -101,8 +125,14 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             getUserDayPlan: function(dateString) {
                 return getUserDayPlan(dateString);
             },
+            getUserCurrentDietplan: function(dateString){
+                return getUserCurrentDietplan(dateString);
+            },
             updateEventIngredient: function(obj, id){
                 return updateEventIngredient(obj, id);
+            },
+            updateEventRecipe: function(obj, id){
+                return updateEventRecipe(obj, id);
             },
              deleteMealIngredient: function(obj) {
                 return deleteMealIngredient(obj);

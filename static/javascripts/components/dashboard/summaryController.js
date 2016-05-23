@@ -3,16 +3,17 @@
 app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
     function($scope, summaryService, searchService) {
         $scope.plan_data = [];
+        $scope.plan_summary = [];
         $scope.checklistIngs = [];
         $scope.ingredientInModal = [];
         $scope.foodgroup = [];
         $scope.currentMealPlanName = -1;
 
         $scope.today = moment();
-        
+
         var contextDate = moment();
-        
-        
+
+
         $scope.navDates = {
             current: moment(),
             next: moment()
@@ -20,16 +21,18 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             prev: moment()
                 .subtract(1, "days")
         }
-        
-        
+
+
         $scope.navTitles = {
             current: "Today",
             prev: "Yesterday",
             next: "Tomorrow"
         }
         
+        
+
         /*check whether selected date is same as today, 
-    yesterday or tomorrow and set titles accordingly*/
+        yesterday or tomorrow and set titles accordingly*/
         $scope.checkNavTitle = function() {
             var diff = Math.round($scope.today.diff($scope.navDates
                 .current, 'days', true));
@@ -85,15 +88,15 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 }
             }
         }
-        
-        
+
+
 
         // array to store modal ingredients to add
         $scope.MealIngredients2Add = [];
 
         /* array to maintain a list of checked ingredients */
         $scope.checklistIngredients = [];
-
+        $scope.checklistRecipes = [];
         /* watch the array of checked ingredients. if anything changes
            update that particular change */
         $scope.$watchCollection('checklistIngredients', function(newVal,
@@ -109,16 +112,22 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     return obj === obj2;
                 });
             });
+            
             if (diffIncrease.length > 0) {
                 for (var i = 0; i < diffIncrease.length; i++) {
                     var id = diffIncrease[i].id;
                     var objToUpdate = {
                         is_checked: true,
-                        quantity: diffIncrease[i].quantity
+                        quantity: diffIncrease[i].quantity,
+                        unit_desc: diffIncrease[i].unit_desc.id
                     };
                     (function(objToUpdate, id) {
                         summaryService.updateEventIngredient(
-                            objToUpdate, id);
+                            objToUpdate, id).then(function(response){
+                            $scope.updatePlanDataIngredients(id, objToUpdate);    
+                        }, function(error){
+                            console.log(error);
+                        });
                     })(objToUpdate, id)
                 }
             }
@@ -127,17 +136,128 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     var id = diffDecrease[i].id;
                     var objToUpdate = {
                         is_checked: false,
-                        quantity: diffDecrease[i].quantity
+                        quantity: diffDecrease[i].quantity,
+                        unit_desc: diffDecrease[i].unit_desc.id
                     };
                     (function(objToUpdate, id) {
                         summaryService.updateEventIngredient(
-                            objToUpdate, id);
+                            objToUpdate, id).then(function(response){
+                            $scope.updatePlanDataIngredients(id, objToUpdate);
+                        }, function(error){
+                            console.log(error);
+                        });
                     })(objToUpdate, id)
                 }
             }
-        })
+        });
 
+        
+         /* watch the array of checked recipes. if anything changes
+           update that particular change */
+        $scope.$watchCollection('checklistRecipes', function(newVal,
+            oldVal) {
+            var diffIncrease = newVal.filter(function(obj) {
+                return !oldVal.some(function(obj2) {
+                    return obj === obj2;
+                });
+            });
 
+            console.log(newVal);
+            console.log(oldVal);
+            var diffDecrease = oldVal.filter(function(obj) {
+                return !newVal.some(function(obj2) {
+                    return obj === obj2;
+                });
+            });
+            
+            if (diffIncrease.length > 0) {
+                for (var i = 0; i < diffIncrease.length; i++) {
+                    var id = diffIncrease[i].id;
+                    var objToUpdate = {
+                        is_checked: true,
+                        no_of_servings: diffIncrease[i].no_of_servings,
+                    };
+                    (function(objToUpdate, id) {
+                        summaryService.updateEventRecipe(
+                            objToUpdate, id).then(function(response){
+                            $scope.updatePlanDataRecipes(id, objToUpdate);    
+                        }, function(error){
+                            console.log(error);
+                        });
+                    })(objToUpdate, id)
+                }
+            }
+            else if (diffDecrease.length > 0) {
+                for (var i = 0; i < diffDecrease.length; i++) {
+                    var id = diffDecrease[i].id;
+                    var objToUpdate = {
+                        is_checked: false,
+                        no_of_servings: diffDecrease[i].no_of_servings
+                    };
+                    (function(objToUpdate, id) {
+                        summaryService.updateEventRecipe(
+                            objToUpdate, id).then(function(response){
+                            $scope.updatePlanDataRecipes(id, objToUpdate);
+                        }, function(error){
+                            console.log(error);
+                        });
+                    })(objToUpdate, id)
+                }
+            }
+        });
+        
+        
+        /* find index of element in array with property*/
+        function findWithAttr(array, attr, value) {
+            for(var i = 0; i < array.length; i += 1) {
+                if(array[i][attr] === value) {
+                    return i;
+                }
+            }
+        }
+
+        
+        $scope.updatePlanDataIngredients = function(id, obj){
+            var ingred2Update = []
+            console.log('updating ingredients in plan Data');
+            for(var i=0; i< $scope.plan_data.length; i++){
+                ingred2Update = $scope.plan_data[i].followingMealPlanIngredient
+                .filter(function(el){
+                    return el.id == id
+                });
+                if(ingred2Update.length !== 0){
+                    var tmp = findWithAttr($scope.plan_data[i].followingMealPlanIngredient, 
+                                          'id', id);
+                    $scope.plan_data[i].followingMealPlanIngredient[tmp].is_checked = 
+                        obj.is_checked;
+                    $scope.plan_data[i].followingMealPlanIngredient[tmp].quantity = 
+                        obj.quantity;
+                }
+            }
+            
+        }
+
+        
+        $scope.updatePlanDataRecipes = function(id, obj){
+            var ingred2Update = []
+            console.log('updating recipe in plan data')
+            for(var i=0; i< $scope.plan_data.length; i++){
+                recipe2Update = $scope.plan_data[i].followingMealPlanRecipe
+                .filter(function(el){
+                    return el.id == id
+                });
+                if(recipe2Update.length !== 0){
+                    var tmp = findWithAttr($scope.plan_data[i].followingMealPlanRecipe, 
+                                          'id', id);
+                    $scope.plan_data[i].followingMealPlanRecipe[tmp].is_checked = 
+                        obj.is_checked;
+                    $scope.plan_data[i].followingMealPlanRecipe[tmp].no_of_servings = 
+                        obj.no_of_servings;
+                }
+            }
+            
+        }
+        
         $scope.updateMealIngredientCheck = function(ingredient) {
             var id = ingredient.id;
             var objToUpdate = {
@@ -152,14 +272,41 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 };
                 summaryService.updateEventIngredient(objToUpdate, id);
             }
+        
+        $scope.updateMealIngredientMeasure = function(ingredient){
+            var id = ingredient.id;
+            var objToUpdate = {
+                unit_desc: ingredient.unit_desc.id
+            }
+            summaryService.updateEventIngredient(objToUpdate, id);
+        }
+        
+        
+        $scope.updateMealRecipe = function(recipe){
+            var id = recipe.id;
+            var objToUpdate = {
+                no_of_servings: recipe.no_of_servings,
+                is_checked: recipe.is_checked
+            }
+            console.log(recipe);
+            
+            summaryService.updateEventRecipe(objToUpdate, id).then(function(response){
+                console.log(response);   
+            }, function(error){
+                console.log(error);
+            });
+        }
             //function to retrieve a particular days diet plan
         $scope.getDayPlan = function(dateString) {
             $scope.plan_data = [];
+            $scope.plan_summary = []
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
-                    console.log(response);
+//                    console.log(response);
                     $scope.plan_data = response;
                     for (var i = 0; i < $scope.plan_data.length; i++) {
+                        
+                        /* correct number formats for the page */
                         for (var j = 0; j < $scope.plan_data[i]
                             .followingMealPlanIngredient.length; j++
                         ) {
@@ -174,18 +321,38 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                                         j]);
                             }
                         }
+                        
+                        for (var j = 0; j < $scope.plan_data[i]
+                            .followingMealPlanRecipe.length; j++
+                        ) {
+                            $scope.plan_data[i].followingMealPlanRecipe[j].no_of_servings = 
+                                parseFloat($scope.plan_data[i]
+                                           .followingMealPlanRecipe[j]
+                                           .no_of_servings);
+                            if ($scope.plan_data[i].followingMealPlanRecipe[
+                                j].is_checked) {
+                                $scope.checklistRecipes.push(
+                                    $scope.plan_data[i].followingMealPlanRecipe[
+                                        j]);
+                            }
+                        }
                     }
 
                 }, function(error) {
                     console.log(error);
                 });
+            
+            summaryService.getUserCurrentDietplan(dateString)
+                .then(function(response){
+                $scope.plan_summary = response[0];
+            }, function(error){
+                console.log(error);
+            })
         }
 
-//        var dateString = $scope.today;
-        
 
         // check if we are being redirected from the calendar page
-        if($scope.tab.dateClick != undefined){
+        if ($scope.tab.dateClick != undefined) {
             $scope.navDates = {
                 current: moment($scope.tab.dateClick),
                 next: moment($scope.tab.dateClick)
@@ -199,7 +366,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         }
 
         $scope.getDayPlan(contextDate.format('YYYY-MM-DD'));
-        
+
         $scope.getNextDay = function(direction) {
             if (direction === 1) {
                 $scope.navDates.current.add(1, "days");
@@ -212,12 +379,11 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 $scope.navDates.prev.subtract(1, "days");
             }
             $scope.checkNavTitle();
-            console.log($scope.navDates);
             $scope.getDayPlan($scope.navDates.current.format(
                 'YYYY-MM-DD'));
         }
 
-        
+
 
         //opens modal to add ingredients/recipes on a current mealplan
         $scope.openCreatePlanModal = function(index) {
@@ -348,7 +514,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
                         });
                 }
-                
+
                 /* obj defined to add to scope meal plan array - id is added after getting
                  post response */
                 var obj = {
@@ -439,43 +605,74 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             $('#add-meal-modal')
                 .closeModal();
         };
-        
-        
-                    
+
+
+
         $scope.calcMealPlanValues = function(index, nutrient) {
             var total = [];
-            console.log($scope.plan_data);
-            for (var i=0;i<$scope.plan_data.length;i++) {
-                 var q=0;
-//                console.log($scope.plan_data[i]);
-                for (var j=0;j<$scope.plan_data[i].followingMealPlanIngredient.length;j++) {
-                    q += $scope.plan_data[i].followingMealPlanIngredient[j].meal_ingredient[nutrient]
-                         * $scope.plan_data[i].followingMealPlanIngredient[j].quantity;
-//                    console.log('dsd');
+            for (var i = 0; i < $scope.plan_data.length; i++) {
+                var q = 0;
+                //                console.log($scope.plan_data[i]);
+                for (var j = 0; j < $scope.plan_data[i].followingMealPlanIngredient
+                    .length; j++) {
+                    q += $scope.plan_data[i].followingMealPlanIngredient[
+                        j].meal_ingredient[nutrient] * $scope.plan_data[
+                        i].followingMealPlanIngredient[j].quantity;
+                    //                    console.log('dsd');
                 }
                 total.push(q);
             }
             return total[index];
 
         };
-        
-                              /* Calculates total value of a nutrient across a days plan */
-                       $scope.calcDayNutrientVal = function(nutrient){
-                            var total = 0;
-                                for (var i = 0; i < $scope.plan_data
-                                    .length; i++) {
-                                    for (var j = 0; j < $scope.plan_data[
-                                        i].followingMealPlanIngredient.length; j++) {
-                                        total += $scope.plan_data[i].followingMealPlanIngredient[j].meal_ingredient[nutrient] * $scope.plan_data[i].followingMealPlanIngredient[j].quantity;
-                                    }
 
-                                }
-                            return total;
-                        };
-      
+        /* Calculates total value of a nutrient across a days plan */
+        $scope.calcDayNutrientVal = function(nutrient) {
+            var total = 0;
+            for (var i = 0; i < $scope.plan_data
+                .length; i++) {
+                for (var j = 0; j < $scope.plan_data[
+                    i].followingMealPlanIngredient.length; j++) {
+                    total += $scope.plan_data[i].followingMealPlanIngredient[
+                        j].meal_ingredient[nutrient] * $scope.plan_data[
+                        i].followingMealPlanIngredient[j].quantity;
+                }
+
+            }
+            return total;
+        };
         
         
-       
+        /* Calculates total value of a nutrient across a days plan that a user has checked*/
+        $scope.calcCheckedNutrientVal = function(nutrient) {
+            var total = 0;
+            for (var i = 0; i < $scope.plan_data
+                .length; i++) {
+                for (var j = 0; j < $scope.plan_data[
+                    i].followingMealPlanIngredient.length; j++) {
+                    if($scope.plan_data[i].followingMealPlanIngredient[j]
+                       .is_checked){
+                        total += $scope.plan_data[i].followingMealPlanIngredient[
+                            j].meal_ingredient[nutrient] * $scope.plan_data[
+                            i].followingMealPlanIngredient[j].quantity;
+                    }
+                }
+
+            }
+            return total;
+        };
+
+
+        /* calculate %age checked nutrient value */
+        $scope.percentNutrientChecked = function(nutrient){
+            var a = $scope.calcCheckedNutrientVal(nutrient);
+            var b = $scope.calcDayNutrientVal(nutrient);
+//            console.log(a);
+//            console.log(b);
+            var result = 100* (a/b);
+//            console.log(result);
+            return result + '%';
+        }
 
 
     }
