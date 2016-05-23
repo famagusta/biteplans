@@ -302,7 +302,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             $scope.plan_summary = []
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
-//                    console.log(response);
                     $scope.plan_data = response;
                     for (var i = 0; i < $scope.plan_data.length; i++) {
                         
@@ -583,7 +582,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
         // Add Hours and Minutes for a meal time
         $scope.addMealHours = [];
-        // WHAT DOES THIS LOOP DO?
         for (var i = 0; i <= 23; i++) {
             $scope.addMealHours.push(i);
         }
@@ -612,13 +610,22 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var total = [];
             for (var i = 0; i < $scope.plan_data.length; i++) {
                 var q = 0;
-                //                console.log($scope.plan_data[i]);
+                
+                /* Add nutrition information from ingredients */
+                // TODO FIX WEIGHT ERROR
                 for (var j = 0; j < $scope.plan_data[i].followingMealPlanIngredient
                     .length; j++) {
                     q += $scope.plan_data[i].followingMealPlanIngredient[
                         j].meal_ingredient[nutrient] * $scope.plan_data[
                         i].followingMealPlanIngredient[j].quantity;
-                    //                    console.log('dsd');
+                }
+                
+                /* Add nutrition information from recipes */
+                for (var j = 0; j < $scope.plan_data[i].followingMealPlanRecipe
+                    .length; j++) {
+                    q += $scope.plan_data[i].followingMealPlanRecipe[
+                        j].meal_recipe[nutrient] * $scope.plan_data[
+                        i].followingMealPlanRecipe[j].no_of_servings;
                 }
                 total.push(q);
             }
@@ -631,11 +638,21 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var total = 0;
             for (var i = 0; i < $scope.plan_data
                 .length; i++) {
+                
+                /* Add nutrition information from ingredients */
                 for (var j = 0; j < $scope.plan_data[
                     i].followingMealPlanIngredient.length; j++) {
                     total += $scope.plan_data[i].followingMealPlanIngredient[
                         j].meal_ingredient[nutrient] * $scope.plan_data[
                         i].followingMealPlanIngredient[j].quantity;
+                }
+                
+                /* Add nutrition information from recipes */
+                for (var j = 0; j < $scope.plan_data[
+                    i].followingMealPlanRecipe.length; j++) {
+                    total += $scope.plan_data[i].followingMealPlanRecipe[
+                        j].meal_recipe[nutrient] * $scope.plan_data[
+                        i].followingMealPlanRecipe[j].no_of_servings;
                 }
 
             }
@@ -648,6 +665,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var total = 0;
             for (var i = 0; i < $scope.plan_data
                 .length; i++) {
+                
+                /* Add nutrition information from ingredients */
                 for (var j = 0; j < $scope.plan_data[
                     i].followingMealPlanIngredient.length; j++) {
                     if($scope.plan_data[i].followingMealPlanIngredient[j]
@@ -655,6 +674,17 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                         total += $scope.plan_data[i].followingMealPlanIngredient[
                             j].meal_ingredient[nutrient] * $scope.plan_data[
                             i].followingMealPlanIngredient[j].quantity;
+                    }
+                }
+                
+                /* Add nutrition information from recipes */
+                for (var j = 0; j < $scope.plan_data[
+                    i].followingMealPlanRecipe.length; j++) {
+                    if($scope.plan_data[i].followingMealPlanRecipe[j]
+                       .is_checked){
+                        total += $scope.plan_data[i].followingMealPlanRecipe[
+                            j].meal_recipe[nutrient] * $scope.plan_data[
+                            i].followingMealPlanRecipe[j].no_of_servings;
                     }
                 }
 
@@ -667,10 +697,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.percentNutrientChecked = function(nutrient){
             var a = $scope.calcCheckedNutrientVal(nutrient);
             var b = $scope.calcDayNutrientVal(nutrient);
-//            console.log(a);
-//            console.log(b);
             var result = 100* (a/b);
-//            console.log(result);
             return result + '%';
         }
 

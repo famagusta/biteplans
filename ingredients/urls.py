@@ -22,6 +22,7 @@ reciperouter = routers.SimpleRouter()
 reciperouter.register(r'recipes', recipeView.RecipeViewSet)
 reciperouter.register(r'recipeingredient', recipeView.RecipeIngredientViewSet)
 
+
 followrouter = routers.SimpleRouter()
 followrouter.register(r'follow', plnView.FollowDietViewSet,
                       base_name="calendar")
@@ -44,6 +45,9 @@ urlpatterns = patterns('',
                        url(r'^recipe/', include(reciperouter.urls)),
 
                        url(r'^calendar/', include(followrouter.urls)),
+                       
+                       url(r'recipeNutrition/(?P<recipe>[0-9]+)/$',
+                            recipeView.GetCompleteRecipeInfo.as_view()),
 
                        url(r'^plan/dayplan/(?P<diet>[0-9]+)/(?P<day_no>[0-9]+)/(?P<week_no>[0-9]+)/$',
                            vu.DayPlnViewSet.as_view()),

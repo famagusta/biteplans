@@ -1,7 +1,7 @@
 '''Views for recipes'''
-from recipes.models import Recipe, RecipeIngredients
+from recipes.models import Recipe, RecipeIngredients, RecipeNutrition
 from recipes.serializers import RecipeSerializer, \
-RecipeReadSerializer, RecipeIngSerializer
+RecipeReadSerializer, RecipeIngSerializer, RecipeNutritionSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -75,4 +75,8 @@ class RecipeIngredientViewSet(viewsets.ModelViewSet):
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
+class GetCompleteRecipeInfo(generics.RetrieveAPIView):
+    '''retrieve additional info API, allows get with pk only'''
+    lookup_field = 'recipe'
+    queryset = RecipeNutrition.objects.all()
+    serializer_class = RecipeNutritionSerializer

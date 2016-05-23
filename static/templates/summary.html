@@ -250,8 +250,8 @@
                                 <div class="col s4 m12 center">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
-                                    clockwise="true" color="#6639B6" current=
-                                    "((calcDayNutrientVal('protein_tot')*4)/calcDayNutrientVal('energy_kcal'))*100"
+                                    clockwise="true" color="#6639B6" 
+                                    current="percentNutrientChecked('protein_tot')"
                                     duration="800" max="100" radius="50"
                                     responsive="false" round-progress=""
                                     rounded="true" semi="false" stroke="4">
@@ -276,7 +276,7 @@
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FE6433" current=
-                                    "((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal'))*100"
+                                    "percentNutrientChecked('carbohydrate_tot')"
                                     duration="800" max="100" radius="50"
                                     responsive="false" round-progress=""
                                     rounded="true" semi="false" stroke="4">
@@ -301,7 +301,7 @@
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FDC106" current=
-                                    "((calcDayNutrientVal('fat_tot')*9)/calcDayNutrientVal('energy_kcal', false))*100"
+                                    "percentNutrientChecked('fat_tot')"
                                     duration="800" max="100" radius="50"
                                     responsive="false" round-progress=""
                                     rounded="true" semi="false" stroke="4">

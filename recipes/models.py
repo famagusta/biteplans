@@ -34,7 +34,7 @@ class Recipe(models.Model):
     created_by = models.ForeignKey(Account, on_delete=models.CASCADE,
                                    related_name="created_recipe")
     date_published = models.DateField(auto_now_add=True, blank=True)
-    image = models.ImageField(null= True, blank=True, upload_to=upload_to)
+    image = models.ImageField(null=True, blank=True, upload_to=upload_to)
 
     # energy content of food in kilo calories
     energy_kcal = models.DecimalField(max_digits=11,
@@ -60,7 +60,6 @@ class Recipe(models.Model):
     fiber_tot = models.DecimalField(max_digits=11,
                                     decimal_places=3,
                                     default=0.00)
-
 
     # total sugar content
     sugar_tot = models.DecimalField(default=0.00,
@@ -88,87 +87,87 @@ class RecipeNutrition(models.Model):
 
     # Metallic Minerals
     calcium_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                     max_digits=11,
                                      decimal_places=3)
     # phosphorous in mg
     phosphorus_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                        max_digits=11,
                                         decimal_places=3)
     # magnesium in mg
     magnesium_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                       max_digits=11,
                                        decimal_places=3)
     # iron in mg
     iron_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                  max_digits=11,
                                   decimal_places=3)
     potassium_mg = models.DecimalField(max_digits=11, decimal_places=3,
                                        default=0.00)
     sodium_mg = models.DecimalField(max_digits=11, decimal_places=3,
                                     default=0.00)
     zinc_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                  max_digits=11,
                                   decimal_places=3)
     copper_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                    max_digits=11,
                                     decimal_places=3)
     manganese_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                       max_digits=11,
                                        decimal_places=3)
     selenium_mcg = models.DecimalField(default=0.00,
- max_digits=11,
+                                       max_digits=11,
                                        decimal_places=3)
     # Vitamins
     # find out different types of vit a
     vitamin_a_iu = models.DecimalField(default=0.00,
- max_digits=11,
+                                       max_digits=11,
                                        decimal_places=3)
     vitamin_a_rae_mcg = models.DecimalField(default=0.00,
- max_digits=11,
+                                            max_digits=11,
                                             decimal_places=3)
     retinol_mcg = models.DecimalField(default=0.00,
- max_digits=11,
+                                      max_digits=11,
                                       decimal_places=3)
     thiamine_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                      max_digits=11,
                                       decimal_places=3)
     riboflavin_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                        max_digits=11,
                                         decimal_places=3)
     niacin_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                    max_digits=11,
                                     decimal_places=3)
     total_b6_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                      max_digits=11,
                                       decimal_places=3)
     folic_acid_total_mcg = models.DecimalField(default=0.00,
- max_digits=11,
+                                               max_digits=11,
                                                decimal_places=3)
     vitamin_c_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                       max_digits=11,
                                        decimal_places=3)
     vitamin_b12_mcg = models.DecimalField(default=0.00,
- max_digits=11,
+                                          max_digits=11,
                                           decimal_places=3)
     vitamin_e_mg = models.DecimalField(default=0.00,
- max_digits=11,
+                                       max_digits=11,
                                        decimal_places=3)
     vitamin_d_mcg = models.DecimalField(default=0.00,
- max_digits=11,
+                                        max_digits=11,
                                         decimal_places=3)
     vitamin_k_mcg = models.DecimalField(default=0.00,
- max_digits=11,
+                                        max_digits=11,
                                         decimal_places=3)
 
     # Lipids & Cholesterol
     fa_sat_g = models.DecimalField(default=0.00,
- max_digits=11,
+                                   max_digits=11,
                                    decimal_places=3)
     fa_mono_g = models.DecimalField(default=0.00,
- max_digits=11,
+                                    max_digits=11,
                                     decimal_places=3)
     fa_poly_g = models.DecimalField(default=0.00,
- max_digits=11,
+                                    max_digits=11,
                                     decimal_places=3)
     cholestrl_mg = models.DecimalField(max_digits=11, decimal_places=3,
                                        default=0.00)
@@ -191,7 +190,8 @@ class RecipeIngredients(models.Model):
                                    related_name="ingredient_of_recipe")
     # units & quantity must not be empty ever
     # units could be a model of its own to make things standardized across apps
-    measure = models.ForeignKey(IngredientCommonMeasures, null=True, blank=True,
+    measure = models.ForeignKey(IngredientCommonMeasures,
+                                null=True, blank=True,
                                 related_name="measure_of_recipeingredient")
     quantity = models.DecimalField(max_digits=11, decimal_places=3)
     # modifiers - optional description for the ingredients
@@ -227,7 +227,6 @@ def save_file(sender, instance, created, **kwargs):
         RecipeNutrition.objects.create(recipe=instance)
 
 
-
 @receiver(post_save, sender=RecipeIngredients)
 def save_nutrition(sender, instance, created, **kwargs):
     sortlist = Recipe._meta.fields
@@ -258,25 +257,30 @@ def save_nutrition(sender, instance, created, **kwargs):
 
     for j in recipeings:
         additionalinginfo = AddtnlIngredientInfo.objects.get(
-                                                ingredient=j.ingredient)
+            ingredient=j.ingredient)
         for i in nutrient_field:
             if hasattr(j.ingredient, i.name) and getattr(j.ingredient,
-                                                       i.name) != None:
+                                                         i.name) is not None:
                 old = getattr(recipe, i.name)
                 setattr(recipe, i.name,
-                        decimal.Decimal(old) + \
-                        decimal.Decimal(j.quantity) * decimal.Decimal(getattr(j.ingredient, i.name))\
-                         * decimal.Decimal(j.measure.weight/(100 * recipe.servings)))
+                        decimal.Decimal(old) +
+                        decimal.Decimal(j.quantity) *
+                        decimal.Decimal(getattr(j.ingredient, i.name))
+                        * decimal.Decimal(j.measure.weight /
+                                          (100 * recipe.servings)))
             elif hasattr(additionalinginfo, i.name) and \
-            getattr(additionalinginfo, i.name) != None:
+                    getattr(additionalinginfo, i.name) is not None:
                 old = getattr(recipenutri, i.name)
                 setattr(recipenutri, i.name,
-                        decimal.Decimal(old) + \
-                        decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
-                         * decimal.Decimal(j.measure.weight/(100 * recipe.servings)))
+                        decimal.Decimal(old) +
+                        decimal.Decimal(instance.quantity) *
+                        decimal.Decimal(getattr(additionalinginfo, i.name))
+                        * decimal.Decimal(j.measure.weight /
+                                          (100 * recipe.servings)))
 
         recipenutri.save()
         recipe.save()
+
 
 @receiver(pre_delete, sender=RecipeIngredients)
 def delete_nutrition(sender, instance, **kwargs):
@@ -297,23 +301,27 @@ def delete_nutrition(sender, instance, **kwargs):
     recipe = instance.recipe
     additionalinginfo = AddtnlIngredientInfo.objects.get(ingredient=ingredient)
     recipenutri = instance.recipe.recipeNutritionInfo
-    for i in nutrient_field:
 
-        if hasattr(ingredient, i.name) and getattr(ingredient, i.name) != None:
+    for i in nutrient_field:
+        if hasattr(ingredient, i.name) and\
+                getattr(ingredient, i.name) is not None:
             old = getattr(recipe, i.name)
 
             if old > 0.000:
                 setattr(recipe, i.name,
-                        decimal.Decimal(old) - \
-                        instance.quantity * getattr(ingredient, i.name)\
-                         * decimal.Decimal(instance.measure.weight/(100 * recipe.servings)))
-        elif hasattr(additionalinginfo, i.name) and getattr(additionalinginfo, i.name) != None:
+                        decimal.Decimal(old) -
+                        instance.quantity * getattr(ingredient, i.name)
+                        * decimal.Decimal(instance.measure.weight /
+                                          (100 * recipe.servings)))
+        elif hasattr(additionalinginfo, i.name) and\
+                getattr(additionalinginfo, i.name) is not None:
             old = getattr(recipenutri, i.name)
             if old > 0.000:
                 setattr(recipenutri, i.name,
-                        decimal.Decimal(old) - \
-                        decimal.Decimal(instance.quantity) * decimal.Decimal(getattr(additionalinginfo, i.name))\
-                        * decimal.Decimal(instance.measure.weight/(100 * recipe.servings)))
+                        decimal.Decimal(old) -
+                        decimal.Decimal(instance.quantity)
+                        * decimal.Decimal(getattr(additionalinginfo, i.name))
+                        * decimal.Decimal(instance.measure.weight /
+                                          (100 * recipe.servings)))
         recipenutri.save()
         recipe.save()
-

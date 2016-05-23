@@ -4,7 +4,7 @@ from rest_framework import serializers
 from ingredients.models import Ingredient, IngredientCommonMeasures
 from ingredients.serializers import IngredientSerializer,\
     IngredientMeasureSerializer
-from recipes.models import Recipe, RecipeIngredients
+from recipes.models import Recipe, RecipeIngredients, RecipeNutrition
 from authentication.models import Account
 from dietplans.models import DietPlan
 
@@ -55,3 +55,10 @@ class RecipeReadSerializer(serializers.ModelSerializer):
         read_only_fields = ('date_published', 'created_by', 'carbohydrate_tot',\
                             'water', 'fat_tot', 'fiber_tot', 'protein_tot', \
                             'energy_kal', 'sugar_tot', )
+
+    
+class RecipeNutritionSerializer(serializers.ModelSerializer):
+    '''serializer recipe nutrition object into json format'''
+    class Meta:
+        '''defines model to be assosiated'''
+        model = RecipeNutrition
