@@ -203,8 +203,8 @@ class CopyViewSet(generics.GenericAPIView):
                     week_no=srlzr.validated_data['to_week'],
                     diet=dietplan)
 
-                from_day_mealplan = from_day.mealplan.all()
-                to_day_mealplan = to_day.mealplan.all()
+                from_day_mealplan = from_day.mealplan.all().order_by('id')
+                to_day_mealplan = to_day.mealplan.all().order_by('id')
 
                 # delete any existing mealplans on the to_day
                 for i in range(len(from_day_mealplan), len(to_day_mealplan)):
