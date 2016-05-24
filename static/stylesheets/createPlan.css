@@ -235,6 +235,13 @@ hr {
     height: 120% !important;
     width: 70% !important; 
 }
+
+.nutrition-modal {
+    top: 5% !important;
+    max-height: 90% !important;
+/*    width: 70% !important; */
+}
+
 .create-modal-half1 {
     border-right: 1px solid #ddd;
     height: 390px;
@@ -325,6 +332,9 @@ input[type=time] {
     text-transform: uppercase;
 }
 
+.meal-text-upper{
+    color: #9e9e9e !important;
+}
 .tab_head {
     position: relative;
     top: 1em;
@@ -357,6 +367,7 @@ input[type=time] {
     height: 1rem !important;
     text-align: center;
     color: #9e9e9e;
+    bottom: -15px; !important
 }
 
 .select-wrapper input.select-dropdown#serving {
@@ -377,6 +388,11 @@ input[type=time] {
     text-transform: uppercase;
 }
 
+.ing-text-upper {
+    color: #4f4f4f !important;
+    font-weight: 600;
+}
+
 #shortcut-menu {
     font-family: 'Raleway' !important;
     font-size: 14px !important;
@@ -389,13 +405,39 @@ input[type=time] {
     margin-top: 3px !important;
 
 }
+
 .selcol{
     width:12.444% !important;
+    margin-top:-10px;
+}
+.selcolr{
+    width:10.444% !important;
     margin-top:-10px;
 }
 .selco{
     width:12.444% !important;
     
+}
+
+
+.dropdown-content{
+    width:200px !important;
+}
+/*
+
+input.select-dropdown{
+    text-align: -webkit-center;
+    height: 35px !important;
+    padding-top: 32px;
+}
+*/
+
+.select-wrapper input.select-dropdown {
+    text-align: -webkit-center;
+    line-height: 5rem !important;
+/*    border-color: #ddd !important;*/
+    margin: 10px 3px 0 0 !important;
+    height: 21px !important;
 }
 
 #nutsinfo {
@@ -416,6 +458,7 @@ input[type=time] {
 input[type=number].time-input {
     width: 62% !important;
     text-align: center;
+    border-color: #ddd !important;
 }
 
 .shift-time-left {
@@ -456,6 +499,7 @@ input[type=number].time-input {
 }
 */
 
+/*
 .select-wrapper input.select-dropdown {
     height: 2em;
     margin-top: -28px;   
@@ -467,6 +511,7 @@ input[type=number].time-input {
     margin: -23px 3px 0 0 !important;
     height: 52px !important;
 }
+*/
 
 /*
 .dropdown-content li>a, .dropdown-content li>span {
@@ -477,7 +522,7 @@ input[type=number].time-input {
 */
 
 .select-wrapper span.caret {
-    top: 34px !important;
+    top: 0px !important;
 }
 
 select {
