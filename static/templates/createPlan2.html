@@ -886,9 +886,9 @@
                 </div>
             </div>
         </div>
-        <!-- 
-Modal for jump to and copy option -->
-
+        
+        
+        <!-- Modal for jump to and copy option -->
 
         <div class="modal modal-fixed-footer" id="jump-to-modal">
             <div class="center-me">
@@ -978,18 +978,18 @@ Modal for jump to and copy option -->
 
 
                             <div class="col m4">
-                                <input class="filled-in" id="searchkind1" name=
+                                <input class="filled-in with-gap" id="searchkind1" name=
                                 "searchkind" ng-model="searchType" type="radio"
                                 value="ingredients"> <label for=
-                                "searchkind1">ingredients</label>
+                                "searchkind1">Ingredients</label>
                             </div>
 
 
                             <div class="col m4">
-                                <input class="filled-in" id="searchkind2" name=
+                                <input class="filled-in with-gap" id="searchkind2" name=
                                 "searchkind" ng-model="searchType" type="radio"
                                 value="recipes"> <label for=
-                                "searchkind2">recipes</label>
+                                "searchkind2">Recipes</label>
                             </div>
                         </div>
                     </div>
@@ -1013,6 +1013,28 @@ Modal for jump to and copy option -->
 
 
                         <div class="row smallpaginate">
+                            <paging ng-if="details !== undefined && details !== []"
+                                class="small"
+                                page="currentPage" 
+                                page-size="6" 
+                                total="pageSize"
+                                hide-if-empty="{{hideIfEmpty}}"
+                                ul-class="{{ulClass}}"
+                                li-class="lipageclass"
+                                active-class="{{activeClass}}"
+                                disabled-class="{{disabledClass}}"
+                                show-prev-next="true"
+                                text-next-class="acti fa fa-chevron-right"
+                                text-prev-class="acti fa fa-chevron-left"
+                                text-first-class="acti fa fa-backward"
+                                text-last-class="acti fa fa-forward"
+                                text-title-page="Page {page}"
+                                text-title-first="First Page"
+                                text-title-last="Last Page"
+                                text-title-next="Next Page"
+                                text-title-prev="Previous" 
+                                paging-action="searchPlan(query, page)">
+                            </paging> 
                         </div>
                     </div>
 
