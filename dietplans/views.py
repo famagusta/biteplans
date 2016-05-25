@@ -33,7 +33,6 @@ class DietPlanViewset(viewsets.ModelViewSet):
     def get_permissions(self):
         '''return allowed permissions'''
         if self.request.method in permissions.SAFE_METHODS:
-            print "allowing dietplan"
             return (permissions.AllowAny(),)
         if self.request.method == 'POST':
             return (permissions.IsAuthenticated(), )
@@ -42,9 +41,6 @@ class DietPlanViewset(viewsets.ModelViewSet):
     def create(self, request):
         '''Creates the model instance dietplans'''
         serializer = self.serializer_class(data=request.data)
-        print request.data
-        print request.user
-        print serializer
         if serializer.is_valid():
             obj = DietPlan.objects.create(creator=request.user,
                                           **serializer.validated_data)
@@ -81,7 +77,6 @@ class PlanRatingViewSet(viewsets.ModelViewSet):
         '''create an instance of rating'''
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
-        print "dasdsd"
         if serializer.is_valid():
             obj = PlanRating.objects.create(**serializer.validated_data)
             obj.save()
@@ -133,7 +128,6 @@ class MealPlanViewSet(viewsets.ModelViewSet):
     def create(self, request):
         '''Creates the model instance mealplans'''
         serializer = self.serializer_class(data=request.data)
-        print request.data
         if serializer.is_valid():
             # dayplan = DayPlan.objects.get(request.data['day'])
             obj = MealPlan.objects.create(
@@ -195,7 +189,6 @@ class MealRecipeViewSet(viewsets.ModelViewSet):
     def create(self, request):
         '''Creates the model instance mealplans'''
         serializer = self.serializer_class(data=request.data)
-        print request.data
         if serializer.is_valid():
             # dayplan = DayPlan.objects.get(request.data['day'])
             obj = MealRecipe.objects.create(
@@ -290,7 +283,6 @@ class CopyViewSet(generics.GenericAPIView):
                             mealrecipe[k].meal_plan = new_meal_plan
 
                         else:
-                            print fromrecipes[k]
                             MealRecipe.objects.create(
                                 recipe=fromrecipes[k].recipe,
                                 servings=fromrecipes[k].servings,

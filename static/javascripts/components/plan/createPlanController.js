@@ -24,12 +24,27 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 $scope.recipeInModal = [];
                 $scope.foodgroup = [];
                 $scope.searchType = 'ingredients';
+                
                 /* phase of the day */
                 $scope.amPmArray = ['AM', 'PM'];
+                
                 /* urls for previous and next buttons */
                 $scope.backUrl3 = '/plan2/' + $routeParams.id;
                 $scope.backUrl2 = '/plan/' + $routeParams.id;
                 $scope.nextUrl2 = '/plan3/' + $routeParams.id;
+                
+                $scope.dayWeekNos = 0;
+                $scope.currentDayWeekNos = 1;
+                /* stores the details to get current day plan
+                        this is used to make the first query */
+                $scope.dayplan = {
+                    'day_no':  1,
+                    'week_no': 1
+                };
+                
+                /* unit for height */
+                $scope.unit = 0;
+                
                 /* Function that updates the main descriptors of a diet plan
                         from the first create plan page */
                 $scope.initialize_plan = function()
@@ -60,6 +75,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             $scope.plan.weight);
                         $scope.plan.duration = parseInt(
                             $scope.plan.duration);
+                        $scope.dayWeekNos = $scope.plan.duration*7;
+                        
                         for (var i = 1; i <= $scope.plan.duration; i++)
                         {
                             $scope.weekCount.push(
@@ -131,43 +148,33 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         $('#jump-to-modal').closeModal();
                     }
                 };
-                /* stores the details to get current day plan
-                        this is used to make the first query */
-                $scope.dayplan = {
-                    'day_no': 1,
-                    'week_no': 1
-                };
-                /* unit for height */
-                $scope.unit = 0;
+                
                 /* Function to update day_no or week_no */
                 $scope.updateDayPlan = function(param, val,
                     index)
                 {
-                    if (index === 1)
-                    {
-                        /*if possible, write a shorter function using modulo operator
-                            days increase all the time */
-                        $scope.dayplan[param] += parseInt(
-                            val);
-                        if ($scope.dayplan['day_no'] > 7 *
-                            $scope.plan.duration)
-                        {
-                            $scope.dayplan['day_no'] = 1;
-                        }
-                        if ($scope.dayplan['week_no'] >
-                            $scope.plan.duration)
-                        {
-                            $scope.dayplan['week_no'] = 1;
-                        }
-                        else if ($scope.dayplan['week_no'] <
-                            1)
-                        {
-                            $scope.dayplan['week_no'] =
-                                $scope.plan.duration;
-                        }
-                        $scope.getDayPlan($scope.dayplan.day_no,
-                            $scope.dayplan.week_no);
+                    // made shorter with ternary operator and modulo division
+                    var multiplier = param === "week_no" ? 7 : param === "day_no" ? 1 : 0;
+                    
+                    $scope.currentDayWeekNos += (multiplier*val);
+                    
+                    if($scope.currentDayWeekNos > $scope.dayWeekNos){
+                        $scope.currentDayWeekNos = $scope.currentDayWeekNos 
+                            % $scope.dayWeekNos
+                    }else if ($scope.currentDayWeekNos <= 0){
+                        $scope.currentDayWeekNos = $scope.currentDayWeekNos 
+                            + $scope.dayWeekNos
                     }
+                    
+                    $scope.dayplan.day_no = ($scope.currentDayWeekNos % 7);
+                    if($scope.dayplan.day_no === 0){
+                        $scope.dayplan.day_no = 7;
+                    }
+                    $scope.dayplan.week_no = Math.ceil($scope.currentDayWeekNos/7);
+                    
+                    $scope.getDayPlan($scope.dayplan.day_no,
+                            $scope.dayplan.week_no);
+                    
                 };
                 // TODO: update for API
                 $scope.getDayPlan = function(day, week)
