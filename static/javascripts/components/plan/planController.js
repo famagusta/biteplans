@@ -6,7 +6,11 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.query_plan = '';
         $scope.plans = {};
-        
+//        $scope.ratings = {};
+//        $scope.ratings.rate = 34;
+//
+//        $scope.ratings.max = 5;
+
         /* date that user selects to start following a plan*/
         $scope.followDate = '';
         
@@ -16,12 +20,17 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 searchService.search_plan(query)
                     .then(function(response) {
                         $scope.plans = response;
+                        console.log($scope.plans);
                     }, function(error) {
                         console.log(error);
                     });
             }
         };
         
+        $scope.getPlanRating = function(plan){
+            console.log('fire');
+            return parseFloat(plan.ratings_field)*20;
+        }
         $scope.openShortInfoModal = function() {
             $('#small-modal')
                 .openModal();
@@ -75,6 +84,34 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     }
                 }
             })
+        }
+        $scope.starRating3 = 5;
+        $scope.hoverRating3 = 0;
+
+        
+        $scope.click3 = function (param) {
+            //update database
+            $scope.starRating3 = param
+        };
+
+        $scope.mouseHover3 = function (param) {
+            $scope.hoverRating3 = param;
+        };
+
+        $scope.mouseLeave3 = function (param) {
+            $scope.hoverRating3 = param + '*';
+        };
+        
+        
+        $scope.getPlanNutrientPercent = function(plan, nutrient){
+            var conversion_factor = 4;
+            if (nutrient === 'fat_tot'){
+                conversion_factor = 9;
+            }
+                
+            var nutrient_percent = 100*conversion_factor*parseFloat(plan[nutrient])
+                /parseFloat(plan['energy_kcal']);
+            return nutrient_percent;
         }
     }
 ]);

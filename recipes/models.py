@@ -42,17 +42,14 @@ class Recipe(models.Model):
                                       default=0.00)
     # protein content in food in grams
     protein_tot = models.DecimalField(default=0.00,
-
                                       max_digits=11,
                                       decimal_places=3)
     # total fat (sat + unsat) content in food in grams
     fat_tot = models.DecimalField(default=0.00,
-
                                   max_digits=11,
                                   decimal_places=3)
     # total carbohydrate content (all sugars + fiber) in food in grams
     carbohydrate_tot = models.DecimalField(default=0.00,
-
                                            max_digits=11,
                                            decimal_places=3)
 
@@ -63,13 +60,11 @@ class Recipe(models.Model):
 
     # total sugar content
     sugar_tot = models.DecimalField(default=0.00,
-
                                     max_digits=11,
                                     decimal_places=3)
 
     # moisture content of food in grams
     water = models.DecimalField(default=0.00,
-
                                 max_digits=11,
                                 decimal_places=3)
 

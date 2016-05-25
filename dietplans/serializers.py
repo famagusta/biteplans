@@ -2,7 +2,7 @@
 data structures(dictionaries) for easy json rendering'''
 from rest_framework import serializers
 from dietplans.models import DietPlan, DayPlan, MealPlan, MealRecipe,\
-    MealIngredient
+    MealIngredient, PlanRating
 from recipes.serializers import RecipeSerializer
 
 from ingredients.serializers import IngredientSerializer, \
@@ -11,13 +11,26 @@ from ingredients.serializers import IngredientSerializer, \
 
 class DietPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
-
+    ratings_field = serializers.FloatField(source='average_rating')
     class Meta:
         '''Meta data, or config for the serializer'''
         model = DietPlan
-        read_only_fields = ('id', 'creator', )
+        read_only_fields = ('id', 'creator', 'carbohydrate_tot',
+                            'fat_tot','protein_tot', 'energy_kal',
+                            'ratings_field')
 
 
+class PlanRatingSerializer(serializers.ModelSerializer):
+    '''serializer to convert received rating from user to python dict'''
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = PlanRating
+        read_only_fields = ('id', 'user')
+        
+    
 class MealRecipeSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
     recipe = RecipeSerializer(many=False, read_only=True)

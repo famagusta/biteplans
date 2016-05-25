@@ -1,3 +1,4 @@
+/*
 .rating-stars ul {
     list-style: none;
     padding: 0px;
@@ -18,4 +19,22 @@
 
 .rating-stars ul > li.star.selected > i.fa {
     color: #ffcc36;
-}
+}*/
+
+
+canvas.star {
+        float: left;
+        z-index: 1;
+    }
+    .stars {
+        visibility: hidden;
+        display: inline-block;
+        position: relative;
+        z-index: 0;
+    }
+    .stars-selected {
+        position: absolute;
+        max-width: 100%;
+        height: 100%;
+        z-index: -1;
+    }

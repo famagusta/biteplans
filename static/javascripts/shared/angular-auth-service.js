@@ -137,7 +137,8 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             var userString = {
                 'username': username,
                 'password': password,
-                'confirm_password': confirm,
+//                'confirm_password': confirm,   
+                // this is giving an invalid serializer 500 error
                 'email': email
             };
 

@@ -16,6 +16,8 @@ router.register(r'mealing',
                 vu.MealIngredientViewSet)
 router.register(r'mealrecipe',
                 vu.MealRecipeViewSet)
+router.register(r'planRating',
+                vu.PlanRatingViewSet)
 
 
 reciperouter = routers.SimpleRouter()
@@ -26,6 +28,7 @@ reciperouter.register(r'recipeingredient', recipeView.RecipeIngredientViewSet)
 followrouter = routers.SimpleRouter()
 followrouter.register(r'follow', plnView.FollowDietViewSet,
                       base_name="calendar")
+
 followrouter.register(r'getPlanSummary', plnView.MealHistoryViewSet,
                       base_name="date")
 followrouter.register(r'eventingredients', plnView.EventIngredientsViewSet)

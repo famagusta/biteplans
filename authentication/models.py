@@ -33,7 +33,6 @@ class AccountManager(BaseUserManager):
 
         account = self.model(email=self.normalize_email(email),
                              username=username, **kwargs)
-
         account.set_password(password)
         account.save()
 

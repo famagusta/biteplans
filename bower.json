@@ -23,7 +23,9 @@
     "pickadate": "^3.5.6",
     "jquery": "^2.2.3",
     "moment": "^2.13.0",
-    "angular-http-loader": "^0.1.7"
+    "angular-http-loader": "^0.1.7",
+    "ionic-rating": "^0.3.0",
+    "angular-input-stars-directive": "angular-input-stars#^1.5.5"
   },
   "resolutions": {
     "angular": "^1.4.9",

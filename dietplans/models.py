@@ -5,10 +5,11 @@ from authentication.models import Account
 from recipes.models import Recipe
 from imported_recipes.models import ImportedRecipe
 from ingredients.models import Ingredient, IngredientCommonMeasures
-
+from django.db.models import Avg
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 import math
+import decimal
 
 
 class DietPlan(models.Model):
@@ -27,6 +28,25 @@ class DietPlan(models.Model):
     height = models.DecimalField(max_digits=11, decimal_places=3, null=True)
     weight = models.DecimalField(max_digits=11, decimal_places=3, null=True)
 
+    
+    # keep on these major nutrition info of entire dietplans
+    # energy content of food in kilo calories
+    energy_kcal = models.DecimalField(max_digits=11,
+                                      decimal_places=3,
+                                      default=0.00)
+    # protein content in food in grams
+    protein_tot = models.DecimalField(default=0.00,
+                                      max_digits=11,
+                                      decimal_places=3)
+    # total fat (sat + unsat) content in food in grams
+    fat_tot = models.DecimalField(default=0.00,
+                                  max_digits=11,
+                                  decimal_places=3)
+    # total carbohydrate content (all sugars + fiber) in food in grams
+    carbohydrate_tot = models.DecimalField(default=0.00,
+                                           max_digits=11,
+                                           decimal_places=3)
+    
     def __unicode__(self):
         '''string repr of the object'''
         return self.name
@@ -34,6 +54,31 @@ class DietPlan(models.Model):
     class Meta:
         '''name db table'''
         db_table = 'dietplans_dietplan'
+        
+    @property
+    def average_rating(self):
+        avg_rating = PlanRating.objects.filter(dietPlan__id=self.id)\
+            .aggregate(Avg('rating'))['rating__avg']
+        return avg_rating
+
+        
+class PlanRating(models.Model):
+    user = models.ForeignKey(Account)
+    dietPlan = models.ForeignKey(DietPlan)
+
+    STAR_CONVERSION = (
+        (1, 'One'),
+        (2, 'Two'),
+        (3, 'Three'),
+        (4, 'Four'),
+        (5, 'Five'),
+        )
+
+    rating = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
+
+    class Meta:
+        '''users must have only one rating per dietplan'''
+        unique_together = ('user', 'dietPlan')
 
 
 class DayPlan(models.Model):
@@ -144,3 +189,64 @@ def create_mealplan(sender, instance, created, **kwargs):
         MealPlan.objects.create(day=instance,
                                 name="Dinner",
                                 time="20:00:00")
+
+# ek teer se do shikaar - ;-)        
+@receiver(post_save)
+@receiver(post_delete)
+def save_plan_nutrition(sender, instance, *args, **kwargs):
+    # update diet plan macros on addition of recipe or ingredient
+    list_of_models = ('MealRecipe', 'MealIngredient', 'MealPlan', 'DayPlan')
+    # update the nutrition whenever mealrecipe or mealingredient is saved
+    if sender.__name__ in list_of_models:
+        sortlist = DietPlan._meta.fields
+        nutrient_field = []
+        nutrient_list = ['dietplans.DietPlan.energy_kcal',
+                         'dietplans.DietPlan.protein_tot',
+                         'dietplans.DietPlan.fat_tot',
+                         'dietplans.DietPlan.carbohydrate_tot']
+        for i in sortlist:
+            if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>" and\
+                    str(i) in nutrient_list:
+                nutrient_field.append(i)
+        diet = instance.meal_plan.day.diet
+        day_plans = diet.dayplan.all()
+        
+        # reset everything to 0 - its easier this way
+        for i in nutrient_field:
+            if hasattr(diet, i.name):
+                setattr(diet, i.name, 0.000)
+        diet.save()
+        
+        for day_plan in day_plans:
+            # iterate over all day plans in a dietplan
+            meal_plans = day_plan.mealplan.all()
+            for meal_plan in meal_plans:
+                # iterate over all meal plans in a day
+                
+                #get all recipes and ingredients of a day
+                meal_recipes = meal_plan.mealrecipe.all()
+                meal_ingredients = meal_plan.mealingredient.all()
+
+                for meal_recipe in meal_recipes:
+                    # calculation for all recipes 
+                    for nutrient in nutrient_field:
+                        old = getattr(diet, nutrient.name)
+                        old = decimal.Decimal(old)
+                        servings = meal_recipe.servings
+                        recipe_attr = getattr(meal_recipe.recipe, nutrient.name)
+                        value_to_set = old + (servings*recipe_attr)
+                        setattr(diet, nutrient.name, value_to_set)
+
+                for meal_ingredient in meal_ingredients:
+                    # calculation for all ingredients
+                    for nutrient in nutrient_field:
+                        old = getattr(diet, nutrient.name)
+                        old = decimal.Decimal(old)
+                        quantity = meal_ingredient.quantity
+                        ingred_attr = getattr(meal_ingredient.ingredient, nutrient.name)
+                        value_to_set = old + (quantity*ingred_attr*
+                            decimal.Decimal(meal_ingredient.unit.weight /100))
+                        setattr(diet, nutrient.name, value_to_set)
+
+        # update database
+        diet.save()

@@ -15,10 +15,10 @@ import hashlib
 import datetime
 import random
 from dietplans.models import DietPlan, DayPlan, MealPlan, \
-    MealIngredient, MealRecipe
+    MealIngredient, MealRecipe, PlanRating
 from dietplans.serializers import DietPlanSerializer, DayPlanSerializer,\
     MealPlanSerializer, MealIngSerializer, MealRecpSerializer, \
-    CopySerializer
+    CopySerializer, PlanRatingSerializer
 
 from rest_framework import status
 
@@ -52,6 +52,47 @@ class DietPlanViewset(viewsets.ModelViewSet):
                             status=status.HTTP_400_BAD_REQUEST)
 
 
+class PlanRatingViewSet(viewsets.ModelViewSet):
+    '''view to return json for crud related to a plan rating'''
+    serializer_class = PlanRatingSerializer
+    queryset = PlanRating.objects.all()
+    
+    def get_queryset(self):
+        '''returns queryset for get method'''
+        dietPlan = self.request.GET.get('dietPlan', False)
+        if dietPlan:
+            return PlanRating.objects.filter(user=self.request.user,
+                                             dietPlan=dietPlan)
+        else:
+            return PlanRating.objects.filter(user=self.request.user)
+    
+    def get_permissions(self):
+        '''return allowed permissions'''
+        if self.request.method in permissions.SAFE_METHODS:
+#            self.serializer_class = PlanRatingSerializer
+            return (permissions.AllowAny(),)
+        if self.request.method in ['POST', 'PATCH']:
+#            self.serializer_class = PlanRatingWriteSerializer
+            return (permissions.IsAuthenticated(), )
+        
+    def create(self, request):
+        '''create an instance of rating'''
+        print "creating . . . "
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        print "dasdsd"
+        if serializer.is_valid():
+            print "valid serializer. . . proceed to objet creating"
+            obj = PlanRating.objects.create(**serializer.validated_data)
+            print "object created"
+            obj.save()
+            print "success"
+            return Response({'planRating_id': obj.id}, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+        
+        
 class DayPlanViewSet(generics.ListAPIView):
     '''view to return JSON for crud related to DayPlan
     Only list method is allowed and only get is allowed'''
@@ -126,7 +167,6 @@ class MealIngredientViewSet(viewsets.ModelViewSet):
     def create(self, request):
         '''Creates the model instance mealplans'''
         serializer = self.serializer_class(data=request.data)
-        print request.data
         if serializer.is_valid():
             # dayplan = DayPlan.objects.get(request.data['day'])
             obj = MealIngredient.objects.create(
