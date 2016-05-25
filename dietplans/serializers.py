@@ -11,13 +11,12 @@ from ingredients.serializers import IngredientSerializer, \
 
 class DietPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
-    ratings_field = serializers.FloatField(source='average_rating')
+    average_rating = serializers.ReadOnlyField() #FloatField(source='average_rating')
     class Meta:
         '''Meta data, or config for the serializer'''
         model = DietPlan
         read_only_fields = ('id', 'creator', 'carbohydrate_tot',
-                            'fat_tot','protein_tot', 'energy_kal',
-                            'ratings_field')
+                            'fat_tot','protein_tot', 'energy_kal')
 
 
 class PlanRatingSerializer(serializers.ModelSerializer):

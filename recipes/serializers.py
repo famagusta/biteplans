@@ -4,7 +4,8 @@ from rest_framework import serializers
 from ingredients.models import Ingredient, IngredientCommonMeasures
 from ingredients.serializers import IngredientSerializer,\
     IngredientMeasureSerializer
-from recipes.models import Recipe, RecipeIngredients, RecipeNutrition
+from recipes.models import Recipe, RecipeIngredients, RecipeNutrition,\
+    RecipeRating
 from authentication.models import Account
 from dietplans.models import DietPlan
 
@@ -44,6 +45,17 @@ class RecipeSerializer(serializers.ModelSerializer):
                             'energy_kal', 'sugar_tot', )
 
 
+class RecipeRatingSerializer(serializers.ModelSerializer):
+    '''serializer to convert received rating from user to python dict'''
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = RecipeRating
+        read_only_fields = ('id', 'user')
+        
+        
 class RecipeReadSerializer(serializers.ModelSerializer):
     '''serializes a python object into JSON serializabale format'''
     class Meta:

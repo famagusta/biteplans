@@ -5,7 +5,7 @@ app.factory('recipeService',
             function(httpService, AuthService, $location, constants, $q, $window, $rootScope, $auth, $http){
     /* Function to do the search ingredients */
     var createRecipe = function(recipeObject){
-    	var url = constants.API_SERVER+'biteplans/recipe/recipes/';
+    	var url = '/recipes/recipe/';
     	var deferred = $q.defer();
     	httpService.httpPost(url, recipeObject).then(function(response){
     		deferred.resolve(response);
@@ -20,7 +20,7 @@ app.factory('recipeService',
 
 
     var getRecipesMadeByMe = function(){
-        var url = constants.API_SERVER+'biteplans/recipe/recipes/';
+        var url = '/recipes/recipe/';
         var deferred = $q.defer();
         httpService.httpGet(url).then(function(response){
             deferred.resolve(response);
@@ -49,7 +49,7 @@ app.factory('recipeService',
     };
         
     var updateRecipe = function(obj, id) {
-            var url = '/biteplans/recipe/recipes/' + id + '/';
+            var url = '/recipes/recipe/' + id + '/';
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
                 .then(function(response) {
@@ -61,7 +61,7 @@ app.factory('recipeService',
         };
                 
     var updateRecipeIngredient = function(obj, id) {
-            var url = '/biteplans/recipe/recipeingredient/' + id + '/';
+            var url = '/recipes/recipeingredient/' + id + '/';
             var deferred = $q.defer();
             obj.ingredient = obj.ingredient.id;
             obj.measure = obj.measure.id;
@@ -75,7 +75,7 @@ app.factory('recipeService',
         };
                                   
     var deleteRecipeIngredient = function(id) {
-            var url = '/biteplans/recipe/recipeingredient/' + id + '/';
+            var url = '/recipes/recipeingredient/' + id + '/';
             var deferred = $q.defer();
             httpService.httpDelete(url)
                 .then(function(response) {
@@ -90,7 +90,7 @@ app.factory('recipeService',
                 
     var createRecipeIngredients = function(obj) {
 
-    	var url = constants.API_SERVER + 'biteplans/recipe/recipeingredient/';
+    	var url = '/recipes/recipeingredient/';
     	var deferred = $q.defer();
 
     	httpService.httpPost(url, obj).then(function(response){
@@ -105,7 +105,7 @@ app.factory('recipeService',
     };
                 
     var getRecipe = function(id){
-        var url = 'biteplans/recipe/recipes/' + id + '/';
+        var url = '/recipes/recipe/' + id + '/';
         var deferred = $q.defer();
         httpService.httpGet(url).then(function(response){
             deferred.resolve(response);

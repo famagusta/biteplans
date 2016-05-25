@@ -20,7 +20,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 searchService.search_plan(query)
                     .then(function(response) {
                         $scope.plans = response;
-                        console.log($scope.plans);
                     }, function(error) {
                         console.log(error);
                     });
@@ -29,7 +28,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.getPlanRating = function(plan){
             console.log('fire');
-            return parseFloat(plan.ratings_field)*20;
+            return parseFloat(plan.average_rating)*20;
         }
         $scope.openShortInfoModal = function() {
             $('#small-modal')
@@ -74,7 +73,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                             dietplan:planId,
                             start_date: $scope.followDate
                         }
-                        console.log(followPlanObject);
                         planService.followDietPlan(followPlanObject)
                             .then(function(response){
                                 console.log(response);
@@ -85,22 +83,22 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 }
             })
         }
-        $scope.starRating3 = 5;
-        $scope.hoverRating3 = 0;
-
-        
-        $scope.click3 = function (param) {
-            //update database
-            $scope.starRating3 = param
-        };
-
-        $scope.mouseHover3 = function (param) {
-            $scope.hoverRating3 = param;
-        };
-
-        $scope.mouseLeave3 = function (param) {
-            $scope.hoverRating3 = param + '*';
-        };
+//        $scope.starRating3 = 5;
+//        $scope.hoverRating3 = 0;
+//
+//        
+//        $scope.click3 = function (param) {
+//            //update database
+//            $scope.starRating3 = param
+//        };
+//
+//        $scope.mouseHover3 = function (param) {
+//            $scope.hoverRating3 = param;
+//        };
+//
+//        $scope.mouseLeave3 = function (param) {
+//            $scope.hoverRating3 = param + '*';
+//        };
         
         
         $scope.getPlanNutrientPercent = function(plan, nutrient){

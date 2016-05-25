@@ -33,6 +33,7 @@ class DietPlanViewset(viewsets.ModelViewSet):
     def get_permissions(self):
         '''return allowed permissions'''
         if self.request.method in permissions.SAFE_METHODS:
+            print "allowing dietplan"
             return (permissions.AllowAny(),)
         if self.request.method == 'POST':
             return (permissions.IsAuthenticated(), )
@@ -41,6 +42,9 @@ class DietPlanViewset(viewsets.ModelViewSet):
     def create(self, request):
         '''Creates the model instance dietplans'''
         serializer = self.serializer_class(data=request.data)
+        print request.data
+        print request.user
+        print serializer
         if serializer.is_valid():
             obj = DietPlan.objects.create(creator=request.user,
                                           **serializer.validated_data)
@@ -69,24 +73,18 @@ class PlanRatingViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         '''return allowed permissions'''
         if self.request.method in permissions.SAFE_METHODS:
-#            self.serializer_class = PlanRatingSerializer
             return (permissions.AllowAny(),)
         if self.request.method in ['POST', 'PATCH']:
-#            self.serializer_class = PlanRatingWriteSerializer
             return (permissions.IsAuthenticated(), )
         
     def create(self, request):
         '''create an instance of rating'''
-        print "creating . . . "
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
         print "dasdsd"
         if serializer.is_valid():
-            print "valid serializer. . . proceed to objet creating"
             obj = PlanRating.objects.create(**serializer.validated_data)
-            print "object created"
             obj.save()
-            print "success"
             return Response({'planRating_id': obj.id}, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors,

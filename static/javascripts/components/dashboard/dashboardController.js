@@ -11,8 +11,6 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
 
         $scope.setTab = function(tabId) {
             $scope.tab.tab = tabId;
-//            $location.path('/dashboard/' + tabId)
-//            console.log($scope.tab);
         };
 
         $scope.isSet = function(tabId) {

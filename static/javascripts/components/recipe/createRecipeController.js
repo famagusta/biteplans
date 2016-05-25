@@ -55,8 +55,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     $scope.uploadFile = function(id) {
                         var file = $scope.recipe_image_file;
-                        var url = constants.API_SERVER +
-                            'biteplans/recipe/recipes/' + id +
+                        var url = '/recipes/recipe/' + id +
                             '/';
                         if (file) {
                             recipeService.uploadRecipeImage(
@@ -146,8 +145,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
                                 .then(function(response) {
                                     $scope.details = response;
-                                    $scope.filts = response.filters; //model for storing response from API                
-                                    console.log($scope.details);
+                                    $scope.filts = response.filters;
+                                //model for storing response from API                
                                     // pagination
                                     $scope.currentPage = page;
                                     $scope.pageSize = response.total*6;
@@ -159,8 +158,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             searchService.search_ingredient(query, page, null, sortby)
                                 .then(function(response) {
                                     $scope.details = response;
-                                    $scope.filts = response.filters; //model for storing response from API                
-                                    console.log($scope.details);
+                                    $scope.filts = response.filters; 
+                                    //model for storing response from API                
                                     // pagination
                                     $scope.currentPage = page;
                                     $scope.pageSize = response.total*6;
@@ -172,8 +171,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             searchService.search_ingredient(query, page, null, sortby)
                                 .then(function(response) {
                                     $scope.details = response;
-                                    $scope.filts = response.filters; //model for storing response from API                
-                                    console.log($scope.details);
+                                    $scope.filts = response.filters; 
+                                    //model for storing response from API                
                                     // pagination
                                     $scope.currentPage = page;
                                     $scope.pageSize = response.total*6;
@@ -204,9 +203,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             }
                         }, true);
 
-                    /* function to remove an ingredient from the recipe checklist and templist */
+                    /* function to remove an ingredient from the recipe 
+                    checklist and templist */
                     $scope.removeIngredient = function(element) {
-//                        console.log(element);
                         // remove ingredient from checklist temp array
                         var index1 = $scope.checklistIngs
                             .indexOf(element);
@@ -216,11 +215,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 index1, 1);
                         }
 
-                        // remove ingredient from checklist array
-
-                        //                        var index = $scope.checklistIngredients.filter(function(el) {
-                        //                            return el.id === element; // Filter out the appropriate one
-                        //                        })
                         var index2 = $scope.checklistIngredients
                             .indexOf(element);
                         if (index2 >= 0) {
@@ -232,9 +226,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         var index3 = -1;
                         for (var ind = 0; ind < $scope.ingredientDisplay
                             .length; ind++) {
-//                            console.log(element.id);
-//                            console.log($scope.ingredientDisplay[
-//                                ind]);
                             if (element.id === $scope.ingredientDisplay[
                                 ind].ingredient.id) {
                                 index3 = ind;
@@ -246,15 +237,11 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 index3,
                                 1);
                         }
-
-//                        console.log(index1, index2, index3);
                     };
 
+                    
                     /* function to remove an ingredient from the recipe */
                     $scope.removeIngs = function(index) {
-//                        console.log(index);
-
-
                         // remove ingredient from checklist array
                         var index2 = -1;
                         for (var i = 0; i < $scope.checklistIngredients
@@ -290,10 +277,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                           use in calculating total nutrient
 
                         add to the ingredients */
-
-//                        console.log($scope.checklistIngs);
-//                        console.log($scope.checklistIngredients);
-
                         for (var j = 0; j <
                             $scope.checklistIngs.length; j++
                         ) {

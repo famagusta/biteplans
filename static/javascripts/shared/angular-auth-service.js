@@ -132,8 +132,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             //constants is a angular.constant service which will contain all the constants for our app
             //being used 
             var deferred = $q.defer();
-            var url = constants['API_SERVER'] +
-                'authentication/api/v1/register/';
+            var url = '/authentication/api/v1/register/';
             var userString = {
                 'username': username,
                 'password': password,
@@ -162,8 +161,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
         /* Login logic goes here {This is normal login, not social login }*/
         var login = function(username, password) {
-            var url = constants['API_SERVER'] +
-                'authentication/api/v1/login/';
+            var url = '/authentication/api/v1/login/';
             var deferred = $q.defer();
             httpService.httpPost(url, {
                     'email': username,
@@ -205,7 +203,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
         /* function to update a user profile */
         var updateProfile = function(args, id){
-            var url = constants['API_SERVER'] + 'authentication/api/v1/register/' + id + '/'
+            var url = '/authentication/api/v1/register/' + id + '/'
         }
         
         /*User resource for sharing between different controllers */
@@ -252,7 +250,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         var getCurrentUserDetails = function() {
             if ($auth.getToken()) {
                 httpService.httpGet(
-                       constants['API_SERVER'] +  'authentication/api/v1/jwt_user/'
+                       '/authentication/api/v1/jwt_user/'
                     )
                     .then(function(response) {
                         userOb.set_user(response);
@@ -263,8 +261,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         //Function for forgot password and this sends email to user with activation link
         var resetPassword = function(email) {
             //url to be hit
-            var url = constants['API_SERVER'] +
-                'authentication/forgot/password/reset/';
+            var url = '/authentication/forgot/password/reset/';
             //promise to be fulfilled
             var deferred = $q.defer();
             httpService.httpPost(url, {
@@ -287,8 +284,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
 
         var isAuthenticated = function() {
-            var url = constants['API_SERVER'] +
-                'authentication/loginstatus/';
+            var url = '/authentication/loginstatus/';
             var deferred = $q.defer();
             httpService.httpGet(url)
                 .then(function(response) {

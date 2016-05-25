@@ -1,7 +1,9 @@
 '''Views for recipes'''
-from recipes.models import Recipe, RecipeIngredients, RecipeNutrition
+from recipes.models import Recipe, RecipeIngredients, RecipeNutrition,\
+RecipeRating
 from recipes.serializers import RecipeSerializer, \
-RecipeReadSerializer, RecipeIngSerializer, RecipeNutritionSerializer
+RecipeReadSerializer, RecipeIngSerializer, RecipeNutritionSerializer,\
+RecipeRatingSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -51,6 +53,40 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 		obj = self.serializer_class(obj, many=True)
 		return Response(obj.data, status=status.HTTP_200_OK)
+
+
+class RecipeRatingViewSet(viewsets.ModelViewSet):
+    '''view to return json for crud related to a plan rating'''
+    serializer_class = RecipeRatingSerializer
+    queryset = RecipeRating.objects.all()
+    
+    def get_queryset(self):
+        '''returns queryset for get method'''
+        recipe = self.request.GET.get('recipe', False)
+        if recipe:
+            return RecipeRating.objects.filter(user=self.request.user,
+                                             recipe=recipe)
+        else:
+            return RecipeRating.objects.filter(user=self.request.user)
+    
+    def get_permissions(self):
+        '''return allowed permissions'''
+        if self.request.method in permissions.SAFE_METHODS:
+            return (permissions.AllowAny(),)
+        if self.request.method in ['POST', 'PATCH']:
+            return (permissions.IsAuthenticated(), )
+        
+    def create(self, request):
+        '''create an instance of rating'''
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        if serializer.is_valid():
+            obj = RecipeRating.objects.create(**serializer.validated_data)
+            obj.save()
+            return Response({'recipeRating_id': obj.id}, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
 
 
 class RecipeIngredientViewSet(viewsets.ModelViewSet):

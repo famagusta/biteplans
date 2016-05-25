@@ -71,6 +71,25 @@ class Recipe(models.Model):
     def __unicode__(self):
         return self.name
 
+    
+class RecipeRating(models.Model):
+    user = models.ForeignKey(Account)
+    recipe = models.ForeignKey(Recipe)
+
+    STAR_CONVERSION = (
+        (1, 'One'),
+        (2, 'Two'),
+        (3, 'Three'),
+        (4, 'Four'),
+        (5, 'Five'),
+        )
+
+    rating = models.PositiveSmallIntegerField(choices=STAR_CONVERSION)
+
+    class Meta:
+        '''users must have only one rating per dietplan'''
+        unique_together = ('user', 'recipe')
+    
 
 class RecipeNutrition(models.Model):
     '''Model to keep track of recipe_info'''

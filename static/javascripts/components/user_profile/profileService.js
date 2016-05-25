@@ -9,7 +9,7 @@ app.factory('profileService',
     var getProfile = function(id){
         /* return the user profile based on a jwt token - 
         user gets it on login or signup*/
-        var url = 'authentication/api/v1/jwt_user/';
+        var url = '/authentication/api/v1/jwt_user/';
         var deferred = $q.defer();
         httpService.httpGet(url).then(function(response){
             deferred.resolve(response);
@@ -21,7 +21,7 @@ app.factory('profileService',
     
     var updateSavedPlan = function(obj, id ) {
         //?? what is this doing here/??
-            var url = 'authentication/api/v1/register/' + id + '/';
+            var url = '/authentication/api/v1/register/' + id + '/';
         console.log(obj);
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
@@ -37,8 +37,7 @@ app.factory('profileService',
          //seperate service to save a profile image
         var fd = new FormData();
         fd.append('image_path', file);
-         var url = constants.API_SERVER 
-            + 'authentication/api/v1/register/' 
+         var url = '/authentication/api/v1/register/' 
             + id + '/';
         var deferred = $q.defer();
 
@@ -54,8 +53,7 @@ app.factory('profileService',
     };
                 
     var updateProfile = function(id, obj){
-        var url = constants.API_SERVER 
-            + 'authentication/api/v1/register/' 
+        var url = '/authentication/api/v1/register/' 
             + id + '/';
         var deferred = $q.defer();
         httpService.httpPatch(url, obj).then(function(response){

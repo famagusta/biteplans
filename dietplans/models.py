@@ -195,7 +195,7 @@ def create_mealplan(sender, instance, created, **kwargs):
 @receiver(post_delete)
 def save_plan_nutrition(sender, instance, *args, **kwargs):
     # update diet plan macros on addition of recipe or ingredient
-    list_of_models = ('MealRecipe', 'MealIngredient', 'MealPlan', 'DayPlan')
+    list_of_models = ('MealRecipe', 'MealIngredient')
     # update the nutrition whenever mealrecipe or mealingredient is saved
     if sender.__name__ in list_of_models:
         sortlist = DietPlan._meta.fields
