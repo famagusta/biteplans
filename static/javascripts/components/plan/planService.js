@@ -223,7 +223,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             var url = '/dietplans/plan-rating/' + id + '/';
             var deferred = $q.defer();
             /* cast our parameters into an object */
-            httpService.httpPost(url,obj)
+            httpService.httpPatch(url,obj)
                 .then(function(response){
                     deferred.resolve(response);
                 }, function(error){

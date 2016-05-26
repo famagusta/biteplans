@@ -90,16 +90,13 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     star input directive -- FIX this is future
                 must also check if user is logged in to do this
             */
-//            console.log(rating);
 //            console.log(plan);
             
-            var normalizedRating = parseInt(rating/20);
+            var normalizedRating = Math.ceil(rating/20);
             var ratingObject = {
                 rating: normalizedRating,
                 dietPlan: plan.id
             }
-//            console.log(ratingObject);
-//            console.log("setting rating");
             if($scope.isAuth && $scope.userPlanRatings !== undefined){
                 // only authenticated users must rate plans
                 if(normalizedRating > 0 ){
@@ -112,22 +109,22 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                         // case where user has previously rated this plan
                         if(userRatingMatch[0].rating !== normalizedRating){
                             //case where rating is updated
-//                            planService.updateDietPlanRating(ratingObject,
-//                                                             userRatingMatch[0].id).then(
-//                            function(response){
-//                                console.log(response);
-//                            }, function(error){
-//                                console.log(error);
-//                            })
+                            planService.updateDietPlanRating(ratingObject,
+                                                             userRatingMatch[0].id).then(
+                            function(response){
+                                console.log(response);
+                            }, function(error){
+                                console.log(error);
+                            })
                         }
                     }else{
                         // case where this is a fresh rating
-//                        planService.createDietPlanRating(ratingObject).then(
-//                            function(response){
-//                                console.log(response);
-//                            }, function(error){
-//                                console.log(error);
-//                            })
+                        planService.createDietPlanRating(ratingObject).then(
+                            function(response){
+                                console.log(response);
+                            }, function(error){
+                                console.log(error);
+                            })
                     }
                 }
             }

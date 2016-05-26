@@ -149,7 +149,7 @@ app.directive('starRating', ['$compile', '$templateCache', '$timeout', function(
                     percent: "=outerPercent",
                     starsSelected: "=outerStarSelection"
                 },
-                template: '<div class="stars" style="background-color: {{emptyBackColor}}"><div class="stars-selected" style="width: {{percent}}%; background-color: {{selColor}};"></div></div>',
+                template: '<div class="stars" ng-mousemove="changeRating($event)" ng-mouseleave="leaveRating()" style="background-color: {{emptyBackColor}}"><div class="stars-selected" style="width: {{percent}}%; background-color: {{selColor}};"></div></div>',
                 controller: function($scope, stars, starsUtility) {
                     // Apply Utilities
                     for(var method in starsUtility) {
@@ -179,16 +179,12 @@ app.directive('starRating', ['$compile', '$templateCache', '$timeout', function(
                     if ($scope.ratingDefine) {
                         // watch percent value to update the view
                         $scope.$watch('percent', function(newValue, oldValue) {
-//                            console.log('percenting');
                             filler.css('width', newValue + '%');
                             $scope.starsSelected = $scope.starsByPercent($scope.howManyStars.length, $scope.percent);
                         });
                         // handle events to change the rating
                         $scope.changeRating = function(e) {
-//                            console.log('changing');
                             var el = wrapper[0];
-                            console.log(e);
-                            console.log(wrapper);
                             var w = el.offsetWidth;
                             var selected = e.clientX - el.getBoundingClientRect().left + 1;
                             var newPercent = $scope.ratingDefine == 'star' ? $scope.percentFullStars($scope.howManyStars.length, w, $scope.starRadius*2, selected) : Math.floor((selected * 100) / w);
@@ -215,6 +211,7 @@ app.directive('starRating', ['$compile', '$templateCache', '$timeout', function(
                         });
                         wrapper.css('visibility', 'visible'); // this to avoid to show partly rendered layout
                     });
+                
                 }
             };
         }]);

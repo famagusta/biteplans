@@ -4,7 +4,7 @@ var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'bw.paging',
     'ngMaterial', 'materialCalendar', 
     'angular-svg-round-progressbar', 
-    'ng.httpLoader', 'angular-input-stars'
+    'ng.httpLoader'
 ]);
 
 var constantData = {
