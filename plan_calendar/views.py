@@ -28,8 +28,9 @@ class FollowDietViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         '''returns queryset for get method'''
-        date = self.request.GET.get('date', False)
-        if date:
+        month = self.request.GET.get('month', False)
+        if month:
+            '''return entire months plans '''
             temparr = date.split('-')
             month = int(temparr[1])
             year = int(temparr[0])

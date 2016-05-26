@@ -8,7 +8,7 @@ app.factory('calendarService', ['httpService', 'AuthService', '$location',
         /* CRU(D) dietplans */
         // TODO: write function to delete a diet plan
         var getUserMonthEvents = function(dateString) {
-            var url = '/dashboard/follow/' + '?date=' + dateString;
+            var url = '/dashboard/follow/' + '?month=' + dateString;
             var deferred = $q.defer();
             httpService.httpGet(url)
                 .then(function(response) {

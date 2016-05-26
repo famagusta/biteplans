@@ -201,8 +201,52 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
                 }, function(error){
                     deferred.reject(error);
                 });
-                return deferred.promise;
-            };
+            return deferred.promise;
+        };
+        
+        /* function to capture user rating of a dietplan */
+        var createDietPlanRating = function(obj){
+            var url = '/dietplans/plan-rating/';
+            var deferred = $q.defer();
+            /* cast our parameters into an object */
+            httpService.httpPost(url,obj)
+                .then(function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
+        /* function to update a users existing rating for a plan */
+        var updateDietPlanRating = function(obj, id){
+            var url = '/dietplans/plan-rating/' + id + '/';
+            var deferred = $q.defer();
+            /* cast our parameters into an object */
+            httpService.httpPost(url,obj)
+                .then(function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+        
+        /* get user plan ratings */
+        var getUserDietPlanRatings = function(){
+            var url = '/dietplans/plan-rating/';
+            var deferred = $q.defer();
+            /* cast our parameters into an object */
+            httpService.httpGet(url)
+                .then(function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+        
+        
 
 
         return {
@@ -252,6 +296,15 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             copyDayPlan: function(obj){
                 return copyDayPlan(obj);
             },
+            createDietPlanRating: function(obj){
+                return createDietPlanRating(obj)                
+            },
+            updateDietPlanRating: function(obj, id){
+              return updateDietPlanRating(obj, id)  
+            },
+            getUserDietPlanRatings: function(){
+                return getUserDietPlanRatings()                
+            }
         };
 
     }

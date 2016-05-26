@@ -91,7 +91,6 @@
                     <div class="card white" id="searchcard">
                         <!-- SEARCH-BOX -->
 
-
                         <div class="card-content black-text">
                             <form>
                                 <textarea class="form-control" id="searchbox"
@@ -140,40 +139,35 @@
                                         {{ plan.duration }} Week</p>
                                 </div>
                             </div>
-<!--
 
-                                <div class="row">
-                                    <div class="col s1">
-                                        <i class="material-icons ratings">star_rate</i>
-                                    </div>
-                                    <div class="col s1">
-                                        <i class="material-icons ratings">star_rate</i> 
-                                    </div>
-                                    <div class="col s1">
-                                        <i class="material-icons ratings">star_rate</i> 
-                                    </div>
-                                    <div class="col s1">
-                                        <i class="material-icons ratings">star_rate</i> 
-                                    </div>
-                                    <div class="col s1">
-                                        <i class="material-icons ratings">star_rate</i> 
-                                    </div>
-                                </div>
-                                -->
-                            <div class="row center">
-                                <div star-rating stars="5" outer-star-selection="stars" 
-                                     outer-percent="rating" rating-define="percent" 
+                            <div class="row center showcustom"  
+                                 ng-mouseenter="hideCountStar(plan)"
+                                 ng-show="plan.showStars">
+                                <div id="plan-{{plan.id}}" star-rating stars="5" 
+                                     outer-star-selection="stars" 
+                                     outer-percent="rating" 
                                      rating-percent="{{getPlanRating(plan)}}" star-radius="10" 
-                                     sel-color="gold" back-color="white">
+                                     sel-color="gold" back-color="white" >
                                 </div>
-                                <div><span ng-bind="plan.ratings_field"></span> / 5</div>
+<!--
+                                <div class="stars" 
+                                     style="background-color: {{emptyBackColor}}">
+                                    <div class="stars-selected" 
+                                         style="width: {{percent}}%; background-color: {{selColor}};">
+                                    </div>
+                                </div>
+-->
+                                
+<!--                                <div><span ng-bind="plan.ratings_field"></span> / 5</div>-->
                             </div>
-<!--                                <div><span ng-bind="stars"></span>&nbsp;stars</div>-->
+                            
+                            <div class="row center showcustom" 
+                                 ng-mouseleave="showCountStar(plan)"
+                                 ng-show="!plan.showStars">
+                                    <input-stars max="5" icon-hover="hover" icon-base="fa fa-fw fa-star-o" ng-model="plan.ratings_field">
+                                    </input-stars>
 
-                                
-<!--                                <div class="row">-->
-<!--                                </div>-->
-                                
+                            </div>
                                 <div class="row">
                                     <div class="col s4 m4 center">
                                             <div animation="easeInOutQuart"

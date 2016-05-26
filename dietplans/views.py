@@ -60,11 +60,14 @@ class PlanRatingViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         '''returns queryset for get method'''
         dietPlan = self.request.GET.get('dietPlan', False)
-        if dietPlan:
+        user = self.request.user
+        if (dietPlan and (not user.is_anonymous())):
             return PlanRating.objects.filter(user=self.request.user,
                                              dietPlan=dietPlan)
-        else:
+        elif (not user.is_anonymous()):
             return PlanRating.objects.filter(user=self.request.user)
+        else:
+            return []
     
     def get_permissions(self):
         '''return allowed permissions'''

@@ -302,6 +302,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
                     $scope.plan_data = response;
+                    if(response.length > 0){
+                        $scope.plan_summary = response[0].user_dietplan
+                    }
                     for (var i = 0; i < $scope.plan_data.length; i++) {
                         
                         /* correct number formats for the page */
@@ -339,13 +342,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 }, function(error) {
                     console.log(error);
                 });
-            
-            summaryService.getUserCurrentDietplan(dateString)
-                .then(function(response){
-                $scope.plan_summary = response[0];
-            }, function(error){
-                console.log(error);
-            })
         }
 
 
@@ -697,9 +693,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var a = $scope.calcCheckedNutrientVal(nutrient);
             var b = $scope.calcDayNutrientVal(nutrient);
             var result = 100* (a/b);
-            return result + '%';
+            //console.log(result + "%");
+            return result;
         }
-
 
     }
 ]);

@@ -19,8 +19,8 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         };
         
-        var getUserCurrentDietplan = function(dateString) {
-            var url = '/dashboard/follow/' + '?date=' + dateString;
+        var getUserCurrentDietplan = function(id) {
+            var url = '/dashboard/follow/' + id + '/';
             var deferred = $q.defer();
             httpService.httpGet(url)
                 .then(function(response) {
