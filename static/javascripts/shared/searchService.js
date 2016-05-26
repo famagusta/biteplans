@@ -6,7 +6,7 @@ app.factory('searchService',
         /* Function to do the search ingredients */
         var search_ingredient = function(quer, page, food_group, sortby) {
 
-            var url = constants['API_SERVER'] + 'search/';
+            var url = '/search/';
 
             if(page!==undefined && page!==null)
                 {
@@ -48,7 +48,7 @@ app.factory('searchService',
     
        // Function to search recipes
         var search_recipe = function(quer, page, sortby) {
-            var url = constants['API_SERVER'] + 'search/';
+            var url = '/search/';
             if(page!==undefined && page!==null)
                 {
                     url += '?page'+'='+page;
@@ -84,7 +84,7 @@ app.factory('searchService',
                 
         // Function to search plans
         var search_plan = function(quer, page) {
-            var url = constants['API_SERVER'] + 'search/';
+            var url = '/search/';
             if(page!==undefined && page!==null)
                 {
                     url += '?page'+'='+page;
@@ -107,7 +107,7 @@ app.factory('searchService',
         // Function to get ingredient additional info
         // in future migrate to full fledged ingredient service
         var get_ingredient_addtnl_info = function(id) {
-            var url = constants['API_SERVER'] + 'ingredients/ingredient/' + id + '/';
+            var url = '/ingredients/ingredient/' + id + '/';
             var deferred = $q.defer();
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
@@ -120,7 +120,7 @@ app.factory('searchService',
         // Function to get recipe additional info
         // in future migrate to full fledged recipe service
         var get_recipe_addtnl_info = function(id) {
-            var url = constants['API_SERVER'] + 'recipes/recipe-nutrition/' + id + '/';
+            var url = '/recipes/recipe-nutrition/' + id + '/';
             var deferred = $q.defer();
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
@@ -133,7 +133,7 @@ app.factory('searchService',
         var shortlistIngredients = function(id){
             // TODO - similar functions as with recipes
             var deferred = $q.defer();
-            var url = constants['API_SERVER'] + 'user-calendar/my-ingredients/';
+            var url = '/dashboard/my-ingredients/';
 
             httpService.httpPost(url, {
                 'ingredient':id
@@ -147,7 +147,7 @@ app.factory('searchService',
 
         var shortlistRecipes = function(id){
             var deferred = $q.defer();
-            var url = constants['API_SERVER'] + 'user-calendar/my-recipes/';
+            var url = '/dashboard/my-recipes/';
             httpService.httpPost(url, {
                 'recipe':id
             }).then(function(response){
@@ -161,7 +161,7 @@ app.factory('searchService',
                 
         var getMyRecipes = function(){
             var deferred = $q.defer();
-            var url = constants['API_SERVER'] + 'user-calendar/my-recipes/';
+            var url = '/dashboard/my-recipes/';
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
             }, function(error){
@@ -172,7 +172,7 @@ app.factory('searchService',
         
         var removeFromMyRecipes = function(id){
           var deferred = $q.defer();
-            var url = constants['API_SERVER'] + 'user-calendar/my-recipes/' + 
+            var url = '/dashboard/my-recipes/' + 
                 id + '/';
             httpService.httpDelete(url).then(function(response){
                 deferred.resolve(response);

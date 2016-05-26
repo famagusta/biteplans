@@ -82,24 +82,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     }
                 }
             })
-        }
-//        $scope.starRating3 = 5;
-//        $scope.hoverRating3 = 0;
-//
-//        
-//        $scope.click3 = function (param) {
-//            //update database
-//            $scope.starRating3 = param
-//        };
-//
-//        $scope.mouseHover3 = function (param) {
-//            $scope.hoverRating3 = param;
-//        };
-//
-//        $scope.mouseLeave3 = function (param) {
-//            $scope.hoverRating3 = param + '*';
-//        };
-        
+        }        
         
         $scope.getPlanNutrientPercent = function(plan, nutrient){
             var conversion_factor = 4;

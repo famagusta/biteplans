@@ -32,7 +32,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var copyDayPlan = function(obj){
-            var url = '/dietplans/copydayplan/';
+            var url = '/dietplans/copy-day-plan/';
             var deferred = $q.defer();
             httpService.httpPost(url, obj).then(function(response){
 
@@ -61,7 +61,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         // what about update and delete
         var getdayplan = function(diet, day, week) {
             //url looks like /biteplans/plan/dayplan/8/1/1/
-            var url = '/dietplans/plan/dayplan/' + diet + '/' + day +
+            var url = '/dietplans/plan/day-plan/' + diet + '/' + day +
                 '/' + week + '/';
             var deferred = $q.defer();
             httpService.httpGet(url)
@@ -77,7 +77,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         /* C(R)UD meal plan */
         // is there any sense to get a specific meal plan? - Retrieve
         var createMealPlan = function(obj) {
-            var url = '/dietplans/mealplans/';
+            var url = '/dietplans/meal-plan/';
             var deferred = $q.defer();
             httpService.httpPost(url, obj)
                 .then(function(response) {
@@ -89,7 +89,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var updateMealPlan = function(obj, id) {
-            var url = '/dietplans/mealplans/' + id + '/';
+            var url = '/dietplans/meal-plan/' + id + '/';
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
                 .then(function(response) {
@@ -101,7 +101,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var deleteMealPlan = function(id) {
-            var url = '/dietplans/mealplans/' + id + '/';
+            var url = '/dietplans/meal-plan/' + id + '/';
             var deferred = $q.defer();
             httpService.httpDelete(url)
                 .then(function(response) {
@@ -116,7 +116,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         /* C(R)UD MealIngredients */
         // is there any sense to get a specific mealingredient? Probably not
         var createMealIngredient = function(obj) {
-            var url = '/dietplans/mealing/';
+            var url = '/dietplans/meal-ingredient/';
             var deferred = $q.defer();
             httpService.httpPost(url, obj)
                 .then(function(response) {
@@ -128,7 +128,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var updateMealIngredient = function(obj, id) {
-            var url = '/dietplans/mealing/' + id + '/';
+            var url = '/dietplans/meal-recipe/' + id + '/';
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
                 .then(function(response) {
@@ -140,7 +140,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var deleteMealIngredient = function(id) {
-            var url = '/dietplans/mealing/' + id + '/';
+            var url = '/dietplans/meal-ingredient/' + id + '/';
             var deferred = $q.defer();
             httpService.httpDelete(url)
                 .then(function(response) {
@@ -155,7 +155,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         // is there any sense to get a specific mealrecipes? Probably not
 
         var createMealRecipe = function(obj) {
-            var url = '/dietplans/mealrecipe/';
+            var url = '/dietplans/meal-recipe/';
             var deferred = $q.defer();
             httpService.httpPost(url, obj)
                 .then(function(response) {
@@ -167,7 +167,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var updateMealRecipe = function(obj, id) {
-            var url = '/dietplans/mealrecipe/' + id + '/';
+            var url = '/dietplans/meal-recipe/' + id + '/';
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
                 .then(function(response) {
@@ -179,7 +179,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var deleteMealRecipe = function(id) {
-            var url = '/dietplans/mealrecipe/' + id + '/';
+            var url = '/dietplans/meal-recipe/' + id + '/';
             var deferred = $q.defer();
             httpService.httpDelete(url)
                 .then(function(response) {
@@ -192,7 +192,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         
         /* function that makes a user follow a dietplan given a start date*/
         var followDietPlan = function(obj){
-            var url = 'user-calendar/follow/';
+            var url = '/dashboard/follow/';
             var deferred = $q.defer();
             /* cast our parameters into an object */
             httpService.httpPost(url,obj)

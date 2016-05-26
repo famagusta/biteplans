@@ -1,120 +1,255 @@
 <section class="full-length" id="create-plan">
+    
     <div class="row recipe-form-card">
+        
         <div class="col s12 m12">
             <div class="card white">
                 <div class="card-content black-text">
+                    
+                    <!--FIX THIS-->
+                    <a ng-href="editRecipe/{{recipe.id}}">
+                    <i class="material-icons">mode_edit</i>
+                        Edit Recipe
+                    </a>
+                    
                     <div class="row">
-                        <div class="col s8">
-                              <div class="row">
-                            <div class="col s12 m3">
-                                <p class="ing-text" style=
-                                "text-transform:uppercase">Name of Recipe :</p>
-                            </div>
-                                  <a ng-href="editRecipe/{{recipe.id}}">Edit Recipe</a>
-
-                            <div class="col s12 m4">
-                                <p class="meal-text">{{recipe.name}}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col s12 m3">
-                                <p class="ing-text" style=
-                                "text-transform:uppercase">Description :</p>
-                            </div>
-
-
-                            <div class="col s12 m4">
-                                <p class="meal-text">
-                                {{recipe.description}}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col s12 m3">
-                                <p class="ing-text">SERVING (No of
-                                people)</p>
-                            </div>
-
-
-                            <div class="col s12 m4">
-                                <p class="meal-text">
-                                {{recipe.servings}}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col s12 m3">
-                                <p class="ing-text" style=
-                                "text-transform:uppercase">Prep Time</p>
-                            </div>
-
-
-                            <div class="col s12 m4">
-                                <p class="meal-text">
-                                {{recipe.prep_time}}</p>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col s12 m3">
-                                <p class="ing-text" style=
-                                "text-transform:uppercase">Cook Time</p>
-                            </div>
-
-
-                            <div class="col s12 m4">
-                                <p class="meal-text">
-                                {{recipe.cook_time}}</p>
-                            </div>
-                        </div>
-
-                        <br>
-                        <div ng-if="ingredient.length!=0">
+                        <div class="col s6">
                             <div class="row">
-                                <div class="col s5">
-                                   <p class="ing-text">Ingredients</p>
+                                <div class="col s6">
+                                    <p class="ing-text" style="text-transform:uppercase">
+                                        Name of Recipe:</p>
+                                </div>
+
+                                <div class="col s6">
+                                    <p class="meal-text">{{recipe.name}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <p class="ing-text" style="text-transform:uppercase">Servings</p>
+                                </div>
+
+                                <div class="col s6">
+                                    <p class="meal-text">
+                                            {{recipe.servings}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <p class="ing-text" style=
+                                        "text-transform:uppercase">Prep Time</p>
                                 </div>
                                 
-                                <div class="col s1">
-                                   <p class="meal-text">Amt</p>
+                                <div class="col s6">
+                                    <p class="meal-text">
+                                    {{recipe.prep_time}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <p class="ing-text" style=
+                                        "text-transform:uppercase">Cook Time</p>
                                 </div>
                                 
-                                 <div class="col s2">
-                                   <p class="meal-text">Desc</p>
+                                <div class="col s6">
+                                    <p class="meal-text">
+                                    {{recipe.cook_time}}</p>
                                 </div>
-                            </div>
-                            </div>
-                        <br>
-                        <div class="row" ng-repeat=
-                        "ingredient in recipe.recipeIngredients">
-                            <div class="col s5">
-                                <p class="meal-text">
-                                {{ingredient.ingredient.name}}</p>
-                            </div>
-
-
-                            <div class="col m1">
-                                <p class="meal-text">
-                                {{ingredient.quantity | number}}</p>
-                            </div>
-
-
-                            <div class="col m2">
-                                <p class="meal-text">
-                                {{ingredient.measure.description}}</p>
                             </div>
                         </div>
-                        <!-- STEPS TO CREATE RECIPES -->
+                        
+                            <div class="col s6">
+                                <img class="recipe_img center"
+                                    ng-src="{{recipe.image}}">
+                            </div>
+                        
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="row">
+                            <div class="col s2">
+                                <p class="ing-text" style=
+                                    "text-transform:uppercase">Description
+                                        :</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col s12">
+                                <p class="meal-text">
+                                        {{recipe.description}}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div ng-if="ingredient.length!=0">
+                                <div class="row">
+                                    <div class="col s4">
+                                        <p class="ing-text" style=
+                                        "text-transform:uppercase">Ingredients</p>
+                                    </div>
 
 
+                                    <div class="col s1">
+                                        <p class="meal-text">Amt</p>
+                                    </div>
+
+
+                                    <div class="col s1">
+                                        <p class="meal-text">Desc</p>
+                                    </div>
+
+                                    <div class="col s6">
+                                        <h5 class="center recipe-subheading">
+                                            Nutritional Information
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                            <div class="col s6">
+                                <div class="row" ng-repeat=
+                                    "ingredient in recipe.recipeIngredients">
+                                    <div class="col s4">
+                                        <p class="meal-text">
+                                        {{ingredient.ingredient.name}}</p>
+                                    </div>
+
+                                    <div class="col m1">
+                                        <p class="meal-text">{{ingredient.quantity
+                                        | number}}</p>
+                                    </div>
+
+                                    <div class="col m1">
+                                        <p class="meal-text">
+                                        {{ingredient.measure.description}}</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                            <div class="col s6">
+                                    <div class="col s6">
+                                        <table class="bordered responsive-table">
+                                            <tbody>
+                                              <tr>
+                                                <td>Energy</td>
+                                                <td>{{calculateNutritionTotal('energy_kcal') |
+                                        number:0}} kcal</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Carbohydrates</td>
+                                                <td>
+                                                {{calculateNutritionTotal('carbohydrate_tot') |number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Proteins</td>
+                                                <td>{{calculateNutritionTotal('protein_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Fats</td>
+                                                <td>{{calculateNutritionTotal('fat_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Monounsaturated Fat</td>
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_mono_g') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Polyunsaturated Fat</td>
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_poly_g') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Saturated Fat</td>
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_sat_g') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Sugar</td>
+                                                <td>{{calculateNutritionTotal('sugar_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                              </tr>
+                                                <tr>
+                                                <td>Fiber</td>
+                                                <td>{{calculateNutritionTotal('fiber_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                              <tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            
+                                <div class="col s6">
+                                    <table class="bordered responsive-table">
+                                        <tbody>
+                                            <td>Cholesterol</td>
+                                            <td>{{calculateAddtnlNutritionTotal('cholestrl_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Sodium</td>
+                                            <td>{{calculateAddtnlNutritionTotal('sodium_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Calcium</td>
+                                            <td>{{calculateAddtnlNutritionTotal('calcium_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Iron</td>
+                                            <td>{{calculateAddtnlNutritionTotal('iron_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin A</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_a_iu') |
+                                    number:0}} IU</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin B12</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_b12_mcg') |
+                                    number:0}} mcg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin C</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_c_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin D</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_d_mcg') |
+                                    number:0}} mcg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin E</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_e_mg') |
+                                    number:0}} mcg</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        </div>
+        
                         <div class="row">
                             <div class="col s4">
-                                <h5 class="recipe-subheading">Directions</h5>
+                                <h5 class="recipe-subheading">
+                                Directions</h5>
                             </div>
                         </div>
 
@@ -125,244 +260,10 @@
                                 <p class="meal-text">{{direction}}</p>
                             </div>
                         </div>
-                        </div>
-                        
-                        <div class="col s4">
-                            <img class="recipe_img center" ng-src="{{recipe.image}}">
-                        </div>
-                    </div>
-                  
-                        <br>
-                        <!-- TIME TAKEN TO CREATE RECIPES -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-<div class="row">
-        <div class="col s12 m12">
-            <div class="card white">
-                <div class="card-content black-text">
-                    <span class="card-title">Nutritional Information (per serving)</span>
-                    <a ng-click="showNutritionInfo=!showNutritionInfo"><i class="material-icons cyan-text right nutinfo_dropdown">expand_more</i></a>
-
-                    <div class="row" ng-if="showNutritionInfo">
-                        <div class="col s6">
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Calories:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateNutritionTotal('energy_kcal') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Carbohydrates:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateNutritionTotal('carbohydrate_tot') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                        
-                             <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Sugar:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateNutritionTotal('sugar_tot') |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Proteins:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateNutritionTotal('protein_tot') |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Fats:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateNutritionTotal('fat_tot') | number
-                                    }}</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Polyunsaturated Fats:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_poly_g') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Monounsaturated Fats:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_mono_g') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Saturated Fats:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('fa_sat_g') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Fiber:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateNutritionTotal('fiber_tot') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        
-                        <div class="col s6">
-                                
-                            <div class="row horizontal-line">
-                                <div class="col s6">
-                                    <p class="ing-text">Cholesterol:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('cholestrl_mg') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6 ">
-                                    <p class="ing-text">Sodium:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('sodium_mg') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6 ">
-                                    <p class="ing-text">Calcium:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('calcium_mg') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6 ">
-                                    <p class="ing-text">Iron:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('iron_mg') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6 ">
-                                    <p class="ing-text">Vitamin A(IU):</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_a_iu') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6 ">
-                                    <p class="ing-text">Vitamin C:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_c_mg') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6 ">
-                                    <p class="ing-text">Vitamin D:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_d_mcg') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row horizontal-line">
-                                <div class="col s6 ">
-                                    <p class="ing-text">Vitamin E:</p>
-                                </div>
-
-
-                                <div class="col s6">
-                                    <p class="meal-text">{{ calculateAddtnlNutritionTotal('vitamin_e_mg') |
-                                    number}}</p>
-                                </div>
-                            </div>
-                        
-                        </div>
                         
                     </div>
+                    
+                    <!-- TIME TAKEN TO CREATE RECIPES -->
                 </div>
             </div>
         </div>
@@ -393,9 +294,9 @@
                         <div class="card-content black-text">
                             <textarea class="form-control" id="searchbox"
                             ng-model="query" placeholder=
-                            "Search Ingredient"></textarea> <button fire-enter class=
-                            "fa fa-search search-ingredient" ng-click=
-                            "search()" type="submit"></button>
+                            "Search Ingredient"></textarea> <button class=
+                            "fa fa-search search-ingredient" fire-enter=""
+                            ng-click="search()" type="submit"></button>
                         </div>
                         <!-- END OF SEARCH-BOX -->
                     </div>

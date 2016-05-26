@@ -37,7 +37,7 @@ app.controller('confirmController', ['$scope', '$window', '$location',
         $scope.content = 'Just a moment we are confirming your account';
         var init = function() {
             var activation_key = $routeParams.activation_key;
-            var url = 'authentication/registerConfirm/' +
+            var url = '/authentication/registerConfirm/' +
                 activation_key + '/';
             httpService.httpGet(url)
                 .then(function(response) {

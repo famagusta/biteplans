@@ -3,7 +3,7 @@
 }
 
 .recipe-view {
-    overflow: none !important;
+/*    overflow: none !important;*/
 }
 
 .nutinfo-card {
@@ -28,7 +28,7 @@
 
 .filter-ul{
     height:250px !important;
-    overflow-y:scroll !important;
+/*    overflow-y:scroll !important;*/
     padding:10px !important;
 
 }

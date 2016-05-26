@@ -61,7 +61,7 @@ app.factory('recipeService',
         };
                 
     var updateRecipeIngredient = function(obj, id) {
-            var url = '/recipes/recipeingredient/' + id + '/';
+            var url = '/recipes/recipe-ingredient/' + id + '/';
             var deferred = $q.defer();
             obj.ingredient = obj.ingredient.id;
             obj.measure = obj.measure.id;
@@ -75,7 +75,7 @@ app.factory('recipeService',
         };
                                   
     var deleteRecipeIngredient = function(id) {
-            var url = '/recipes/recipeingredient/' + id + '/';
+            var url = '/recipes/recipe-ingredient/' + id + '/';
             var deferred = $q.defer();
             httpService.httpDelete(url)
                 .then(function(response) {
@@ -90,7 +90,7 @@ app.factory('recipeService',
                 
     var createRecipeIngredients = function(obj) {
 
-    	var url = '/recipes/recipeingredient/';
+    	var url = '/recipes/recipe-ingredient/';
     	var deferred = $q.defer();
 
     	httpService.httpPost(url, obj).then(function(response){

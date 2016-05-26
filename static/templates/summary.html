@@ -241,7 +241,7 @@
 
 
                             <p class="meal-text">
-                            {{calcDayNutrientVal('energy_kcal')}} Kcal</p>
+                            {{calcDayNutrientVal('energy_kcal') | number:0}} Kcal</p>
                             <br>
                             <!-- ROUND PROGRESSBARS -->
 
@@ -263,12 +263,12 @@
 
                                     <p class="center graph-value">
                                     {{((calcDayNutrientVal('protein_tot')*4)/calcDayNutrientVal('energy_kcal'))*100
-                                    | number}}%</p>
+                                    | number:0}}%</p>
 
 
                                     <p class="ing-text nutgraph_val">
                                     {{calcDayNutrientVal('protein_tot') |
-                                    number}}g</p>
+                                    number:0}}g</p>
                                 </div>
 
 
@@ -288,12 +288,12 @@
 
                                     <p class="center graph-value">
                                     {{((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal',
-                                    false))*100 |number }}%</p>
+                                    false))*100 |number:0}}%</p>
 
 
                                     <p class="ing-text nutgraph_val">
                                     {{calcDayNutrientVal('carbohydrate_tot') |
-                                    number}} g</p>
+                                    number:0}} g</p>
                                 </div>
 
 
@@ -314,11 +314,11 @@
                                     <p class="center graph-value">
                                     {{((calcDayNutrientVal('fat_tot',
                                     false)*9)/calcDayNutrientVal('energy_kcal',
-                                    false))*100 |number }} %</p>
+                                    false))*100 |number:0}} %</p>
 
 
                                     <p class="ing-text nutgraph_val">
-                                    {{calcDayNutrientVal('fat_tot') | number}}
+                                    {{calcDayNutrientVal('fat_tot') | number:0}}
                                     g</p>
                                 </div>
                             </div>

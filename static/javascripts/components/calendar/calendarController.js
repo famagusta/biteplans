@@ -27,18 +27,15 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
     };
 
     $scope.dayClick = function(date) {
-        $scope.msg = "You clicked " + $filter("date")(date, "MMM d, y h:mm:ss a Z");
         $scope.tab.dateClick = $filter("date")(date, "y-MM-d");
 //        $scope.tab.tab = 1;
         $scope.setTab(1);
     };
 
     $scope.prevMonth = function(data) {
-        $scope.msg = "You clicked (prev) month " + data.month + ", " + data.year;
     };
 
     $scope.nextMonth = function(data) {
-        $scope.msg = "You clicked (next) month " + data.month + ", " + data.year;
     };
 
     $scope.setContentViaService = function() {
@@ -78,7 +75,7 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
             $scope.currMonthContext = moment(date).month();
             
             var deferred = $q.defer();
-            var url = '/user-calendar/follow/' + '?date=' + key;
+            var url = '/dashboard/follow/' + '?date=' + key;
             /* get request for getting the dietplans a user is following in a month */
             httpService.httpGet(url)
                     .then(function(response) {

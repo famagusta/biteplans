@@ -288,7 +288,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 no_of_servings: recipe.no_of_servings,
                 is_checked: recipe.is_checked
             }
-            console.log(recipe);
             
             summaryService.updateEventRecipe(objToUpdate, id).then(function(response){
                 console.log(response);   
