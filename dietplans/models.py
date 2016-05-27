@@ -59,7 +59,10 @@ class DietPlan(models.Model):
     def average_rating(self):
         avg_rating = PlanRating.objects.filter(dietPlan__id=self.id)\
             .aggregate(Avg('rating'))['rating__avg']
-        return avg_rating
+        if avg_rating is None:
+            return 0
+        else:
+            return avg_rating
 
         
 class PlanRating(models.Model):

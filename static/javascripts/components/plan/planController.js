@@ -14,13 +14,16 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         {
             $scope.isAuth = response.status;
         });
-                                           
-        planService.getUserDietPlanRatings().then(function(response){
-            $scope.userPlanRatings = response;
-            
-        }, function(error){
-            console.log(error);
-        })
+                
+        var getUserPlanRatings = function(){
+            planService.getUserDietPlanRatings().then(function(response){
+                $scope.userPlanRatings = response;
+
+            }, function(error){
+                console.log(error);
+            })
+        }
+        getUserPlanRatings();
         
         function findWithAttr(array, attr, value) {
             for(var i = 0; i < array.length; i += 1) {
@@ -50,37 +53,15 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         };
         
         $scope.getPlanRating = function(plan){
-            return parseFloat(plan.average_rating)*20;
+            // bind result to results array
+            var planRatingMatch = $scope.plans.results.filter(function(el){
+                return el.id === plan.id;
+            });
+            var idxDietPlan = findWithAttr($scope.plans.results, 
+                                           'id', planRatingMatch[0].id);
+            return $scope.plans.results[idxDietPlan]['average_rating']*20;
         }
-        
-        $scope.hideCountStar = function(plan){
-            console.log("hide");
-//            console.log(plan);
-//            console.log($scope.plans);
-            var index = findWithAttr($scope.plans.results, 'id', plan.id);
-//            console.log(index);
-            $scope.plans.results[index].showStars = false;
-            console.log($scope.plans.results[index].showStars);
-        }
-        $scope.showCountStar = function(plan){
-            console.log("show");
-            var index = findWithAttr($scope.plans.results, 'id', plan.id);
-//            console.log(index);
-            $scope.plans.results[index].showStars = true;
-        }
-        
-        $scope.checkPlanShowStatus = function(plan){
-//            console.log(plan);
-            if (plan.showStars){
-                console.log(plan.showStars);
-                return plan.showStars;
-            }
-            else {
-//                console.log('falsy');
-                return true
-            }
-        }
-        
+                
         $scope.setPlanRating = function(plan, rating){
             /* Handle following cases
                 1. user sets rating for a plan for the 1st time
@@ -90,7 +71,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     star input directive -- FIX this is future
                 must also check if user is logged in to do this
             */
-//            console.log(plan);
             
             var normalizedRating = Math.ceil(rating/20);
             var ratingObject = {
@@ -101,18 +81,34 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 // only authenticated users must rate plans
                 if(normalizedRating > 0 ){
                     // this takes care of erroneous firing of function
+                    
+                    // find if user has rated this plan before - decide b/w post & patch
                     var userRatingMatch = $scope.userPlanRatings.filter(function(el){
                         return el.dietPlan === plan.id;
                     });
+                    
+                    // find index of diet plan in results - we need to update it 
+                    var idxDietPlan = findWithAttr($scope.plans.results, 
+                                                   'id', userRatingMatch[0].dietPlan);
 
                     if (userRatingMatch.length > 0 ){
                         // case where user has previously rated this plan
                         if(userRatingMatch[0].rating !== normalizedRating){
-                            //case where rating is updated
+                            //case where user is updating his/her rating
                             planService.updateDietPlanRating(ratingObject,
                                                              userRatingMatch[0].id).then(
                             function(response){
-                                console.log(response);
+                                //update user ratings array
+                                getUserPlanRatings();
+                                
+                                // update dietplan rating
+                                var plan2Update = {};
+                                planService.getDietPlan(userRatingMatch[0].dietPlan).then(
+                                    function(response){
+                                        $scope.plans.results[idxDietPlan] = response;
+                                    }, function(error){
+                                        console.log(error);
+                                })
                             }, function(error){
                                 console.log(error);
                             })
@@ -121,7 +117,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                         // case where this is a fresh rating
                         planService.createDietPlanRating(ratingObject).then(
                             function(response){
-                                console.log(response);
+                                // update user ratings array
+                                getUserPlanRatings();
                             }, function(error){
                                 console.log(error);
                             })
@@ -130,9 +127,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }
         }
         
-        $scope.showStarSelector = function(){
-            console.log('yaay');
-        }
         
         $scope.openShortInfoModal = function() {
             $('#small-modal')

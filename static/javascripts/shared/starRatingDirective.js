@@ -187,14 +187,18 @@ app.directive('starRating', ['$compile', '$templateCache', '$timeout', function(
                             var el = wrapper[0];
                             var w = el.offsetWidth;
                             var selected = e.clientX - el.getBoundingClientRect().left + 1;
-                            var newPercent = $scope.ratingDefine == 'star' ? $scope.percentFullStars($scope.howManyStars.length, w, $scope.starRadius*2, selected) : Math.floor((selected * 100) / w);
-                            $scope.percent = newPercent > 100 ? 100 : newPercent;
+                            var newPercent = $scope.ratingDefine == 'star' ?
+                                $scope.percentFullStars($scope.howManyStars.length,
+                                                        w, 
+                                                        $scope.starRadius*2, selected)
+                                : Math.floor((selected * 100) / w);
+                            $scope.percent = 20*Math.ceil((newPercent > 100 ? 100 : newPercent)/20);
                         };
                         $scope.leaveRating = function() {
                             $scope.percent = $scope.prevPercent;
                         };
                         $scope.secureNewRating = function() {
-                            $scope.prevPercent = $scope.percent;
+                            $scope.prevPercent = 20*Math.ceil($scope.percent/20);
                         };
                     }
                     // add canvas to DOM first
