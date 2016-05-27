@@ -1,14 +1,13 @@
-<b>You created:<b>
+
 
 <div id="result-list">
-    <div ng-if=
-    "createdRecipes!=null && createdRecipes!=undefined && createdRecipes.length!=0">
+    <div ng-if="createdRecipes!=null && createdRecipes!=undefined && createdRecipes.length!=0">
+    <b>You created:<b>
     <div class="row">
-            <div class="col s12 m4 carousel-item" current-page="currentPage" ng-repeat=
-            "recipe in createdRecipes track by $index">
+            <div class="col s12 m4 carousel-item" current-page="currentPage" ng-repeat="recipe in createdRecipes track by $index">
                       <div class="card myrecipe_card">
                         <div class="card-image recipe-im">
-                          <img class="recipe_img" ng-src="{{myRecipesImage}}">
+                          <img class="recipe_img" ng-src="{{recipe.myRecipesImage}}">
                         </div>
                         <div class="card-content recipe-content">
                            <div class="row">
@@ -64,24 +63,54 @@
                     </div>
                    
                 </div>
+
+
+                <div class="row">
+    <div class="col s12 m6 push-m5">
+    <paging
+                class="small"
+                page="currentPageRecipe" 
+                page-size="3" 
+                total="pageSizeRecipe"
+                hide-if-empty="{{hideIfEmpty}}"
+                ul-class="{{ulClass}}"
+                li-class="lipageclass"
+                active-class="{{activeClass}}"
+                disabled-class="{{disabledClass}}"
+                show-prev-next="true"
+                show-first-last="true"
+                text-next-class="acti fa fa-chevron-right"
+                text-prev-class="acti fa fa-chevron-left"
+                text-first-class="acti fa fa-backward"
+                text-last-class="acti fa fa-forward"
+  text-title-page="Page {page}"
+  text-title-first="First Page"
+  text-title-last="Last Page"
+  text-title-next="Next Page"
+  text-title-prev="Previous" 
+  paging-action="getRecipesMadeByMe(page)" 
+  >
+            </paging>
+     
             </div>
     
         </div>
 
 
 
-<b>You shortlisted:<b>
+
 
 <div id="result-list">
     <div ng-if=
     "myRecipes!=null && myRecipes!=undefined && myRecipes.length!=0">
+    <b>You shortlisted:<b>
     <div class="row">
              
             <div class="col s12 m4" current-page="currentPage" ng-repeat=
             "recipe in myRecipes track by $index">
                       <div class="card myrecipe_card">
                         <div class="card-image recipe-im">
-                          <img class="recipe_img" ng-src="{{myRecipesImage}}">
+                          <img class="recipe_img" ng-src="{{recipe.myRecipesImage}}">
                         </div>
                         <div class="card-content recipe-content">
                            <div class="row">
@@ -145,13 +174,33 @@
                     </div>
                    
                 </div>
+
+                <div class="row">
+    <div class="col s12 m6 push-m5">
+    <paging
+                class="small"
+                page="currentPage" 
+                page-size="3" 
+                total="pageSize"
+                hide-if-empty="{{hideIfEmpty}}"
+                ul-class="{{ulClass}}"
+                li-class="lipageclass"
+                active-class="{{activeClass}}"
+                disabled-class="{{disabledClass}}"
+                show-prev-next="true"
+                show-first-last="true"
+                text-next-class="acti fa fa-chevron-right"
+                text-prev-class="acti fa fa-chevron-left"
+                text-first-class="acti fa fa-backward"
+                text-last-class="acti fa fa-forward"
+  text-title-page="Page {page}"
+  text-title-first="First Page"
+  text-title-last="Last Page"
+  text-title-next="Next Page"
+  text-title-prev="Previous" 
+  paging-action="getMyRecipes(page)" 
+  >
+            </paging>
+     
             </div>
         </div>
-    
-<!--
-    <script>
-     $(document).ready(function(){
-      $('.carousel').carousel();
-    });
-        
-    </script>-->

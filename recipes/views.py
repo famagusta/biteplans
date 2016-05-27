@@ -15,6 +15,8 @@ import hashlib, datetime, random
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import math
 
 class RecipeViewSet(viewsets.ModelViewSet):
 	queryset = Recipe.objects.all()
@@ -45,21 +47,32 @@ class RecipeViewSet(viewsets.ModelViewSet):
 	def list(self, request):
 		'''returns queryset for get method'''
 		user = request.user
+		page = request.GET.get('page')
 		self.serializer_class = RecipeReadSerializer
 		if user != None:
-			obj = self.queryset.filter(created_by=request.user)
+			result = self.queryset.filter(created_by=request.user)
 		else:
-			obj = self.queryset
+			result = self.queryset
+		paginator = Paginator(result, 3)
 
-		obj = self.serializer_class(obj, many=True)
-		return Response(obj.data, status=status.HTTP_200_OK)
+		try:
+			result = paginator.page(page)
+		except PageNotAnInteger:
+        	# If page is not an integer, deliver first page.
+			result = paginator.page(1)
+		except EmptyPage:
+        	# If page is out of range (e.g. 9999), deliver last page of results.
+			result = paginator.page(paginator.num_pages)
+		total = math.ceil(len(result)/3.0)
+		result = self.serializer_class(result, many=True)
+		return Response({"results":result.data, "total":total},
+		                status=status.HTTP_200_OK)
 
 
 class RecipeRatingViewSet(viewsets.ModelViewSet):
     '''view to return json for crud related to a plan rating'''
     serializer_class = RecipeRatingSerializer
     queryset = RecipeRating.objects.all()
-    
     def get_queryset(self):
         '''returns queryset for get method'''
         recipe = self.request.GET.get('recipe', False)
@@ -68,14 +81,12 @@ class RecipeRatingViewSet(viewsets.ModelViewSet):
                                              recipe=recipe)
         else:
             return RecipeRating.objects.filter(user=self.request.user)
-    
     def get_permissions(self):
         '''return allowed permissions'''
         if self.request.method in permissions.SAFE_METHODS:
             return (permissions.AllowAny(),)
         if self.request.method in ['POST', 'PATCH']:
             return (permissions.IsAuthenticated(), )
-        
     def create(self, request):
         '''create an instance of rating'''
         serializer = self.serializer_class(data=request.data,
@@ -83,7 +94,8 @@ class RecipeRatingViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             obj = RecipeRating.objects.create(**serializer.validated_data)
             obj.save()
-            return Response({'recipeRating_id': obj.id}, status=status.HTTP_200_OK)
+            return Response({'recipeRating_id': obj.id},
+                            status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)

@@ -19,8 +19,11 @@ app.factory('recipeService',
     };
 
 
-    var getRecipesMadeByMe = function(){
-        var url = '/recipes/recipe/';
+    var getRecipesMadeByMe = function(page){
+        if(page===undefined || page===null){
+            page=1;
+        }
+        var url = '/recipes/recipe/?page='+page+'/';
         var deferred = $q.defer();
         httpService.httpGet(url).then(function(response){
             deferred.resolve(response);

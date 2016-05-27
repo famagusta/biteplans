@@ -117,9 +117,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 for (var i = 0; i < diffIncrease.length; i++) {
                     var id = diffIncrease[i].id;
                     var objToUpdate = {
-                        is_checked: true,
-                        quantity: diffIncrease[i].quantity,
-                        unit_desc: diffIncrease[i].unit_desc.id
+                        'is_checked': true,
+                        'quantity': diffIncrease[i].quantity,
+                        'unit_desc': diffIncrease[i].unit_desc.id
                     };
                     (function(objToUpdate, id) {
                         summaryService.updateEventIngredient(
@@ -135,9 +135,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 for (var i = 0; i < diffDecrease.length; i++) {
                     var id = diffDecrease[i].id;
                     var objToUpdate = {
-                        is_checked: false,
-                        quantity: diffDecrease[i].quantity,
-                        unit_desc: diffDecrease[i].unit_desc.id
+                        'is_checked': false,
+                        'quantity': diffDecrease[i].quantity,
+                        'unit_desc': diffDecrease[i].unit_desc.id
                     };
                     (function(objToUpdate, id) {
                         summaryService.updateEventIngredient(
@@ -174,8 +174,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 for (var i = 0; i < diffIncrease.length; i++) {
                     var id = diffIncrease[i].id;
                     var objToUpdate = {
-                        is_checked: true,
-                        no_of_servings: diffIncrease[i].no_of_servings,
+                        'is_checked': true,
+                        'no_of_servings': diffIncrease[i].no_of_servings,
                     };
                     (function(objToUpdate, id) {
                         summaryService.updateEventRecipe(
@@ -191,8 +191,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 for (var i = 0; i < diffDecrease.length; i++) {
                     var id = diffDecrease[i].id;
                     var objToUpdate = {
-                        is_checked: false,
-                        no_of_servings: diffDecrease[i].no_of_servings
+                        'is_checked': false,
+                        'no_of_servings': diffDecrease[i].no_of_servings
                     };
                     (function(objToUpdate, id) {
                         summaryService.updateEventRecipe(
@@ -387,8 +387,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
         };
 
-        $scope.removeIngredientsFromSavedMeal =
-            function(key1, key2) {
+        $scope.removeIngredientsFromSavedMeal = function(key1, key2) {
                 var temp = $scope.plan_data[key1]
                     .followingMealPlanIngredient[key2].id;
                 summaryService.deleteMealIngredient(temp)
@@ -401,6 +400,37 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                         console.log(response);
                     });
             };
+
+         //for recipes
+                $scope.search_recipe = function(page, sortby)
+                {
+                    var query = $scope.query;
+                    $scope.details = undefined;
+                    if (query !== undefined)
+                    {
+                        $scope.sortby = sortby;
+                        // Below 3 lines cause duplicate addition in modal
+                        // TODO : delete when stable
+//                        $scope.ingredientInModal = $scope.ingredientInModal
+//                            .concat($scope.checklistIngs.splice(
+//                                0, $scope.checklistIngs
+//                                .length));
+                        searchService.search_recipe(query,
+                            page, sortby).then(function(
+                            response)
+                        {
+                            $scope.details =
+                                response;
+                            $scope.currentPage =
+                                page;
+                            $scope.pageSize =
+                                response.total * 6;
+                        }, function(error)
+                        {
+                            console.log(error);
+                        });
+                    }
+                };
 
         $scope.search = function(page, sortby) {
             $scope.details = undefined;
@@ -464,9 +494,16 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
         $scope.searchPlan = function(query, page, sortby) {
             $scope.query = query;
-            if (query) {
-                $scope.search(page, sortby);
-            }
+            if (query !== undefined && $scope.searchType ===
+                        'ingredients')
+                    {
+                        $scope.search(page, sortby);
+                    }
+                    else if (query !== undefined && $scope.searchType ===
+                        'recipes')
+                    {
+                        $scope.search_recipe(page, sortby);
+                    }
         };
 
         $scope.addContents = function() {
@@ -483,6 +520,10 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 $scope.plan_data[$scope.currentMealPlanName].followingMealPlanIngredient
                 .length;
 
+            var currrecipelength =
+                $scope.plan_data[$scope.currentMealPlanName].followingMealPlanRecipe
+                .length;
+
             //give a more sensible name to this variable
             var x = $scope.ingredientInModal.slice();
 
@@ -490,62 +531,80 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             for (var i = 0; i < x.length; i++) {
 
                 // handle case where measure is only 100g or not an array
-                if (x[i].measure.length !== 0) {
-                    $scope.MealIngredients2Add
-                        .push({
-                            ingredient: x[i],
-                            unit: x[i].measure[
+                if (x[i].servings==undefined && x[i].measure.length !== 0) {
+                    $scope.plan_data[$scope.currentMealPlanName].followingMealPlanIngredient.push({
+                            'meal_ingredient': x[i],
+                            'unit_desc': x[i].measure[
                                 0],
-                            quantity: 1.00,
+                            'quantity': 1.00,
+                            'is_checked':false,
+                            'meal_history': $scope.plan_data[$scope.currentMealPlanName].id,
                         })
                 }
-                else {
-                    MealIngredients2Add
-                        .push({
-                            ingredient: x[i],
-                            unit: x[i].measure,
-                            quantity: 1.00,
+                else if(x[i].servings==undefined) {
+                    $scope.plan_data[$scope.currentMealPlanName].followingMealPlanIngredient.push({
+                            'meal_ingredient': x[i],
+                            'unit_desc': x[i].measure,
+                            'quantity': 1.00,
+                            'is_checked':false,
+                            'meal_history': $scope.plan_data[$scope.currentMealPlanName].id,
+
+                        });}
+
+                else{
+
+                    $scope.plan_data[$scope.currentMealPlanName].followingMealPlanRecipe.push({
+                            'meal_recipe': x[i],
+                            'no_of_servings': 1.00,
+                            'is_checked':false,
+                            'meal_history': $scope.plan_data[$scope.currentMealPlanName].id,
 
                         });
+
+
+                }
+                
                 }
 
-                /* obj defined to add to scope meal plan array - id is added after getting
-                 post response */
-                var obj = {
-                    'meal_ingredient': x[i],
-                    'meal_history': $scope.plan_data[$scope.currentMealPlanName]
-                        .id,
-                    'quantity': parseFloat($scope.MealIngredients2Add[
-                        i].quantity),
-                    'unit_desc': $scope.MealIngredients2Add[i].unit,
-                    'is_checked': false,
-                };
-                $scope.plan_data[$scope.currentMealPlanName]
-                    .followingMealPlanIngredient.push(obj);
-            }
+            console.log($scope.plan_data, "Plan data");
+            console.log()
+
 
             //post ingredients to db via url endpoint
-            $scope.fillMealPlan(currlength, $scope.currentMealPlanName);
+            $scope.fillMealPlan(currlength, currrecipelength, $scope.currentMealPlanName);
 
             $scope.ingredientInModal.length = 0;
             $('#add-food-modal')
                 .closeModal();
         };
 
+
+        // removes recipes which are saved in meal
+                $scope.removeRecipeFromSavedMeal = function(key, element)
+                    {
+                        var temp = $scope.plan_data[key]
+                            .followingMealPlanRecipe[element];
+                        summaryService.deleteMealRecipe(temp.id).then(
+                            function(response)
+                            {
+                                $scope.plan_data[
+                                    key].followingMealPlanRecipe.splice(
+                                    element, 1);
+                            }, function(response) {});
+                    };
+
         // TBD
-        $scope.fillMealPlan = function(ind, current) {
-            var temp = $scope.MealIngredients2Add;
-            $scope.MealIngredients2Add = [];
-            for (var i = 0; i < temp.length; i++) {
-                var saveind = i;
+        $scope.fillMealPlan = function(ind, recipeind, current) {
+            var temp = $scope.plan_data[$scope.currentMealPlanName].followingMealPlanIngredient;
+            var temprecipe = $scope.plan_data[$scope.currentMealPlanName].followingMealPlanRecipe
+            for (var i = ind; i < temp.length; i++) {
 
                 // define object to push through the service to update DB
                 var obj = {
-                    'meal_ingredient': temp[i].ingredient.id,
-                    'meal_history': $scope.plan_data[current].id,
-                    'quantity': parseFloat(temp[
-                        i].quantity),
-                    'unit_desc': temp[i].unit.id,
+                    'meal_ingredient': temp[i].meal_ingredient.id,
+                    'meal_history': temp[i].meal_history,
+                    'quantity': parseFloat(temp[i].quantity),
+                    'unit_desc': temp[i].unit_desc.id,
                     'is_checked': false,
                 };
                 (function(cntr, obj) {
@@ -558,8 +617,41 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             function(response) {
                                 // add id to scope meal plan array to enable deletion
                                 $scope.plan_data[current]
-                                    .followingMealPlanIngredient[
-                                        ind + cntr]
+                                    .followingMealPlanIngredient[cntr]
+                                    .id = response.id;
+
+                            },
+                            function(error) {
+                                console.log(error);
+                            }
+                        );
+
+                })(i, obj);
+
+
+            }
+
+
+            for (var i = recipeind; i < temprecipe.length; i++) {
+
+                // define object to push through the service to update DB
+                var obj = {
+                    'meal_recipe': temprecipe[i].meal_recipe.id,
+                    'meal_history': temprecipe[i].meal_history,
+                    'no_of_servings': parseFloat(temprecipe[i].no_of_servings),
+                    'is_checked': false,
+                };
+                (function(cntr, obj) {
+                    // here the value of i was passed into as the argument cntr
+                    // and will be captured in this function closure so each
+                    // iteration of the loop can have it's own value
+                    summaryService.addEventRecipe(
+                            obj)
+                        .then(
+                            function(response) {
+                                // add id to scope meal plan array to enable deletion
+                                $scope.plan_data[current]
+                                    .followingMealPlanRecipe[cntr]
                                     .id = response.id;
 
                             },
@@ -589,14 +681,34 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
         // adds new mealname
         $scope.addMeal = function(key) {
-            key.day = $scope.navDates.current;
+            key.date = $scope.navDates.current.format('YYYY-MM-DD');
             var tm = key.time;
             key.time = key.time.getHours() + ":" +
                 key.time.getMinutes() + ":00";
 
+            summaryService.createMeal(key).then(function(response){
+                key.time = tm;
+                key.followingMealPlanIngredient=[];
+                key.followingMealPlanRecipe=[];
+                key.id= response.mealhistory_id;
+                key.user_dietplan=null;
+                key.user_mealplan=null;
+                $scope.plan_data.push(key);
+
+            }, function(response){
+                console.log(response.data);
+            })
+
 
             $('#add-meal-modal')
                 .closeModal();
+        };
+
+
+        // adds new mealname
+        $scope.addMealModal = function() {
+            $('#add-meal-modal')
+                .openModal();
         };
 
 

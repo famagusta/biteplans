@@ -67,6 +67,21 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                 });
             return deferred.promise;
         };
+
+        // add recipe to a meal
+        var addEventRecipe = function(obj) {
+            var url = '/dashboard/event-recipes/';
+            var deferred = $q.defer();
+            httpService.httpPost(url, obj)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
+
         
         
         //* TDB
@@ -82,10 +97,25 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         };
 
-
-        var getShortlistIngredients = function(){
+        var deleteMealRecipe = function(id) {
+            var url = '/dashboard/event-recipes/' + id + '/';
             var deferred = $q.defer();
-            var url = '/dashboard/my-ingredients/';
+            httpService.httpDelete(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
+
+        var getShortlistIngredients = function(page){
+            var deferred = $q.defer();
+            if(page===undefined || page===null){
+                page=1;
+            }
+            var url = '/dashboard/my-ingredients/'+'?page='+page+'/';
 
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
@@ -95,9 +125,15 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         };
 
-        var getShortlistRecipes = function(){
+        var getShortlistRecipes = function(page){
             var deferred = $q.defer();
-            var url = '/dashboard/my-recipes/';
+            
+            
+            if(page===undefined || page===null){
+                page=1;
+            }
+
+            var url = '/dashboard/my-recipes/'+'?page='+page+'/';
 
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
@@ -109,7 +145,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
        
         /* function to create a meal on a particular day
            to be tested*/
-        var createMeal = function(obj, id) {
+        var createMeal = function(obj) {
             var url = '/dashboard/get-plan-summary/';
             var deferred = $q.defer();
             httpService.httpPost(url, obj)
@@ -137,10 +173,17 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
              deleteMealIngredient: function(obj) {
                 return deleteMealIngredient(obj);
             },
+
+            deleteMealRecipe: function(obj) {
+                return deleteMealRecipe(obj);
+            },
             addEventIngredient: function(obj){
                 return addEventIngredient(obj);
             },
-            createMeal : function(obj, id){
+            addEventRecipe: function(obj){
+                return addEventRecipe(obj);
+            },
+            createMeal : function(obj){
                 return createMeal(obj);
             },
             getShortlistRecipes: function(){

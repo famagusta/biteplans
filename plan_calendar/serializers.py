@@ -134,7 +134,7 @@ class MyRecipeWriteSerializer(serializers.ModelSerializer):
         model = MyRecipe
         read_only_fields = ('id', 'user', )
 
-        
+
 class MyPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
     dietplan = DietPlanSerializer(many=False, read_only=True)
