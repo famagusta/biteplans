@@ -128,7 +128,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         };
 
         var updateMealIngredient = function(obj, id) {
-            var url = '/dietplans/meal-recipe/' + id + '/';
+            var url = '/dietplans/meal-ingredient/' + id + '/';
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
                 .then(function(response) {
@@ -259,7 +259,31 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         };
         
+        /* remove a plan from users shortlist */
+        var removePlanFromShortlist = function(id){
+            var url = '/dashboard/my-dietplans/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpDelete(url)
+                .then(function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        }
         
+        /* get a users shortlisted plans */
+        var getUserDietPlans = function(){
+            var url = '/dashboard/my-dietplans/';
+            var deferred = $q.defer();
+            httpService.httpGet(url)
+                .then(function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
 
 
         return {
@@ -310,16 +334,22 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
                 return copyDayPlan(obj);
             },
             createDietPlanRating: function(obj){
-                return createDietPlanRating(obj)                
+                return createDietPlanRating(obj);                
             },
             updateDietPlanRating: function(obj, id){
               return updateDietPlanRating(obj, id)  
             },
             getUserDietPlanRatings: function(){
-                return getUserDietPlanRatings()                
+                return getUserDietPlanRatings();             
             }, 
             addPlanToShortlist: function(obj){
                 return addPlanToShortlist(obj);
+            },
+            getUserDietPlans: function(){
+                return getUserDietPlans();
+            },
+            removePlanFromShortlist: function(id){
+                return removePlanFromShortlist(id);
             }
         };
 

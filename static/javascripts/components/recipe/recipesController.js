@@ -6,12 +6,13 @@ app.controller('recipesController', ['$scope', 'searchService',
         $scope.searchService = searchService;
         $scope.selected = 0;
         $scope.query_recipe = '';
-        var isAuth = '';
+        $scope.isAuth = '';
         $scope.userRecipes = [];
         
         AuthService.isAuthenticated()
             .then(function(response) {
-                isAuth = response.status;
+                $scope.isAuth = response.status;
+                $scope.getUserRecipes();
             }, function(error){
             console.log(error);
         });
@@ -60,7 +61,7 @@ app.controller('recipesController', ['$scope', 'searchService',
             
 
         $scope.getUserRecipes = function(){
-            if(isAuth){
+            if($scope.isAuth){
                 searchService.getMyRecipes().then(function(response){
                     $scope.userRecipes = response;
                 }, function(error){
@@ -72,11 +73,11 @@ app.controller('recipesController', ['$scope', 'searchService',
             }
         }
 
-        $scope.getUserRecipes();
+        
         
         /* check if given recipe is already in shortlisted recipe */
         $scope.checkMyRecipes = function(id){
-            if(isAuth){
+            if($scope.isAuth){
                 var result = false;
                 for(var i=0; i<$scope.userRecipes.length; i++){
                     if ($scope.userRecipes[i].recipe.id == id){
@@ -92,7 +93,7 @@ app.controller('recipesController', ['$scope', 'searchService',
 
         /* get object corresponding to given recipe in my recipe */
         $scope.getMyRecipes = function(id){
-            if(isAuth){
+            if($scope.isAuth){
                 var result = {};
                 for(var i=0; i<$scope.userRecipes.length; i++){
                     if ($scope.userRecipes[i].recipe.id == id){
@@ -108,7 +109,7 @@ app.controller('recipesController', ['$scope', 'searchService',
 
         /* shortlist ingredient */
         $scope.shortlistRecipe = function(id){
-            if(isAuth){
+            if($scope.isAuth){
                 if ($scope.checkMyRecipes(id)){
                     var myRecipeId = $scope.getMyRecipes(id);
                     searchService.removeFromMyRecipes(myRecipeId.id).then(

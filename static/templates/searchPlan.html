@@ -239,10 +239,24 @@
 
 
                         <div class="card-action">
-                            <a class="datepicker_btn btn-flat cyan-text" href=
+                            <btn class="plan-heart-c" ng-if=
+                               "!checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)">
+                                <i class="material-icons plan-heart-c">favorite</i>
+                            </btn>
+                            <btn class="plan-heart-ok" ng-if=
+                               "checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)">
+                                <i class="material-icons plan-heart-ok">favorite</i>
+                            </btn>
+                            
+                            <a class="datepicker_btn btn-flat cyan-text right follow-btn" href=
                             "#" ng-click="followPlan(plan.id)">FOLLOW</a>
+                            
+<!--
                             <a class="btn-flat cyan-text" href="#" ng-click=
-                            "addPlanToShortlist(plan.id)">SHORTLIST</a>
+                            "shortlistPlan(plan.id)">SHORTLIST</a>
+-->
                         </div>
                     </div>
                 </div>

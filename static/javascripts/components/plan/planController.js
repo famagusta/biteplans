@@ -8,10 +8,16 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         $scope.plans = {};
         $scope.userPlanRatings = [];
         $scope.isAuth = false;
+        
+        $scope.userPlans = {};
+        
         AuthService.isAuthenticated().then(function(response)
         {
             $scope.isAuth = response.status;
+            getUserPlanRatings();
+            getUserPlans();
         });
+        
         var getUserPlanRatings = function()
         {
             planService.getUserDietPlanRatings().then(function(
@@ -23,8 +29,17 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 console.log(error);
             })
         }
-        getUserPlanRatings();
+        
+        
+        var getUserPlans = function(){
+            planService.getUserDietPlans().then(function(response){
+                $scope.userPlans = response;
+            }, function(error){
+                console.log(error);
+            })
+        }
 
+        
         function findWithAttr(array, attr, value)
             {
                 for (var i = 0; i < array.length; i += 1)
@@ -58,6 +73,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 });
             }
         };
+        
         $scope.getPlanRating = function(plan)
         {
             // bind result to results array
@@ -72,6 +88,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 'average_rating'
             ] * 20;
         }
+        
         $scope.setPlanRating = function(plan, rating)
         {
             /* Handle following cases
@@ -155,10 +172,12 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 }
             }
         }
+        
         $scope.openShortInfoModal = function()
         {
             $('#small-modal').openModal();
         }
+        
         $scope.createPlan = function()
         {
             planService.createPlan($scope.plan).then(function(
@@ -171,6 +190,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 console.log(error);
             })
         };
+        
         /* function to follow a plan given a dietplan id
            and user selected date. did this using jquery 
            since we wanted a button to trigger the series
@@ -214,21 +234,66 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 }
             })
         }
-        $scope.addPlanToShortlist = function(planId)
+        
+        /* shortlist the selected plan */
+        $scope.shortlistPlan = function(planId)
         {
-            console.log(planId);
-            var objToSave = {
-                dietplan: planId
+            if($scope.isAuth){
+                /* check authentication */
+                if(!$scope.checkMyPlans(planId)){
+                    /* post if plan not already in the basket */
+                    var objToSave = {
+                        dietplan: planId
+                    }
+                    planService.addPlanToShortlist(objToSave).then(function(
+                        response)
+                    {
+                        getUserPlans();
+                    }, function(error)
+                    {
+                        console.log(error);
+                    })
+                }
+                else{
+                    /* delete if plan already shortlisted */
+                    var userPlanMatch = $scope.userPlans.filter(
+                        function(el)
+                        {
+                            return el.dietplan.id === planId;
+                        });
+                    planService.removePlanFromShortlist(userPlanMatch[0].id).then(function(
+                        response)
+                    {
+                        getUserPlans();
+                    }, function(error)
+                    {
+                        console.log(error);
+                    })
+                }
             }
-            planService.addPlanToShortlist(objToSave).then(function(
-                response)
-            {
-                console.log(response);
-            }, function(error)
-            {
-                console.log(error);
-            })
         }
+        
+        
+        $scope.checkMyPlans = function(planId){
+            //TBD
+            if($scope.isAuth){
+                var userPlanMatch = $scope.userPlans.filter(
+                        function(el)
+                        {
+                            return el.dietplan.id === planId;
+                        });
+                if (userPlanMatch.length > 0){
+                    return true;
+                }
+                return false;
+            }else{
+                //do something meaningful - prompt user to login
+                console.log("please login to continue");
+                return false;
+            }
+        }
+        
+        
         $scope.getPlanNutrientPercent = function(plan, nutrient)
         {
             var conversion_factor = 4;

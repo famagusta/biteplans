@@ -187,3 +187,43 @@ textarea:focus {
 .createbtn {
     display: none;
 }
+
+.plan-heart-c {
+/*
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+*/
+    color: #f2f2f2; !important
+}
+
+.plan-heart-c:hover{
+    color: #ff5252; !important
+/*
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+*/
+}
+
+.plan-heart-ok{
+    color: #ff5252; !important
+/*
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+*/
+}
+
+.follow-btn{
+/*    margin-top: -20px !important*/
+}

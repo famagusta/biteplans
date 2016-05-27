@@ -152,7 +152,6 @@ app.factory('searchService',
                 'recipe':id
             }).then(function(response){
                 deferred.resolve(response);
-                console.log(response.status);
             }, function(error){
                 deferred.reject(error);
             });
@@ -176,7 +175,6 @@ app.factory('searchService',
                 id + '/';
             httpService.httpDelete(url).then(function(response){
                 deferred.resolve(response);
-                console.log(response.status);
             }, function(error){
                 deferred.reject(error);
             });
