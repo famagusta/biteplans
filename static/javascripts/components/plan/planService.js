@@ -236,8 +236,21 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         var getUserDietPlanRatings = function(){
             var url = '/dietplans/plan-rating/';
             var deferred = $q.defer();
-            /* cast our parameters into an object */
             httpService.httpGet(url)
+                .then(function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+        
+        
+        /* add a plan to users my plans */
+        var addPlanToShortlist = function(obj){
+            var url = '/dashboard/my-dietplans/'
+            var deferred = $q.defer();
+            httpService.httpPost(url, obj)
                 .then(function(response){
                     deferred.resolve(response);
                 }, function(error){
@@ -304,6 +317,9 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             },
             getUserDietPlanRatings: function(){
                 return getUserDietPlanRatings()                
+            }, 
+            addPlanToShortlist: function(obj){
+                return addPlanToShortlist(obj);
             }
         };
 

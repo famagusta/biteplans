@@ -119,6 +119,17 @@ class MyRecipe(models.Model):
     class Meta:
         '''unique fields composite'''
         unique_together = ('user', 'recipe')
+        
+
+class MyPlans(models.Model):
+    '''stores recipes logged of bookmarked by users'''
+    dietplan = models.ForeignKey(DietPlan, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE,
+                             related_name="loggedplans")
+
+    class Meta:
+        '''unique fields composite'''
+        unique_together = ('user', 'dietplan')
 
 
 @receiver(post_save, sender=UserPlanHistory)

@@ -5,7 +5,7 @@ from dietplans.models import DietPlan, DayPlan, MealPlan, MealRecipe,\
     MealIngredient
 from recipes.serializers import RecipeSerializer
 from plan_calendar.models import UserPlanHistory, MealHistory, \
-    EventIngredient, EventRecipe, MyIngredient, MyRecipe
+    EventIngredient, EventRecipe, MyIngredient, MyRecipe, MyPlans
 
 from ingredients.serializers import IngredientSerializer, \
     IngredientMeasureSerializer
@@ -132,4 +132,26 @@ class MyRecipeWriteSerializer(serializers.ModelSerializer):
     class Meta:
         '''Meta data, or config for the serializer'''
         model = MyRecipe
+        read_only_fields = ('id', 'user', )
+
+        
+class MyPlanSerializer(serializers.ModelSerializer):
+    '''Serializer to convert the recieved data into suitable python dict'''
+    dietplan = DietPlanSerializer(many=False, read_only=True)
+
+    class Meta:
+        '''Meta data, or config for the serializer'''
+        model = MyPlans
+        read_only_fields = ('id', 'user', )
+
+
+class MyPlanWriteSerializer(serializers.ModelSerializer):
+    '''Serializer to convert the recieved data into suitable python dict'''
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault())
+
+    class Meta:
+        '''Meta data, or config for the serializer'''
+        model = MyPlans
         read_only_fields = ('id', 'user', )

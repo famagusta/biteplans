@@ -15,6 +15,7 @@ calendarRouter.register(r'event-recipes', calendarViews.EventRecipesViewSet)
 
 calendarRouter.register(r'my-ingredients', calendarViews.MyIngredientsViewset)
 calendarRouter.register(r'my-recipes', calendarViews.MyRecipeViewset)
+calendarRouter.register(r'my-dietplans', calendarViews.MyPlanViewset)
 
 urlpatterns = patterns('',
                        #url(r'^$', include(calendarRouter.urls)),

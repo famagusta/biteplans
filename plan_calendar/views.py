@@ -1,12 +1,13 @@
 # Create your views here.
 '''Views for planCalendar'''
 from plan_calendar.models import UserPlanHistory, MealHistory, \
-    MyIngredient, MyRecipe, EventIngredient, EventRecipe
+    MyIngredient, MyRecipe, EventIngredient, EventRecipe, MyPlans
 from plan_calendar.serializers import UserPlanHistorySerializer,\
     UserPlnHistorySerializer, MealHistorySerializer, MealHistoryWriteSerializer, \
     MyIngredientSerializer, MyIngredientWriteSerializer, MyRecipeSerializer, \
     MyRecipeWriteSerializer, EventIngredientSerializer, EventIngSerializer,\
-    EventRecipeSerializer, EventRecpSerializer
+    EventRecipeSerializer, EventRecpSerializer, MyPlanSerializer, \
+    MyPlanWriteSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -207,6 +208,47 @@ class MyRecipeViewset(viewsets.ModelViewSet):
         if serializer.is_valid():
             obj = MyRecipe.objects.create(**serializer.validated_data)
             return Response({'myrecipe_id': obj.id},
+                            status=status.HTTP_201_CREATED)
+        else:
+            # print serializer.errors
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    def list(self, request):
+        '''returns queryset for get method'''
+        user = request.user
+        if user is not None:
+            obj = self.queryset.filter(user=request.user)
+        else:
+            obj = self.queryset
+
+        obj = self.serializer_class(obj, many=True)
+        return Response(obj.data, status=status.HTTP_200_OK)
+
+    
+class MyPlanViewset(viewsets.ModelViewSet):
+    queryset = MyPlans.objects.all()
+    serializer_class = MyPlanSerializer
+
+    def get_permissions(self):
+        '''return allowed permissions'''
+        if self.request.method in permissions.SAFE_METHODS:
+            self.serializer_class = MyPlanSerializer
+            return (permissions.IsAuthenticated(), )
+        if self.request.method == 'POST':
+            self.serializer_class = MyPlanWriteSerializer
+            return (permissions.IsAuthenticated(), )
+        else:
+            self.serializer_class = MyPlanWriteSerializer
+            return (IsFollowing(),)
+
+    def create(self, request):
+        '''Creates the model instance dietplans'''
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        if serializer.is_valid():
+            obj = MyPlans.objects.create(**serializer.validated_data)
+            return Response({'myplan_id': obj.id},
                             status=status.HTTP_201_CREATED)
         else:
             # print serializer.errors
