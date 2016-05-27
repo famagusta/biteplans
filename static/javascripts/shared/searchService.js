@@ -134,7 +134,7 @@ app.factory('searchService',
             // TODO - similar functions as with recipes
             var deferred = $q.defer();
             var url = '/dashboard/my-ingredients/';
-
+            
             httpService.httpPost(url, {
                 'ingredient':id
             }).then(function(response){
@@ -145,6 +145,29 @@ app.factory('searchService',
             return deferred.promise;
         };
 
+        var getMyIngredients = function(){
+            var deferred = $q.defer();
+            var url = '/dashboard/my-ingredients/';
+            httpService.httpGet(url).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        
+        var removeFromMyIngredients = function(id){
+          var deferred = $q.defer();
+            var url = '/dashboard/my-ingredients/' + 
+                id + '/';
+            httpService.httpDelete(url).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;  
+        };
+                
         var shortlistRecipes = function(id){
             var deferred = $q.defer();
             var url = '/dashboard/my-recipes/';
@@ -200,15 +223,22 @@ app.factory('searchService',
         shortlistRecipes : function(id) {
             return shortlistRecipes(id); 
         },
-        shortlistIngredients : function(id) {
-            return shortlistIngredients(id); 
-        },
         getMyRecipes : function(){
             return getMyRecipes();
         },
         removeFromMyRecipes : function(id){
             return removeFromMyRecipes(id);   
+        },
+        shortlistIngredients : function(id) {
+            return shortlistIngredients(id); 
+        },
+        getMyIngredients : function(){
+            return getMyIngredients();
+        },
+        removeFromMyIngredients : function(id){
+            return removeFromMyIngredients(id);   
         }
+        
     };
     
 }]);

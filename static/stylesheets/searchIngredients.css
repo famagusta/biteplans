@@ -66,3 +66,31 @@ button.search-filter {
         max-width: 100%;
     }
 }
+
+
+.ingredient-heart-c {
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px;
+    color: #f2f2f2 !important;
+}
+
+.ingredient-heart-c:hover{
+    color: #ff5252 !important;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+}
+
+.ingredient-heart-ok{
+    color: #ff5252; !important
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 0px;
+    left: 30px
+}
