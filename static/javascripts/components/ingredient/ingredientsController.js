@@ -75,17 +75,32 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
         // function for modal when ingredient card is clicked
         $scope.openIngredientsModal = function(index) {
             $scope.selected = index;
+            console.log($scope.details.results[$scope.selected]);
+//            var additionalIngredientInfo = {};
+            $scope.details.results[$scope.selected].additionalIngredientInfo = {};
+            searchService.get_ingredient_addtnl_info($scope.details
+                                                     .results[$scope.selected].id)
+                .then(function(response){
+                    $scope.details.results[$scope.selected].additionalIngredientInfo =
+                        response;
+                }, function(error){
+                
+            })
             $scope.openModal.measure = $scope.details.results[$scope.selected].measure[0];
             $('#modal6').openModal();
             // stores index of every card 
         };
         
-        $scope.calculateIngredientInfo = function(nutrient) {
+        $scope.calculateIngredientInfo = function(nutrient, isAdditional) {
                 var total=0;
-                
-                total += $scope.details.results[$scope.selected][nutrient] 
-                    * $scope.openModal.measure.weight;
-            
+                if(isAdditional){
+                    total += $scope.details.results[$scope.selected].additionalIngredientInfo[nutrient] 
+                    * $scope.openModal.measure.weight/100;
+                }
+                else{
+                    total += $scope.details.results[$scope.selected][nutrient] 
+                        * $scope.openModal.measure.weight/100;
+                }
             return total;
                 
         

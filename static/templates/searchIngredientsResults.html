@@ -20,104 +20,66 @@
                             </div>
                             
                             <div class="row">
-                                <div class="col s4 m4 center">
+                                <div class="col s6 m4 center">
                                     <h6 class="nutri">Calories</h6>
                                 </div>
 
 
-                                <div class="col s3 m3">
+                                <div class="col s6 m3">
                                     <p>{{detail.energy_kcal | number:0}} kcal</p>
                                 </div>
                                 
-                                <div class="col s3 m3">
+                                <div class="col s6 m3">
                                     <h6 class="nutri">Fats</h6>
                                 </div>
 
 
-                                <div class="col s2 m2 ">
+                                <div class="col s6 m2 ">
                                     <p>{{detail.fat_tot | number:0}} g</p>
                                 </div>
                             </div>
                             
                             <div class="row">
-                                <div class="col s4 m4 center">
+                                <div class="col s6 m4 center">
                                     <h6 class="nutri">Carbohydrates</h6>
                                 </div>
 
 
-                                <div class="col s2 m2">
+                                <div class="col s6 m2">
                                     <p>{{detail.carbohydrate_tot |
                                     number:0}} g</p>
                                 </div>
                                 
-                                <div class="col s4 m4 center">
+                                <div class="col s6 m4 center">
                                     <h6 class="nutri">Sugar</h6>
                                 </div>
 
 
-                                <div class="col s2 m2 ">
+                                <div class="col s6 m2 ">
                                     <p>{{detail.sugar_tot | number:0}} g</p>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s4 m4 center">
+                                <div class="col s6 m4 center">
                                     <h6 class="nutri">Protien</h6>
                                 </div>
 
 
-                                <div class="col s2 m2 ">
+                                <div class="col s6 m2 ">
                                     <p>{{detail.protein_tot | number:0}} g</p>
                                 </div>
                                 
-                                <div class="col s4 m4 center">
+                                <div class="col s6 m4 center">
                                     <h6 class="nutri">Fiber</h6>
                                 </div>
 
 
-                                <div class="col s2 s2 ">
+                                <div class="col s6 m2 ">
                                     <p>{{detail.fiber_tot | number:0}} g</p>
                                 </div>
                             </div>
-
-
-<!--
-                            <div class="row">
-                                <div class="col s4 m4 push-m2 push-s2">
-                                    <h6 class="nutri">Fats</h6>
-                                </div>
-
-
-                                <div class="col s4 m4 push-m2 push-s2">
-                                    <p>{{detail.fat_tot | number:0}} g</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col s4 m4 push-m2 push-s2">
-                                    <h6 class="nutri">Sugar</h6>
-                                </div>
-
-
-                                <div class="col s4 m4 push-m2 push-s2">
-                                    <p>{{detail.sugar_tot | number:0}} g</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col s4 m4 push-m2 push-s2">
-                                    <h6 class="nutri">Fiber</h6>
-                                </div>
-
-
-                                <div class="col s4 m4 push-m2 push-s2">
-                                    <p>{{detail.fiber_tot | number:0}} g</p>
-                                </div>
-                            </div>
--->
                         </div>
                     </div>
 
@@ -133,13 +95,6 @@
                            ng-click="shortlistIngredient(detail.id)">
                             <i class="material-icons plan-heart-ok">favorite</i>
                         </btn>
-                        <!--
-                          <a class="cyan-text"  
-                             ng-click=
-                             "searchService.shortlistIngredients(detail.id)">
-                            Shortlist</a>
-                         
--->
                     </div>
                 </div>
                 <br>
@@ -157,116 +112,135 @@
     <div class="modal-content">
         <h4 class="cyan-text ingredient-title">
         {{details.results[selected].name}}</h4>
-        <br>
-
-
+    
         <div class="row">
-            <div class="col s12 m12">
-                <div class="row">
-                    <div class="col s12 m4 push-m4">
-                        <select class="center" material-select="" ng-if=
+            <div class="col s4 m4">
+                <h6 class="nutri">Nutritional Information </h6>
+            </div>
+            <div class="col s3 m3">
+                ( Serving Size:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+            </div>
+            <div class="col s2 m2">
+                <select class="" id="modal-dropdown" material-select="" ng-if=
                         "selected!==undefined && details.results[selected].measure.length&gt;0"
                         ng-model="openModal.measure" ng-options=
                         "measure as measure.description for measure in details.results[selected].measure">
                         </select>
-                    </div>
-                </div>
+            
+            </div>
+            <div class="col s3 m3">
+                &nbsp;
+                {{openModal.measure.weight | number}} gm&nbsp;)
             </div>
         </div>
-
-
-        <div class="row">
-            <div class="col s12 m12">
-                <h6 class="nutri">Nutritional Information
-                (&nbsp;{{openModal.measure.description}}
-                {{openModal.measure.weight | number}} gm&nbsp;)</h6>
-            </div>
-        </div>
-
 
         <div class="row" ng-if=
         "selected!==undefined && openModal.measure!==undefined">
-            <div class="col s12 m6">
-                <p class="grey-text">Macronutrients</p>
+            <div class="col s6 m6">
+                <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Calories</td>
+                        <td>{{calculateIngredientInfo('energy_kcal') |
+                            number:0 }} kcal</td>
+                      </tr>
+                        <tr>
+                        <td>Carbohydrates</td>
+                        <td>{{calculateIngredientInfo('carbohydrate_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Proteins</td>
+                        <td>{{calculateIngredientInfo('protein_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Fats</td>
+                        <td>{{calculateIngredientInfo('fat_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Monounsaturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_mono_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Polyunsaturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_poly_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Saturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_sat_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Sugar</td>
+                        <td>{{calculateIngredientInfo('sugar_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                      </tr>
+                        <tr>
+                        <td>Fiber</td>
+                        <td>{{calculateIngredientInfo('fiber_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-
-                <div class="row">
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">Carbohydrates</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">
-                        {{calculateIngredientInfo('carbohydrate_tot') |
-                        number}}</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">Proteins</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">
-                        {{calculateIngredientInfo('protein_tot') | number}}</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">Fats</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">
-                        {{calculateIngredientInfo('fat_tot') | number}}</p>
-                    </div>
+                <div class="col s6 m6">
+                    <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Cholesterol</td>
+                        <td>{{calculateIngredientInfo('cholestrl_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Sodium</td>
+                        <td>{{calculateIngredientInfo('sodium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Calcium</td>
+                        <td>{{calculateIngredientInfo('calcium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Iron</td>
+                        <td>{{calculateIngredientInfo('iron_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin A</td>
+                        <td>{{calculateIngredientInfo('vitamin_a_iu',
+                                        true) | number:0}} IU</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin B12</td>
+                        <td>{{calculateIngredientInfo('vitamin_b12_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin C</td>
+                        <td>{{calculateIngredientInfo('vitamin_c_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin D</td>
+                        <td>{{calculateIngredientInfo('vitamin_d_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin E</td>
+                        <td>{{calculateIngredientInfo('vitamin_e_mg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
             </div>
-
-
-            <div class="col s12 m6">
-                <p class="grey-text">Micronutrients</p>
-
-
-                <div class="row">
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">Fiber</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">
-                        {{calculateIngredientInfo('fat_tot') | number}}</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">Water</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">{{calculateIngredientInfo('water')
-                        | number}}</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">sugar</p>
-                    </div>
-
-
-                    <div class="col s6 m6 nutrient-table-line">
-                        <p class="grey-text">
-                        {{calculateIngredientInfo('sugar_tot') | number}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
 
         <div class="center-btn">
             <button class="waves-effect waves-light btn largebtn center"

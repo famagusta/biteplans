@@ -94,3 +94,7 @@ button.search-filter {
     bottom: 0px;
     left: 30px
 }
+
+div.select-wrapper{
+    margin-top: -10px !important;
+}
