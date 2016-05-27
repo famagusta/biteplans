@@ -419,6 +419,15 @@ input[type=time] {
     
 }
 
+.selcol_serv{
+    width:12.444% !important;
+    margin-left: 13px !important;
+}
+
+.recip_nut_no{
+    width:12.444% !important;
+    margin-left: 35px !important;
+}
 
 .dropdown-content{
     width:200px !important;
@@ -659,5 +668,13 @@ select {
 
 }
 
+.ingredient-meal-text {
+    margin-left: -80px !important;
+}
+.recipe-meal-text {
+    margin-left: -80px !important;
+}
 
-
+.recipe_dustbin_margin {
+    margin-left: 20px !important;
+}

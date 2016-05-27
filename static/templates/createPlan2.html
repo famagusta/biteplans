@@ -331,7 +331,7 @@
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text">Fiber</p>
+                                            <p class="meal-text">Calories</p>
                                         </div>
                                     </div>
                                     <br>
@@ -342,7 +342,7 @@
                                     ng-repeat=
                                     "item1 in key.mealingredient track by $index">
                                     <div class="col s4 m4">
-                                            <p class="meal-text center"
+                                            <p class="meal-text center ingredient-meal-text"
                                             ng-model="plan.ingredientData">
                                             {{item1.ingredient.name}}</p>
                                         </div>
@@ -393,7 +393,7 @@
 
                                         <div class="col m1">
                                             <p class="meal-text">
-                                            {{item1.ingredient.fiber_tot *
+                                            {{item1.ingredient.energy_kcal *
                                             item1.quantity | number:0}}</p>
                                         </div>
 
@@ -424,7 +424,7 @@
                                         </div>
 
 
-                                        <div class="col s3 m3 selcol">
+                                        <div class="col s3 m3 selcol_serv">
                                             <p class="meal-text">
                                             &nbsp;&nbsp;&nbsp;Servings</p>
                                         </div>
@@ -446,7 +446,7 @@
 
 
                                         <div class="col s1 m1 push-m1">
-                                            <p class="meal-text">Fiber</p>
+                                            <p class="meal-text">Calories</p>
                                         </div>
                                     </div>
                                     <br>
@@ -457,7 +457,7 @@
                                         <div class=
                                         "row selected-meal-ingredient-list">
                                             <div class="col s4 m4">
-                                                <p class="meal-text center"
+                                                <p class="meal-text recipe-meal-text"
                                                 ng-model="plan.ingredientData">
                                                 {{item1.recipe.name}}</p>
                                             </div>
@@ -475,7 +475,7 @@
 
 
                                             <div class="col m1 push-m1">
-                                                <p class="meal-text">
+                                                <p class="meal-text recip_nut_no">
                                                 {{item1.recipe.carbohydrate_tot
                                                 * item1.servings |
                                                 number:0}}</p>
@@ -483,27 +483,27 @@
 
 
                                             <div class="col m1 push-m1">
-                                                <p class="meal-text">
+                                                <p class="meal-text recip_nut_no">
                                                 {{item1.recipe.protein_tot *
                                                 item1.servings | number:0}}</p>
                                             </div>
 
 
                                             <div class="col m1 push-m1">
-                                                <p class="meal-text">
+                                                <p class="meal-text recip_nut_no">
                                                 {{item1.recipe.fat_tot *
                                                 item1.servings | number:0}}</p>
                                             </div>
 
 
                                             <div class="col m1 push-m1">
-                                                <p class="meal-text">
-                                                {{item1.recipe.fiber_tot *
+                                                <p class="meal-text recip_nut_no">
+                                                {{item1.recipe.energy_kcal *
                                                 item1.servings | number:0}}</p>
                                             </div>
 
 
-                                            <div class="col m1 push-m1">
+                                            <div class="col m1 push-m1 recipe_dustbin_margin">
                                                 <a ng-click=
                                                 "removeIngredientsFromSavedMealRecipe(key.counter, $index)">
                                                 <i class=
