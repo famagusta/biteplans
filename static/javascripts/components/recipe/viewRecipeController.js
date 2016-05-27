@@ -8,6 +8,14 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
         $scope.recipe = {};
         $scope.parsed_directions = [];        
         $scope.AdditionalIngredientInfo = [];
+        $scope.authDetails = {};
+        AuthService.isAuthenticated()
+            .then(function(response) {
+                $scope.authDetails = response;
+//                console.log(response);
+            }, function(error){
+            console.log(error);
+        });
         
         /* get the diet plan in question from the server */
         recipeService.getRecipe($routeParams.id)
@@ -16,7 +24,7 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
                 $scope.recipe = response;
                 $scope.parsed_directions = $scope.recipe.directions
                     .split('\n');
-            console.log($scope.recipe.recipeIngredients.length);
+            
                 for(var i=0; i< $scope.recipe.recipeIngredients.length; i++){
                     searchService.get_ingredient_addtnl_info($scope.recipe
                                                              .recipeIngredients[i]
@@ -68,5 +76,13 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
             return total;
         }
         
+        $scope.isOwner = function(){
+            if($scope.authDetails.status){
+                if($scope.authDetails.pk === $scope.recipe.created_by){
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 ]);

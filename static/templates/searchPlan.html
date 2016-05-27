@@ -131,23 +131,31 @@
 
 
                             <div class="row">
-                                <div class="col s12">
-                                    <p class="grey-text">Goal: {{ plan.goal
-                                    }}</p>
+                                <div class="col s4">
+                                    <p>Goal:</p>
+                                </div>
+                                <div class="col s8">
+                                    <p class="grey-text">{{plan.goal}}</p>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s12">
-                                    <p class="grey-text">Duration: {{
-                                    plan.duration }} Week</p>
+                                <div class="col s4">
+                                    <p>Duration:
+                                    </p>
+                                </div>
+                                <div class="col s8">
+                                    <p class="grey-text">{{plan.duration }} Week</p>
                                 </div>
                             </div>
 
 
                             <div class="row center showcustom">
-                                <div class="col s8">
+                                <div class="col s1">
+                                    <p>Ratings</p>
+                                </div>
+                                <div class="col s7">
                                     <div back-color="white" class="right" id=
                                     "plan-{{plan.id}}" ng-click=
                                     "setPlanRating(plan, rating)"
