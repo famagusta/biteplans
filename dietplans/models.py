@@ -28,7 +28,6 @@ class DietPlan(models.Model):
     height = models.DecimalField(max_digits=11, decimal_places=3, null=True)
     weight = models.DecimalField(max_digits=11, decimal_places=3, null=True)
 
-    
     # keep on these major nutrition info of entire dietplans
     # energy content of food in kilo calories
     energy_kcal = models.DecimalField(max_digits=11,
@@ -46,7 +45,7 @@ class DietPlan(models.Model):
     carbohydrate_tot = models.DecimalField(default=0.00,
                                            max_digits=11,
                                            decimal_places=3)
-    
+
     def __unicode__(self):
         '''string repr of the object'''
         return self.name
@@ -54,7 +53,7 @@ class DietPlan(models.Model):
     class Meta:
         '''name db table'''
         db_table = 'dietplans_dietplan'
-        
+
     @property
     def average_rating(self):
         avg_rating = PlanRating.objects.filter(dietPlan__id=self.id)\
@@ -64,7 +63,7 @@ class DietPlan(models.Model):
         else:
             return avg_rating
 
-        
+
 class PlanRating(models.Model):
     user = models.ForeignKey(Account)
     dietPlan = models.ForeignKey(DietPlan)
@@ -193,7 +192,8 @@ def create_mealplan(sender, instance, created, **kwargs):
                                 name="Dinner",
                                 time="20:00:00")
 
-# ek teer se do shikaar - ;-)        
+
+# ek teer se do shikaar - ;-)
 @receiver(post_save)
 @receiver(post_delete)
 def save_plan_nutrition(sender, instance, *args, **kwargs):
@@ -213,30 +213,31 @@ def save_plan_nutrition(sender, instance, *args, **kwargs):
                 nutrient_field.append(i)
         diet = instance.meal_plan.day.diet
         day_plans = diet.dayplan.all()
-        
+
         # reset everything to 0 - its easier this way
         for i in nutrient_field:
             if hasattr(diet, i.name):
                 setattr(diet, i.name, 0.000)
         diet.save()
-        
+
         for day_plan in day_plans:
             # iterate over all day plans in a dietplan
             meal_plans = day_plan.mealplan.all()
             for meal_plan in meal_plans:
                 # iterate over all meal plans in a day
-                
-                #get all recipes and ingredients of a day
+
+                # get all recipes and ingredients of a day
                 meal_recipes = meal_plan.mealrecipe.all()
                 meal_ingredients = meal_plan.mealingredient.all()
 
                 for meal_recipe in meal_recipes:
-                    # calculation for all recipes 
+                    # calculation for all recipes
                     for nutrient in nutrient_field:
                         old = getattr(diet, nutrient.name)
                         old = decimal.Decimal(old)
                         servings = meal_recipe.servings
-                        recipe_attr = getattr(meal_recipe.recipe, nutrient.name)
+                        recipe_attr = getattr(meal_recipe.recipe,
+                                              nutrient.name)
                         value_to_set = old + (servings*recipe_attr)
                         setattr(diet, nutrient.name, value_to_set)
 
@@ -246,9 +247,10 @@ def save_plan_nutrition(sender, instance, *args, **kwargs):
                         old = getattr(diet, nutrient.name)
                         old = decimal.Decimal(old)
                         quantity = meal_ingredient.quantity
-                        ingred_attr = getattr(meal_ingredient.ingredient, nutrient.name)
-                        value_to_set = old + (quantity*ingred_attr*
-                            decimal.Decimal(meal_ingredient.unit.weight /100))
+                        ingred_attr = getattr(meal_ingredient.ingredient,
+                                              nutrient.name)
+                        value_to_set = old + (quantity*ingred_attr *
+                                              decimal.Decimal(meal_ingredient.unit.weight / 100))
                         setattr(diet, nutrient.name, value_to_set)
 
         # update database
