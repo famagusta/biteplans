@@ -207,6 +207,14 @@
                 </div>
             </div>
 
+            <div ng-if="tab.tab==5">
+                <div class="col s10">
+                    <div class="top_mar" ng-controller="shortlistedPlansController">
+                        <div ng-include="'static/templates/myplans.html'"></div>
+                    </div>
+                </div>
+            </div>
+
             <div ng-if="tab.tab==7">
                 <div class="col s10">
                     <div class="top_mar" ng-controller="shortlistedRecipesController">

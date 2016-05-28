@@ -142,6 +142,24 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             });
             return deferred.promise;
         };
+
+        var getShortlistPlans = function(page){
+            var deferred = $q.defer();
+            
+            
+            if(page===undefined || page===null){
+                page=1;
+            }
+
+            var url = '/dashboard/my-plans/'+'?page='+page+'/';
+
+            httpService.httpGet(url).then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
        
         /* function to create a meal on a particular day
            to be tested*/
@@ -189,8 +207,11 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             getShortlistRecipes: function(){
                 return getShortlistRecipes();
             },
-            getShortlistIngredients: function(){
-                return getShortlistIngredients();
+            getShortlistIngredients: function(page){
+                return getShortlistIngredients(page);
+            },
+            getShortlistPlans: function(page){
+                return getShortlistPlans(page);
             }
         };
 

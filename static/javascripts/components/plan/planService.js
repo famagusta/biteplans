@@ -31,6 +31,21 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         };
 
+        var getPlansMadeByMe = function(page) {
+            if(page===undefined || page===null){
+                page=1;
+            }
+            var url = '/dietplans/dietplan/?page='+page+'/';
+            var deferred = $q.defer();
+            httpService.httpGet(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
+
         var copyDayPlan = function(obj){
             var url = '/dietplans/copy-day-plan/';
             var deferred = $q.defer();
@@ -310,16 +325,19 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
                 return copyDayPlan(obj);
             },
             createDietPlanRating: function(obj){
-                return createDietPlanRating(obj)                
+                return createDietPlanRating(obj);                
             },
             updateDietPlanRating: function(obj, id){
-              return updateDietPlanRating(obj, id)  
+              return updateDietPlanRating(obj, id);  
             },
             getUserDietPlanRatings: function(){
-                return getUserDietPlanRatings()                
+                return getUserDietPlanRatings();                
             }, 
             addPlanToShortlist: function(obj){
                 return addPlanToShortlist(obj);
+            },
+            getPlansMadeByMe : function(page){
+                return getPlansMadeByMe(page);
             }
         };
 

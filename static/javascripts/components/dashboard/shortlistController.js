@@ -92,13 +92,13 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
 
 app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
     'AuthService', 'planService', 'summaryService',
-    function($scope, $window, $location, AuthService, recipeService,
+    function($scope, $window, $location, AuthService, planService,
         summaryService) {
         $scope.currentPage=1;
         $scope.currentPageRecipe=1;
         var getPlansMadeByMe = function(page){
 
-            recipeService.getPlansMadeByMe(page).then(function(response){
+            planService.getPlansMadeByMe(page).then(function(response){
                 console.log(response);
                 $scope.createdPlans = response.results;
                 $scope.currentPagePlan = page;
