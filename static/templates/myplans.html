@@ -2,7 +2,7 @@
 
 <div id="result-list">
     <div ng-if="createdPlans!=null && createdPlans!=undefined && createdPlans.length!=0">
-    <b>You created:<b>
+    <b>You created:</b>
     <div class="row">
         <div class="col s4 m4" ng-repeat=
                 "plan in createdPlans track by $index">
@@ -142,16 +142,15 @@
                 </div>
             </div>
                    
-                </div>
 
 
                 <div class="row">
     <div class="col s12 m6 push-m5">
     <paging
                 class="small"
-                page="currentPageRecipe" 
+                page="currentPagePlan" 
                 page-size="3" 
-                total="pageSizeRecipe"
+                total="pageSizePlan"
                 hide-if-empty="{{hideIfEmpty}}"
                 ul-class="{{ulClass}}"
                 li-class="lipageclass"
@@ -176,6 +175,8 @@
     
         </div>
 
+    </div>
+
 
 
 
@@ -183,7 +184,7 @@
 <div id="result-list">
     <div ng-if=
     "myPlans!=null && myPlans!=undefined && myPlans.length!=0">
-    <b>You shortlisted:<b>
+    <b>You shortlisted:</b>
 
                 <div class="row">
                 <div class="col s4 m4" ng-repeat=
