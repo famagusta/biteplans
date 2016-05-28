@@ -4,13 +4,13 @@
         <div class="row">
             <div class="col s12 m6" ng-repeat=
             "detail in details.results track by $index">
-                <div class="card white big">
-                    <div class="card-content grey-text" ng-click=
+                <div class="card white big result-card">
+                    <div class="card-content grey-text ing-card-content" ng-click=
                     "openIngredientsModal($index)">
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
-                                {{detail.name| addSpace | limitTo:30}}....</h5>
+                                {{detail.name| addSpace | limitTo:23}}....</h5>
                             </div>
                         </div>
 
@@ -20,71 +20,90 @@
                             </div>
                             
                             <div class="row">
-                                <div class="col s6 m4 center">
-                                    <h6 class="nutri">Calories</h6>
-                                </div>
-
-
-                                <div class="col s6 m3">
-                                    <p>{{detail.energy_kcal | number:0}} kcal</p>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Calories</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.energy_kcal | number:0}} kcal</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="col s6 m3">
-                                    <h6 class="nutri">Fats</h6>
-                                </div>
-
-
-                                <div class="col s6 m2 ">
-                                    <p>{{detail.fat_tot | number:0}} g</p>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Fats</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.fat_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
+                                
                                 </div>
                             </div>
                             
                             <div class="row">
-                                <div class="col s6 m4 center">
-                                    <h6 class="nutri">Carbohydrates</h6>
-                                </div>
-
-
-                                <div class="col s6 m2">
-                                    <p>{{detail.carbohydrate_tot |
-                                    number:0}} g</p>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6 m6">
+                                            <h6 class="nutri">Carbs</h6>
+                                        </div>
+                                        
+                                        <div class="col s6 m6">
+                                            <p>{{detail.carbohydrate_tot | number:0}} kcal</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="col s6 m4 center">
-                                    <h6 class="nutri">Sugar</h6>
-                                </div>
-
-
-                                <div class="col s6 m2 ">
-                                    <p>{{detail.sugar_tot | number:0}} g</p>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Sugar</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.sugar_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
+                                
                                 </div>
                             </div>
-
-
+                            
                             <div class="row">
-                                <div class="col s6 m4 center">
-                                    <h6 class="nutri">Protien</h6>
-                                </div>
-
-
-                                <div class="col s6 m2 ">
-                                    <p>{{detail.protein_tot | number:0}} g</p>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Proteins</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.protein_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 
-                                <div class="col s6 m4 center">
-                                    <h6 class="nutri">Fiber</h6>
-                                </div>
-
-
-                                <div class="col s6 m2 ">
-                                    <p>{{detail.fiber_tot | number:0}} g</p>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Fiber</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.fiber_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+ 
                         </div>
                     </div>
 
 
-                    <div class="card-action">
+                    <div class="card-action ing-card-action">
                         <btn class="ingredient-heart-c" ng-if=
                            "!checkMyIngredients(detail.id)"
                            ng-click="shortlistIngredient(detail.id)">
@@ -112,23 +131,22 @@
     <div class="modal-content">
         <h4 class="cyan-text ingredient-title">
         {{details.results[selected].name}}</h4>
-    
+    <br>
         <div class="row">
-            <div class="col s4 m4">
+            <div class="col s12 push-s2 m4">
                 <h6 class="nutri">Nutritional Information </h6>
             </div>
-            <div class="col s3 m3">
-                ( Serving Size:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+            <div class="col s8 m2">
+                ( Serving Size:&nbsp;&nbsp;&nbsp;1
             </div>
-            <div class="col s2 m2">
-                <select class="" id="modal-dropdown" material-select="" ng-if=
+            <div class="col s5 m2 dropcol">
+                <select class="ing-modal-drop" id="modal-dropdown" material-select="" ng-if=
                         "selected!==undefined && details.results[selected].measure.length&gt;0"
                         ng-model="openModal.measure" ng-options=
                         "measure as measure.description for measure in details.results[selected].measure">
                         </select>
-            
             </div>
-            <div class="col s3 m3">
+            <div class="col s5 m2">
                 &nbsp;
                 {{openModal.measure.weight | number}} gm&nbsp;)
             </div>
@@ -136,7 +154,7 @@
 
         <div class="row" ng-if=
         "selected!==undefined && openModal.measure!==undefined">
-            <div class="col s6 m6">
+            <div class="col s12 m6">
                 <table class="bordered responsive-table">
                     <tbody>
                       <tr>
@@ -189,7 +207,7 @@
                   </table>
                 </div>
 
-                <div class="col s6 m6">
+                <div class="col s12 m6">
                     <table class="bordered responsive-table">
                     <tbody>
                       <tr>

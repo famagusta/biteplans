@@ -62,6 +62,19 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 file, url);
                         }
                     };
+                    
+                       $scope.initialize_recipe = function()
+                {
+                    var id = $routeParams.id;
+                    recipeService.updateRecipe($scope.recipe, id)
+                        .then(function(response)
+                        {
+                            console.log(response);
+                        }, function(error)
+                        {
+                            console.log(error);
+                        });
+                };
 
 
                     /* Nutritional Information calculations based on changes to
@@ -406,7 +419,16 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                         error);
                                 });
                     };
-
+                    
+                    $scope.validateRecipe = function() {
+                        if ($scope.recipe.name) {
+                             $scope.finalizeRecipeCreation();
+                        }
+                        else {
+                            $scope.recipeError = 'Enter';
+                        }
+                    }
+                    
 
 
                     /* function called for saving the plan */

@@ -115,7 +115,7 @@
                                 <div class="meal_lst" ng-repeat=
                                 '(index2, ingredient) in meal.followingMealPlanIngredient track by $index'>
                                 <div class="row">
-                                        <div class="col s3 m5 push-m1">
+                                        <div class="col s3 m5">
                                             <p class="meal-text">
                                             {{ingredient.meal_ingredient.name}}</p>
                                         </div>
@@ -140,7 +140,7 @@
                                         </div>
 
 
-                                        <div class="col m1 push-m1 selcol">
+                                        <div class="col m1 selcol">
                                             <select id="ing_select"
                                             material-select="" ng-change=
                                             "updateMealIngredientMeasure(ingredient)"
@@ -196,7 +196,7 @@
                                         </div>
 
 
-                                        <div class="col s2 m1 push-m1">
+                                        <div class="col s2 m1">
                                             <span class=
                                             "center-align"><input 
                                             checklist-model="checklistRecipes"

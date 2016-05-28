@@ -289,7 +289,7 @@
                                     <div class="row" ng-if=
                                     "key.mealingredient.length&gt;0">
                                         <div class=
-                                        "col s4 m4 center editabletext ing-text">
+                                        "col s4 m4 push-m1 editabletext ing-text">
                                         <p>Ingredients:</p>
                                         </div>
                                     </div>
@@ -298,40 +298,37 @@
                                     <div class="row center lowbo" ng-if=
                                     "key.mealingredient.length&gt;0">
                                         <div class="col s4 m4">
-                                            <p class="meal-text">Name</p>
+                                            <p class="meal-text center">Name</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            &nbsp;&nbsp; Amt</p>
-                                        </div>
-
-
-                                        <div class="col s1 m1 selco">
-                                            <p class="meal-text">
-                                            &nbsp;&nbsp;&nbsp;&nbsp; Unit</p>
+                                            <p class="meal-text selco">Amt</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text">Carbs</p>
+                                            <p class="meal-text selco">Unit</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text">Proteins</p>
+                                            <p class="meal-text selco">Carbs</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text">Fats</p>
+                                            <p class="meal-text selco">Proteins</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text">Calories</p>
+                                            <p class="meal-text selco">Fats</p>
+                                        </div>
+
+
+                                        <div class="col s1 m1">
+                                            <p class="meal-text selco">Calories</p>
                                         </div>
                                     </div>
                                     <br>
@@ -341,8 +338,8 @@
                                     "row selected-meal-ingredient-list"
                                     ng-repeat=
                                     "item1 in key.mealingredient track by $index">
-                                    <div class="col s4 m4">
-                                            <p class="meal-text center ingredient-meal-text"
+                                    <div class="col s4 m4 push-m1">
+                                            <p class="meal-text ingredient-meal-text"
                                             ng-model="plan.ingredientData">
                                             {{item1.ingredient.name}}</p>
                                         </div>

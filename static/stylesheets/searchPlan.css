@@ -38,6 +38,10 @@
     color: #000;
 }
 
+.starcol {
+    margin-left: -19px !important;
+}
+
 button.search-plan {
    float: right;
    margin-top: -31px;
@@ -168,11 +172,23 @@ textarea:focus {
 
 */
 
+@media only screen and (max-width : 600px) {
+    .search-plancard-action {
+        height: 1em !importrant;
+    }
+    
+}
+
+
 @media only screen and (min-width : 767px) {
         #planPage {
         background-color: #f5f5f5;
         min-height: 955px;
         padding-bottom: 50px;
+    }
+    
+     .search-plancard-action {
+        height: 1em !importrant;
     }
 }
 
@@ -197,11 +213,12 @@ textarea:focus {
     bottom: 0px;
     left: 30px
 */
-    color: #f2f2f2; !important
+    color: #f5f5f5; !important;
 }
 
 .plan-heart-c:hover{
-    color: #ff5252; !important
+    color: #ff5252; !important;
+    cursor: pointer;
 /*
     cursor: pointer;
     font-size: 19px;
@@ -226,4 +243,12 @@ textarea:focus {
 
 .follow-btn{
 /*    margin-top: -20px !important*/
+}
+
+.search-plan-card {
+    height: 23em !important;
+}
+
+.search-plancard-action {
+    height: 4em !important;
 }
