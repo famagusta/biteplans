@@ -111,17 +111,118 @@
                                     </div>
                                 </div>
 
+                                <div ng-if="meal.followingMealPlanRecipe != undefined && meal.followingMealPlanRecipe.length>0" >
 
+                                <b>Recipes</b>
+
+                                <br><br>
+                                <div class="row">
+                                        <div class="col s3 m5">
+                                            <p>
+                                            <b>Name</b></p>
+                                        </div>
+
+
+                                        <div class="col s3 m1 push-m1">
+                                           <b>Servings</b>
+                                        </div>
+
+
+
+
+                                        <div class="col s3 m1 push-m2">
+                                            <b>Unit</b>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <br>
+                                
+                                <div class="meal_lst" ng-repeat=
+                                '(index3, recipe) in meal.followingMealPlanRecipe track by $index'>
+                                <div class="row">
+                                        <div class="col s3 m5">
+                                            <p class="meal-text">
+                                            {{recipe.meal_recipe.name}}</p>
+                                        </div>
+
+
+                                        <div class="col s3 m1 push-m1">
+                                            <input class="serving" id=
+                                            "dash_servings" min="0" ng-blur=
+                                            "updateMealRecipe(recipe)"
+                                            ng-model="recipe.no_of_servings"
+                                            ng-pattern=
+                                            "/^[0-9]+(\.[0-9]{1,2})?$/" step=
+                                            "0.25" type="number">
+                                        </div>
+
+
+                                        <div class="col s2 m1 push-m2">
+                                            <span class=
+                                            "center-align"><input 
+                                            checklist-model="checklistRecipes"
+                                            checklist-value="recipe" class=
+                                            "filled-in" id=
+                                            "rec-filled-in-box-{{index1}}-{{index3}}"
+                                            ng-change=
+                                            "updateMealRecipe(recipe)"
+                                            type="checkbox"> <label class=
+                                            "ing-text highlight" for=
+                                            "rec-filled-in-box-{{index1}}-{{index3}}"
+                                            id="check-label"></label></span>
+                                        </div>
+
+
+                                        <div class="col m1 push-m3 bin">
+                                            <span class=
+                                            "card-title center-align"><a ng-click="removeRecipeFromSavedMeal(index1,index3)">
+                                            <i class=
+                                            "material-icons">delete</i></a></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div ng-if="meal.followingMealPlanIngredient != undefined && meal.followingMealPlanIngredient.length>0" >
+
+                                <b>Ingredients</b><br><br>
+                                <div class="row">
+                                        <div class="col s3 m4">
+                                            <p>
+                                            <b>Name</b></p>
+                                        </div>
+
+
+                                        <div class="col s3 m1">
+                                           <b>Quantity</b>
+                                        </div>
+
+
+                                        <div class="col s3 m1 push-m1">
+                                            <p>
+                                            <b>Weight</b></p>
+                                        </div>
+
+
+                                        <div class="col s3 m1 push-m2">
+                                            <b>Unit</b>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                
                                 <div class="meal_lst" ng-repeat=
                                 '(index2, ingredient) in meal.followingMealPlanIngredient track by $index'>
                                 <div class="row">
-                                        <div class="col s3 m5 push-m1">
+                                        <div class="col s3 m4">
                                             <p class="meal-text">
                                             {{ingredient.meal_ingredient.name}}</p>
                                         </div>
 
 
-                                        <div class="col s3 m1 push-s1">
+                                        <div class="col s3 m1">
                                             <input class="serving" id=
                                             "dash_servings" min="0" ng-blur=
                                             "updateMealIngredientQuantity(ingredient)"
@@ -132,7 +233,7 @@
                                         </div>
 
 
-                                        <div class="col s2 center">
+                                        <div class="col s3 m1 push-m1">
                                             <p class="meal-text">
                                             {{(ingredient.unit_desc.weight |
                                             number) * (ingredient.quantity) +
@@ -140,7 +241,7 @@
                                         </div>
 
 
-                                        <div class="col m1 push-m1 selcol">
+                                        <div class="col s3 m1 push-m2 selcol">
                                             <select id="ing_select"
                                             material-select="" ng-change=
                                             "updateMealIngredientMeasure(ingredient)"
@@ -151,7 +252,7 @@
                                         </div>
 
 
-                                        <div class="col s2 m1 push-m1">
+                                        <div class="col s3 m1 push-m3">
                                             <span class=
                                             "center-align"><input 
                                             checklist-model="checklistIngredients"
@@ -175,53 +276,27 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 
-                                <div class="meal_lst" ng-repeat=
-                                '(index3, recipe) in meal.followingMealPlanRecipe track by $index'>
-                                <div class="row">
-                                        <div class="col s3 m5 push-m1">
-                                            <p class="meal-text">
-                                            {{recipe.meal_recipe.name}}</p>
-                                        </div>
-
-
-                                        <div class="col s3 m1 push-s1">
-                                            <input class="serving" id=
-                                            "dash_servings" min="0" ng-blur=
-                                            "updateMealRecipe(recipe)"
-                                            ng-model="recipe.no_of_servings"
-                                            ng-pattern=
-                                            "/^[0-9]+(\.[0-9]{1,2})?$/" step=
-                                            "0.25" type="number">
-                                        </div>
-
-
-                                        <div class="col s2 m1 push-m1">
-                                            <span class=
-                                            "center-align"><input 
-                                            checklist-model="checklistRecipes"
-                                            checklist-value="recipe" class=
-                                            "filled-in" id=
-                                            "rec-filled-in-box-{{index1}}-{{index3}}"
-                                            ng-change=
-                                            "updateMealRecipe(recipe)"
-                                            type="checkbox"> <label class=
-                                            "ing-text highlight" for=
-                                            "rec-filled-in-box-{{index1}}-{{index3}}"
-                                            id="check-label"></label></span>
-                                        </div>
-
-
-                                        <div class="col m1 push-m1 bin">
-                                            <span class=
-                                            "card-title center-align"><a ng-click="removeRecipeFromSavedMeal(index1,index3)">
-                                            <i class=
-                                            "material-icons">delete</i></a></span>
-                                        </div>
-                                    </div>
-                                </div>
                                 
                             </div>
+                        </div>
+
+                        <div class="col s12 m12">
+                        <div class="col s1">
+                                        <a class=
+                                        "btn-floating btn-small waves-effect waves-light"
+                                        id="add-meal-button" ng-click=
+                                        "addMealModal()"><i class=
+                                        "material-icons add-button routine">add</i></a>
+                                    </div>
+
+
+                                    <div class="col s3">
+                                        <p class="ing-text">Add new meal</p>
+                                    </div>
+                            
+
                         </div>
                     </div>
                 </div>
@@ -340,7 +415,7 @@
         <div class="modal-content">
             <div class="row">
                 <div class="input-field col s12">
-                    <input class="validate" id="meal_name" ng-model="meal"
+                    <input class="validate" id="meal_name" ng-model="meal.name"
                     type="text"> <label for="meal_name">Meal name</label>
                 </div>
             </div>
@@ -348,27 +423,10 @@
 
             <div class="row">
                 <p>Meal Time</p>
-
-
-                <div class="input-field col s3">
-                    <select material-select="" ng-model="hours" ng-options=
-                    "i for i in addMealHours">
-                        </select>
-                </div>
-
-
-                <div class="input-field col s3">
-                    <select material-select="" ng-model="minutes" ng-options=
-                    "i for i in addMealMinutes">
-                        </select>
-                </div>
-
-
-                <div class="input-field col s3">
-                    <select material-select="" ng-model="ampm" ng-options=
-                    "i for i in amPmArray">
-                        </select>
-                </div>
+                <input id="exampleInput" name="input" ng-model=
+                        "meal.time" placeholder="HH:mm:ss" required="" type=
+                        "time">
+                
             </div>
 
 
@@ -434,6 +492,31 @@
                 </div>
                 <br>
             </div>
+            <div class="row">
+                    <div class="col m6 push-m3">
+                        <div class="row">
+                            <div class="col m4">
+                                Search type:
+                            </div>
+
+
+                            <div class="col m4">
+                                <input class="filled-in with-gap" id="searchkind1" name=
+                                "searchkind" ng-model="searchType" type="radio"
+                                value="ingredients"> <label for=
+                                "searchkind1">Ingredients</label>
+                            </div>
+
+
+                            <div class="col m4">
+                                <input class="filled-in with-gap" id="searchkind2" name=
+                                "searchkind" ng-model="searchType" type="radio"
+                                value="recipes"> <label for=
+                                "searchkind2">Recipes</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
             <div class="row">
@@ -453,6 +536,28 @@
 
 
                     <div class="row smallpaginate">
+                    <paging ng-if="details !== undefined && details !== []"
+                                class="small"
+                                page="currentPage" 
+                                page-size="6" 
+                                total="pageSize"
+                                hide-if-empty="{{hideIfEmpty}}"
+                                ul-class="{{ulClass}}"
+                                li-class="lipageclass"
+                                active-class="{{activeClass}}"
+                                disabled-class="{{disabledClass}}"
+                                show-prev-next="true"
+                                text-next-class="acti fa fa-chevron-right"
+                                text-prev-class="acti fa fa-chevron-left"
+                                text-first-class="acti fa fa-backward"
+                                text-last-class="acti fa fa-forward"
+                                text-title-page="Page {page}"
+                                text-title-first="First Page"
+                                text-title-last="Last Page"
+                                text-title-next="Next Page"
+                                text-title-prev="Previous" 
+                                paging-action="searchPlan(query, page)">
+                            </paging> 
                     </div>
                 </div>
 

@@ -20,6 +20,8 @@ import random
 from rest_framework import status
 import traceback
 import logging
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import math
 
 
 class FollowDietViewSet(viewsets.ModelViewSet):
@@ -160,12 +162,26 @@ class MyIngredientsViewset(viewsets.ModelViewSet):
         '''returns queryset for get method'''
         user = request.user
         if user is not None:
-            obj = self.queryset.filter(user=request.user)
+            result = self.queryset.filter(user=request.user)
         else:
-            obj = self.queryset
+            result = self.queryset
 
-        obj = self.serializer_class(obj, many=True)
-        return Response(obj.data, status=status.HTTP_200_OK)
+        page = request.GET.get('page')
+        paginator = Paginator(result, 6)
+
+        try:
+            result = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            result = paginator.page(paginator.num_pages)
+        total = math.ceil(len(result)/6.0)
+        result = self.serializer_class(result, many=True)
+        return Response({"results":result.data, "total":total},
+                        status=status.HTTP_200_OK)
+
 
 
 class EventRecipesViewSet(viewsets.ModelViewSet):
@@ -183,8 +199,7 @@ class EventRecipesViewSet(viewsets.ModelViewSet):
         else:
             self.serializer_class = EventRecpSerializer
             return (IsEventMealHistoryOwner(), )
-        
-    
+
 class MyRecipeViewset(viewsets.ModelViewSet):
     queryset = MyRecipe.objects.all()
     serializer_class = MyRecipeSerializer
@@ -218,14 +233,26 @@ class MyRecipeViewset(viewsets.ModelViewSet):
         '''returns queryset for get method'''
         user = request.user
         if user is not None:
-            obj = self.queryset.filter(user=request.user)
+            result = self.queryset.filter(user=request.user)
         else:
-            obj = self.queryset
+            result = self.queryset
 
-        obj = self.serializer_class(obj, many=True)
-        return Response(obj.data, status=status.HTTP_200_OK)
+        page = request.GET.get('page')
+        paginator = Paginator(result, 3)
 
-    
+        try:
+            result = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            result = paginator.page(paginator.num_pages)
+        total = math.ceil(len(result)/3.0)
+        result = self.serializer_class(result, many=True)
+        return Response({"results":result.data, "total":total},
+                        status=status.HTTP_200_OK)
+
 class MyPlanViewset(viewsets.ModelViewSet):
     queryset = MyPlans.objects.all()
     serializer_class = MyPlanSerializer
@@ -259,9 +286,22 @@ class MyPlanViewset(viewsets.ModelViewSet):
         '''returns queryset for get method'''
         user = request.user
         if user is not None:
-            obj = self.queryset.filter(user=request.user)
+            result = self.queryset.filter(user=request.user)
         else:
-            obj = self.queryset
+            result = self.queryset
 
-        obj = self.serializer_class(obj, many=True)
-        return Response(obj.data, status=status.HTTP_200_OK)
+        page = request.GET.get('page')
+        paginator = Paginator(result, 3)
+
+        try:
+            result = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            result = paginator.page(paginator.num_pages)
+        total = math.ceil(len(result)/3.0)
+        result = self.serializer_class(result, many=True)
+        return Response({"results":result.data, "total":total},
+                        status=status.HTTP_200_OK)

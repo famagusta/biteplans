@@ -6,10 +6,12 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
 
     	$scope.openModal ={}
 
-    	var getMyIngredients = function(){
+    	var getMyIngredients = function(page){
 
-    		summaryService.getShortlistIngredients().then(function(response){
-    			$scope.myIngredients = response;
+    		summaryService.getShortlistIngredients(page).then(function(response){
+    			$scope.myIngredients = response.results;
+                $scope.currentPage = page;
+                $scope.pageSize = response.total*6;
     		}, function(error){
     			console.log(error);
     		});
@@ -38,18 +40,22 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     'AuthService', 'recipeService', 'summaryService',
     function($scope, $window, $location, AuthService, recipeService,
         summaryService) {
-    	var getRecipesMadeByMe = function(){
+        $scope.currentPage=1;
+        $scope.currentPageRecipe=1;
+    	var getRecipesMadeByMe = function(page){
 
-    		recipeService.getRecipesMadeByMe().then(function(response){
+    		recipeService.getRecipesMadeByMe(page).then(function(response){
                 console.log(response);
-    			$scope.createdRecipes = response;
-                
+    			$scope.createdRecipes = response.results;
+                $scope.currentPageRecipe = page;
+                $scope.pageSizeRecipe = response.total*3;
                 for(var i=0;i<$scope.createdRecipes.length;i++){
                     if($scope.createdRecipes[i].image){
-                        $scope.myRecipesImage = $scope.createdRecipes[i].image;
+                        $scope.createdRecipes[i].myRecipesImage = $scope.createdRecipes[i].image;
+                        
                     }
                     else {
-                        $scope.myRecipesImage = 'static/images/default_recipe.png';
+                        $scope.createdRecipes[i].myRecipesImage = 'static/images/default_recipe.png';
                     }
                 }
     		}, function(error){
@@ -57,15 +63,29 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     		});
     	};
 
-    	var getMyRecipes = function(){
-    		summaryService.getShortlistRecipes().then(function(response){
-    			$scope.myRecipes = response;
+    	var getMyRecipes = function(page){
+    		summaryService.getShortlistRecipes(page).then(function(response){
+    			$scope.myRecipes = response.results;
+                $scope.currentPage = page;
+                $scope.pageSize = response.total*3;
+                $scope.currentPage = page;
+                $scope.pageSize = response.total*3;
+                for(var i=0;i<$scope.myRecipes.length;i++){
+                    if($scope.myRecipes[i].image){
+                        $scope.myRecipes[i].myRecipesImage = $scope.myRecipes[i].image;
+                        
+                    }
+                    else {
+                        $scope.myRecipes[i].myRecipesImage = 'static/images/default_recipe.png';
+                    }
+                }
+
     		}, function(error){
     			console.log(error);
     		});
-    		getRecipesMadeByMe();
+    		getRecipesMadeByMe(1);
     	};
-    	getMyRecipes();
+    	getMyRecipes(1);
     }]);
 
 
