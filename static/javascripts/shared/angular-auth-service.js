@@ -126,6 +126,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
     '$window', '$rootScope', '$auth',
     function(httpService, $location, constants, $q, $window, $rootScope,
         $auth) {
+        var isAuth = false;
         var register = function(username, password, confirm, email) {
             // Registration logic goes here
 
@@ -172,6 +173,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                         var token = response.token;
                         if (token) {
                             $window.localStorage.token = token;
+                            isAuth = true;
                             deferred.resolve(response);
 
                         }
@@ -180,12 +182,14 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                             deferred.reject(
                                 'Invalid data received from server'
                             );
+                            isAuth = false;
                             $auth.removeToken();
 
                         }
                     },
                     function(response) {
                         deferred.reject(response);
+                        isAuth = false;
                         $auth.removeToken();
 
                     });
@@ -197,6 +201,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         /* function to logout for normally signed in user */
         var logout = function() {
             $auth.removeToken();
+            isAuth = false;
             userOb.set_user();
 
         };
@@ -254,6 +259,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                     )
                     .then(function(response) {
                         userOb.set_user(response);
+                        return UserOb;
                     });
             }
         };
@@ -307,6 +313,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             },
             logout: function() {
                 logout();
+//                location.reload(); 
                 return 'User has been logged out';
 
             },
@@ -319,6 +326,8 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             getAuthdUser: getCurrentUserDetails,
 
             forgotPassword: resetPassword,
+            
+            isAuth: isAuth
         };
     
 }]);

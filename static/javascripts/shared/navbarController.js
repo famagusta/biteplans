@@ -14,6 +14,10 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
 
         };
         checkLoggedIn();
+//        $scope.AuthService = AuthService;
+//        $scope.isLoggedIn = $scope.AuthService.isAuth;
+//        console.log($scope.isLoggedIn);
+        
         profileService.getProfile()
             .then(function(response) {
                 if (response.image_path) {
@@ -120,10 +124,11 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 $scope.registerError = 'Fields are missing';
             }
         };
-        //function to login using manual details. email is the required field and is taken as username
+        
+        /*function to login using manual details. 
+        email is the required field and is taken as username */
         $scope.login = function() {
             //these are required params
-            //    console.log('SWAG');
             var username = $scope.login.username;
             var password = $scope.login.password;
 
@@ -132,14 +137,10 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 AuthService.login(username, password)
                     .then(
                         function(response) {
-                            //        console.log(response);
-                            console.log($scope.isLoggedIn);
-
                             $scope.isLoggedIn = true;
-                            console.log($scope.isLoggedIn);
                             $('#modal1')
                                 .closeModal();
-
+                            location.reload();
                             //$location.path('/dashboard');
 
                         },
@@ -163,6 +164,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 $scope.isLoggedIn = false;
                 //$location.path('/');
             }
+            location.reload();
         };
 
         $scope.Auth = function(provider) {
@@ -172,8 +174,10 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     //    console.log(response);
                     $scope.isLoggedIn = true;
                     //close the modal if login is success
+                    
                     $('#modal1')
                         .closeModal();
+                    location.reload();      
                     //proceed to dashboard
                     //$location.path('/dashboard');
                 }, function(error) {
@@ -189,7 +193,8 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             $('#modal1').closeModal();
         }
 
-        //function to reset password, calls auth service to call forgot password feature. Email is a param
+        /*function to reset password, calls auth service to call 
+        forgot password feature. Email is a param */
         $scope.resetPassword = function() {
 
             var email = $scope.forgot.email;

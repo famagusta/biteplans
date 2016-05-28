@@ -6,7 +6,7 @@ app.controller('recipesController', ['$scope', 'searchService',
         $scope.searchService = searchService;
         $scope.selected = 0;
         $scope.query_recipe = '';
-        $scope.isAuth = '';
+        $scope.isAuth = false;
         $scope.userRecipes = [];
         
         AuthService.isAuthenticated()

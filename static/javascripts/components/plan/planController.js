@@ -1,21 +1,23 @@
 'use strict';
 app.controller('planController', ['$scope', 'AuthService', 'searchService',
-    '$location', 'planService', 'stars', 'starsUtility',
+    '$location', 'planService', 'stars', 'starsUtility', '$window',
     function($scope, AuthService, searchService, $location, planService, stars,
-        starsUtility)
+        starsUtility, $window)
     {
         $scope.query_plan = '';
         $scope.plans = {};
         $scope.userPlanRatings = [];
-        $scope.isAuth = false;
+        $scope.isAuth = {};
         
         $scope.userPlans = {};
         
-        AuthService.isAuthenticated().then(function(response)
-        {
-            $scope.isAuth = response.status;
-            getUserPlanRatings();
-            getUserPlans();
+        AuthService.isAuthenticated()
+            .then(function(response){
+                $scope.isAuth = response;
+                if($scope.isAuth.status){
+                    getUserPlanRatings();
+                    getUserPlans();
+                }
         });
         
         var getUserPlanRatings = function()
@@ -50,7 +52,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     }
                 }
             }
-            /* date that user selects to start following a plan*/
+        
+        /* date that user selects to start following a plan*/
         $scope.followDate = '';
         $scope.search_plan = function()
         {
@@ -104,7 +107,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 rating: normalizedRating,
                 dietPlan: plan.id
             }
-            if ($scope.isAuth && $scope.userPlanRatings !==
+            if ($scope.isAuth.status && $scope.userPlanRatings !==
                 undefined)
             {
                 // only authenticated users must rate plans
@@ -180,6 +183,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.createPlan = function()
         {
+            is($scope.isAuth.status)
             planService.createPlan($scope.plan).then(function(
                 response)
             {
@@ -197,48 +201,50 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
            of events */
         $scope.followPlan = function(planId)
         {
+            if($scope.isAuth.status){
             var $input = $('.datepicker_btn').pickadate(
-            {
-                format: 'yyyy-mm-dd',
-                formatSubmit: false,
-                closeOnSelect: true,
-                onSet: function(context)
                 {
-                    //make api call to follow the plan on setting of date
-                    /* convert to ISO 8601 date time string for serializer
-                      acceptance*/
-                    if (context.select)
+                    format: 'yyyy-mm-dd',
+                    formatSubmit: false,
+                    closeOnSelect: true,
+                    onSet: function(context)
                     {
-                        var date_to_set = new Date(
-                            context.select).toISOString();
-                        $scope.followDate = moment(
-                            date_to_set).format(
-                            'YYYY-MM-DD');
-                        //close the date picker
-                        this.close();
-                        var followPlanObject = {
-                            dietplan: planId,
-                            start_date: $scope.followDate
+                        //make api call to follow the plan on setting of date
+                        /* convert to ISO 8601 date time string for serializer
+                          acceptance*/
+                        if (context.select)
+                        {
+                            var date_to_set = new Date(
+                                context.select).toISOString();
+                            $scope.followDate = moment(
+                                date_to_set).format(
+                                'YYYY-MM-DD');
+                            //close the date picker
+                            this.close();
+                            var followPlanObject = {
+                                dietplan: planId,
+                                start_date: $scope.followDate
+                            }
+                            planService.followDietPlan(
+                                followPlanObject).then(
+                                function(response)
+                                {
+                                    console.log(
+                                        response);
+                                }, function(error)
+                                {
+                                    console.log(error);
+                                });
                         }
-                        planService.followDietPlan(
-                            followPlanObject).then(
-                            function(response)
-                            {
-                                console.log(
-                                    response);
-                            }, function(error)
-                            {
-                                console.log(error);
-                            });
                     }
-                }
-            })
+                })
+            }
         }
         
         /* shortlist the selected plan */
         $scope.shortlistPlan = function(planId)
         {
-            if($scope.isAuth){
+            if($scope.isAuth.status){
                 /* check authentication */
                 if(!$scope.checkMyPlans(planId)){
                     /* post if plan not already in the basket */
@@ -276,7 +282,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.checkMyPlans = function(planId){
             //TBD
-            if($scope.isAuth){
+            if($scope.isAuth.status){
                 var userPlanMatch = $scope.userPlans.filter(
                         function(el)
                         {

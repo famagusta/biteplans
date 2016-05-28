@@ -96,14 +96,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'editRecipeController',
                 templateUrl: 'static/templates/editRecipe.html'
             })
-//            .when('/dashboard/2', {
-//                controller: 'profileController',
-//                templateUrl: 'static/templates/dashboard.html'
-//            })
-//            .when('/dashboard/calendar', {
-//                controller: 'calendarCtrl',
-//                templateUrl: 'static/templates/calendar.html'
-//            })
             .otherwise('/');
         $authProvider.facebook({
             url: constantData['constants']['API_SERVER'] +
