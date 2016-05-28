@@ -90,3 +90,36 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
 
 
 
+app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
+    'AuthService', 'planService', 'summaryService',
+    function($scope, $window, $location, AuthService, recipeService,
+        summaryService) {
+        $scope.currentPage=1;
+        $scope.currentPageRecipe=1;
+        var getPlansMadeByMe = function(page){
+
+            recipeService.getPlansMadeByMe(page).then(function(response){
+                console.log(response);
+                $scope.createdPlans = response.results;
+                $scope.currentPagePlan = page;
+                $scope.pageSizePlan = response.total*3;
+            }, function(error){
+                console.log(error);
+            });
+        };
+
+        var getMyPlans = function(page){
+            summaryService.getShortlistPlans(page).then(function(response){
+                $scope.myPlans = response.results;
+                $scope.currentPage = page;
+                $scope.pageSize = response.total*3;
+                $scope.currentPage = page;
+                $scope.pageSize = response.total*3;
+
+            }, function(error){
+                console.log(error);
+            });
+            getPlansMadeByMe(1);
+        };
+        getMyPlans(1);
+    }]);

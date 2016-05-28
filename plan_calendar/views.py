@@ -59,10 +59,27 @@ class FollowDietViewSet(viewsets.ModelViewSet):
         '''Creates the model instance dietplans'''
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            obj = UserPlanHistory.objects.create(user=request.user,
-                                                 **serializer.validated_data)
-            return Response({'userplanhistory_id': obj.id},
-                            status=status.HTTP_201_CREATED)
+            other_followed_plans = self.get_queryset()
+            new_start_date = serializer.validated_data['start_date']
+            diet_plan_to_follow = serializer.validated_data['dietplan']
+            new_end_date = new_start_date + \
+            datetime.timedelta(days=diet_plan_to_follow.duration*7-1)
+            check_overlap_flag = False
+            for i in other_followed_plans:
+                enddate = i.start_date + datetime.timedelta(
+                                            days=i.dietplan.duration*7-1)
+                if new_start_date < enddate and new_end_date > i.start_date:
+                    check_overlap_flag = True
+                if check_overlap_flag:
+                    break
+            if check_overlap_flag == False:
+                obj = UserPlanHistory.objects.create(user=request.user,
+                                            **serializer.validated_data)
+                return Response({'userplanhistory_id': obj.id},
+                                status=status.HTTP_201_CREATED)
+            else:
+                return Response({'error':'This plan overlaps with an existing\
+                 plan you are following'}, status=status.HTTP_409_CONFLICT)
         else:
             # print serializer.errors
             return Response(serializer.errors,
