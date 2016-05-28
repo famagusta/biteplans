@@ -6,7 +6,7 @@
             "detail in details.results track by $index">
                 <div class="card white big">
                     <div class="card-content grey-text" ng-click=
-                    "openIngredientsModal($index)">
+                    "openIngredientsModal(detail)">
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
@@ -120,12 +120,12 @@
             <div class="col s3 m3">
                 ( Serving Size:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
             </div>
-            <div class="col s2 m2">
-                <select class="" id="modal-dropdown" material-select="" ng-if=
-                        "selected!==undefined && details.results[selected].measure.length&gt;0"
-                        ng-model="openModal.measure" ng-options=
-                        "measure as measure.description for measure in details.results[selected].measure">
-                        </select>
+            <div class="col s2 m2" ng-if=
+                    "selected!==undefined && details.results[selected].measure.length&gt;0">
+                <select class="" id="modal-dropdown" material-select="" 
+                    ng-model="openModal.measure" ng-options=
+                    "measure as measure.description for measure in details.results[selected].measure">
+                </select>
             
             </div>
             <div class="col s3 m3">

@@ -8,6 +8,7 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
         $scope.openModal ={};
         $scope.isAuth = '';
         $scope.userIngredients = [];
+        //$scope.selected = 0;
         
         AuthService.isAuthenticated()
             .then(function(response) {
@@ -16,6 +17,17 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
             }, function(error){
             console.log(error);
         });
+        
+        function findWithAttr(array, attr, value)
+        {
+            for (var i = 0; i < array.length; i += 1)
+            {
+                if (array[i][attr] === value)
+                {
+                    return i;
+                }
+            }
+        }
         
         $scope.searchService = searchService;
 
@@ -72,11 +84,19 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
             }
 
         }};
+        
         // function for modal when ingredient card is clicked
-        $scope.openIngredientsModal = function(index) {
+        $scope.openIngredientsModal = function(detail) {
+            
+            var ingredientMatch = $scope.details.results.filter(
+                function(el)
+                {
+                    return el.id === detail.id;
+            });
+            var index = findWithAttr($scope.details.results,
+                'id', ingredientMatch[0].id);
+            
             $scope.selected = index;
-            console.log($scope.details.results[$scope.selected]);
-//            var additionalIngredientInfo = {};
             $scope.details.results[$scope.selected].additionalIngredientInfo = {};
             searchService.get_ingredient_addtnl_info($scope.details
                                                      .results[$scope.selected].id)
@@ -91,8 +111,10 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
             // stores index of every card 
         };
         
+
         $scope.calculateIngredientInfo = function(nutrient, isAdditional) {
-                var total=0;
+            var total=0;
+            if($scope.details.results  !== null){
                 if(isAdditional){
                     total += $scope.details.results[$scope.selected].additionalIngredientInfo[nutrient] 
                     * $scope.openModal.measure.weight/100;
@@ -101,6 +123,7 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
                     total += $scope.details.results[$scope.selected][nutrient] 
                         * $scope.openModal.measure.weight/100;
                 }
+            }
             return total;
                 
         
