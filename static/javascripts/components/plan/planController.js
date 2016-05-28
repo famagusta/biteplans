@@ -35,7 +35,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         var getUserPlans = function(){
             planService.getUserDietPlans().then(function(response){
-                $scope.userPlans = response;
+                $scope.userPlans = response.results;
             }, function(error){
                 console.log(error);
             })

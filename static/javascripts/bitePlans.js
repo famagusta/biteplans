@@ -25,12 +25,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         /* whitelist auth domains to activate spinner */
         httpMethodInterceptorProvider.whitelistDomain('google.com');
         httpMethodInterceptorProvider.whitelistDomain('facebook.com');
-        
         /* intercept http requests to show spinners */
+        
+        var urlsToBlacklist = ['/dashboard/event-ingredients/',
+                               '/dashboard/event-recipes/',
+                               '/dietplans/meal-ingredient/',
+                               '/dietplans/meal-recipe/']
         $httpProvider.interceptors.push(function($q) {
             return {
              'request': function(config) {
-                 $('#processing').show();
+                 if(config.method !== 'PATCH'){
+                    $('#processing').show();
+                 }
                  return config;
               },
 
@@ -44,6 +50,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         
         $controllerProvider.allowGlobals();
         $httpProvider.interceptors.push('authInterceptor');
+        
         $routeProvider.when('/', {
                 controller: 'navbarController',
                 templateUrl: '/static/templates/landingPage.html'

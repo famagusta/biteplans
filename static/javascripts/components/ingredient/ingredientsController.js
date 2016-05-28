@@ -42,13 +42,13 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
             $scope.sortby = sortby
             
             var query = $scope.query;
-            console.log(query, page, sortby);
             if (query!== undefined && $scope.foodgroup.length >0) {
                 searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
                     .then(function(response) {
+                        //model for storing response from API
                         $scope.details = response;
-                        $scope.filts = response.filters; //model for storing response from API                
-                        console.log($scope.details);
+                        $scope.filts = response.filters; 
+                        
                         // pagination
                         $scope.currentPage = page;
                         $scope.pageSize = response.total*6;
@@ -59,12 +59,12 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
             else if (query!== undefined && $scope.foodgroup.length ===0) {
                 searchService.search_ingredient(query, page, null, sortby)
                     .then(function(response) {
+                        //model for storing response from API
                         $scope.details = response;
-                        $scope.filts = response.filters; //model for storing response from API                
-                        console.log($scope.details);
+                        $scope.filts = response.filters;                 
                         // pagination
-        $scope.currentPage = page;
-        $scope.pageSize = response.total*6;
+                        $scope.currentPage = page;
+                        $scope.pageSize = response.total*6;
                     }, function(error) {
                         console.log(error);
                     });
@@ -74,7 +74,6 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
                     .then(function(response) {
                         $scope.details = response;
                         $scope.filts = response.filters; //model for storing response from API                
-                        console.log($scope.details);
                         // pagination
                         $scope.currentPage = page;
                         $scope.pageSize = response.total*6;
@@ -133,7 +132,7 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
             
             if($scope.isAuth){
                 searchService.getMyIngredients().then(function(response){
-                    $scope.userIngredients = response;
+                    $scope.userIngredients = response.results;
                 }, function(error){
                     console.log(error);
                 });
