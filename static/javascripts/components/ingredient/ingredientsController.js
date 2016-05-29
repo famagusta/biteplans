@@ -5,10 +5,15 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
     function($scope, searchService, AuthService) {
         // function to search for ingredients 
         $scope.foodgroup=[];
-        $scope.openModal ={};
+
+        // stores index of selected card
+        $scope.selected = 0;
+        $scope.ingredientSelected = {};
+        
         $scope.isAuth = '';
+        
+        // stores ingredients user has previously liked
         $scope.userIngredients = [];
-        //$scope.selected = 0;
         
         AuthService.isAuthenticated()
             .then(function(response) {
@@ -86,7 +91,10 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
         
         // function for modal when ingredient card is clicked
         $scope.openIngredientsModal = function(detail) {
+//            $scope.selected = 0;
+            $scope.ingredientSelected = {};
             
+
             var ingredientMatch = $scope.details.results.filter(
                 function(el)
                 {
@@ -102,25 +110,29 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
                 .then(function(response){
                     $scope.details.results[$scope.selected].additionalIngredientInfo =
                         response;
+                    
+                    // modal must only initialize after additionalingredient info is retrieved
+                    $scope.ingredientSelected = $scope.details.results[$scope.selected];
+                    $scope.ingredientSelected.selectedMeasure =
+                        $scope.ingredientSelected.measure[0];
+                    $('#modal6').openModal();
                 }, function(error){
                 
             })
-            $scope.openModal.measure = $scope.details.results[$scope.selected].measure[0];
-            $('#modal6').openModal();
-            // stores index of every card 
+             
         };
-        
+           
 
         $scope.calculateIngredientInfo = function(nutrient, isAdditional) {
             var total=0;
             if($scope.details.results  !== null){
                 if(isAdditional){
                     total += $scope.details.results[$scope.selected].additionalIngredientInfo[nutrient] 
-                    * $scope.openModal.measure.weight/100;
+                    * $scope.ingredientSelected.selectedMeasure.weight/100;
                 }
                 else{
                     total += $scope.details.results[$scope.selected][nutrient] 
-                        * $scope.openModal.measure.weight/100;
+                        * $scope.ingredientSelected.selectedMeasure.weight/100;
                 }
             }
             return total;
@@ -143,7 +155,6 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
         }
         
         $scope.checkMyIngredients = function(ingredientId){
-//            console.log(ingredientId);
             if($scope.isAuth){
                 var result = false;
                 for(var i=0; i<$scope.userIngredients.length; i++){
