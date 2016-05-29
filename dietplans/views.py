@@ -23,7 +23,8 @@ from dietplans.serializers import DietPlanSerializer, DayPlanSerializer,\
 from rest_framework import status
 
 import traceback
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+import math
 
 class DietPlanViewset(viewsets.ModelViewSet):
     '''view to return JSON for crud related to DietPlans'''
@@ -50,6 +51,31 @@ class DietPlanViewset(viewsets.ModelViewSet):
         else:
             return Response(serializer.errors,
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+    def list(self, request):
+        '''returns queryset for get method'''
+        user = request.user
+        page = request.GET.get('page')
+        if user != None:
+            result = self.queryset.filter(creator=request.user)
+        else:
+            result = self.queryset
+        paginator = Paginator(result, 3)
+
+        try:
+            result = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            result = paginator.page(paginator.num_pages)
+        total = math.ceil(len(result)/3.0)
+        result = self.serializer_class(result, many=True)
+        return Response({"results":result.data, "total":total},
+                        status=status.HTTP_200_OK)
+
 
 
 class PlanRatingViewSet(viewsets.ModelViewSet):
