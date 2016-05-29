@@ -110,10 +110,10 @@
 
 
             <div class="row">
-                <div class="col s4 m4" ng-repeat=
+                <div class="col s12 m4" ng-repeat=
                 "plan in plans.results | limitTo:4">
                     <div class="card white">
-                        <div class="card-content black-text">
+                        <div class="card-content search-plan-card black-text">
                             <div class="row">
                                 <!--
                                 <div class="col s2"><img class=
@@ -123,40 +123,40 @@
 -->
 
 
-                                <div class="col s12 center">
-                                    <h5 class="cyan-text">Name:
+                                <div class="col s12 m12 center">
+                                    <h5 class="cyan-text">
                                     {{plan.name}}</h5>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s4">
+                                <div class="col s4 m4">
                                     <p>Goal:</p>
                                 </div>
-                                <div class="col s8">
+                                <div class="col s8 m8">
                                     <p class="grey-text">{{plan.goal}}</p>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s4">
+                                <div class="col s4 m4">
                                     <p>Duration:
                                     </p>
                                 </div>
-                                <div class="col s8">
+                                <div class="col s8 m8">
                                     <p class="grey-text">{{plan.duration }} Week</p>
                                 </div>
                             </div>
 
 
-                            <div class="row center showcustom">
-                                <div class="col s1">
+                            <div class="row showcustom">
+                                <div class="col s4 m4">
                                     <p>Ratings</p>
                                 </div>
-                                <div class="col s7">
-                                    <div back-color="white" class="right" id=
+                                <div class="col s5 m5 starcol">
+                                    <div back-color="white" class="center" id=
                                     "plan-{{plan.id}}" ng-click=
                                     "setPlanRating(plan, rating)"
                                     outer-percent="rating"
@@ -246,7 +246,7 @@
                         </div>
 
 
-                        <div class="card-action">
+                        <div class="card-action search-plancard-action">
                             <btn class="plan-heart-c" ng-if=
                                "!checkMyPlans(plan.id)"
                                ng-click="shortlistPlan(plan.id)">

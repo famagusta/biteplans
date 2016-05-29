@@ -95,6 +95,27 @@ button.search-filter {
     left: 30px
 }
 
+.ing-modal-drop {
+    position: relative;
+    right: 3em;
+    bottom: 6px;
+}
+
 div.select-wrapper{
     margin-top: -10px !important;
+}
+
+
+@media only screen and (max-width : 600px) {
+    .result-card {
+        height: 470px !important;
+    }
+    
+    .ing-card-content {
+        height: 320px !important;
+    }
+    
+    .ing-card-action {
+        height: 50px !important;
+    }
 }

@@ -16,7 +16,7 @@ form div.container {
 }
 
 .namecol{
-    margin-right:15px;
+    margin-right: 3px;
 }
 
 input[type=text], input[type=number] {
@@ -415,7 +415,7 @@ input[type=time] {
     margin-top:-10px;
 }
 .selco{
-    width:12.444% !important;
+    margin-left: 57px !important;
     
 }
 
@@ -443,10 +443,11 @@ input.select-dropdown{
 
 .select-wrapper input.select-dropdown {
     text-align: -webkit-center;
-    line-height: 5rem !important;
+    line-height: 0rem !important;
 /*    border-color: #ddd !important;*/
-    margin: 10px 3px 0 0 !important;
+    margin: 15px 3px 0 0 !important;
     height: 21px !important;
+    width: 5em !important;
 }
 
 #nutsinfo {
@@ -531,7 +532,8 @@ input[type=number].time-input {
 */
 
 .select-wrapper span.caret {
-    top: 0px !important;
+    top: 3px !important;
+    left: 66px !important;
 }
 
 select {

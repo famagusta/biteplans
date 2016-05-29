@@ -41,6 +41,24 @@ nav ul li.active a {
 
 }
 
+.fbicon {
+    background-color: #3b5998 !important;
+}
+
+.fblogo {
+    position: relative;
+    right: 10px;
+    top: 1px;
+}
+
+.googleicon {
+    background-color: #df4a32 !important;
+}
+
+.googlelogo {
+    position: relative;
+    right: 16px;
+}
 .btn-thumb {
     /* restyle a the user dropdown button to enable thumbnail*/
     height: 60px;
@@ -115,21 +133,22 @@ nav ul li {
 
 
 #modal1 { 
-    max-height: 85%;
+    max-height: 87%;
     max-width: 40%;
     left: 0;
     right: 0;
     top: 0;
     bottom: 5em;
     margin: auto;
+    overflow: hidden;
 }
 
 
 
-@media only screen and (max-width : 400px) {
+@media only screen and (max-width : 900px) {
     #modal1 {
         max-height: 85% !important;
-        max-width: 65% !important;
+        max-width: 85% !important;
     }
     
     #modal1 h5 {
