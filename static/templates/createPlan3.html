@@ -241,6 +241,7 @@
 
 
                                             <div class="row">
+                                            <b ng-if="key.mealingredient.length>0">Recipes</b><br>
                                                 <div ng-repeat=
                                                 "item1 in key.mealingredient track by $index">
                                                     <div class="container" id=
@@ -260,12 +261,34 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="row">
+                                            <b ng-if="key.mealrecipe.length>0">Recipes</b><br>
+                                                <div ng-repeat=
+                                                "item1 in key.mealrecipe track by $index">
+                                                    <div class="container" id=
+                                                    "create-container">
+                                                        <div class="row">
+                                                            <div class="col s6">
+                                                             <p class="meal-text">
+                                                        {{item1.recipe.name}}
+                                                        </p>
+                                                            </div>
+                                                            <div class="col s6">
+                                                                <p class="meal-text center">{{item1.servings}}</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="col s12 m6 vertical-line">
+                                <div class="col s12 m6 vertil">
                                     <div ng-repeat="key in mealPlanNameArray2">
                                         <div class="horizontal-line">
                                             <div class="row">
@@ -286,6 +309,7 @@
 
 
                                              <div class="row">
+                                             <b ng-if="key.mealingredient.length>0">Ingredients</b>
                                                 <div ng-repeat=
                                                 "item1 in key.mealingredient track by $index">
                                                     <div class="container" id=
@@ -296,12 +320,34 @@
                                                         {{item1.ingredient.name}}
                                                         </p>
                                                             </div>
-                                                            <div class="col s6 right">
-                                                                <p class="meal-text">{{item1.quantity}} {{item1.unit.description}}</p>
+                                                            <div class="col s6">
+                                                                <p class="meal-text center">{{item1.quantity}} {{item1.unit.description}}</p>
                                                             </div>
                                                             
                                                         </div>
                                                  
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                            <b ng-if="key.mealrecipe.length>0">Recipes</b><br>
+                                                <div ng-repeat=
+                                                "item1 in key.mealrecipe track by $index">
+                                                    <div class="container" id=
+                                                    "create-container">
+                                                        <div class="row">
+                                                            <div class="col s6">
+                                                             <p class="meal-text">
+                                                        {{item1.recipe.name}}
+                                                        </p>
+                                                            </div>
+                                                            <div class="col s6">
+                                                                <p class="meal-text center">{{item1.servings}}</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                       
                                                     </div>
                                                 </div>
                                             </div>
@@ -707,19 +753,19 @@
                 </div>
 
 
-                <div class="col m2 push-m1">
+                <div class="col m2 push-m2">
                     <a class=
                     "waves-effect waves-light btn">Print</a>&nbsp;&nbsp;&nbsp;
                 </div>
 
 
-                <div class="col m2 push-m1">
+                <div class="col m2 push-m2">
                     <a class=
                     "waves-effect waves-light btn">Email</a>&nbsp;&nbsp;&nbsp;
                 </div>
 
 
-                <div class="col m2 push-m1">
+                <div class="col m2 push-m2">
                     <a class=
                     "waves-effect waves-light btn">Follow</a>&nbsp;&nbsp;&nbsp;
                 </div>
