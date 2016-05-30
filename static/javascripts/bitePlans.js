@@ -77,7 +77,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 templateUrl: '/static/templates/createPlan2.html'
             })
             .when('/plan3/:id', {
-                controller: 'createPlanController',
+                controller: 'viewPlanController',
                 templateUrl: '/static/templates/createPlan3.html'
             })
             .when('/recipes', {
