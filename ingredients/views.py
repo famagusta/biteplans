@@ -49,7 +49,18 @@ class GlobalSearchList(generics.GenericAPIView):
 
         if request.POST.get('type', False) == 'plans':
             # will do something interesting with this in future
-            sortl = []
+            sortl = ['average_rating', 'age', 'gender', 'height', 'weight',
+                    'carbohydrate_tot', 'energy_kcal', 'fat_tot', 'protein_tot']
+
+            sortby = request.POST.get('sortby', False)
+            if sortby == 'average_rating':
+                result = sorted(result, key=lambda m: m.average_rating)
+                # returned result should be in descending order, but
+                #above gives asc, so reverse the array
+                result = result[::-1]
+            elif sortby:
+                result = result.order_by('-'+sortby)
+
             filters = None
         elif request.POST.get('type', False) == 'ingredients':
             filters = result.values_list("food_group").distinct()
