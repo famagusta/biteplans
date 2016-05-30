@@ -21,8 +21,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }, function(error)
             {
                 console.log(error);
-            })
-        }
+            });
+        };
         getUserPlanRatings();
 
         function findWithAttr(array, attr, value)
@@ -37,15 +37,17 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }
             /* date that user selects to start following a plan*/
         $scope.followDate = '';
-        $scope.search_plan = function()
+        $scope.search_plan = function(page, sortby)
         {
             var query = $scope.query_plan;
             if (query)
             {
-                searchService.search_plan(query).then(function(
+                searchService.search_plan(query, page, sortby).then(function(
                     response)
                 {
                     $scope.plans = response;
+                    $scope.currentPage = page;
+                    $scope.pageSize = response.total*6;
                     for (var i = 0; i < $scope.plans.results
                         .length; i++)
                     {
@@ -71,7 +73,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             return $scope.plans.results[idxDietPlan][
                 'average_rating'
             ] * 20;
-        }
+        };
         $scope.setPlanRating = function(plan, rating)
         {
             /* Handle following cases
@@ -86,7 +88,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             var ratingObject = {
                 rating: normalizedRating,
                 dietPlan: plan.id
-            }
+            };
             if ($scope.isAuth && $scope.userPlanRatings !==
                 undefined)
             {
@@ -131,34 +133,33 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                                 {
                                     console.log(
                                         error);
-                                })
+                                });
                             }, function(error)
                             {
                                 console.log(error);
-                            })
+                            });
                         }
                     }
                     else
                     {
                         // case where this is a fresh rating
                         planService.createDietPlanRating(
-                            ratingObject).then(function(
-                            response)
+                            ratingObject).then(function(response)
                         {
                             // update user ratings array
                             getUserPlanRatings();
                         }, function(error)
                         {
                             console.log(error);
-                        })
+                        });
                     }
                 }
             }
-        }
+        };
         $scope.openShortInfoModal = function()
         {
             $('#small-modal').openModal();
-        }
+        };
         $scope.createPlan = function()
         {
             planService.createPlan($scope.plan).then(function(
@@ -169,7 +170,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }, function(error)
             {
                 console.log(error);
-            })
+            });
         };
         /* function to follow a plan given a dietplan id
            and user selected date. did this using jquery 
@@ -212,14 +213,14 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                             });
                     }
                 }
-            })
-        }
+            });
+        };
         $scope.addPlanToShortlist = function(planId)
         {
             console.log(planId);
             var objToSave = {
                 dietplan: planId
-            }
+            };
             planService.addPlanToShortlist(objToSave).then(function(
                 response)
             {
@@ -227,8 +228,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }, function(error)
             {
                 console.log(error);
-            })
-        }
+            });
+        };
         $scope.getPlanNutrientPercent = function(plan, nutrient)
         {
             var conversion_factor = 4;
@@ -240,6 +241,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 parseFloat(plan[nutrient]) / parseFloat(plan[
                     'energy_kcal']);
             return nutrient_percent;
-        }
+        };
     }
 ]);

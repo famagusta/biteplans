@@ -1,92 +1,28 @@
 <div class="section" id="planPage">
     <div class="row">
-        <!--
-        <div class="col s12 m3" id="checklist">
-            <div class="card white">
+        <div class="col s12 m3 hide-on-small-only" ng-if="plans.sortlist.length>0" id="checklist">
+            <div class="card white recipeCheckCard">
                 <div class="card-content black-text">
                     <form action="#" class="planform">
-                         SEARCH PLAN CHECKLIST 
+                        <!-- SEARCH INGREDIENTS CHECKLIST -->
 
 
                         <div class="center-btn">
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box1" type="checkbox"> <label for=
-                            "filled-in-box1">All Plans</label></p>
+                           
+                            <div><b class="pull-left">Sortby</b> <i class="fa fa-reorder pull right"></i></div>
                             <br>
-
-
-                            <p><input class="filled-in" id="filled-in-box2"
-                            type="checkbox"> <label class="bold" for=
-                            "filled-in-box2">Refine</label></p>
                             <br>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box3" type="checkbox"> <label for=
-                            "filled-in-box3">Weight Loss</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box4" type="checkbox"> <label for=
-                            "filled-in-box4">Weight Gain</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box5" type="checkbox"> <label for=
-                            "filled-in-box5">Fat Loss</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box6" type="checkbox"> <label for=
-                            "filled-in-box6">Vegetarian</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box7" type="checkbox"> <label for=
-                            "filled-in-box7">Non - Vegetarian</label></p>
-
-
-                            <p><input checked="checked" class="filled-in"
-                            hidden="hidden" id="filled-in-box8" type=
-                            "checkbox"> <label for="filled-in-box8">Most
-                            Followed</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box9" type="checkbox"> <label for=
-                            "filled-in-box9">Latest</label></p>
-                            <br>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box10" type="checkbox"> <label class=
-                            "bold" for="filled-in-box10">Allergies</label></p>
-                            <br>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box11" type="checkbox"> <label for=
-                            "filled-in-box11">Eggs</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box12" type="checkbox"> <label for=
-                            "filled-in-box12">Dairy</label></p>
-
-
-                            <p><input checked="checked" class="filled-in" id=
-                            "filled-in-box13" type="checkbox"> <label for=
-                            "filled-in-box13">Peas</label></p>
+                            <p ng-repeat="filter in plans.sortlist track by $index"><input id=
+                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search_plan(1, sortby)"><label
+                            for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        -->
-        <!-- END OF CHECKLIST -->
 
 
-        <div class="col s12 m12">
+        <div class="smallmid" ng-class="{'col s12 m9': plans.sortlist!==undefined&&plans.sortlist.length>0, 'col s12 m12':plans.sortlist===undefined||plans.sortlist===null}">
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card white" id="searchcard">
@@ -99,7 +35,7 @@
                                 ng-model="query_plan" placeholder=
                                 "Search Plans"></textarea> <button class=
                                 "fa fa-search search-plan" fire-enter=""
-                                ng-click="search_plan()" type=
+                                ng-click="search_plan(1)" type=
                                 "submit"></button>
                             </form>
                         </div>
@@ -248,6 +184,37 @@
                 </div>
             </div>
             <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
+
+            <div class="row">
+    <div class="col s12 m6 push-m5">
+    <paging
+                class="small"
+                page="currentPage" 
+                page-size="6" 
+                total="pageSize"
+                hide-if-empty="{{hideIfEmpty}}"
+                ul-class="{{ulClass}}"
+                li-class="lipageclass"
+                active-class="{{activeClass}}"
+                disabled-class="{{disabledClass}}"
+                show-prev-next="true"
+                show-first-last="true"
+                text-next-class="acti fa fa-chevron-right"
+                text-prev-class="acti fa fa-chevron-left"
+                text-first-class="acti fa fa-backward"
+                text-last-class="acti fa fa-forward"
+  text-title-page="Page {page}"
+  text-title-first="First Page"
+  text-title-last="Last Page"
+  text-title-next="Next Page"
+  text-title-prev="Previous" 
+  paging-action="search_plan(page, sortby)" 
+  >
+            </paging> 
+                
+    </div>
+
+</div>
 
 
             <div class="row">
