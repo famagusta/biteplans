@@ -7,6 +7,11 @@
   position: relative;
 }
 
+#create-containr {
+  width: 96% !important;
+  
+}
+
 #create-plan {
     background-color: #f5f5f5 !important;
 }
@@ -32,6 +37,10 @@ div#create-form {
     margin-left: 10px;
 }
 
+.vertil{
+    margin-left:10px !important;
+    margin-right:-10px !important;
+}
 .weekWidth{
     width:12% !important;
     margin-right:10px;
@@ -143,6 +152,10 @@ span.active-plan {
 
 .vertical-line {
     border-right: 1px solid #ddd;
+}
+
+.vertil>div>div{
+    min-height:127px !important;
 }
 
 .horizontal-line {

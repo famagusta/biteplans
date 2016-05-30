@@ -83,17 +83,29 @@ app.factory('searchService',
         return deferred.promise;};
                 
         // Function to search plans
-        var search_plan = function(quer, page) {
+        var search_plan = function(quer, page, sortby) {
             var url = '/search/';
             if(page!==undefined && page!==null)
                 {
                     url += '?page'+'='+page;
                 }
             var deferred = $q.defer();
-            httpService.httpPost(url, {
+            var obj = {};
+
+            if(sortby!==undefined && sortby !== null){
+               obj = {
                              'query':quer,
-                             'type':"plans"
-                         }).then(
+                             'type':'plans',
+                             'sortby':sortby
+                         };
+            }
+            else{
+                obj = {
+                             'query':quer,
+                             'type':'plans'
+                         };
+            }
+            httpService.httpPost(url, obj).then(
           function(response) {
             deferred.resolve(response);
 
