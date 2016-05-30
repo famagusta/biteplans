@@ -70,7 +70,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             sub = "Account confirm"
 
             # unable to break the below line due to server error
-            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://bitespacetest.com:8000/confirm/%s' % (request.data['username'], activation_key)
+            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://biteplans.com/confirm/%s' % (request.data['username'], activation_key)
             tr = send_mail(sub, message, master, [email], fail_silently=False)
             if tr:
                 account = Account.objects.create_user(
