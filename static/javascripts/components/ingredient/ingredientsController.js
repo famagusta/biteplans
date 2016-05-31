@@ -1,8 +1,9 @@
 'use strict';
 // Controller to display search results on ingredients page
 
-app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService',
-    function($scope, searchService, AuthService) {
+app.controller('ingredientsController', 
+               ['$scope', 'searchService', 'AuthService', '$rootScope',                                     'constants',
+    function($scope, searchService, AuthService, $rootScope, constants) {
         // function to search for ingredients 
         $scope.foodgroup=[];
 
@@ -10,19 +11,10 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
         $scope.selected = 0;
         $scope.ingredientSelected = {};
         
-        $scope.isAuth = '';
         
         // stores ingredients user has previously liked
         $scope.userIngredients = [];
-        
-        AuthService.isAuthenticated()
-            .then(function(response) {
-                $scope.isAuth = response.status;
-                $scope.getUserIngredients();
-            }, function(error){
-            console.log(error);
-        });
-        
+                
         function findWithAttr(array, attr, value)
         {
             for (var i = 0; i < array.length; i += 1)
@@ -141,21 +133,19 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
         }
         
         $scope.getUserIngredients = function(){
-            
-            if($scope.isAuth){
+            /* get user saved ingredients if logged in*/
+            if(constants.userOb.status){
                 searchService.getMyIngredients().then(function(response){
                     $scope.userIngredients = response.results;
                 }, function(error){
                     console.log(error);
                 });
-            }else{
-                // do something meaningful
-                console.log("please login to continue");
             }
         }
         
         $scope.checkMyIngredients = function(ingredientId){
-            if($scope.isAuth){
+            /* check if given ingredient has been saved by user */
+            if(constants.userOb.status){
                 var result = false;
                 for(var i=0; i<$scope.userIngredients.length; i++){
                     if ($scope.userIngredients[i].ingredient.id == ingredientId){
@@ -163,31 +153,24 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
                     }
                 }
                 return result;
-            }else{
-                //do something meaningful - prompt user to login
-                console.log("please login to continue");
             }
         }
         
-        /* get object corresponding to given recipe in my recipe */
+        /* get object corresponding to given ingredient in my ingredients */
         $scope.getMyIngredients = function(id){
-            if($scope.isAuth){
+            if(constants.userOb.status){
                 var result = {};
-                console.log($scope.userIngredients);
                 for(var i=0; i<$scope.userIngredients.length; i++){
                     if ($scope.userIngredients[i].ingredient.id == id){
                         result = $scope.userIngredients[i];
                     }
                 }
                 return result;
-            }else{
-                //get user to login before continuing
-                console.log("please login to continue");
             }
         }
         
         $scope.shortlistIngredient = function(ingredientId){
-            if($scope.isAuth){
+            if(constants.userOb.status){
                 if ($scope.checkMyIngredients(ingredientId)){
                     var myIngredientId = $scope.getMyIngredients(ingredientId);
                     searchService.removeFromMyIngredients(myIngredientId.id).then(
@@ -204,9 +187,13 @@ app.controller('ingredientsController', ['$scope', 'searchService', 'AuthService
                     })
                 }
             }else{
-                // prompt user to login
-                console.log("please login to continue");
+                /* prompt user for login */
+                $rootScope.$emit('authFailure');
             }
+        }
+        
+        if(constants.userOb.status){
+            $scope.getUserIngredients();
         }
     }
 ]);

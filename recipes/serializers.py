@@ -33,7 +33,8 @@ class RecipeIngSerializer(serializers.ModelSerializer):
 class RecipeSerializer(serializers.ModelSerializer):
     '''serializes a python object into JSON serializabale format'''
     recipeIngredients = RecipeIngredientsSerializer(read_only=True, many=True)
-
+    average_rating = serializers.ReadOnlyField() #FloatField(source='average_rating')
+    
     class Meta:
         '''defines the model to be serialized'''
         model = Recipe

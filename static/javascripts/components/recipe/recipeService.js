@@ -118,6 +118,48 @@ app.factory('recipeService',
         return deferred.promise;
     };
                 
+    /* function to capture user rating of a dietplan */
+    var createRecipeRating = function(obj){
+        var url = '/recipes/recipe-rating/';
+        var deferred = $q.defer();
+        /* cast our parameters into an object */
+        httpService.httpPost(url,obj)
+            .then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+        return deferred.promise;
+    };
+
+    /* function to update a users existing rating for a plan */
+    var updateRecipeRating = function(obj, id){
+        var url = '/recipes/recipe-rating/' + id + '/';
+        var deferred = $q.defer();
+        /* cast our parameters into an object */
+        httpService.httpPatch(url,obj)
+            .then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+        return deferred.promise;
+    };
+
+    /* get user plan ratings */
+                
+    var getUserRecipeRatings = function(){
+        var url = '/recipes/recipe-rating/';
+        var deferred = $q.defer();
+        httpService.httpGet(url)
+            .then(function(response){
+                deferred.resolve(response);
+            }, function(error){
+                deferred.reject(error);
+            });
+        return deferred.promise;
+    }
+                
                 
 
     return {
@@ -150,7 +192,16 @@ app.factory('recipeService',
         },
         getRecipesMadeByMe : function(){
             return getRecipesMadeByMe();
-        } 
+        },
+        getUserRecipeRatings : function(){
+            return getUserRecipeRatings();  
+        },
+        updateRecipeRating : function(obj, id){
+            return updateRecipeRating(obj, id);
+        },
+        createRecipeRating : function(obj){
+            return createRecipeRating(obj);
+        }
 
     };
 

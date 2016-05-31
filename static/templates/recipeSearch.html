@@ -36,7 +36,6 @@
                             <br>
                             <br>
 
-
                             <div class="row raise">
                                 <div class="col s12 m12">
                                     <h6 class="nutri">Source</h6>
@@ -48,6 +47,29 @@
                                 <div class="col s12 m12">
                                     <p class="recipe-card-info">{{recipe.url |
                                     limitTo:50}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row showcustom">
+                                <div class="col s3 m3">
+                                    <p>Ratings</p>
+                                </div>
+                                <div class="col s5 m5">
+                                    <div back-color="white" class="" id=
+                                    "recipe-{{recipe.id}}" ng-click=
+                                    "setRecipeRating(recipe, rating)"
+                                    outer-percent="rating"
+                                    outer-star-selection="stars" rating-define=
+                                    "stars" rating-percent=
+                                    "{{getRecipeRating(recipe)}}" sel-color="gold"
+                                    star-radius="7.5" star-rating="" stars="5">
+                                    </div>
+                                </div>
+
+
+                                <div class="col s4 m4">
+                                    <span ng-bind="stars | number:1"></span>/
+                                    5.0
                                 </div>
                             </div>
                             

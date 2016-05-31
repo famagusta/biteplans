@@ -6,6 +6,7 @@ from recipes import views as recipeViews
 recipeRouter = routers.SimpleRouter()
 recipeRouter.register(r'recipe', recipeViews.RecipeViewSet)
 recipeRouter.register(r'recipe-ingredient', recipeViews.RecipeIngredientViewSet)
+recipeRouter.register(r'recipe-rating', recipeViews.RecipeRatingViewSet)
 
 urlpatterns = patterns('',
                        #url(r'^$', include(recipeRouter.urls)),

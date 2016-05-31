@@ -54,13 +54,9 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <div class="center-btn" ng-if="isAuth" >
+                        <div class="center-btn">
                             <a class="waves-effect waves-light btn largebtn"
-                                href="/createRecipes">CREATE A RECIPE</a>
-                        </div>
-                        <div class="center-btn" ng-if="!isAuth" >
-                            <a class="waves-effect waves-light btn largebtn disabled"
-                            href="/createRecipes">CREATE A RECIPE</a>
+                                ng-click="checkAuth4RecipeCreate()">CREATE A RECIPE</a>
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,8 @@ from authentication.models import Account
 from django.db.models.signals import pre_delete, pre_save, post_save
 from django.dispatch.dispatcher import receiver
 import decimal
+from django.db.models import Avg
+
 
 _UNSAVED_FILEFIELD = 'unsaved_filefield'
 
@@ -70,6 +72,15 @@ class Recipe(models.Model):
 
     def __unicode__(self):
         return self.name
+    
+    @property
+    def average_rating(self):
+        avg_rating = RecipeRating.objects.filter(recipe__id=self.id)\
+            .aggregate(Avg('rating'))['rating__avg']
+        if avg_rating is None:
+            return 0
+        else:
+            return avg_rating
 
     
 class RecipeRating(models.Model):

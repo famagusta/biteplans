@@ -1,21 +1,27 @@
 'use strict';
 
 app.controller('recipesController', ['$scope', 'searchService',
-    'AuthService',
-    function($scope, searchService, AuthService) {
+    'AuthService', '$rootScope', 'recipeService', 'constants', '$location',
+    function($scope, searchService, AuthService, $rootScope, recipeService, constants, $location) {
         $scope.searchService = searchService;
         $scope.selected = 0;
         $scope.query_recipe = '';
-        $scope.isAuth = false;
         $scope.userRecipes = [];
+        $scope.userRecipeRatings = [];
+        $scope.recipeDetails = [];
         
-        AuthService.isAuthenticated()
-            .then(function(response) {
-                $scope.isAuth = response.status;
-                $scope.getUserRecipes();
-            }, function(error){
-            console.log(error);
-        });
+        
+        
+        function findWithAttr(array, attr, value)
+        {
+            for (var i = 0; i < array.length; i += 1)
+            {
+                if (array[i][attr] === value)
+                {
+                    return i;
+                }
+            }
+        }
         
         $scope.search_recipe = function(page, sortby) {
             var query = $scope.query_recipe;
@@ -61,15 +67,12 @@ app.controller('recipesController', ['$scope', 'searchService',
             
 
         $scope.getUserRecipes = function(){
-            if($scope.isAuth){
+            if(constants.userOb.status){
                 searchService.getMyRecipes().then(function(response){
                     $scope.userRecipes = response;
                 }, function(error){
                     console.log(error);
                 });
-            }else{
-                // do something meaningful
-                console.log("please login to continue");
             }
         }
 
@@ -77,39 +80,41 @@ app.controller('recipesController', ['$scope', 'searchService',
         
         /* check if given recipe is already in shortlisted recipe */
         $scope.checkMyRecipes = function(id){
-            if($scope.isAuth){
+            
+            if(constants.userOb.status){
                 var result = false;
-                for(var i=0; i<$scope.userRecipes.length; i++){
-                    if ($scope.userRecipes[i].recipe.id == id){
+                for(var i=0; i<$scope.userRecipes.results.length; i++){
+                    if ($scope.userRecipes.results[i].recipe.id == id){
                         result = true;
                     }
                 }
+                
                 return result;
             }else{
-                //do something meaningful - prompt user to login
-                console.log("please login to continue");
+                //no user logged in
+                return false;
             }
         }
 
         /* get object corresponding to given recipe in my recipe */
         $scope.getMyRecipes = function(id){
-            if($scope.isAuth){
+            if(constants.userOb.status){
                 var result = {};
-                for(var i=0; i<$scope.userRecipes.length; i++){
-                    if ($scope.userRecipes[i].recipe.id == id){
-                        result = $scope.userRecipes[i];
+                for(var i=0; i<$scope.userRecipes.results.length; i++){
+                    if ($scope.userRecipes.results[i].recipe.id == id){
+                        result = $scope.userRecipes.results[i];
                     }
                 }
                 return result;
             }else{
                 //get user to login before continuing
-                console.log("please login to continue");
+                return false;
             }
         }
 
         /* shortlist ingredient */
         $scope.shortlistRecipe = function(id){
-            if($scope.isAuth){
+            if(constants.userOb.status){
                 if ($scope.checkMyRecipes(id)){
                     var myRecipeId = $scope.getMyRecipes(id);
                     searchService.removeFromMyRecipes(myRecipeId.id).then(
@@ -126,12 +131,143 @@ app.controller('recipesController', ['$scope', 'searchService',
                     })
                 }
             }else{
-                // prompt user to login
-                console.log("please login to continue");
+                /* prompt user for login */
+                $rootScope.$emit('authFailure');
             }
         }
 
 
-
+        var getUserRecipeRatings = function()
+        {
+            if(constants.userOb.status){
+                recipeService.getUserRecipeRatings().then(function(
+                    response)
+                {
+                    $scope.userRecipeRatings = response;
+                }, function(error)
+                {
+                    console.log(error);
+                })
+            }
+        }
+        
+        $scope.getRecipeRating = function(recipe)
+        {
+            // bind result to results array
+            var recipeRatingMatch = $scope.recipeDetails.results.filter(
+                function(el)
+                {
+                    return el.id === recipe.id;
+                });
+            var idxRecipe = findWithAttr($scope.recipeDetails.results,
+                'id', recipeRatingMatch[0].id);
+            return $scope.recipeDetails.results[idxRecipe][
+                'average_rating'
+            ] * 20;
+        }
+        
+        
+        $scope.setRecipeRating = function(recipe, rating)
+        {
+            /* Handle following cases
+                1. user sets rating for a recipe for the 1st time
+                2. user updates rating for a recipe he rated before
+                    2.a. user tries to set same rating as before
+                3. the function is triggered by extra firing of 
+                    star input directive -- FIX this is future
+                must also check if user is logged in to do this
+            */
+            var normalizedRating = Math.ceil(rating / 20);
+            var ratingObject = {
+                rating: normalizedRating,
+                recipe: recipe.id
+            }
+            if (!constants.userOb.status || $scope.userRecipeRatings ===
+                undefined)
+            {
+                /* prompt user for login */
+                if(!constants.userOb.current.status){
+                    $rootScope.$emit('authFailure');
+                }
+            }else
+            {
+                // only authenticated users must rate plans
+                if (normalizedRating > 0)
+                {
+                    // this takes care of erroneous firing of function
+                    // find if user has rated this plan before - decide b/w post & patch
+                    var userRatingMatch = $scope.userRecipeRatings.filter(
+                        function(el)
+                        {
+                            return el.recipe === recipe.id;
+                        });
+                    if (userRatingMatch.length > 0)
+                    {
+                        // find index of recipe in results - we need to update it 
+                        var idxRecipe = findWithAttr($scope.recipeDetails.results,
+                            'id', userRatingMatch[0].id);
+                        // case where user has previously rated this plan
+                        if (userRatingMatch[0].rating !==
+                            normalizedRating)
+                        {
+                            //case where user is updating his/her rating
+                            recipeService.updateRecipeRating(
+                                ratingObject, userRatingMatch[0]
+                                .id).then(function(response)
+                            {
+                                //update user ratings array
+                                getUserRecipeRatings();
+                                // update recipe rating
+                                var recipe2Update = {};
+                                recipeService.getRecipe(
+                                    userRatingMatch[0].recipe
+                                ).then(function(
+                                    response)
+                                {
+                                    $scope.recipeDetails.results[
+                                            idxRecipe
+                                            ] =
+                                        response;
+                                }, function(error)
+                                {
+                                    console.log(
+                                        error);
+                                });
+                            }, function(error)
+                            {
+                                console.log(error);
+                            });
+                        }
+                    }
+                    else
+                    {
+                        // case where this is a fresh rating
+                        recipeService.createRecipeRating(
+                            ratingObject).then(function(response)
+                        {
+                            // update user ratings array
+                            getUserRecipeRatings();
+                        }, function(error)
+                        {
+                            console.log(error);
+                        });
+                    }
+                }
+            }
+        }
+        
+        $scope.checkAuth4RecipeCreate = function(){
+            if(constants.userOb.status){
+                $location.path('/createRecipes');
+            }
+            else{
+                $rootScope.$emit('authFailure');
+            }
+        }
+        
+        if(constants.userOb.status){
+            $scope.getUserRecipes();
+            getUserRecipeRatings();
+        }
     }
 ]);

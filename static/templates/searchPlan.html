@@ -199,13 +199,8 @@
                                 <i class="material-icons plan-heart-ok">favorite</i>
                             </btn>
                             
-                            <a class="datepicker_btn btn-flat cyan-text right follow-btn" href=
-                            "#" ng-click="followPlan(plan.id)">FOLLOW</a>
-                            
-<!--
-                            <a class="btn-flat cyan-text" href="#" ng-click=
-                            "shortlistPlan(plan.id)">SHORTLIST</a>
--->
+                            <a class="datepicker_btn btn-flat cyan-text right follow-btn" 
+                               href="#" ng-click="followPlan(plan.id)">FOLLOW</a>
                         </div>
                     </div>
                 </div>
@@ -246,15 +241,9 @@
 
             <div class="row">
                 <div class="col s12">
-                    <div class="center-btn" ng-if="isAuth.status" >
+                    <div class="center-btn">
                         <btn class="waves-effect waves-light btn largebtn"
-                        ng-click="openShortInfoModal()" >
-                            CREATE A PLAN
-                        </btn>
-                    </div>
-                    <div class="center-btn" ng-if="!isAuth.status" >
-                        <btn class="waves-effect waves-light btn largebtn disabled"
-                        ng-click="">
+                        ng-click="checkAuth4PlanCreate()" >
                             CREATE A PLAN
                         </btn>
                     </div>

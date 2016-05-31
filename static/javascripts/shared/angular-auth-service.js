@@ -172,8 +172,10 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                         var token = response.token;
                         if (token) {
                             $window.localStorage.token = token;
+                            constants.userOb.pk = response.id;
+                            constants.userOb.status = true;
                             deferred.resolve(response);
-
+                            
                         }
                         else {
                             // error callback
@@ -197,7 +199,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         /* function to logout for normally signed in user */
         var logout = function() {
             $auth.removeToken();
-            userOb.set_user();
+            constants.userOb = {};
 
         };
 
@@ -208,22 +210,22 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         
         /*User resource for sharing between different controllers */
         // I think this doesnt work anumore
-        var userOb = {};
-        userOb.current = {};
-        userOb.set_user = function(response) {
-            if (response) {
-                userOb.current = response.data;
-            }
-            else {
-                userOb.current = {
-                    'username': null,
-                    'first_name': null,
-                    'last_name': null,
-                    'email': null,
-                    'social_thumb': '{% static "anonymous.png" %}'
-                };
-            }
-        };
+//        var userOb = {};
+//        userOb.current = {};
+//        constants.userOb.set_user = function(response) {
+//            if (response) {
+//                constants.userOb.current = response.data;
+//            }
+//            else {
+//                constants.userOb.current = {
+//                    'username': null,
+//                    'first_name': null,
+//                    'last_name': null,
+//                    'email': null,
+//                    'social_thumb': '{% static "anonymous.png" %}'
+//                };
+//            }
+//        };
 
         /*Function for social login */
         var loginSocial = function(provider) {
@@ -231,7 +233,9 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             $auth.authenticate(provider)
                 .then(function(response) {
                     $auth.setToken(response.data.token);
-                    userOb.set_user(response);
+//                    constants.userOb.set_user(response);
+                    constants.userOb.pk = response.data.id;
+                    constants.userOb.status = true;
                     prom.resolve(response.data);
                 })
                 .catch(function(data) {
@@ -239,7 +243,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                     prom.reject(
                         'Something went wrong, try again later'
                     );
-                    userOb.set_user();
+                    constants.userOb = {};
                 });
 
             return prom.promise;
@@ -253,7 +257,8 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                        '/authentication/api/v1/jwt_user/'
                     )
                     .then(function(response) {
-                        userOb.set_user(response);
+                        constants.userOb.pk = response.id;
+                        constants.userOb.status = true;
                         return UserOb;
                     });
             }
@@ -289,6 +294,8 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             var deferred = $q.defer();
             httpService.httpGet(url)
                 .then(function(response) {
+                    constants.userOb.status = response.status;
+                    constants.userOb.pk = response.pk;
                     deferred.resolve(response);
                 }, function(error) {
                     deferred.reject(error);

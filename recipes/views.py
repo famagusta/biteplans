@@ -81,14 +81,17 @@ class RecipeRatingViewSet(viewsets.ModelViewSet):
                                              recipe=recipe)
         else:
             return RecipeRating.objects.filter(user=self.request.user)
+        
     def get_permissions(self):
         '''return allowed permissions'''
         if self.request.method in permissions.SAFE_METHODS:
             return (permissions.AllowAny(),)
         if self.request.method in ['POST', 'PATCH']:
             return (permissions.IsAuthenticated(), )
+        
     def create(self, request):
         '''create an instance of rating'''
+        print request
         serializer = self.serializer_class(data=request.data,
                                            context={'request': request})
         if serializer.is_valid():

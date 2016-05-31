@@ -1,9 +1,10 @@
 'use strict';
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService',
-    'profileService',
-    function($scope, $location, AuthService, profileService) {
+    'profileService', '$rootScope', 'constants',
+    function($scope, $location, AuthService, profileService, $rootScope, constants) {
         // function to check whether the person is logged in or not
+        $scope.isLoggedIn = false;
         var checkLoggedIn = function() {
             AuthService.isAuthenticated()
                 .then(function(response) {
@@ -14,9 +15,11 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
 
         };
         checkLoggedIn();
-//        $scope.AuthService = AuthService;
-//        $scope.isLoggedIn = $scope.AuthService.isAuth;
-//        console.log($scope.isLoggedIn);
+        
+        $rootScope.$on('authFailure', function(event, args) {
+            /* function to access navbar controller for auth */
+            $scope.openModal();
+        });
         
         profileService.getProfile()
             .then(function(response) {
@@ -140,19 +143,19 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                             $scope.isLoggedIn = true;
                             $('#modal1')
                                 .closeModal();
-                            location.reload();
+//                            location.reload();
                             //$location.path('/dashboard');
 
                         },
                         function(error) {
                             $scope.loginError =
-                                'Wrong credentials, are you sure you did not signup through google or facebook?';
+                                'Invalid Credentials! Are you sure you did not sign-up using Google or Facebook?';
                         }
                     );
             }
             else {
                 $scope.loginError =
-                    'Username and password required';
+                    'Username and Password required';
             }
         };
 
@@ -164,7 +167,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 $scope.isLoggedIn = false;
                 //$location.path('/');
             }
-            location.reload();
+//            location.reload();
         };
 
         $scope.Auth = function(provider) {
@@ -177,7 +180,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     
                     $('#modal1')
                         .closeModal();
-                    location.reload();      
+//                    location.reload();      
                     //proceed to dashboard
                     //$location.path('/dashboard');
                 }, function(error) {

@@ -10,6 +10,7 @@ var app = angular.module('biteplans', [
 var constantData = {
     'constants': {
         'API_SERVER': 'http://bitespacetest.com:8000/',
+        userOb : {}
     }
 };
 
@@ -65,7 +66,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         
         $routeProvider.when('/', {
                 controller: 'navbarController',
-                templateUrl: '/static/templates/landingPage.html'
+                templateUrl: '/static/templates/landingPage.html',
+                resolve:{
+                    'AuthCheck': function(AuthService){
+                        return AuthService.isAuthenticated();
+                    }
+                }
             })
             .when('/confirm/:activation_key', {
                 controller: 'confirmController',
@@ -77,11 +83,21 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             })
             .when('/plans', {
                 controller: 'planController',
-                templateUrl: '/static/templates/searchPlan.html'
+                templateUrl: '/static/templates/searchPlan.html',
+                resolve:{
+                    'AuthCheck': function(AuthService){
+                        return AuthService.isAuthenticated();
+                    }
+                }
             })
             .when('/ingredients', {
                 controller: 'ingredientsController',
-                templateUrl: '/static/templates/searchIngredients.html'
+                templateUrl: '/static/templates/searchIngredients.html',
+                resolve:{
+                    'AuthCheck': function(AuthService){
+                        return AuthService.isAuthenticated();
+                    }
+                }
             })
             .when('/dashboard', {
 //                controller: 'dashboardController',
@@ -101,7 +117,12 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             })
             .when('/recipes', {
                 controller: 'recipesController',
-                templateUrl: '/static/templates/recipes.html'
+                templateUrl: '/static/templates/recipes.html',
+                resolve:{
+                    'AuthCheck': function(AuthService){
+                        return AuthService.isAuthenticated();
+                    }
+                }
             })
             .when('/createRecipes', {
                 controller: 'createRecipeController',

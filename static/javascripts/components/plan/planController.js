@@ -1,25 +1,16 @@
 'use strict';
 app.controller('planController', ['$scope', 'AuthService', 'searchService',
-    '$location', 'planService', 'stars', 'starsUtility', '$window',
+    '$location', 'planService', 'stars', 'starsUtility', '$window', '$rootScope',
+    'constants',
     function($scope, AuthService, searchService, $location, planService, stars,
-        starsUtility, $window)
+        starsUtility, $window, $rootScope, constants)
     {
         $scope.query_plan = '';
         $scope.plans = {};
         $scope.userPlanRatings = [];
-        $scope.isAuth = {};
         
-        $scope.userPlans = {};
-        
-        AuthService.isAuthenticated()
-            .then(function(response){
-                $scope.isAuth = response;
-                if($scope.isAuth.status){
-                    getUserPlanRatings();
-                    getUserPlans();
-                }
-        });
-        
+        $scope.userPlans = [];
+                
         var getUserPlanRatings = function()
         {
             planService.getUserDietPlanRatings().then(function(
@@ -40,11 +31,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 console.log(error);
             })
         }
-//=======
-//            });
-//        };
-//        getUserPlanRatings();
-//>>>>>>> origin/RecipesInSummary
 
         
         function findWithAttr(array, attr, value)
@@ -114,7 +100,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 rating: normalizedRating,
                 dietPlan: plan.id
             }
-            if ($scope.isAuth.status && $scope.userPlanRatings !==
+            if (constants.userOb.status && $scope.userPlanRatings !==
                 undefined)
             {
                 // only authenticated users must rate plans
@@ -179,6 +165,9 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                         });
                     }
                 }
+            }else{
+                /* prompt user for login */
+                $rootScope.$emit('authFailure');
             }
         }
         
@@ -189,7 +178,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.createPlan = function()
         {
-            is($scope.isAuth.status)
+            is(constants.userOb.status)
             planService.createPlan($scope.plan).then(function(
                 response)
             {
@@ -207,7 +196,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
            of events */
         $scope.followPlan = function(planId)
         {
-            if($scope.isAuth.status){
+            if(constants.userOb.status){
             var $input = $('.datepicker_btn').pickadate(
                 {
                     format: 'yyyy-mm-dd',
@@ -245,12 +234,16 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     }
                 })
             }
+            else{
+                /* prompt user for login */
+                $rootScope.$emit('authFailure');
+            }
         }
         
         /* shortlist the selected plan */
         $scope.shortlistPlan = function(planId)
         {
-            if($scope.isAuth.status){
+            if(constants.userOb.status){
                 /* check authentication */
                 if(!$scope.checkMyPlans(planId)){
                     /* post if plan not already in the basket */
@@ -260,7 +253,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     planService.addPlanToShortlist(objToSave).then(function(
                         response)
                     {
-                        getUserPlans();
+                       getUserPlans();
                     }, function(error)
                     {
                         console.log(error);
@@ -283,12 +276,16 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     })
                 }
             }
+            else{
+                /* prompt user for login */
+                $rootScope.$emit('authFailure');
+            }
         }
         
         
         $scope.checkMyPlans = function(planId){
             //TBD
-            if($scope.isAuth.status){
+            if(constants.userOb.status){
                 var userPlanMatch = $scope.userPlans.filter(
                         function(el)
                         {
@@ -299,33 +296,11 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 }
                 return false;
             }else{
-                //do something meaningful - prompt user to login
-                console.log("please login to continue");
                 return false;
             }
         }
         
         
-//=======
-//                }
-//            });
-//        };
-//        $scope.addPlanToShortlist = function(planId)
-//        {
-//            console.log(planId);
-//            var objToSave = {
-//                dietplan: planId
-//            };
-//            planService.addPlanToShortlist(objToSave).then(function(
-//                response)
-//            {
-//                console.log(response);
-//            }, function(error)
-//            {
-//                console.log(error);
-//            });
-//        };
-//>>>>>>> origin/RecipesInSummary
         $scope.getPlanNutrientPercent = function(plan, nutrient)
         {
             var conversion_factor = 4;
@@ -338,5 +313,20 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     'energy_kcal']);
             return nutrient_percent;
         };
+        
+    
+        $scope.checkAuth4PlanCreate = function(){
+            if(constants.userOb.status){
+                $scope.openShortInfoModal();
+            }
+            else{
+                $rootScope.$emit('authFailure');
+            }
+        }
+        
+        if(constants.userOb.status){
+            getUserPlanRatings();
+            getUserPlans();
+        }
     }
 ]);
