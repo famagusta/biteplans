@@ -398,7 +398,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     $scope.uploadFile(id);
                                     /* Redirect to view recipe page */
                                     $location.path(
-                                        '/recipes/viewRecipe/' + id
+                                        '/recipes/view-recipe/' + id
                                     );
                                 }, function(error) {
                                     console.log(
