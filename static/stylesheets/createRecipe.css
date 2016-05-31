@@ -33,6 +33,10 @@
 
 }
 
+#crop-modal{
+    width:90% !important;
+}
+
 .filter-ul>li{
     padding:10px !important;
 

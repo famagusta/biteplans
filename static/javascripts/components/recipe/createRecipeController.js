@@ -38,6 +38,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.cookMins = 0;
                     $scope.recipe = {};
 
+                    $scope.outputImage = null;
+
                     // route to navigate to view the recipe after creation
                     $scope.view_recipe = '/viewRecipe/' +
                         $routeParams.id;
@@ -53,28 +55,35 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     };
 
+                    var handleFileSelect=function(evt) {
+                      var file=evt.currentTarget.files[0];
+                      var reader = new FileReader();
+                      reader.onload = function (evt) {
+                        $scope.$apply(function($scope){
+                          $scope.inputImage = evt.target.result;
+                        });
+                      };
+                      reader.readAsDataURL(file);
+                    };
+                    angular.element(document.querySelector('#img-recipe')).on('change',handleFileSelect);
+
                     $scope.uploadFile = function(id) {
+                        console.log($scope.recipe_image_file);
                         var file = $scope.recipe_image_file;
                         var url = '/recipes/recipe/' + id +
                             '/';
-                        if (file) {
+                        if (file !== undefined && file !== null) {
                             recipeService.uploadRecipeImage(
-                                file, url);
+                                file, url).then(function(response){
+                                     $location.path(
+                                        '/recipes/view-recipe/' + id
+                                    );
+
+                                }, function(error){
+                                    console.log(error);
+                                });
                         }
                     };
-                    
-                       $scope.initialize_recipe = function()
-                {
-                    var id = $routeParams.id;
-                    recipeService.updateRecipe($scope.recipe, id)
-                        .then(function(response)
-                        {
-                            console.log(response);
-                        }, function(error)
-                        {
-                            console.log(error);
-                        });
-                };
 
 
                     /* Nutritional Information calculations based on changes to
@@ -99,7 +108,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     (100 * servings);
                             }
                             return total;
-                        }
+                        };
                         /* calculates additional nutritional information */
                     $scope.calculateAddtnlNutritionTotal = function(
                         nutrient) {
@@ -117,10 +126,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     .quantity) * parseFloat(
                                     $scope.ingredientDisplay[i]
                                     .selected_measure.weight) /
-                                (100 * servings)
+                                (100 * servings);
                         }
                         return total;
-                    }
+                    };
 
 
 
@@ -167,7 +176,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     console.log(error);
                                 });
                         }
-                        else if (query != undefined && $scope.foodgroup.length ===0) {
+                        else if (query !== undefined && $scope.foodgroup.length ===0) {
                             searchService.search_ingredient(query, page, null, sortby)
                                 .then(function(response) {
                                     $scope.details = response;
@@ -203,6 +212,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.lastChecked = null;
                         $('#add-ingredients-modal')
                             .openModal();
+                    };
+
+                    $scope.openCropModal = function() {
+                       $('#crop-modal').openModal();
                     };
 
                     /* watch the value of nutrient value to detect change 
@@ -356,15 +369,17 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.stepsToCreateRecipes.length += 1;
                     };
 
-
+                    $scope.counter = 0;
 
                     $scope.currentPage = 1;
                     $scope.pageSize = 6;
                     var createRecipe = function(recipe) {
+
                         recipeService.createRecipe(recipe)
-                            .then(
-                                function(response) {
+                            .then(function(response) {
                                     var id = response.recipe_id;
+                                    console.log('I still work');
+                                    if(id !== null){
 
                                     for (var i = 0; i < $scope.ingredientDisplay
                                         .length; i++) {
@@ -385,20 +400,18 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                                 .ingredientDisplay[
                                                     i]
                                                 .quantity
-                                        }
+                                        };
 
                                         recipeService.createRecipeIng(
                                                 recipeIngred)
                                             .then(
-                                                function(
-                                                    response) {
+                                                function(response) {
                                                     //TODO: Add meaningful behaviour
                                                     //    on successful return
-                                                }, function(
-                                                    error) {
-                                                    console.log(
-                                                        error
-                                                    );
+                                                    $scope.counter += 1;
+                                                    $scope.checkIfCompleted(id);
+                                                }, function(error){
+                                                    console.log(error);
                                                 });
 
                                         /* upload image file to server upon id creation 
@@ -408,27 +421,34 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                                     }
 
-                                    $scope.uploadFile(id);
-                                    /* Redirect to view recipe page */
-                                    $location.path(
-                                        '/recipes/view-recipe/' + id
-                                    );
-                                }, function(error) {
-                                    console.log(
-                                        'recipe could not be created, try again later',
+                                    
+
+                                }
+                                },function(error){
+                                    console.log('recipe could not be created, try again later',
                                         error);
                                 });
                     };
                     
                     $scope.validateRecipe = function() {
+                        console.log($scope.recipe_image_file);
                         if ($scope.recipe.name) {
                              $scope.finalizeRecipeCreation();
                         }
                         else {
                             $scope.recipeError = 'Enter';
                         }
-                    }
+                    };
+                     $scope.checkIfCompleted = function(id){
                     
+                    if($scope.counter===$scope.ingredientDisplay.length){
+                        
+                        $scope.uploadFile(id);
+                                    /* Redirect to view recipe page */
+                                   
+                        
+                    }
+                };
 
 
                     /* function called for saving the plan */

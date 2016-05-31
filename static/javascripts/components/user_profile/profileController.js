@@ -12,6 +12,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                 
                 if (isAuthenticated) {
                     $scope.tab = 2;
+                    $scope.inputImage = null;
                     $scope.profile_image_file = {};
                     $scope.profile_image_file.src="";
                     $scope.placeHolderDOB = new Date();

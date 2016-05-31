@@ -11,7 +11,6 @@ app.factory('recipeService',
     		deferred.resolve(response);
 
     	}, function(error){
-    		console.log(error);
     		deferred.reject(error);
     	});
 
@@ -51,6 +50,8 @@ app.factory('recipeService',
     	return deferred.promise;
     };
         
+
+    
     var updateRecipe = function(obj, id) {
             var url = '/recipes/recipe/' + id + '/';
             var deferred = $q.defer();

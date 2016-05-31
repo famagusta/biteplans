@@ -1,7 +1,7 @@
 'use strict'; /* global app: true */
 
 var app = angular.module('biteplans', [
-    'satellizer', 'ngRoute', 'bw.paging',
+    'satellizer', 'ngRoute', 'ngCroppie', 'bw.paging',
     'ngMaterial', 'materialCalendar', 
     'angular-svg-round-progressbar', 
     'ng.httpLoader'
