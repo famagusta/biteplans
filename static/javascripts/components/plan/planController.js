@@ -178,7 +178,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.createPlan = function()
         {
-            is(constants.userOb.status)
+            if(constants.userOb.status)
             planService.createPlan($scope.plan).then(function(
                 response)
             {
