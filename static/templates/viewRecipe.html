@@ -7,8 +7,9 @@
                 <div class="card-content black-text">
                     
                     <!--FIX THIS-->
-                    <a ng-if="isOwner()" ng-href="editRecipe/{{recipe.id}}" class="cyan-text">
-                    <i class="material-icons cyan-text">mode_edit</i>
+                    <a ng-if="isOwner()" class="cyan-text" ng-href="recipes/edit-recipe/{{recipe.id}}">
+                    <i class="material-icons">mode_edit</i>
+
                         Edit Recipe
                     </a>
                     

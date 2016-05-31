@@ -182,7 +182,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             planService.createPlan($scope.plan).then(function(
                 response)
             {
-                $location.path('/plan/' + response.dietplan_id);
+                $location.path('/dietplans/create/overview/' + response.dietplan_id);
                 $('#small-modal').closeModal();
             }, function(error)
             {

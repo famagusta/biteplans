@@ -582,7 +582,7 @@ app.controller('editRecipeController', ['$scope','AuthService',
                         console.log($scope.counter);
                         
                         $location.path(
-                                        '/viewRecipe/' + $scope.recipe.id
+                                        '/recipes/view-recipe/' + $scope.recipe.id
                                     );
                         
                     }

@@ -1,7 +1,7 @@
 'use strict'; /* global app: true */
 
 var app = angular.module('biteplans', [
-    'satellizer', 'ngRoute', 'bw.paging',
+    'satellizer', 'ngRoute', 'ngCroppie', 'bw.paging',
     'ngMaterial', 'materialCalendar', 
     'angular-svg-round-progressbar', 
     'ng.httpLoader'
@@ -58,7 +58,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                   return response;
               }
             };
-          })
+          });
         
         
         $controllerProvider.allowGlobals();
@@ -81,7 +81,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'resetController',
                 templateUrl: '/static/templates/resetPassword.html'
             })
-            .when('/plans', {
+            .when('/dietplans/search', {
                 controller: 'planController',
                 templateUrl: '/static/templates/searchPlan.html',
                 resolve:{
@@ -103,19 +103,19 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 //                controller: 'dashboardController',
                 templateUrl: '/static/templates/dashboard.html'
             })
-            .when('/plan/:id', {
+            .when('/dietplans/create/overview/:id', {
                 controller: 'createPlanController',
                 templateUrl: '/static/templates/createPlan.html'
             })
-            .when('/plan2/:id', {
+            .when('/dietplans/create/complete/:id', {
                 controller: 'createPlanController',
                 templateUrl: '/static/templates/createPlan2.html'
             })
-            .when('/plan3/:id', {
+            .when('/dietplans/view-diet-plan/:id', {
                 controller: 'viewPlanController',
                 templateUrl: '/static/templates/createPlan3.html'
             })
-            .when('/recipes', {
+            .when('/recipes/search', {
                 controller: 'recipesController',
                 templateUrl: '/static/templates/recipes.html',
                 resolve:{
@@ -124,15 +124,15 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                     }
                 }
             })
-            .when('/createRecipes', {
+            .when('/recipes/create-recipes', {
                 controller: 'createRecipeController',
                 templateUrl: 'static/templates/createRecipe.html'
             })
-            .when('/viewRecipe/:id', {
+            .when('/recipes/view-recipe/:id', {
                 controller: 'viewRecipeController',
                 templateUrl: 'static/templates/viewRecipe.html'
             })
-            .when('/editRecipe/:id', {
+            .when('/recipes/edit-recipe/:id', {
                 controller: 'editRecipeController',
                 templateUrl: 'static/templates/editRecipe.html'
             })

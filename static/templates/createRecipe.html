@@ -345,22 +345,41 @@
 -->
 
 
-                                            <div class=
+                                            <div ng-click="openCropModal()" class=
                                             "file-field input-field">
                                                 <div class="btn">
                                                     <span>File</span>
-                                                    <input accept='image/*'
+                                                </div>
+
+
+                                               <!--  <input accept='image/*'
+                                                    id="img-recipe"
                                                     file-model=
                                                     "recipe_image_file" type=
                                                     "file">
-                                                </div>
+
+                                                <div ng-if="recipe_image_file !== undefined && recipe_image_file !== null">
+
+                                                {{document.getElementById('img-recipe').src}}
+                                                {{console.log(document.getElementById('img-recipe').src)}}
+
+                                                <ng-croppie src="inputImage"
+                                                      ng-model='recipe_image_file'
+                                                      boundry="{w: 400, h: 400}"
+                                                      viewport="{w: 300, h:300}"
+                                                      mousezoom="true" 
+                                                      zoom="true">
+                                                      
+                                                    </ng-croppie>
+
+                                                <img  ng-src="{{recipe_image_file}}" /></div> -->
 
 
-                                                <div class="file-path-wrapper">
+                                                <!-- <div class="file-path-wrapper">
                                                     <input class=
                                                     "file-path validate" type=
                                                     "text">
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <!--
                                             <input type="file" 
@@ -630,6 +649,48 @@
                     <a class="waves-effect waves-light btn btn-social largebtn"
                     ng-click=
                     "addContents();calculateTotalInfoForRecipes()">Add</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal modal-fixed-footer" id="crop-modal">
+            <div class="center-me">
+                <h6><b>Select an Image:</b>
+                </h6>
+            </div>
+
+
+            <div class="modal-content">
+            <br>
+                <div class="row">
+                <input accept='image/*'
+                id="img-recipe"
+                file-model=
+                "recipe_image_file" type=
+                "file">
+            </div>
+            <div class="row" ng-if="recipe_image_file !== undefined && recipe_image_file !== null">
+
+            <div class="col s6" >
+
+            <ng-croppie src="inputImage"
+                  ng-model="recipe_image_file.recipe_image_file"
+                  boundry="{w: 500, h: 344.5122}"
+                  viewport="{w: 400, h:275.615}"
+                  mousezoom="true" 
+                  zoom="true">
+                  
+                </ng-croppie>
+            </div>
+
+                                                
+                    <div class="col s6">
+                     PREVIEW<br>
+                     <br>
+                    <img  ng-src="{{recipe_image_file.recipe_image_file}}" /></div>
+
+
+                    
                 </div>
             </div>
         </div>

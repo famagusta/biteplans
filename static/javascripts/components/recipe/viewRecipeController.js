@@ -36,7 +36,11 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
                                 console.log(error);
                             });
                 }
-            }, function(error) {
+            }, 
+
+            //this is not working properly
+
+            function(error) {
                 console.log(error);
             });
         
