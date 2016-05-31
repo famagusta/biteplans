@@ -12,9 +12,14 @@
                             <div><b class="pull-left">Sortby</b> <i class="fa fa-reorder pull right"></i></div>
                             <br>
                             <br>
-                            <p ng-repeat="filter in plans.sortlist track by $index"><input id=
-                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search_plan(1, sortby)"><label
-                            for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
+                            <p ng-repeat="filter in plans.sortlist track by $index">
+                                <input id="filled-in-rad{{$index}}" class="with-gap"
+                                       name="sortradio" 
+                                    value="{{filter}}" type="radio" ng-model="sortby"                                             ng-click="search_plan(1, sortby)">
+                                <label for="filled-in-rad{{$index}}">
+                                    {{filter.split('_', 1)[0]}}
+                                </label>
+                            </p>
                         </div>
                     </form>
                 </div>
@@ -46,10 +51,10 @@
 
 
             <div class="row">
-                <div class="col s4 m4" ng-repeat=
+                <div class="col s12 m6" ng-repeat=
                 "plan in plans.results | limitTo:4">
                     <div class="card white">
-                        <div class="card-content black-text">
+                        <div class="card-content search-plan-card black-text">
                             <div class="row">
                                 <!--
                                 <div class="col s2"><img class=
@@ -59,32 +64,40 @@
 -->
 
 
-                                <div class="col s12 center">
-                                    <h5 class="cyan-text">Name:
+                                <div class="col s12 m12 center">
+                                    <h5 class="cyan-text">
                                     {{plan.name}}</h5>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s12">
-                                    <p class="grey-text">Goal: {{ plan.goal
-                                    }}</p>
+                                <div class="col s4 m4">
+                                    <p>Goal:</p>
+                                </div>
+                                <div class="col s8 m8">
+                                    <p class="grey-text">{{plan.goal}}</p>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s12">
-                                    <p class="grey-text">Duration: {{
-                                    plan.duration }} Week</p>
+                                <div class="col s4 m4">
+                                    <p>Duration:
+                                    </p>
+                                </div>
+                                <div class="col s8 m8">
+                                    <p class="grey-text">{{plan.duration }} Week</p>
                                 </div>
                             </div>
 
 
-                            <div class="row center showcustom">
-                                <div class="col s8">
-                                    <div back-color="white" class="right" id=
+                            <div class="row showcustom">
+                                <div class="col s4 m4">
+                                    <p>Ratings</p>
+                                </div>
+                                <div class="col s5 m5">
+                                    <div back-color="white" class="" id=
                                     "plan-{{plan.id}}" ng-click=
                                     "setPlanRating(plan, rating)"
                                     outer-percent="rating"
@@ -96,8 +109,8 @@
                                 </div>
 
 
-                                <div class="col s3 left">
-                                    <span ng-bind="stars | number:1"></span> /
+                                <div class="col s3 m3 pull-m1 pull-s1">
+                                    <span ng-bind="stars | number:1"></span>/
                                     5.0
                                 </div>
                             </div>
@@ -174,11 +187,25 @@
                         </div>
 
 
-                        <div class="card-action">
-                            <a class="datepicker_btn btn-flat cyan-text" href=
+                        <div class="card-action search-plancard-action">
+                            <btn class="plan-heart-c" ng-if=
+                               "!checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)">
+                                <i class="material-icons plan-heart-c">favorite</i>
+                            </btn>
+                            <btn class="plan-heart-ok" ng-if=
+                               "checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)">
+                                <i class="material-icons plan-heart-ok">favorite</i>
+                            </btn>
+                            
+                            <a class="datepicker_btn btn-flat cyan-text right follow-btn" href=
                             "#" ng-click="followPlan(plan.id)">FOLLOW</a>
+                            
+<!--
                             <a class="btn-flat cyan-text" href="#" ng-click=
-                            "addPlanToShortlist(plan.id)">SHORTLIST</a>
+                            "shortlistPlan(plan.id)">SHORTLIST</a>
+-->
                         </div>
                     </div>
                 </div>
@@ -219,9 +246,17 @@
 
             <div class="row">
                 <div class="col s12">
-                    <div class="center-btn">
-                        <a class="waves-effect waves-light btn largebtn"
-                        ng-click="openShortInfoModal()">CREATE A PLAN</a>
+                    <div class="center-btn" ng-if="isAuth.status" >
+                        <btn class="waves-effect waves-light btn largebtn"
+                        ng-click="openShortInfoModal()" >
+                            CREATE A PLAN
+                        </btn>
+                    </div>
+                    <div class="center-btn" ng-if="!isAuth.status" >
+                        <btn class="waves-effect waves-light btn largebtn disabled"
+                        ng-click="">
+                            CREATE A PLAN
+                        </btn>
                     </div>
                 </div>
             </div>

@@ -4,9 +4,9 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
-# from schedule.models import Calendar
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
+#from user_profile.models import UserPhysicalHistory
 _UNSAVED_FILEFIELD = 'unsaved_filefield'
 
 
@@ -120,6 +120,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
         '''return username'''
         return self.username
 
+    
 
 @receiver(pre_save, sender=Account)
 def skip_saving_file(sender, instance, **kwargs):
@@ -133,3 +134,36 @@ def save_file(sender, instance, created, **kwargs):
     if created and hasattr(instance, _UNSAVED_FILEFIELD):
         instance.image_path = getattr(instance, _UNSAVED_FILEFIELD)
         instance.save()
+
+#
+#@receiver(pre_save, sender=Account)
+#def AccountPreSave(sender, instance, **kwargs):
+#    account_history = UserPhysicalHistory.objects\
+#        .filter(user=sender).order_by('-version')
+#    if not account_history or self.weight != account_history[0].weight\
+#            or self.height != account_history[0].height\
+#            or self.body_fat_percent != account_history[0].body_fat_percent\
+#            or self.neck != account_history[0].neck\
+#            or self.shoulder != account_history[0].shoulder\
+#            or self.bicep != account_history[0].bicep\
+#            or self.forearm != account_history[0].forearm\
+#            or self.chest != account_history[0].chest\
+#            or self.waist != account_history[0].waist\
+#            or self.hip != account_history[0].hip\
+#            or self.thigh != account_history[0].thigh\
+#            or self.calf != account_history[0].calf:
+#        newhistory = UserPhysicalHistory.objects.create(user=self,
+#                                         weight=self.weight,
+#                                         height=self.height,
+#                                         body_fat_percent=self.body_fat_percent,
+#                                         neck=self.neck,
+#                                         shoulder=self.shoulder,
+#                                         bicep=self.bicep,
+#                                         forearm=self.forearm,
+#                                         chest=self.chest,
+#                                         waist=self.waist,
+#                                         hip=self.hip,
+#                                         thigh=self.thigh,
+#                                         calf=self.calf
+#                                         )
+#        newhistory.save()

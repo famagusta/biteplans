@@ -4,7 +4,7 @@ a {
 }
 
 .result-card {
-    height: 351px !important;
+    height: 402px !important;
 }
 
 .ingredient-title {
@@ -29,6 +29,15 @@ a {
 
 .ingredient-title::first-letter {
     text-transform: uppercase;
+}
+
+.dropcol {
+    width: 3.44% !important;
+}
+
+.ing-modal-dropdown {
+    margin-right: -36px !important;
+    margin-top: -5px !important;
 }
 
 .nutri {
@@ -66,4 +75,11 @@ a {
 
 hr {
     margin-top: -10px;
+}
+
+#modal6 {
+    max-height: 87% !important;
+    width: 85% !important;
+    max-height: 87% !important;
+    width: 85% !important;
 }

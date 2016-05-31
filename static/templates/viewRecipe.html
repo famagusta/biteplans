@@ -7,17 +7,20 @@
                 <div class="card-content black-text">
                     
                     <!--FIX THIS-->
-                    <a ng-href="recipes/edit-recipe/{{recipe.id}}">
+                    <a ng-if="isOwner()" class="cyan-text" ng-href="recipes/edit-recipe/{{recipe.id}}">
                     <i class="material-icons">mode_edit</i>
+
                         Edit Recipe
                     </a>
                     
+                    <br><br>
+                    
                     <div class="row">
-                        <div class="col s6">
+                        <div class="col s12 m6">
                             <div class="row">
-                                <div class="col s6">
+                                <div class="col s6 ">
                                     <p class="ing-text" style="text-transform:uppercase">
-                                        Name of Recipe:</p>
+                                        Name of Recipe &nbsp;&nbsp; :</p>
                                 </div>
 
                                 <div class="col s6">
@@ -27,7 +30,7 @@
                             
                             <div class="row">
                                 <div class="col s6">
-                                    <p class="ing-text" style="text-transform:uppercase">Servings</p>
+                                    <p class="ing-text" style="text-transform:uppercase">Servings &nbsp;&nbsp; :</p>
                                 </div>
 
                                 <div class="col s6">
@@ -39,7 +42,7 @@
                             <div class="row">
                                 <div class="col s6">
                                     <p class="ing-text" style=
-                                        "text-transform:uppercase">Prep Time</p>
+                                        "text-transform:uppercase">Prep Time &nbsp;&nbsp; :</p>
                                 </div>
                                 
                                 <div class="col s6">
@@ -51,7 +54,7 @@
                             <div class="row">
                                 <div class="col s6">
                                     <p class="ing-text" style=
-                                        "text-transform:uppercase">Cook Time</p>
+                                        "text-transform:uppercase">Cook Time &nbsp;&nbsp; :</p>
                                 </div>
                                 
                                 <div class="col s6">
@@ -59,11 +62,41 @@
                                     {{recipe.cook_time}}</p>
                                 </div>
                             </div>
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <p class="ing-text" style=
+                                        "text-transform:uppercase">Source &nbsp;&nbsp; :</p>
+                                </div>
+                                
+                                <div class="col s6">
+                                    <p class="meal-text">
+                                    {{recipe.source}}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <p class="ing-text" style=
+                                        "text-transform:uppercase">URL &nbsp;&nbsp; :</p>
+                                </div>
+                                
+                                <div class="col s6">
+                                    <p class="meal-text">
+                                    {{recipe.url}}</p>
+                                </div>
+                            </div>
                         </div>
                         
                             <div class="col s6">
-                                <img class="recipe_img center"
-                                    ng-src="{{recipe.image}}">
+                                <div ng-if="recipe.image">
+                                    <img class="recipe_img center"
+                                        ng-src="{{recipe.image}}">
+                                </div>
+                                <div ng-if="!recipe.image">
+                                    <img class="recipe_img center"
+                                         ng-src="static/images/default_recipe.png">
+                                </div>
                             </div>
                         
                     </div>
@@ -88,22 +121,24 @@
                         <div class="row">
                             <div ng-if="ingredient.length!=0">
                                 <div class="row">
-                                    <div class="col s4">
+                                    <div class="col s3">
                                         <p class="ing-text" style=
                                         "text-transform:uppercase">Ingredients</p>
                                     </div>
 
 
-                                    <div class="col s1">
-                                        <p class="meal-text">Amt</p>
+                                    <div class="col s1 m1" ng-if=
+                                "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
+                                        <p class="ing-text">Amt</p>
                                     </div>
 
 
-                                    <div class="col s1">
-                                        <p class="meal-text">Desc</p>
+                                    <div class="col s1 m1" ng-if=
+                                "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
+                                        <p class="ing-text center">Desc</p>
                                     </div>
 
-                                    <div class="col s6">
+                                    <div class="col s12 m6 push-m1">
                                         <h5 class="center recipe-subheading">
                                             Nutritional Information
                                         </h5>
@@ -112,29 +147,32 @@
                             </div>
 
                             <div class="row">
-                            <div class="col s6">
+                                <div class="col s6" ng-if="recipe.recipeIngredients.length===0">
+                                    <p>&nbsp;</p>
+                                </div>
+                            <div class="col s12 m6" ng-if="recipe.recipeIngredients.length!==0">
                                 <div class="row" ng-repeat=
                                     "ingredient in recipe.recipeIngredients">
-                                    <div class="col s4">
+                                    <div class="col s6 m4">
                                         <p class="meal-text">
                                         {{ingredient.ingredient.name}}</p>
                                     </div>
 
-                                    <div class="col m1">
-                                        <p class="meal-text">{{ingredient.quantity
+                                    <div class="col s1 m1 push-m2">
+                                        <p class="meal-text center">{{ingredient.quantity
                                         | number}}</p>
                                     </div>
 
-                                    <div class="col m1">
-                                        <p class="meal-text">
+                                    <div class="col s1 m2 push-m3">
+                                        <p class="meal-text center">
                                         {{ingredient.measure.description}}</p>
                                     </div>
 
                                 </div>
                             </div>
                             
-                            <div class="col s6">
-                                    <div class="col s6">
+                            <div class="col s12 m6">
+                                    <div class="col s12 m6">
                                         <table class="bordered responsive-table">
                                             <tbody>
                                               <tr>
@@ -191,7 +229,7 @@
                                     </table>
                                 </div>
                             
-                                <div class="col s6">
+                                <div class="col s12 m6">
                                     <table class="bordered responsive-table">
                                         <tbody>
                                             <td>Cholesterol</td>

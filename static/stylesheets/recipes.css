@@ -74,6 +74,7 @@ p.recipe-card-info {
     bottom: 0px;
     left: 30px
 }
+
 .nutinfo_dropdown {
     font-size: 30px;
     position: relative;
@@ -81,8 +82,8 @@ p.recipe-card-info {
 }
 
 .recipe_img {
-    height: 40%;
-    width: 40%;
+    height: 75%;
+    width: 75%;
 }
 
 @media only screen and (max-width : 768px) {

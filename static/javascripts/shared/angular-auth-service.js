@@ -254,6 +254,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                     )
                     .then(function(response) {
                         userOb.set_user(response);
+                        return UserOb;
                     });
             }
         };
@@ -307,6 +308,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             },
             logout: function() {
                 logout();
+//                location.reload(); 
                 return 'User has been logged out';
 
             },
@@ -318,7 +320,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
             getAuthdUser: getCurrentUserDetails,
 
-            forgotPassword: resetPassword,
+            forgotPassword: resetPassword
         };
     
 }]);

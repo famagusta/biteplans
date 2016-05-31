@@ -1,203 +1,272 @@
 <div class="full-length" id="result-list">
-    <div ng-if="details.results!=null && details.results!=undefined && details.results.length!=0">
+    <div ng-if=
+    "details.results!=null && details.results!=undefined && details.results.length!=0">
         <div class="row">
-            <div class="col s12 m6" ng-repeat="detail in details.results track by $index">
-                <div class="card white big result-card" id=
-                "ingredient-result-card">
-                    <div class="card-content grey-text" ng-click="openIngredientsModal($index)">
+            <div class="col s12 m6" ng-repeat=
+            "detail in details.results track by $index">
+                <div class="card white big result-card">
+                    <div class="card-content grey-text ing-card-content" ng-click=
+                    "openIngredientsModal(detail)">
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
-                                {{detail.name| addSpace | limitTo:20}}....</h5>
+                                {{detail.name| addSpace | limitTo:23}}....</h5>
                             </div>
                         </div>
 
-
-                        <div >
+                        <div>
+                            <div class="row center">
+                                <span> Nutritional Information (per 100g)</span>
+                            </div>
+                            
                             <div class="row">
-                                <div class="col s6 m6">
-                                    <h6 class="nutri">Protien</h6>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Calories</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.energy_kcal | number:0}} kcal</p>
+                                        </div>
+                                    </div>
                                 </div>
-
-
-                                <div class="col s6 m6">
-                                    <p>{{detail.protein_tot}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col s6 m6">
-                                    <h6 class="nutri">Carbohydrates</h6>
-                                </div>
-
-
-                                <div class="col s6 m6">
-                                    <p>{{detail.carbohydrate_tot}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col s6 m6">
-                                    <h6 class="nutri">Fats</h6>
-                                </div>
-
-
-                                <div class="col s6 m6">
-                                    <p>{{detail.fat_tot}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col s6 m6">
-                                    <h6 class="nutri">Calories</h6>
-                                </div>
-
-
-                                <div class="col s6 m6">
-                                    <p>{{detail.energy_kcal}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="card-action">
-                          <a class="cyan-text right"  
-                             ng-click=
-                             "searchService.shortlistIngredients(detail.id)">
-                            Shortlist</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- MODAL DESCRIPTION FOR EVERY INGREDIENT CARD -->
-
-
-        <div class="modal" id="modal6">
-            <a class=
-            " modal-action modal-close waves-effect waves-green btn-flat right"
-
-        >X</a>
-
-            <div class="modal-content">
-                <h4 class="cyan-text ingredient-title">
-                {{details.results[selected].name}}</h4>
-                <br>
-
-
-                <div class="row">
-                    <div class="col s12 m12">
-                        <div class="row">
-                            <div class="col s12 m4 push-m4">
-                                <select ng-if="selected!==undefined && details.results[selected].measure.length>0" material-select ng-options="measure as measure.description for measure in details.results[selected].measure" ng-model="openModal.measure" class="center"></select>
-                            </div>
-                        </div>
                                 
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col s12 m12">
-                        <h6 class="nutri">Nutritional Information (&nbsp;{{openModal.measure.description}} {{openModal.measure.weight | number}} gm&nbsp;)</h6>
-                    </div>
-                </div>
-
-
-                <div class="row" ng-if="selected!==undefined && openModal.measure!==undefined">
-                    <div class="col s12 m6">
-                        <p class="grey-text">Macronutrients</p>
-
-
-                        <div class="row">
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Carbohydrates</p>
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Fats</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.fat_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
+                                
+                                </div>
                             </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('carbohydrate_tot') | number}}</p>
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6 m6">
+                                            <h6 class="nutri">Carbs</h6>
+                                        </div>
+                                        
+                                        <div class="col s6 m6">
+                                            <p>{{detail.carbohydrate_tot | number:0}} kcal</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Sugar</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.sugar_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
+                                
+                                </div>
                             </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Proteins</p>
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Proteins</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.protein_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col s6">
+                                    <div class="row">
+                                        <div class="col s6">
+                                            <h6 class="nutri">Fiber</h6>
+                                        </div>
+                                        
+                                        <div class="col s6">
+                                            <p>{{detail.fiber_tot | number:0}} g</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('protein_tot') | number}}</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Fats</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('fat_tot') | number}}</p>
-                            </div>
+ 
                         </div>
                     </div>
 
 
-                    <div class="col s12 m6">
-                        <p class="grey-text">Micronutrients</p>
-
-
-                        <div class="row">
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Fiber</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('fat_tot') | number}}</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Water</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('water') | number}}</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">sugar</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('sugar_tot') | number}}</p>
-                            </div>
-                        </div>
+                    <div class="card-action ing-card-action">
+                        <btn class="ingredient-heart-c" ng-if=
+                           "!checkMyIngredients(detail.id)"
+                           ng-click="shortlistIngredient(detail.id)">
+                            <i class="material-icons plan-heart-c">favorite</i>
+                        </btn>
+                        <btn class="ingredient-heart-ok" ng-if=
+                           "checkMyIngredients(detail.id)"
+                           ng-click="shortlistIngredient(detail.id)">
+                            <i class="material-icons plan-heart-ok">favorite</i>
+                        </btn>
                     </div>
                 </div>
-
-
-                <div class="center-btn">
-                    <button class=
-                    "waves-effect waves-light btn largebtn center" ng-click="searchService.shortlistRecipes(details.results[selected].id)">Add to My
-                    Ingredients</button>
-                </div>
+                <br>
             </div>
         </div>
     </div>
+</div>
+<!-- MODAL DESCRIPTION FOR EVERY INGREDIENT CARD -->
 
 
-    <div class="modal-footer">
+<div class="modal" id="modal6">
+    <a class=
+    " modal-action modal-close waves-effect waves-green btn-flat right"
+       >X</a>
+
+    <div class="modal-content">
+        <h4 class="cyan-text ingredient-title">
+        {{details.results[selected].name}}</h4>
+    <br>
+        <div class="row">
+            <div class="col s12 push-s2 m4">
+                <h6 class="nutri">Nutritional Information </h6>
+            </div>
+            <div class="col s8 m2">
+                ( Serving Size:&nbsp;&nbsp;&nbsp;1
+            </div>
+            <div class="col s2 m2" ng-if=
+                    "selected!==undefined && ingredientSelected.measure.length&gt;0">
+                <select class="ing-modal-drop" id="modal-dropdown" material-select="" 
+                    ng-model="ingredientSelected.selectedMeasure" ng-options=
+                    "measure as measure.description for measure in ingredientSelected.measure track by measure.id">
+                </select>
+            </div>
+            <div class="col s5 m2">
+                &nbsp;
+                {{openModal.measure.weight | number}} gm&nbsp;)
+            </div>
+        </div>
+
+        <div class="row" ng-if=
+        "selected!==undefined && ingredientSelected.measure!==undefined">
+            <div class="col s12 m6">
+                <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Calories</td>
+                        <td>{{calculateIngredientInfo('energy_kcal') |
+                            number:0 }} kcal</td>
+                      </tr>
+                        <tr>
+                        <td>Carbohydrates</td>
+                        <td>{{calculateIngredientInfo('carbohydrate_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Proteins</td>
+                        <td>{{calculateIngredientInfo('protein_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Fats</td>
+                        <td>{{calculateIngredientInfo('fat_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Monounsaturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_mono_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Polyunsaturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_poly_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Saturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_sat_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Sugar</td>
+                        <td>{{calculateIngredientInfo('sugar_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                      </tr>
+                        <tr>
+                        <td>Fiber</td>
+                        <td>{{calculateIngredientInfo('fiber_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col s12 m6">
+                    <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Cholesterol</td>
+                        <td>{{calculateIngredientInfo('cholestrl_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Sodium</td>
+                        <td>{{calculateIngredientInfo('sodium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Calcium</td>
+                        <td>{{calculateIngredientInfo('calcium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Iron</td>
+                        <td>{{calculateIngredientInfo('iron_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin A</td>
+                        <td>{{calculateIngredientInfo('vitamin_a_iu',
+                                        true) | number:0}} IU</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin B12</td>
+                        <td>{{calculateIngredientInfo('vitamin_b12_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin C</td>
+                        <td>{{calculateIngredientInfo('vitamin_c_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin D</td>
+                        <td>{{calculateIngredientInfo('vitamin_d_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin E</td>
+                        <td>{{calculateIngredientInfo('vitamin_e_mg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            </div>
+
+        <div class="center-btn">
+            <button class="waves-effect waves-light btn largebtn center"
+            ng-click=
+            "searchService.shortlistRecipes(details.results[selected].id)">Add
+            to My Ingredients</button>
+        </div>
     </div>
 </div>
 <br>
@@ -205,7 +274,7 @@
 
 
 <div ng-if="details==null || details==undefined">
-    <p>Please enter ingredient</p>
+    <!--    <p>Please enter ingredient</p>-->
 </div>
 <!-- When the user has entered incorrect entry in search -->
 

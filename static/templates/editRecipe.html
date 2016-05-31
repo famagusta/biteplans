@@ -56,25 +56,26 @@
 
 
                             <div class="row">
+                                <div class="col s7">
+                                     <div class="row">
                                 <div class="col s4">
                                     <h5 class="recipe-subheading">
                                     Ingredients</h5>
                                 </div>
 
 
-                                <div class="col s12 m1 push-m1" ng-if=
+                                <div class="col s12 m1 push-m2" ng-if=
                                 "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
                                 <p class="meal-text center">Amt</p>
                                 </div>
 
 
-                                <div class="col s1 push-s1" ng-if=
+                                <div class="col s12 m1 push-m3" ng-if=
                                 "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
                                 <p class="meal-text center">Unit</p>
                                 </div>
                             </div>
-
-
+                            
                             <div class="row" ng-repeat=
                             "ing in ingredientDisplay track by $index">
                             <div class="col s4">
@@ -84,7 +85,7 @@
 
 
 
-                                <div class="col s1 push-s1">
+                                <div class="col s1 push-s2">
                                     <br>
                                     <input id="serving" min="0" ng-model=
                                     "ing.quantity" step=
@@ -92,7 +93,7 @@
                                 </div>
 
 
-                                <div class="col s1 push-s1">
+                                <div class="col s1 push-s2 center">
                                     <select material-select="" ng-model=
                                     "ingredientDisplay[$index].selected_measure"
                                     ng-options=
@@ -102,13 +103,12 @@
                                 </div>
 
 
-                                <div class="select-delete-mat col s1 push-s1">
+                                <div class="select-delete-mat col s12 m1 push-m3">
                                     <a ng-click="deleteSelectedIngredient($index)"><i class=
                                     "material-icons">delete</i></a>
                                 </div>
-                            </div>
-
-
+                            </div>   
+                                
                             <div class="row">
                                 <div class="col s12">
                                     <a class="cyan-text add-ing" href="#"
@@ -116,6 +116,127 @@
                                     Ingredients</a>
                                 </div>
                             </div>
+                                </div>
+                                
+                                <div class="col s5">
+                                    <div class="row">
+                                                    <div class="col s6">
+                                        <table class="bordered responsive-table">
+                                            <tbody>
+                                              <tr>
+                                                <td>Energy</td>
+                                                <td>{{calculateNutritionTotal('energy_kcal') |
+                                        number:0}} kcal</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Carbohydrates</td>
+                                                <td>
+                                                {{calculateNutritionTotal('carbohydrate_tot') |number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Proteins</td>
+                                                <td>{{calculateNutritionTotal('protein_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Fats</td>
+                                                <td>{{calculateNutritionTotal('fat_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Monounsaturated Fat</td>
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_mono_g') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Polyunsaturated Fat</td>
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_poly_g') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Saturated Fat</td>
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_sat_g') |
+                                        number:0}} g</td>
+                                              </tr>
+                                                <tr>
+                                                <td>Sugar</td>
+                                                <td>{{calculateNutritionTotal('sugar_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                              </tr>
+                                                <tr>
+                                                <td>Fiber</td>
+                                                <td>{{calculateNutritionTotal('fiber_tot') |
+                                        number:0}} g</td>
+                                              </tr>
+                                              <tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            
+                                <div class="col s6">
+                                    <table class="bordered responsive-table">
+                                        <tbody>
+                                            <td>Cholesterol</td>
+                                            <td>{{calculateAddtnlNutritionTotal('cholestrl_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Sodium</td>
+                                            <td>{{calculateAddtnlNutritionTotal('sodium_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Calcium</td>
+                                            <td>{{calculateAddtnlNutritionTotal('calcium_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Iron</td>
+                                            <td>{{calculateAddtnlNutritionTotal('iron_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin A</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_a_iu') |
+                                    number:0}} IU</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin B12</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_b12_mcg') |
+                                    number:0}} mcg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin C</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_c_mg') |
+                                    number:0}} mg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin D</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_d_mcg') |
+                                    number:0}} mcg</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Vitamin E</td>
+                                            <td>{{calculateAddtnlNutritionTotal('vitamin_e_mg') |
+                                    number:0}} mcg</td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                </div>
+                                    </div>
+                                </div>
+                        
+                            </div>
+                       
+
+
+                 
+
+
                             <!-- STEPS TO CREATE RECIPES -->
 
 

@@ -39,14 +39,18 @@
 
 
                 <li>
-                    <button class="login-btn" href="#modal1" ng-show="!isLoggedIn" ng-click=
-                "openModal()" >LOGIN</button>
-                <button ng-show="isLoggedIn" class='circle dropdown-button btn-thumb'
-                data-activates='dropdown1' data-beloworigin="true"
-                >
+                    <button class="login-btn" href="#modal1" ng-show="!isLoggedIn" 
+                            ng-click="openModal()" >
+                        LOGIN
+                    </button>
+                    <button ng-show="isLoggedIn" 
+                            class='circle dropdown-button btn-thumb'
+                            data-activates='dropdown1' data-beloworigin="true">
+                
                         <img class="responsive-img small circle"
                             id="small_logo" ng-src="{{user_thum}}">
-                    </button></li>
+                    </button>
+                </li>
             </ul>
 
 
@@ -113,15 +117,15 @@
 
 
                 <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn" ng-click=
-                    "closeModal();Auth('facebook')">Log In with FACEBOOK</a><br>
+                    <a class="waves-effect waves-light btn largebtn fbicon" ng-click=
+                    "closeModal();Auth('facebook')" ><i class="fa fa-facebook fblogo"></i>Log In with FACEBOOK</a><br>
                 </div>
                 <br>
 
 
                 <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn" id=
-                    "googlebtn" ng-click="closeModal();Auth('google')">Log In with
+                    <a class="waves-effect waves-light btn largebtn googleicon" id=
+                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Log In with
                     GOOGLE</a>
                 </div>
 

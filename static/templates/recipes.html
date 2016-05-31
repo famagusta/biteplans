@@ -12,7 +12,7 @@
                             <div><b class="pull-left">Sortby</b> <i class="fa fa-reorder pull right"></i></div>
                             <br>
                             <br>
-                            <p ng-repeat="filter in recipeDetails.sortlist track by $index"><input id=
+                            <p ng-repeat="filter in recipeDetails.sortlist track by $index"><input class="with-gap" id=
                             "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search_recipe(1, sortby)"><label
                             for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
                         </div>
@@ -54,9 +54,14 @@
 
                 <div class="row">
                     <div class="col s12">
-                        <div class="center-btn">
+                        <div class="center-btn" ng-if="isAuth" >
                             <a class="waves-effect waves-light btn largebtn"
                             href="/recipes/create-recipes">CREATE A RECIPE</a>
+                        </div>
+                        <div class="center-btn" ng-if="!isAuth" >
+                            <a class="waves-effect waves-light btn largebtn disabled"
+                            href="/createRecipes">CREATE A RECIPE</a>
+
                         </div>
                     </div>
                 </div>

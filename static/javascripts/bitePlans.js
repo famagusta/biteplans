@@ -27,16 +27,34 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         httpMethodInterceptorProvider.whitelistDomain('facebook.com');
         
         /* intercept http requests to show spinners */
+        var urlsToBlacklist = ['/dashboard/event-ingredients/',
+                               '/dashboard/event-recipes/',
+                               '/dietplans/meal-ingredient/',
+                               '/dietplans/meal-recipe/']
         $httpProvider.interceptors.push(function($q) {
             return {
-             'request': function(config) {
-                 $('#processing').show();
+             request: function(config) {
+                 if(config.method !== 'PATCH'){
+                    $('#processing').show();
+                 }
                  return config;
               },
+            
+              requestError: function(config){
+                  // just hiding bad request errors by closing spinner
+                  $('#processing').hide();
+                  return response;
+              },
 
-              'response': function(response) {
+              response: function(response) {
                  $('#processing').hide();
                  return response;
+              },
+                
+              responseError: function(response){
+                  //just hiding bad response errors by closing spinner
+                  $('#processing').hide();
+                  return response;
               }
             };
           });
@@ -44,6 +62,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         
         $controllerProvider.allowGlobals();
         $httpProvider.interceptors.push('authInterceptor');
+        
         $routeProvider.when('/', {
                 controller: 'navbarController',
                 templateUrl: '/static/templates/landingPage.html'
@@ -96,14 +115,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                 controller: 'editRecipeController',
                 templateUrl: 'static/templates/editRecipe.html'
             })
-//            .when('/dashboard/2', {
-//                controller: 'profileController',
-//                templateUrl: 'static/templates/dashboard.html'
-//            })
-//            .when('/dashboard/calendar', {
-//                controller: 'calendarCtrl',
-//                templateUrl: 'static/templates/calendar.html'
-//            })
             .otherwise('/');
         $authProvider.facebook({
             url: constantData['constants']['API_SERVER'] +

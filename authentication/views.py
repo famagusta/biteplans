@@ -67,10 +67,10 @@ class AccountViewSet(viewsets.ModelViewSet):
             email = serializer.data['email']
             activation_key = hashlib.sha1(salt+email).hexdigest()
             key_expires = datetime.datetime.today() + datetime.timedelta(200)
-            sub = "Account confirm"
+            sub = "Biteplans Account Confirmation"
 
             # unable to break the below line due to server error
-            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://bitespacetest.com:8000/confirm/%s' % (request.data['username'], activation_key)
+            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://biteplans.com/confirm/%s' % (request.data['username'], activation_key)
             tr = send_mail(sub, message, master, [email], fail_silently=False)
             if tr:
                 account = Account.objects.create_user(
