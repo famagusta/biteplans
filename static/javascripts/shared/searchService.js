@@ -31,7 +31,7 @@ app.factory('searchService',
             }
 
             if(sortby!==undefined && sortby!==null){
-                obj['sortby']=sortby
+                obj.sortby=sortby;
             }
 
             httpService.httpPost(url, obj).then(

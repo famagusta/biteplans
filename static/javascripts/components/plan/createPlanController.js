@@ -29,9 +29,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 $scope.amPmArray = ['AM', 'PM'];
                 
                 /* urls for previous and next buttons */
-                $scope.backUrl3 = '/plan2/' + $routeParams.id;
-                $scope.backUrl2 = '/plan/' + $routeParams.id;
-                $scope.nextUrl2 = '/plan3/' + $routeParams.id;
+                $scope.backUrl3 = '/dietplans/create/complete/' + $routeParams.id;
+                $scope.backUrl2 = '/dietplans/create/overview/' + $routeParams.id;
+                $scope.nextUrl2 = '/dietplans/view-diet-plan/' + $routeParams.id;
                 
                 $scope.dayWeekNos = 0;
                 $scope.currentDayWeekNos = 1;
@@ -53,7 +53,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     planService.updatePlan($scope.plan, id)
                         .then(function(response)
                         {
-                            $location.path('/plan2/' +
+                            $location.path('/dietplans/create/complete/' +
                                 response.id);
                         }, function(error)
                         {
