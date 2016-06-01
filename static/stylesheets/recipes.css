@@ -46,6 +46,15 @@ p.recipe-card-info {
     right: 14px
 }
 
+.save-more {
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: right;
+    bottom: 7px;
+    right: 9em;
+}
+
 .heart-c {
     cursor: pointer;
     font-size: 19px;

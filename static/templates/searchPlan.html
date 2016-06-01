@@ -109,7 +109,7 @@
                                 </div>
 
 
-                                <div class="col s3 m3 pull-m1 pull-s1">
+                                <div class="col s3 m3 pull-m1 pull-s1 rating_val">
                                     <span ng-bind="stars | number:1"></span>/
                                     5.0
                                 </div>
@@ -117,7 +117,7 @@
 
 
                             <div class="row">
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center plan_graph_prot">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#6639B6" current=
@@ -141,7 +141,7 @@
                                 </div>
 
 
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center plan_graph_carbs">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FE6433" current=
@@ -165,7 +165,7 @@
                                 </div>
 
 
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center plan_graph_fat">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FDC106" current=
@@ -187,6 +187,7 @@
                         </div>
 
 
+<!--
                         <div class="card-action search-plancard-action">
                             <btn class="plan-heart-c" ng-if=
                                "!checkMyPlans(plan.id)"
@@ -199,9 +200,44 @@
                                 <i class="material-icons plan-heart-ok">favorite</i>
                             </btn>
                             
+                            <a class="cyan-text save_opn">SAVE</a>
+                            
                             <a class="datepicker_btn btn-flat cyan-text right follow-btn" 
                                href="#" ng-click="followPlan(plan.id)">FOLLOW</a>
                         </div>
+-->
+                        
+              <div class="card-action search-plancard-action">
+<!--
+                          <a class="" ng-if=
+                               "!checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)">
+                                <i class="material-icons">favorite</i>
+                            </a>
+                            <a class="" ng-if=
+                               "checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)">
+                                <i class="material-iconsk">favorite</i>
+                  </a>
+                                
+-->
+                  <a ng-if=
+                               "!checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)"><i class="material-icons plan-heart-c">favorite</i></a>
+                    <a 
+                               ng-if="checkMyPlans(plan.id)"
+                               ng-click="shortlistPlan(plan.id)"><i class="material-icons plan-heart-ok">favorite</i></a>
+                                  <a class="save-more1 cyan-text">
+                                         SAVE
+                                    </a>
+                                <a class="read-more right cyan-text datepicker_btn" 
+                               href="#" ng-click="followPlan(plan.id)"> 
+                                        FOLLOW
+                                    </a>
+                               
+                          </div>
+                        
+                  
                     </div>
                 </div>
             </div>

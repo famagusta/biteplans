@@ -73,6 +73,7 @@
                                 </div>
                             </div>
                             
+<!--
                             <div class="row raise">
                                 <div class="col s6">
                                     <a class="heart-c right" ng-if=
@@ -87,13 +88,33 @@
                                 <div class="col s6">
                                      <a class="read-more right cyan-text" 
                                         ng-href="recipes/view-recipe/{{recipe.id}}">
-                                         READ MORE
+                                         VIEW
                                     </a>
                                     
                                 </div>
                             </div>
+-->
                             
                         </div>
+                          
+                          <div class="card-action">
+                                  <a class="heart-c right" ng-if=
+                                       "!checkMyRecipes(recipe.id)"
+                                       ng-click="shortlistRecipe(recipe.id)">
+                                        <i class="material-icons">favorite</i></a>
+                                    <a class="heart-ok right" ng-if=
+                                       "checkMyRecipes(recipe.id)"
+                                       ng-click="shortlistRecipe(recipe.id)">
+                                        <i class="material-icons">favorite</i></a>
+                                  <a class="save-more cyan-text">
+                                         SAVE
+                                    </a>
+                                <a class="read-more right cyan-text" 
+                                        ng-href="recipes/view-recipe/{{recipe.id}}">
+                                         VIEW
+                                    </a>
+                               
+                          </div>
                 
                       </div>
 

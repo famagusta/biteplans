@@ -337,8 +337,9 @@ input[type=time] {
 }
 
 .meal-text {
-    color: #9e9e9e !important;
+    color: #727272 !important;
     text-transform: lowercase;
+    opacity: 54% !important;
 }
 
 .meal-text::first-letter {
@@ -346,7 +347,8 @@ input[type=time] {
 }
 
 .meal-text-upper{
-    color: #9e9e9e !important;
+    color: #727272 !important;
+    opacity: 54% !important;
 }
 .tab_head {
     position: relative;
@@ -362,7 +364,7 @@ input[type=time] {
 
 .btn-floating i {
     font-size: 18px;
-    line-height: 24px !important;
+    line-height: 23px !important;
     background-color: #00bcd4 !important;
 }
 
@@ -392,7 +394,7 @@ input[type=time] {
 }
 
 .ing-text {
-    color: #4f4f4f !important;
+    color: #212121 !important;
     text-transform: lowercase;
     font-weight: 600;
 }
@@ -402,7 +404,7 @@ input[type=time] {
 }
 
 .ing-text-upper {
-    color: #4f4f4f !important;
+    color: #212121 !important;
     font-weight: 600;
 }
 
@@ -583,7 +585,7 @@ select {
 .graph-text {
     position: relative !important;
     bottom: 73px !important;
-    left: 3px;
+    left: 0 !important;
     color: #949494 !important;
     font-weight: 600;
     font-size: 14px;
@@ -596,7 +598,7 @@ select {
     color: #606060 !important;
     font-family: 'Roboto';
     font-weight: bold;
-    left: 8px;
+    left: 4px !important;
     font-size: 14px;
 }
 
