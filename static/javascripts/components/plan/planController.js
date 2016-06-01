@@ -194,16 +194,19 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
            and user selected date. did this using jquery 
            since we wanted a button to trigger the series
            of events */
-        $scope.followPlan = function(planId)
+        $scope.followPlan = function(plan)
         {
+            /* something strange happens inside datepicker with local variables */
+            $scope.selected_plan = plan;
+            $scope.followPlanObject = {};
+            
             if(constants.userOb.status){
-            var $input = $('.datepicker_btn').pickadate(
-                {
+                var $input = $('.datepicker_btn')
+                .pickadate({
                     format: 'yyyy-mm-dd',
                     formatSubmit: false,
                     closeOnSelect: true,
-                    onSet: function(context)
-                    {
+                    onSet: function(context){
                         //make api call to follow the plan on setting of date
                         /* convert to ISO 8601 date time string for serializer
                           acceptance*/
@@ -216,12 +219,12 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                                 'YYYY-MM-DD');
                             //close the date picker
                             this.close();
-                            var followPlanObject = {
-                                dietplan: planId,
+                            $scope.followPlanObject = {
+                                dietplan: $scope.selected_plan.id,
                                 start_date: $scope.followDate
                             }
                             planService.followDietPlan(
-                                followPlanObject).then(
+                                $scope.followPlanObject).then(
                                 function(response)
                                 {
                                     console.log(

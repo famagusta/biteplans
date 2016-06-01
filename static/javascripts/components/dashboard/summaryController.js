@@ -162,8 +162,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 });
             });
 
-            console.log(newVal);
-            console.log(oldVal);
             var diffDecrease = oldVal.filter(function(obj) {
                 return !newVal.some(function(obj2) {
                     return obj === obj2;
@@ -219,7 +217,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         
         $scope.updatePlanDataIngredients = function(id, obj){
             var ingred2Update = []
-            console.log('updating ingredients in plan Data');
             for(var i=0; i< $scope.plan_data.length; i++){
                 ingred2Update = $scope.plan_data[i].followingMealPlanIngredient
                 .filter(function(el){
@@ -240,7 +237,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         
         $scope.updatePlanDataRecipes = function(id, obj){
             var ingred2Update = []
-            console.log('updating recipe in plan data')
             for(var i=0; i< $scope.plan_data.length; i++){
                 recipe2Update = $scope.plan_data[i].followingMealPlanRecipe
                 .filter(function(el){
@@ -290,7 +286,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             }
             
             summaryService.updateEventRecipe(objToUpdate, id).then(function(response){
-                console.log(response);   
             }, function(error){
                 console.log(error);
             });
@@ -397,7 +392,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             key2, 1);
 
                     }, function(response) {
-                        console.log(response);
                     });
             };
 
@@ -566,9 +560,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 
                 }
 
-            console.log($scope.plan_data, "Plan data");
-            console.log()
-
 
             //post ingredients to db via url endpoint
             $scope.fillMealPlan(currlength, currrecipelength, $scope.currentMealPlanName);
@@ -696,7 +687,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 $scope.plan_data.push(key);
 
             }, function(response){
-                console.log(response.data);
             })
 
 
@@ -805,7 +795,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var a = $scope.calcCheckedNutrientVal(nutrient);
             var b = $scope.calcDayNutrientVal(nutrient);
             var result = 100* (a/b);
-            //console.log(result + "%");
             return result;
         }
 

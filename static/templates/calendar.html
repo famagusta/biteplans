@@ -1,17 +1,44 @@
 <!-- DEFINES THE CALENDAR VIEW ON THE DASHBOARD. A SIMILAR VIEW SHOULD BE USED 
 FOR SUMMARY PAGE WITH THE VIEW FIXED TO A DAY VIEW -->
-
-<md-content id="calendar-demo" ng-controller="calendarCtrl" layout="column" layout-fill>
-    <calendar-md flex layout layout-fill
-        calendar-direction="direction"
-        on-prev-month="prevMonth"
-        on-next-month="nextMonth"
-        on-day-click="dayClick"
-        title-format="'MMMM y'"
-        ng-model='selectedDate'
-        day-format="dayFormat"
-        day-label-format="'EEE'"
-        week-starts-on="firstDayofWeek"
-        day-content="setDayContent">
-     </calendar-md>
-</md-content>
+<div ng-controller="calendarCtrl">
+    <div class="col s12" >
+        <div class="card top_mar" >
+            <md-content id="calendar-demo"  layout="column" layout-fill>
+                <calendar-md flex layout layout-fill
+                    calendar-direction="direction"
+                    on-prev-month="prevMonth"
+                    on-next-month="nextMonth"
+                    on-day-click="dayClick"
+                    title-format="'MMMM y'"
+                    ng-model='selectedDate'
+                    day-format="dayFormat"
+                    day-label-format="'EEE'"
+                    week-starts-on="firstDayofWeek"
+                    day-content="setDayContent">
+                 </calendar-md>
+            </md-content>
+        </div>
+    </div>
+    <div class="col s12">
+        <div class="card" >
+<!--            <div ng-include="'static/templates/followPlans.html'"></div>-->
+            <div class="row center">
+                    <span >Currently Following Plans</span>
+            </div>
+            <div class="row center">
+                    <div ng-repeat="(index1, plan) in currentUserPlans">
+                        <div class="col s3">{{plan.dietplan.name}}</div>
+                        <div class="col s3">{{plan.start_date}}</div>
+                        <div class="col s3">{{plan.end_date}}</div>
+                        <div class="col s3">
+                            <a class="cyan-text btn-flat" 
+                               ng-click="unfollow(plan.id)">
+                                <i class="material-icons">delete</i>
+                                Remove 
+                            </a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

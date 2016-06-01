@@ -34,7 +34,7 @@ class FollowDietViewSet(viewsets.ModelViewSet):
         month = self.request.GET.get('month', False)
         if month:
             '''return entire months plans '''
-            temparr = date.split('-')
+            temparr = month.split('-')
             month = int(temparr[1])
             year = int(temparr[0])
             return UserPlanHistory.objects.filter(start_date__month=month,

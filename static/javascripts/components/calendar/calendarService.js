@@ -18,11 +18,25 @@ app.factory('calendarService', ['httpService', 'AuthService', '$location',
                 });
             return deferred.promise;
         };
-
+        
+        var unfollowPlan = function(id) {
+            var url = '/dashboard/follow/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpDelete(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
 
         return {
             getUserMonthEvents: function(dateString) {
                 return getUserMonthEvents(dateString);
+            },
+            unfollowPlan: function(id){
+                return unfollowPlan(id);
             }
         };
 
