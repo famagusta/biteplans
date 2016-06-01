@@ -236,6 +236,7 @@ class RecipeIngredients(models.Model):
         unique_together = ('recipe', 'ingredient')
 
 
+
 @receiver(pre_save, sender=Recipe)
 def skip_saving_file(sender, instance, **kwargs):
     if not instance.pk and not hasattr(instance, _UNSAVED_FILEFIELD):
@@ -247,16 +248,18 @@ def skip_saving_file(sender, instance, **kwargs):
 def save_file(sender, instance, created, **kwargs):
     if created and hasattr(instance, _UNSAVED_FILEFIELD):
         instance.image = getattr(instance, _UNSAVED_FILEFIELD)
-
+        
     if created:
+        # create recipe nutrition after save
         RecipeNutrition.objects.create(recipe=instance)
+        
 
 
 @receiver(post_save, sender=RecipeIngredients)
 def save_nutrition(sender, instance, created, **kwargs):
     sortlist = Recipe._meta.fields
     nutrient_field = []
-
+    
     for i in sortlist:
         if str(type(i)) == "<class 'django.db.models.fields.DecimalField'>":
                 nutrient_field.append(i)

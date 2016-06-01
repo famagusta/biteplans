@@ -76,51 +76,51 @@
                                 </div>
                             </div>
                             
-                            <div class="row" ng-repeat=
-                            "ing in ingredientDisplay track by $index">
-                            <div class="col s4">
-                                    <p class="meal-text">
-                                    {{ing.ingredient.name}}</p>
-                                </div>
+                                <div class="row" 
+                                     ng-repeat="ing in ingredientDisplay track by $index">
+                                    <div class="col s4">
+                                        <p class="meal-text">
+                                        {{ing.ingredient.name}}</p>
+                                    </div>
 
 
 
-                                <div class="col s1 push-s2">
-                                    <br>
-                                    <input id="serving" min="0" ng-model=
-                                    "ing.quantity" step=
-                                    "0.25" type="number"><br>
-                                </div>
+                                    <div class="col s1 push-s2">
+                                        <br>
+                                        <input id="serving" min="0" ng-model=
+                                        "ing.quantity" step=
+                                        "0.25" type="number"><br>
+                                    </div>
 
 
-                                <div class="col s1 push-s2 center">
-                                    <select material-select="" ng-model=
-                                    "ingredientDisplay[$index].selected_measure"
-                                    ng-options=
-                                    "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
-                                    required="">
-                                        </select>
-                                </div>
+                                    <div class="col s1 push-s2 center">
+                                        <select material-select="" ng-model=
+                                        "ingredientDisplay[$index].selected_measure"
+                                        ng-options=
+                                        "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
+                                        required="">
+                                            </select>
+                                    </div>
 
 
-                                <div class="select-delete-mat col s12 m1 push-m3">
-                                    <a ng-click="deleteSelectedIngredient($index)"><i class=
-                                    "material-icons">delete</i></a>
-                                </div>
-                            </div>   
+                                    <div class="select-delete-mat col s12 m1 push-m3">
+                                        <a ng-click="deleteSelectedIngredient($index)"><i class=
+                                        "material-icons">delete</i></a>
+                                    </div>
+                                </div>   
                                 
-                            <div class="row">
-                                <div class="col s12">
-                                    <a class="cyan-text add-ing" href="#"
-                                    ng-click="addRecipeIngredModal()">Add
-                                    Ingredients</a>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <a class="cyan-text add-ing" href="#"
+                                        ng-click="addRecipeIngredModal()">Add
+                                        Ingredients</a>
+                                    </div>
                                 </div>
                             </div>
-                                </div>
                                 
                                 <div class="col s5">
                                     <div class="row">
-                                                    <div class="col s6">
+                                        <div class="col s6">
                                         <table class="bordered responsive-table">
                                             <tbody>
                                               <tr>
@@ -331,16 +331,18 @@
                             </div>
                             <br>
 
+                            <div>
+                                <div class="col s12">
+                                    <a class="cyan-text add-ing" href="#" ng-click=
+                                    "uploadImageModal()">Upload Image</a>
+                                </div>
+                            </div>
 
+                            <!--
                             <div class="row">
                                 <div class="col s12">
                                     <div class="row">
                                         <div class="col s4 m4">
-                                            <!--
-                                            <a class="cyan-text add-ing" href=
-                                            "#">Upload Image</a>
--->
-
 
                                             <div class=
                                             "file-field input-field">
@@ -359,10 +361,6 @@
                                                     "text">
                                                 </div>
                                             </div>
-                                            <!--
-                                            <input type="file" 
-                                                   file-model="recipe_image_file"/>
--->
                                         </div>
                                     </div>
 
@@ -379,293 +377,13 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-
-<!--
-        <div class="col s12 m3">
-            <div class="card white nutinfo-card">
-                <div class="card-content black-text">
-                    <h4 class="card-title center">Nutritional Information (per
-                    serving)</h4>
-
-
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="row horizontal-line">
-                                <div class="col s8">
-                                    <p class="ing-text">Calories:</p>
-                                </div>
-
-
-                                <div class="col s4">
-                                    <p class="meal-text">{{
-                                    calculateNutritionTotal('energy_kcal') |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s8">
-                                    <p class="ing-text">Carbohydrates:</p>
-                                </div>
-
-
-                                <div class="col s4">
-                                    <p class="meal-text">{{
-                                    calculateNutritionTotal('carbohydrate_tot')
-                                    | number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s8">
-                                    <p class="ing-text">Proteins:</p>
-                                </div>
-
-
-                                <div class="col s4">
-                                    <p class="meal-text">{{
-                                    calculateNutritionTotal('protein_tot') |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s7">
-                                    <p class="ing-text">Fats:</p>
-                                </div>
-
-
-                                <div class="col s3">
-                                    <p class="meal-text">{{
-                                    calculateNutritionTotal('fat_tot') | number
-                                    }}</p>
-                                </div>
-
-
-                                <div class="col s1">
-                                    <a class="cyan-text" ng-click=
-                                    "showfats=!showfats"><i class=
-                                    "material-icons">expand_more</i></a>
-                                </div>
-                            </div>
-
-
-                            <div ng-if="showfats">
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Sugar:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateNutritionTotal('sugar_tot') |
-                                        number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Polyunsaturated
-                                        Fats:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('fa_poly_g')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Monounsaturated
-                                        Fats:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('fa_mono_g')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Saturated Fats:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('fa_sat_g')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s8">
-                                    <p class="ing-text">Fiber:</p>
-                                </div>
-
-
-                                <div class="col s4">
-                                    <p class="meal-text">{{
-                                    calculateNutritionTotal('fiber_tot') |
-                                    number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row horizontal-line">
-                                <div class="col s8">
-                                    <p class="ing-text">Cholesterol:</p>
-                                </div>
-
-
-                                <div class="col s4">
-                                    <p class="meal-text">{{
-                                    calculateAddtnlNutritionTotal('cholestrl_mg')
-                                    | number}}</p>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col s10">
-                                    <h6 class="ing-text">Vitamins and
-                                    Minerals</h6>
-                                </div>
-
-
-                                <div class="col s1">
-                                    <a class="cyan-text" ng-click=
-                                    "showVm=!showVm"><i class=
-                                    "material-icons">expand_more</i></a>
-                                </div>
-                            </div>
-
-
-                            <div ng-if="showVm">
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Sodium:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('sodium_mg')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Calcium:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('calcium_mg')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Iron:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('iron_mg')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Vitamin A(IU):</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('vitamin_a_iu')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Vitamin C:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('vitamin_c_mg')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Vitamin D:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('vitamin_d_mcg')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row horizontal-line">
-                                    <div class="col s8">
-                                        <p class="ing-text">Vitamin E:</p>
-                                    </div>
-
-
-                                    <div class="col s4">
-                                        <p class="meal-text">{{
-                                        calculateAddtnlNutritionTotal('vitamin_e_mg')
-                                        | number}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
--->
 
 
         <div class="row">
@@ -909,6 +627,43 @@
                     <a class="waves-effect waves-light btn btn-social largebtn"
                     ng-click=
                     "addContents();calculateTotalInfoForRecipes()">Add</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="upload-image-modal">
+            <a class=
+            "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+            <!-- TODO : handle urls as well -->
+
+
+            <div class="modal-content">
+                <form name="fileForm">
+                    <input image="cropper.sourceImage" img-cropper-fileread=""
+                    type="file" data-max-size="5120">
+                    <div ng-show="fileSizeError" style="color:maroon">
+                        Please Upload a file less than 5Mb
+                    </div>
+
+                </form>
+
+                      
+
+                <div class="center" ng-show=cropper.sourceImage!=null>
+                    <canvas crop-height="300" crop-width="400" cropped-image=
+                    "cropper.croppedImage" height="300" id="canvas" image=
+                    "cropper.sourceImage" image-cropper="" width="500">
+                    </canvas>
+                </div>
+
+
+                <div>
+                    Cropped Image:
+                </div>
+
+
+                <div class="center" ng-show="cropper.sourceImage!=null">
+                    <img ng-src="{{cropper.croppedImage}}">
                 </div>
             </div>
         </div>

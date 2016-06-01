@@ -24,7 +24,6 @@
     "jquery": "^2.2.3",
     "moment": "^2.13.0",
     "angular-http-loader": "^0.1.7",
-    "ngCroppie": "*"
   },
   "resolutions": {
     "angular": "^1.4.9",

@@ -53,6 +53,15 @@
     top:20px !important;
 
 }
+
+#upload-image-modal{
+
+    width:80% !important;
+    max-height:90% !important;
+    top:20px !important;
+
+}
+
 .searchresult-create{
     height:85% !important;
     overflow-y:scroll !important;
@@ -150,4 +159,11 @@ h5.recipe-subheading {
 }
 option{
     margin-bottom:15px !important;
+}
+  
+.cropArea {    
+  background: #E4E4E4;
+  overflow: hidden;
+  width:500px;
+  height:350px;
 }

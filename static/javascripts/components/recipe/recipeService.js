@@ -17,7 +17,13 @@ app.factory('recipeService',
     	return deferred.promise;
     };
 
-
+//    var getImageDataURL = function(url, imageType = 'image/jpeg'){
+//      return $http.get(url, {responseType: 'arraybuffer'}).then((res) => {
+//        let blob = new Blob([res.data], {type: imageType});
+//        return (window.URL || window.webkitURL).createObjectURL(blob);
+//      });
+//    };
+                
     var getRecipesMadeByMe = function(page){
         if(page===undefined || page===null){
             page=1;
@@ -37,8 +43,8 @@ app.factory('recipeService',
     var uploadRecipeImage = function(file, uploadUrl){
         var fd = new FormData();
         fd.append('image', file);
+        
         var deferred = $q.defer();
-
         httpService.httpPatchFile(uploadUrl, fd).then(function(response){
     		deferred.resolve(response);
 
@@ -176,8 +182,8 @@ app.factory('recipeService',
         getRecipe : function(id){
             return getRecipe(id);
         },
-        uploadRecipeImage : function(id, file){
-            return uploadRecipeImage(id, file)
+        uploadRecipeImage : function(file, url){
+            return uploadRecipeImage(file, url)
         },
         
         updateRecipe: function(obj, id){

@@ -258,7 +258,7 @@ app.controller('recipesController', ['$scope', 'searchService',
         
         $scope.checkAuth4RecipeCreate = function(){
             if(constants.userOb.status){
-                $location.path('/createRecipes');
+                $location.path('/recipes/create-recipes');
             }
             else{
                 $rootScope.$emit('authFailure');
