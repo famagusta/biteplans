@@ -42,23 +42,67 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* crop the required input file */
                     $scope.cropper = {};
+                    $scope.cropper.urlInput = null;
+                    $scope.cropper.fileInput = null;
                     $scope.cropper.sourceImage = null;
-                    $scope.cropper.croppedImage   = null;
+                    $scope.cropper.croppedImage = null;
                     $scope.fileSizeError = false;
 
-                    $scope.$watch('cropper.sourceImage', function(newVal, oldVal){
+                    $scope.$watch('cropper.fileInput', function(newVal, oldVal){
                         if(newVal){
                             var file_size = dataURLtoBlob(newVal).size;
-                            if(file_size > 5242880){
+                            if (file_size > 5242880)
+                            {
                                 $scope.fileSizeError = true;
                                 $scope.cropper.sourceImage = null;
                                 $scope.cropper.croppedImage = null;
-                            }else{
+                            }
+                            else
+                            {
+                                $scope.cropper.sourceImage = newVal
                                 $scope.fileSizeError = false;
                             }
                         }
-
                     });
+                    
+                    $scope.urlChanged = function(){
+                        var newVal = $scope.cropper.urlInput;
+                        if(newVal){
+                            if(ValidURL(newVal)){
+                                $scope.cropper.sourceImage = null;
+                                var img = new Image();
+                                
+                                var downloadingImage = new Image();
+                                downloadingImage.crossOrigin = "anonymous";
+                                
+                                downloadingImage.onload = function(){
+                                    var canvas = document.createElement("canvas");
+                                    canvas.width = this.width;
+                                    canvas.height = this.height;
+
+                                    canvas.getContext("2d").drawImage(this, 0, 0);
+                                    var resultURL = canvas.toDataURL();
+                                    var file_size = dataURLtoBlob(resultURL).size;
+                                    if (file_size > 5242880)
+                                    {
+                                        $scope.fileSizeError = true;
+                                        $scope.cropper.sourceImage = null;
+                                        $scope.cropper.croppedImage = null;
+
+                                    }
+                                    else
+                                    {
+                                        $scope.cropper.sourceImage = resultURL;
+                                        $scope.fileSizeError = false;
+                                    }
+                                };
+                                downloadingImage.src=newVal;
+                                
+                            }
+                        }else{
+                            $scope.cropper.sourceImage = null;
+                        }
+                    }
 
                     /* variables & functions to upload image file for recipe */
                     $scope.formdata = new FormData();

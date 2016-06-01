@@ -639,17 +639,46 @@
 
             <div class="modal-content">
                 <form name="fileForm">
+<!--
                     <input image="cropper.sourceImage" img-cropper-fileread=""
                     type="file" data-max-size="5120">
+-->
+                    
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>Choose File</span> <input accept=
+                            'image/*' image="cropper.fileInput" img-cropper-fileread=""
+                            type="file" data-max-size="5120">
+                        </div>
+
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate"
+                            type="text">
+                        </div>
+                    </div>
+                    
                     <div ng-show="fileSizeError" style="color:maroon">
                         Please Upload a file less than 5Mb
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <label for="recipe-url">Recipe URL</label>
+                            <input name="recipe-url" id="recipe-url" type="url" ng-model="cropper.urlInput" ng-change="urlChanged()">
+                        </div>
+                        <div class="col s12 m6">
+                            <button class=
+                                "waves-effect waves-light btn"
+                                ng-click='validateRecipe()' type=
+                                "submit">Upload</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
                     </div>
 
                 </form>
 
                       
 
-                <div class="center" ng-show=cropper.sourceImage!=null>
+                <div class="center" ng-show="cropper.sourceImage!=null">
                     <canvas crop-height="300" crop-width="400" cropped-image=
                     "cropper.croppedImage" height="300" id="canvas" image=
                     "cropper.sourceImage" image-cropper="" width="500">
