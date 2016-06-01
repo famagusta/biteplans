@@ -3,8 +3,13 @@ i[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak 
 }
 
 nav {
-    background-color: #fdfdfb;
+    background: #fdfdfb;
     box-shadow: none;
+    padding: 0;
+    background-position: 10px 0;
+    padding-bottom: 0;
+    background-size: cover;
+    z-index: -1 !important
 }
 
 nav ul a, nav .brand-logo {
@@ -133,7 +138,7 @@ nav ul li {
 
 
 #modal1 { 
-    max-height: 87%;
+    max-height: 90%;
     max-width: 40%;
     left: 0;
     right: 0;
@@ -144,11 +149,21 @@ nav ul li {
 }
 
 
+/*
+@media only screen and (min-width : 901px and max-width : ) {
+     #modal1 {
+        max-height: 90% !important;
+        max-width: 85% !important;
+        overflow: auto;
+    }
+}
+*/
 
 @media only screen and (max-width : 900px) {
     #modal1 {
         max-height: 85% !important;
         max-width: 85% !important;
+        overflow: auto;
     }
     
     #modal1 h5 {
@@ -158,7 +173,7 @@ nav ul li {
 
 @media only screen and (min-width : 1500px) {
     #modal1 {
-        max-height: 55% !important;
+        max-height: 63% !important;
         max-width: 35% !important;
     }
 }

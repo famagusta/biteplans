@@ -179,7 +179,91 @@ input:disabled {
     border-bottom: 1px solid rgba(0,0,0,0.26) !important;
 }
 
+.meal_category {
+    position: relative;
+    left: 3em;
+}
 
+.ing_bin {
+    position: relative;
+    bottom: 1em;
+    left: 5em !important;
+}
+
+.selcheck {
+    position: relative;
+    left: 1em;
+    bottom: 3px;
+}
+
+.myplan-content {
+    height: 24em !important;
+}
+
+.w {
+    padding: 0;
+}
+
+ .myplan_graph_fat {
+        position: relative !important;
+        right: 2px !important;
+     top: 1em;
+    }
+    
+    .myplan_graph_prot {
+        position: relative !important;
+        right: 23px !important;
+             top: 1em;
+
+    }
+    
+    .myplan_graph_carbs {
+        position: relative !important;
+        right: 13px !important;
+             top: 1em;
+
+    }
+
+.mygraph-text {
+    position: relative !important;
+    bottom: 73px !important;
+    left: 10px !important;
+    color: #949494 !important;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Roboto';
+}
+
+.mygraph-value {
+    position: relative;
+    bottom: 5em;
+    color: #606060 !important;
+    font-family: 'Roboto';
+    font-weight: bold;
+    left: 16px !important;
+    font-size: 14px;
+}
+
+.save-more2 {
+        cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: right;
+    bottom: 7px;
+    right: 14em;
+}
+
+.save-more3 {
+         cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: right;
+    bottom: 7px;
+    right: 0em;
+}
+.mying-card {
+    height: 21em !important;
+}
 /* SUMMARY PAGE */
 
 

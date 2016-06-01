@@ -113,25 +113,25 @@
 
                                 <div ng-if="meal.followingMealPlanRecipe != undefined && meal.followingMealPlanRecipe.length>0" >
 
-                                <b>Recipes</b>
+                                <p class="ing-text meal_category">Recipes</b>
 
                                 <br><br>
                                 <div class="row">
-                                        <div class="col s3 m5">
-                                            <p>
-                                            <b>Name</b></p>
+                                        <div class="col s3 m5 center">
+                                            <p class="ing-text">
+                                            Name</p>
                                         </div>
 
 
                                         <div class="col s3 m1 push-m1">
-                                           <b>Servings</b>
+                                           <p class="ing-text">Servings</p>
                                         </div>
 
 
 
 
                                         <div class="col s3 m1 push-m2">
-                                            <b>Unit</b>
+                                            <p class="ing-text">Unit</p>
                                         </div>
 
                                     </div>
@@ -142,7 +142,7 @@
                                 <div class="meal_lst" ng-repeat=
                                 '(index3, recipe) in meal.followingMealPlanRecipe track by $index'>
                                 <div class="row">
-                                        <div class="col s3 m5">
+                                        <div class="col s3 m5 push-m1">
                                             <p class="meal-text">
                                             {{recipe.meal_recipe.name}}</p>
                                         </div>
@@ -186,33 +186,32 @@
 
                                 <div ng-if="meal.followingMealPlanIngredient != undefined && meal.followingMealPlanIngredient.length>0" >
 
-                                <b>Ingredients</b><br><br>
+                                <p class="ing-text meal_category">Ingredients</p><br>
                                 <div class="row">
-                                        <div class="col s3 m4">
-                                            <p>
-                                            <b>Name</b></p>
+                                        <div class="col s3 m4 center">
+                                             <p class="ing-text">Name</p>
                                         </div>
 
 
                                         <div class="col s3 m1">
-                                           <b>Quantity</b>
+                                           <p class="ing-text">Quantity</p>
                                         </div>
 
 
                                         <div class="col s3 m1 push-m1">
                                             <p>
-                                            <b>Weight</b></p>
+                                             <p class="ing-text">Weight</p></p>
                                         </div>
 
 
-                                        <div class="col s3 m1 push-m2">
-                                            <b>Unit</b>
+                                        <div class="col s3 m2 push-m2 center">
+                                            <p class="ing-text center">Unit</b>
                                         </div>
 
                                     </div>
 
                                 </div>
-                                
+                                <br>
                                 <div class="meal_lst" ng-repeat=
                                 '(index2, ingredient) in meal.followingMealPlanIngredient track by $index'>
                                 <div class="row">
@@ -267,13 +266,13 @@
                                             ng-change=
                                             "updateMealIngredientCheck(ingredient)"
                                             type="checkbox"> <label class=
-                                            "ing-text highlight" for=
+                                            "ing-text highlight selcheck" for=
                                             "filled-in-box-{{index1}}-{{index2}}"
                                             id="check-label"></label></span>
                                         </div>
 
 
-                                        <div class="col m1 push-m1 bin">
+                                        <div class="col m1 push-m2 ing_bin">
                                             <span class=
                                             "card-title center-align"><a ng-click="removeIngredientsFromSavedMeal(index1,index2)">
                                             <i class=

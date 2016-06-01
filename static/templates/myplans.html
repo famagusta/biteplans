@@ -4,10 +4,10 @@
     <div ng-if="createdPlans!=null && createdPlans!=undefined && createdPlans.length!=0">
     <b>You created:</b>
     <div class="row">
-        <div class="col s4 m4" ng-repeat=
+        <div class="col s12 m4" ng-repeat=
                 "plan in createdPlans track by $index">
                     <div class="card">
-                        <div class="card-content">
+                        <div class="card-content myplan-content">
                             <div class="row">
                                 <!--
                                 <div class="col s2"><img class=
@@ -18,30 +18,39 @@
 
 
                                 <div class="col s12 center">
-                                    <h5 class="cyan-text">Name:
+                                    <h5 class="cyan-text">
                                     {{plan.name}}</h5>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s12">
-                                    <p class="grey-text">Goal: {{ plan.goal
+                                <div class="col s6 m5">
+                                    <p class="meal-text">Goals:</p>
+                                </div>
+                                <div class="col s6 m7 pull-m1">
+                                    <p class="meal-text">{{ plan.goal
                                     }}</p>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s12">
-                                    <p class="grey-text">Duration: {{
+                                 <div class="col s6 m5">
+                                    <p class="meal-text">Duration:</p>
+                                </div>
+                                <div class="col s6 m7 pull-m1">
+                                    <p class="meal-text">{{
                                     plan.duration }} Week</p>
                                 </div>
                             </div>
 
 
                             <div class="row center showcustom">
-                                <div class="col s8">
+                                <div class="col s1">
+                                    <p class="meal-text">Ratings</p>
+                                </div>
+                                <div class="col s7 push-s1">
                                     <div back-color="white" class="right" id=
                                     "plan-{{plan.id}}" ng-click=
                                     "setPlanRating(plan, rating)"
@@ -54,7 +63,7 @@
                                 </div>
 
 
-                                <div class="col s3 left">
+                                <div class="col s4 left">
                                     <span ng-bind="stars | number:1"></span> /
                                     5.0
                                 </div>
@@ -62,7 +71,7 @@
 
 
                             <div class="row">
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center myplan_graph_prot">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#6639B6" current=
@@ -73,10 +82,10 @@
                                     </div>
 
 
-                                    <p class="center graph-text">PROTEINS</p>
+                                    <p class="center mygraph-text">PROTEINS</p>
 
 
-                                    <p class="center graph-value">
+                                    <p class="center mygraph-value">
                                     {{getPlanNutrientPercent(plan,
                                     'protein_tot') | number:0}} %</p>
                                     <!--
@@ -86,7 +95,7 @@
                                 </div>
 
 
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center myplan_graph_carbs">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FE6433" current=
@@ -97,10 +106,10 @@
                                     </div>
 
 
-                                    <p class="center graph-text">CARBS</p>
+                                    <p class="center mygraph-text">CARBS</p>
 
 
-                                    <p class="center graph-value">
+                                    <p class="center mygraph-value">
                                     {{getPlanNutrientPercent(plan,
                                     'carbohydrate_tot') | number:0}} %</p>
 
@@ -110,7 +119,7 @@
                                 </div>
 
 
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center myplan_graph_fat">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FDC106" current=
@@ -121,10 +130,10 @@
                                     </div>
 
 
-                                    <p class="center graph-text">FATS</p>
+                                    <p class="center mygraph-text">FATS</p>
 
 
-                                    <p class="center graph-value">
+                                    <p class="center mygraph-value">
                                     {{getPlanNutrientPercent(plan, 'fat_tot') |
                                     number:0}}%</p>
                                 </div>
@@ -133,9 +142,11 @@
 
 
                         <div class="card-action">
-                            <a class="datepicker_btn btn-flat cyan-text" href=
+<!--
+                            <a class="datepicker_btn btn-flat cyan-text read-more" href=
                             "#" ng-click="followPlan(plan.id)">FOLLOW</a>
-                            <a class="btn-flat cyan-text" href="#" ng-click=
+-->
+                            <a class="btn-flat cyan-text save-more3 right" href="#" ng-click=
                             "addPlanToShortlist(plan.id)">SHORTLIST</a>
                         </div>
                     </div>

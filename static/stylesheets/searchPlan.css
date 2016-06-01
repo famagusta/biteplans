@@ -236,12 +236,6 @@ textarea:focus {
 }
 */
 
-@media only screen and (min-height: 600px) {
-    .recipeCheckCard {
-        display: none !important;
-    }
-}
-
 
 @media only screen and (min-width : 767px) {
         #planPage {
@@ -310,6 +304,6 @@ textarea:focus {
 /*    font-size: 19px;*/
     position: absolute;
     float: left;
-    bottom: 0px;
+    bottom: 11px;
     left: 30px
 }

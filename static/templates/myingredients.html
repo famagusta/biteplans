@@ -2,13 +2,13 @@
     <div ng-if="myIngredients != null && myIngredients != undefined && myIngredients.length != 0">
         <div class="row">
             <div class="col s12 m4" ng-repeat="detail in myIngredients track by $index " ng-click="openIngredientsModal($index)">
-                <div class="card white big result-card" id=
+                <div class="card white big mying-card" id=
                 "ingredient-result-card">
                     <div class="card-content grey-text">
                         <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
-                                {{detail.ingredient.name}}</h5>
+                                {{detail.ingredient.name | limitTo: 20}}...</h5>
                             </div>
                         </div>
 
@@ -131,84 +131,110 @@
 
 
                 <div class="row" ng-if="selected!==undefined && openModal.measure!==undefined">
-                    <div class="col s12 m6">
-                        <p class="grey-text">Macronutrients</p>
+ <div class="col s12 m6">
+                <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Calories</td>
+                        <td>{{calculateIngredientInfo('energy_kcal') |
+                            number:0 }} kcal</td>
+                      </tr>
+                        <tr>
+                        <td>Carbohydrates</td>
+                        <td>{{calculateIngredientInfo('carbohydrate_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Proteins</td>
+                        <td>{{calculateIngredientInfo('protein_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Fats</td>
+                        <td>{{calculateIngredientInfo('fat_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Monounsaturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_mono_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Polyunsaturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_poly_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Saturated Fat</td>
+                        <td>{{calculateIngredientInfo('fa_sat_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Sugar</td>
+                        <td>{{calculateIngredientInfo('sugar_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                      </tr>
+                        <tr>
+                        <td>Fiber</td>
+                        <td>{{calculateIngredientInfo('fiber_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
 
-
-                        <div class="row">
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Carbohydrates</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('carbohydrate_tot') | number}}</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Proteins</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('protein_tot') | number}}</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Fats</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('fat_tot') | number}}</p>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col s12 m6">
-                        <p class="grey-text">Micronutrients</p>
-
-
-                        <div class="row">
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Fiber</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('fat_tot') | number}}</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">Water</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('water') | number}}</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">sugar</p>
-                            </div>
-
-
-                            <div class="col s6 m6 nutrient-table-line">
-                                <p class="grey-text">
-                                {{calculateIngredientInfo('sugar_tot') | number}}</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col s12 m6">
+                    <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Cholesterol</td>
+                        <td>{{calculateIngredientInfo('cholestrl_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Sodium</td>
+                        <td>{{calculateIngredientInfo('sodium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Calcium</td>
+                        <td>{{calculateIngredientInfo('calcium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Iron</td>
+                        <td>{{calculateIngredientInfo('iron_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin A</td>
+                        <td>{{calculateIngredientInfo('vitamin_a_iu',
+                                        true) | number:0}} IU</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin B12</td>
+                        <td>{{calculateIngredientInfo('vitamin_b12_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin C</td>
+                        <td>{{calculateIngredientInfo('vitamin_c_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin D</td>
+                        <td>{{calculateIngredientInfo('vitamin_d_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin E</td>
+                        <td>{{calculateIngredientInfo('vitamin_e_mg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 </div>
             </div>
         </div>

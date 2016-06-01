@@ -21,6 +21,11 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     $scope.isSet = function(tabId) {
                         return $scope.tab.tab === tabId;
                     };
+                    
+                     $scope.openShortInfoModal = function() {
+                        $('#small-modal').openModal();
+                    }
+                   
 
                     $scope.edit = 0;
 
@@ -39,6 +44,9 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
         });
         
     }
+                                    
+                     
+                                       
 ]);
 
 
