@@ -105,7 +105,7 @@
 
                                     <div class="select-delete-mat col s12 m1 push-m3">
                                         <a ng-click="deleteSelectedIngredient($index)"><i class=
-                                        "material-icons">delete</i></a>
+                                        "material-icons createbin">delete</i></a>
                                     </div>
                                 </div>   
                                 
@@ -124,7 +124,7 @@
                                         <table class="bordered responsive-table">
                                             <tbody>
                                               <tr>
-                                                <td>Energy</td>
+                                                <td class="energy">Energy</td>
                                                 <td>{{calculateNutritionTotal('energy_kcal') |
                                         number:0}} kcal</td>
                                               </tr>
@@ -605,7 +605,7 @@
                             <div class="col m2 meal-list">
                                 <a href="#" ng-click=
                                 "removeIngredient(item)"><i class=
-                                "material-icons meal-list right dustbin" ng-if=
+                                "material-icons meal-list right dustbin createbin" ng-if=
                                 "checklistIngredients.length&gt;0">delete</i></a>
                             </div>
                         </div>
@@ -621,7 +621,7 @@
                             <div class="col m2 meal-list">
                                 <a href="#" ng-click=
                                 "removeIngredient(item)"><i class=
-                                "material-icons meal-list right dustbin" ng-if=
+                                "material-icons meal-list right createbin dustbin" ng-if=
                                 "checklistIngs.length&gt;0">delete</i></a>
                             </div>
                         </div>
@@ -653,33 +653,48 @@
 -->
                     
                     <div class="file-field input-field">
-                        <div class="btn">
+                        <div class="col s12 m3 push-m1">
+                            <div class="btn">
                             <span>Choose File</span> <input accept=
                             'image/*' image="cropper.fileInput" img-cropper-fileread=""
                             type="file" data-max-size="5120">
                         </div>
-
+                        </div>
+                        
+                        <div class="col s12 m5 push-m2">
+                        
                         <div class="file-path-wrapper">
                             <input class="file-path validate"
                             type="text">
                         </div>
+                        </div>
+
                     </div>
+                    
                     
                     <div ng-show="fileSizeError" style="color:maroon">
                         Please Upload a file less than 5Mb
                     </div>
                     
-                    <div class="row">
-                        <div class="col s12 m6">
-                            <label for="recipe-url">Recipe URL</label>
-                            <input name="recipe-url" id="recipe-url" type="url" ng-model="cropper.urlInput" ng-change="urlChanged()">
+                       <div class="col s12 m12 center">
+                            <p class="center">OR</p>
                         </div>
-                        <div class="col s12 m6">
+                    <br>
+                    <div class="row">
+                        <div class="col s12 m3 push-m1">
+                            <br>
                             <button class=
                                 "waves-effect waves-light btn"
                                 ng-click='validateRecipe()' type=
-                                "submit">Upload</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                                "submit" style="margin-top: 2em !important;">Upload</button> &nbsp;&nbsp;&nbsp;&nbsp;
                         </div>
+                        
+                        <div class="col s12 m5 push-m2 upload_file">
+                            <label for="recipe-url">Recipe URL</label>
+                            <input class="upload_file" name="recipe-url" id="recipe-url" type="url" ng-model="cropper.urlInput" ng-change="urlChanged()">
+                        </div>
+                     
+                        
                     </div>
 
                 </form>

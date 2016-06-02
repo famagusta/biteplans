@@ -8,27 +8,23 @@
                             <div class="col s12 m10 push-m1">
                                 <div class="row">
                                     <div class="col s12 m3">
-                                        <p class="ing-text" style=
-                                        "text-transform:uppercase">NAME OF THE
+                                        <p class="ing-text">NAME OF THE
                                         PLAN :</p>
                                     </div>
 
 
                                     <div class="col s12 m3">
-                                        <p class="meal-text" style=
-                                        "text-transform:uppercase">
+                                        <p class="meal-text">
                                         {{plan.name}}</p>
                                     </div>
 
                                     <div class="col s12 m2">
-                                        <p class="ing-text" style=
-                                        "text-transform:uppercase">GOAL :</p>
+                                        <p class="ing-text">GOAL :</p>
                                     </div>
 
 
                                     <div class="col s12 m3">
-                                        <p class="meal-text" style=
-                                        "text-transform:uppercase">
+                                        <p class="meal-text">
                                         {{plan.goal}}</p>
                                     </div>
                                 </div>
@@ -37,43 +33,37 @@
 
                                 <div class="row">
                                     <div class="col s12 m3">
-                                        <p class="ing-text" style=
-                                        "text-transform:uppercase">DURATION
+                                        <p class="ing-text">DURATION
                                         :</p>
                                     </div>
 
 
                                     <div class="col s12 m3">
-                                        <p class="meal-text" style=
-                                        "text-transform:uppercase">
+                                        <p class="meal-text">
                                         {{plan.duration}} Weeks</p>
                                     </div>
 
                                     <div class="col s12 m2">
-                                        <p class="ing-text" style=
-                                        "text-transform:uppercase">ASSUMPTIONS
+                                        <p class="ing-text">ASSUMPTIONS
                                         :</p>
                                     </div>
 
 
                                     <div class="col s12 m3">
-                                        <p class="meal-text" style=
-                                        "text-transform:uppercase">
-                                        {{plan.weight + '&nbsp;' + 'kgs' + '&nbsp;' + 'weight' + '&nbsp;' + '&nbsp;' + '|' }} {{plan.height + '&nbsp;' +'cms' + '&nbsp;' + 'height'}}</p>
+                                        <p class="meal-text">
+                                        {{plan.weight + '&nbsp;' + 'Kgs' + '&nbsp;' + 'Weight' + '&nbsp;' + '&nbsp;' + '|' }} {{plan.height + '&nbsp;' +'cms' + '&nbsp;' + 'Height'}}</p>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col s12 m3">
-                                        <p class="ing-text" style=
-                                        "text-transform:uppercase">DESCRIPTION
+                                    <div class="col s12 m12">
+                                        <p class="ing-text">DESCRIPTION
                                         :</p>
                                     </div>
+                                    <br>
 
-
-                                    <div class="col s12 m8">
-                                        <p class="meal-text" style=
-                                        "text-transform:uppercase">
+                                    <div class="col s12 m12">
+                                        <p class="meal-text">
                                         {{plan.description}}</p>
                                     </div>
                                 </div>
@@ -225,7 +215,7 @@
                                         <div class="horizontal-line">
                                             <div class="row">
                                                 <div class="col s3 m3">
-                                                    <p>{{key.mealname}}</p>
+                                                    <p class="ing-text" style="font-size:15px !important">{{key.mealname}}</p>
                                                 </div>
 
 
@@ -241,7 +231,7 @@
 
 
                                             <div class="row">
-                                            <b ng-if="key.mealingredient.length>0">Recipes</b><br>
+                                            <b ng-if="key.mealingredient.length>0" style="margin-left: 11px !important">Ingredients</b>
                                                 <div ng-repeat=
                                                 "item1 in key.mealingredient track by $index">
                                                     <div class="container" id=
@@ -263,7 +253,7 @@
                                             </div>
 
                                             <div class="row">
-                                            <b ng-if="key.mealrecipe.length>0">Recipes</b><br>
+                                            <b ng-if="key.mealrecipe.length>0" style="margin-left: 11px !important">Recipes</b>
                                                 <div ng-repeat=
                                                 "item1 in key.mealrecipe track by $index">
                                                     <div class="container" id=
@@ -288,12 +278,12 @@
                                 </div>
 
 
-                                <div class="col s12 m6 vertil">
+                                <div class="col s12 m6 vertical-line">
                                     <div ng-repeat="key in mealPlanNameArray2">
                                         <div class="horizontal-line">
                                             <div class="row">
                                                 <div class="col s3 m3">
-                                                    <p>{{key.mealname}}</p>
+                                                    <p class="ing-text" style="font-size:15px !important">{{key.mealname}}</p>
                                                 </div>
 
 
@@ -309,7 +299,7 @@
 
 
                                              <div class="row">
-                                             <b ng-if="key.mealingredient.length>0">Ingredients</b>
+                                             <b ng-if="key.mealingredient.length>0" style="margin-left: 11px !important">Ingredients</b>
                                                 <div ng-repeat=
                                                 "item1 in key.mealingredient track by $index">
                                                     <div class="container" id=
@@ -331,7 +321,7 @@
                                             </div>
 
                                             <div class="row">
-                                            <b ng-if="key.mealrecipe.length>0">Recipes</b><br>
+                                            <b ng-if="key.mealrecipe.length>0" style="margin-left: 11px !important">Recipes</b>
                                                 <div ng-repeat=
                                                 "item1 in key.mealrecipe track by $index">
                                                     <div class="container" id=

@@ -30,11 +30,11 @@ app.controller('recipesController', ['$scope', 'searchService',
                     .then(function(response) {
                         $scope.recipeDetails = response;
                    for (var i=0;i<$scope.recipeDetails.results.length;i++){
-                       if($scope.recipeDetails.results[i].image){
-                           $scope.recipeImage = $scope.recipeDetails.results[i].image;
-                       }
-                       else {
-                           $scope.recipeImage = 'static/images/default_recipe.png';
+                       if(!$scope.recipeDetails.results[i].image){
+//                           $scope.recipeImage = $scope.recipeDetails.results[i].image;
+//                       }
+//                       else {
+                           $scope.recipeDetails.results[i].image = 'static/images/default_recipe.png';
                        }
                    }
                     }, function(error) {

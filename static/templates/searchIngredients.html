@@ -14,7 +14,7 @@
 
                             <p ng-repeat="filter in filts track by $index"><input checked="checked" class="filled-in" id=
                             "filled-in-box1{{$index}}" type="checkbox" checklist-model="foodgroup"
-                            checklist-value="filter['0']"> <label for=
+                            checklist-value="filter['0']"> <label class="meal-text" for=
                             "filled-in-box1{{$index}}">{{filter['0']}}</label></p>
                             <br>
                             <br>
@@ -22,7 +22,7 @@
                             <br>
                             <br>
                             <p ng-repeat="filter in details.sortlist track by $index"><input id=
-                            "filled-in-rad{{$index}}"  class="with-gap" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search(1, sortby)"><label
+                            "filled-in-rad{{$index}}"  class="with-gap" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search(1, sortby)"><label class="meal-text" 
                             for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
                         </div>
                     </form>

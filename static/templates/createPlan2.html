@@ -257,7 +257,7 @@
                                         <div class="col s1 m1">
                                             <a ng-click=
                                             "clearMeal($index)"><i class=
-                                            "material-icons cyan-text item-align">
+                                            "material-icons item-align createbin">
                                             delete</i></a>
                                         </div>
 
@@ -298,37 +298,37 @@
                                     <div class="row center lowbo" ng-if=
                                     "key.mealingredient.length&gt;0">
                                         <div class="col s4 m4">
-                                            <p class="meal-text center">Name</p>
+                                            <p class="meal-head center">Name</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text selco">Amt</p>
+                                            <p class="meal-head selco">Amt</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text selco">Unit</p>
+                                            <p class="meal-head selco">Unit</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text selco">Carbs</p>
+                                            <p class="meal-head selco">Carbs</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text selco">Proteins</p>
+                                            <p class="meal-head selco">Proteins</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text selco">Fats</p>
+                                            <p class="meal-head selco">Fats</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-text selco">Calories</p>
+                                            <p class="meal-head selco">Calories</p>
                                         </div>
                                     </div>
                                     <br>
@@ -342,6 +342,7 @@
                                             <p class="meal-text ingredient-meal-text"
                                             ng-model="plan.ingredientData">
                                             {{item1.ingredient.name}}</p>
+                                        <br>
                                         </div>
 
 
@@ -399,7 +400,7 @@
                                             <a ng-click=
                                             "removeIngredientsFromSavedMeal(key.counter, $index)">
                                             <i class=
-                                            "material-icons b">delete</i></a>
+                                            "material-icons createbin b">delete</i></a>
                                         </div>
                                     </div>
 
@@ -504,7 +505,7 @@
                                                 <a ng-click=
                                                 "removeIngredientsFromSavedMealRecipe(key.counter, $index)">
                                                 <i class=
-                                                "material-icons b">delete</i></a>
+                                                "material-icons b createbin">delete</i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -1158,7 +1159,7 @@
                             <div class="col m2 meal-list">
                                 <a href="#" ng-click=
                                 "removeIngredient(item)"><i class=
-                                "material-icons meal-list right dustbin" ng-if=
+                                "material-icons meal-list right createbin dustbin" ng-if=
                                 "ingredientInModal.length&gt;0">delete</i></a>
                             </div>
                         </div>
@@ -1174,7 +1175,7 @@
                             <div class="col m2 meal-list">
                                 <a href="#" ng-click=
                                 "removeIngredient(item)"><i class=
-                                "material-icons meal-list right dustbin" ng-if=
+                                "material-icons meal-list right createbin dustbin" ng-if=
                                 "checklistIngs.length&gt;0">delete</i></a>
                             </div>
                         </div>

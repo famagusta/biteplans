@@ -28,9 +28,10 @@ pre p {
 }
 
 p.recipe-card-info {
-    color: #7c7676 !important;
+    color: #212121 !important;
     opacity: 54% !important;
     line-height: 22px;
+    font-size: 14px;
 } 
 
 .raise {
@@ -93,6 +94,28 @@ p.recipe-card-info {
 .recipe_img {
     height: 75%;
     width: 75%;
+}
+
+/*
+.recipe_search_card {
+    height: 37em !important;
+}
+
+.recipe_search_content {
+    height: 21em !important;
+}
+*/
+
+td.energy {
+    width: 50%;
+}
+
+.upload_file {
+    margin-top: 1em !important;
+}
+
+#upload-image-modal {
+    max-width: 50% !important;
 }
 
 @media only screen and (max-width : 768px) {

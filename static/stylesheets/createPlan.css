@@ -37,10 +37,12 @@ div#create-form {
     margin-left: 10px;
 }
 
+/*
 .vertil{
     margin-left:10px !important;
     margin-right:-10px !important;
 }
+*/
 .weekWidth{
     width:12% !important;
     margin-right:10px;
@@ -337,9 +339,10 @@ input[type=time] {
 }
 
 .meal-text {
-    color: #727272 !important;
+    color: #212121 !important;
     text-transform: lowercase;
     opacity: 54% !important;
+    font-size: 13sp !important;
 }
 
 .meal-text::first-letter {
@@ -397,6 +400,7 @@ input[type=time] {
     color: #212121 !important;
     text-transform: lowercase;
     font-weight: 600;
+    font-size: 15px !important;
 }
 
 .ing-text::first-letter {
@@ -446,6 +450,12 @@ input[type=time] {
 
 .dropdown-content{
     width:200px !important;
+}
+
+.meal-head {
+    color: #212121 !important;
+    font-size: 14px !important;
+    font-family: 'Raleway' !important;
 }
 /*
 
@@ -687,6 +697,8 @@ select {
 
 .ingredient-meal-text {
     margin-left: -80px !important;
+    word-wrap: break-word;
+    width: 20em;
 }
 .recipe-meal-text {
     margin-left: -80px !important;
@@ -694,4 +706,9 @@ select {
 
 .recipe_dustbin_margin {
     margin-left: 20px !important;
+}
+
+.createbin:hover {
+    cursor: pointer;
+    color: #ff5252;
 }

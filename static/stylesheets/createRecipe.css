@@ -71,9 +71,9 @@
     font-size:8px !important;
 }
 h5.recipe-subheading {
-    color: #4f4f4f;
+    color: #212121;
     font-weight: 600;
-    font-size: 19px;
+    font-size: 15px;
 }
 
 .editabletext{
@@ -168,3 +168,8 @@ option{
   width:500px;
   height:350px;
 }
+
+    button#img_upload_btn {
+        position: relative !important;
+        top: 2em !important;
+    }

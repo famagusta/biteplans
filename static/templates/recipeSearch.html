@@ -6,11 +6,11 @@
             
             <div class="col s12 m4" current-page="currentPage" ng-repeat=
             "recipe in recipeDetails.results track by $index">
-                      <div class="card">
-                        <div class="card-image">
-                          <img class="recipe_img" ng-src="{{recipeImage}}">
+                      <div class="card recipe_search_card">
+                        <div class="card-image recipe-im">
+                          <img class="recipe_img" ng-src="{{recipe.image}}">
                         </div>
-                        <div class="card-content">
+                        <div class="card-content recipe_search_content">
                            <div class="row">
                             <div class="col s12">
                                 <h5 class="cyan-text center ingredient-title">
@@ -30,7 +30,7 @@
                                 <div class="col s12 m12">
                                     <p class="recipe-card-info">
                                     {{recipe.description |
-                                    limitTo:50}}</p>
+                                    limitTo:25}}...</p>
                                 </div>
                             </div>
                             <br>
@@ -142,6 +142,7 @@
 -->
 <!-- When the user has entered incorrect entry in search -->
 
+<!--
 
 <div ng-if="recipeDetails.length==0">
     <div class="row">
@@ -154,6 +155,7 @@
         </div>
     </div>
 </div>
+-->
 <script>
     $(document).ready(function () {
           $('.modal-trigger').leanModal();  
