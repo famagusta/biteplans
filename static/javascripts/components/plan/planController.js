@@ -340,6 +340,17 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             $location.path('/dietplans/view-diet-plan/' + planId +'/');
         }
         
+        $scope.getFilterLabel = function(filter){
+            var filterNames ={
+                'average_rating': "Rating",
+                'carbohydrate_tot': "Carbohydrates",
+                'protein_tot': "Proteins",
+                'fat_tot': "Fats",
+                'energy_kcal': "Calories"
+            }
+            return filterNames[filter];
+        }
+        
         if(constants.userOb.status){
             getUserPlanRatings();
             getUserPlans();

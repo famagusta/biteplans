@@ -23,7 +23,7 @@
                             <br>
                             <p ng-repeat="filter in details.sortlist track by $index"><input id=
                             "filled-in-rad{{$index}}"  class="with-gap" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search(1, sortby)"><label
-                            for="filled-in-rad{{$index}}">{{filter.split('_', 1)[0]}}</label></p>
+                            for="filled-in-rad{{$index}}">{{getFilterLabel(filter)}}</label></p>
                         </div>
                     </form>
                 </div>
