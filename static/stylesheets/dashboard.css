@@ -25,9 +25,6 @@
     bottom: 9px;
 }
 
-.top_mar {
-    margin-top: 8px;
-}
 
 .dash_graphcard {
     height: 40em !important;
@@ -283,8 +280,10 @@ input:disabled {
         position: relative;
         top: -33px;
         left: -71px;
+    }
 }
 
-.calendar {
+#diet-calendar-cont {
+    margin-top: 8px;
     height: 600px !important;
 }

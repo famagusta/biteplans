@@ -77,7 +77,7 @@ p.recipe-card-info {
 }
 
 .heart-ok{
-    color: #ff5252;
+    color: #ff5252 !important;
     cursor: pointer;
     font-size: 19px;
     position: absolute;
@@ -92,9 +92,17 @@ p.recipe-card-info {
     top: 8px;
 }
 
+.recipe_img_container{
+    height: 210px !important;
+}
+
 .recipe_img {
     height: 75%;
     width: 75%;
+/*
+    max-height: 75vh;
+    max-width: 75vh;
+*/
 }
 
 /*
@@ -130,4 +138,5 @@ td.energy {
         min-height: 440px !important;
     }
 }
+
 

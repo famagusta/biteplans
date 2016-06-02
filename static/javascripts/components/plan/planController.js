@@ -48,14 +48,12 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         $scope.followDate = '';
         $scope.search_plan = function(page, sortby)
         {
-            console.log('searching');
             var query = $scope.query_plan;
             if (query)
             {
                 searchService.search_plan(query, page, sortby).then(function(
                     response)
                 {
-                    console.log(response);
                     $scope.plans = response;
                     $scope.currentPage = page;
                     $scope.pageSize = response.total*6;
@@ -346,7 +344,9 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 'carbohydrate_tot': "Carbohydrates",
                 'protein_tot': "Proteins",
                 'fat_tot': "Fats",
-                'energy_kcal': "Calories"
+                'energy_kcal': "Calories",
+                'sugar_tot': "Sugar",
+                'fiber_tot': "Fiber"
             }
             return filterNames[filter];
         }

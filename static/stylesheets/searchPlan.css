@@ -112,13 +112,7 @@ textarea:focus {
    #checklist {
         display: none;
     }
-/*
-    .smallmid{
-        margin:auto !important;
-        width: 100% !important;
-        min-height: 440px !important;
-    }
-*/
+
     .section-button {
        position: relative;
     }
@@ -131,55 +125,6 @@ textarea:focus {
 
 }
 
-
-/*
-@media only screen and (min-width : 601px) {
-   #searchcard {
-        width: 100% !important;  
-    }
-    .plan-card {
-       height: 150% !important;
-    }
-    .smallmid{
-        margin:auto !important;
-        width: 100% !important;
-    }
-    .section-button {
-       position: relative;
-    }
-    #planPage {
-    background-color: #f5f5f5;
-    min-height:730px;
-    padding-bottom: 50px;
-    
-}
-
-}
-
-@media only screen and (max-width : 767px) {
-   #searchcard {
-        width: 124% !important;  
-    }
-    .plan-card {
-       height: 150% !important;
-    }
-    .smallmid{
-        margin:auto !important;
-        width: 100% !important;
-    }
-    .section-button {
-       position: relative;
-    }
-    #planPage {
-    background-color: #f5f5f5;
-    min-height:730px;
-    padding-bottom: 50px;
-    
-}
-
-}
-
-*/
 
 @media only screen and (max-width : 600px) {
     .search-plancard-action {
@@ -187,54 +132,6 @@ textarea:focus {
     }
 }
 
-/*
-@media only screen and (min-width : 300px) {
-    .save_opn {
-        position: relative !important;
-        bottom: 21px !important;
-    }
-    
-    .follow-btn {
-        position: relative !important;
-        bottom: 17px !important;
-    }
-    
-    .plan-heart-c {
-        position: relative !important;
-        bottom: 10px !important;
-    }
-    
-    .plan_graph_fat {
-        position: relative !important;
-        right: 2px !important;
-    }
-    
-    .plan_graph_prot {
-        position: relative !important;
-        right: 23px !important;
-    }
-    
-    .plan_graph_carbs {
-        position: relative !important;
-        right: 13px !important;
-    }
-    
-    .graph-text {
-        position: relative !important;
-        left: 11px !important;
-    }
-    
-    .graph-value {
-        position: relative !important;
-        left: 15px !important;
-    }
-    
-    .rating_val {
-        position: relative !important;
-        left: 3px !important;
-    }
-}
-*/
 
 
 @media only screen and (min-width : 767px) {
@@ -251,14 +148,6 @@ textarea:focus {
     
 }
 
-/*
-@media only screen and (max-width : 1280px) {
-    .createbtn {
-        display: none;
-    }
-} 
-*/
-
 .createbtn {
     display: none;
 }
@@ -270,7 +159,7 @@ textarea:focus {
 }
 
 .search-plan-card {
-    height: 23em !important;
+    height: 27em !important;
 }
 
 .search-plancard-action {
@@ -280,7 +169,6 @@ textarea:focus {
 
 .plan-heart-c {
     cursor: pointer;
-/*    font-size: 19px;*/
     position: absolute;
     float: left;
     bottom: 10px;
@@ -291,7 +179,6 @@ textarea:focus {
 .plan-heart-c:hover{
     color: #ff5252 !important;
     cursor: pointer;
-/*    font-size: 19px;*/
     position: absolute;
     float: left;
     bottom: 10px;
@@ -301,7 +188,6 @@ textarea:focus {
 .plan-heart-ok{
     color: #ff5252;
     cursor: pointer;
-/*    font-size: 19px;*/
     position: absolute;
     float: left;
     bottom: 11px;

@@ -23,11 +23,14 @@ app.controller('recipesController', ['$scope', 'searchService',
             }
         }
         
-        $scope.search_recipe = function(page, sortby) {
+        $scope.search_recipes = function(page, sortby) {
             var query = $scope.query_recipe;
             if (query) {
                 searchService.search_recipe(query, page, sortby)
                     .then(function(response) {
+                        console.log('saerching');
+                        $scope.currentPage = page;
+                        $scope.pageSize = response.total*6;
                         $scope.recipeDetails = response;
                    for (var i=0;i<$scope.recipeDetails.results.length;i++){
                        if(!$scope.recipeDetails.results[i].image){
@@ -276,6 +279,10 @@ app.controller('recipesController', ['$scope', 'searchService',
                 'fiber_tot': "Fiber"
             }
             return filterNames[filter];
+        }
+        
+        $scope.openRecipeDetails = function(recipeId){
+            $location.path("recipes/view-recipe/" + recipeId +'/');    
         }
         
         if(constants.userOb.status){

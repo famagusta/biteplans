@@ -7,13 +7,13 @@
             <div class="col s12 m4" current-page="currentPage" ng-repeat=
             "recipe in recipeDetails.results track by $index">
                       <div class="card recipe_search_card">
-                        <div class="card-image recipe-im">
+                        <div class="card-image recipe_img_container">
                           <img class="recipe_img" ng-src="{{recipe.image}}">
                         </div>
                         <div class="card-content recipe_search_content">
                            <div class="row">
                             <div class="col s12">
-                                <h5 class="cyan-text center ingredient-title">
+                                <h5 class="cyan-text center ingredient-title txt-overflow" ng-click="openRecipeDetails(recipe.id)">
                                 {{recipe.name | addSpace}}</h5>
                             </div>
                         </div>
@@ -43,8 +43,11 @@
 
 
                             <div class="row raise">
-                                <div class="col s12 m12">
+                                <div class="col s12 m12" ng-if="recipe.url">
                                     <p class="recipe-card-info txt-overflow">{{recipe.url}}</p>
+                                </div>
+                                <div class="col s12 m12" ng-if="!recipe.url">
+                                    <br>
                                 </div>
                             </div>
                             
@@ -70,29 +73,7 @@
                                     5.0
                                 </div>
                             </div>
-                            
-<!--
-                            <div class="row raise">
-                                <div class="col s6">
-                                    <a class="heart-c right" ng-if=
-                                       "!checkMyRecipes(recipe.id)"
-                                       ng-click="shortlistRecipe(recipe.id)">
-                                        <i class="material-icons">favorite</i></a>
-                                    <a class="heart-ok right" ng-if=
-                                       "checkMyRecipes(recipe.id)"
-                                       ng-click="shortlistRecipe(recipe.id)">
-                                        <i class="material-icons">favorite</i></a>
-                                </div>
-                                <div class="col s6">
-                                     <a class="read-more right cyan-text" 
-                                        ng-href="recipes/view-recipe/{{recipe.id}}">
-                                         VIEW
-                                    </a>
-                                    
-                                </div>
-                            </div>
--->
-                            
+                                      
                         </div>
                           
                           <div class="card-action">
@@ -140,9 +121,38 @@
 -->
 <!-- When the user has entered incorrect entry in search -->
 
-<!--
+<div class="row">
+    <div class="col s12 m7 push-m5">
+    <paging
+        class="small"
+        page="currentPage" 
+        page-size="6" 
+        total="pageSize"
+        hide-if-empty="{{hideIfEmpty}}"
+        ul-class="{{ulClass}}"
+        li-class="lipageclass"
+        active-class="{{activeClass}}"
+        disabled-class="{{disabledClass}}"
+        show-prev-next="true"
+        show-first-last="true"
+        text-next-class="acti fa fa-chevron-right"
+        text-prev-class="acti fa fa-chevron-left"
+        text-first-class="acti fa fa-backward"
+        text-last-class="acti fa fa-forward"
+        text-title-page="Page {page}"
+        text-title-first="First Page"
+        text-title-last="Last Page"
+        text-title-next="Next Page"
+        text-title-prev="Previous" 
+        paging-action="search_recipes(page, sortby)">
+    </paging> 
+                
+    </div>
 
-<div ng-if="recipeDetails.length==0">
+</div>
+
+
+<div ng-if="query && recipeDetails.length==0">
     <div class="row">
         <div class="col s12 m12">
             <div class="card white">
@@ -153,7 +163,6 @@
         </div>
     </div>
 </div>
--->
 <script>
     $(document).ready(function () {
           $('.modal-trigger').leanModal();  
