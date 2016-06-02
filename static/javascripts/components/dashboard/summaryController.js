@@ -48,43 +48,43 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     current: "Tomorrow",
                     prev: "Today",
                     next: $scope.navDates.next.format(
-                        'YYYY-MM-DD')
+                        'DD MMM YYYY')
                 }
             }
             else if (diff === 1) {
                 $scope.navTitles = {
                     current: "Yesterday",
                     prev: $scope.navDates.prev.format(
-                        'YYYY-MM-DD'),
+                        'DD MMM YYYY'),
                     next: "Today"
                 }
             }
             else if (diff === -2) {
                 $scope.navTitles = {
                     current: $scope.navDates.current.format(
-                        'YYYY-MM-DD'),
+                        'DD MMM YYYY'),
                     prev: "Tomrrow",
                     next: $scope.navDates.next.format(
-                        'YYYY-MM-DD')
+                        'DD MMM YYYY')
                 }
             }
             else if (diff === 2) {
                 $scope.navTitles = {
                     current: $scope.navDates.current.format(
-                        'YYYY-MM-DD'),
+                        'DD MMM YYYY'),
                     prev: $scope.navDates.prev.format(
-                        'YYYY-MM-DD'),
+                        'DD MMM YYYY'),
                     next: "Yesterday"
                 }
             }
             else {
                 $scope.navTitles = {
                     current: $scope.navDates.current.format(
-                        'YYYY-MM-DD'),
+                        'DD MMM YYYY'),
                     prev: $scope.navDates.prev.format(
-                        'YYYY-MM-DD'),
+                        'DD MMM YYYY'),
                     next: $scope.navDates.next.format(
-                        'YYYY-MM-DD')
+                        'DD MMM YYYY')
                 }
             }
         }

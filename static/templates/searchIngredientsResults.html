@@ -262,9 +262,11 @@
             </div>
 
         <div class="center-btn">
-            <button class="waves-effect waves-light btn largebtn center"
+            
+            <button class="btn largebtn center"
+                ng-if="!checkMyIngredients(details.results[selected].id)"
             ng-click=
-            "searchService.shortlistRecipes(details.results[selected].id)">Add
+            "shortlistIngredient(details.results[selected].id)">Add
             to My Ingredients</button>
         </div>
     </div>
