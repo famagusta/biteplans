@@ -27,7 +27,7 @@
                         <form class="col s12">
                             <div class="row">
                                 <div class="input-field col s6">
-                                    <input class="validate" id="recipe_name"
+                                    <input class="validate" id="recipe_name" required
                                     ng-model="recipe.name" type="text">
                                     <label adjust-placeholder for="recipe_name">Name of
                                     Recipe</label>
@@ -37,7 +37,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input class="validate" id="recipe_desc"
+                                    <input class="validate" id="recipe_desc" required
                                     ng-model="recipe.description" type="text">
                                     <label adjust-placeholder for=
                                     "recipe_desc">Description</label>
@@ -49,7 +49,7 @@
                                 <div class="input-field col s6">
                                     <input class="validate" id="servings" min=
                                     "1" ng-model="recipe.servings" type=
-                                    "number"> <label adjust-placeholder for="servings">Number of
+                                    "number" required> <label adjust-placeholder for="servings">Number of
                                     Servings</label>
                                 </div>
                             </div>
@@ -338,6 +338,14 @@
                                 </div>
                             </div>
 
+                            
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    <label for="external-url">Link to External Page</label>
+                                    <input id="external-url" ng-model="recipe.url" type="url" name='url'>
+
+                                </div>
+                            </div>
                             <!--
                             <div class="row">
                                 <div class="col s12">

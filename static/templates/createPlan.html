@@ -42,13 +42,14 @@
             <div class="col s12 m12">
                 <div class="card white create_card">
                     <div class="card-content grey-text">
-                        <form ng-submit="initialize_plan()">
+                        <form>
                             <div class="row">
                                 
                                 <div class="input-field col s5 push-s1">
                                     <label for="plan_name">Name of Plan</label>
                                     <input class="validate" id="plan_name"
-                                    ng-model="plan.name" type="text">
+                                    ng-model="plan.name" type="text" pattern=".{8,191}" 
+                                    required title="Please enter 8 to 75 Characters">
                                 </div>
 
                                 <div class="input-field col s12 m5 push-m1">
@@ -64,7 +65,7 @@
                                 <div class="input-field col s12 m5 push-m1">
                                     <label for="duration">Duration</label>
                                     <input class="validate" id="duration" max=
-                                    "52" min="1" ng-model="plan.duration" type=
+                                    "8" min="1" ng-model="plan.duration" type=
                                     "number">
                                 </div>
 
@@ -80,7 +81,8 @@
                                 <div class="input-field col s12 m5 push-m1">
                                     <label for="goal">Goal in one line</label>
                                     <input class="validate" id="goal" ng-model=
-                                    "plan.goal" type="text">
+                                    "plan.goal" type="text" pattern=".{8,191}" 
+                                    required title="Please enter 8 to 191 Characters">
                                 </div>
                                  <div class="input-field col s12 m5 push-m1">
                                     <input class="form-control validate" id=
@@ -131,7 +133,7 @@
                                     <div class="center-btn">
                                         <button class=
                                         "waves-effect waves-light btn" type=
-                                        "submit">Next</button>
+                                        "submit" ng-submit="initialize_plan()">Next</button>
                                     </div>
                                 </div>
                             </div>

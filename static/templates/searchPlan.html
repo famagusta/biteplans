@@ -268,7 +268,9 @@
         <form ng-submit="createPlan()">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="name_plan" ng-model="plan.name" type="text">
+                    <input id="name_plan" ng-model="plan.name" type="text"
+                        class="validate" pattern=".{8,191}" 
+                        required title="Please enter 8 to 75 Characters">
                     <label for="name_plan">Name of Plan</label>
                 </div>
             </div>

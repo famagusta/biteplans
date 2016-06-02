@@ -20,21 +20,21 @@
         <div class="col s12 card white create-recipe-content">
             <div class="card-content black-text">
                 <h5 class="center">Create Recipe</h5>
-                {{recipeError}} <!--                    <div class="row">-->
+                <p style="color:maroon">{{recipeError}}</p> <!--                    <div class="row">-->
 
-
+                
                 <form class="col s12 m12">
                     <div class="row">
                         <div class="input-field col s12 m6">
                             <input class="validate" id="recipe_name" ng-model=
-                            "recipe.name" required="" type="text"> <label for=
+                            "recipe.name" required type="text"> <label for=
                             "recipe_name">Name of Recipe</label>
                         </div>
 
 
                         <div class="input-field col s12 m6">
                             <input class="validate" id="servings" min="1"
-                            ng-model="recipe.servings" required="" type=
+                            ng-model="recipe.servings" required type=
                             "number"> <label for="servings">Number of
                             Servings</label>
                         </div>
@@ -44,8 +44,8 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <textarea class="materialize-textarea" id=
-                            "recipe_desc" ng-model=
-                            "recipe.description"></textarea> <label for=
+                            "recipe_desc" required 
+                            ng-model="recipe.description"></textarea> <label for=
                             "recipe_desc">Description</label>
                         </div>
                     </div>
@@ -393,13 +393,21 @@
                     <br>
 
 
-                    <div>
+                    <div class="row">
                         <div class="col s12">
                             <a class="cyan-text add-ing" href="#" ng-click=
                             "uploadImageModal()">Upload Image</a>
                         </div>
                     </div>
 
+                    
+                    <div class="row">
+                        <div class="col s12 m12">
+                            <label for="external-url">Link to External Page</label>
+                            <input id="external-url" ng-model="recipe.url" type="url" name='url'>
+                             
+                        </div>
+                    </div>
 
 <!--
                     <div class="row">
