@@ -712,3 +712,8 @@ select {
     cursor: pointer;
     color: #ff5252;
 }
+
+.descrip_overflow {
+     word-wrap: break-word;
+    width: 70em;
+}

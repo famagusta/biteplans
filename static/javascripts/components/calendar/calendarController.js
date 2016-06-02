@@ -111,7 +111,7 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                 for(var i=0; i<$scope.currentUserPlans.length; i++){
                     var duration = $scope.currentUserPlans[i].dietplan.duration*7 - 1;
                     var end_date = moment($scope.currentUserPlans[i].start_date).add(duration,'days');
-                    $scope.currentUserPlans[i].end_date = end_date.format('YYYY-MM-DD');
+                    $scope.currentUserPlans[i].end_date = end_date.format('DD MMM YYYY');
                 }
             }, function(error){
                 console.log(error);

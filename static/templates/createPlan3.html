@@ -7,25 +7,13 @@
                         <div class="row" id="summary-info">
                             <div class="col s12 m10 push-m1">
                                 <div class="row">
-                                    <div class="col s12 m3">
+                                         <div class="col s12 m3">
                                         <p class="ing-text">NAME OF THE
                                         PLAN :</p>
-                                    </div>
-
-
-                                    <div class="col s12 m3">
+                                        </div>
+                                               <div class="col s12 m3">
                                         <p class="meal-text">
                                         {{plan.name}}</p>
-                                    </div>
-
-                                    <div class="col s12 m2">
-                                        <p class="ing-text">GOAL :</p>
-                                    </div>
-
-
-                                    <div class="col s12 m3">
-                                        <p class="meal-text">
-                                        {{plan.goal}}</p>
                                     </div>
                                 </div>
 
@@ -54,6 +42,18 @@
                                         {{plan.weight + '&nbsp;' + 'Kgs' + '&nbsp;' + 'Weight' + '&nbsp;' + '&nbsp;' + '|' }} {{plan.height + '&nbsp;' +'cms' + '&nbsp;' + 'Height'}}</p>
                                     </div>
                                 </div>
+                                
+                                     <div class="row">
+                                         <div class="col s12 m2">
+                                        <p class="ing-text">GOAL :</p>
+                                    </div>
+
+
+                                    <div class="col s12 m3">
+                                        <p class="meal-text">
+                                        {{plan.goal}}</p>
+                                    </div>
+                                        </div>
 
                                 <div class="row">
                                     <div class="col s12 m12">
@@ -63,7 +63,7 @@
                                     <br>
 
                                     <div class="col s12 m12">
-                                        <p class="meal-text">
+                                        <p class="meal-text descrip_overflow">
                                         {{plan.description}}</p>
                                     </div>
                                 </div>

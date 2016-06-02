@@ -1,7 +1,7 @@
 <div id="planPage">
     <div id="dashboard-page" ng-controller = "dashboardController">
         <div class="row">
-            <div class="col s12 m2">
+            <div class="col s12 m2 hide-on-small-only">
                 <div class="card white darken-1 sidemenu_margin">
                     <div class="card-content grey-text">
                         <div class="row">
@@ -178,11 +178,13 @@
                     </div>
                 </div>
             </div>
+            
+    
             <!--SUMMARY VIEW -->
 
 
             <div ng-if="tab.tab==1">
-                <div class="col s10">
+                <div class="col s12 m10">
                         <div ng-include="'static/templates/summary.html'"></div>
                 </div>
                 
@@ -192,7 +194,7 @@
 
 
             <div ng-if="tab.tab==2" ng-controller="profileController">
-                <div class="col s10">
+                <div class="col s12 m10">
                     <div ng-include="'static/templates/profile.html'"></div>
                 </div>
             </div>
@@ -200,7 +202,7 @@
 
 
             <div ng-if="tab.tab==3">
-                <div class="col s10">
+                <div class="col s12 m10">
 <!--                    <div class="col s10">-->
 <!--                        <div class="card top_mar" >-->
                             <div ng-include="'static/templates/calendar.html'" class="calendar"></div>
@@ -221,7 +223,7 @@
             </div>
 
             <div ng-if="tab.tab==5">
-                <div class="col s10">
+                <div class="col s12 m10">
                     <div class="top_mar" ng-controller="shortlistedPlansController">
                         <div ng-include="'static/templates/myplans.html'"></div>
                     </div>
@@ -229,7 +231,7 @@
             </div>
 
             <div ng-if="tab.tab==7">
-                <div class="col s10">
+                <div class="col s12 m10">
                     <div class="top_mar" ng-controller="shortlistedRecipesController">
                         <div ng-include="'static/templates/myrecipes.html'" ></div>
                     </div>
@@ -237,7 +239,7 @@
             </div>
 
             <div ng-if="tab.tab==9">
-                <div class="col s10">
+                <div class="col s12 m10">
                     <div class="top_mar" ng-controller="shortlistedIngredientsController">
                         <div ng-include="'static/templates/myingredients.html'"></div>
                     </div>
@@ -245,7 +247,7 @@
             </div>
             
              <div ng-if="tab.tab==10">
-                <div class="col s10">
+                <div class="col s12 m10">
                     <div class="top_mar">
                         <div ng-include="'static/templates/myingredients.html'"></div>
                     </div>

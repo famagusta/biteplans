@@ -9,8 +9,8 @@
                     "openIngredientsModal(detail)">
                         <div class="row">
                             <div class="col s12">
-                                <h5 class="cyan-text center ingredient-title">
-                                {{detail.name| addSpace | limitTo:23}}....</h5>
+                                <h5 class="cyan-text center ingredient-title txt-overflow">
+                                {{detail.name| addSpace}}....</h5>
                             </div>
                         </div>
 
@@ -262,9 +262,11 @@
             </div>
 
         <div class="center-btn">
-            <button class="waves-effect waves-light btn largebtn center"
+            
+            <button class="btn largebtn center"
+                ng-if="!checkMyIngredients(details.results[selected].id)"
             ng-click=
-            "searchService.shortlistRecipes(details.results[selected].id)">Add
+            "shortlistIngredient(details.results[selected].id)">Add
             to My Ingredients</button>
         </div>
     </div>

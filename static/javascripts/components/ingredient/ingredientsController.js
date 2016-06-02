@@ -192,6 +192,19 @@ app.controller('ingredientsController',
             }
         }
         
+        $scope.getFilterLabel = function(filter){
+            var filterNames ={
+                'carbohydrate_tot': "Carbohydrates",
+                'protein_tot': "Proteins",
+                'fat_tot': "Fats",
+                'energy_kcal': "Calories",
+                'sugar_tot': "Sugar",
+                'fiber_tot': "Fiber",
+                'water': "Water"
+            }
+            return filterNames[filter];
+        }
+        
         if(constants.userOb.status){
             $scope.getUserIngredients();
         }

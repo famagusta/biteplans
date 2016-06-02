@@ -22,19 +22,18 @@ FOR SUMMARY PAGE WITH THE VIEW FIXED TO A DAY VIEW -->
     <div class="col s12">
         <div class="card" >
 <!--            <div ng-include="'static/templates/followPlans.html'"></div>-->
-            <div class="row center">
-                    <span >Currently Following Plans</span>
+            <div class="row center card-title">
+                    <span>Currently Following Plans</span>
             </div>
             <div class="row center">
                     <div ng-repeat="(index1, plan) in currentUserPlans">
-                        <div class="col s3">{{plan.dietplan.name}}</div>
+                        <div class="col s3">{{plan.dietplan.name | limitTo:20}}</div>
                         <div class="col s3">{{plan.start_date}}</div>
                         <div class="col s3">{{plan.end_date}}</div>
                         <div class="col s3">
-                            <a class="cyan-text btn-flat" 
-                               ng-click="unfollow(plan.id)">
-                                <i class="material-icons">delete</i>
-                                Remove 
+                            <a class="btn-flat" 
+                               ng-click="unfollow(plan.id)" createbin>
+                                <i class="material-icons  grey-text dashbin">delete</i>
                             </a>
                         </div>
                     </div>

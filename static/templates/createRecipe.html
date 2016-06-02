@@ -20,7 +20,7 @@
         <div class="col s12 card white create-recipe-content">
             <div class="card-content black-text">
                 <h5 class="center">Create Recipe</h5>
-                <p style="color:maroon">{{recipeError}}</p> <!--                    <div class="row">-->
+                <p class="center" style="color:red">{{recipeError}}</p> <!--                    <div class="row">-->
 
                 
                 <form class="col s12 m12">
@@ -701,39 +701,54 @@
 -->
                     
                     <div class="file-field input-field">
-                        <div class="btn">
+                        <div class="col s12 m3 push-m1">
+                            <div class="btn">
                             <span>Choose File</span> <input accept=
                             'image/*' image="cropper.fileInput" img-cropper-fileread=""
                             type="file" data-max-size="5120">
                         </div>
-
+                        </div>
+                        
+                        <div class="col s12 m5 push-m2">
+                        
                         <div class="file-path-wrapper">
                             <input class="file-path validate"
                             type="text">
                         </div>
+                        </div>
+
                     </div>
                     
-                    <div ng-show="fileSizeError" style="color:maroon">
+
+                    <div ng-show="fileSizeError" style="color:red">
                         Please Upload a file less than 5Mb
                     </div>
+                    
+                       <div class="col s12 m12 center">
+                            <p class="center">OR</p>
+                        </div>
                     <br>
                     <div class="row">
-                        <div class="col s12 m6">
-                            <label for="recipe-url">Recipe URL</label>
-                            <input name="recipe-url" id="recipe-url" type="url" ng-model="cropper.urlInput" ng-change="urlChanged()">
-                        </div>
-                        <div class="col s12 m6">
+                        <div class="col s12 m3 push-m1">
+                            <br>
                             <button class=
-                                "waves-effect waves-light btn" id="img_upload_btn"
+                                "waves-effect waves-light btn"
                                 ng-click='validateRecipe()' type=
-                                "submit">Upload</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                                "submit" style="margin-top: 2em !important;">Upload</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        
+                        <div class="col s12 m5 push-m2 upload_file">
+                            <label for="recipe-url">Recipe URL</label>
+                            <input class="upload_file" name="recipe-url" id="recipe-url" type="url" ng-model="cropper.urlInput" ng-change="urlChanged()">
+                        </div>
+                     
+                        
+
+                        <div ng-show="urlCopyrightError" style="color:red">
+                            Image is copyright protected.
                         </div>
                     </div>
-                    
-                    <div ng-show="urlCopyrightError" style="color:maroon">
-                        Image is copyright protected.
-                    </div>
-                    
+
                 </form>
 
                       

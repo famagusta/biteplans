@@ -265,6 +265,19 @@ app.controller('recipesController', ['$scope', 'searchService',
             }
         }
         
+        $scope.getFilterLabel = function(filter){
+            var filterNames ={
+                'average_rating': "Rating",
+                'carbohydrate_tot': "Carbohydrates",
+                'protein_tot': "Proteins",
+                'fat_tot': "Fats",
+                'energy_kcal': "Calories",
+                'sugar_tot': "Sugar",
+                'fiber_tot': "Fiber"
+            }
+            return filterNames[filter];
+        }
+        
         if(constants.userOb.status){
             $scope.getUserRecipes();
             getUserRecipeRatings();

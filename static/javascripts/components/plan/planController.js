@@ -48,12 +48,14 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         $scope.followDate = '';
         $scope.search_plan = function(page, sortby)
         {
+            console.log('searching');
             var query = $scope.query_plan;
             if (query)
             {
                 searchService.search_plan(query, page, sortby).then(function(
                     response)
                 {
+                    console.log(response);
                     $scope.plans = response;
                     $scope.currentPage = page;
                     $scope.pageSize = response.total*6;
@@ -227,10 +229,17 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                                 $scope.followPlanObject).then(
                                 function(response)
                                 {
+                                    
                                     console.log(
                                         response);
+                                    if(response.error){
+                                        $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date."
+                                    }else{
+                                        $scope.followPlanError = ""
+                                    }
                                 }, function(error)
                                 {
+                                    
                                     console.log(error);
                                 });
                         }
@@ -329,6 +338,17 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.openPlanDetails = function(planId){
             $location.path('/dietplans/view-diet-plan/' + planId +'/');
+        }
+        
+        $scope.getFilterLabel = function(filter){
+            var filterNames ={
+                'average_rating': "Rating",
+                'carbohydrate_tot': "Carbohydrates",
+                'protein_tot': "Proteins",
+                'fat_tot': "Fats",
+                'energy_kcal': "Calories"
+            }
+            return filterNames[filter];
         }
         
         if(constants.userOb.status){

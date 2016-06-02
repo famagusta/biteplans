@@ -20,6 +20,10 @@
     width: 94%;
 }
 
+.dashbin {
+    position: relative;
+    bottom: 9px;
+}
 
 .top_mar {
     margin-top: 8px;
@@ -274,8 +278,13 @@ input:disabled {
         font-size: 20px;
         word-spacing: 10px !important;
     }
+    
+    #edit_content_db {
+        position: relative;
+        top: -33px;
+        left: -71px;
 }
 
 .calendar {
-    height: 600px;
+    height: 600px !important;
 }

@@ -1,28 +1,93 @@
-<div class="card white top_mar">
+<div class="row">
+    <div class="col s12 m12">
+<div class="card white">
     <div class="card-content cyan-text">
         <a class="cyan-text" ng-click="editIt=!editIt"><i class=
         "material-icons edit_content_icon prof_edit">mode_edit</i><span class="right" id=
         "edit_content_db">EDIT PROFILE</span></a>
 
         <div class="row">
-            <form class="col s12">
+            <form>
                 <div class="row">
-                    <div class="col s3 offset-s4">
+                    <div class="col s12 m12 center">
+                        <img class="responsive-img circle" ng-src=
+                            "{{user_thum}}"> 
+<!--
                         <div class="file-field input-field">
                             <img class="responsive-img circle" ng-src=
-                            "{{user_thum}}"> <input accept=
+                            "{{user_thum}}"> 
+                            <input accept=
                             'image/*' file-model="profile_image_file.src"
                             ng-disabled="!editIt" type="file">
                         </div>
+-->
+                        
+                        
+                    </div>
+                    <div class="col s12 m12 center">
+                        <br><br>
+                        <button class="btn-flat cyan-text" ng-show="editIt" ng-click=
+                        "uploadImageModal()">Upload</a>
                     </div>
                 </div>
+                
+                <div class="row">
+                    
+<!--
+                    <div class="col s2 m2">
+                        
+                    </div>
+-->
+                     <div class="col s12 m6">
+                        <label for="dob_field" adjust-placeholder>Date of Birth</label>
+                        <input class="datepicker_btn" ng-click="updateDOB()" id="dob_field"
+                        ng-disabled="!editIt" ng-model="placeHolderDOB" type=
+                        "text">
+                         
+                    </div>
+                    
+<!--
+                    <div class="col s1 m1 push-s1 push-m2">
+                        
+                    </div>
+-->
+
+
+                    <div class="col s12 m6 ">
+                        <label>Gender</label>
+                        <br>
+                        <input checked class="with-gap" id="test5"
+                        name="group3" ng-disabled="!editIt" ng-model=
+                        'profileInfo.gender' type="radio" value="M">
+                        <label for="test5">M</label>&nbsp;&nbsp;
+                        <input class="with-gap" id="test4" name=
+                        "group3" ng-disabled="!editIt" ng-model=
+                        'profileInfo.gender' type="radio" value="F">
+                        <label for="test4">F</label>
+                    </div>
+
+                </div>
+<!--
+                <div class="row">
+                    <div class="col s3 offset-s4">
+                        <a class="cyan-text add-ing" href="#" ng-click=
+                        "uploadImageModal()">Upload Image</a>
+                    </div>
+                </div>
+-->
 
 
                 <div class="row">
-                    <div class="input-field col s6">
-                        <label adjust-placeholder for="first_name">Current Weight (in kgs)</label>
-                        <input class="validate" id="first_name" ng-disabled=
+                    <div class="input-field col s12 m6">
+                        <label adjust-placeholder for="weight">Current Weight (in kgs)</label>
+                        <input class="validate" id="weight" step="0.1" ng-disabled=
                         "!editIt" ng-model="profileInfo.weight" type="number">
+                    </div>
+                    
+                    <div class="input-field col s12 m6">
+                        <label adjust-placeholder for="body_fat">Body Fat (%)</label>
+                        <input class="validate" id="body_fat" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.body_fat_percent" min="0" max="100" type="number">
                     </div>
                 </div>
                 <!-- WE ARE NOT STORING THIS IN THE DATABASE YET-->
@@ -42,37 +107,81 @@
 
 
                 <div class="row">
-                    <div class="input-field col s12">
-                        <input class="validate" id="height" ng-disabled=
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="height" step="0.1" ng-disabled=
                         "!editIt" ng-model="profileInfo.height" type="number">
                         <label adjust-placeholder for="height">Height (in cms)</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="waist" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.waist" type="number">
+                        <label adjust-placeholder for="waist">Waist (in cms)</label>
+                    </div>
+                </div>
+                
+                
+                 <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="chest" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.chest" type="number">
+                        <label adjust-placeholder for="height">Chest (in cms)</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="shoulder" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.shoulder" type="number">
+                        <label adjust-placeholder for="shoulder">Shoulder (in cms)</label>
+                    </div>
+                </div>
+                
+                
+                 <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="bicep" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.bicep" type="number">
+                        <label adjust-placeholder for="bicep">Bicep (in cms)</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="forearm" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.forearm" type="number">
+                        <label adjust-placeholder for="height">Forearm (in cms)</label>
                     </div>
                 </div>
 
 
                 <div class="row">
-                    <div class="input-field col s6">
-                        <div class="row">
-                            <div class="col s3 m3">
-                                <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="neck" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.neck" type="number">
+                        <label adjust-placeholder for="neck">Neck (in cms)</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="hip" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.hip" type="number">
+                        <label adjust-placeholder for="hip">Hip (in cms)</label>
+                    </div>
+                </div>
 
-
-                            <div class="col s9 m9">
-                                <input checked class="with-gap" id="test5"
-                                name="group3" ng-disabled="!editIt" ng-model=
-                                'profileInfo.gender' type="radio" value="M">
-                                <label for="test5">M</label>&nbsp;&nbsp;
-                                <input class="with-gap" id="test4" name=
-                                "group3" ng-disabled="!editIt" ng-model=
-                                'profileInfo.gender' type="radio" value="F">
-                                <label for="test4">F</label>
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="thigh" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.thigh" type="number">
+                        <label adjust-placeholder for="thigh">Thigh (in cms)</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m6">
+                        <input class="validate" id="calf" step="0.1" ng-disabled=
+                        "!editIt" ng-model="profileInfo.calf" type="number">
+                        <label adjust-placeholder for="calf">Calf (in cms)</label>
                     </div>
                 </div>
 
 
+
+<!--
                 <div class="row">
                     <div class="input-field col s12">
                         <input class="datepicker_btn" ng-click="updateDOB()"
@@ -81,6 +190,7 @@
                     </div>
                 </div>
                 <br>
+-->
 
 
                 <div class="row center">
@@ -92,5 +202,69 @@
                 </div>
             </form>
         </div>
+    </div>
+</div>
+    </div>
+</div>
+
+<div class="modal" id="upload-image-modal">
+    <a class=
+    "modal-action modal-close waves-effect waves-green btn-flat right" ng-click="saveProfileImage()">X</a>
+    <!-- TODO : handle urls as well -->
+
+
+    <div class="modal-content">
+        <form name="fileForm">
+<!--
+            <input image="cropper.sourceImage" img-cropper-fileread=""
+            type="file" data-max-size="5120">
+-->
+
+            <div class="file-field input-field">
+                <div class="btn">
+                    <span>Choose File</span> <input accept=
+                    'image/*' image="cropper.sourceImage" img-cropper-fileread=""
+                    type="file" data-max-size="5120">
+                </div>
+
+                <div class="file-path-wrapper">
+                    <input class="file-path validate"
+                    type="text">
+                </div>
+            </div>
+
+            <div ng-show="fileSizeError" style="color:red">
+                Please Upload a file less than 5Mb
+            </div>
+
+            <div class="center" ng-show="cropper.sourceImage!=null">
+                <canvas crop-height="150" crop-width="150" cropped-image=
+                "cropper.croppedImage" height="300" id="canvas" image=
+                "cropper.sourceImage" image-cropper="" width="500">
+                </canvas>
+            </div>
+
+
+            <div>
+                Cropped Image:
+            </div>
+
+
+            <div class="center" ng-show="cropper.sourceImage!=null">
+                <img ng-src="{{cropper.croppedImage}}">
+            </div>
+            
+            <div class="row">
+                <div class="col s12">
+                    <div class="center-btn">
+                        <button class=
+                        "waves-effect waves-light btn largebtn"
+                        ng-click='saveProfileImage()' type=
+                        "submit">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+            
+        </form>
     </div>
 </div>

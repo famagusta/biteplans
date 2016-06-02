@@ -62,11 +62,12 @@ p.recipe-card-info {
     position: absolute;
     float: left;
     bottom: 0px;
-    left: 30px
+    left: 30px;
+    color: #bcbcbc !important;
 }
 
 .heart-c:hover{
-    color: #ff5252;
+    color: #ff5252 !important;
     cursor: pointer;
     font-size: 19px;
     position: absolute;

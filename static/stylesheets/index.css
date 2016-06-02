@@ -155,6 +155,12 @@ paging{
   margin:auto !important;
 }
 
+.txt-overflow {
+    white-space: nowrap ;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+}
 
 @media only screen and (max-width : 992px) {
   .parallax-container .section {

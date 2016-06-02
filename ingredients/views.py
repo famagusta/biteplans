@@ -49,7 +49,7 @@ class GlobalSearchList(generics.GenericAPIView):
 
         if request.POST.get('type', False) == 'plans':
             # will do something interesting with this in future
-            sortl = ['average_rating',
+            sortl = ['average_rating', 'fiber_tot', 'sugar_tot',
                     'carbohydrate_tot', 'energy_kcal', 'fat_tot', 'protein_tot']
 
             sortby = request.POST.get('sortby', False)
@@ -91,18 +91,25 @@ class GlobalSearchList(generics.GenericAPIView):
                 result = res
         elif request.POST.get('type', False) == 'recipes':
             # This gather the list of sort options
-            sortl = []
+#            sortl = []
             filters = None
-            for i in self.sortlist:
-                if str(type(i)) == \
-                        "<class 'django.db.models.fields.DecimalField'>":
-                    sortl.append(i.name)
+            sortl = ['average_rating', 'fiber_tot', 'sugar_tot',
+                    'carbohydrate_tot', 'energy_kcal', 'fat_tot', 'protein_tot']
+#            for i in self.sortlist:
+#                if str(type(i)) == \
+#                        "<class 'django.db.models.fields.DecimalField'>":
+#                    sortl.append(i.name)
             self.sortlist = None
             # this checks if sort by is reuested and applies it if
             # that is the case
 
             sortby = request.POST.get('sortby', False)
-            if sortby:
+            if sortby == 'average_rating':
+                result = sorted(result, key=lambda m: m.average_rating)
+                # returned result should be in descending order, but
+                #above gives asc, so reverse the array
+                result = result[::-1]
+            elif sortby:
                 result = result.order_by('-'+sortby)
 
         # total number of pages

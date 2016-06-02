@@ -17,7 +17,7 @@
                                        name="sortradio" 
                                     value="{{filter}}" type="radio" ng-model="sortby"                                             ng-click="search_plan(1, sortby)">
                                 <label for="filled-in-rad{{$index}}">
-                                    {{filter.split('_', 1)[0]}}
+                                    {{getFilterLabel(filter)}}
                                 </label>
                             </p>
                         </div>
@@ -44,15 +44,20 @@
                                 "submit"></button>
                             </form>
                         </div>
+                        
+                        
                         <!-- END OF SEARCH-BOX -->
                     </div>
+                </div>
+                <div class="col s12 m12 center">
+                    <p style="color:red">{{followPlanError}}</p>
                 </div>
             </div>
 
 
             <div class="row">
                 <div class="col s12 m6" ng-repeat=
-                "plan in plans.results | limitTo:4">
+                "plan in plans.results"> <!--| limitTo:4"> -->
                     <div class="card white" >
                         <div class="card-content search-plan-card black-text" 
                              ng-click="openPlanDetails(plan.id)">
@@ -66,8 +71,8 @@
 
 
                                 <div class="col s12 m12 center">
-                                    <h5 class="cyan-text">
-                                    {{plan.name | limitTo:35 + '...' }}</h5>
+                                    <h5 class="cyan-text txt-overflow">
+                                    {{plan.name</h5>
                                 </div>
                             </div>
 

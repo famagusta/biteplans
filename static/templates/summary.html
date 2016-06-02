@@ -16,11 +16,11 @@
 
 <section ng-controller='summaryCtrl'>
     <div class="row">
-        <div class="col s8">
+        <div class="col s12 m8">
             <div class="card white">
                 <div class="card-content">
                     <div class="row">
-                        <div class="col s10 m10 push-s1 push-m1">
+                        <div class="col s12 m10 push-m1">
                             <div class="row center">
                                 <div class="col s1">
                                     <span class=
@@ -85,7 +85,7 @@
                     <div class="row">
                         
                         <div class="col s12 m12">
-                            <h5 class="center-align">{{plan_summary.dietplan.name | limitTo:25 }}
+                            <h5 class="center-align txt-overflow">{{plan_summary.dietplan.name}}
                             </h5>
                         </div>
                         
@@ -101,12 +101,12 @@
                                     </div>
 
 
-                                    <div class="col s3">
+                                    <div class="col s5 push-s1 m3">
                                         <p class="ing-text">{{meal.name}}</p>
                                     </div>
 
 
-                                    <div class="col s1 pull-s1">
+                                    <div class="col s1 push-s1 m1 pull-m1">
                                         <p class="cyan-text">{{meal.time}}</p>
                                     </div>
                                 </div>
@@ -123,14 +123,14 @@
                                         </div>
 
 
-                                        <div class="col s3 m1 push-m1">
+                                        <div class="col s3 push-s1 m1 push-m1">
                                            <p class="meal-head">Servings</p>
                                         </div>
 
 
 
 
-                                        <div class="col s3 m1 push-m2">
+                                        <div class="col s3 push-s1 m1 push-m2">
                                             <p class="meal-head">Unit</p>
                                         </div>
 
@@ -159,7 +159,7 @@
                                         </div>
 
 
-                                        <div class="col s2 m1 push-m2">
+                                        <div class="col s2 push-s1 m1 push-m2">
                                             <span class=
                                             "center-align"><input 
                                             checklist-model="checklistRecipes"
@@ -175,7 +175,7 @@
                                         </div>
 
 
-                                        <div class="col m1 push-m3 bin">
+                                        <div class="col s2 push-s1 m1 push-m3 bin">
                                             <span class=
                                             "card-title center-align"><a ng-click="removeRecipeFromSavedMeal(index1,index3)">
                                             <i class=
@@ -215,7 +215,7 @@
                                 <div class="meal_lst" ng-repeat=
                                 '(index2, ingredient) in meal.followingMealPlanIngredient track by $index'>
                                 <div class="row">
-                                        <div class="col s3 m4">
+                                        <div class="col s5 m4">
                                             <p class="meal-text">
                                             {{ingredient.meal_ingredient.name}}</p>
                                         </div>
@@ -308,7 +308,7 @@
         </div>
 
 
-        <div class="col s4">
+        <div class="col s12 m4">
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card dash_graphcard">
@@ -331,7 +331,7 @@
 
 
                             <div clas="row">
-                                <div class="col s4 m12 center">
+                                <div class="col s12 m12 center">
                                     <div class="progress-wrapper">
             
                                         <div animation="easeInOutQuart"
@@ -357,7 +357,7 @@
                                 </div>
 
 
-                                <div class="col s4 m12 center">
+                                <div class="col s12 m12 center">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FE6433" current=
@@ -382,7 +382,7 @@
                                 </div>
 
 
-                                <div class="col s4 m12 center">
+                                <div class="col s12 m12 center">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FDC106" current=
