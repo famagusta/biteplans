@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col s12 m6" ng-repeat=
                 "plan in plans.results | limitTo:4">
-                    <div class="card white">
+                    <div class="card white" ng-click="openPlanDetails(plan.id)">
                         <div class="card-content search-plan-card black-text">
                             <div class="row">
                                 <!--

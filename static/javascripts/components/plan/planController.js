@@ -327,6 +327,10 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }
         }
         
+        $scope.openPlanDetails = function(planId){
+            $location.path('/dietplans/view-diet-plan/' + planId +'/');
+        }
+        
         if(constants.userOb.status){
             getUserPlanRatings();
             getUserPlans();

@@ -543,13 +543,13 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                     isAdditional, col)
                 {
                     var total = 0;
-
+//                    console.log(total);
+//                    console.log($scope.mealPlanNameArray);
                     if(col===1){
                     if ($scope.mealPlanNameArray !==undefined && $scope.mealPlanNameArray !== null && 
                         $scope.mealPlanNameArray.length>0)
                     {
-                        for (var i = 0; i < $scope.mealPlanNameArray
-                            .length; i++)
+                        for (var i = 0; i < $scope.mealPlanNameArray.length; i++)
                         {
                             for (var j = 0; j < $scope.mealPlanNameArray[
                                 i].mealingredient.length; j++)
