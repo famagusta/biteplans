@@ -47,6 +47,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.cropper.sourceImage = null;
                     $scope.cropper.croppedImage = null;
                     $scope.fileSizeError = false;
+                    $scope.fileExtn = '';
                     
                     // some images are protected from cross domain sharing
                     $scope.urlCopyrightError = false;
@@ -54,6 +55,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.$watch('cropper.fileInput', function(newVal, oldVal){
                         if(newVal){
                             var file_size = dataURLtoBlob(newVal).size;
+                            var image_blob = dataURLtoBlob(newVal);
+                            $scope.fileExtn = (image_blob.type).split('/')[1];
+                            
                             if (file_size > 5242880)
                             {
                                 $scope.fileSizeError = true;
@@ -127,7 +131,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.uploadFile = function(id) {
                         if($scope.cropper.croppedImage){
                             var image_blob = dataURLtoBlob($scope.cropper.croppedImage);
-                            var file = new File([image_blob], 'test_file.png');
+                            var fileName = 'recipe_pic.' + $scope.fileExtn
+                            var file = new File([image_blob], fileName);
 
                             var url = '/recipes/recipe/' + id + '/';
                             if (file !== undefined && file !== null) {
