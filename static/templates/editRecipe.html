@@ -665,7 +665,7 @@
                         </div>
                     </div>
                     
-                    <div ng-show="fileSizeError" style="color:maroon">
+                    <div ng-show="fileSizeError" style="color:red">
                         Please Upload a file less than 5Mb
                     </div>
                     
@@ -679,6 +679,10 @@
                                 "waves-effect waves-light btn"
                                 ng-click='validateRecipe()' type=
                                 "submit">Upload</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                        </div>
+                        
+                        <div ng-show="urlCopyrightError" style="color:red">
+                            Image is copyright protected.
                         </div>
                     </div>
 

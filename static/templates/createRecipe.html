@@ -20,7 +20,7 @@
         <div class="col s12 card white create-recipe-content">
             <div class="card-content black-text">
                 <h5 class="center">Create Recipe</h5>
-                <p style="color:maroon">{{recipeError}}</p> <!--                    <div class="row">-->
+                <p class="center" style="color:red">{{recipeError}}</p> <!--                    <div class="row">-->
 
                 
                 <form class="col s12 m12">
@@ -713,7 +713,7 @@
                         </div>
                     </div>
                     
-                    <div ng-show="fileSizeError" style="color:maroon">
+                    <div ng-show="fileSizeError" style="color:red">
                         Please Upload a file less than 5Mb
                     </div>
                     
@@ -730,7 +730,7 @@
                         </div>
                     </div>
                     
-                    <div ng-show="urlCopyrightError" style="color:maroon">
+                    <div ng-show="urlCopyrightError" style="color:red">
                         Image is copyright protected.
                     </div>
                     
