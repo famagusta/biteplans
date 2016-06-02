@@ -90,7 +90,6 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                 //if type is jump then it will jump
                 $scope.daySelect = function(type, week, day)
                 {
-                    console.log(type, week, day);
                     if (type === 'copy')
                     {
                         if (day !== $scope.dayplan.day_no ||
@@ -543,8 +542,6 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                     isAdditional, col)
                 {
                     var total = 0;
-//                    console.log(total);
-//                    console.log($scope.mealPlanNameArray);
                     if(col===1){
                     if ($scope.mealPlanNameArray !==undefined && $scope.mealPlanNameArray !== null && 
                         $scope.mealPlanNameArray.length>0)

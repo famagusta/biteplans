@@ -27,6 +27,7 @@ nav {
     padding: 20px;
     background-size: cover;
     padding-bottom: 215px;
+
 }
 
 
@@ -52,6 +53,7 @@ nav {
     text-align: center !important;
     padding: 12px !important;
     margin-top: -40px !important;
+    height: 10% !important;
 }
 
 .landing_card {

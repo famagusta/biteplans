@@ -59,6 +59,7 @@
                             </div>
                         </div>
 
+<!--
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
@@ -75,6 +76,7 @@
                                 "setTab(4)">Progress</a>
                             </div>
                         </div>
+-->
 
 
                         <div class="row">
@@ -96,7 +98,7 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(6)"><img ng-if="tab.tab!=6"
+                                <a ng-click="openShortInfoModal()"><img ng-if="tab.tab!=6"
                                 class="icon-orig" src="static/images/addplan_deselect.png">
                                 <img ng-if="tab.tab==6" src=
                                 "static/images/addplan.png"></a>
@@ -104,9 +106,7 @@
 
 
                             <div class="col s7 m7 icon-label">
-                                <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(6)}" ng-click=
-                                "setTab(6)">Create Plans</a>
+                                <a ng-click="openShortInfoModal()" class="db_list_text">Create Plans</a>
                             </div>
                         </div>
 
@@ -130,7 +130,7 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(8)"><img ng-if="tab.tab!=8"
+                                <a href="recipes/create-recipes" ng-click="setTab(8)"><img ng-if="tab.tab!=8"
                                 class="icon-orig" src="static/images/createrecipe_deselect.png">
                                 <img ng-if="tab.tab==8" src=
                                 "static/images/createrecipe_select.png"></a>
@@ -138,7 +138,7 @@
 
 
                             <div class="col s7 m7 icon-label">
-                                <a class="db_list_text" ng-class=
+                                <a href="recipes/create-recipes" class="db_list_text" ng-class=
                                 "{active:tab.isSet(8)}" ng-click=
                                 "setTab(8)">Create Recipes</a>
                             </div>
@@ -164,7 +164,7 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(10);redirecToSearchPlan()"><img ng-if="tab.tab!=10"
+                                <a href="dietplans/search" ng-click="setTab(10);redirecToSearchPlan()"><img ng-if="tab.tab!=10"
                                 class="icon-orig" src="static/images/searchplan_deselect.png">
                                 <img ng-if="tab.tab==10" src=
                                 "static/images/searchplan.png"></a>
@@ -172,7 +172,7 @@
 
 
                             <div class="col s7 m7 icon-label">
-                                <a class="db_list_text">Search Plans</a>
+                                <a href="dietplans/search" class="db_list_text">Search Plans</a>
                             </div>
                         </div>
                     </div>
@@ -260,6 +260,42 @@
             </div>
 -->
         </div>
+    </div>
+</div>
+
+<div class="modal" id="small-modal">
+    <a class=
+    "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+
+    <div class="modal-content">
+        <form ng-submit="createPlan()">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="name_plan" ng-model="plan.name" type="text">
+                    <label for="name_plan">Name of Plan</label>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="duration_plan" ng-model="plan.duration" type=
+                    "number"> <label for="duration_plan">Duration (in
+                    Weeks)</label>
+                </div>
+            </div>
+            <br>
+            <br>
+
+
+            <div class="row center">
+                <div class="col s12">
+                    <button class=
+                    "center waves-effect waves-light btn largebtn" type=
+                    "submit">Done</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 <script>

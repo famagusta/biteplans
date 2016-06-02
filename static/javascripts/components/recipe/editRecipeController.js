@@ -33,7 +33,8 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     $scope.cropper.sourceImage = null;
                     $scope.cropper.croppedImage = null;
                     $scope.fileSizeError = false;
-                    
+                    $scope.urlCopyrightError = false;
+
                     $scope.$watch('cropper.fileInput', function(newVal, oldVal){
                         if(newVal){
                             var file_size = dataURLtoBlob(newVal).size;
@@ -62,6 +63,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                 downloadingImage.crossOrigin = "anonymous";
                                 
                                 downloadingImage.onload = function(){
+                                    $scope.urlCopyrightError = false;
                                     var canvas = document.createElement("canvas");
                                     canvas.width = this.width;
                                     canvas.height = this.height;
@@ -82,6 +84,11 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                         $scope.fileSizeError = false;
                                     }
                                 };
+                                
+                                downloadingImage.onerror = function(){
+                                    $scope.urlCopyrightError = true;
+                                };
+                                
                                 // async image download
                                 downloadingImage.src=newVal;
                                 

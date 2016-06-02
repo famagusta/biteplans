@@ -47,6 +47,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.cropper.sourceImage = null;
                     $scope.cropper.croppedImage = null;
                     $scope.fileSizeError = false;
+                    
+                    // some images are protected from cross domain sharing
+                    $scope.urlCopyrightError = false;
 
                     $scope.$watch('cropper.fileInput', function(newVal, oldVal){
                         if(newVal){
@@ -71,11 +74,13 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             if(ValidURL(newVal)){
                                 $scope.cropper.sourceImage = null;
                                 var img = new Image();
+                                img.crossOrigin = "Anonymous";
                                 
                                 var downloadingImage = new Image();
-                                downloadingImage.crossOrigin = "anonymous";
+                                downloadingImage.crossOrigin = "Anonymous";
                                 
                                 downloadingImage.onload = function(){
+                                    $scope.urlCopyrightError = false;
                                     var canvas = document.createElement("canvas");
                                     canvas.width = this.width;
                                     canvas.height = this.height;
@@ -95,6 +100,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                         $scope.cropper.sourceImage = resultURL;
                                         $scope.fileSizeError = false;
                                     }
+                                };
+                                
+                                downloadingImage.onerror = function(){
+                                    $scope.urlCopyrightError = true;
                                 };
                                 downloadingImage.src=newVal;
                                 

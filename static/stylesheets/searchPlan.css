@@ -95,6 +95,15 @@ textarea:focus {
     max-width: 30% !important;
 }
 
+.save-more1 {
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: right;
+    bottom: 7px;
+    right: 18em;
+}
+
 
 @media only screen and (max-width : 768px) {
    #searchcard {
@@ -174,10 +183,58 @@ textarea:focus {
 
 @media only screen and (max-width : 600px) {
     .search-plancard-action {
-        height: 1em !importrant;
+        height: 10px !importrant;
+    }
+}
+
+/*
+@media only screen and (min-width : 300px) {
+    .save_opn {
+        position: relative !important;
+        bottom: 21px !important;
     }
     
+    .follow-btn {
+        position: relative !important;
+        bottom: 17px !important;
+    }
+    
+    .plan-heart-c {
+        position: relative !important;
+        bottom: 10px !important;
+    }
+    
+    .plan_graph_fat {
+        position: relative !important;
+        right: 2px !important;
+    }
+    
+    .plan_graph_prot {
+        position: relative !important;
+        right: 23px !important;
+    }
+    
+    .plan_graph_carbs {
+        position: relative !important;
+        right: 13px !important;
+    }
+    
+    .graph-text {
+        position: relative !important;
+        left: 11px !important;
+    }
+    
+    .graph-value {
+        position: relative !important;
+        left: 15px !important;
+    }
+    
+    .rating_val {
+        position: relative !important;
+        left: 3px !important;
+    }
 }
+*/
 
 
 @media only screen and (min-width : 767px) {
@@ -190,6 +247,8 @@ textarea:focus {
      .search-plancard-action {
         height: 1em !importrant;
     }
+    
+    
 }
 
 /*
@@ -204,42 +263,7 @@ textarea:focus {
     display: none;
 }
 
-.plan-heart-c {
-/*
-    cursor: pointer;
-    font-size: 19px;
-    position: absolute;
-    float: left;
-    bottom: 0px;
-    left: 30px
-*/
-    color: #B6B6B6; !important;
-}
 
-.plan-heart-c:hover{
-    color: #ff5252; !important;
-    cursor: pointer;
-/*
-    cursor: pointer;
-    font-size: 19px;
-    position: absolute;
-    float: left;
-    bottom: 0px;
-    left: 30px
-*/
-}
-
-.plan-heart-ok{
-    color: #ff5252; !important
-/*
-    cursor: pointer;
-    font-size: 19px;
-    position: absolute;
-    float: left;
-    bottom: 0px;
-    left: 30px
-*/
-}
 
 .follow-btn{
 /*    margin-top: -20px !important*/
@@ -250,5 +274,36 @@ textarea:focus {
 }
 
 .search-plancard-action {
-    height: 4em !important;
+    height: 2em !important;
+    padding: 20px !important;
+}
+
+.plan-heart-c {
+    cursor: pointer;
+/*    font-size: 19px;*/
+    position: absolute;
+    float: left;
+    bottom: 10px;
+    left: 30px;
+    color: #b6b6b6 !important;
+}
+
+.plan-heart-c:hover{
+    color: #ff5252 !important;
+    cursor: pointer;
+/*    font-size: 19px;*/
+    position: absolute;
+    float: left;
+    bottom: 10px;
+    left: 30px
+}
+
+.plan-heart-ok{
+    color: #ff5252;
+    cursor: pointer;
+/*    font-size: 19px;*/
+    position: absolute;
+    float: left;
+    bottom: 11px;
+    left: 30px
 }

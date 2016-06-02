@@ -53,8 +53,9 @@
             <div class="row">
                 <div class="col s12 m6" ng-repeat=
                 "plan in plans.results | limitTo:4">
-                    <div class="card white" ng-click="openPlanDetails(plan.id)">
-                        <div class="card-content search-plan-card black-text">
+                    <div class="card white" >
+                        <div class="card-content search-plan-card black-text" 
+                             ng-click="openPlanDetails(plan.id)">
                             <div class="row">
                                 <!--
                                 <div class="col s2"><img class=
@@ -109,7 +110,7 @@
                                 </div>
 
 
-                                <div class="col s3 m3 pull-m1 pull-s1">
+                                <div class="col s3 m3 pull-m1 pull-s1 rating_val">
                                     <span ng-bind="stars | number:1"></span>/
                                     5.0
                                 </div>
@@ -117,7 +118,7 @@
 
 
                             <div class="row">
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center plan_graph_prot">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#6639B6" current=
@@ -141,7 +142,7 @@
                                 </div>
 
 
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center plan_graph_carbs">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FE6433" current=
@@ -165,7 +166,7 @@
                                 </div>
 
 
-                                <div class="col s4 m4 center">
+                                <div class="col s4 m4 center plan_graph_fat">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FDC106" current=
@@ -187,21 +188,25 @@
                         </div>
 
 
-                        <div class="card-action search-plancard-action">
-                            <btn class="plan-heart-c" ng-if=
-                               "!checkMyPlans(plan.id)"
-                               ng-click="shortlistPlan(plan.id)">
-                                <i class="material-icons plan-heart-c">favorite</i>
-                            </btn>
-                            <btn class="plan-heart-ok" ng-if=
-                               "checkMyPlans(plan.id)"
-                               ng-click="shortlistPlan(plan.id)">
-                                <i class="material-icons plan-heart-ok">favorite</i>
-                            </btn>
-                            
-                            <btn class="datepicker_btn btn-flat cyan-text right follow-btn" 
-                               href="#" ng-click="followPlan(plan)">FOLLOW</btn>
-                        </div>
+                        
+              <div class="card-action search-plancard-action">
+                  <a ng-if="!checkMyPlans(plan.id)"
+                    ng-click="shortlistPlan(plan.id)">
+                      <i class="material-icons plan-heart-c">favorite</i>
+                  </a>
+                  <a ng-if="checkMyPlans(plan.id)"
+                    ng-click="shortlistPlan(plan.id)">
+                      <i class="material-icons plan-heart-ok">favorite</i>
+                  </a>
+                    <a class="save-more1 cyan-text">SAVE</a>
+                    <a class="read-more right cyan-text datepicker_btn" 
+                       href="#" ng-click="followPlan(plan)"> 
+                        FOLLOW
+                    </a>
+                               
+              </div>
+                        
+                  
                     </div>
                 </div>
             </div>

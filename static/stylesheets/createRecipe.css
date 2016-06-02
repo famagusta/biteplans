@@ -77,7 +77,8 @@ h5.recipe-subheading {
 }
 
 .editabletext{
-    color:#4f4f4f !important;
+    color:#212121 !important;
+    opacity: 87% !important;
     margin-top:10px;
     cursor: pointer;
 }
