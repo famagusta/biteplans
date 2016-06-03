@@ -108,6 +108,18 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                 });
             return deferred.promise;
         };
+        
+        var deleteMeal = function(id) {
+            var url = '/dashboard/get-plan-summary/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpDelete(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        }
 
 
         var getShortlistIngredients = function(page){
@@ -203,6 +215,9 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             },
             createMeal : function(obj){
                 return createMeal(obj);
+            },
+            deleteMeal : function (id) {
+                return deleteMeal(id);  
             },
             getShortlistRecipes: function(){
                 return getShortlistRecipes();

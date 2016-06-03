@@ -583,6 +583,19 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                                     element, 1);
                             }, function(response) {});
                     };
+        
+        $scope.clearMeal = function(index){
+            var temp = $scope.plan_data[index];
+            summaryService.deleteMeal(temp.id).then(
+                function(response)
+                {
+                    $scope.plan_data.splice(
+                        index, 1);
+                }, function(error)
+                {
+                    console.log(error);
+                });
+        }
 
         // TBD
         $scope.fillMealPlan = function(ind, recipeind, current) {
@@ -674,17 +687,24 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.addMeal = function(key) {
             key.date = $scope.navDates.current.format('YYYY-MM-DD');
             var tm = key.time;
-            key.time = key.time.getHours() + ":" +
+            
+            var objToSave = key;
+            objToSave.time = key.time.getHours() + ":" +
                 key.time.getMinutes() + ":00";
 
-            summaryService.createMeal(key).then(function(response){
-                key.time = tm;
-                key.followingMealPlanIngredient=[];
-                key.followingMealPlanRecipe=[];
-                key.id= response.mealhistory_id;
-                key.user_dietplan=null;
-                key.user_mealplan=null;
-                $scope.plan_data.push(key);
+            summaryService.createMeal(objToSave).then(function(response){
+                console.log(response.non_field_errors);
+                if(!response.non_field_errors){
+                    key.time = tm;
+                    key.followingMealPlanIngredient=[];
+                    key.followingMealPlanRecipe=[];
+                    key.id= response.mealhistory_id;
+                    key.user_dietplan=null;
+                    key.user_mealplan=null;
+                    $scope.plan_data.push(key);
+                }else{
+                    $scope.addMealError = "Error Adding Meal - There is an existing meal at that time";
+                }
 
             }, function(response){
             })
