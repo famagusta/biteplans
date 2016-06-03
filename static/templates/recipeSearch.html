@@ -1,8 +1,7 @@
 <div id="result-list">
     <div ng-if=
-    "recipeDetails!=null && recipeDetails!=undefined && recipeDetails.results.length!=0">
-    <div class="row">
-
+    "recipeDetails!==null && recipeDetails!==undefined && recipeDetails.results.length!=0">
+        <div class="row">
             
             <div class="col s12 m4" current-page="currentPage" ng-repeat=
             "recipe in recipeDetails.results track by $index">
@@ -12,11 +11,12 @@
                         </div>
                         <div class="card-content recipe_search_content">
                            <div class="row">
-                            <div class="col s12">
-                                <h5 class="cyan-text center ingredient-title txt-overflow" ng-click="openRecipeDetails(recipe.id)">
-                                {{recipe.name | addSpace}}</h5>
+                                <div class="col s12">
+                                    <h5 class="cyan-text center ingredient-title txt-overflow" 
+                                        ng-click="openRecipeDetails(recipe.id)">
+                                    {{recipe.name | addSpace}}</h5>
+                                </div>
                             </div>
-                        </div>
 
                             <div class="row raise">
                                 <div class="col s12 m12">
@@ -100,29 +100,9 @@
                     </div>
                    
                 </div>
-            </div>
-        </div>
         
-<!-- When the user has not entered anything for search -->
-
-<!--
-
-<div ng-if="recipeDetails==null || recipeDetails==undefined">
-    <div class="row">
-        <div class="col s12 m12">
-            <div class="card white">
-                <div class="card-content black-text center">
-                    <p>Please enter recipe</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
-<!-- When the user has entered incorrect entry in search -->
-
-<div class="row">
-    <div class="col s12 m7 push-m5">
+        <div class="row" ng-if="recipeDetails.length!==0">
+    <div class="col s12 m12 center">
     <paging
         class="small"
         page="currentPage" 
@@ -145,12 +125,31 @@
         text-title-next="Next Page"
         text-title-prev="Previous" 
         paging-action="search_recipes(page, sortby)">
-    </paging> 
-                
+    </paging>       
     </div>
-
 </div>
+            </div>
+        </div>
+        
+<!-- When the user has not entered anything for search -->
 
+<!--
+
+<div ng-if="recipeDetails==null || recipeDetails==undefined">
+    <div class="row">
+        <div class="col s12 m12">
+            <div class="card white">
+                <div class="card-content black-text center">
+                    <p>Please enter recipe</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+
+<!-- When the user has entered incorrect entry in search -->
 
 <div ng-if="query && recipeDetails.length==0">
     <div class="row">

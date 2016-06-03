@@ -16,7 +16,7 @@
                                 <input id="filled-in-rad{{$index}}" class="with-gap"
                                        name="sortradio" 
                                     value="{{filter}}" type="radio" ng-model="sortby"                                             ng-click="search_plan(1, sortby)">
-                                <label for="filled-in-rad{{$index}}">
+                                <label for="filled-in-rad{{$index}}" class="meal-text">
                                     {{getFilterLabel(filter)}}
                                 </label>
                             </p>
@@ -82,7 +82,7 @@
                                     <p>Goal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                 </div>
                                 <div class="col s12 m10">
-                                    <p class="grey-text">{{plan.goal}}</p>
+                                    <p class="meal-text">{{plan.goal}}</p>
                                 </div>
                             </div>
 
@@ -93,7 +93,7 @@
                                     </p>
                                 </div>
                                 <div class="col s8 m8">
-                                    <p class="grey-text">{{plan.duration }} Week</p>
+                                    <p class="meal-text">{{plan.duration }} Week</p>
                                 </div>
                             </div>
 
@@ -218,35 +218,32 @@
             <!-- CUSTOM DIRECTIVE CALLED FOR PAGE LIST -->
 
             <div class="row">
-    <div class="col s12 m6 push-m5">
-    <paging
-                class="small"
-                page="currentPage" 
-                page-size="6" 
-                total="pageSize"
-                hide-if-empty="{{hideIfEmpty}}"
-                ul-class="{{ulClass}}"
-                li-class="lipageclass"
-                active-class="{{activeClass}}"
-                disabled-class="{{disabledClass}}"
-                show-prev-next="true"
-                show-first-last="true"
-                text-next-class="acti fa fa-chevron-right"
-                text-prev-class="acti fa fa-chevron-left"
-                text-first-class="acti fa fa-backward"
-                text-last-class="acti fa fa-forward"
-  text-title-page="Page {page}"
-  text-title-first="First Page"
-  text-title-last="Last Page"
-  text-title-next="Next Page"
-  text-title-prev="Previous" 
-  paging-action="search_plan(page, sortby)" 
-  >
-            </paging> 
-                
-    </div>
-
-</div>
+                <div class="col s12 m12 center">
+                    <paging
+                        class="small"
+                        page="currentPage" 
+                        page-size="6" 
+                        total="pageSize"
+                        hide-if-empty="{{hideIfEmpty}}"
+                        ul-class="{{ulClass}}"
+                        li-class="lipageclass"
+                        active-class="{{activeClass}}"
+                        disabled-class="{{disabledClass}}"
+                        show-prev-next="true"
+                        show-first-last="true"
+                        text-next-class="acti fa fa-chevron-right"
+                        text-prev-class="acti fa fa-chevron-left"
+                        text-first-class="acti fa fa-backward"
+                        text-last-class="acti fa fa-forward"
+                        text-title-page="Page {page}"
+                        text-title-first="First Page"
+                        text-title-last="Last Page"
+                        text-title-next="Next Page"
+                        text-title-prev="Previous" 
+                        paging-action="search_plan(page, sortby)" >
+                    </paging> 
+                </div>
+            </div>
 
 
             <div class="row">

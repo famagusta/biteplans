@@ -13,7 +13,7 @@
                             <br>
                             <br>
                             <p ng-repeat="filter in recipeDetails.sortlist track by $index"><input class="with-gap" id=
-                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search_recipes(1, sortby)"><label
+                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search_recipes(1, sortby)"><label class="meal-text"
                             for="filled-in-rad{{$index}}">{{getFilterLabel(filter)}}</label></p>
                         </div>
                     </form>
