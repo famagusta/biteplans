@@ -104,6 +104,14 @@ textarea:focus {
     right: 18em;
 }
 
+.search-plan-card {
+    height: 28em !important;
+}
+
+.search-plancard-action {
+    height: 2em !important;
+    padding: 20px !important;
+}
 
 @media only screen and (max-width : 768px) {
    #searchcard {
@@ -121,7 +129,11 @@ textarea:focus {
     min-height:730px;
     padding-bottom: 50px;
     
-}
+    }
+    
+    .save-more1{
+        display: none;
+    }
 
 }
 
@@ -129,6 +141,14 @@ textarea:focus {
 @media only screen and (max-width : 600px) {
     .search-plancard-action {
         height: 10px !importrant;
+    }
+    
+    .search-plan-card {
+        height: 30em !important;
+    }
+    
+    .save-more1{
+        display: none;
     }
 }
 
@@ -145,7 +165,9 @@ textarea:focus {
         height: 1em !importrant;
     }
     
-    
+    .search-plan-card {
+        height: 30em !important;
+    }
 }
 
 .createbtn {
@@ -156,15 +178,6 @@ textarea:focus {
 
 .follow-btn{
 /*    margin-top: -20px !important*/
-}
-
-.search-plan-card {
-    height: 27em !important;
-}
-
-.search-plancard-action {
-    height: 2em !important;
-    padding: 20px !important;
 }
 
 .plan-heart-c {

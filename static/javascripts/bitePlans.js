@@ -3,13 +3,13 @@
 var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'bw.paging',
     'ngMaterial', 'materialCalendar', 
-    'angular-svg-round-progressbar', 'ngMessages',
-    'ng.httpLoader', 'angular-img-cropper'
+    'angular-svg-round-progressbar',
+    'ng.httpLoader'
 ]);
 
 var constantData = {
     'constants': {
-        'API_SERVER': 'http://bitespacetest.com:8000/',
+        'API_SERVER': 'https://www.biteplans.com/',
         userOb : {}
     }
 };

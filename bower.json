@@ -17,7 +17,6 @@
     "satellizer": "^0.14.0",
     "material-calendar": "^0.2.14",
     "angular-svg-round-progressbar": "^0.4.4",
-    "angular-mocks": "^1.5.5",
     "angular-paging": "^2.2.1",
     "angular-material": "^1.0.8",
     "pickadate": "^3.5.6",
