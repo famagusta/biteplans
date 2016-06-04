@@ -13,6 +13,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
         AuthService.isAuthenticated()
             .then(function(response) {
                 var isAuthenticated = response.status;
+                var currentUser = response.pk;
                 if (isAuthenticated) {
 
                     /* initialize scope variables to interact with DOM */
@@ -239,7 +240,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                                         ));
                         
                         var query = $scope.query;
-                        console.log(query, page, sortby);
                         if (query !==undefined && $scope.foodgroup.length >0) {
                             searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
                                 .then(function(response) {

@@ -1,4 +1,6 @@
 'use strict';
+/* global app, moment, $ */
+
 app.controller('planController', ['$scope', 'AuthService', 'searchService',
     '$location', 'planService', 'stars', 'starsUtility', '$window', '$rootScope',
     'constants',
@@ -20,8 +22,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }, function(error)
             {
                 console.log(error);
-            })
-        }
+            });
+        };
         
         
         var getUserPlans = function(){
@@ -29,8 +31,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 $scope.userPlans = response.results;
             }, function(error){
                 console.log(error);
-            })
-        }
+            });
+        };
 
         
         function findWithAttr(array, attr, value)
@@ -80,10 +82,9 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 });
             var idxDietPlan = findWithAttr($scope.plans.results,
                 'id', planRatingMatch[0].id);
-            return $scope.plans.results[idxDietPlan][
-                'average_rating'
-            ] * 20;
-        }
+            return $scope.plans.results[idxDietPlan]
+                .average_rating * 20;
+        };
         
         $scope.setPlanRating = function(plan, rating)
         {
@@ -99,7 +100,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             var ratingObject = {
                 rating: normalizedRating,
                 dietPlan: plan.id
-            }
+            };
             if (constants.userOb.status && $scope.userPlanRatings !==
                 undefined)
             {
@@ -169,12 +170,12 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 /* prompt user for login */
                 $rootScope.$emit('authFailure');
             }
-        }
+        };
         
         $scope.openShortInfoModal = function()
         {
             $('#small-modal').openModal();
-        }
+        };
         
         $scope.createPlan = function()
         {
@@ -222,7 +223,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                             $scope.followPlanObject = {
                                 dietplan: $scope.selected_plan.id,
                                 start_date: $scope.followDate
-                            }
+                            };
                             planService.followDietPlan(
                                 $scope.followPlanObject).then(
                                 function(response)
@@ -231,9 +232,9 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                                     console.log(
                                         response);
                                     if(response.error){
-                                        $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date."
+                                        $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date.";
                                     }else{
-                                        $scope.followPlanError = ""
+                                        $scope.followPlanError = "";
                                     }
                                 }, function(error)
                                 {
@@ -242,13 +243,13 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                                 });
                         }
                     }
-                })
+                });
             }
             else{
                 /* prompt user for login */
                 $rootScope.$emit('authFailure');
             }
-        }
+        };
         
         /* shortlist the selected plan */
         $scope.shortlistPlan = function(planId)
@@ -259,7 +260,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     /* post if plan not already in the basket */
                     var objToSave = {
                         dietplan: planId
-                    }
+                    };
                     planService.addPlanToShortlist(objToSave).then(function(
                         response)
                     {
@@ -267,7 +268,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     }, function(error)
                     {
                         console.log(error);
-                    })
+                    });
                 }
                 else{
                     /* delete if plan already shortlisted */
@@ -283,14 +284,14 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     }, function(error)
                     {
                         console.log(error);
-                    })
+                    });
                 }
             }
             else{
                 /* prompt user for login */
                 $rootScope.$emit('authFailure');
             }
-        }
+        };
         
         
         $scope.checkMyPlans = function(planId){
@@ -308,7 +309,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }else{
                 return false;
             }
-        }
+        };
         
         
         $scope.getPlanNutrientPercent = function(plan, nutrient)
@@ -319,8 +320,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 conversion_factor = 9;
             }
             var nutrient_percent = 100 * conversion_factor *
-                parseFloat(plan[nutrient]) / parseFloat(plan[
-                    'energy_kcal']);
+                parseFloat(plan[nutrient]) / parseFloat(plan.energy_kcal);
             return nutrient_percent;
         };
         
@@ -332,11 +332,11 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             else{
                 $rootScope.$emit('authFailure');
             }
-        }
+        };
         
         $scope.openPlanDetails = function(planId){
             $location.path('/dietplans/view-diet-plan/' + planId +'/');
-        }
+        };
         
         $scope.getFilterLabel = function(filter){
             var filterNames ={
@@ -347,9 +347,9 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 'energy_kcal': "Calories",
                 'sugar_tot': "Sugar",
                 'fiber_tot': "Fiber"
-            }
+            };
             return filterNames[filter];
-        }
+        };
         
         if(constants.userOb.status){
             getUserPlanRatings();

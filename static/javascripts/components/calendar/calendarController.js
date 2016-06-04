@@ -1,4 +1,6 @@
-'use strict'
+'use strict';
+/* global app, moment*/
+
 // controller for the calendar. accessed by dashboard.html
 app.config(function($mdThemingProvider)
 {
@@ -32,23 +34,23 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
         };
         $scope.prevMonth = function(data)
         {
-            $scope.selectedDate = data.year + '-' + data.month + '-' + '01'
+            $scope.selectedDate = data.year + '-' + data.month + '-' + '01';
             $scope.getUserFollowingPlans($scope.selectedDate);
 
         };
         $scope.nextMonth = function(data)
         {
-            $scope.selectedDate = data.year + '-' + data.month + '-' + '01'
+            $scope.selectedDate = data.year + '-' + data.month + '-' + '01';
             $scope.getUserFollowingPlans($scope.selectedDate);
         };
         $scope.setContentViaService = function()
         {
             var today = new Date();
-            MaterialCalendarData.setDayContent(today, '<span> :oD </span>')
-        }
-        $scope.getDietCalendarTitle = function(key, timetable)
+            MaterialCalendarData.setDayContent(today, '<span> :oD </span>');
+        };
+        $scope.getDietCalendarTitle = function(inputKey, timetable)
         {
-            var key = moment(key);
+            var key = moment(inputKey);
             /* check all dietplans to see if any of them fall on a this particular day */
             for (var i = 0; i < timetable.length; i++)
             {
@@ -62,7 +64,7 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                     return timetable[i].dietplan.name;
                 }
             }
-        }
+        };
         $scope.currMonthPromise = null;
         $scope.currMonthContext = null;
         /* This function sets the contents of a day and is called asynchronously*/
@@ -91,17 +93,17 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                 var promiseB = deferred.promise.then(function(result)
                 {
                     return $scope.getDietCalendarTitle(key, result);
-                })
+                });
                 $scope.currMonthPromise = deferred;
                 return promiseB;
             }
             else
             {
-                var promiseB = $scope.currMonthPromise.promise.then(function(result)
+                var promiseC = $scope.currMonthPromise.promise.then(function(result)
                 {
                     return $scope.getDietCalendarTitle(key, result);
                 });
-                return promiseB;
+                return promiseC;
             }
         };
         
@@ -115,8 +117,8 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                 }
             }, function(error){
                 console.log(error);
-            })
-        }
+            });
+        };
         
         $scope.getUserFollowingPlans($scope.selectedDate);
         
@@ -128,7 +130,7 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                 $scope.setTab(3);
             }, function(error){
                 console.log(error);
-            })
-        }
+            });
+        };
         
 }]);

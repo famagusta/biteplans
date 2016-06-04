@@ -1,5 +1,8 @@
+'use strict';
+/* global app, angular */
+
 app.directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
-  // contains
+    // contains
   function contains(arr, item, comparator) {
     if (angular.isArray(arr)) {
       for (var i = arr.length; i--;) {

@@ -3,6 +3,8 @@
 /* jshint -W004 */
 /* jshint -W083 */
 'use strict';
+/* global app, $ */
+
 app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
     '$routeParams', 'searchService', '$location', 'planService',
     function($scope, $window, AuthService, $routeParams, searchService,

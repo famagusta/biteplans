@@ -127,7 +127,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             if(page===undefined || page===null){
                 page=1;
             }
-            var url = '/dashboard/my-ingredients/'+'?page='+page+'/';
+            var url = '/dashboard/my-ingredients/'+'?page='+page;
 
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
@@ -145,7 +145,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                 page=1;
             }
 
-            var url = '/dashboard/my-recipes/'+'?page='+page+'/';
+            var url = '/dashboard/my-recipes/'+'?page='+page;
 
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
@@ -163,7 +163,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                 page=1;
             }
 
-            var url = '/dashboard/my-plans/'+'?page='+page+'/';
+            var url = '/dashboard/my-dietplans/'+'?page='+page;
 
             httpService.httpGet(url).then(function(response){
                 deferred.resolve(response);
@@ -219,8 +219,8 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             deleteMeal : function (id) {
                 return deleteMeal(id);  
             },
-            getShortlistRecipes: function(){
-                return getShortlistRecipes();
+            getShortlistRecipes: function(page){
+                return getShortlistRecipes(page);
             },
             getShortlistIngredients: function(page){
                 return getShortlistIngredients(page);

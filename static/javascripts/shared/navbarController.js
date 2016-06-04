@@ -1,4 +1,6 @@
 'use strict';
+/* global app, $ */
+
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService',
     'profileService', '$rootScope', 'constants',
@@ -11,7 +13,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     $scope.isLoggedIn = response.status;
                 }, function(error) {
                     $scope.isLoggedIn = false;
-                })
+                });
 
         };
         checkLoggedIn();
@@ -31,7 +33,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 }
                 else {
                     $scope.user_thum =
-                        'static/images/default-user.png'
+                        'static/images/default-user.png';
                 }
             }, function(error) {
                 console.log(error);
@@ -194,7 +196,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
 
         $scope.closeModal = function() {
             $('#modal1').closeModal();
-        }
+        };
 
         /*function to reset password, calls auth service to call 
         forgot password feature. Email is a param */

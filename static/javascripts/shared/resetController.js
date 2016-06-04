@@ -1,4 +1,5 @@
 'use strict';
+/* global app*/
 
 app.controller('resetController', ['$scope', '$window', '$location','httpService','$routeParams',
                function ($scope, $window, $location, httpService, $routeParams){ 

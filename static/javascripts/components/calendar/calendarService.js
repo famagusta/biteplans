@@ -1,4 +1,5 @@
 'use strict';
+/* global app */
 
 app.factory('calendarService', ['httpService', 'AuthService', '$location',
     'constants', '$q', '$window', '$rootScope', '$auth',

@@ -1,4 +1,6 @@
 'use strict';
+/* global app, $ */
+
 app.controller('dashboardController', ['$scope', '$window', '$location',
     'AuthService', 'searchService', 'profileService',
     function($scope, $window, $location, AuthService, searchService,
@@ -11,7 +13,7 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                 if(isAuth){
                     $scope.token = $window.localStorage.token;
                     $scope.username = $window.localStorage.username;
-                    $scope.tab = {}
+                    $scope.tab = {};
                     $scope.tab.tab = 1;
 
                     $scope.setTab = function(tabId) {
@@ -24,18 +26,18 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     
                      $scope.openShortInfoModal = function() {
                         $('#small-modal').openModal();
-                    }
+                    };
                    
 
                     $scope.edit = 0;
 
                     $scope.editProfileForm = function() {
                         $scope.edit = 1;
-                    }
+                    };
 
                     $scope.calendar = function(){
                         $scope.tab.tab = 3;
-                    }
+                    };
                 }else{
                     $location.path("/");
                 }
@@ -44,9 +46,6 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
         });
         
     }
-                                    
-                     
-                                       
 ]);
 
 
@@ -61,9 +60,8 @@ app.controller('confirmController', ['$scope', '$window', '$location',
             httpService.httpGet(url)
                 .then(function(response) {
                     if (response.success) {
-                        $scope.content = response['success'];
-                        $window.localStorage.token = response[
-                            'token'];
+                        $scope.content = response.success;
+                        $window.localStorage.token = response.token;
                         $location.path('/dashboard');
                     }
                     else

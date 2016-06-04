@@ -24,6 +24,10 @@
     position: relative;
     bottom: 9px;
 }
+.dashbin:hover {
+    cursor: pointer;
+    color: #ff5252 !important;
+}
 
 
 .dash_graphcard {
@@ -286,4 +290,8 @@ input:disabled {
 #diet-calendar-cont {
     margin-top: 8px;
     height: 600px !important;
+}
+
+.name-a {
+  text-decoration: none; /* no underline */
 }

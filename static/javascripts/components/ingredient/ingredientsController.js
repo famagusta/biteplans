@@ -1,4 +1,5 @@
 'use strict';
+/* global app, $ */
 // Controller to display search results on ingredients page
 
 app.controller('ingredientsController', 
@@ -36,7 +37,7 @@ app.controller('ingredientsController',
             if($scope.query !== undefined){
                 $scope.details = null;
 
-            $scope.sortby = sortby
+            $scope.sortby = sortby;
             
             var query = $scope.query;
             if (query!== undefined && $scope.foodgroup.length >0) {
@@ -110,7 +111,7 @@ app.controller('ingredientsController',
                     $('#modal6').openModal();
                 }, function(error){
                 
-            })
+            });
              
         };
            
@@ -119,18 +120,20 @@ app.controller('ingredientsController',
             var total=0;
             if($scope.details.results  !== null){
                 if(isAdditional){
-                    total += $scope.details.results[$scope.selected].additionalIngredientInfo[nutrient] 
-                    * $scope.ingredientSelected.selectedMeasure.weight/100;
+                    total += $scope.details.results[$scope.selected]
+                    	.additionalIngredientInfo[nutrient] * $scope.ingredientSelected.selectedMeasure
+                    	.weight/100;
                 }
                 else{
-                    total += $scope.details.results[$scope.selected][nutrient] 
-                        * $scope.ingredientSelected.selectedMeasure.weight/100;
+                    total += $scope.details
+                    	.results[$scope.selected][nutrient] * $scope.ingredientSelected.selectedMeasure
+                    	.weight/100;
                 }
             }
             return total;
                 
         
-        }
+        };
         
         $scope.getUserIngredients = function(){
             /* get user saved ingredients if logged in*/
@@ -141,7 +144,7 @@ app.controller('ingredientsController',
                     console.log(error);
                 });
             }
-        }
+        };
         
         $scope.checkMyIngredients = function(ingredientId){
             /* check if given ingredient has been saved by user */
@@ -154,7 +157,7 @@ app.controller('ingredientsController',
                 }
                 return result;
             }
-        }
+        };
         
         /* get object corresponding to given ingredient in my ingredients */
         $scope.getMyIngredients = function(id){
@@ -167,7 +170,7 @@ app.controller('ingredientsController',
                 }
                 return result;
             }
-        }
+        };
         
         $scope.shortlistIngredient = function(ingredientId){
             if(constants.userOb.status){
@@ -178,19 +181,19 @@ app.controller('ingredientsController',
                             $scope.getUserIngredients();
                     }, function(error){
                         console.log(error);
-                    })
+                    });
                 }else{
                     searchService.shortlistIngredients(ingredientId).then(function(response){
                         $scope.getUserIngredients();
                     }, function(error){
                         console.log(error);
-                    })
+                    });
                 }
             }else{
                 /* prompt user for login */
                 $rootScope.$emit('authFailure');
             }
-        }
+        };
         
         $scope.getFilterLabel = function(filter){
             var filterNames ={
@@ -201,9 +204,9 @@ app.controller('ingredientsController',
                 'sugar_tot': "Sugar",
                 'fiber_tot': "Fiber",
                 'water': "Water"
-            }
+            };
             return filterNames[filter];
-        }
+        };
         
         if(constants.userOb.status){
             $scope.getUserIngredients();

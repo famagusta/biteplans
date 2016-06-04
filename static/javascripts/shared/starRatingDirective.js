@@ -1,5 +1,5 @@
-'use strict'
-
+'use strict';
+/* global app, angular*/
 
 /* from here 
 https://github.com/vitalpoltava/Star-Rating/blob/master/stars.html
@@ -68,7 +68,7 @@ app.factory('stars', [function() {
             // Current API
             return {
                 emptyStar: emptyStar
-            }
+            };
         }]);
 
 

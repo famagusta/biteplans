@@ -181,20 +181,23 @@ class MyIngredientsViewset(viewsets.ModelViewSet):
         if user is not None:
             result = self.queryset.filter(user=request.user)
         else:
-            result = self.queryset
+            return Response({'error':'User Authentication Failure'},
+                            status=status.HTTP_401_UNAUTHORIZED)
+            
 
         page = request.GET.get('page')
+        total = math.ceil(len(result)/6.0)
         paginator = Paginator(result, 6)
 
         try:
             result = paginator.page(page)
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
-            result = paginator.page(1)
+            result = result
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             result = paginator.page(paginator.num_pages)
-        total = math.ceil(len(result)/6.0)
+        
         result = self.serializer_class(result, many=True)
         return Response({"results":result.data, "total":total},
                         status=status.HTTP_200_OK)
@@ -252,20 +255,22 @@ class MyRecipeViewset(viewsets.ModelViewSet):
         if user is not None:
             result = self.queryset.filter(user=request.user)
         else:
-            result = self.queryset
+            return Response({'error':'User Authentication Failure'},
+                            status=status.HTTP_401_UNAUTHORIZED)
 
         page = request.GET.get('page')
+        total = math.ceil(len(result)/3.0)
         paginator = Paginator(result, 3)
 
         try:
             result = paginator.page(page)
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
-            result = paginator.page(1)
+            result = result
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             result = paginator.page(paginator.num_pages)
-        total = math.ceil(len(result)/3.0)
+        
         result = self.serializer_class(result, many=True)
         return Response({"results":result.data, "total":total},
                         status=status.HTTP_200_OK)
@@ -305,20 +310,23 @@ class MyPlanViewset(viewsets.ModelViewSet):
         if user is not None:
             result = self.queryset.filter(user=request.user)
         else:
-            result = self.queryset
+            return Response({'error':'User Authentication Failure'},
+                            status=status.HTTP_401_UNAUTHORIZED)
 
         page = request.GET.get('page')
-        paginator = Paginator(result, 3)
+        
+        total = math.ceil(len(result)/2.0)
+        paginator = Paginator(result, 2)
 
         try:
             result = paginator.page(page)
         except PageNotAnInteger:
             # If page is not an integer, deliver first page.
-            result = paginator.page(1)
+            result = result
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results.
             result = paginator.page(paginator.num_pages)
-        total = math.ceil(len(result)/3.0)
+        
         result = self.serializer_class(result, many=True)
         return Response({"results":result.data, "total":total},
                         status=status.HTTP_200_OK)

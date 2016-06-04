@@ -1,4 +1,5 @@
-
+'use strict';
+/* global app, angular */
 
 angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document','$window', function($document,$window)
 {
@@ -69,7 +70,7 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
                     }
                 }
                 PointPool.prototype.borrow = function (x, y) {
-                    if (this.firstAvailable == null) {
+                    if (this.firstAvailable === null) {
                         throw "Pool exhausted";
                     }
                     this.borrowed++;
@@ -539,7 +540,7 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
                 };
                 ImageCropper.prototype.handleRelease = function (newCropTouch) {
 
-                    if(newCropTouch==null)
+                    if(newCropTouch===null)
                     {
                         console.log("Release null");
                         return;
@@ -558,7 +559,7 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
                 ImageCropper.prototype.handleMove = function (newCropTouch) {
                     var matched = false;
                     for (var k = 0; k < this.currentDragTouches.length; k++) {
-                        if (newCropTouch.id == this.currentDragTouches[k].id && this.currentDragTouches[k].dragHandle != null) {
+                        if (newCropTouch.id === this.currentDragTouches[k].id && this.currentDragTouches[k].dragHandle !== null) {
                             var dragTouch = this.currentDragTouches[k];
                             var clampedPositions = this.clampPosition(newCropTouch.x - dragTouch.dragHandle.offset.x, newCropTouch.y - dragTouch.dragHandle.offset.y);
                             newCropTouch.x = clampedPositions.x;
@@ -587,7 +588,7 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
                                 break;
                             }
                         }
-                        if (newCropTouch.dragHandle == null) {
+                        if (newCropTouch.dragHandle === null) {
                             if (this.center.touchInBounds(newCropTouch.x, newCropTouch.y)) {
                                 newCropTouch.dragHandle = this.center;
                                 this.currentDragTouches.push(newCropTouch);
@@ -841,12 +842,12 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
                 };
                 ImageCropper.prototype.drawCursors = function (cropTouch, e) {
                     var cursorDrawn = false;
-                    if (cropTouch != null) {
+                    if (cropTouch !== null) {
                         if (cropTouch.dragHandle == this.center) {
                             this.canvas.style.cursor = 'move';
                             cursorDrawn = true;
                         }
-                        if (cropTouch.dragHandle != null && cropTouch.dragHandle instanceof CornerMarker) {
+                        if (cropTouch.dragHandle !== null && cropTouch.dragHandle instanceof CornerMarker) {
                             this.drawCornerCursor(cropTouch.dragHandle, cropTouch.dragHandle.getPosition().x, cropTouch.dragHandle.getPosition().y, e);
                             cursorDrawn = true;
                         }
@@ -908,14 +909,14 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
                     for (var i = 0; i < e.changedTouches.length; i++) {
                         var touch = e.changedTouches[i];
                         var dragTouch = this.getDragTouchForID(touch.identifier);
-                        if (dragTouch != null) {
+                        if (dragTouch !== null) {
                             if (dragTouch.dragHandle instanceof CornerMarker || dragTouch.dragHandle instanceof DragMarker) {
                                 dragTouch.dragHandle.setOver(false);
                             }
                             this.handleRelease(dragTouch);
                         }
                     }
-                    if (this.currentDragTouches.length == 0) {
+                    if (this.currentDragTouches.length === 0) {
                         this.isMouseDown = false;
                     }
                      if (crop.isImageSet())
@@ -928,7 +929,7 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
                 ImageCropper.prototype.onMouseUp = function (e) {
                     console.log("MouseUp");
                     this.handleRelease(new CropTouch(0, 0, 0));
-                    if (this.currentDragTouches.length == 0) {
+                    if (this.currentDragTouches.length === 0) {
                         this.isMouseDown = false;
                     }
                 };
@@ -994,7 +995,7 @@ angular.module('angular-img-cropper',[]).directive("imageCropper",  ['$document'
 
             scope.$watch('image',
                 function( newValue ) {
-                    if(newValue!=null) {
+                    if(newValue!==null) {
                         var imageObj = new Image();
                       imageObj.addEventListener("load", function () {
                                       

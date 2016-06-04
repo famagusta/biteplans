@@ -1,4 +1,5 @@
 'use strict';
+/* global app, angular $ */
 
 app.factory('searchService',
             ['httpService', '$location','constants','$q','$window', '$rootScope', '$auth', function(httpService,$location,constants,$q,$window, $rootScope, $auth){

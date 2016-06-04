@@ -1,5 +1,7 @@
 /* controller for createplan pages */
 'use strict';
+/* global app, moment, $ */
+
 app.controller('createPlanController', ['$scope', '$window', 'AuthService',
     '$routeParams', 'searchService', '$location', 'planService',
     function($scope, $window, AuthService, $routeParams, searchService,
@@ -10,6 +12,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
         AuthService.isAuthenticated().then(function(response)
         {
             var isAuth = response.status;
+            var currentUser = response.pk;
             /*page is visible only if user is authenticated
                     TODO : page is visible only to creator of plan */
             if (isAuth)
@@ -65,6 +68,10 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     function(response)
                     {
                         $scope.plan = response;
+
+                        if($scope.plan.creator !== currentUser){
+                            $location.path('/dietplans/view-diet-plan/' + $routeParams.id + '/');
+                        }
                         /* rewrite some object variables in correct format
                                 as the response object stringifies everything */
                         $scope.plan.age = parseInt($scope.plan
@@ -159,11 +166,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     $scope.currentDayWeekNos += (multiplier*val);
                     
                     if($scope.currentDayWeekNos > $scope.dayWeekNos){
-                        $scope.currentDayWeekNos = $scope.currentDayWeekNos 
-                            % $scope.dayWeekNos
+                        $scope.currentDayWeekNos = $scope.currentDayWeekNos % $scope.dayWeekNos;
                     }else if ($scope.currentDayWeekNos <= 0){
-                        $scope.currentDayWeekNos = $scope.currentDayWeekNos 
-                            + $scope.dayWeekNos
+                        $scope.currentDayWeekNos = $scope.currentDayWeekNos + $scope.dayWeekNos;
                     }
                     
                     $scope.dayplan.day_no = ($scope.currentDayWeekNos % 7);
@@ -226,7 +231,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 }
                                 // TODO: similar thing for recipes
                                 //parse recipe servings to float
-                                for (var j = 0; j <
+                                for (j = 0; j <
                                     response.mealplan[i]
                                     .mealrecipe.length; j++
                                 )
@@ -256,6 +261,43 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 //get initial data for day1 and week 1 of the plan
                 $scope.getDayPlan($scope.dayplan.day_no, $scope
                     .dayplan.week_no);
+                
+                var weightedIngredientAdditionalNutritionSum = function(cntr_i, cntr_j){
+                    $scope.mealPlanNameArray[cntr_i]
+                            .mealingredient[cntr_j]
+                            .additionalIngInfo = {};
+                    
+                    searchService.get_ingredient_addtnl_info(
+                        $scope.mealPlanNameArray[cntr_i]
+                            .mealingredient[cntr_j].ingredient.id)
+                            .then(function (response){
+
+                            //model for storing response from API 
+                            $scope
+                                .mealPlanNameArray[cntr_i]
+                                .mealingredient[cntr_j]
+                                .additionalIngInfo = response;
+                        },
+                        function(error) {
+                            console.log(error);
+                        });
+                    }
+                
+                var weightedRecipeAdditionalNutritionSum = function(cntr_i,cntr_j){
+                    $scope.mealPlanNameArray[cntr_i]
+                        .mealrecipe[cntr_j].additionalRecInfo = {};
+                    searchService.get_recipe_addtnl_info(
+                         $scope.mealPlanNameArray[cntr_i].mealrecipe[cntr_j]
+                        .recipe.id).then(function(response) {
+                            //model for storing response from API 
+                            $scope.mealPlanNameArray[cntr_i].mealrecipe[cntr_j]
+                                .additionalRecInfo = response;
+                        },
+                        function(error) {
+                            console.log(error);
+                        });
+                }
+                
                 // function to populate additional ingredients info inside mealplan array
                 $scope.getAdditionalIngredientsInfo = function()
                 {
@@ -274,46 +316,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 {
                                     //callback function to deal with the 
                                     //asynchronous call within for loop
-                                    (function(cntr_i,
-                                        cntr_j)
-                                    {
-                                        $scope.mealPlanNameArray[
-                                                cntr_i]
-                                            .mealingredient[
-                                                cntr_j]
-                                            .additionalIngInfo = {};
-                                        searchService.get_ingredient_addtnl_info(
-                                            $scope.mealPlanNameArray[
-                                                cntr_i
-                                            ].mealingredient[
-                                                cntr_j
-                                            ].ingredient
-                                            .id).then(
-                                            function(
-                                                response
-                                            )
-                                            {
-                                                //model for storing response from API 
-                                                $scope
-                                                    .mealPlanNameArray[
-                                                        cntr_i
-                                                    ]
-                                                    .mealingredient[
-                                                        cntr_j
-                                                    ]
-                                                    .additionalIngInfo =
-                                                    response;
-                                            },
-                                            function(
-                                                error
-                                            )
-                                            {
-                                                console
-                                                    .log(
-                                                        error
-                                                    );
-                                            });
-                                    })(i, j);
+                                    weightedIngredientAdditionalNutritionSum(i, j);
                                 }
                             }
                             
@@ -327,51 +330,13 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 {
                                     //callback function to deal with the 
                                     //asynchronous call within for loop
-                                    (function(cntr_i,
-                                        cntr_j)
-                                    {
-                                        $scope.mealPlanNameArray[
-                                                cntr_i]
-                                            .mealrecipe[
-                                                cntr_j]
-                                            .additionalRecInfo = {};
-                                        searchService.get_recipe_addtnl_info(
-                                            $scope.mealPlanNameArray[
-                                                cntr_i
-                                            ].mealrecipe[
-                                                cntr_j
-                                            ].recipe
-                                            .id).then(
-                                            function(
-                                                response
-                                            )
-                                            {
-                                                //model for storing response from API 
-                                                $scope
-                                                    .mealPlanNameArray[
-                                                        cntr_i
-                                                    ]
-                                                    .mealrecipe[
-                                                        cntr_j
-                                                    ]
-                                                    .additionalRecInfo =
-                                                    response;
-                                            },
-                                            function(
-                                                error
-                                            )
-                                            {
-                                                console
-                                                    .log(
-                                                        error
-                                                    );
-                                            });
-                                    })(i, j);
+                                    weightedRecipeAdditionalNutritionSum(i, j);
                                 }
                             }
                         }
                     }
                 };
+                
                 $scope.$watchCollection('mealPlanNameArray',
                     function()
                     {
@@ -418,6 +383,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 // updates meal ingredient in a meal plan
                 $scope.updateMealIngredient = function(obj)
                 {
+                    console.log('test')
                     // CONSIDER RENAMING THIS
                     var obje = {
                         'quantity': parseFloat(obj.quantity),

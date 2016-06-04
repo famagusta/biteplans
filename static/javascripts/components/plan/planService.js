@@ -1,4 +1,5 @@
 'use strict';
+/* global app */
 
 app.factory('planService', ['httpService', 'AuthService', '$location',
     'constants', '$q', '$window', '$rootScope', '$auth',
@@ -35,7 +36,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
             if(page===undefined || page===null){
                 page=1;
             }
-            var url = '/dietplans/dietplan/?page='+page+'/';
+            var url = '/dietplans/dietplan/?page='+page;
             var deferred = $q.defer();
             httpService.httpGet(url)
                 .then(function(response) {
@@ -264,7 +265,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         
         /* add a plan to users my plans */
         var addPlanToShortlist = function(obj){
-            var url = '/dashboard/my-dietplans/'
+            var url = '/dashboard/my-dietplans/';
             var deferred = $q.defer();
             httpService.httpPost(url, obj)
                 .then(function(response){
@@ -286,7 +287,7 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
                     deferred.reject(error);
                 });
             return deferred.promise;
-        }
+        };
         
         /* get a users shortlisted plans */
         var getUserDietPlans = function(){

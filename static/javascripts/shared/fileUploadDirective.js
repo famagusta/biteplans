@@ -1,4 +1,6 @@
 'use strict';
+/* global app */
+
 app.directive('ngFiles', ['$parse', function ($parse) {
 
             function fn_link(scope, element, attrs) {
@@ -6,12 +8,12 @@ app.directive('ngFiles', ['$parse', function ($parse) {
                 element.on('change', function (event) {
                     onChange(scope, { $files: event.target.files });
                 });
-            };
+            }
 
             return {
                 link: fn_link
-            }
-        } ])
+            };
+        }]);
 
 app.directive('fileModel', ['$parse', function ($parse) {
     return {

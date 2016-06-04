@@ -28,7 +28,7 @@ app.factory('recipeService',
         if(page===undefined || page===null){
             page=1;
         }
-        var url = '/recipes/recipe/?page='+page+'/';
+        var url = '/recipes/recipe/?page='+page;
         var deferred = $q.defer();
         httpService.httpGet(url).then(function(response){
             deferred.resolve(response);
@@ -197,8 +197,8 @@ app.factory('recipeService',
         deleteRecipeIngredient: function(id){
             return deleteRecipeIngredient(id)
         },
-        getRecipesMadeByMe : function(){
-            return getRecipesMadeByMe();
+        getRecipesMadeByMe : function(page){
+            return getRecipesMadeByMe(page);
         },
         getUserRecipeRatings : function(){
             return getUserRecipeRatings();  

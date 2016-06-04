@@ -1,14 +1,17 @@
 'use strict';
+/* global app */
+/*global $*/
+
 app.directive('customValidator', function () {
     return {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue, $scope) {
-                var noMatch = viewValue != scope.myForm.registerPassword.$viewValue
-                ctrl.$setValidity('noMatch', !noMatch)
-            })
+                var noMatch = viewValue != scope.myForm.registerPassword.$viewValue;
+                ctrl.$setValidity('noMatch', !noMatch);
+            });
         }
-    }
+    };
 });
 
 app.filter('addSpace', function () {
@@ -66,7 +69,7 @@ app.directive('adjustPlaceholder', function() {
         link: function(scope, elem) {
             $(elem).addClass('active');
         }
-    }
+    };
 });
 
 app.directive('fireEnter', function() {
@@ -82,7 +85,7 @@ app.directive('fireEnter', function() {
                 }
             });
         }
-    }
+    };
 });
 
 

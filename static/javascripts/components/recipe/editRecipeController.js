@@ -8,6 +8,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
             .then(function(response)
             {
                 var isAuthenticated = response.status;
+                var currentUser = response.pk;
                 if (isAuthenticated)
                 {
                     //This is to store the checked results from the given search page
@@ -114,6 +115,11 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             .then(function(response)
                             {
                                 $scope.recipe = response;
+                            
+                                if($scope.recipe.created_by !== currentUser){
+                                    //prevent unauthorized edits
+                                    $location.path('/recipes/view-recipe/' + $routeParams.id + '/');
+                                }
                                 for (var i = 0; i < $scope.recipe.recipeIngredients.length; i++)
                                 {
                                     $scope.recipe.recipeIngredients[i].quantity = parseFloat($scope.recipe.recipeIngredients[

@@ -2,76 +2,69 @@
 
 <div id="result-list">
     <div ng-if="createdPlans!=null && createdPlans!=undefined && createdPlans.length!=0">
-    <b>You created:</b>
-    <div class="row">
-        <div class="col s12 m4" ng-repeat=
-                "plan in createdPlans track by $index">
-                    <div class="card">
-                        <div class="card-content myplan-content">
+    <b>Plans Created:</b>
+    <div class="row center">
+                <div class="col s12 m6 l5 push-l1" ng-repeat=
+                "plan in createdPlans track by $index" current-page="currentPageCreatedPlans" > 
+                    <div class="card white" >
+                        <div class="card-content search-plan-card black-text">
                             <div class="row">
-                                <!--
-                                <div class="col s2"><img class=
-                                "circle responsive-img" src=
-                                "static/images/tiger.jpg">
-                                </div>
--->
+                               
 
-
-                                <div class="col s12 center">
-                                    <h5 class="cyan-text">
+                                <div class="col s12 m12 center">
+                                    <h5 class="cyan-text txt-overflow" 
+                                        ng-click="openPlanDetails(plan.id)">
                                     {{plan.name}}</h5>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s6 m5">
-                                    <p class="meal-text">Goals:</p>
+                                <div class="col s12 m2 l1">
+                                    <p>Goal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
                                 </div>
-                                <div class="col s6 m7 pull-m1">
-                                    <p class="meal-text">{{ plan.goal
-                                    }}</p>
+                                <div class="col s12 m10 l11">
+                                    <p class="meal-text">{{plan.goal}}</p>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                 <div class="col s6 m5">
-                                    <p class="meal-text">Duration:</p>
+                                <div class="col s4 m4 l2">
+                                    <p>Duration:
+                                    </p>
                                 </div>
-                                <div class="col s6 m7 pull-m1">
-                                    <p class="meal-text">{{
-                                    plan.duration }} Week</p>
+                                <div class="col s8 m8 l8 pull-l2">
+                                    <p class="meal-text">{{plan.duration }} Weeks</p>
                                 </div>
                             </div>
 
 
-                            <div class="row center showcustom">
-                                <div class="col s1">
-                                    <p class="meal-text">Ratings</p>
+                            <div class="row showcustom">
+                                <div class="col s4 m4 l2">
+                                    <p>Ratings</p>
                                 </div>
-                                <div class="col s7 push-s1">
-                                    <div back-color="white" class="right" id=
-                                    "plan-{{plan.id}}" ng-click=
-                                    "setPlanRating(plan, rating)"
+                                <div class="col s5 m5 l6">
+                                    <div back-color="white" class="" id=
+                                    "createdplan-{{plan.id}}"
                                     outer-percent="rating"
                                     outer-star-selection="stars" rating-define=
                                     "stars" rating-percent=
-                                    "{{getPlanRating(plan)}}" sel-color="gold"
+                                    "{{plan.average_rating*20}}" sel-color="gold"
                                     star-radius="10" star-rating="" stars="5">
                                     </div>
                                 </div>
 
 
-                                <div class="col s4 left">
-                                    <span ng-bind="stars | number:1"></span> /
+                                <div class="col s3 m3 pull-m1 pull-s1 l3 pull-l1 rating_val">
+                                    <span ng-bind="stars | number:1"></span>/
                                     5.0
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="col s4 m4 center myplan_graph_prot">
+                                <div class="col s4 m4 center plan_graph_prot">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#6639B6" current=
@@ -82,20 +75,16 @@
                                     </div>
 
 
-                                    <p class="center mygraph-text">PROTEINS</p>
+                                    <p class="center graph-text">PROTEINS</p>
 
 
-                                    <p class="center mygraph-value">
+                                    <p class="center graph-value">
                                     {{getPlanNutrientPercent(plan,
                                     'protein_tot') | number:0}} %</p>
-                                    <!--
-                                            <p class="ing-text nutgraph_val">
-                                            g</p>
--->
                                 </div>
 
 
-                                <div class="col s4 m4 center myplan_graph_carbs">
+                                <div class="col s4 m4 center plan_graph_carbs">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FE6433" current=
@@ -106,10 +95,10 @@
                                     </div>
 
 
-                                    <p class="center mygraph-text">CARBS</p>
+                                    <p class="center graph-text">CARBS</p>
 
 
-                                    <p class="center mygraph-value">
+                                    <p class="center graph-value">
                                     {{getPlanNutrientPercent(plan,
                                     'carbohydrate_tot') | number:0}} %</p>
 
@@ -119,7 +108,7 @@
                                 </div>
 
 
-                                <div class="col s4 m4 center myplan_graph_fat">
+                                <div class="col s4 m4 center plan_graph_fat">
                                     <div animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FDC106" current=
@@ -130,10 +119,10 @@
                                     </div>
 
 
-                                    <p class="center mygraph-text">FATS</p>
+                                    <p class="center graph-text">FATS</p>
 
 
-                                    <p class="center mygraph-value">
+                                    <p class="center graph-value">
                                     {{getPlanNutrientPercent(plan, 'fat_tot') |
                                     number:0}}%</p>
                                 </div>
@@ -141,52 +130,62 @@
                         </div>
 
 
-                        <div class="card-action">
+                        
+              <div class="card-action search-plancard-action">
 <!--
-                            <a class="datepicker_btn btn-flat cyan-text read-more" href=
-                            "#" ng-click="followPlan(plan.id)">FOLLOW</a>
+                  <a ng-if="!checkMyPlans(plan.id)"
+                    ng-click="shortlistPlan(plan.id)">
+                      <i class="material-icons plan-heart-c">favorite</i>
+                  </a>
+                  <a ng-if="checkMyPlans(plan.id)"
+                    ng-click="shortlistPlan(plan.id)">
+                      <i class="material-icons plan-heart-ok">favorite</i>
+                  </a>
 -->
-                            <a class="btn-flat cyan-text save-more3 right" href="#" ng-click=
-                            "addPlanToShortlist(plan.id)">SHORTLIST</a>
-                        </div>
+                    <a class="save-more1 cyan-text" href="/dietplans/create/overview/{{plan.id}}/">EDIT</a>
+                    <a class="read-more right cyan-text datepicker_btn" 
+                       href="#" ng-click="followPlan(plan)"> 
+                        FOLLOW
+                    </a>
+                               
+              </div>
+                        
+                  
                     </div>
                 </div>
             </div>
-                   
 
-
-                <div class="row">
-    <div class="col s12 m6 push-m5">
-    <paging
-                class="small"
-                page="currentPagePlan" 
-                page-size="3" 
-                total="pageSizePlan"
-                hide-if-empty="{{hideIfEmpty}}"
-                ul-class="{{ulClass}}"
-                li-class="lipageclass"
-                active-class="{{activeClass}}"
-                disabled-class="{{disabledClass}}"
-                show-prev-next="true"
-                show-first-last="true"
-                text-next-class="acti fa fa-chevron-right"
-                text-prev-class="acti fa fa-chevron-left"
-                text-first-class="acti fa fa-backward"
-                text-last-class="acti fa fa-forward"
-  text-title-page="Page {page}"
-  text-title-first="First Page"
-  text-title-last="Last Page"
-  text-title-next="Next Page"
-  text-title-prev="Previous" 
-  paging-action="getPlansMadeByMe(page)" 
-  >
-            </paging>
-     
-            </div>
-    
-        </div>
-
+                <div class="row center">
+    <div class="col s12">
+        <paging
+            class="small"
+            page="currentPageCreatedPlans" 
+            page-size="3" 
+            total="pageSizeCreatedPlan"
+            hide-if-empty="{{hideIfEmpty}}"
+            ul-class="{{ulClass}}"
+            li-class="lipageclass"
+            active-class="{{activeClass}}"
+            disabled-class="{{disabledClass}}"
+            show-prev-next="true"
+            show-first-last="true"
+            text-next-class="acti fa fa-chevron-right"
+            text-prev-class="acti fa fa-chevron-left"
+            text-first-class="acti fa fa-backward"
+            text-last-class="acti fa fa-forward"
+            text-title-page="Page {page}"
+            text-title-first="First Page"
+            text-title-last="Last Page"
+            text-title-next="Next Page"
+            text-title-prev="Previous" 
+            paging-action="getPlansMadeByMe(page)" 
+            >
+        </paging>
     </div>
+    
+    </div>
+
+</div>
 
 
 
@@ -195,32 +194,28 @@
 <div id="result-list">
     <div ng-if=
     "myPlans!=null && myPlans!=undefined && myPlans.length!=0">
-    <b>You shortlisted:</b>
+    <b>Plans Saved:</b>
 
-                <div class="row">
+                <div class="row center">
+<!--
+                    
                 <div class="col s4 m4" ng-repeat=
                 "plan in myPlans track by $index">
                     <div class="card">
                         <div class="card-content">
                             <div class="row">
-                                <!--
-                                <div class="col s2"><img class=
-                                "circle responsive-img" src=
-                                "static/images/tiger.jpg">
-                                </div>
--->
-
+                       
 
                                 <div class="col s12 center">
                                     <h5 class="cyan-text">Name:
-                                    {{plan.name}}</h5>
+                                    {{plan.dietplan.name}}</h5>
                                 </div>
                             </div>
 
 
                             <div class="row">
                                 <div class="col s12">
-                                    <p class="grey-text">Goal: {{ plan.goal
+                                    <p class="grey-text">Goal: {{ plan.dietplan.goal
                                     }}</p>
                                 </div>
                             </div>
@@ -229,7 +224,7 @@
                             <div class="row">
                                 <div class="col s12">
                                     <p class="grey-text">Duration: {{
-                                    plan.duration }} Week</p>
+                                    plan.dietplan.duration }} Week</p>
                                 </div>
                             </div>
 
@@ -273,10 +268,10 @@
                                     <p class="center graph-value">
                                     {{getPlanNutrientPercent(plan,
                                     'protein_tot') | number:0}} %</p>
-                                    <!--
+                                    
                                             <p class="ing-text nutgraph_val">
                                             g</p>
--->
+
                                 </div>
 
 
@@ -334,35 +329,193 @@
                         </div>
                     </div>
                 </div>
+                    
+-->
+                     <div class="col s12 m6 l5 push-l1"  ng-repeat=
+                "plan in myPlans track by $index" current-page="currentPageSavedPlans" > 
+                    <div class="card white" >
+                        <div class="card-content search-plan-card black-text">
+                            <div class="row">
+                               
+
+                                <div class="col s12 m12 center">
+                                    <h5 class="cyan-text txt-overflow" 
+                                        ng-click="openPlanDetails(plan.id)">
+                                    {{plan.dietplan.name}}</h5>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col s12 m2 l1">
+                                    <p>Goal:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                </div>
+                                <div class="col s12 m10 l11">
+                                    <p class="meal-text">{{plan.dietplan.goal}}</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col s4 m4 l2">
+                                    <p>Duration:
+                                    </p>
+                                </div>
+                                <div class="col s8 m8 l8 pull-l2">
+                                    <p class="meal-text">{{plan.dietplan.duration }} Week</p>
+                                </div>
+                            </div>
+
+
+                            <div class="row showcustom">
+                                <div class="col s4 m4 l2">
+                                    <p>Ratings</p>
+                                </div>
+                                <div class="col s5 m5 l6">
+                                    <div back-color="white" class="" id=
+                                    "savedplan-{{plan.id}}" ng-click=
+                                    "setPlanRating(plan, rating)"
+                                    outer-percent="rating"
+                                    outer-star-selection="stars" rating-define=
+                                    "stars" rating-percent=
+                                    "{{plan.dietplan.average_rating * 20}}" sel-color="gold"
+                                    star-radius="10" star-rating="" stars="5">
+                                    </div>
+                                </div>
+
+
+                                <div class="col s3 m3 pull-m1 pull-s1 l3 pull-l1 rating_val">
+                                    <span ng-bind="stars | number:1"></span>/
+                                    5.0
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col s4 m4 center plan_graph_prot">
+                                    <div animation="easeInOutQuart"
+                                    animation-delay="0" bgcolor="#EAEAEA"
+                                    clockwise="true" color="#6639B6" current=
+                                    "getPlanNutrientPercent(plan.dietplan, 'protein_tot')"
+                                    duration="800" max="100" radius="50"
+                                    responsive="false" round-progress=""
+                                    rounded="true" semi="false" stroke="4">
+                                    </div>
+
+
+                                    <p class="center graph-text">PROTEINS</p>
+
+
+                                    <p class="center graph-value">
+                                    {{getPlanNutrientPercent(plan.dietplan,
+                                    'protein_tot') | number:0}} %</p>
+                                </div>
+
+
+                                <div class="col s4 m4 center plan_graph_carbs">
+                                    <div animation="easeInOutQuart"
+                                    animation-delay="0" bgcolor="#EAEAEA"
+                                    clockwise="true" color="#FE6433" current=
+                                    "getPlanNutrientPercent(plan, 'carbohydrate_tot')"
+                                    duration="800" max="100" radius="50"
+                                    responsive="false" round-progress=""
+                                    rounded="true" semi="false" stroke="4">
+                                    </div>
+
+
+                                    <p class="center graph-text">CARBS</p>
+
+
+                                    <p class="center graph-value">
+                                    {{getPlanNutrientPercent(plan.dietplan,
+                                    'carbohydrate_tot') | number:0}} %</p>
+
+
+                                    <p class="ing-text nutgraph_val">
+                                    </p>
+                                </div>
+
+
+                                <div class="col s4 m4 center plan_graph_fat">
+                                    <div animation="easeInOutQuart"
+                                    animation-delay="0" bgcolor="#EAEAEA"
+                                    clockwise="true" color="#FDC106" current=
+                                    "getPlanNutrientPercent(plan, 'fat_tot')"
+                                    duration="800" max="100" radius="50"
+                                    responsive="false" round-progress=""
+                                    rounded="true" semi="false" stroke="4">
+                                    </div>
+
+
+                                    <p class="center graph-text">FATS</p>
+
+
+                                    <p class="center graph-value">
+                                    {{getPlanNutrientPercent(plan.dietplan, 'fat_tot') |
+                                    number:0}}%</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+              <div class="card-action search-plancard-action">
+<!--
+                  <a ng-if="!checkMyPlans(plan.id)"
+                    ng-click="shortlistPlan(plan.id)">
+                      <i class="material-icons plan-heart-c">favorite</i>
+                  </a>
+-->
+<!--
+                  <a ng-click="removePlan(plan.id)">
+                      <i class="material-icons plan-heart-ok">favorite</i>
+                  </a>
+-->
+                  <a
+                    id="remove-plan-button" ng-click=
+                    "removePlan(plan.id)"><i class=
+                    "material-icons plan-heart-c createbin">
+                    delete</i></a>
+<!--                    <a class="save-more1 cyan-text">SAVE</a>-->
+                    <a class="read-more right cyan-text datepicker_btn" 
+                       href="#" ng-click="followPlan(plan)"> 
+                        FOLLOW
+                    </a>
+                               
+              </div>
+                        
+                  
+                    </div>
+                </div>
             </div>
     
 
-                <div class="row">
-    <div class="col s12 m6 push-m5">
+                <div class="row center">
+    <div class="col s12">
     <paging
-                class="small"
-                page="currentPage" 
-                page-size="3" 
-                total="pageSize"
-                hide-if-empty="{{hideIfEmpty}}"
-                ul-class="{{ulClass}}"
-                li-class="lipageclass"
-                active-class="{{activeClass}}"
-                disabled-class="{{disabledClass}}"
-                show-prev-next="true"
-                show-first-last="true"
-                text-next-class="acti fa fa-chevron-right"
-                text-prev-class="acti fa fa-chevron-left"
-                text-first-class="acti fa fa-backward"
-                text-last-class="acti fa fa-forward"
-  text-title-page="Page {page}"
-  text-title-first="First Page"
-  text-title-last="Last Page"
-  text-title-next="Next Page"
-  text-title-prev="Previous" 
-  paging-action="getMyPlans(page)" 
-  >
-            </paging>
+        class="small"
+        page="currentPageSavedPlans" 
+        page-size="3" 
+        total="pageSizeSavedPlan"
+        hide-if-empty="{{hideIfEmpty}}"
+        ul-class="{{ulClass}}"
+        li-class="lipageclass"
+        active-class="{{activeClass}}"
+        disabled-class="{{disabledClass}}"
+        show-prev-next="true"
+        show-first-last="true"
+        text-next-class="acti fa fa-chevron-right"
+        text-prev-class="acti fa fa-chevron-left"
+        text-first-class="acti fa fa-backward"
+        text-last-class="acti fa fa-forward"
+        text-title-page="Page {page}"
+        text-title-first="First Page"
+        text-title-last="Last Page"
+        text-title-next="Next Page"
+        text-title-prev="Previous" 
+        paging-action="getMyPlans(page)" 
+        >
+    </paging>
      
             </div>
         </div>

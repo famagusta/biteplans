@@ -1,12 +1,14 @@
 /*Handles request to user registration, login, logout*/
 'use strict';
+/* global app */
+
 // $q makes a promise which can be fulfilled or not fulfilled. so a = $q.defer(), it can resolve or reject
 //a.resolve() means success, a.reject() means not fulfilled
 
 app.factory('httpService', ['$http', '$q',
-    function($http, $q) {
+    function ($http, $q) {
         //encodes params into correct format 
-        var toparams = function(obj) {
+        var toparams = function (obj) {
             var p = [];
             for (var key in obj) {
                 p.push(key + '=' + encodeURIComponent(obj[key]));
@@ -14,107 +16,101 @@ app.factory('httpService', ['$http', '$q',
             return p.join('&');
         };
         //makes a post using url and params as parameter
-        var httpPost = function(url, params) {
+        var httpPost = function (url, params) {
             params = toparams(params);
             var promise = $http.post(url, params, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                })
-                .then(
-                    function(response) {
+                }).then(
+                    function (response) {
                         return response.data;
                     });
             return promise;
         };
 
-        var httpPut = function(url, params) {
+        var httpPut = function (url, params) {
             params = toparams(params);
             var promise = $http.put(url, params, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                })
-                .then(
-                    function(response) {
+                }).then(
+                    function (response) {
                         return response.data;
                     });
             return promise;
         };
 
-        var httpPatch = function(url, params) {
+        var httpPatch = function (url, params) {
             params = toparams(params);
             var promise = $http.patch(url, params, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                })
-                .then(
-                    function(response) {
+                }).then(
+                    function (response) {
                         return response.data;
                     });
             return promise;
         };
         
         //httpPatch to upload photos in forms
-          var httpPatchFile = function(url, fd) {
+          var httpPatchFile = function (url, fd) {
             var promise = $http.patch(url, fd,
                     {
                         headers: {
                         'Content-Type': undefined
                     }
-                })
-                .then(
-                    function(response) {
+                }).then(
+                    function (response) {
                         return response.data;
                     });
             return promise;
         };
 
         //http get method wrapper
-        var httpGet = function(url) {
+        var httpGet = function (url) {
             var promise = $http.get(url, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                })
-                .then(
-                    function(response) {
+                }).then(
+                    function (response) {
                         return response.data;
                     });
             return promise;
         };
 
-        var httpDelete = function(url) {
+        var httpDelete = function (url) {
             var promise = $http.delete(url, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                })
-                .then(
-                    function(response) {
+                }).then(
+                    function (response) {
                         return response.data;
                     });
             return promise;
         };
 
         return {
-            httpPost: function(url, params) {
+            httpPost: function (url, params) {
                 return httpPost(url, params);
             },
-            httpGet: function(url, params) {
+            httpGet: function (url, params) {
                 return httpGet(url, params);
             },
-            httpPatchFile: function(url, fd) {
+            httpPatchFile: function (url, fd) {
                 return httpPatchFile(url, fd);
             },
-            httpPut: function(url, params) {
+            httpPut: function (url, params) {
                 return httpPut(url, params);
             },
-            httpPatch: function(url, params) {
+            httpPatch: function (url, params) {
                 return httpPatch(url, params);
             },
-            httpDelete: function(url, params) {
+            httpDelete: function (url, params) {
                 return httpDelete(url, params);
             },
         };
@@ -124,9 +120,11 @@ app.factory('httpService', ['$http', '$q',
 /* Takes care of authentication functionality and also stores user object for sharing among different controllers*/
 app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
     '$window', '$rootScope', '$auth',
-    function(httpService, $location, constants, $q, $window, $rootScope,
+    function (httpService, $location, constants, $q, $window, $rootScope,
         $auth) {
-        var register = function(username, password, confirm, email) {
+        'use strict';
+        
+        var register = function (username, password, confirm, email) {
             // Registration logic goes here
 
             //constants is a angular.constant service which will contain all the constants for our app
@@ -143,7 +141,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
             httpService.httpPost(url, userString)
                 .then(
-                    function(response) {
+                    function (response) {
                         if (response.success) {
                             deferred.resolve(response);
                         }
@@ -153,14 +151,14 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                             );
                         }
                     },
-                    function(response) {
+                    function (response) {
                         deferred.reject(response);
                     });
             return deferred.promise;
         };
 
         /* Login logic goes here {This is normal login, not social login }*/
-        var login = function(username, password) {
+        var login = function (username, password) {
             var url = '/authentication/api/v1/login/';
             var deferred = $q.defer();
             httpService.httpPost(url, {
@@ -168,7 +166,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                     'password': password,
                 })
                 .then(
-                    function(response) {
+                    function (response) {
                         var token = response.token;
                         if (token) {
                             $window.localStorage.token = token;
@@ -186,7 +184,7 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
                         }
                     },
-                    function(response) {
+                    function (response) {
                         deferred.reject(response);
                         $auth.removeToken();
 
@@ -197,22 +195,22 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
 
         /* function to logout for normally signed in user */
-        var logout = function() {
+        var logout = function () {
             $auth.removeToken();
             constants.userOb = {};
 
         };
 
         /* function to update a user profile */
-        var updateProfile = function(args, id){
-            var url = '/authentication/api/v1/register/' + id + '/'
-        }
+//        var updateProfile = function (args, id) {
+//            var url = '/authentication/api/v1/register/' + id + '/';
+//        };
         
         /*User resource for sharing between different controllers */
         // I think this doesnt work anumore
 //        var userOb = {};
 //        userOb.current = {};
-//        constants.userOb.set_user = function(response) {
+//        constants.userOb.set_user = function (response) {
 //            if (response) {
 //                constants.userOb.current = response.data;
 //            }
@@ -228,17 +226,17 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 //        };
 
         /*Function for social login */
-        var loginSocial = function(provider) {
+        var loginSocial = function (provider) {
             var prom = $q.defer();
             $auth.authenticate(provider)
-                .then(function(response) {
+                .then(function (response) {
                     $auth.setToken(response.data.token);
 //                    constants.userOb.set_user(response);
                     constants.userOb.pk = response.data.id;
                     constants.userOb.status = true;
                     prom.resolve(response.data);
                 })
-                .catch(function(data) {
+                .catch(function (data) {
                     logout();
                     prom.reject(
                         'Something went wrong, try again later'
@@ -251,21 +249,21 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
         //stores the info of current user to share amongst different controllers.
         // I think this doesnt work anymore
-        var getCurrentUserDetails = function() {
+        var getCurrentUserDetails = function () {
             if ($auth.getToken()) {
                 httpService.httpGet(
                        '/authentication/api/v1/jwt_user/'
                     )
-                    .then(function(response) {
+                    .then(function (response) {
                         constants.userOb.pk = response.id;
                         constants.userOb.status = true;
-                        return UserOb;
+                        //return UserOb;
                     });
             }
         };
 
         //Function for forgot password and this sends email to user with activation link
-        var resetPassword = function(email) {
+        var resetPassword = function (email) {
             //url to be hit
             var url = '/authentication/forgot/password/reset/';
             //promise to be fulfilled
@@ -274,12 +272,12 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                     'email': email,
                 })
                 .then(
-                    function(response) {
+                    function (response) {
                         //promise is fulfilled
                         deferred.resolve(response.data);
 
                     },
-                    function(response) {
+                    function (response) {
                         //error, promise not fulfilled :(
                         deferred.reject(response.data);
 
@@ -289,15 +287,15 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         };
 
 
-        var isAuthenticated = function() {
+        var isAuthenticated = function () {
             var url = '/authentication/loginstatus/';
             var deferred = $q.defer();
             httpService.httpGet(url)
-                .then(function(response) {
+                .then(function (response) {
                     constants.userOb.status = response.status;
                     constants.userOb.pk = response.pk;
                     deferred.resolve(response);
-                }, function(error) {
+                }, function (error) {
                     deferred.reject(error);
                 });
 
@@ -306,20 +304,20 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
         //return all these features as function
         return {
-            register: function(username, password, confirm, email) {
+            register: function (username, password, confirm, email) {
                 return register(username, password, confirm, email);
             },
-            login: function(username, password) {
+            login: function (username, password) {
                 return login(username, password);
 
             },
-            logout: function() {
+            logout: function () {
                 logout();
 //                location.reload(); 
                 return 'User has been logged out';
 
             },
-            isAuthenticated: function() {
+            isAuthenticated: function () {
                 return isAuthenticated();
             },
 
