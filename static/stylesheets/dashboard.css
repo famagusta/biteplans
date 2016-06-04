@@ -279,7 +279,7 @@ input:disabled {
     right: 0em;
 }
 .mying-card {
-    height: 21em !important;
+    height: 23em !important;
 }
 /* SUMMARY PAGE */
 
@@ -306,4 +306,30 @@ input:disabled {
 
 .name-a {
   text-decoration: none; /* no underline */
+}
+
+.myrecipe-delete {
+    display: block;
+}
+
+.myrecipe-delete > i {
+    cursor: pointer;
+    position: absolute;
+    float: right;
+    margin-left: 100px;
+    bottom: 10px;
+    left: 30px;
+    color: #b6b6b6 !important;
+}
+
+.card-action-align {
+    margin-top : -10px !important;
+}
+
+.delete-my-stuff {
+    color: #f2f2f2 !important;
+}
+
+.delete-my-stuff:hover{
+    color: #ff5252 !important;
 }

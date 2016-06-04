@@ -28,7 +28,6 @@ app.controller('recipesController', ['$scope', 'searchService',
             if (query) {
                 searchService.search_recipe(query, page, sortby)
                     .then(function(response) {
-                        console.log('saerching');
                         $scope.currentPage = page;
                         $scope.pageSize = response.total*6;
                         $scope.recipeDetails = response;

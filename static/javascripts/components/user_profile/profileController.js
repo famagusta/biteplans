@@ -86,7 +86,6 @@ app.controller('profileController', ['$scope', 'AuthService',
                                     var dob_str = date_to_set.getFullYear() + '-' 
                                         + (date_to_set.getMonth() + 1) + '-' 
                                         + date_to_set.getDate();
-                                    console.log(dob_str);
                                     $scope.profileInfo.date_of_birth = dob_str;
                                 }
                             }

@@ -22,7 +22,6 @@ app.factory('profileService',
     var updateSavedPlan = function(obj, id ) {
         //?? what is this doing here/??
             var url = '/authentication/api/v1/register/' + id + '/';
-        console.log(obj);
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
                 .then(function(response) {
@@ -58,7 +57,6 @@ app.factory('profileService',
         var deferred = $q.defer();
         httpService.httpPatch(url, obj).then(function(response){
     		deferred.resolve(response);
-    		console.log(response);
 
     	}, function(error){
     		console.log(error);

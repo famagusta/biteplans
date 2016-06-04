@@ -7,6 +7,8 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
         summaryService) {
 
     	$scope.openModal ={};
+        $scope.selected = 0;
+        $scope.ingredientSelected = {};
 
     	$scope.getMyIngredients = function(page){
 
@@ -14,6 +16,8 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
     			$scope.myIngredients = response.results;
                 $scope.currentPage = page;
                 $scope.pageSize = response.total*6;
+                
+               // getAdditionalIngredientInformation($scope.myIngredients);
     		}, function(error){
     			console.log(error);
     		});
@@ -21,18 +25,60 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
 
     	$scope.getMyIngredients();
 
-    	$scope.openIngredientsModal = function(index){
-    		$('#modal6').openModal();
-    		$scope.openModal.measure = $scope.myIngredients[index].ingredient.measure[0];
-    		$scope.selected = index;
+    	$scope.openIngredientsModal = function(myIngredient){
+            
+            // function for modal when ingredient card is clicked
+            $scope.ingredientSelected = {};
+            
+
+            var ingredientMatch = $scope.myIngredients.filter(
+                function(el)
+                {
+                    return el.ingredient.id === myIngredient.ingredient.id;
+            });
+            var index = findWithAttr($scope.myIngredients,
+                'id', ingredientMatch[0].id);
+            
+            
+            $scope.myIngredients[$scope.selected].additionalIngredientInfo = {};
+            
+            searchService.get_ingredient_addtnl_info($scope.myIngredients[index].ingredient.id)
+                .then(function(response){
+                    $scope.selected = index;
+                    $scope.myIngredients[$scope.selected].additionalIngredientInfo =
+                        response;
+                    
+                    // modal must only initialize after additionalingredient info is retrieved
+                    $scope.ingredientSelected = $scope.myIngredients[$scope.selected];
+                    $scope.ingredientSelected.selectedMeasure =
+                        $scope.ingredientSelected.ingredient.measure[0];
+                    $('#modal6').openModal();
+                }, function(error){
+                
+            });
+             
     	};
 
-    	$scope.calculateIngredientInfo = function(nutrient) {
+        
+        $scope.removeIngredient = function(index){
+            searchService.removeFromMyIngredients($scope.myIngredients[index].id).then(function(response){
+                $scope.myIngredients.splice(index,1);
+            }, function(error){
+                console.log(error);
+            });
+        }
+        
+    	$scope.calculateIngredientInfo = function(nutrient, isAdditional) {
                 var total=0;
-                
-                total += $scope.myIngredients[$scope.selected]
-                .ingredient[nutrient] * $scope.openModal.measure.weight;
-            
+                if(isAdditional){
+                    
+                    total += $scope.myIngredients[$scope.selected]
+                        .additionalIngredientInfo[nutrient] * $scope.ingredientSelected.selectedMeasure.weight/100;
+                   
+                } else {
+                    total += $scope.myIngredients[$scope.selected]
+                    .ingredient[nutrient] * $scope.ingredientSelected.selectedMeasure.weight/100;
+                }
             return total;
         };
     }]);
@@ -125,8 +171,6 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
         
         $scope.getPlanNutrientPercent = function(plan, nutrient)
         {
-            console.log(plan);
-            console.log(nutrient);
             var conversion_factor = 4;
             if (nutrient === 'fat_tot')
             {

@@ -156,7 +156,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     recipeService.updateRecipe($scope.recipe, id)
                         .then(function(response)
                         {
-                            console.log(response);
                         }, function(error)
                         {
                             console.log(error);
@@ -427,7 +426,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.query = undefined;
                         $scope.pageSize = null;
                         $scope.currentPage = null;
-                        console.log($scope.lastChecked);
 
                     };
                     //checks whether an ingredient is already selected or not

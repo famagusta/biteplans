@@ -118,7 +118,6 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 //if type is jump then it will jump
                 $scope.daySelect = function(type, week, day)
                 {
-                    console.log(type, week, day);
                     if (type === 'copy')
                     {
                         if (day != $scope.dayplan.day_no ||
@@ -253,9 +252,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 $scope.mealPlanNameArray[
                                     m].mealNutrition = {};
                             }
-                        }, function(response)
+                        }, function(error)
                         {
-                            console.log(response);
+                            console.log(error);
                         });
                 };
                 //get initial data for day1 and week 1 of the plan
@@ -373,7 +372,6 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 index].id).then(
                             function(response)
                             {
-                                //console.log(response);
                             }, function(error)
                             {
                                 console.log(error);
@@ -383,7 +381,6 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 // updates meal ingredient in a meal plan
                 $scope.updateMealIngredient = function(obj)
                 {
-                    console.log('test')
                     // CONSIDER RENAMING THIS
                     var obje = {
                         'quantity': parseFloat(obj.quantity),

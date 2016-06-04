@@ -687,7 +687,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 key.time.getMinutes() + ":00";
 
             summaryService.createMeal(objToSave).then(function(response){
-                console.log(response.non_field_errors);
                 if(!response.non_field_errors){
                     key.time = tm;
                     key.followingMealPlanIngredient=[];

@@ -209,7 +209,6 @@ app.factory('planService', ['httpService', 'AuthService', '$location',
         /* function that makes a user follow a dietplan given a start date*/
         var followDietPlan = function(obj){
             var url = '/dashboard/follow/';
-            console.log(obj);
             var deferred = $q.defer();
             /* cast our parameters into an object */
             httpService.httpPost(url,obj)

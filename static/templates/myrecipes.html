@@ -2,20 +2,22 @@
 
 <div id="result-list">
     <div ng-if="createdRecipes!=null && createdRecipes!=undefined && createdRecipes.length!=0">
-    <b>Recipes Created:<b>
-    <div class="row">
+        <b>Recipes Created:</b>
+        <div class="row">
             <div class="col s12 m4" current-page="currentPageRecipe" ng-repeat="recipe in createdRecipes track by $index">
-                      <div class="card myrecipe_card">
-                        <div class="card-image recipe-im">
-                          <img class="recipe_img" ng-src="{{recipe.myRecipesImage}}">
+                
+                <div class="card large">
+                    <div class="card-image">
+                          <img ng-src="{{recipe.myRecipesImage}}">
                         </div>
-                        <div class="card-content recipe-content">
-                           <div class="row">
-                            <div class="col s12">
-                                <h5 class="cyan-text center ingredient-title">
-                                {{recipe.name | addSpace}}</h5>
-                            </div>
-                        </div>
+                        
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4 ingredient-title">{{recipe.name | addSpace}}<i class="material-icons right">more_vert</i></span>
+                    </div>
+                    
+                    <div class="card-reveal">
+                       
+                        <span class="card-title activator grey-text text-darken-4 ingredient-title">{{recipe.name | addSpace}}<i class="material-icons right">more_vert</i></span>
 
                             <div class="row raise">
                                 <div class="col s12 m12">
@@ -29,7 +31,7 @@
                                 <div class="col s12 m12">
                                     <p class="meal-text">
                                     {{recipe.description |
-                                    limitTo:20}}...</p>
+                                    limitTo:200}}...</p>
                                 </div>
                             </div>
                             <br>
@@ -50,53 +52,69 @@
                                 </div>
                             </div>
                             
+                           <div class="row raise">
+                                <div class="col s12 m6">
+                                    <h6 class="nutri">Cook Time</h6>
+                                </div>
+                                <div class="col s12 m6">
+                                    <h6 class="meal-text">{{recipe.cook_time}}</h6>
+                                </div>
+                            </div>
+                        
+                            <div class="row raise">
+                                <div class="col s12 m6">
+                                    <h6 class="nutri">Prep Time</h6>
+                                </div>
+                                <div class="col s12 m6">
+                                    <h6 class="meal-text">{{recipe.prep_time}}</h6>
+                                </div>
+                            </div>
                              
                             
                         </div>
-                          <div class="card-action">
-                                  <a href="#" class="cyan-text read-more" ng-href="recipes/edit-recipe/{{recipe.id}}">EDIT</a>
-                                  <a href="#" class="cyan-text save-more2" ng-href="recipes/view-recipe/{{recipe.id}}">VIEW</a>
-                             </div>
-                
-                      </div>
+                      
+                    <div class="card-action">
+
+                            <a href="#" class="cyan-text hide-on-med-and-down left-align left" ng-href="recipes/edit-recipe/{{recipe.id}}">EDIT</a>
+                            <a href="#" class="cyan-text right-align right" 
+                               ng-href="recipes/view-recipe/{{recipe.id}}">VIEW</a>
+                        </div>
 
                     </div>
-                   
                 </div>
-
-
-                <div class="row">
-    <div class="col s12 m6 push-m5">
-    <paging
-        class="small"
-        page="currentPageRecipe" 
-        page-size="3" 
-        total="pageSizeRecipe"
-        hide-if-empty="{{hideIfEmpty}}"
-        ul-class="{{ulClass}}"
-        li-class="lipageclass"
-        active-class="{{activeClass}}"
-        disabled-class="{{disabledClass}}"
-        show-prev-next="true"
-        show-first-last="true"
-        text-next-class="acti fa fa-chevron-right"
-        text-prev-class="acti fa fa-chevron-left"
-        text-first-class="acti fa fa-backward"
-        text-last-class="acti fa fa-forward"
-        text-title-page="Page {page}"
-        text-title-first="First Page"
-        text-title-last="Last Page"
-        text-title-next="Next Page"
-        text-title-prev="Previous" 
-        paging-action="getRecipesMadeByMe(page)" 
-        >
-    </paging>
-     
             </div>
-    
+        
+
+        <div class="row center">
+            <div class="col s12">
+                <paging
+                    class="small"
+                    page="currentPageRecipe" 
+                    page-size="3" 
+                    total="pageSizeRecipe"
+                    hide-if-empty="{{hideIfEmpty}}"
+                    ul-class="{{ulClass}}"
+                    li-class="lipageclass"
+                    active-class="{{activeClass}}"
+                    disabled-class="{{disabledClass}}"
+                    show-prev-next="true"
+                    show-first-last="true"
+                    text-next-class="acti fa fa-chevron-right"
+                    text-prev-class="acti fa fa-chevron-left"
+                    text-first-class="acti fa fa-backward"
+                    text-last-class="acti fa fa-forward"
+                    text-title-page="Page {page}"
+                    text-title-first="First Page"
+                    text-title-last="Last Page"
+                    text-title-next="Next Page"
+                    text-title-prev="Previous" 
+                    paging-action="getRecipesMadeByMe(page)" 
+                    >
+                </paging>
+            </div>
         </div>
-
-
+        </div>
+</div>
 
 
 
@@ -108,18 +126,15 @@
              
             <div class="col s12 m4" current-page="currentPage" ng-repeat=
             "recipe in myRecipes track by $index">
-                      <div class="card myrecipe_card">
-                        <div class="card-image recipe-im">
-                          <img class="recipe_img" ng-src="{{recipe.myRecipesImage}}">
+                      <div class="card large">
+                        <div class="card-image">
+                          <img ng-src="{{recipe.myRecipesImage}}">
                         </div>
-                        <div class="card-content recipe-content">
-                           <div class="row">
-                            <div class="col s12">
-                                <h5 class="cyan-text center ingredient-title">
-                                {{recipe.recipe.name | addSpace}}</h5>
-                            </div>
-                        </div>
-
+                        <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4 ingredient-title">{{recipe.recipe.name | addSpace}}<i class="material-icons right">more_vert</i></span>
+                          </div>
+                          <div class="card-reveal">
+                              
                             <div class="row raise">
                                 <div class="col s12 m12">
                                     <h6 class="nutri">Description</h6>
@@ -132,7 +147,7 @@
                                 <div class="col s12 m12">
                                     <p class="recipe-card-info">
                                     {{recipe.recipe.description |
-                                    limitTo:50}}</p>
+                                    limitTo:200}}</p>
                                 </div>
                             </div>
                             <br>
@@ -152,28 +167,37 @@
                                     limitTo:50}}</p>
                                 </div>
                             </div>
-                            
-<!--
-                            <div class="row raise">
-                                <div class="col s12">
-                                     <a class="read-more right cyan-text" ng-href="viewRecipe/{{recipe.meal_recipe.id}}">READ MORE</a>
-                                    <a class="read-more right cyan-text">View</a>
+    
+                              <div class="row raise">
+                                <div class="col s12 m6">
+                                    <h6 class="nutri">Cook Time</h6>
+                                </div>
+                                <div class="col s12 m6">
+                                    <h6 class="meal-text">{{recipe.recipe.cook_time}}</h6>
                                 </div>
                             </div>
--->
+                        
+                            <div class="row raise">
+                                <div class="col s12 m6">
+                                    <h6 class="nutri">Prep Time</h6>
+                                </div>
+                                <div class="col s12 m6">
+                                    <h6 class="meal-text">{{recipe.recipe.prep_time}}</h6>
+                                </div>
+                            </div>
+                              
+                        </div>
+
+                           <div class="card-action">
+
+                            
+                            <a class="createbin left-align left"ng-click="deleteRecipe(recipe.id)">
+                                <i class="material-icons delete-my-stuff">delete</i>
+                            </a>
+                               <a class="cyan-text right-align right" ng-href="recipes/view-recipe/{{recipe.meal_recipe.id}}">Read More</a>
+                            
                         </div>
                           
-<!--
-                          <div class="card-action">
-                                  <a href="#" class="cyan-text read-more" ng-href="recipes/edit-recipe/{{recipe.id}}">EDIT</a>
-                                  <a href="#" class="cyan-text save-more2" ng-href="recipes/view-recipe/{{recipe.id}}">VIEW</a>
-                             </div>
--->
-                          
-                          <div class="card-action">
-                                <a class="cyan-text read-more" ng-href="recipes/view-recipe/{{recipe.meal_recipe.id}}">READ MORE</a>
-                                <a class="cyan-text save-more2" ng-href="recipes/edit-recipe/{{recipe.meal_recipe.id}}">View</a>
-                          </div>
                         
                 
                       </div>
@@ -182,8 +206,8 @@
                    
                 </div>
 
-                <div class="row">
-    <div class="col s12 m6 push-m5">
+                <div class="row center">
+    <div class="col s12">
     <paging
         class="small"
         page="currentPage" 

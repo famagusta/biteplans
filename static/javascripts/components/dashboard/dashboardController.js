@@ -79,8 +79,6 @@ app.controller('confirmController', ['$scope', '$window', '$location',
                         $window.localStorage.token = response.token;
                         $location.path('/dashboard');
                     }
-                    else
-                        console.log(response);
                 }, function(error) {
                     $scope.content = error;
                 });

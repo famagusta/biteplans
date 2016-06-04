@@ -188,9 +188,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                     var id = $routeParams.id;
                     planService.getdayplan(id, day, week).then(
                         function(response)
-                        { console.log(response);
-
-
+                        { 
                             if(col===1){
                             $scope.dayplan1.id =
                                 response.id;
@@ -277,9 +275,9 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                             }
 
                         }
-                        }, function(response)
+                        }, function(error)
                         {
-                            console.log(response);
+                            console.log(error);
                         });
                 };
                 //get initial data for day1 and week 1 of the plan

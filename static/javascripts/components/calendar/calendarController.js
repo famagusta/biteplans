@@ -124,9 +124,7 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
         
         $scope.unfollow = function(id){
             calendarService.unfollowPlan(id).then(function(response){
-                console.log(response);
                 $scope.getUserFollowingPlans($scope.selectedDate);
-//                $scope.setDayContent($scope.selectedDate);
                 $scope.setTab(3);
             }, function(error){
                 console.log(error);

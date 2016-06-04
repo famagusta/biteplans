@@ -156,9 +156,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                 var prepTime = $scope.recipe.prep_time.split(":");
                                 $scope.prepHours = parseInt(prepTime[0]);
                                 $scope.prepMins = parseInt(prepTime[1]);
-                                console.log(prepTime, cookTime);
                                 $scope.checklistIngredients = $scope.ingredientDisplay;
-                                console.log($scope.checklistIngredients);
                             }, function(error)
                             {
                                 console.log(error);
@@ -186,7 +184,6 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             $scope.checklistIngredients = $scope.checklistIngredients.concat($scope.checklistIngs.splice(0,
                                 $scope.checklistIngs.length));
                             var query = $scope.query;
-                            console.log(query, page, sortby);
                             if (query !== undefined && $scope.foodgroup.length > 0)
                             {
                                 searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
@@ -194,7 +191,6 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     {
                                         $scope.details = response;
                                         $scope.filts = response.filters; //model for storing response from API                
-                                        console.log($scope.details);
                                         // pagination
                                         $scope.currentPage = page;
                                         $scope.pageSize = response.total * 6;
@@ -225,7 +221,6 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     {
                                         $scope.details = response;
                                         $scope.filts = response.filters; //model for storing response from API                
-                                        console.log($scope.details);
                                         // pagination
                                         $scope.currentPage = page;
                                         $scope.pageSize = response.total * 6;
@@ -246,7 +241,6 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     /* function to remove an ingredient from the recipe checklist and templist */
                     $scope.removeIngredient = function(element)
                     {
-                        //                        console.log(element);
                         // remove ingredient from checklist temp array
                         var index1 = $scope.checklistIngs.indexOf(element);
                         if (index1 >= 0)
@@ -276,12 +270,10 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         {
                             $scope.ingredientDisplay.splice(index3, 1);
                         }
-                        //                        console.log(index1, index2, index3);
                     };
                     /* function to remove an ingredient from the recipe */
                     $scope.removeIngs = function(index)
                     {
-                        //                        console.log(index);
                         // remove ingredient from checklist array
                         var index2 = -1;
                         for (var i = 0; i < $scope.checklistIngredients.length; i++)
@@ -315,8 +307,6 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         }
                         $scope.checklistIngs = [];
                         //                        $scope.ingredientDisplay = $scope.checklistIngredients;
-                        console.log($scope.ingredientDisplay);
-                        //                        console.log($scope.ingredientDisplay);
                         for (var i = $scope.ingredientDisplay.length; i < $scope.checklistIngredients.length; i++)
                         {
                             //populate ingredient display in identical format as original request
