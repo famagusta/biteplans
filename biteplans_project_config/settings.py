@@ -219,12 +219,12 @@ PASSWORD_HASHERS = (
 
 # Settings to be able to send mail to user
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'shubham@jeevomics.com'
+DEFAULT_FROM_EMAIL = 'robin@biteplans.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-SERVER_EMAIL = 'shubham@jeevomics.com'
+SERVER_EMAIL = 'robin@biteplans.com'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'shubham@jeevomics.com'
-EMAIL_HOST_PASSWORD = 'vniamvcbgpfsdhsf'
+EMAIL_HOST_USER = 'robin@biteplans.com'
+EMAIL_HOST_PASSWORD = 'xwsqzboihirlrkcs'
 EMAIL_PORT = 587
 
 

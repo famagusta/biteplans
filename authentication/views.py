@@ -70,11 +70,16 @@ class AccountViewSet(viewsets.ModelViewSet):
             sub = "Biteplans Account Confirmation"
 
             # unable to break the below line due to server error
-            message = 'Hey %s, Howdy! Thanks for signing up! Here is your activation link, valid for just 2 days, http://biteplans.com/confirm/%s' % (request.data['username'], activation_key)
+            message = 'Dear %s,' % (request.data['username']) + \
+            '\n\nThank you for signing up. We\'ll get you started right away.' + \
+            '\n\nPlease click on' + \
+            'https://biteplans.com/confirm/%s to ' % (activation_key) + \
+            'activate your account. \nThe link is valid for 2 days,' + \
+            'so let\'s kick off already!'  + \
+            '\n\nRegards\nRobin Philip\nFounder\nBiteplans'
             tr = send_mail(sub, message, master, [email], fail_silently=False)
             if tr:
-                account = Account.objects.create_user(
-                    **serializer.validated_data)
+                account = Account.objects.create_user(**serializer.validated_data)
                 account.activation_key = activation_key
                 account.key_expires = key_expires
                 account.is_active = False
@@ -87,7 +92,7 @@ class AccountViewSet(viewsets.ModelViewSet):
 
         return Response({
             'status': 'Bad request',
-            'message': 'Account could not be created with received data, email'
+            'message': 'Account could not be created with received data, email '
                        + 'or username already exists.'
         }, status=status.HTTP_400_BAD_REQUEST)
 

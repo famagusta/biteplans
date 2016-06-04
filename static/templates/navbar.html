@@ -186,15 +186,15 @@
 
 
                 <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn" ng-click=
-                    "closeModal();Auth('facebook')">Sign Up with FACEBOOK</a>
+                    <a class="waves-effect waves-light btn largebtn fbicon" ng-click=
+                    "closeModal();Auth('facebook')"><i class="fa fa-facebook fblogo"></i>Sign Up with FACEBOOK</a><br>
                 </div>
                 <br>
 
 
                 <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn" id=
-                    "googlebtn" ng-click="closeModal();Auth('google')">Sign Up with
+                    <a class="waves-effect waves-light btn largebtn googleicon" id=
+                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Sign Up with
                     GOOGLE</a>
                 </div>
 
@@ -208,8 +208,8 @@
 
 
                         <div class="col s12">
-                            <p class="text-danger" ng-show="registerError">{{
-                            registerError }}</p>
+                            <p class="text-danger" ng-show="registerError">
+                                {{registerError}}</p>
                         </div>
                     </div>
 
@@ -229,8 +229,8 @@
                     <div class="row">
                         <div class="input-field col m12">
                             <input class="validate" id="input_name" length=
-                            "100" ng-model="signup.username" required="" type=
-                            "text"> <label data-error="Atmost 10 characters"
+                            "50" ng-model="signup.username" required="" type=
+                            "text"> <label data-error="Atmost 50 characters"
                             for="input_name">Username</label>
                         </div>
                     </div>

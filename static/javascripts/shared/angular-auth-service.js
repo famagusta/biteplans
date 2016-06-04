@@ -146,13 +146,11 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
                             deferred.resolve(response);
                         }
                         else {
-                            deferred.reject(
-                                'Invalid data received from server'
-                            );
+                            deferred.reject(response);
                         }
                     },
-                    function (response) {
-                        deferred.reject(response);
+                    function (error) {
+                        deferred.reject(error);
                     });
             return deferred.promise;
         };

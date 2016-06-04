@@ -120,8 +120,8 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                                 "Please check your email account to activate your profile";
                         },
                         function(error) {
-                            //          console.log(error);
-                            $scope.registerError = error.data.message;
+                                      console.log(error);
+                            $scope.registerError = error.message;
                         }
                     );
             }

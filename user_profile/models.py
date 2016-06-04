@@ -49,7 +49,7 @@ class UserPhysicalHistory(models.Model):
 
 
 # updates user_profile on update of physical parameters
-@receiver(pre_save, sender=Account)
+@receiver(post_save, sender=Account)
 def AccountPreSave(sender, instance, **kwargs):
     account_history = UserPhysicalHistory.objects\
         .filter(user=instance).order_by('-version')

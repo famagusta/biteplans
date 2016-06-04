@@ -3,7 +3,7 @@ i[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak 
 }
 
 nav {
-    background: #fdfdfb;
+    background: none;
     box-shadow: none;
     padding: 0;
     background-position: 10px 0;

@@ -315,7 +315,7 @@ with codecs.open('data/nutrition_info/nutritive_value_of_indian_foods.csv',
                 ingred_id=ingredient,
                 seq=1,
                 amount=1,
-                description='grams',
+                description='per 100g',
                 weight=100)
             ingred_measure.save()
 
