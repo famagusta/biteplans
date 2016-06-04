@@ -67,6 +67,10 @@
                             <li>
                                 <img class="mobile_dp" ng-src="{{user_thum}}">
                             </li>
+                            
+                            <li>
+                                <a href="/dashboard" class="cyan-text" ng-if="isLoggedIn">Dashboard</a>
+                            </li>
                         
                         <li>
                             <a class="cyan-text" href="/dietplans/search">Plans</a>
@@ -89,7 +93,7 @@
                         </li>
                         <!--function to open modal openModal()-->
 
-
+                        
                         <li>
                             <a class="cyan-text" href="#modal1" ng-click=
                             "openModal()" ng-if="!isLoggedIn">Log in</a>

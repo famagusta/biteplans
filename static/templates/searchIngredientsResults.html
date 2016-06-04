@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col s12 m6" ng-repeat=
             "detail in details.results track by $index">
-                <div class="card white big result-card">
-                    <div class="card-content grey-text ing-card-content" ng-click=
+                <div class="card">
+                    <div class="card-content grey-text" ng-click=
                     "openIngredientsModal(detail)">
                         <div class="row">
                             <div class="col s12">
@@ -22,11 +22,11 @@
                             <div class="row">
                                 <div class="col s6">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <h6 class="nutri">Calories</h6>
                                         </div>
                                         
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <p class="meal-text">{{detail.energy_kcal | number:0}} kcal</p>
                                         </div>
                                     </div>
@@ -34,11 +34,11 @@
                                 
                                 <div class="col s6">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <h6 class="nutri">Fats</h6>
                                         </div>
                                         
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <p class="meal-text">{{detail.fat_tot | number:0}} g</p>
                                         </div>
                                     </div>
@@ -49,11 +49,11 @@
                             <div class="row">
                                 <div class="col s6">
                                     <div class="row">
-                                        <div class="col s6 m6">
+                                        <div class="col s12 m6">
                                             <h6 class="nutri">Carbs</h6>
                                         </div>
                                         
-                                        <div class="col s6 m6">
+                                        <div class="col s12 m6">
                                             <p class="meal-text">{{detail.carbohydrate_tot | number:0}} kcal</p>
                                         </div>
                                     </div>
@@ -61,11 +61,11 @@
                                 
                                 <div class="col s6">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <h6 class="nutri">Sugar</h6>
                                         </div>
                                         
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <p class="meal-text">{{detail.sugar_tot | number:0}} g</p>
                                         </div>
                                     </div>
@@ -76,11 +76,11 @@
                             <div class="row">
                                 <div class="col s6">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <h6 class="nutri">Proteins</h6>
                                         </div>
                                         
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <p class="meal-text">{{detail.protein_tot | number:0}} g</p>
                                         </div>
                                     </div>
@@ -88,11 +88,11 @@
                                 
                                 <div class="col s6">
                                     <div class="row">
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <h6 class="nutri">Fiber</h6>
                                         </div>
                                         
-                                        <div class="col s6">
+                                        <div class="col s12 m6">
                                             <p class="meal-text">{{detail.fiber_tot | number:0}} g</p>
                                         </div>
                                     </div>
@@ -149,7 +149,7 @@
             </div>
             <div class="col s5 m2">
                 &nbsp;
-                {{openModal.measure.weight | number}} gm&nbsp;)
+                {{ingredientSelected.selectedMeasure.weight | number}} gm&nbsp;)
             </div>
         </div>
 

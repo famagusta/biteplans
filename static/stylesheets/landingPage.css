@@ -228,3 +228,14 @@ video {
 
 }
 
+.bite {
+    color:#00bcd4;
+    display:inline-block;
+    font-weight:600 !important;
+}
+
+.plans {
+    color:#ff5252;
+    display:inline-block;
+    font-weight:600 !important;
+}

@@ -118,7 +118,7 @@ textarea:focus {
         width: 100%;
     }
    #checklist {
-        display: none;
+/*        display: none;*/
     }
 
     .section-button {
