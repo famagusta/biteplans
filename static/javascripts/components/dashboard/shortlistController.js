@@ -1,11 +1,11 @@
-'use strict';
-/* global app, $ */
+/* global app, $, console */
 
 app.controller('shortlistedIngredientsController', ['$scope', '$window', '$location',
     'AuthService', 'searchService', 'summaryService',
     function($scope, $window, $location, AuthService, searchService,
         summaryService) {
-
+        'use strict';
+        
     	$scope.openModal ={};
         $scope.selected = 0;
         $scope.ingredientSelected = {};
@@ -66,7 +66,7 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
             }, function(error){
                 console.log(error);
             });
-        }
+        };
         
     	$scope.calculateIngredientInfo = function(nutrient, isAdditional) {
                 var total=0;
@@ -88,6 +88,8 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     'AuthService', 'recipeService', 'summaryService',
     function($scope, $window, $location, AuthService, recipeService,
         summaryService) {
+        'use strict';
+        
         $scope.currentPage=1;
         $scope.currentPageRecipe=1;
     	$scope.getRecipesMadeByMe = function(page){
@@ -138,6 +140,7 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
     'AuthService', 'planService', 'summaryService',
     function($scope, $window, $location, AuthService, planService,
         summaryService) {
+        'use strict';
         
         $scope.userPlanRatings = [];
         var getUserPlanRatings = function()
@@ -201,7 +204,7 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
             }, function(error){
                 console.log(error);
             });
-        }
+        };
         
         $scope.openPlanDetails = function(planId){
             $location.path('/dietplans/view-diet-plan/' + planId +'/');

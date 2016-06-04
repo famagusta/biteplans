@@ -1,8 +1,10 @@
-'use strict';
+/* global app, $, console */
 
 app.factory('recipeService',
             ['httpService', 'AuthService', '$location', 'constants','$q', '$window', '$rootScope', '$auth', '$http',
             function(httpService, AuthService, $location, constants, $q, $window, $rootScope, $auth, $http){
+            'use strict';
+                
     /* Function to do the search ingredients */
     var createRecipe = function(recipeObject){
     	var url = '/recipes/recipe/';
@@ -165,7 +167,7 @@ app.factory('recipeService',
                 deferred.reject(error);
             });
         return deferred.promise;
-    }
+    };
                 
                 
 
@@ -183,19 +185,19 @@ app.factory('recipeService',
             return getRecipe(id);
         },
         uploadRecipeImage : function(file, url){
-            return uploadRecipeImage(file, url)
+            return uploadRecipeImage(file, url);
         },
         
         updateRecipe: function(obj, id){
-            return updateRecipe(obj, id)
+            return updateRecipe(obj, id);
         },
         
         updateRecipeIngredient: function(obj, id){
-            return updateRecipeIngredient(obj, id)
+            return updateRecipeIngredient(obj, id);
         },
         
         deleteRecipeIngredient: function(id){
-            return deleteRecipeIngredient(id)
+            return deleteRecipeIngredient(id);
         },
         getRecipesMadeByMe : function(page){
             return getRecipesMadeByMe(page);

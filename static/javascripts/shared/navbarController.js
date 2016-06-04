@@ -1,10 +1,10 @@
-'use strict';
 /* global app, $ */
 
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService',
     'profileService', '$rootScope', 'constants',
     function($scope, $location, AuthService, profileService, $rootScope, constants) {
+        'use strict';
         // function to check whether the person is logged in or not
         $scope.isLoggedIn = false;
         var checkLoggedIn = function() {

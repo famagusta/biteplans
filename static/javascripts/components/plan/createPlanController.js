@@ -1,12 +1,13 @@
 /* controller for createplan pages */
-'use strict';
-/* global app, moment, $ */
+
+/* global app, moment, $, console */
 
 app.controller('createPlanController', ['$scope', '$window', 'AuthService',
     '$routeParams', 'searchService', '$location', 'planService',
     function($scope, $window, AuthService, $routeParams, searchService,
         $location, planService)
     {
+        'use strict';
         /* CHECK AUTH STATUS - ONLY AUTHENTICATED USERS SHOULD
         BE ABLE TO CREATE A PLAN */
         AuthService.isAuthenticated().then(function(response)
@@ -280,7 +281,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         function(error) {
                             console.log(error);
                         });
-                    }
+                    };
                 
                 var weightedRecipeAdditionalNutritionSum = function(cntr_i,cntr_j){
                     $scope.mealPlanNameArray[cntr_i]
@@ -295,7 +296,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         function(error) {
                             console.log(error);
                         });
-                }
+                };
                 
                 // function to populate additional ingredients info inside mealplan array
                 $scope.getAdditionalIngredientsInfo = function()

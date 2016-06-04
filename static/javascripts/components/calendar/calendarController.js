@@ -1,5 +1,5 @@
-'use strict';
-/* global app, moment*/
+
+/* global app, moment, console*/
 
 // controller for the calendar. accessed by dashboard.html
 app.config(function($mdThemingProvider)
@@ -14,6 +14,8 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                                 function($scope, $filter, $q, $timeout, $log, httpService, AuthService, MaterialCalendarData,
         calendarService)
     {
+        'use strict';
+        
         $scope.selectedDate = moment().format('YYYY-MM-DD');
         $scope.currentUserPlans = [];
         

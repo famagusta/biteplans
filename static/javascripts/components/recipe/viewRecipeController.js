@@ -1,10 +1,11 @@
-'use strict';
+/* global app, $, console */
 
 app.controller('viewRecipeController', ['$scope', 'AuthService',
     'searchService', '$location', 'recipeService', '$routeParams',
     function($scope, AuthService, searchService, $location,
         recipeService, $routeParams) {
-
+        'use strict';
+        
         $scope.recipe = {};
         $scope.parsed_directions = [];        
         $scope.AdditionalIngredientInfo = [];
@@ -53,15 +54,14 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
             }
             if(Object.keys($scope.recipe).length){
                 for (var i=0; i< $scope.recipe.recipeIngredients.length; i++){
-                    total += parseFloat($scope.recipe.recipeIngredients[i].ingredient[nutrient])
-                        * parseFloat($scope.recipe.recipeIngredients[i].quantity)
-                        * parseFloat($scope.recipe.recipeIngredients[i].measure.weight )
-                        / (100 * servings);
+                    total += parseFloat($scope.recipe.recipeIngredients[i]
+                                        .ingredient[nutrient]) * parseFloat($scope.recipe
+                                        .recipeIngredients[i].quantity) * parseFloat($scope.recipe.recipeIngredients[i]
+                                        .measure.weight ) / (100 * servings);
                 }
             }
             return total;
-        }
-        
+        };
         
         /* calculates additional nutritional information */
         $scope.calculateAddtnlNutritionTotal = function(nutrient){
@@ -72,13 +72,13 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
                 servings = 1;
             }
             for (var i=0; i< $scope.AdditionalIngredientInfo.length; i++){
-                total += parseFloat($scope.AdditionalIngredientInfo[i][nutrient]) 
-                    * parseFloat($scope.recipe.recipeIngredients[i].quantity)
-                    * parseFloat($scope.recipe.recipeIngredients[i].measure.weight) 
-                    / (100 * servings)
+                total += parseFloat($scope
+                            .AdditionalIngredientInfo[i][nutrient]) * parseFloat($scope
+                            .recipe.recipeIngredients[i].quantity) * parseFloat($scope.recipe.recipeIngredients[i]
+                            .measure.weight) / (100 * servings);
             }
             return total;
-        }
+        };
         
         $scope.isOwner = function(){
             if($scope.authDetails.status){
@@ -87,6 +87,6 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
                 }
             }
             return false;
-        }
+        };
     }
 ]);

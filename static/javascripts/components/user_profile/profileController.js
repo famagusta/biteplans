@@ -1,11 +1,12 @@
-'use strict';
+/* global app, $, console */
 
 app.controller('profileController', ['$scope', 'AuthService',
     '$routeParams', 'constants', 'profileService',
     'searchService', '$location', 'recipeService',
     function($scope, AuthService, $routeParams, constants, profileService, 
               searchService, $location, recipeService) {
-
+        'use strict';
+        
         AuthService.isAuthenticated()
             .then(function(response) {
                 var isAuthenticated = response.status;
@@ -30,7 +31,8 @@ app.controller('profileController', ['$scope', 'AuthService',
                               to do this in future*/
                             response.weight = parseFloat(response.weight);
                             response.height = parseFloat(response.height);
-                            response.body_fat_percent = parseFloat(response.body_fat_percent);
+                            response.body_fat_percent = 
+                                parseFloat(response.body_fat_percent);
                             response.neck = parseFloat(response.neck);
                             response.shoulder = parseFloat(response.shoulder);
                             response.chest = parseFloat(response.chest);
@@ -46,7 +48,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                             }else if(response.social_thumb){
                                 $scope.user_thum = response.social_thumb;
                             }else{
-                                $scope.user_thum = 'static/images/default-user.png'
+                                $scope.user_thum = 'static/images/default-user.png';
                             }
                             $scope.profileInfo = response; 
                             var dob = new Date($scope.profileInfo.date_of_birth);
@@ -83,21 +85,20 @@ app.controller('profileController', ['$scope', 'AuthService',
                                     $scope.placeHolderDOB = date_to_set.toLocaleDateString('en-GB',
                                                                                $scope.options);
                                     // plus 1 fixed the problem that date returns month in 0 to 11
-                                    var dob_str = date_to_set.getFullYear() + '-' 
-                                        + (date_to_set.getMonth() + 1) + '-' 
-                                        + date_to_set.getDate();
+                                    var dob_str = date_to_set.getFullYear() + '-' + (date_to_set.getMonth() + 1) + '-' + date_to_set.getDate();
+                                    
                                     $scope.profileInfo.date_of_birth = dob_str;
                                 }
                             }
-                        })
-                    }
+                        });
+                    };
                     
                     
                     $scope.uploadFile = function(id){
 //                        var file = $scope.profile_image_file.src;
                         if($scope.cropper.croppedImage){
                             var image_blob = dataURLtoBlob($scope.cropper.croppedImage);
-                            var fileName = 'profile_pic.' + $scope.fileExtn
+                            var fileName = 'profile_pic.' + $scope.fileExtn;
                             var file = new File([image_blob], fileName);
                             if(file){
                                 profileService.uploadProfileImage(id, file);
@@ -122,10 +123,10 @@ app.controller('profileController', ['$scope', 'AuthService',
                             hip: $scope.profileInfo.hip || 0,
                             thigh: $scope.profileInfo.thigh || 0,
                             calf: $scope.profileInfo.calf || 0
-                        }
+                        };
                         profileService.updateProfile($scope.profileInfo.id,
                                                      update_params);
-                    }
+                    };
                 }
      
             /* crop the required input file */
@@ -167,7 +168,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                 }
                 $('#upload-image-modal')
                     .closeModal();
-            }
+            };
 
           });
         

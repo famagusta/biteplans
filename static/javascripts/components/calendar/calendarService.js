@@ -1,10 +1,11 @@
-'use strict';
+
 /* global app */
 
 app.factory('calendarService', ['httpService', 'AuthService', '$location',
     'constants', '$q', '$window', '$rootScope', '$auth',
     function(httpService, AuthService, $location,
         constants, $q, $window, $rootScope, $auth) {
+        'use strict';
 
         /* CRU(D) dietplans */
         // TODO: write function to delete a diet plan

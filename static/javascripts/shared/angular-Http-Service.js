@@ -1,8 +1,7 @@
-'use strict';
 /* global app */
 
 app.factory('authInterceptor', ['$rootScope', '$q', '$window', function($rootScope, $q, $window) {
-
+    'use strict';
     return {
     request: function (config) {
       config.headers = config.headers || {};

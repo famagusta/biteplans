@@ -1,9 +1,12 @@
-'use strict';
+/* global app, $, console */
+
 app.controller('editRecipeController', ['$scope', 'AuthService',
     '$routeParams', 'constants', 'recipeService',
     '$location', 'planService', 'searchService',
     function($scope, AuthService, $routeParams, constants, recipeService, $location, planService, searchService)
     {
+        'use strict';
+        
         AuthService.isAuthenticated()
             .then(function(response)
             {
@@ -51,7 +54,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             }
                             else
                             {
-                                $scope.cropper.sourceImage = newVal
+                                $scope.cropper.sourceImage = newVal;
                                 $scope.fileSizeError = false;
                             }
                         }
@@ -101,7 +104,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         }else{
                             $scope.cropper.sourceImage = null;
                         }
-                    }
+                    };
                     
                     /* function that opens the upload image modal */
                     $scope.uploadImageModal = function()
@@ -199,7 +202,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                         console.log(error);
                                     });
                             }
-                            else if (query != undefined && $scope.foodgroup.length === 0)
+                            else if (query !== undefined && $scope.foodgroup.length === 0 )
                             {
                                 searchService.search_ingredient(query, page, null, sortby)
                                     .then(function(response)
@@ -331,7 +334,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     ingredient: $scope.checklistIngredients[i],
                                     selected_measure: $scope.checklistIngredients[i].measure[0],
                                     quantity: 1,
-                                }
+                                };
                         }
                         $('#add-ingredients-modal')
                             .closeModal();
@@ -353,7 +356,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             }
                         }
                         return false;
-                    }
+                    };
                     $scope.addMoreSteps = function()
                     {
                         $scope.stepsToCreateRecipes.length += 1;
@@ -443,7 +446,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         if ($scope.cropper.croppedImage)
                         {
                             var image_blob = dataURLtoBlob($scope.cropper.croppedImage);
-                            var fileName = 'recipe_pic.' + $scope.fileExtn
+                            var fileName = 'recipe_pic.' + $scope.fileExtn;
                             var file = new File([image_blob], fileName);
                             
                             var url = 'recipes/recipe/' + id + '/';
@@ -484,13 +487,13 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                                 ingredient: $scope.ingredientDisplay[i].ingredient.id,
                                                 measure: $scope.ingredientDisplay[i].measure.id,
                                                 quantity: $scope.ingredientDisplay[i].quantity
-                                            }
+                                            };
                                             recipeService.createRecipeIng(recipeIngred)
                                                 .then(function(response)
                                                 {
                                                     //TODO: Add meaningful behaviour
                                                     //    on successful return
-                                                    $scope.counter += 1
+                                                    $scope.counter += 1;
                                                     $scope.checkIfCompleted();
                                                 }, function(error)
                                                 {
@@ -509,7 +512,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                                 {
                                                     //TODO: Add meaningful behaviour
                                                     //    on successful return
-                                                    $scope.counter += 1
+                                                    $scope.counter += 1;
                                                     $scope.checkIfCompleted();
                                                 }, function(error)
                                                 {
@@ -531,7 +534,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             $scope.uploadFile($scope.recipe.id);
                             $location.path('/recipes/view-recipe/' + $scope.recipe.id);
                         }
-                    }
+                    };
                     
                     /* Nutritional Information calculations based on changes to
                         selected ingredients */
@@ -555,7 +558,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     (100 * servings);
                             }
                             return total;
-                        }
+                        };
                         /* calculates additional nutritional information */
                     $scope.calculateAddtnlNutritionTotal = function(
                         nutrient) {
@@ -573,10 +576,10 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     .quantity) * parseFloat(
                                     $scope.ingredientDisplay[i]
                                     .measure.weight) /
-                                (100 * servings)
+                                (100 * servings);
                         }
                         return total;
-                    }
+                    };
                     //end auth check
                 }
             });
@@ -609,8 +612,8 @@ function blobToFile(theBlob, fileName)
 }
 
 function ValidURL(str) {
-  if(str.length==0){
-      return false
+  if(str.length===0){
+      return false;
   }
   var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
   '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name

@@ -1,9 +1,8 @@
-'use strict';
 /* global app, angular $ */
 
 app.factory('searchService',
             ['httpService', '$location','constants','$q','$window', '$rootScope', '$auth', function(httpService,$location,constants,$q,$window, $rootScope, $auth){
-    
+        'use strict';
         /* Function to do the search ingredients */
         var search_ingredient = function(quer, page, food_group, sortby) {
 

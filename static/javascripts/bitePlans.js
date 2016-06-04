@@ -1,5 +1,4 @@
-'use strict';
-/* global angular */
+/* global angular, $ */
 /*global alert: false, console: false, jQuery: false */
 /*jslint browser: true*/
 
@@ -25,7 +24,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     '$authProvider', '$controllerProvider', 'httpMethodInterceptorProvider',
     function ($routeProvider, $locationProvider, $httpProvider,
         $authProvider, $controllerProvider, httpMethodInterceptorProvider) {
-        
+        'use strict';
         /* whitelist auth domains to activate spinner */
         httpMethodInterceptorProvider.whitelistDomain('google.com');
         httpMethodInterceptorProvider.whitelistDomain('facebook.com');

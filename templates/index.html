@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.css">
 
     {% include 'stylesheets.html' %}
+     <link rel="stylesheet" type="text/css" href="{% static 'dist/css/bitePlans.css' %}">
 
   </head>
   <body class="ng-cloak" ng-cloak >
@@ -86,7 +87,8 @@
     
     </script>
     {% include 'javascripts.html' %}
-      
+      <script type="text/javascript" src="{% static 'dist/js/bitePlans.js' %}"></script>
+
       <script>
     $(document).ready(function(){
              $('label').addClass('active');
@@ -129,7 +131,6 @@ $("h5").click(function() {
  
       </script>
      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
 
       
 

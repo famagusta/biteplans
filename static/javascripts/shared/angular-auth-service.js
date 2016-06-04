@@ -1,5 +1,4 @@
 /*Handles request to user registration, login, logout*/
-'use strict';
 /* global app */
 
 // $q makes a promise which can be fulfilled or not fulfilled. so a = $q.defer(), it can resolve or reject
@@ -7,6 +6,7 @@
 
 app.factory('httpService', ['$http', '$q',
     function ($http, $q) {
+        'use strict';
         //encodes params into correct format 
         var toparams = function (obj) {
             var p = [];

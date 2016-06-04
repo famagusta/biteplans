@@ -1,9 +1,10 @@
-'use strict';
+/* global app, $, console */
 
 app.factory('summaryService', ['httpService', 'AuthService', '$location',
     'constants', '$q', '$window', '$rootScope', '$auth',
     function(httpService, AuthService, $location,
         constants, $q, $window, $rootScope, $auth) {
+        'use strict';
 
         /* CRU(D) dietplans */
         // TODO: write function to delete a diet plan
@@ -119,7 +120,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                     deferred.reject(error);
                 });
             return deferred.promise;
-        }
+        };
 
 
         var getShortlistIngredients = function(page){

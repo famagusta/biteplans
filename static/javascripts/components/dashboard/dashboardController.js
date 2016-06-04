@@ -1,10 +1,11 @@
-'use strict';
-/* global app, $ */
+/* global app, $, console */
 
 app.controller('dashboardController', ['$scope', '$window', '$location',
     'AuthService', 'searchService', 'profileService', 'constants', 'planService',
     function($scope, $window, $location, AuthService, searchService,
         profileService, constants, planService) {
+        'use strict';
+        
         var isAuth = false;
         
         AuthService.isAuthenticated()

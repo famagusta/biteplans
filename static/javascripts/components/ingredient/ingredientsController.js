@@ -1,10 +1,10 @@
-'use strict';
-/* global app, $ */
+/* global app, $, console */
 // Controller to display search results on ingredients page
 
 app.controller('ingredientsController', 
                ['$scope', 'searchService', 'AuthService', '$rootScope',                                     'constants',
     function($scope, searchService, AuthService, $rootScope, constants) {
+        'use strict';
         // function to search for ingredients 
         $scope.foodgroup=[];
 

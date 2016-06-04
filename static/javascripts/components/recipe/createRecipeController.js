@@ -1,4 +1,4 @@
-'use strict';
+/* global app, $, console */
 
 app.controller('createRecipeController', ['$scope', 'AuthService',
     '$routeParams', 'constants',
@@ -7,7 +7,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
         searchService,
         $location,
         recipeService) {
-
+        'use strict';
         
         
         AuthService.isAuthenticated()
@@ -67,7 +67,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             }
                             else
                             {
-                                $scope.cropper.sourceImage = newVal
+                                $scope.cropper.sourceImage = newVal;
                                 $scope.fileSizeError = false;
                             }
                         }
@@ -116,7 +116,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         }else{
                             $scope.cropper.sourceImage = null;
                         }
-                    }
+                    };
 
                     /* variables & functions to upload image file for recipe */
                     $scope.formdata = new FormData();
@@ -132,7 +132,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.uploadFile = function(id) {
                         if($scope.cropper.croppedImage){
                             var image_blob = dataURLtoBlob($scope.cropper.croppedImage);
-                            var fileName = 'recipe_pic.' + $scope.fileExtn
+                            var fileName = 'recipe_pic.' + $scope.fileExtn;
                             var file = new File([image_blob], fileName);
 
                             var url = '/recipes/recipe/' + id + '/';
@@ -166,8 +166,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     /* Nutritional Information calculations based on changes to
                         selected ingredients */
 
-                    $scope.calculateNutritionTotal = function(
-                            nutrient) {
+                    $scope.calculateNutritionTotal = function(nutrient) {
                             var total = 0;
                             var servings = parseInt($scope.recipe.servings);
                             //prevent divide by zero
@@ -185,7 +184,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     (100 * servings);
                             }
                             return total;
-                        }
+                        };
                         /* calculates additional nutritional information */
                     $scope.calculateAddtnlNutritionTotal = function(
                         nutrient) {
@@ -203,10 +202,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     .quantity) * parseFloat(
                                     $scope.ingredientDisplay[i]
                                     .selected_measure.weight) /
-                                (100 * servings)
+                                    (100 * servings);
                         }
                         return total;
-                    }
+                    };
 
 
 
@@ -252,7 +251,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     console.log(error);
                                 });
                         }
-                        else if (query != undefined && $scope.foodgroup.length ===0) {
+                        else if (query !== undefined && $scope.foodgroup.length === 0) {
                             searchService.search_ingredient(query, page, null, sortby)
                                 .then(function(response) {
                                     $scope.details = response;
@@ -438,7 +437,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             }
                         }
                         return false;
-                    }
+                    };
 
                     $scope.stepsToCreateRecipes = [''];
                     $scope.addMoreSteps = function() {
@@ -476,7 +475,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                                 .ingredientDisplay[
                                                     cntr_i]
                                                 .quantity
-                                        }
+                                        };
 
                                         recipeService.createRecipeIng(
                                                 recipeIngred)
@@ -524,7 +523,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         else {
                             $scope.recipeError = 'Enter';
                         }
-                    }
+                    };
                     
 
 

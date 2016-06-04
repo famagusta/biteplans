@@ -34,7 +34,7 @@ bower_components
 
 migrations/
 media/
-
+npm_modules/
 # Logs and databases #
 ######################
 *.log

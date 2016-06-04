@@ -1,21 +1,21 @@
-'use strict';
 /* global app */
 
 app.directive('ngFiles', ['$parse', function ($parse) {
+    'use strict';
+    function fn_link(scope, element, attrs) {
+        var onChange = $parse(attrs.ngFiles);
+        element.on('change', function (event) {
+            onChange(scope, { $files: event.target.files });
+        });
+    }
 
-            function fn_link(scope, element, attrs) {
-                var onChange = $parse(attrs.ngFiles);
-                element.on('change', function (event) {
-                    onChange(scope, { $files: event.target.files });
-                });
-            }
-
-            return {
-                link: fn_link
-            };
-        }]);
+    return {
+        link: fn_link
+    };
+}]);
 
 app.directive('fileModel', ['$parse', function ($parse) {
+    'use strict';
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {

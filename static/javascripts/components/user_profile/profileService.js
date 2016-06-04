@@ -1,11 +1,12 @@
-'use strict';
+/* global app, $, console */
 
 app.factory('profileService',
             ['httpService', 'AuthService', '$location', 'constants','$q', '$window', '$rootScope', '$auth', '$http',
             function(httpService, AuthService, $location, constants, $q, $window, $rootScope, $auth, $http){
+    'use strict';
     /* Function to do the search ingredients */
-    
-                
+
+
     var getProfile = function(id){
         /* return the user profile based on a jwt token - 
         user gets it on login or signup*/
@@ -17,7 +18,7 @@ app.factory('profileService',
             deferred.reject(error);
         });
         return deferred.promise;
-    }
+    };
     
     var updateSavedPlan = function(obj, id ) {
         //?? what is this doing here/??
@@ -30,14 +31,13 @@ app.factory('profileService',
                     deferred.reject(error);
                 });
             return deferred.promise;
-    }
+    };
       
      var uploadProfileImage = function(id, file){
          //seperate service to save a profile image
         var fd = new FormData();
         fd.append('image_path', file);
-         var url = '/authentication/api/v1/register/' 
-            + id + '/';
+         var url = '/authentication/api/v1/register/' + id + '/';
         var deferred = $q.defer();
 
         httpService.httpPatchFile(url, fd).then(function(response){
@@ -52,8 +52,7 @@ app.factory('profileService',
     };
                 
     var updateProfile = function(id, obj){
-        var url = '/authentication/api/v1/register/' 
-            + id + '/';
+        var url = '/authentication/api/v1/register/' + id + '/';
         var deferred = $q.defer();
         httpService.httpPatch(url, obj).then(function(response){
     		deferred.resolve(response);
@@ -64,7 +63,7 @@ app.factory('profileService',
     	});
 
     	return deferred.promise;
-    }
+    };
                 
 
     return {
@@ -73,13 +72,13 @@ app.factory('profileService',
             return getProfile(id);
         },
         uploadProfileImage : function(id, file){
-            return uploadProfileImage(id, file)
+            return uploadProfileImage(id, file);
         },
         updateProfile : function(id, obj){
             return updateProfile(id, obj);
         },
         updateSavedPlan : function(obj, id){
-            return updateSavedPlan(obj, id)
+            return updateSavedPlan(obj, id);
         }
     };
 }]);

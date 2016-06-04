@@ -2,14 +2,16 @@
 /* jshint -W106 */
 /* jshint -W004 */
 /* jshint -W083 */
-'use strict';
-/* global app, $ */
+
+/* global app, $, console */
 
 app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
     '$routeParams', 'searchService', '$location', 'planService',
     function($scope, $window, AuthService, $routeParams, searchService,
         $location, planService)
     {
+        'use strict';
+        
         /* CHECK AUTH STATUS - ONLY AUTHENTICATED USERS SHOULD
         BE ABLE TO CREATE A PLAN */
         AuthService.isAuthenticated().then(function(response)

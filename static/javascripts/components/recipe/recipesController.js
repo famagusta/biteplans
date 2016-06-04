@@ -1,8 +1,10 @@
-'use strict';
+/* global app, $, console */
 
 app.controller('recipesController', ['$scope', 'searchService',
     'AuthService', '$rootScope', 'recipeService', 'constants', '$location',
     function($scope, searchService, AuthService, $rootScope, recipeService, constants, $location) {
+        'use strict';
+        
         $scope.searchService = searchService;
         $scope.selected = 0;
         $scope.query_recipe = '';
@@ -76,7 +78,7 @@ app.controller('recipesController', ['$scope', 'searchService',
                     console.log(error);
                 });
             }
-        }
+        };
 
         
         
@@ -96,7 +98,7 @@ app.controller('recipesController', ['$scope', 'searchService',
                 //no user logged in
                 return false;
             }
-        }
+        };
 
         /* get object corresponding to given recipe in my recipe */
         $scope.getMyRecipes = function(id){
@@ -112,7 +114,7 @@ app.controller('recipesController', ['$scope', 'searchService',
                 //get user to login before continuing
                 return false;
             }
-        }
+        };
 
         /* shortlist ingredient */
         $scope.shortlistRecipe = function(id){
@@ -124,19 +126,19 @@ app.controller('recipesController', ['$scope', 'searchService',
                             $scope.getUserRecipes();
                     }, function(error){
                         console.log(error);
-                    })
+                    });
                 }else{
                     searchService.shortlistRecipes(id).then(function(response){
                         $scope.getUserRecipes();
                     }, function(error){
                         console.log(error);
-                    })
+                    });
                 }
             }else{
                 /* prompt user for login */
                 $rootScope.$emit('authFailure');
             }
-        }
+        };
 
 
         var getUserRecipeRatings = function()
@@ -149,9 +151,9 @@ app.controller('recipesController', ['$scope', 'searchService',
                 }, function(error)
                 {
                     console.log(error);
-                })
+                });
             }
-        }
+        };
         
         $scope.getRecipeRating = function(recipe)
         {
@@ -163,10 +165,8 @@ app.controller('recipesController', ['$scope', 'searchService',
                 });
             var idxRecipe = findWithAttr($scope.recipeDetails.results,
                 'id', recipeRatingMatch[0].id);
-            return $scope.recipeDetails.results[idxRecipe][
-                'average_rating'
-            ] * 20;
-        }
+            return $scope.recipeDetails.results[idxRecipe].average_rating * 20;
+        };
         
         
         $scope.setRecipeRating = function(recipe, rating)
@@ -183,7 +183,7 @@ app.controller('recipesController', ['$scope', 'searchService',
             var ratingObject = {
                 rating: normalizedRating,
                 recipe: recipe.id
-            }
+            };
             if (!constants.userOb.status || $scope.userRecipeRatings ===
                 undefined)
             {
@@ -256,7 +256,7 @@ app.controller('recipesController', ['$scope', 'searchService',
                     }
                 }
             }
-        }
+        };
         
         $scope.checkAuth4RecipeCreate = function(){
             if(constants.userOb.status){
@@ -265,7 +265,7 @@ app.controller('recipesController', ['$scope', 'searchService',
             else{
                 $rootScope.$emit('authFailure');
             }
-        }
+        };
         
         $scope.getFilterLabel = function(filter){
             var filterNames ={
@@ -276,13 +276,13 @@ app.controller('recipesController', ['$scope', 'searchService',
                 'energy_kcal': "Calories",
                 'sugar_tot': "Sugar",
                 'fiber_tot': "Fiber"
-            }
+            };
             return filterNames[filter];
-        }
+        };
         
         $scope.openRecipeDetails = function(recipeId){
             $location.path("recipes/view-recipe/" + recipeId +'/');    
-        }
+        };
         
         if(constants.userOb.status){
             $scope.getUserRecipes();

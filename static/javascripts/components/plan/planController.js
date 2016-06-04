@@ -1,5 +1,4 @@
-'use strict';
-/* global app, moment, $ */
+/* global app, moment, $, console */
 
 app.controller('planController', ['$scope', 'AuthService', 'searchService',
     '$location', 'planService', 'stars', 'starsUtility', '$window', '$rootScope',
@@ -7,6 +6,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
     function($scope, AuthService, searchService, $location, planService, stars,
         starsUtility, $window, $rootScope, constants)
     {
+        'use strict';
+        
         $scope.query_plan = '';
         $scope.plans = {};
         $scope.userPlanRatings = [];
