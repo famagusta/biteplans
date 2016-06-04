@@ -8,7 +8,7 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
 
     	$scope.openModal ={};
 
-    	var getMyIngredients = function(page){
+    	$scope.getMyIngredients = function(page){
 
     		summaryService.getShortlistIngredients(page).then(function(response){
     			$scope.myIngredients = response.results;
@@ -19,7 +19,7 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
     		});
     	};
 
-    	getMyIngredients();
+    	$scope.getMyIngredients();
 
     	$scope.openIngredientsModal = function(index){
     		$('#modal6').openModal();

@@ -22,7 +22,6 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
             .then(function(response) {
 
                 $scope.recipe = response;
-            console.log($scope.recipe);
                 $scope.parsed_directions = $scope.recipe.directions
                     .split('\n');
             

@@ -281,7 +281,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <input id="duration_plan" ng-model="plan.duration" type=
-                    "number"> <label for="duration_plan">Duration (in
+                    "number" title="Plan must be at most 8 weeks long" required min="1" max="8" class=validate> <label for="duration_plan">Duration (in
                     Weeks)</label>
                 </div>
             </div>
@@ -293,7 +293,7 @@
                 <div class="col s12">
                     <button class=
                     "center waves-effect waves-light btn largebtn" type=
-                    "submit">Done</button>
+                    "submit" >Done</button>
                 </div>
             </div>
         </form>

@@ -2,9 +2,9 @@
 /* global app, $ */
 
 app.controller('dashboardController', ['$scope', '$window', '$location',
-    'AuthService', 'searchService', 'profileService',
+    'AuthService', 'searchService', 'profileService', 'constants', 'planService',
     function($scope, $window, $location, AuthService, searchService,
-        profileService) {
+        profileService, constants, planService) {
         var isAuth = false;
         
         AuthService.isAuthenticated()
@@ -25,9 +25,24 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     };
                     
                      $scope.openShortInfoModal = function() {
-                        $('#small-modal').openModal();
+                        $('#create-plan-dash-modal').openModal();
                     };
                    
+                    $scope.createPlan = function()
+                    {
+                        if(constants.userOb.status)
+                        planService.createPlan($scope.plan).then(function(
+                            response)
+                        {
+                            
+                            $location.path('/dietplans/create/overview/' + response.dietplan_id);
+                            $('#create-plan-dash-modal').closeModal();
+                            
+                        }, function(error)
+                        {
+                            console.log(error);
+                        });
+                    };
 
                     $scope.edit = 0;
 

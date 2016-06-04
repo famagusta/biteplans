@@ -6,9 +6,21 @@
     margin-left:-8px !important;
 }
 
-.icon-label{
+.icon-label-shrt{
     margin-top: 6px !important;
+/*    margin-left:-10px !important;*/
+}
+
+#create-plan-dash-modal {
+    max-width: 30% !important;
+}
+
+@media only screen and (max-width: 600) { 
+  .icon-label { 
+    display: none !important; 
+      margin-top: 6px !important;
     margin-left:-10px !important;
+  } 
 }
 .icon-orig{
     height:37px;

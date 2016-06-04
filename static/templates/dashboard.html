@@ -1,7 +1,8 @@
+<section ng-controller = "dashboardController">
 <div id="planPage">
-    <div id="dashboard-page" ng-controller = "dashboardController">
+    <div id="dashboard-page" >
         <div class="row">
-            <div class="col s12 m2 hide-on-small-only">
+            <div class="col s12 m2">
                 <div class="card white darken-1 sidemenu_margin">
                     <div class="card-content grey-text">
                         <div class="row">
@@ -16,7 +17,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label icon-label-shrt">
                                 <a class="db_list_text" ng-class=
                                 "{active:tab.isSet(1)}" ng-click=
                                 "setTab(1)">Summary</a>
@@ -34,7 +35,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label icon-label-shrt">
                                 <a class="db_list_text" ng-class=
                                 "{active:tab.isSet(2)}" ng-click=
                                 "setTab(2)">Profile</a>
@@ -52,7 +53,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label icon-label-shrt">
                                 <a class="db_list_text" ng-class=
                                 "{active:tab.isSet(3)}" ng-click=
                                 "setTab(3)">Calendar</a>
@@ -88,7 +89,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label">
                                 <a class="db_list_text" ng-class=
                                 "{active:tab.isSet(5)}" ng-click="setTab(5)">My
                                 Plans</a>
@@ -105,7 +106,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label">
                                 <a ng-click="openShortInfoModal()" class="db_list_text">Create Plans</a>
                             </div>
                         </div>
@@ -120,7 +121,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label">
                                 <a class="db_list_text" ng-class=
                                 "{active:tab.isSet(7)}" ng-click="setTab(7)">My
                                 Recipes</a>
@@ -137,7 +138,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label">
                                 <a href="recipes/create-recipes" class="db_list_text" ng-class=
                                 "{active:tab.isSet(8)}" ng-click=
                                 "setTab(8)">Create Recipes</a>
@@ -154,7 +155,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label">
                                 <a class="db_list_text" ng-class=
                                 "{active:tab.isSet(9)}" ng-click="setTab(9)">My
                                 Ingredients</a>
@@ -171,7 +172,7 @@
                             </div>
 
 
-                            <div class="col s7 m7 icon-label">
+                            <div class="col m7 center icon-label">
                                 <a href="dietplans/search" class="db_list_text">Search Plans</a>
                             </div>
                         </div>
@@ -265,15 +266,17 @@
     </div>
 </div>
 
-<div class="modal" id="small-modal">
+<div class="modal" id="create-plan-dash-modal">
     <a class=
-    "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+    "modal-action modal-close btn-flat right">X</a>
 
     <div class="modal-content">
         <form ng-submit="createPlan()">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="name_plan" ng-model="plan.name" type="text">
+                    <input id="name_plan" ng-model="plan.name" type="text"
+                        class="validate" pattern=".{8,191}" 
+                        required title="Please enter 8 to 75 Characters">
                     <label for="name_plan">Name of Plan</label>
                 </div>
             </div>
@@ -282,8 +285,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <input id="duration_plan" ng-model="plan.duration" type=
-                    "number"> <label for="duration_plan">Duration (in
-                    Weeks)</label>
+                    "number" required min="1" max="8" title="Plan must be at most 8 weeks long" class=validate> <label for="duration_plan">Duration (in Weeks)</label>
                 </div>
             </div>
             <br>
@@ -293,13 +295,14 @@
             <div class="row center">
                 <div class="col s12">
                     <button class=
-                    "center waves-effect waves-light btn largebtn" type=
-                    "submit">Done</button>
+                    "center btn largebtn" type=
+                    "submit">Create</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+</section>
 <script>
 $(document).ready(function () {
          $('label').addClass('active');
