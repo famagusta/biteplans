@@ -14,7 +14,7 @@ site.addsitedir('/home/ubuntu/biteplans/venv/local/lib/python2.7/site-packages')
 # Add the app's directory to the PYTHONPATH
 sys.path.append('/home/ubuntu/biteplans')
 
-os.environ['DJANGO_SETTINGS_MODULE'] = 'bitespace_project_config.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'biteplans_project_config.settings'
 
 # Activate your virtual env
 activate_env=os.path.expanduser("/home/ubuntu/biteplans/venv/bin/activate_this.py")
@@ -33,7 +33,8 @@ def application(environ, start_response):
     os.environ['BITEPLANS_SECRET_KEY']=environ.get('BITEPLANS_SECRET_KEY','')
     os.environ['BITEPLANS_DB_ROOT_USER']=environ.get('BITEPLANS_DB_ROOT_USER','')
     os.environ['BITEPLANS_DB_ROOT_USER_PWD']=environ.get('BITEPLANS_DB_ROOT_USER_PWD','')
-    
+    os.environ['BITEPLANS_DB_IP']=environ.get('BITEPLANS_DB_IP','')
+
     # below code is to avoid getting some random errror RuntimeError: populate() isn't reentrant
     try:
         app = get_wsgi_application()(environ, start_response)
