@@ -157,6 +157,7 @@ app.controller('recipesController', ['$scope', 'searchService',
         
         $scope.getRecipeRating = function(recipe)
         {
+            // this is inefficient
             // bind result to results array
             var recipeRatingMatch = $scope.recipeDetails.results.filter(
                 function(el)
@@ -283,6 +284,14 @@ app.controller('recipesController', ['$scope', 'searchService',
         $scope.openRecipeDetails = function(recipeId){
             $location.path("recipes/view-recipe/" + recipeId +'/');    
         };
+        
+        $scope.getTotalDuration = function(recipe){
+            /* return total time : cook + prep of a recipe */
+            var cook_time = moment.duration(recipe.cook_time);
+            var prep_time = moment.duration(recipe.prep_time);
+            var tot_time = moment.duration(cook_time + prep_time);
+            return tot_time.hours() + " hour " + tot_time.minutes() + " mins" 
+        }
         
         if(constants.userOb.status){
             $scope.getUserRecipes();

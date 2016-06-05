@@ -117,8 +117,8 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
                 $scope.currentPage = page;
                 $scope.pageSize = response.total*3;
                 for(var i=0;i<$scope.myRecipes.length;i++){
-                    if($scope.myRecipes[i].image){
-                        $scope.myRecipes[i].myRecipesImage = $scope.myRecipes[i].image;
+                    if($scope.myRecipes[i].recipe.image){
+                        $scope.myRecipes[i].myRecipesImage = $scope.myRecipes[i].recipe.image;
                     }
                     else {
                         $scope.myRecipes[i].myRecipesImage = 'static/images/default_recipe.png';
@@ -132,6 +132,19 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     	};
     	$scope.getMyRecipes(1);
         $scope.getRecipesMadeByMe(1);
+        
+        $scope.getRecipeRating = function(recipe)
+        {
+            return recipe.recipe.average_rating * 20;
+        };
+        
+        $scope.getTotalDuration = function(recipe){
+            /* return total time : cook + prep of a recipe */
+            var cook_time = moment.duration(recipe.cook_time);
+            var prep_time = moment.duration(recipe.prep_time);
+            var tot_time = moment.duration(cook_time + prep_time);
+            return tot_time.hours() + " hour " + tot_time.minutes() + " mins" 
+        }
     }]);
 
 

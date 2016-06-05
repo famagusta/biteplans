@@ -161,7 +161,7 @@
                                     <select material-select="" ng-model=
                                     "ingredientDisplay[$index].selected_measure"
                                     ng-options=
-                                    "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
+                                    "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id" ng-change="updateQuantity($index)"
                                     required="">
                                         </select>
                                 </div>
