@@ -1,14 +1,14 @@
 {
-    "name": "biteplans",
-    "version": "0.1.0",
-    "devDependencies": {
-        "grunt": "latest",
-        "grunt-contrib-uglify": "latest",
-        "grunt-contrib-jshint": "latest",
-        "grunt-contrib-less": "latest",
-        "jshint-stylish": "latest",
-        "grunt-contrib-cssmin": "latest",
-        "grunt-contrib-watch": "latest"
-    }
-
+  "name": "biteplans",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-ng-annotate": "^2.0.2",
+    "jshint-stylish": "latest"
+  }
 }

@@ -19,7 +19,7 @@ from ingredients.models import Ingredient, IngredientCommonMeasures,\
 
 
 # Populate ingredients table from the USDA Ingredients DB
-with codecs.open('data/nutrition_info/ABBREV_4USE.csv',
+with codecs.open('data/ABBREV_4USE.csv',
                  'rU', encoding='ascii') as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
@@ -201,7 +201,7 @@ with codecs.open('data/nutrition_info/ABBREV_4USE.csv',
 
 
 # Populate ingredients table from the Indian Ingredients DB
-with codecs.open('data/nutrition_info/nutritive_value_of_indian_foods.csv',
+with codecs.open('data/nutritive_value_of_indian_foods.csv',
                  'rU', encoding='ascii') as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
@@ -327,7 +327,7 @@ with codecs.open('data/nutrition_info/nutritive_value_of_indian_foods.csv',
             ingred_measure.save()
 
 
-with codecs.open('data/nutrition_info/caloriecount_unbranded_per100.csv',
+with codecs.open('data/caloriecount_unbranded_per100.csv',
                  'rU', encoding='ascii') as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
@@ -498,7 +498,7 @@ with codecs.open('data/nutrition_info/caloriecount_unbranded_per100.csv',
 
 # populate common ingredient measures for usda data
 ingredients = Ingredient.objects.all()
-with codecs.open('data/nutrition_info/usdaingredient_wts.csv',
+with codecs.open('data/usdaingredient_wts.csv',
                  'rU', encoding='ascii') as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):
@@ -523,7 +523,7 @@ with codecs.open('data/nutrition_info/usdaingredient_wts.csv',
 
 # Populate ingredients wts & measures from the Calorie Counts Ingredients DB
 ingredients = Ingredient.objects.all()
-with codecs.open('data/nutrition_info/caloriecount_wts.csv',
+with codecs.open('data/caloriecount_wts.csv',
                  'rU', encoding='ascii') as f:
     reader = csv.reader(f, delimiter=",")
     for i, line in enumerate(reader):

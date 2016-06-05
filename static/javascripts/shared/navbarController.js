@@ -167,7 +167,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             if (response) {
                 //console.log($scope.isLoggedIn);
                 $scope.isLoggedIn = false;
-                //$location.path('/');
+                $location.path('/');
             }
 //            location.reload();
         };
