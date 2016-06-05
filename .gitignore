@@ -1,6 +1,7 @@
 # FrontEnd Files #
 node_modules
 dist
+annotated
 .tmp
 .sass-cache
 bower_components
