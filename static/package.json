@@ -2,7 +2,7 @@
   "name": "biteplans",
   "version": "0.1.0",
   "devDependencies": {
-    "grunt": "latest",
+    "grunt": "~1.0.1",
     "grunt-contrib-cssmin": "latest",
     "grunt-contrib-jshint": "latest",
     "grunt-contrib-less": "latest",
