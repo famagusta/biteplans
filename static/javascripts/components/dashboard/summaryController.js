@@ -12,7 +12,10 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.ingredientInModal = [];
         $scope.foodgroup = [];
         $scope.currentMealPlanName = -1;
-
+        $scope.meal = {};
+        $scope.meal.name = 'Meal'
+        $scope.meal.time = new Date();
+        
         $scope.today = moment();
 
         var contextDate = moment();
@@ -679,22 +682,24 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
         // adds new mealname
         $scope.addMeal = function(key) {
-            key.date = $scope.navDates.current.format('YYYY-MM-DD');
-            var tm = key.time;
             
             var objToSave = key;
+            objToSave.date = $scope.navDates.current.format('YYYY-MM-DD');
             objToSave.time = key.time.getHours() + ":" +
                 key.time.getMinutes() + ":00";
 
             summaryService.createMeal(objToSave).then(function(response){
                 if(!response.non_field_errors){
-                    key.time = tm;
+                    key.time = objToSave.time;
                     key.followingMealPlanIngredient=[];
                     key.followingMealPlanRecipe=[];
                     key.id= response.mealhistory_id;
                     key.user_dietplan=null;
                     key.user_mealplan=null;
                     $scope.plan_data.push(key);
+                    $scope.meal = {};
+                    $scope.meal.name = 'Meal'
+                    $scope.meal.time = new Date();
                 }else{
                     $scope.addMealError = "Error Adding Meal - There is an existing meal at that time";
                 }
