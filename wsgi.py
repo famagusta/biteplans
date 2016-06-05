@@ -40,7 +40,6 @@ def application(environ, start_response):
         app = get_wsgi_application()(environ, start_response)
         return app
     except Exception:
-        print 'handling WSGI Exception'
         if 'mod_wsgi' in sys.modules:
             traceback.print_exc()
             os.kill(os.getpid(), signal.SIGINT)
