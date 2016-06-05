@@ -447,6 +447,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
                                 6;
+                            console.log($scope.details);
+                            console.log(response);
                         }, function(error) {
                             console.log(error);
                         });
@@ -462,6 +464,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
                                 6;
+                            console.log($scope.details);
+                            console.log(response);
                         }, function(error) {
                             console.log(error);
                         });
@@ -476,10 +480,13 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
                                 6;
+                            console.log($scope.details);
+                            console.log(response);
                         }, function(error) {
                             console.log(error);
                         });
                 }
+                
 
             }
         };
@@ -565,6 +572,12 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             $scope.ingredientInModal.length = 0;
             $('#add-food-modal')
                 .closeModal();
+            
+            $scope.details = undefined;
+            $scope.filts = undefined;
+            $scope.query = undefined;
+            $scope.pageSize = null;
+            $scope.currentPage = null;
         };
 
 

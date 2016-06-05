@@ -1,20 +1,19 @@
-<ul class="dropdown-content filter-ul" id="dropdown2">
-    <li ng-repeat="filter in filts track by $index"><input checked="checked"
-    checklist-model="foodgroup" checklist-value="filter['0']" class="filled-in"
-    id="filled-in-box1{{$index}}" type="checkbox"> <label for=
-    "filled-in-box1{{$index}}">{{filter['0']}}</label></li>
-</ul>
-
-
-<ul class="dropdown-content filter-ul" id="dropdown3">
-    <li ng-repeat="filter in details.sortlist track by $index"><input class=
-    "filled-in" id="filledin{{$index}}" name="sortradio" ng-click=
-    "search(1, sortby)" ng-model="sortby" type="radio" value="{{filter}}">
-    <label for="filledin{{$index}}">{{filter.split('_', 1)[0]}}</label></li>
-</ul>
-
-
 <section ng-controller='summaryCtrl'>
+    <ul class="dropdown-content" id="dropdown2">
+        <li ng-repeat="filter in filts track by $index"><input checked="checked"
+        checklist-model="foodgroup" checklist-value="filter['0']" class="filled-in"
+        id="filled-in-box1{{$index}}" type="checkbox"> <label for=
+        "filled-in-box1{{$index}}">{{filter['0']}}</label></li>
+    </ul>
+
+
+    <ul class="dropdown-content" id="dropdown3">
+        <li ng-repeat="filter in details.sortlist track by $index"><input class=
+        "filled-in" id="filledin{{$index}}" name="sortradio" ng-click=
+        "search(1, sortby)" ng-model="sortby" type="radio" value="{{filter}}">
+        <label for="filledin{{$index}}">{{filter.split('_', 1)[0]}}</label></li>
+    </ul>
+    
     <div class="row">
         <div class="col s12 m8">
             <div class="card white">
@@ -473,8 +472,28 @@
 
         <div class="modal-content">
             <div class="row">
-                <div class="col m8 push-m2">
+                <div class="col m6">
                     <div class="row">
+                        <div ng-class=
+                        "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
+                            <div class="card white create-search-box" id=
+                            "searchcard">
+                                <!-- SEARCH-BOX -->
+
+
+                                <div class="card-content black-text">
+                                    <textarea class="form-control" id=
+                                    "searchbox" ng-model="query" placeholder=
+                                    "Search Ingredient"></textarea>
+                                    <button class=
+                                    "fa fa-search search-ingredient"
+                                    fire-enter="" ng-click="searchPlan(query)"
+                                    type="submit"></button>
+                                </div>
+                            </div>
+                            <!-- END OF SEARCH-BOX -->
+                        </div>
+                        
                         <div ng-class=
                         "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
                         ng-show="filts !==undefined && filts.length&gt;0">
@@ -491,56 +510,32 @@
                             data-activates='dropdown3' data-beloworigin="true"
                             dropdown-button=""></button>
                         </div>
-
-
-                        <div ng-class=
-                        "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
-                        <div class="card white create-search-box" id=
-                        "searchcard">
-                                <!-- SEARCH-BOX -->
-
-
-                                <div class="card-content black-text">
-                                    <textarea class="form-control" id=
-                                    "searchbox" ng-model="query" placeholder=
-                                    "Search Ingredient"></textarea>
-                                    <button class=
-                                    "fa fa-search search-ingredient"
-                                    fire-enter="" ng-click="searchPlan(query)"
-                                    type="submit"></button>
-                                </div>
-                            </div>
-                            <!-- END OF SEARCH-BOX -->
-                        </div>
                     </div>
                 </div>
-                <br>
+                
+                <div class="col m6">
+                    <div class="row">
+                        <div class="col m4">
+                            Search type:
+                        </div>
+                        <div class="col m4">
+                            <input class="filled-in with-gap" id="searchkind1" name=
+                            "searchkind" ng-model="searchType" type="radio"
+                            value="ingredients"> <label for=
+                            "searchkind1">Ingredients</label>
+                        </div>
+
+
+                        <div class="col m4">
+                            <input class="filled-in with-gap" id="searchkind2" name=
+                            "searchkind" ng-model="searchType" type="radio"
+                            value="recipes"> <label for=
+                            "searchkind2">Recipes</label>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
-            <div class="row">
-                    <div class="col m6 push-m3">
-                        <div class="row">
-                            <div class="col m4">
-                                Search type:
-                            </div>
-
-
-                            <div class="col m4">
-                                <input class="filled-in with-gap" id="searchkind1" name=
-                                "searchkind" ng-model="searchType" type="radio"
-                                value="ingredients"> <label for=
-                                "searchkind1">Ingredients</label>
-                            </div>
-
-
-                            <div class="col m4">
-                                <input class="filled-in with-gap" id="searchkind2" name=
-                                "searchkind" ng-model="searchType" type="radio"
-                                value="recipes"> <label for=
-                                "searchkind2">Recipes</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
             <div class="row">
@@ -560,28 +555,28 @@
 
 
                     <div class="row smallpaginate">
-                    <paging ng-if="details !== undefined && details !== []"
-                                class="small"
-                                page="currentPage" 
-                                page-size="6" 
-                                total="pageSize"
-                                hide-if-empty="{{hideIfEmpty}}"
-                                ul-class="{{ulClass}}"
-                                li-class="lipageclass"
-                                active-class="{{activeClass}}"
-                                disabled-class="{{disabledClass}}"
-                                show-prev-next="true"
-                                text-next-class="acti fa fa-chevron-right"
-                                text-prev-class="acti fa fa-chevron-left"
-                                text-first-class="acti fa fa-backward"
-                                text-last-class="acti fa fa-forward"
-                                text-title-page="Page {page}"
-                                text-title-first="First Page"
-                                text-title-last="Last Page"
-                                text-title-next="Next Page"
-                                text-title-prev="Previous" 
-                                paging-action="searchPlan(query, page)">
-                            </paging> 
+                        <paging ng-if="details !== undefined && details !== []"
+                            class="small"
+                            page="currentPage" 
+                            page-size="6" 
+                            total="pageSize"
+                            hide-if-empty="{{hideIfEmpty}}"
+                            ul-class="{{ulClass}}"
+                            li-class="lipageclass"
+                            active-class="{{activeClass}}"
+                            disabled-class="{{disabledClass}}"
+                            show-prev-next="true"
+                            text-next-class="acti fa fa-chevron-right"
+                            text-prev-class="acti fa fa-chevron-left"
+                            text-first-class="acti fa fa-backward"
+                            text-last-class="acti fa fa-forward"
+                            text-title-page="Page {page}"
+                            text-title-first="First Page"
+                            text-title-last="Last Page"
+                            text-title-next="Next Page"
+                            text-title-prev="Previous" 
+                            paging-action="searchPlan(query, page)">
+                        </paging> 
                     </div>
                 </div>
 
