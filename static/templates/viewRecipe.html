@@ -77,12 +77,13 @@
                             
                             <div class="row">
                                 <div class="col s6">
-                                    <p class="ing-text" style="text-transform:uppercase">URL &nbsp;&nbsp; :</p>
+                                    <p class="ing-text">External Link &nbsp;&nbsp; :</p>
                                 </div>
                                 
                                 <div class="col s6">
-                                    <p class="meal-text">
-                                    {{recipe.url}}</p>
+                                    <a href="{{recipe.url}}" class="cyan-text">
+                                        Click here to view source of recipe
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -292,7 +293,10 @@
 
 
                         <div class="row" ng-repeat=
-                        "direction in parsed_directions">
+                        "direction in parsed_directions track by $index">
+                            <div class="input-field col s12">
+                                <p class="meal-text">Step {{$index + 1}}</p>
+                            </div>
                             <div class="input-field col s12">
                                 <p class="meal-text">{{direction}}</p>
                             </div>

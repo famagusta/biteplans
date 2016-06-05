@@ -165,7 +165,23 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* Nutritional Information calculations based on changes to
                         selected ingredients */
-
+                    var checkIngredNutritionQty = function(ingredient, nutrient, additionalNutrition){
+                        /* check if our ingredient and nutrient have valid numbers */
+                        var result = false;
+                        if(additionalNutrition !== undefined){
+                            if (additionalNutrition[nutrient] && ingredient.quantity && ingredient.selected_measure.weight){
+                                result = true
+                            }
+                        } else {
+                            if (ingredient.ingredient[nutrient] && ingredient.quantity && ingredient.selected_measure.weight){
+                                result = true
+                            }
+                        }
+                        return result;
+                    };
+                    
+                    
+                    
                     $scope.calculateNutritionTotal = function(nutrient) {
                             var total = 0;
                             var servings = parseInt($scope.recipe.servings);
@@ -175,13 +191,17 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             }
                             for (var i = 0; i < $scope.ingredientDisplay
                                 .length; i++) {
-                                total += parseFloat($scope.ingredientDisplay[
-                                        i].ingredient[nutrient]) *
-                                    parseFloat($scope.ingredientDisplay[
-                                        i].quantity) * parseFloat(
-                                        $scope.ingredientDisplay[i]
-                                        .selected_measure.weight) /
-                                    (100 * servings);
+                                if ( checkIngredNutritionQty($scope.ingredientDisplay[i], nutrient)) {
+                                    total += parseFloat($scope.ingredientDisplay[
+                                            i].ingredient[nutrient]) *
+                                            parseFloat($scope.ingredientDisplay[
+                                            i].quantity) * parseFloat(
+                                            $scope.ingredientDisplay[i]
+                                            .selected_measure.weight) /
+                                            (100 * servings * parseFloat(
+                                                $scope.ingredientDisplay[i]
+                                                .selected_measure.amount));
+                                }
                             }
                             return total;
                         };
@@ -196,13 +216,17 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         }
                         for (var i = 0; i < $scope.AdditionalIngredientInfo
                             .length; i++) {
-                            total += parseFloat($scope.AdditionalIngredientInfo[
-                                    i][nutrient]) * parseFloat(
-                                    $scope.ingredientDisplay[i]
-                                    .quantity) * parseFloat(
-                                    $scope.ingredientDisplay[i]
-                                    .selected_measure.weight) /
-                                    (100 * servings);
+                            if(checkIngredNutritionQty($scope.ingredientDisplay[i], nutrient, $scope.AdditionalIngredientInfo[i])){
+                                total += parseFloat($scope.AdditionalIngredientInfo[
+                                        i][nutrient]) * parseFloat(
+                                        $scope.ingredientDisplay[i]
+                                        .quantity) * parseFloat(
+                                        $scope.ingredientDisplay[i]
+                                        .selected_measure.weight) /
+                                        (100 * servings * parseFloat(
+                                            $scope.ingredientDisplay[i]
+                                            .selected_measure.amount));
+                            }
                         }
                         return total;
                     };
@@ -412,10 +436,20 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 selected_measure: $scope
                                     .checklistIngredients[
                                         i].measure[0],
-                                quantity: 1,
+                                quantity: parseFloat( $scope
+                                    .checklistIngredients[
+                                        i].measure[0].amount),
                             });
+                            console.log(parseFloat( $scope
+                                    .checklistIngredients[
+                                        i].measure[0].amount));
                         }
 
+                        $scope.updateQuantity = function(index){
+                            $scope.ingredientDisplay[index].quantity = 
+                                parseFloat($scope.ingredientDisplay[index]
+                                           .selected_measure.amount)
+                        }
                         $('#add-ingredients-modal')
                             .closeModal();
 

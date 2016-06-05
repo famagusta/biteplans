@@ -1,5 +1,5 @@
 <section class="recipe-view" id="create-plan">
-    <ul class="dropdown-content filter-ul" id="dropdown2">
+    <ul class="dropdown-content" id="dropdown2">
         <li ng-repeat="filter in filts track by $index"><input checked=
         "checked" checklist-model="foodgroup" checklist-value="filter['0']"
         class="filled-in" id="filled-in-box1{{$index}}" type="checkbox">
@@ -7,7 +7,7 @@
     </ul>
 
 
-    <ul class="dropdown-content filter-ul" id="dropdown3">
+    <ul class="dropdown-content " id="dropdown3">
         <li ng-repeat="filter in details.sortlist track by $index">
         <input class="filled-in" id="filledin{{$index}}" name="sortradio"
         ng-click="search(1, sortby)" ng-model="sortby" type="radio" value=
@@ -161,7 +161,7 @@
                                     <select material-select="" ng-model=
                                     "ingredientDisplay[$index].selected_measure"
                                     ng-options=
-                                    "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
+                                    "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id" ng-change="updateQuantity($index)"
                                     required="">
                                         </select>
                                 </div>
@@ -484,24 +484,6 @@
                     <div class="col m8 push-m2">
                         <div class="row">
                             <div ng-class=
-                            "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
-                            ng-show="filts !==undefined && filts.length&gt;0">
-                                <button class='fa fa-filter search-filter'
-                                data-activates='dropdown2' data-beloworigin=
-                                "true" dropdown-button=""></button>
-                            </div>
-
-
-                            <div ng-class=
-                            "{'col s1 m1': filts!==undefined && filts.length&gt;0}"
-                            ng-show="filts !==undefined && filts.length&gt;0">
-                                <button class='fa fa-reorder search-filter'
-                                data-activates='dropdown3' data-beloworigin=
-                                "true" dropdown-button=""></button>
-                            </div>
-
-
-                            <div ng-class=
                             "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
                             <div class="card white create-search-box" id=
                             "searchcard">
@@ -520,6 +502,23 @@
                                     </div>
                                 </div>
                                 <!-- END OF SEARCH-BOX -->
+                            </div>
+                            
+                            <div ng-class=
+                            "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
+                            ng-show="filts !==undefined && filts.length&gt;0">
+                                <button class='fa fa-filter search-filter'
+                                data-activates='dropdown2' data-beloworigin=
+                                "true" dropdown-button=""></button>
+                            </div>
+
+
+                            <div ng-class=
+                            "{'col s1 m1': filts!==undefined && filts.length&gt;0}"
+                            ng-show="filts !==undefined && filts.length&gt;0">
+                                <button class='fa fa-reorder search-filter'
+                                data-activates='dropdown3' data-beloworigin=
+                                "true" dropdown-button=""></button>
                             </div>
                         </div>
                     </div>
@@ -544,6 +543,28 @@
 
 
                         <div class="row smallpaginate">
+                            <paging ng-if="details !== undefined && details !== []"
+                                class="small"
+                                page="currentPage" 
+                                page-size="6" 
+                                total="pageSize"
+                                hide-if-empty="{{hideIfEmpty}}"
+                                ul-class="{{ulClass}}"
+                                li-class="lipageclass"
+                                active-class="{{activeClass}}"
+                                disabled-class="{{disabledClass}}"
+                                show-prev-next="true"
+                                text-next-class="acti fa fa-chevron-right"
+                                text-prev-class="acti fa fa-chevron-left"
+                                text-first-class="acti fa fa-backward"
+                                text-last-class="acti fa fa-forward"
+                                text-title-page="Page {page}"
+                                text-title-first="First Page"
+                                text-title-last="Last Page"
+                                text-title-next="Next Page"
+                                text-title-prev="Previous" 
+                                paging-action="search(page, sortby)">
+                            </paging> 
                         </div>
                     </div>
 

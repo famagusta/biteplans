@@ -2,12 +2,12 @@
 /* global app, moment, console*/
 
 // controller for the calendar. accessed by dashboard.html
-app.config(function($mdThemingProvider)
+app.config(['$mdThemingProvider', function($mdThemingProvider)
 {
     $mdThemingProvider.theme("default")
         .primaryPalette("cyan")
         .accentPalette("light-green");
-});
+}]);
 app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                                 'httpService', 'AuthService',
                                 'MaterialCalendarData', 'calendarService',

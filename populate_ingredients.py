@@ -191,6 +191,13 @@ with codecs.open('data/ABBREV_4USE.csv',
                                                 fa_poly_g=fa_poly,
                                                 cholestrl_mg=cholestrl,)
             addIngrdInfo.save()
+            ingred_measure = IngredientCommonMeasures(
+                ingred_id=ingredient,
+                seq=1,
+                amount=1,
+                description='per 100g',
+                weight=100)
+            ingred_measure.save()
 
 
 # Populate ingredients table from the Indian Ingredients DB
@@ -237,15 +244,15 @@ with codecs.open('data/nutritive_value_of_indian_foods.csv',
             calcium = None
             if line[9] not in ['', '-']:
                 calcium = Decimal(line[9])
-
+            
             iron = None
             if line[11] not in ['', '-']:
                 iron = Decimal(line[11])
-
+            
             phosphorus = None
             if line[10] not in ['', '-']:
                 phosphorus = Decimal(line[10])
-
+            
             vit_c = None
             if line[19] not in ['', '-']:
                 vit_c = Decimal(line[19])
@@ -481,6 +488,13 @@ with codecs.open('data/caloriecount_unbranded_per100.csv',
                                                 fa_poly_g=fa_poly,
                                                 cholestrl_mg=cholestrl)
             addIngrdInfo.save()
+            ingred_measure = IngredientCommonMeasures(
+                ingred_id=ingredient,
+                seq=1,
+                amount=1,
+                description='per 100g',
+                weight=100)
+            ingred_measure.save()
 
 # populate common ingredient measures for usda data
 ingredients = Ingredient.objects.all()

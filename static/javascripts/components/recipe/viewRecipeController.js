@@ -44,6 +44,20 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
                 console.log(error);
             });
         
+        var checkIngredNutritionQty = function(ingredient, nutrient, additionalNutrition){
+            /* check if our ingredient and nutrient have valid numbers */
+            var result = false;
+            if(additionalNutrition !== undefined){
+                if (additionalNutrition[nutrient] && ingredient.quantity && ingredient.measure.weight){
+                    result = true
+                }
+            } else {
+                if (ingredient.ingredient[nutrient] && ingredient.quantity && ingredient.measure.weight){
+                    result = true
+                }
+            }
+            return result;
+        };
         
         $scope.calculateNutritionTotal = function(nutrient){
             var total=0;
@@ -54,10 +68,13 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
             }
             if(Object.keys($scope.recipe).length){
                 for (var i=0; i< $scope.recipe.recipeIngredients.length; i++){
-                    total += parseFloat($scope.recipe.recipeIngredients[i]
+                    if ( checkIngredNutritionQty($scope.recipe.recipeIngredients[i], nutrient)) {
+                        total += parseFloat($scope.recipe.recipeIngredients[i]
                                         .ingredient[nutrient]) * parseFloat($scope.recipe
                                         .recipeIngredients[i].quantity) * parseFloat($scope.recipe.recipeIngredients[i]
-                                        .measure.weight ) / (100 * servings);
+                                        .measure.weight ) / (100 * servings * parseFloat($scope.recipe.recipeIngredients[i]
+                                        .measure.amount ));
+                    }
                 }
             }
             return total;
@@ -72,10 +89,13 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
                 servings = 1;
             }
             for (var i=0; i< $scope.AdditionalIngredientInfo.length; i++){
-                total += parseFloat($scope
+                if(checkIngredNutritionQty($scope.recipe.recipeIngredients[i], nutrient, $scope.AdditionalIngredientInfo[i])){
+                    total += parseFloat($scope
                             .AdditionalIngredientInfo[i][nutrient]) * parseFloat($scope
                             .recipe.recipeIngredients[i].quantity) * parseFloat($scope.recipe.recipeIngredients[i]
-                            .measure.weight) / (100 * servings);
+                            .measure.weight) / (100 * servings * parseFloat($scope.recipe.recipeIngredients[i]
+                                        .measure.amount ));
+                }
             }
             return total;
         };
