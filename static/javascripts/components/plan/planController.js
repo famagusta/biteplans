@@ -115,11 +115,12 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                         {
                             return el.dietPlan === plan.id;
                         });
-                    // find index of diet plan in results - we need to update it 
-                    var idxDietPlan = findWithAttr($scope.plans.results,
-                        'id', userRatingMatch[0].dietPlan);
+                    
                     if (userRatingMatch.length > 0)
                     {
+                        // find index of diet plan in results - we need to update it 
+                        var idxDietPlan = findWithAttr($scope.plans.results,
+                            'id', userRatingMatch[0].dietPlan);
                         // case where user has previously rated this plan
                         if (userRatingMatch[0].rating !==
                             normalizedRating)
