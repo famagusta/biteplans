@@ -610,11 +610,12 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     ingredient: x[i],
                                     unit: x[i].measure[
                                         0],
-                                    quantity: 1.00,
+                                    quantity: parseFloat(x[i].measure[0].amount),
                                 });
                         }
                         else
                         {
+                            console.log("YOU SHOULD NOT SEE THIS. MEASURE ALWAYS ARRAY");
                             $scope.mealPlanNameArray[$scope
                                     .currentMealPlanName].mealingredient
                                 .push(
@@ -751,7 +752,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             }, function(response) {});
                     };
                 // removes recipes which are saved in meal
-                $scope.removeIngredientsFromSavedMealRecipe =
+                $scope.removeFromSavedMealRecipe =
                     function(key, element)
                     {
                         var temp = $scope.mealPlanNameArray[key]
@@ -1124,6 +1125,15 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         })(i, obj);
                     }
                 };
+                
+                $scope.updateQuantity = function(meal_index, ingredient_index){
+                $scope.plan_data[meal_index].followingMealPlanIngredient[ingredient_index]
+                    .quantity = 
+                    parseFloat($scope.plan_data[meal_index]
+                           .followingMealPlanIngredient[ingredient_index]
+                           .unit_desc.amount);
+            };
+                
                 $scope.openMealInfoModal = function(index)
                 {
                     $('#meal-info-modal').openModal();

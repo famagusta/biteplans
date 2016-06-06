@@ -853,8 +853,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         };
 
         $scope.updateQuantity = function(meal_index, ingredient_index){
-            console.log(meal_index);
-            console.log(ingredient_index);
             $scope.plan_data[meal_index].followingMealPlanIngredient[ingredient_index]
                 .quantity = 
                 parseFloat($scope.plan_data[meal_index]
