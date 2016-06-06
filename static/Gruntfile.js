@@ -25,6 +25,13 @@ module.exports = function(grunt) {
                     }],
             }
         },
+        
+        bower_concat: {
+            build:{
+                dest: 'dist/js/bower.js',
+                src: 'bower_components/jquery/dist/jquery.min.js'
+            }
+        },
 
         //configure uglify to minify js files
         uglify: {
@@ -45,11 +52,23 @@ module.exports = function(grunt) {
             },
             build:{
                 files: {
-                    'dist/css/bitePlans.css': 'stylesheets/**/*.css'
+                    'dist/css/bitePlans.css': ['stylesheets/index.css',         
+                                               'stylesheets/landingPage.css',
+                                               'stylesheets/searchPlan.css',
+                                               'stylesheets/starRating.css',
+                                               'stylesheets/navbar.css',
+                                               'stylesheets/footer.css',
+                                               'stylesheets/dashboard.css',
+                                               'stylesheets/createPlan.css',
+                                               'stylesheets/searchIngredients.css',
+                                               'stylesheets/ingredientResult.css',
+                                               'stylesheets/recipes.css',
+                                               'stylesheets/createRecipe.css']
                 }
             }
         },
-
+        
+        
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -58,6 +77,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-ng-annotate');
+    grunt.loadNpmTasks('grunt-bower-concat');
+    grunt.loadNpmTasks('grunt-wiredep');
+
+
+    
     grunt.registerTask('default', ['ngAnnotate','uglify', 'cssmin'])        
 
 }
