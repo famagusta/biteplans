@@ -49,11 +49,11 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
             var result = false;
             if(additionalNutrition !== undefined){
                 if (additionalNutrition[nutrient] && ingredient.quantity && ingredient.measure.weight){
-                    result = true
+                    result = true;
                 }
             } else {
                 if (ingredient.ingredient[nutrient] && ingredient.quantity && ingredient.measure.weight){
-                    result = true
+                    result = true;
                 }
             }
             return result;

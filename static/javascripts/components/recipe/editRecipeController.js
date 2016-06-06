@@ -529,8 +529,8 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     };
                     
                     $scope.updateIngredientQuantity = function(index){
-                        $scope.ingredientDisplay[index].quantity = parseFloat($scope.ingredientDisplay[index].measure.amount)
-                    }
+                        $scope.ingredientDisplay[index].quantity = parseFloat($scope.ingredientDisplay[index].measure.amount);
+                    };
                     
                     $scope.checkIfCompleted = function()
                     {

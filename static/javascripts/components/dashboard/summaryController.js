@@ -13,7 +13,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.foodgroup = [];
         $scope.currentMealPlanName = -1;
         $scope.meal = {};
-        $scope.meal.name = 'Meal'
+        $scope.meal.name = 'Meal';
         $scope.meal.time = new Date();
         
         $scope.today = moment();
@@ -715,7 +715,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     key.user_mealplan=null;
                     $scope.plan_data.push(key);
                     $scope.meal = {};
-                    $scope.meal.name = 'Meal'
+                    $scope.meal.name = 'Meal';
                     $scope.meal.time = new Date();
                 }else{
                     $scope.addMealError = "Error Adding Meal - There is an existing meal at that time";
@@ -774,11 +774,11 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var result = false;
             if(additionalNutrition !== undefined){
                 if (additionalNutrition[nutrient] && ingredient.quantity && ingredient.selected_measure.weight){
-                    result = true
+                    result = true;
                 }
             } else {
                 if (ingredient.meal_ingredient[nutrient] && ingredient.quantity && ingredient.unit_desc.weight){
-                    result = true
+                    result = true;
                 }
             }
             return result;
@@ -859,8 +859,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 .quantity = 
                 parseFloat($scope.plan_data[meal_index]
                            .followingMealPlanIngredient[ingredient_index]
-                           .unit_desc.amount)
-        }
+                           .unit_desc.amount);
+        };
         
         /* calculate %age checked nutrient value */
         $scope.percentNutrientChecked = function(nutrient){

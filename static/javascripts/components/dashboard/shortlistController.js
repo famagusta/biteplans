@@ -143,8 +143,8 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
             var cook_time = moment.duration(recipe.cook_time);
             var prep_time = moment.duration(recipe.prep_time);
             var tot_time = moment.duration(cook_time + prep_time);
-            return tot_time.hours() + " hour " + tot_time.minutes() + " mins" 
-        }
+            return tot_time.hours() + " hour " + tot_time.minutes() + " mins" ;
+        };
     }]);
 
 

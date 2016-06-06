@@ -43,8 +43,8 @@ app.directive('ngModel', function( $filter ) {
                 return;
                     
             ngModel.$formatters.unshift(function(value) {
-                return value.replace(':\d{2}[\.\,]\d{3}$', '')
+                return value.replace(':\d{2}[\.\,]\d{3}$', '');
             });
         }
-    }   
+    };   
 });

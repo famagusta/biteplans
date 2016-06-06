@@ -170,11 +170,11 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         var result = false;
                         if(additionalNutrition !== undefined){
                             if (additionalNutrition[nutrient] && ingredient.quantity && ingredient.selected_measure.weight){
-                                result = true
+                                result = true;
                             }
                         } else {
                             if (ingredient.ingredient[nutrient] && ingredient.quantity && ingredient.selected_measure.weight){
-                                result = true
+                                result = true;
                             }
                         }
                         return result;
@@ -448,8 +448,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.updateQuantity = function(index){
                             $scope.ingredientDisplay[index].quantity = 
                                 parseFloat($scope.ingredientDisplay[index]
-                                           .selected_measure.amount)
-                        }
+                                           .selected_measure.amount);
+                        };
                         $('#add-ingredients-modal')
                             .closeModal();
 
