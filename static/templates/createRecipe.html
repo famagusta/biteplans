@@ -27,7 +27,8 @@
                     <div class="row">
                         <div class="input-field col s12 m6">
                             <input class="validate" id="recipe_name" ng-model=
-                            "recipe.name" required type="text"> <label for=
+                            "recipe.name" required type="text" pattern=".{3,75}" 
+                            required title="Please enter 3 to 75 Characters"> <label for=
                             "recipe_name">Name of Recipe</label>
                         </div>
 
