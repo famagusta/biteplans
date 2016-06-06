@@ -21,9 +21,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = os.environ.get('BITEPLANS_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True 
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = True 
 
 ALLOWED_HOSTS = []
 
