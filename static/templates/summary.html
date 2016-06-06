@@ -140,7 +140,7 @@
                                 <br>
                                 
                                 <div class="meal_lst" ng-repeat=
-                                '(index3, recipe) in meal.followingMealPlanRecipe track by $index'>
+                                '(index3, recipe) in meal.followingMealPlanRecipe'>
                                 <div class="row">
                                         <div class="col s3 m5 push-m1">
                                             <a href="/recipes/view-recipe/{{recipe.meal_recipe.id}}/"
@@ -217,7 +217,7 @@
                                 </div>
                                 <br>
                                 <div class="meal_lst" ng-repeat=
-                                '(index2, ingredient) in meal.followingMealPlanIngredient track by $index'>
+                                '(index2, ingredient) in meal.followingMealPlanIngredient '>
                                 <div class="row">
                                         <div class="col s5 m4">
                                             <p class="meal-text">
@@ -239,20 +239,22 @@
 
                                         <div class="col s3 m1 push-m1">
                                             <p class="meal-text">
-                                            {{((ingredient.unit_desc.weight)* (ingredient.quantity) |
+                                            {{((ingredient.unit_desc.weight)* (ingredient.quantity)/ingredient.unit_desc.amount |
                                             number:0)  +
                                             '&nbsp;' + 'gms'}}</p>
                                         </div>
 
 
                                         <div class="col s3 m1 push-m2 selcol">
-                                            <select id="ing_select"
-                                            material-select="" ng-change=
-                                            "updateMealIngredientMeasure(ingredient)"
-                                            ng-model="ingredient.unit_desc"
+                                            <select material-select 
+                                            ng-model=
+                                            "ingredient.unit_desc"
                                             ng-options=
-                                            "unit_desc as unit_desc.description for unit_desc in ingredient.meal_ingredient.measure track by unit_desc.id">
+                                            "meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
+                                            ng-change=
+                                                    "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc">
                                             </select>
+                                            
                                         </div>
 
 

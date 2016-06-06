@@ -94,12 +94,13 @@
 
 
                                     <div class="col s1 push-s2 center">
-                                        <select material-select="" ng-model=
-                                        "ingredientDisplay[$index].selected_measure"
+                                        <select material-select ng-model=
+                                        "ingredientDisplay[$index].measure"
                                         ng-options=
                                         "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
+                                        ng-change="updateIngredientQuantity($index)"
                                         required="">
-                                            </select>
+                                        </select>
                                     </div>
 
 

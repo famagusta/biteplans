@@ -28,14 +28,76 @@ app.filter('num', function() {
     };
 });
 
-app.directive('materialSelect', function() {
-   return {
-      restrict: 'A',
-      link: function(scope, elem) {
-         $(elem).material_select();
-      }
-   };
-});
+//app.directive('materialSelect', function() {
+//   return {
+//      restrict: 'A',
+//      link: function(scope, elem) {
+//         $(elem).material_select();
+//      }
+//   };
+//});
+
+// this works
+app.directive("materialSelect", ["$compile", "$timeout", function ($compile, $timeout) {
+            return {
+                link: function (scope, element, attrs) {
+                    if (element.is("select")) {
+						//BugFix 139: In case of multiple enabled. Avoid the circular looping.
+                        function initSelect(newVal, oldVal) {                            
+                            if(attrs.multiple){
+                                if(oldVal !== undefined && newVal !== undefined){
+                                  if(oldVal.length === newVal.length){
+                                      return;
+                                  }
+                                }
+                                var activeUl = element.siblings("ul.active");
+                                if (newVal !== undefined && activeUl.length) { // If select is open
+                                    var selectedOptions = activeUl.children("li.active").length; // Number of selected elements
+                                    if (selectedOptions == newVal.length) {
+                                        return;
+                                    }
+                                }
+                            } else {
+                                if (newVal == element.val()){
+                                    return;
+                                }
+                            }
+                            element.siblings(".caret").remove();
+                            scope.$evalAsync(function () {
+                                //element.material_select();
+                                //Lines 301-311 fix Dogfalo/materialize/issues/901 and should be removed and the above uncommented whenever 901 is fixed
+                                element.material_select(function () {
+                                    if (!attrs.multiple) {
+                                        $('input.select-dropdown').trigger('close');
+                                    }
+                                });
+                                var onMouseDown = function (e) {
+                                    // preventing the default still allows the scroll, but blocks the blur.
+                                    // We're inside the scrollbar if the clientX is >= the clientWidth.
+                                    if (e.clientX >= e.target.clientWidth || e.clientY >= e.target.clientHeight) {
+                                        e.preventDefault();
+                                    }
+                                };
+                                element.siblings('input.select-dropdown').on('mousedown', onMouseDown);
+                            });
+                        }
+                        $timeout(initSelect);
+                        if (attrs.ngModel) {
+                            scope.$watch(attrs.ngModel, initSelect);
+                        }
+                        if ("watch" in attrs) {
+                            scope.$watch(function () {
+                                return element[0].innerHTML;
+                            }, function (oldVal, newVal) {
+                                if (oldVal !== newVal) {
+                                    $timeout(initSelect);
+                                }
+                            });
+                        }
+                    }
+                }
+            };
+        }]);
 
 app.directive('carouselEffect', function() {
    return {

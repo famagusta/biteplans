@@ -128,7 +128,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     $scope.recipe.recipeIngredients[i].quantity = parseFloat($scope.recipe.recipeIngredients[
                                         i].quantity);
                                     $scope.ingredientDisplay.push($scope.recipe.recipeIngredients[i]);
-                                    $scope.ingredientDisplay[i].selected_measure = $scope.recipe.recipeIngredients[i].measure.id;
+                                    $scope.ingredientDisplay[i].measure = $scope.recipe.recipeIngredients[i].measure;
                                 }
                                 if (response.source === null)
                                 {
@@ -318,7 +318,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             {
                                 ingredient: $scope.checklistIngredients[i],
                                 measure: $scope.checklistIngredients[i].measure[0],
-                                quantity: 1
+                                quantity: parseFloat($scope.checklistIngredients[i].measure[0].amount)
                             });
                             // call API to get addtional ingredient information
                             searchService.get_ingredient_addtnl_info($scope.checklistIngredients[i].id)
@@ -332,8 +332,8 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                 });
                             var obj = {
                                     ingredient: $scope.checklistIngredients[i],
-                                    selected_measure: $scope.checklistIngredients[i].measure[0],
-                                    quantity: 1,
+                                    measure: $scope.checklistIngredients[i].measure[0],
+                                    quantity: parseFloat($scope.checklistIngredients[i].measure[0])
                                 };
                         }
                         $('#add-ingredients-modal')
@@ -527,6 +527,11 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                 console.log('recipe could not be created, try again later', error);
                             });
                     };
+                    
+                    $scope.updateIngredientQuantity = function(index){
+                        $scope.ingredientDisplay[index].quantity = parseFloat($scope.ingredientDisplay[index].measure.amount)
+                    }
+                    
                     $scope.checkIfCompleted = function()
                     {
                         if ($scope.counter === $scope.ingredientDisplay.length)
@@ -549,13 +554,16 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             }
                             for (var i = 0; i < $scope.ingredientDisplay
                                 .length; i++) {
+                                console.log($scope.ingredientDisplay[i]);
                                 total += parseFloat($scope.ingredientDisplay[
                                         i].ingredient[nutrient]) *
                                     parseFloat($scope.ingredientDisplay[
                                         i].quantity) * parseFloat(
                                         $scope.ingredientDisplay[i]
                                         .measure.weight) /
-                                    (100 * servings);
+                                    (100 * servings * parseFloat(
+                                        $scope.ingredientDisplay[i]
+                                        .measure.amount));
                             }
                             return total;
                         };
