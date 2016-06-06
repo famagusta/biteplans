@@ -295,7 +295,8 @@ def save_nutrition(sender, instance, created, **kwargs):
                         decimal.Decimal(j.quantity) *
                         decimal.Decimal(getattr(j.ingredient, i.name))
                         * decimal.Decimal(j.measure.weight /
-                                          (100 * recipe.servings)))
+                                          (100 * recipe.servings * 
+                                          decimal.Decimal(j.measure.amount))))
             elif hasattr(additionalinginfo, i.name) and \
                     getattr(additionalinginfo, i.name) is not None:
                 old = getattr(recipenutri, i.name)
@@ -304,7 +305,8 @@ def save_nutrition(sender, instance, created, **kwargs):
                         decimal.Decimal(instance.quantity) *
                         decimal.Decimal(getattr(additionalinginfo, i.name))
                         * decimal.Decimal(j.measure.weight /
-                                          (100 * recipe.servings)))
+                                          (100 * recipe.servings * 
+                                          decimal.Decimal(j.measure.amount))))
 
         recipenutri.save()
         recipe.save()
@@ -340,7 +342,8 @@ def delete_nutrition(sender, instance, **kwargs):
                         decimal.Decimal(old) -
                         instance.quantity * getattr(ingredient, i.name)
                         * decimal.Decimal(instance.measure.weight /
-                                          (100 * recipe.servings)))
+                                          (100 * recipe.servings *
+                                          decimal.Decimal(instance.measure.amount))))
         elif hasattr(additionalinginfo, i.name) and\
                 getattr(additionalinginfo, i.name) is not None:
             old = getattr(recipenutri, i.name)
@@ -350,6 +353,7 @@ def delete_nutrition(sender, instance, **kwargs):
                         decimal.Decimal(instance.quantity)
                         * decimal.Decimal(getattr(additionalinginfo, i.name))
                         * decimal.Decimal(instance.measure.weight /
-                                          (100 * recipe.servings)))
+                                          (100 * recipe.servings * 
+                                          decimal.Decimal(instance.measure.amount))))
         recipenutri.save()
         recipe.save()
