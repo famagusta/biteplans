@@ -14,6 +14,13 @@ import os
 import datetime
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+BITEPLANS_ENV = os.environ.get('BITEPLANS_ENVIRONMENT')
+
+if BITEPLANS_ENV == "production":
+    from settings_production import *
+else:
+    from settings_development import *
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -21,13 +28,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRET_KEY = os.environ.get('BITEPLANS_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
-
-TEMPLATE_DEBUG = True 
-
-ALLOWED_HOSTS = []
-
-TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+# MOVED TO DEV AND PROD SETTINGS
+#DEBUG = True 
+#
+#TEMPLATE_DEBUG = True 
+#
+#ALLOWED_HOSTS = []
+#
+#TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates"
