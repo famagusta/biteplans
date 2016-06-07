@@ -64,15 +64,15 @@
                                         </div>
 
 
-                                        <div class="col s12 m1 push-m2" ng-if=
+                                        <div class="col s12 m2 push-m1" ng-if=
                                         "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                                        <p class="meal-text center">Amt</p>
+                                        <h5 class="recipe-subheading center">Amt</h5>
                                         </div>
 
 
-                                        <div class="col s12 m1 push-m3" ng-if=
+                                        <div class="col s12 m2 push-m1" ng-if=
                                         "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                                        <p class="meal-text center">Unit</p>
+                                        <h5 class="recipe-subheading center">Unit</h5>
                                         </div>
                                     </div>
                             
@@ -83,7 +83,7 @@
                                             {{ing.ingredient.name}}</p>
                                         </div>
 
-                                        <div class="col s1 push-s2">
+                                        <div class="col s2 push-s1">
                                             <br>
                                             <input id="serving" min="0" ng-model=
                                             "ing.quantity" step=
@@ -91,7 +91,7 @@
                                         </div>
 
 
-                                        <div class="col s1 push-s2 center">
+                                        <div class="col s2 push-s1 center">
                                             <select material-select ng-model=
                                             "ingredientDisplay[$index].measure"
                                             ng-options=
@@ -102,7 +102,7 @@
                                         </div>
 
 
-                                        <div class="select-delete-mat col s12 m1 push-m3">
+                                        <div class="col s12 m1 push-m1">
                                             <a ng-click="deleteSelectedIngredient($index)"><i class=
                                             "material-icons createbin">delete</i></a>
                                         </div>
@@ -118,14 +118,19 @@
                                 </div>
                                 
                                 <div class="col s5">
+                                    <div class="row center">
+                                        <h5 class="recipe-subheading">Nutritional Information</h5>
+                                    </div>
                                     <div class="row">
                                         <div class="col s6">
-                                                <table class="bordered responsive-table">
+                                                <table class="centered bordered responsive-table">
+                                                    
+
                                                     <tbody>
                                                       <tr>
-                                                        <td class="energy">Energy</td>
+                                                        <td class="energy">Energy (kCal)</td>
                                                         <td>{{calculateNutritionTotal('energy_kcal') |
-                                                number:0}} kcal</td>
+                                                number:0}}</td>
                                                       </tr>
                                                         <tr>
                                                         <td>Carbohydrates</td>
@@ -143,13 +148,13 @@
                                                 number:0}} g</td>
                                                       </tr>
                                                         <tr>
-                                                        <td>Monounsaturated Fat</td>
+                                                        <td class="fat-subgroup">Monounsaturated Fat</td>
                                                         <td>
                                                         {{calculateAddtnlNutritionTotal('fa_mono_g') |
                                                 number:0}} g</td>
                                                       </tr>
                                                         <tr>
-                                                        <td>Polyunsaturated Fat</td>
+                                                        <td class="fat-subgroup">Polyunsaturated Fat</td>
                                                         <td>
                                                         {{calculateAddtnlNutritionTotal('fa_poly_g') |
                                                 number:0}} g</td>
@@ -176,7 +181,8 @@
                                         </div>
                             
                                         <div class="col s6">
-                                            <table class="bordered responsive-table">
+                                            <table class="centered bordered responsive-table">
+                                                
                                                 <tbody>
                                                     <td>Cholesterol</td>
                                                     <td>{{calculateAddtnlNutritionTotal('cholestrl_mg') |

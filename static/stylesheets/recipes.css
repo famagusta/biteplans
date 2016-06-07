@@ -228,3 +228,7 @@ td.energy {
   /* bg color = bg color under block */
   background: white;
 }
+
+.fat-subgroup {
+    width: 80% !important;
+}
