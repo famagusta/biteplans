@@ -143,14 +143,14 @@ nav ul li {
 
 
 #modal1 { 
-    max-height: 90%;
+    max-height: 70%;
     max-width: 40%;
     left: 0;
     right: 0;
     top: 0;
     bottom: 5em;
     margin: auto;
-    overflow: hidden;
+    overflow: auto;
 }
 
 
@@ -168,7 +168,7 @@ nav ul li {
     #modal1 {
         max-height: 85% !important;
         max-width: 85% !important;
-        overflow: auto;
+        overflow-y: auto;
     }
     
     #modal1 h5 {
@@ -185,7 +185,7 @@ nav ul li {
 
 @media only screen and (max-width : 1280px) {
     #modal1 {
-        overflow: scroll;
+        overflow-y: auto;
     }
 }
 }

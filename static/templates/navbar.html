@@ -119,37 +119,49 @@
                 <br>
                 <!-- LOGIN VIA SOCIAL MEDIA -->
 
-
-                <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn fbicon" ng-click=
-                    "closeModal();Auth('facebook')" ><i class="fa fa-facebook fblogo"></i>Log In with FACEBOOK</a><br>
+                <div class="row center">
+                    <div class="col s12 m6">
+                        <a class="waves-effect waves-light btn fbicon" ng-click=
+                        "closeModal();Auth('facebook')" ><i class="fa fa-facebook fblogo"></i>Log In</a>
+                    </div>
+                    
+                    <div class="hide-on-med-and-up">
+                        <br><br>
+                    </div>
+                    
+                    <div class="col s12 m6">
+                        <a class="waves-effect waves-light btn googleicon" id=
+                            "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Log In </a>
+                    </div>
+                    
                 </div>
-                <br>
+                
 
 
-                <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn googleicon" id=
-                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Log In with
-                    GOOGLE</a>
+<!--
+                <div class="row center">
+                    <a class="waves-effect waves-light btn googleicon" id=
+                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Log In </a>
                 </div>
+-->
 
 
                 <p class="center-align">OR</p>
 
 
-                <div class="row">
+                <div class="row" ng-show="loginError">
                     <!-- LOGIN FOR EMPTY FIELDS -->
 
 
-                    <div class="col s12">
-                        <p class="text-danger" ng-show="loginError">{{
+                    <div class="col s12 center">
+                        <p class="text-danger">{{
                         loginError }}</p>
                     </div>
                 </div>
 
 
                 <form id="myForm" name="myForm">
-                    <div class="input-field">
+                    <div class="input-field ">
                         <!-- USERNAME -->
                         <input class="form-control validate" id="first_name"
                         ng-model="login.username" type="email"> <label for=
@@ -157,7 +169,7 @@
                     </div>
 
 
-                    <div class="input-field">
+                    <div class="input-field ">
                         <!-- PASSWORD-->
                         <input class="form-control validate" id="password"
                         ng-model="login.password" type="password"> <label for=
@@ -165,10 +177,10 @@
                     </div>
 
 
-                    <div class="center-btn">
+                    <div class="center">
                         <!-- SUBMIT BUTTON -->
                         <a class=
-                        "waves-effect waves-light btn btn-default largebtn"
+                        "waves-effect waves-light btn btn-default"
                         ng-click="login()" type="submit">Login</a>
                     </div>
                     <br>
@@ -189,60 +201,76 @@
                 <br>
 
 
-                <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn fbicon" ng-click=
-                    "closeModal();Auth('facebook')"><i class="fa fa-facebook fblogo"></i>Sign Up with FACEBOOK</a><br>
+                <div class="row center">
+                    <div class="col s12 m6">
+                        <a class="waves-effect waves-light btn fbicon" ng-click=
+                            "closeModal();Auth('facebook')"><i class="fa fa-facebook fblogo"></i>Sign Up </a><br>
+                    </div>
+                    
+                    <div class="hide-on-med-and-up">
+                        <br><br>
+                    </div>
+                    
+                    <div class="col s12 m6">
+                        <a class="waves-effect waves-light btn  googleicon" id=
+                            "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Sign Up</a>
+                    </div>
                 </div>
-                <br>
 
 
+<!--
                 <div class="center-btn">
-                    <a class="waves-effect waves-light btn largebtn googleicon" id=
-                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Sign Up with
-                    GOOGLE</a>
+                    <a class="waves-effect waves-light btn  googleicon" id=
+                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Sign Up</a>
                 </div>
+-->
 
 
                 <p class="center-align">OR</p>
 
 
                 <form id="myForm" name="myForm" ng-submit="register()">
-                    <div class="row">
+                    <div class="row" ng-show="registerError || registerSuccess">
                         <!-- WARNINGS FOR EMPTY FIELD-->
 
 
-                        <div class="col s12">
+                        <div class="col s12" >
                             <p class="text-danger" ng-show="registerError">
                                 {{registerError}}</p>
+                            
+                            <p class="text-success" ng-show="registerSuccess">
+                            {{ registerSuccess }}</p>
                         </div>
                     </div>
 
 
-                    <div class="row">
+<!--                    <div class="row">-->
                         <!-- WARNINGS FOR EMPTY FIELD-->
 
 
+<!--
                         <div class="col s12">
                             <p class="text-success" ng-show="registerSuccess">
                             {{ registerSuccess }}</p>
                         </div>
                     </div>
+-->
                     <!-- USERNAME -->
 
 
                     <div class="row">
-                        <div class="input-field col m12">
+                        <div class="input-field col s12 m6">
                             <input class="validate" id="input_name" length=
                             "50" ng-model="signup.username" required="" type=
                             "text"> <label data-error="Atmost 50 characters"
                             for="input_name">Username</label>
                         </div>
-                    </div>
+<!--                    </div>-->
                     <!-- EMAIL -->
 
 
-                    <div class="row">
-                        <div class="input-field col m12">
+<!--                    <div class="row">-->
+                        <div class="input-field col s12 m6">
                             <input class="form-control validate" id="email"
                             name="emailId" ng-model="signup.email" required=""
                             type="email"> <label data-error="Invalid Email Id"
@@ -253,19 +281,19 @@
 
 
                     <div class="row">
-                        <div class="input-field col m12">
+                        <div class="input-field col s12 m6">
                             <label for="registerPassword">Password</label>
                             <input id="registerPassword" name=
                             "registerPassword" ng-maxlength="20" ng-minlength=
                             "8" ng-model="signup.registerPassword" required=""
-                            type="password"><br>
+                            type="password">
                         </div>
-                    </div>
+<!--                    </div>-->
                     <!-- CONFIRM PASSWORD -->
 
 
-                    <div class="row">
-                        <div class="input-field col m12">
+<!--                    <div class="row">-->
+                        <div class="input-field col s12 m6">
                             <label for="confirmPassword" ng-if=
                             "signup.registerPassword == signup.confirmPassword">
                             Confirm Password</label> <input id=
@@ -276,16 +304,15 @@
                             "Passwords do not match" for="confirmPassword"
                             ng-if=
                             "signup.registerPassword != signup.confirmPassword">
-                            Confirm Password</label><br>
+                            Confirm Password</label>
                         </div>
                     </div>
-                    <br>
-                    <br>
+                    
                     <!-- CONTINUE BUTTON -->
 
 
-                    <div class="center-btn">
-                        <button class="btn btn-default largebtn" id=
+                    <div class="center">
+                        <button class="btn btn-default" id=
                         "continueToForm2" type="submit">SignUp</button>
                     </div>
                 </form>
