@@ -135,7 +135,7 @@
 
                         <div class="col s4 push-s3">
                             <h5 class="center recipe-subheading">Nutritional
-                            Information</h5>
+                            Information (per Serving)</h5>
                         </div>
                     </div>
 
@@ -484,8 +484,7 @@
                 <div class="row">
                     <div class="col m8 push-m2">
                         <div class="row">
-                            <div ng-class=
-                            "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
+                            <div class="col s10 m10">
                             <div class="card white create-search-box" id=
                             "searchcard">
                                     <!-- SEARCH-BOX -->
@@ -505,6 +504,43 @@
                                 <!-- END OF SEARCH-BOX -->
                             </div>
                             
+                            <div class=
+                            "col s1 m1"
+                            ng-show="filts !==undefined && filts.length&gt;0">
+                                <button class='fa fa-filter search-filter'
+                                data-activates='dropdown2' data-beloworigin=
+                                "true" dropdown-button=""></button>
+                            </div>
+
+
+                            <div class=
+                            "col s1 m1"
+                            ng-show="filts !==undefined && filts.length&gt;0">
+                                <button class='fa fa-reorder search-filter'
+                                data-activates='dropdown3' data-beloworigin=
+                                "true" dropdown-button=""></button>
+                            </div>
+<!--
+                            
+                            <div ng-class=
+                            "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
+                            <div class="card white create-search-box" id=
+                            "searchcard">
+
+
+                                    <div class="card-content black-text">
+                                        <textarea class="form-control" id=
+                                        "searchbox" ng-model="query"
+                                        placeholder=
+                                        "Search Ingredient"></textarea>
+                                        <button class=
+                                        "fa fa-search search-ingredient"
+                                        fire-enter="" ng-click="search(1)"
+                                        type="submit"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div ng-class=
                             "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
                             ng-show="filts !==undefined && filts.length&gt;0">
@@ -521,6 +557,7 @@
                                 data-activates='dropdown3' data-beloworigin=
                                 "true" dropdown-button=""></button>
                             </div>
+-->
                         </div>
                     </div>
                     <br>

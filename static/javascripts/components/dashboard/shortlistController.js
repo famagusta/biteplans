@@ -85,9 +85,9 @@ app.controller('shortlistedIngredientsController', ['$scope', '$window', '$locat
 
 
 app.controller('shortlistedRecipesController', ['$scope', '$window', '$location',
-    'AuthService', 'recipeService', 'summaryService',
+    'AuthService', 'recipeService', 'summaryService', 'searchService',
     function($scope, $window, $location, AuthService, recipeService,
-        summaryService) {
+        summaryService, searchService) {
         'use strict';
         
         $scope.currentPage=1;
@@ -133,10 +133,23 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
     	$scope.getMyRecipes(1);
         $scope.getRecipesMadeByMe(1);
         
-        $scope.getRecipeRating = function(recipe)
+        $scope.getMyRecipeRating = function(recipe)
         {
             return recipe.recipe.average_rating * 20;
         };
+        
+        $scope.getRecipeRating = function(recipe)
+        {
+            return recipe.average_rating * 20;
+        };
+        
+        $scope.removeRecipe = function(myRecipeId){
+            searchService.removeFromMyRecipes(myRecipeId).then(function(response){
+                $scope.getMyRecipes(1);
+            }, function(error){
+                console.log(error);
+            });
+        }
         
         $scope.getTotalDuration = function(recipe){
             /* return total time : cook + prep of a recipe */

@@ -138,7 +138,7 @@
                 <h6 class="nutri">Nutritional Information </h6>
             </div>
             <div class="col s8 m2">
-                ( Serving Size:&nbsp;&nbsp;&nbsp;1
+                Serving Size:&nbsp;&nbsp;&nbsp;{{ingredientSelected.selectedMeasure.amount | number:0}}
             </div>
             <div class="col s2 m2" ng-if=
                     "selected!==undefined && ingredientSelected.measure.length&gt;0">
@@ -147,8 +147,8 @@
                     "measure as measure.description for measure in ingredientSelected.measure track by measure.id">
                 </select>
             </div>
-            <div class="col s5 m2">
-                &nbsp;
+            <div class="col s5 m2 pull-m1">
+                (&nbsp;
                 {{ingredientSelected.selectedMeasure.weight | number}} gm&nbsp;)
             </div>
         </div>

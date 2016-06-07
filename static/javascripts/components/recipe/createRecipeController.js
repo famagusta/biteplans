@@ -440,9 +440,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     .checklistIngredients[
                                         i].measure[0].amount),
                             });
-                            console.log(parseFloat( $scope
-                                    .checklistIngredients[
-                                        i].measure[0].amount));
+                            
                         }
 
                         $scope.updateQuantity = function(index){
@@ -459,6 +457,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.query = undefined;
                         $scope.pageSize = null;
                         $scope.currentPage = null;
+                        $scope.foodgroup = null;
 
                     };
                     //checks whether an ingredient is already selected or not

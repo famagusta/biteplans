@@ -229,6 +229,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             getShortlistPlans: function(page){
                 return getShortlistPlans(page);
             }
+            
         };
 
     }

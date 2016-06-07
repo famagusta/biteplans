@@ -554,7 +554,6 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             }
                             for (var i = 0; i < $scope.ingredientDisplay
                                 .length; i++) {
-                                console.log($scope.ingredientDisplay[i]);
                                 total += parseFloat($scope.ingredientDisplay[
                                         i].ingredient[nutrient]) *
                                     parseFloat($scope.ingredientDisplay[
