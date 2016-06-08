@@ -145,6 +145,7 @@ h5.recipe-subheading {
 .select-delete-mat{
 	padding-top:7px !important;
 }
+/*
 .select-wrapper input.select-dropdown {
     position: relative;
     cursor: pointer;
@@ -163,6 +164,7 @@ h5.recipe-subheading {
 option{
     margin-bottom:15px !important;
 }
+*/
   
 .cropArea {    
   background: #E4E4E4;

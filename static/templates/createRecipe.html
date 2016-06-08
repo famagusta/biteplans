@@ -116,28 +116,32 @@
 
 
                     <div class="row">
-                        <div class="col s2">
+                        <div class="col m2">
                             <h5 class="ing-text" style="margin-left:11px !important">Ingredients</h5>
                         </div>
 
 
-                        <div class="col s12 m1 push-m1" ng-if=
-                        "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                        <h5 class="meal-text center">Amt</p>
+                        <div class="col m2">
+                        <h5 class="ing-text center">Amt</p>
                         </div>
 
 
-                        <div class="col s1 push-s1" ng-if=
-                        "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                        <p class="meal-text center">Unit</p>
+                        <div class="col m2" >
+                        <h5 class="ing-text center">Unit</h5>
                         </div>
 
+                        <div class="col m6">
+                            <div class="row center">
+                                <h5 class="recipe-subheading">Nutritional
+                                Information (per Serving)</h5>
+                            </div>
+                        </div>
                     </div>
 
 
                     <div class="row">
-                        <div class="col s6">
-                            <div class="row" ng-repeat=
+                        <div class="col s12 m6">
+                            <div class="row valign-wrapper" ng-repeat=
                             "selectedIngredient in ingredientDisplay track by $index">
                             <div class="col s6">
                                     <p class="meal-text">
@@ -146,7 +150,6 @@
 
 
                                 <div class="col s2">
-                                    <br>
                                     <input id="serving" min="0" ng-model=
                                     "ingredientDisplay[$index].quantity" step=
                                     "0.25" type="number"><br>
@@ -165,7 +168,7 @@
 
                                 <div class="select-delete-mat col s2">
                                     <a ng-click="removeIngs($index)"><i class=
-                                    "material-icons">delete</i></a>
+                                    "material-icons createbin">delete</i></a>
                                 </div>
                             </div>
 
@@ -181,10 +184,6 @@
 
 
                         <div class="col s12 m6">
-                            <div class="row center">
-                                <h5 class="recipe-subheading">Nutritional
-                                Information (per Serving)</h5>
-                            </div>
                             <div class="col s12 m6">
                                 <table class="bordered responsive-table">
                                     <tbody>
@@ -409,43 +408,6 @@
                         </div>
                     </div>
 
-<!--
-                    <div class="row">
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="col s4 m4">
-                                    <div class="file-field input-field">
-                                        <div class="btn">
-                                            <span>File</span> <input accept=
-                                            'image/*' file-model=
-                                            "recipe_image_file" type="file">
-                                        </div>
-
-
-                                        <div class="file-path-wrapper">
-                                            <input class="file-path validate"
-                                            type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col s12 m12">
-                                    <p class="cyan-text add-ing" href="#">Image
-                                    URL</p>
-                                </div>
-
-
-                                <div class="col s12 m12">
-                                    <input ng-model="recipe.url" type="text">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
--->
-
 
                     <div class="row">
                         <div class="col s12">
@@ -460,20 +422,10 @@
                 </form>
             </div>
         </div>
-        <!--
-        <div class="row">
-            <div class="col s12">
-                <div class="center-btn">
-                    <button class="waves-effect waves-light btn largebtn" ng-click=
-                    'validateRecipe()' type="submit">Save</button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-            </div>
-        </div>
-                        </form>
--->
-        <!-- ADD RECIPE INGREDIENTS MODAL -->
+      
 
+        
+        <!-- ADD RECIPE INGREDIENTS MODAL -->
 
         <div class="modal" id="add-ingredients-modal">
             <a class=
@@ -519,44 +471,6 @@
                                 data-activates='dropdown3' data-beloworigin=
                                 "true" dropdown-button=""></button>
                             </div>
-<!--
-                            
-                            <div ng-class=
-                            "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
-                            <div class="card white create-search-box" id=
-                            "searchcard">
-
-
-                                    <div class="card-content black-text">
-                                        <textarea class="form-control" id=
-                                        "searchbox" ng-model="query"
-                                        placeholder=
-                                        "Search Ingredient"></textarea>
-                                        <button class=
-                                        "fa fa-search search-ingredient"
-                                        fire-enter="" ng-click="search(1)"
-                                        type="submit"></button>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div ng-class=
-                            "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
-                            ng-show="filts !==undefined && filts.length&gt;0">
-                                <button class='fa fa-filter search-filter'
-                                data-activates='dropdown2' data-beloworigin=
-                                "true" dropdown-button=""></button>
-                            </div>
-
-
-                            <div ng-class=
-                            "{'col s1 m1': filts!==undefined && filts.length&gt;0}"
-                            ng-show="filts !==undefined && filts.length&gt;0">
-                                <button class='fa fa-reorder search-filter'
-                                data-activates='dropdown3' data-beloworigin=
-                                "true" dropdown-button=""></button>
-                            </div>
--->
                         </div>
                     </div>
                     <br>

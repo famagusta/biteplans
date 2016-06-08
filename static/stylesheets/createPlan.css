@@ -314,8 +314,10 @@ input[type=time] {
 }
 
 #serving {
+/*
     position: relative;
     bottom: 38px;
+*/
     text-align: center;
 }
 
@@ -454,7 +456,7 @@ input[type=time] {
 }
 
 .dropdown-content{
-    width:200px !important;
+/*    width:200px !important;*/
 }
 
 .meal-head {
