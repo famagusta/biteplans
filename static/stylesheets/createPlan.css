@@ -37,12 +37,6 @@ div#create-form {
     margin-left: 10px;
 }
 
-/*
-.vertil{
-    margin-left:10px !important;
-    margin-right:-10px !important;
-}
-*/
 .weekWidth{
     width:12% !important;
     margin-right:10px;
@@ -195,15 +189,6 @@ ul.food-timing li {
     font-weight: 600;
 }
 
-/*
-#meal_list_card {
-    height: 400px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    max-height: 1000px;
-}
-*/
-
 
 i.add-button {
     height: 10px !important;
@@ -242,10 +227,6 @@ hr {
     margin-top: 12px;
 }
 
-.btn-floating i {
-/*    line-height: 23px !important;*/
-}
-
 #add-food-modal {
     height: 120% !important;
     width: 70% !important; 
@@ -254,7 +235,6 @@ hr {
 .nutrition-modal {
     top: 5% !important;
     max-height: 90% !important;
-/*    width: 70% !important; */
 }
 
 .create-modal-half1 {
@@ -280,7 +260,6 @@ input[type=time] {
 }
 .a {
     line-height: 0px;
-/*    margin-top: -4px;*/
     color: #4f4f4f;
 }
 
@@ -307,17 +286,10 @@ input[type=time] {
 
 .servetext {
     display: flex;
-/*    margin-top: -20px;*/
     position: relative;
-   
-/*    right: 30px;*/
 }
 
 #serving {
-/*
-    position: relative;
-    bottom: 38px;
-*/
     text-align: center;
 }
 
@@ -361,27 +333,10 @@ input[type=time] {
     top: 1em;
 }
 
-.btn-floating {
-/*
-    height: 21px;
-    width: 21px;
-    line-height: 20px !important;
-    background-color: #00bcd4 !important;
-*/
-}
-
-.btn-floating i {
-/*
-    font-size: 18px;
-    line-height: 23px !important;
-    background-color: #00bcd4 !important;
-*/
-}
 
 .down {
   padding-top: 20px;
     margin-top: 0 !important;
-    
 }
 
 .c {
@@ -455,35 +410,10 @@ input[type=time] {
     margin-left: 35px !important;
 }
 
-.dropdown-content{
-/*    width:200px !important;*/
-}
-
 .meal-head {
     color: #212121 !important;
     font-size: 14px !important;
     font-family: 'Raleway' !important;
-}
-/*
-
-input.select-dropdown{
-    text-align: -webkit-center;
-    height: 35px !important;
-    padding-top: 32px;
-}
-*/
-
-.select-wrapper input.select-dropdown {
-/*
-    text-align: -webkit-center;
-    line-height: 0rem !important;
-*/
-/*    border-color: #ddd !important;*/
-/*
-    margin: 15px 3px 0 0 !important;
-    height: 21px !important;
-    width: 5em !important;
-*/
 }
 
 #nutsinfo {
@@ -536,42 +466,6 @@ input[type=number].time-input {
 #add-meal-modal {
     height: 55% !important;
     width: 50% !important;
-}
-
-/*
-.dropdown-content li>span {
-    height: 10% !important;
-    font-size: 13px;
-}
-*/
-
-/*
-.select-wrapper input.select-dropdown {
-    height: 2em;
-    margin-top: -28px;   
-}
- 
-.select-wrapper input.select-dropdown {
-   line-height: 5rem !important;
-    border-color: #ddd !important;
-    margin: -23px 3px 0 0 !important;
-    height: 52px !important;
-}
-*/
-
-/*
-.dropdown-content li>a, .dropdown-content li>span {
-    color: #00bcd4 !important;
-    font-family: 'Raleway' !important;
-    text-align: center !important;
-}
-*/
-
-.select-wrapper span.caret {
-/*
-    top: 3px !important;
-    left: 66px !important;
-*/
 }
 
 select {

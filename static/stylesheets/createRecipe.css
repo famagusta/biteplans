@@ -2,10 +2,6 @@
     height: 60px !important;
 }
 
-.recipe-view {
-/*    overflow: none !important;*/
-}
-
 .nutinfo-card {
     background-color: #fff;
     max-height: 1112px;
@@ -28,7 +24,6 @@
 
 .filter-ul{
     height:250px !important;
-/*    overflow-y:scroll !important;*/
     padding:10px !important;
 
 }
@@ -109,12 +104,6 @@ h5.recipe-subheading {
     outline:none !important;
 }
 
-.select-wrapper {
-/*
-    position: relative;
-    margin-top: -1px !important;
-*/
-}
 
 #select-delete-mat {
 	padding-top: 32px !important;
@@ -145,26 +134,7 @@ h5.recipe-subheading {
 .select-delete-mat{
 	padding-top:7px !important;
 }
-/*
-.select-wrapper input.select-dropdown {
-    position: relative;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #9e9e9e;
-    outline: none;
-    height: 3rem;
-    line-height: 3rem;
-    width: 100px !important;
-    font-size: 1rem;
-    margin: 0 0 15px 0;
-    padding: 0;
-    display: block;
-}
-option{
-    margin-bottom:15px !important;
-}
-*/
+
   
 .cropArea {    
   background: #E4E4E4;
@@ -173,7 +143,13 @@ option{
   height:350px;
 }
 
-    button#img_upload_btn {
-        position: relative !important;
-        top: 2em !important;
+button#img_upload_btn {
+    position: relative !important;
+    top: 2em !important;
+}
+    
+/* margin for filter select in modal */
+    #dropdown2 li {
+        margin-top: 10px !important;
+        margin-left: 10px !important;
     }
