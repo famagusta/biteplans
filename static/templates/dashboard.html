@@ -1,8 +1,93 @@
 <section ng-controller = "dashboardController">
+     <nav class="hide-on-med-and-up">
+      
+      <ul id="slide-out" class="side-nav">
+          <li class="bold">
+              <div class="row">
+                  <a ng-click="setTab(1)">
+                      <img ng-if="tab.tab!=1" class="icon-orig-nav"     
+                           src="static/images/summary_deselect.png">
+                      <img ng-if="tab.tab==1" class="icon-orig-nav"
+                           src="static/images/summary.png">
+                      
+                      <span class="slide-nav-title">Summary</span>
+                  </a>
+              </div>
+          </li>
+          <li class="bold">
+              <div class="row">
+                  <a ng-click="setTab(2)">
+                      <img ng-if="tab.tab!=2" class="icon-orig-nav"     
+                           src="static/images/profile_deselect.png">
+                      <img ng-if="tab.tab==2" class="icon-orig-nav"
+                           src="static/images/profile.png">
+                      <span class="slide-nav-title">Profile</span>
+                  </a>
+              </div>
+         </li>
+          <li class="bold">
+              <div class="row">
+                  <a ng-click="setTab(3)">
+                      <img ng-if="tab.tab!=3" class="icon-orig-nav"     
+                           src="static/images/calendar_deselect.png">
+                      <img ng-if="tab.tab==3" class="icon-orig-nav"
+                           src="static/images/calendar.png">
+                      <span class="slide-nav-title">Calendar</span>
+                  </a>
+              </div>
+         </li>
+          <li class="bold">
+              <div class="row">
+                  <a ng-click="setTab(5)">
+                      <img ng-if="tab.tab!=5" class="icon-orig-nav"     
+                           src="static/images/myplans_deselect.png">
+                      <img ng-if="tab.tab==5" class="icon-orig-nav"
+                           src="static/images/myplans.png">
+                      <span class="slide-nav-title">My Plans</span>
+                  </a>
+              </div>
+         </li>
+         <li class="bold">
+              <div class="row">
+                  <a ng-click="setTab(7)">
+                      <img ng-if="tab.tab!=7" class="icon-orig-nav"     
+                           src="static/images/reciepes_deselect.png">
+                      <img ng-if="tab.tab==7" class="icon-orig-nav"
+                           src="static/images/reciepes.png">
+                      <span class="slide-nav-title">My Recipes</span>
+                  </a>
+              </div>
+         </li>  
+          <li class="bold">
+              <div class="row">
+                  <a ng-click="setTab(9)">
+                      <img ng-if="tab.tab!=9" class="icon-orig-nav"     
+                           src="static/images/myingredients_deselect.png">
+                      <img ng-if="tab.tab==9" class="icon-orig-nav"
+                           src="static/images/myingredients.png">
+                      <span class="slide-nav-title">My Ingredients</span>
+                  </a>
+              </div>
+         </li>
+          <li class="bold">
+              <div class="row">
+                  <a ng-click="setTab(10);redirecToSearchPlan()">
+                      <img ng-if="tab.tab!=10" class="icon-orig-nav"     
+                           src="static/images/searchplan_deselect.png">
+                      <img ng-if="tab.tab==10" class="icon-orig-nav"
+                           src="static/images/searchplans.png">
+                      <span class="slide-nav-title">Search Plans</span>
+                  </a>
+              </div>
+         </li>
+        </ul>
+      <a href="#" data-activates="slide-out " class="button-collapse"><i class="material-icons">menu</i></a>
+    </nav>
+    
 <div id="planPage">
     <div id="dashboard-page" >
         <div class="row">
-            <div class="col s12 m2">
+            <div class="col s12 m2 hide-on-small-only" >
                 <div class="card white darken-1 sidemenu_margin">
                     <div class="card-content grey-text">
                         <div class="row">
@@ -107,7 +192,7 @@
 
 
                             <div class="col m7 l7 center icon-label">
-                                <a ng-click="openShortInfoModal()" class="db_list_text">Create Plans</a>
+                                <a ng-click="openShortInfoModal()" class="db_list_text">Create Plan</a>
                             </div>
                         </div>
 
@@ -181,6 +266,7 @@
             </div>
             
     
+            
             <!--SUMMARY VIEW -->
 
 
@@ -304,8 +390,15 @@
 </div>
 </section>
 <script>
+    
 $(document).ready(function () {
          $('label').addClass('active');
-
+    
+    $('.button-collapse').sideNav({
+      menuWidth: 300, // Default is 240
+      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
+    }
+  );
+  $('.collapsible').collapsible();
 });
 </script>

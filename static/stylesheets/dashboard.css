@@ -27,6 +27,10 @@
     width:37px;
 }
 
+.icon-orig-nav {
+/*    margin-top: 10px !important;*/
+}
+
 #db-container {
     margin: auto;
     width: 94%;
@@ -382,4 +386,9 @@ button.dashboard-search-filter:hover {
 
 .summary-ingred-align {
     margin-top: 20px !important;
+}
+
+.slide-nav-title {
+    display:inline; 
+    vertical-align:text-bottom;
 }

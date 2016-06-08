@@ -16,7 +16,7 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     $scope.username = $window.localStorage.username;
                     $scope.tab = {};
                     $scope.tab.tab = 1;
-
+                    
                     $scope.setTab = function(tabId) {
                         $scope.tab.tab = tabId;
                     };
