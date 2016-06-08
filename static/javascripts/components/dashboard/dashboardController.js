@@ -1,9 +1,9 @@
 /* global app, $, console */
 
 app.controller('dashboardController', ['$scope', '$window', '$location',
-    'AuthService', 'searchService', 'profileService', 'constants', 'planService',
+    'AuthService', 'searchService', 'profileService', 'constants', 'planService', '$routeParams',
     function($scope, $window, $location, AuthService, searchService,
-        profileService, constants, planService) {
+        profileService, constants, planService, $routeParams) {
         'use strict';
         
         var isAuth = false;
@@ -14,11 +14,23 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                 if(isAuth){
                     $scope.token = $window.localStorage.token;
                     $scope.username = $window.localStorage.username;
-                    $scope.tab = {};
-                    $scope.tab.tab = 1;
+                    $scope.params = $routeParams;
                     
-                    $scope.setTab = function(tabId) {
-                        $scope.tab.tab = tabId;
+                    $scope.tab = {};
+                    
+                    if($scope.params.page){
+                        $scope.tab.tab = $scope.params.page;
+                    } else {
+                        $scope.tab.tab = 'summary';
+                    }
+                    
+                    $scope.setTab = function(tab) {
+                        $scope.tab.tab = tab;
+                        if(tab !== 'addPlans' || tab !== 'createRecipe' || tab !== 'searchPlans'){
+                            $location.path('dashboard/' + tab);
+                        } else {
+                            $location.path('dashboard/summary');
+                        }
                     };
 
                     $scope.isSet = function(tabId) {

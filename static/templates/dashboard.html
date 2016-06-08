@@ -4,10 +4,10 @@
       <ul id="slide-out" class="side-nav">
           <li class="bold">
               <div class="row">
-                  <a ng-click="setTab(1)">
-                      <img ng-if="tab.tab!=1" class="icon-orig-nav"     
+                  <a ng-click="setTab('summary')">
+                      <img ng-if="tab.tab!=='summary'" class="icon-orig-nav"     
                            src="static/images/summary_deselect.png">
-                      <img ng-if="tab.tab==1" class="icon-orig-nav"
+                      <img ng-if="tab.tab==='summary'" class="icon-orig-nav"
                            src="static/images/summary.png">
                       
                       <span class="slide-nav-title">Summary</span>
@@ -16,10 +16,10 @@
           </li>
           <li class="bold">
               <div class="row">
-                  <a ng-click="setTab(2)">
-                      <img ng-if="tab.tab!=2" class="icon-orig-nav"     
+                  <a ng-click="setTab('profile')">
+                      <img ng-if="tab.tab!=='profile'" class="icon-orig-nav"     
                            src="static/images/profile_deselect.png">
-                      <img ng-if="tab.tab==2" class="icon-orig-nav"
+                      <img ng-if="tab.tab==='profile'" class="icon-orig-nav"
                            src="static/images/profile.png">
                       <span class="slide-nav-title">Profile</span>
                   </a>
@@ -27,10 +27,10 @@
          </li>
           <li class="bold">
               <div class="row">
-                  <a ng-click="setTab(3)">
-                      <img ng-if="tab.tab!=3" class="icon-orig-nav"     
+                  <a ng-click="setTab('calendar')">
+                      <img ng-if="tab.tab!=='calendar'" class="icon-orig-nav"     
                            src="static/images/calendar_deselect.png">
-                      <img ng-if="tab.tab==3" class="icon-orig-nav"
+                      <img ng-if="tab.tab==='calendar'" class="icon-orig-nav"
                            src="static/images/calendar.png">
                       <span class="slide-nav-title">Calendar</span>
                   </a>
@@ -38,10 +38,10 @@
          </li>
           <li class="bold">
               <div class="row">
-                  <a ng-click="setTab(5)">
-                      <img ng-if="tab.tab!=5" class="icon-orig-nav"     
+                  <a ng-click="setTab('plans')">
+                      <img ng-if="tab.tab!=='plans'" class="icon-orig-nav"     
                            src="static/images/myplans_deselect.png">
-                      <img ng-if="tab.tab==5" class="icon-orig-nav"
+                      <img ng-if="tab.tab==='plans'" class="icon-orig-nav"
                            src="static/images/myplans.png">
                       <span class="slide-nav-title">My Plans</span>
                   </a>
@@ -49,10 +49,10 @@
          </li>
          <li class="bold">
               <div class="row">
-                  <a ng-click="setTab(7)">
-                      <img ng-if="tab.tab!=7" class="icon-orig-nav"     
+                  <a ng-click="setTab('recipes')">
+                      <img ng-if="tab.tab!=='recipes'" class="icon-orig-nav"     
                            src="static/images/reciepes_deselect.png">
-                      <img ng-if="tab.tab==7" class="icon-orig-nav"
+                      <img ng-if="tab.tab==='recipes'" class="icon-orig-nav"
                            src="static/images/reciepes.png">
                       <span class="slide-nav-title">My Recipes</span>
                   </a>
@@ -60,22 +60,26 @@
          </li>  
           <li class="bold">
               <div class="row">
-                  <a ng-click="setTab(9)">
-                      <img ng-if="tab.tab!=9" class="icon-orig-nav"     
+                  <a ng-click="setTab('ingredients')">
+                      <img ng-if="tab.tab!=='ingredients'"
+                           class="icon-orig-nav"     
                            src="static/images/myingredients_deselect.png">
-                      <img ng-if="tab.tab==9" class="icon-orig-nav"
-                           src="static/images/myingredients.png">
+                      <img ng-if="tab.tab==='ingredients'"
+                           class="icon-orig-nav"
+                           src="static/images/myingredients_select.png">
                       <span class="slide-nav-title">My Ingredients</span>
                   </a>
               </div>
          </li>
           <li class="bold">
               <div class="row">
-                  <a ng-click="setTab(10);redirecToSearchPlan()">
-                      <img ng-if="tab.tab!=10" class="icon-orig-nav"     
+                  <a ng-click="setTab('searchPlans');redirecToSearchPlan()">
+                      <img ng-if="tab.tab!=='searchPlans'" 
+                           class="icon-orig-nav"     
                            src="static/images/searchplan_deselect.png">
-                      <img ng-if="tab.tab==10" class="icon-orig-nav"
-                           src="static/images/searchplans.png">
+                      <img ng-if="tab.tab=='searchPlans'"
+                           class="icon-orig-nav"
+                           src="static/images/searchplan.png">
                       <span class="slide-nav-title">Search Plans</span>
                   </a>
               </div>
@@ -95,17 +99,17 @@
 
 
                             <div class="col s5 m5 l5 icon-img">
-                                <a ng-click="setTab(1)"><img ng-if="tab.tab!=1"
+                                <a ng-click="setTab('summary')"><img ng-if="tab.tab!=='summary'"
                                 class="icon-orig" src="static/images/summary_deselect.png">
-                                <img ng-if="tab.tab==1" class="icon-orig" src=
+                                <img ng-if="tab.tab==='summary'" src=
                                 "static/images/summary.png"></a>
                             </div>
 
 
                             <div class="col m7 l7 center icon-label icon-label-shrt">
                                 <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(1)}" ng-click=
-                                "setTab(1)">Summary</a>
+                                "{active:tab.isSet('summary')}" ng-click=
+                                "setTab('summary')">Summary</a>
                             </div>
                         </div>
                         <!-- PROFILE TAB -->
@@ -113,17 +117,17 @@
 
                         <div class="row">
                             <div class="col s5 m5 l5 icon-img">
-                                <a ng-click="setTab(2)"><img ng-if="tab.tab!=2"
+                                <a ng-click="setTab('profile')"><img ng-if="tab.tab!=='profile'"
                                 class="icon-orig" src="static/images/profile_deselect.png">
-                                <img ng-if="tab.tab==2" src=
+                                <img ng-if="tab.tab==='profile'" src=
                                 "static/images/profile.png"></a>
                             </div>
 
 
                             <div class="col m7 l7 center icon-label icon-label-shrt">
                                 <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(2)}" ng-click=
-                                "setTab(2)">Profile</a>
+                                "{active:tab.isSet('profile')}" ng-click=
+                                "setTab('profile')">Profile</a>
                             </div>
                         </div>
                         <!-- CALENDAR TAB -->
@@ -131,17 +135,17 @@
 
                         <div class="row">
                             <div class="col s5 m5 l5 icon-img">
-                                <a ng-click="setTab(3)"><img ng-if="tab.tab!=3"
+                                <a ng-click="setTab('calendar')"><img ng-if="tab.tab!=='calendar'"
                                 class="icon-orig" src="static/images/calendar_deselect.png">
-                                <img ng-if="tab.tab==3" src=
+                                <img ng-if="tab.tab==='calendar'" src=
                                 "static/images/calendar.png"></a>
                             </div>
 
 
                             <div class="col m7 l7 center icon-label icon-label-shrt">
                                 <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(3)}" ng-click=
-                                "setTab(3)">Calendar</a>
+                                "{active:tab.isSet('calendar')}" ng-click=
+                                "setTab('calendar')">Calendar</a>
                             </div>
                         </div>
 
@@ -149,17 +153,17 @@
 
                         <div class="row">
                             <div class="col s5 m5 icon-img">
-                                <a ng-click="setTab(4)"><img ng-if="tab.tab!=4"
+                                <a ng-click="setTab('progress')"><img ng-if="tab.tab!=='progress'"
                                 class="icon-orig" src="static/images/progress_deselect.png">
-                                <img ng-if="tab.tab==4" src=
+                                <img ng-if="tab.tab==='progress'" src=
                                 "static/images/progress.png"></a>
                             </div>
 
 
                             <div class="col s7 m7 icon-label">
                                 <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(5)}" ng-click=
-                                "setTab(4)">Progress</a>
+                                "{active:tab.isSet('progress')}" ng-click=
+                                "setTab('progress')">Progress</a>
                             </div>
                         </div>
 -->
@@ -167,16 +171,16 @@
 
                         <div class="row">
                             <div class="col s5 m5 l5 icon-img">
-                                <a ng-click="setTab(5)"><img ng-if="tab.tab!=5"
+                                <a ng-click="setTab('plans')"><img ng-if="tab.tab!=='plans'"
                                 class="icon-orig" src="static/images/myplans_deselect.png">
-                                <img ng-if="tab.tab==5" src=
+                                <img ng-if="tab.tab==='plans'" src=
                                 "static/images/myplans.png"></a>
                             </div>
 
 
                             <div class="col m7 l7 center icon-label">
                                 <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(5)}" ng-click="setTab(5)">My
+                                "{active:tab.isSet('plans')}" ng-click="setTab('plans')">My
                                 Plans</a>
                             </div>
                         </div>
@@ -184,9 +188,9 @@
 
                         <div class="row hide-on-med-and-down">
                             <div class="col s5 m5 l5 icon-img">
-                                <a ng-click="openShortInfoModal()"><img ng-if="tab.tab!=6"
+                                <a ng-click="setTab('addPlan');openShortInfoModal()"><img ng-if="tab.tab!=='addPlan'"
                                 class="icon-orig" src="static/images/addplan_deselect.png">
-                                <img ng-if="tab.tab==6" src=
+                                <img ng-if="tab.tab==='addPlan'" src=
                                 "static/images/addplan.png"></a>
                             </div>
 
@@ -199,16 +203,16 @@
 
                         <div class="row">
                             <div class="col s5 m5 l5 icon-img">
-                                <a ng-click="setTab(7)"><img ng-if="tab.tab!=7"
+                                <a ng-click="setTab('recipes')"><img ng-if="tab.tab!=='recipes'"
                                 class="icon-orig" src="static/images/reciepes_deselect.png">
-                                <img ng-if="tab.tab==7" src=
+                                <img ng-if="tab.tab==='recipes'" src=
                                 "static/images/reciepes.png"></a>
                             </div>
 
 
                             <div class="col m7 l7 center icon-label">
                                 <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(7)}" ng-click="setTab(7)">My
+                                "{active:tab.isSet('recipes')}" ng-click="setTab('recipes')">My
                                 Recipes</a>
                             </div>
                         </div>
@@ -216,33 +220,33 @@
 
                         <div class="row hide-on-med-and-down">
                             <div class="col s5 m5 l5 icon-img">
-                                <a href="recipes/create-recipes" ng-click="setTab(8)"><img ng-if="tab.tab!=8"
+                                <a href="recipes/create-recipes" ng-click="setTab('createRecipe')" href="recipes/create-recipes"><img ng-if="tab.tab!=='createRecipe'"
                                 class="icon-orig" src="static/images/createrecipe_deselect.png">
-                                <img ng-if="tab.tab==8" src=
+                                <img ng-if="tab.tab==='createRecipe'" src=
                                 "static/images/createrecipe_select.png"></a>
                             </div>
 
 
                             <div class="col m7 l7 center icon-label">
                                 <a href="recipes/create-recipes" class="db_list_text" ng-class=
-                                "{active:tab.isSet(8)}" ng-click=
-                                "setTab(8)">Create Recipes</a>
+                                "{active:tab.isSet('createRecipe')}" ng-click=
+                                "setTab('createRecipe')">Create Recipes</a>
                             </div>
                         </div>
 
 
                         <div class="row">
                             <div class="col s5 m5 l5 icon-img">
-                                <a ng-click="setTab(9)"><img ng-if="tab.tab!=9"
+                                <a ng-click="setTab('ingredients')"><img ng-if="tab.tab!=='ingredients'"
                                 class="icon-orig" src="static/images/myingredients_deselect.png">
-                                <img ng-if="tab.tab==9" src=
+                                <img ng-if="tab.tab==='ingredients'" src=
                                 "static/images/myingredients_select.png"></a>
                             </div>
 
 
                             <div class="col m7 l7 center icon-label">
                                 <a class="db_list_text" ng-class=
-                                "{active:tab.isSet(9)}" ng-click="setTab(9)">My
+                                "{active:tab.isSet('ingredients')}" ng-click="setTab('ingredients')">My
                                 Ingredients</a>
                             </div>
                         </div>
@@ -250,9 +254,9 @@
 
                         <div class="row">
                             <div class="col s5 m5 l5 icon-img">
-                                <a href="dietplans/search" ng-click="setTab(10);redirecToSearchPlan()"><img ng-if="tab.tab!=10"
+                                <a href="dietplans/search" ng-click="setTab('planSearch');redirecToSearchPlan()"><img ng-if="tab.tab!=='planSearch'"
                                 class="icon-orig" src="static/images/searchplan_deselect.png">
-                                <img ng-if="tab.tab==10" src=
+                                <img ng-if="tab.tab==='planSearch'" src=
                                 "static/images/searchplan.png"></a>
                             </div>
 
@@ -270,7 +274,7 @@
             <!--SUMMARY VIEW -->
 
 
-            <div ng-if="tab.tab==1">
+            <div ng-if="tab.tab==='summary'">
                 <div class="col s12 m10">
                         <div ng-include="'static/templates/summary.html'"></div>
                 </div>
@@ -280,7 +284,7 @@
             <!-- PROFILE VIEW -->
 
 
-            <div ng-if="tab.tab==2" ng-controller="profileController">
+            <div ng-if="tab.tab==='profile'" ng-controller="profileController">
                 <div class="col s12 m10">
                     <div ng-include="'static/templates/profile.html'"></div>
                 </div>
@@ -288,7 +292,7 @@
             <!-- CALENDAR VIEW -->
 
 
-            <div ng-if="tab.tab==3">
+            <div ng-if="tab.tab==='calendar'">
                 <div class="col s12 m10">
 <!--                    <div class="col s10">-->
 <!--                        <div class="card top_mar" >-->
@@ -309,7 +313,7 @@
 <!--                </div>-->
             </div>
 
-            <div ng-if="tab.tab==5">
+            <div ng-if="tab.tab==='plans'">
                 <div class="col s12 m10">
                     <div class="top_mar" ng-controller="shortlistedPlansController">
                         <div ng-include="'static/templates/myplans.html'"></div>
@@ -317,7 +321,7 @@
                 </div>
             </div>
 
-            <div ng-if="tab.tab==7">
+            <div ng-if="tab.tab==='recipes'">
                 <div class="col s12 m10">
                     <div class="top_mar" ng-controller="shortlistedRecipesController">
                         <div ng-include="'static/templates/myrecipes.html'" ></div>
@@ -325,7 +329,7 @@
                 </div>
             </div>
 
-            <div ng-if="tab.tab==9">
+            <div ng-if="tab.tab==='ingredients'">
                 <div class="col s12 m10">
                     <div class="top_mar" ng-controller="shortlistedIngredientsController">
                         <div ng-include="'static/templates/myingredients.html'"></div>

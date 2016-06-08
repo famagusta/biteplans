@@ -78,8 +78,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                     return AuthService.isAuthenticated();
                 }]
             }
-        }).when('/dashboard', {
-//                controller: 'dashboardController',
+        }).when('/dashboard/', {
+            templateUrl: '/static/templates/dashboard.html'
+        }).when('/dashboard/:page', {
             templateUrl: '/static/templates/dashboard.html'
         }).when('/dietplans/create/overview/:id', {
             controller: 'createPlanController',
