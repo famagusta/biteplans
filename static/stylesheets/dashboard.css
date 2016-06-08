@@ -293,7 +293,6 @@ input:disabled {
 /* SUMMARY PAGE */
 
 
-
 @media only screen and (max-width : 600px) {
     ul.day-list li {
         margin-left: 9px;
@@ -306,7 +305,9 @@ input:disabled {
         top: -33px;
         left: -71px;
     }
+
 }
+
 
 #diet-calendar-cont {
     margin-top: 8px;

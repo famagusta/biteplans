@@ -17,21 +17,25 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     $scope.params = $routeParams;
                     
                     $scope.tab = {};
+                    var dashboardItems = ['summary', 'profile', 'calendar', 'myplans', 'myrecipes', 'myingredients'];
                     
-                    if($scope.params.page){
-                        $scope.tab.tab = $scope.params.page;
+                    if ($scope.params.page in dashboardItems) {
+                        $scope.tab.tab = $scope.params.page
                     } else {
                         $scope.tab.tab = 'summary';
                     }
                     
                     $scope.setTab = function(tab) {
                         $scope.tab.tab = tab;
-                        if(tab !== 'addPlans' || tab !== 'createRecipe' || tab !== 'searchPlans'){
+                        if (tab in dashboardItems){
                             $location.path('dashboard/' + tab);
-                        } else {
+                        } else if (tab === "searchPlans") {
+                            $window.location.assign('dietplans/search');
+                        }else {
                             $location.path('dashboard/summary');
                         }
                     };
+                    
 
                     $scope.isSet = function(tabId) {
                         return $scope.tab.tab === tabId;
@@ -56,6 +60,12 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                             console.log(error);
                         });
                     };
+                    
+                    $scope.isMobile = function(){
+                        /* dynamically add navbar-fixed class to navbar for mobile devices - we want the navbar to be fixed on phones but
+                        not browser*/
+                        return $window.innerWidth < 600;
+                    }
 
                     $scope.edit = 0;
 
