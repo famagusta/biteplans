@@ -15,7 +15,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.meal = {};
         $scope.meal.name = 'Meal';
         $scope.meal.time = new Date();
-        
+        $scope.searchType = 'ingredients';
         $scope.today = moment();
 
         var contextDate = moment();
@@ -384,7 +384,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         //opens modal to add ingredients/recipes on a current mealplan
         $scope.openCreatePlanModal = function(index) {
             $scope.currentMealPlanName = index;
-            $('#add-food-modal')
+            $('#add-food-summary-modal')
                 .openModal();
 
         };
@@ -574,7 +574,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             $scope.fillMealPlan(currlength, currrecipelength, $scope.currentMealPlanName);
 
             $scope.ingredientInModal.length = 0;
-            $('#add-food-modal')
+            $('#add-food-summary-modal')
                 .closeModal();
             
             $scope.details = undefined;
@@ -860,6 +860,14 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                            .unit_desc.amount);
         };
         
+        $scope.removeFromIngredientInModal = function(index) {
+            $scope.ingredientInModal.splice(index, 1);
+        };
+        
+        $scope.removeFromChecklistIng = function(index){
+            $scope.checklistIngs.splice(index, 1);    
+        };
+        
         /* calculate %age checked nutrient value */
         $scope.percentNutrientChecked = function(nutrient){
             var a = $scope.calcCheckedNutrientVal(nutrient);
@@ -867,6 +875,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var result = 100* (a/b);
             return result;
         };
-
+        
     }
 ]);

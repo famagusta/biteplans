@@ -20,16 +20,16 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="col s12 m10 push-m1">
-                            <div class="row center">
-                                <div class="col s1">
+                            <div class="row valign-wrapper center">
+                                <div class="col s1 m1">
                                     <span class=
-                                    "card-title center-align date_change"><a ng-click="getNextDay(-1)">
+                                    "card-title center-align"><a ng-click="getNextDay(-1)">
                                     <i class=
                                     "fa fa-chevron-left cyan-text"></i></a></span>
                                 </div>
 
 
-                                <div class="col s10">
+                                <div class="col s10 m10">
                                     <ul class="day-list center">
                                         <li><span class=
                                         "day_list center-align">{{navTitles.prev}}</span>
@@ -50,9 +50,9 @@
                                 </div>
 
 
-                                <div class="col s1">
+                                <div class="col s1 m1">
                                     <span class=
-                                    "card-title center-align date_change"><a ng-click="getNextDay(1)">
+                                    "card-title center-align"><a ng-click="getNextDay(1)">
                                     <i class=
                                     "fa fa-chevron-right cyan-text"></i></a></span>
                                 </div>
@@ -60,24 +60,13 @@
                         </div>
 
 
-                        <div class="col s1 m1 shift_right">
+                        <div class="col s12 m1 shift_right">
                             <span class=
                             "card-title center-align meal-text date_change"><a ng-click="calendar()">
                             <i class="material-icons">date_range</i></a></span>
                         </div>            
                     </div>
 
-
-<!--
-                    <div class="row">
-                        <div class="col s12 m12">
-                            <span class="card-title center-align"></span> 
-                            <h5 class="center-align"><span class=
-                            "card-title center-align">{{plan_summary.dietplan.name}}</span>
-                            </h5>
-                        </div>
-                    </div>
--->
                     <!--POPULATE DASHBOARD WITH RANDOM DATA-->
 
 
@@ -113,25 +102,17 @@
 
                                 <div ng-if="meal.followingMealPlanRecipe != undefined && meal.followingMealPlanRecipe.length>0" >
 
-                                <p class="ing-text meal_category" style="margin-left:11px !important">Recipes</b>
+                                <p class="ing-text meal_category" style="margin-left:11px !important">Recipes</p>
 
                                 <br><br>
                                 <div class="row">
-                                        <div class="col s3 m5 center">
+                                        <div class="col s5 m5 center">
                                             <p class="meal-head">
                                             Name</p>
                                         </div>
 
-
-                                        <div class="col s3 push-s1 m1 push-m1">
-                                           <p class="meal-head">Servings</p>
-                                        </div>
-
-
-
-
-                                        <div class="col s3 push-s1 m1 push-m2">
-                                            <p class="meal-head">Unit</p>
+                                        <div class="col s3 m3">
+                                           <p class="meal-head center">Servings</p>
                                         </div>
 
                                     </div>
@@ -142,13 +123,13 @@
                                 <div class="meal_lst" ng-repeat=
                                 '(index3, recipe) in meal.followingMealPlanRecipe'>
                                 <div class="row">
-                                        <div class="col s3 m5 push-m1">
+                                        <div class="col s5 m5">
                                             <a href="/recipes/view-recipe/{{recipe.meal_recipe.id}}/"
                                                class="name-a meal-text">
                                             <p class="meal-text">
                                             {{recipe.meal_recipe.name}}
-                                            </a>
                                             </p>
+                                            </a>
                                         </div>
 
 
@@ -163,7 +144,7 @@
                                         </div>
 
 
-                                        <div class="col s2 push-s1 m1 push-m2">
+                                        <div class="col s2 m1 push-m2">
                                             <span class=
                                             "center-align"><input 
                                             checklist-model="checklistRecipes"
@@ -179,7 +160,7 @@
                                         </div>
 
 
-                                        <div class="col s2 push-s1 m1 push-m3 bin">
+                                        <div class="col s2 m1 push-m3 bin">
                                             <span class=
                                             "card-title center-align"><a ng-click="removeRecipeFromSavedMeal(index1,index3)">
                                             <i class=
@@ -192,24 +173,24 @@
 
                                 <p class="ing-text meal_category" style="margin-left:16px !important">Ingredients</p><br>
                                 <div class="row">
-                                        <div class="col s3 m4 center">
+                                        <div class="col s7 m2 push-m1 center">
                                              <p class="meal-head">Name</p>
                                         </div>
 
 
-                                        <div class="col s3 m1">
-                                           <p class="meal-head">Quantity</p>
+                                        <div class="col s3 m2 push-m1">
+                                           <p class="meal-head right">Quantity</p>
                                         </div>
 
 
-                                        <div class="col s3 m1 push-m1">
-                                            <p>
-                                             <p class="meal-head">Weight</p></p>
+                                        <div class="col s2 m1 push-m1">
+                                            
+                                             <p class="meal-head">Weight</p>
                                         </div>
 
 
-                                        <div class="col s3 m2 push-m2 center">
-                                            <p class="meal-head center">Unit</b>
+                                        <div class="col s4 m2 push-m2 center hide-on-small-only">
+                                            <p class="meal-head center">Unit</p>
                                         </div>
 
                                     </div>
@@ -218,69 +199,140 @@
                                 <br>
                                 <div class="meal_lst" ng-repeat=
                                 '(index2, ingredient) in meal.followingMealPlanIngredient '>
-                                <div class="row">
-                                        <div class="col s5 m4">
-                                            <p class="meal-text">
-                                            {{ingredient.meal_ingredient.name}}
-                                            </p>
+                                    <div class="row valign-wrapper hide-on-small-only">
+                                        <div class="col s12 m6 valign-wrapper">
+                                            <div class="col s7">
+                                                <p class="meal-text">
+                                                {{ingredient.meal_ingredient.name}}
+                                                </p>
+                                            </div>
+
+
+                                            <div class="col s3">
+                                                <input class="dash_serving" min="0" ng-blur=
+                                                "updateMealIngredientQuantity(ingredient)"
+                                                ng-model="ingredient.quantity"
+                                                ng-pattern=
+                                                "/^[0-9]+(\.[0-9]{1,2})?$/" step=
+                                                "0.25" type="number">
+                                            </div>
+
+
+                                            <div class="col s2">
+                                                <p class="meal-text">
+                                                {{((ingredient.unit_desc.weight)* (ingredient.quantity)/ingredient.unit_desc.amount |
+                                                number:0)  +
+                                                '&nbsp;' + 'gms'}}</p>
+                                            </div>
                                         </div>
 
+                                        <div class="col s12 m6 valign-wrapper">
+                                            <div class="col s6 push-s1">
+                                                <select material-select 
+                                                ng-model=
+                                                "ingredient.unit_desc"
+                                                ng-options=
+                                                "meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
+                                                ng-change=
+                                                        "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc">
+                                                </select>
 
-                                        <div class="col s3 m1">
-                                            <input class="serving" id=
-                                            "dash_servings" min="0" ng-blur=
-                                            "updateMealIngredientQuantity(ingredient)"
-                                            ng-model="ingredient.quantity"
-                                            ng-pattern=
-                                            "/^[0-9]+(\.[0-9]{1,2})?$/" step=
-                                            "0.25" type="number">
+                                            </div>
+
+
+                                            <div class="col s2">
+
+                                                <span class=
+                                                "center-align"><input 
+                                                checklist-model="checklistIngredients"
+                                                checklist-value="ingredient" class=
+                                                "filled-in" id=
+                                                "filled-in-box-{{index1}}-{{index2}}"
+                                                ng-change=
+                                                "updateMealIngredientCheck(ingredient)"
+                                                type="checkbox"> <label for=
+                                                "filled-in-box-{{index1}}-{{index2}}"
+                                                id="summary-check-label"></label></span>
+                                            </div>
+
+
+                                            <div class="col s2 push-s1">
+                                                <span class=
+                                                "card-title center-align"><a ng-click="removeIngredientsFromSavedMeal(index1,index2)">
+                                                <i class=
+                                                "material-icons createbin">delete</i></a></span>
+                                            </div>
+
                                         </div>
 
+                                    </div>
+                                    
+                                    <div class="row hide-on-med-and-up ">
+                                        <div class="col s12 valign-wrapper">
+                                            <div class="col s7 left-align">
+                                                <p class="meal-text">
+                                                {{ingredient.meal_ingredient.name}}
+                                                </p>
+                                            </div>
 
-                                        <div class="col s3 m1 push-m1">
-                                            <p class="meal-text">
-                                            {{((ingredient.unit_desc.weight)* (ingredient.quantity)/ingredient.unit_desc.amount |
-                                            number:0)  +
-                                            '&nbsp;' + 'gms'}}</p>
+
+                                            <div class="col s3 center-align">
+                                                <input class="dash_serving" min="0" ng-blur=
+                                                "updateMealIngredientQuantity(ingredient)"
+                                                ng-model="ingredient.quantity"
+                                                ng-pattern=
+                                                "/^[0-9]+(\.[0-9]{1,2})?$/" step=
+                                                "0.25" type="number">
+                                            </div>
+
+
+                                            <div class="col s2 right-align">
+                                                <p class="meal-text">
+                                                {{((ingredient.unit_desc.weight)* (ingredient.quantity)/ingredient.unit_desc.amount |
+                                                number:0)  +
+                                                '&nbsp;' + 'gms'}}</p>
+                                            </div>
                                         </div>
 
+                                        <div class="col s12 valign-wrapper">
+                                            <div class="col s7">
+                                                <select material-select 
+                                                ng-model=
+                                                "ingredient.unit_desc"
+                                                ng-options=
+                                                "meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
+                                                ng-change=
+                                                        "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc">
+                                                </select>
 
-                                        <div class="col s3 m1 push-m2 selcol">
-                                            <select material-select 
-                                            ng-model=
-                                            "ingredient.unit_desc"
-                                            ng-options=
-                                            "meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
-                                            ng-change=
-                                                    "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc">
-                                            </select>
-                                            
+                                            </div>
+
+
+                                            <div class="col s2">
+
+                                                <span class=
+                                                "center-align"><input 
+                                                checklist-model="checklistIngredients"
+                                                checklist-value="ingredient" class=
+                                                "filled-in" id=
+                                                "filled-in-box-{{index1}}-{{index2}}"
+                                                ng-change=
+                                                "updateMealIngredientCheck(ingredient)"
+                                                type="checkbox"> <label for=
+                                                "filled-in-box-{{index1}}-{{index2}}"
+                                                id="summary-check-label"></label></span>
+                                            </div>
+
+
+                                            <div class="col s2 push-s1">
+                                                <span class=
+                                                "card-title center-align"><a ng-click="removeIngredientsFromSavedMeal(index1,index2)">
+                                                <i class=
+                                                "material-icons createbin">delete</i></a></span>
+                                            </div>
+
                                         </div>
 
-
-                                        <div class="col s3 m1 push-m3">
-
-                                            <span class=
-                                            "center-align"><input 
-                                            checklist-model="checklistIngredients"
-                                            checklist-value="ingredient" class=
-                                            "filled-in" id=
-                                            "filled-in-box-{{index1}}-{{index2}}"
-                                            ng-change=
-                                            "updateMealIngredientCheck(ingredient)"
-                                            type="checkbox"> <label class=
-                                            "ing-text highlight selcheck" for=
-                                            "filled-in-box-{{index1}}-{{index2}}"
-                                            id="check-label"></label></span>
-                                        </div>
-
-
-                                        <div class="col m1 push-m2 ing_bin">
-                                            <span class=
-                                            "card-title center-align"><a ng-click="removeIngredientsFromSavedMeal(index1,index2)">
-                                            <i class=
-                                            "material-icons createbin">delete</i></a></span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -308,19 +360,25 @@
                         </div>
 
                         <div class="col s12 m12">
-                        <div class="col s1">
-                                        <a class=
-                                        "btn-floating btn-small waves-effect waves-light"
-                                        id="add-meal-button" ng-click=
-                                        "addMealModal()"><i class=
-                                        "material-icons add-button routine">add</i></a>
-                                    </div>
+                            <div class="row valign-wrapper">
+                                <div class="col s1 left-align">
+                                    <a class=
+                                    "btn-floating btn-small add-meal-btn"
+                                    id="add-meal-button" ng-click=
+                                    "addMealModal()"><i class=
+                                    "material-icons">add</i></a>
+                                </div>
 
 
-                                    <div class="col s3">
-                                        <p class="ing-text">Add new meal</p>
-                                    </div>
-                            
+                                <div class="col s11 left-align 
+                                            hide-on-med-and-down">
+                                    <p class="ing-text">Add new meal</p>
+                                </div>
+                                
+                                <div class="col s10 push-s1 left-align show-on-small">
+                                    <p class="ing-text">Add new meal</p>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -468,80 +526,72 @@
     <!-- ADD FOOD MODAL -->
 
 
-    <div class="modal" id="add-food-modal">
+    <div class="modal modal-fixed-footer" id="add-food-summary-modal">
         <a class=
         "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
 
-        <div class="modal-content">
+        <div class="modal-content ">
             <div class="row">
-                <div class="col m6">
-                    <div class="row">
-                        <div ng-class=
-                        "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
-                            <div class="card white create-search-box" id=
-                            "searchcard">
-                                <!-- SEARCH-BOX -->
+                <div class="col s12 m4">
+                    <div class="card white create-search-box" id=
+                    "searchcard">
+                        <!-- SEARCH-BOX -->
 
 
-                                <div class="card-content black-text">
-                                    <textarea class="form-control" id=
-                                    "searchbox" ng-model="query" placeholder=
-                                    "Search Ingredient"></textarea>
-                                    <button class=
-                                    "fa fa-search search-ingredient"
-                                    fire-enter="" ng-click="searchPlan(query)"
-                                    type="submit"></button>
-                                </div>
-                            </div>
-                            <!-- END OF SEARCH-BOX -->
+                        <div class="card-content black-text">
+                            <textarea class="form-control" id=
+                            "searchbox" ng-model="query" placeholder=
+                            "Search Ingredient"></textarea>
+                            <button class=
+                            "fa fa-search search-ingredient"
+                            fire-enter="" ng-click="searchPlan(query)"
+                            type="submit"></button>
                         </div>
-                        
-                        <div ng-class=
-                        "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
-                        ng-show="filts !==undefined && filts.length&gt;0">
-                            <button class='fa fa-filter search-filter'
+                    </div>
+                    <!-- END OF SEARCH-BOX -->
+                </div>
+
+                <div class="col s12 m2 ">
+                    <div class="row center valign-wrapper">
+                        <div class="col s6 m6 search-filter-align"
+                            ng-disabled="filts !==undefined && filts.length&gt;0">
+                            <button class='fa fa-filter dashboard-search-filter'
                             data-activates='dropdown2' data-beloworigin="true"
                             dropdown-button=""></button>
                         </div>
 
 
-                        <div ng-class=
-                        "{'col s1 m1': filts!==undefined && filts.length&gt;0}"
-                        ng-show="filts !==undefined && filts.length&gt;0">
-                            <button class='fa fa-reorder search-filter'
+                        <div  class="col s6 m6 search-filter-align right-align"
+                        ng-disabled="filts !==undefined && filts.length&gt;0">
+                            <button class='fa fa-reorder dashboard-search-filter'
                             data-activates='dropdown3' data-beloworigin="true"
                             dropdown-button=""></button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col m6">
-                    <div class="row">
-                        <div class="col m4">
-                            Search type:
-                        </div>
-                        <div class="col m4">
-                            <input class="filled-in with-gap" id="searchkind1" name=
-                            "searchkind" ng-model="searchType" type="radio"
-                            value="ingredients"> <label for=
-                            "searchkind1">Ingredients</label>
-                        </div>
+                <div class="col s12 m2 search-filter-align">
+                    Search For:
+                </div>
 
+                <div class="col s6 m2 search-filter-align">
+                    <input class="filled-in with-gap " id="searchkind1" name=
+                    "searchkind" ng-model="searchType" type="radio"
+                    value="ingredients"> <label for=
+                    "searchkind1">Ingredients</label>
+                </div>
 
-                        <div class="col m4">
-                            <input class="filled-in with-gap" id="searchkind2" name=
-                            "searchkind" ng-model="searchType" type="radio"
-                            value="recipes"> <label for=
-                            "searchkind2">Recipes</label>
-                        </div>
-                    </div>
-                    
+                <div class="col s6 m2 search-filter-align">
+                    <input class="filled-in with-gap" id="searchkind2" name=
+                    "searchkind" ng-model="searchType" type="radio"
+                    value="recipes"> <label for=
+                    "searchkind2">Recipes</label>
                 </div>
             </div>
 
 
             <div class="row">
-                <div class="col m6 create-modal-half1">
+                <div class="col s12 m6">
                     <div class="searchresult-create row">
                         <div ng-repeat=
                         "detail in details.results track by $index">
@@ -583,11 +633,11 @@
                 </div>
 
 
-                <div class="col m6">
+                <div class="col s12 m6">
                     <div class="nutsection">
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col m6" ng-if=
+                            <div class="col s12 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a ahead servehead">Serving per 100
                                 grams:</p>
@@ -597,13 +647,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Calories (kcal)</p>
                             </div>
 
 
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].energy_kcal}}</p>
@@ -613,13 +663,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Proteins</p>
                             </div>
 
 
-                            <div class="col m6">
+                            <div class="col s6 m6">
                                 <p class="a b" ng-if=
                                 "checklistIngs[checklistIngs.length-1]">
                                 {{checklistIngs[checklistIngs.length-1].protein_tot}}</p>
@@ -629,13 +679,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Fats</p>
                             </div>
 
 
-                            <div class="col m5" ng-if=
+                            <div class="col s5 m5" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].fat_tot}}</p>
@@ -645,13 +695,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Carbohydrates</p>
                             </div>
 
 
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].carbohydrate_tot}}</p>
@@ -661,13 +711,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Fiber</p>
                             </div>
 
 
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].fiber_tot}}</p>
@@ -677,13 +727,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Water</p>
                             </div>
 
 
-                            <div class="col m6" ng-if=
+                            <div class="col s6 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].water}}</p>
@@ -694,32 +744,32 @@
                     <br>
 
 
-                    <div class="row" ng-repeat="item in ingredientInModal">
-                        <div class="col m10 meal-list">
+                    <div class="row" ng-repeat="(index, food) in ingredientInModal">
+                        <div class="col s10 m10 meal-list">
                             <p class="ing-text meal-list" ng-if=
-                            "ingredientInModal.length&gt;0">{{item.name}}</p>
+                            "ingredientInModal.length&gt;0">{{food.name}}</p>
                         </div>
 
 
-                        <div class="col m2 meal-list">
+                        <div class="col s2 m2 meal-list">
                             <a href="#" ng-click=
-                            "removeIngredient(item)"><i class=
+                            "removeFromIngredientInModal(index)"><i class=
                             "material-icons meal-list right createbin dustbin" ng-if=
                             "ingredientInModal.length&gt;0">delete</i></a>
                         </div>
                     </div>
 
 
-                    <div class="row" ng-repeat="item in checklistIngs">
-                        <div class="col m10 meal-list">
+                    <div class="row" ng-repeat="(index, checkIng) in checklistIngs">
+                        <div class="col s10 m10 meal-list">
                             <p class="ing-text meal-list" ng-if=
-                            "checklistIngs.length&gt;0">{{item.name}}</p>
+                            "checklistIngs.length&gt;0">{{checkIng.name}}</p>
                         </div>
 
 
-                        <div class="col m2 meal-list">
+                        <div class="col s2 m2 meal-list">
                             <a href="#" ng-click=
-                            "removeIngredient(item)"><i class=
+                            "removeFromChecklistIng(index)"><i class=
                             "material-icons meal-list right createbin dustbin" ng-if=
                             "checklistIngs.length&gt;0">delete</i></a>
                         </div>
@@ -728,12 +778,12 @@
             </div>
         </div>
 
-
-        <div class="row">
-            <div class="col m12 center">
-                <a class="waves-effect waves-light btn btn-social largebtn"
-                ng-click="addContents()">Add</a>
-            </div>
-        </div>
+        
+            
+         <div class="fixed-action-btn" style="bottom: 45px; left:45%">
+            <a class="btn-floating btn-large bp_red" ng-click="addContents()">
+              <i class="large material-icons">add</i>
+            </a>
+      </div>
     </div>
 </section>

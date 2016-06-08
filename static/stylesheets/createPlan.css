@@ -25,7 +25,7 @@ form div.container {
 }
 
 input[type=text], input[type=number] {
-    width: 90% !important;
+/*    width: 90% !important;*/
 }
 
 div#create-form {
@@ -243,7 +243,7 @@ hr {
 }
 
 .btn-floating i {
-    line-height: 23px !important;
+/*    line-height: 23px !important;*/
 }
 
 #add-food-modal {
@@ -341,6 +341,7 @@ input[type=time] {
 .meal-text {
     color: #212121 !important;
     text-transform: lowercase;
+    text-align: center;
     opacity: 54% !important;
     font-size: 13sp !important;
 }
@@ -359,16 +360,20 @@ input[type=time] {
 }
 
 .btn-floating {
+/*
     height: 21px;
     width: 21px;
     line-height: 20px !important;
     background-color: #00bcd4 !important;
+*/
 }
 
 .btn-floating i {
+/*
     font-size: 18px;
     line-height: 23px !important;
     background-color: #00bcd4 !important;
+*/
 }
 
 .down {
@@ -467,12 +472,16 @@ input.select-dropdown{
 */
 
 .select-wrapper input.select-dropdown {
+/*
     text-align: -webkit-center;
     line-height: 0rem !important;
+*/
 /*    border-color: #ddd !important;*/
+/*
     margin: 15px 3px 0 0 !important;
     height: 21px !important;
     width: 5em !important;
+*/
 }
 
 #nutsinfo {
@@ -557,8 +566,10 @@ input[type=number].time-input {
 */
 
 .select-wrapper span.caret {
+/*
     top: 3px !important;
     left: 66px !important;
+*/
 }
 
 select {

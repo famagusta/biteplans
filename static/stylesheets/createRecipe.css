@@ -110,8 +110,10 @@ h5.recipe-subheading {
 }
 
 .select-wrapper {
+/*
     position: relative;
     margin-top: -1px !important;
+*/
 }
 
 #select-delete-mat {
