@@ -11,6 +11,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             AuthService.isAuthenticated()
                 .then(function(response) {
                     $scope.isLoggedIn = response.status;
+                    profileService.getProfile();
                 }, function(error) {
                     $scope.isLoggedIn = false;
                 });
@@ -108,14 +109,12 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             var password = $scope.signup.registerPassword;
             var confirm = $scope.signup.confirmPassword;
             var email = $scope.signup.email;
-            //    console.log(username,password,confirm,email);
 
             if (username && password && confirm && email) {
                 AuthService.register(username, password, confirm,
                         email)
                     .then(
                         function(response) {
-                            //          console.log(response.success);
                             $scope.registerSuccess = response.success +
                                 "Please check your email account to activate your profile";
                         },
@@ -143,11 +142,9 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     .then(
                         function(response) {
                             $scope.isLoggedIn = true;
-                            profileService.getProfile();
                             $('#modal1')
                                 .closeModal();
-//                            location.reload();
-                            //$location.path('/dashboard');
+                            checkLoggedIn();
 
                         },
                         function(error) {
@@ -166,9 +163,8 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
         $scope.logout = function() {
             var response = AuthService.logout();
             if (response) {
-                //console.log($scope.isLoggedIn);
                 $scope.isLoggedIn = false;
-                $location.path('/');
+                $window.location.assign('/');
             }
 //            location.reload();
         };
@@ -179,13 +175,10 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 .then(function(response) {
                     //    console.log(response);
                     $scope.isLoggedIn = true;
-                    //close the modal if login is success
                     
-                    $('#modal1')
-                        .closeModal();
-//                    location.reload();      
-                    //proceed to dashboard
-                    //$location.path('/dashboard');
+                    //close the modal if login is success
+                    $('#modal1').closeModal();
+                    checkLoggedIn();
                 }, function(error) {
                     //there is an error
                     $scope.loginError = error;
@@ -219,7 +212,6 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
         };
         
         $scope.load = function(path){
-            console.log('loading window');
             $window.location.assign(path);  
         };
 

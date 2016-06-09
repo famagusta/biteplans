@@ -3,8 +3,11 @@
 /* Angular Controller for summary tab on dashboard. Allows a user to check followed items of a plan */
 
 app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
-    function($scope, summaryService, searchService) {
+    '$rootScope', '$routeParams',
+    function($scope, summaryService, searchService, $rootScope, $routeParams) {
         'use strict';
+        
+        var date = $routeParams.date;
 
         $scope.plan_data = [];
         $scope.plan_summary = [];
@@ -18,16 +21,26 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.searchType = 'ingredients';
         $scope.today = moment();
 
+        
         var contextDate = moment();
-
-
-        $scope.navDates = {
-            current: moment(),
-            next: moment()
-                .add(1, "days"),
-            prev: moment()
-                .subtract(1, "days")
-        };
+        if(date){
+            $scope.navDates = {
+                current: moment(date),
+                next: moment(date)
+                    .add(1, "days"),
+                prev: moment(date)
+                    .subtract(1, "days")
+            };
+            contextDate = moment(date);
+        }else{
+            $scope.navDates = {
+                current: moment(),
+                next: moment()
+                    .add(1, "days"),
+                prev: moment()
+                    .subtract(1, "days")
+            };
+        }
 
 
         $scope.navTitles = {
@@ -37,7 +50,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         };
         
         
-
         /*check whether selected date is same as today, 
         yesterday or tomorrow and set titles accordingly*/
         $scope.checkNavTitle = function() {
@@ -96,7 +108,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             }
         };
 
-
+        $scope.checkNavTitle();
 
         // array to store modal ingredients to add
         $scope.MealIngredients2Add = [];
@@ -346,20 +358,6 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         };
 
 
-        // check if we are being redirected from the calendar page
-        if ($scope.tab.dateClick !== undefined) {
-            $scope.navDates = {
-                current: moment($scope.tab.dateClick),
-                next: moment($scope.tab.dateClick)
-                    .add(1, "days"),
-                prev: moment($scope.tab.dateClick)
-                    .subtract(1, "days")
-            };
-            contextDate = moment($scope.tab.dateClick);
-            $scope.checkNavTitle();
-            $scope.getDayPlan(contextDate.format('YYYY-MM-DD'));
-        }
-
         $scope.getDayPlan(contextDate.format('YYYY-MM-DD'));
 
         $scope.getNextDay = function(direction) {
@@ -449,8 +447,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
                                 6;
-                            console.log($scope.details);
-                            console.log(response);
+                            
                         }, function(error) {
                             console.log(error);
                         });
@@ -466,8 +463,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
                                 6;
-                            console.log($scope.details);
-                            console.log(response);
+                            
                         }, function(error) {
                             console.log(error);
                         });
@@ -482,8 +478,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             $scope.currentPage = page;
                             $scope.pageSize = response.total *
                                 6;
-                            console.log($scope.details);
-                            console.log(response);
+                            
                         }, function(error) {
                             console.log(error);
                         });

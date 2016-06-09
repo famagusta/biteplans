@@ -75,7 +75,7 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     };
 
                     $scope.calendar = function(){
-                        $scope.tab.tab = 3;
+                        $scope.tab.tab = 'calendar';
                     };
                 }else{
                     $location.path("/");

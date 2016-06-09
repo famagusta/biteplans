@@ -9,9 +9,8 @@ app.config(['$mdThemingProvider', function($mdThemingProvider)
         .accentPalette("light-green");
 }]);
 app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
-                                'httpService', 'AuthService',
-                                'MaterialCalendarData', 'calendarService',
-                                function($scope, $filter, $q, $timeout, $log, httpService, AuthService, MaterialCalendarData,
+                                'httpService', 'AuthService', '$location', 'MaterialCalendarData', 'calendarService',
+                                function($scope, $filter, $q, $timeout, $log, httpService, AuthService, $location, MaterialCalendarData,
         calendarService)
     {
         'use strict';
@@ -30,9 +29,10 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
         };
         $scope.dayClick = function(date)
         {
-            $scope.tab.dateClick = $filter("date")(date, "y-MM-d");
-            //        $scope.tab.tab = 1;
-            $scope.setTab(1);
+//            $scope.setTab('summary');
+            $location.search('date', null)
+            var dateClick = $filter("date")(date, "y-MM-d");
+            $location.path('/dashboard/summary').search('date', dateClick);
         };
         $scope.prevMonth = function(data)
         {
