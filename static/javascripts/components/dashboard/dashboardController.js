@@ -17,17 +17,18 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     $scope.params = $routeParams;
                     
                     $scope.tab = {};
-                    var dashboardItems = ['summary', 'profile', 'calendar', 'myplans', 'myrecipes', 'myingredients'];
+                    var dashboardItems = ['summary', 'profile', 'calendar', 'plans', 'recipes', 'ingredients'];
                     
-                    if ($scope.params.page in dashboardItems) {
-                        $scope.tab.tab = $scope.params.page
-                    } else {
+                    if (dashboardItems.indexOf($scope.params.page) > -1) {
+                        
+                        $scope.tab.tab = $scope.params.page;
+                    } 
+                    else {
                         $scope.tab.tab = 'summary';
                     }
                     
                     $scope.setTab = function(tab) {
-                        $scope.tab.tab = tab;
-                        if (tab in dashboardItems){
+                        if (dashboardItems.indexOf(tab) > -1){
                             $location.path('dashboard/' + tab);
                         } else if (tab === "searchPlans") {
                             $window.location.assign('dietplans/search');
@@ -37,7 +38,7 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     };
                     
 
-                    $scope.isSet = function(tabId) {
+                    $scope.tab.isSet = function(tabId) {
                         return $scope.tab.tab === tabId;
                     };
                     

@@ -2,8 +2,8 @@
 
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService',
-    'profileService', '$rootScope', 'constants',
-    function($scope, $location, AuthService, profileService, $rootScope, constants) {
+    'profileService', '$rootScope', 'constants', '$window',
+    function($scope, $location, AuthService, profileService, $rootScope, constants, $window) {
         'use strict';
         // function to check whether the person is logged in or not
         $scope.isLoggedIn = false;
@@ -143,6 +143,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     .then(
                         function(response) {
                             $scope.isLoggedIn = true;
+                            profileService.getProfile();
                             $('#modal1')
                                 .closeModal();
 //                            location.reload();
@@ -215,6 +216,11 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                             'Something went wrong, try again later';
                     });
 
+        };
+        
+        $scope.load = function(path){
+            console.log('loading window');
+            $window.location.assign(path);  
         };
 
     }

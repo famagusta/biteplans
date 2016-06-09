@@ -3,35 +3,35 @@
 <div class="ng-cloak" ng-class="{'navbar-fixed' : isMobile()}" ng-cloak="" ng-controller="navbarController">
     <ul class="dropdown-content" id="dropdown1">
         <li>
-            <a class="cyan-text" href="/dashboard/summary">Dashboard</a>
+            <a class="cyan-text" ng-click="load('/dashboard/summary')">Dashboard</a>
         </li>
 
 
         <li>
-            <a class="cyan-text" ng-click="logout()">Logout</a>
+            <a class="cyan-text" ng-click="logout();load('/')">Logout</a>
         </li>
     </ul>
     
      <nav class="navbar " role="navigation" id="dashboard-navbar">
         <div class="nav-wrapper" style="background-color: white !important">
-            <a class="brand-logo" href="/" id="logo-container" ng-class=
-            '{"inactive":toggle==0}' ng-click='toggle=0'><img class=
+            <a class="brand-logo" ng-click="load('/')" id="logo-container" ng-class=
+            '{"inactive":toggle==0}' ><img class=
             "responsive-img small" id="smallLogo" src=
             "static/images/Logo-new.png"></a>
       
             <ul class="right hide-on-med-and-down" id="main_menu">
                 <li ng-class='{"active":toggle==1}' ng-click='toggle=1'>
-                    <a href="/dietplans/search">Plans</a>
+                    <a ng-click="load('/dietplans/search')">Plans</a>
                 </li>
 
 
                 <li ng-class='{"active":toggle==2}' ng-click='toggle=2'>
-                    <a href="/ingredients">Ingredients</a>
+                    <a ng-click="load('/ingredients')">Ingredients</a>
                 </li>
 
 
                 <li ng-class='{"active":toggle==3}' ng-click='toggle=3'>
-                    <a href="/recipes/search">Recipes</a>
+                    <a ng-click="load('/recipes/search')">Recipes</a>
                 </li>
 
 
@@ -62,20 +62,20 @@
                 </li>
 
                 <li>
-                    <a href="/dashboard" class="cyan-text" ng-if="isLoggedIn">Dashboard</a>
+                    <a ng-click="load('/dashboard/summary')" class="cyan-text" ng-if="isLoggedIn">Dashboard</a>
                 </li>
 
                 <li>
-                <a class="cyan-text" href="/dietplans/search">Plans</a>
+                <a class="cyan-text" ng-click="load('/dietplans/search')">Plans</a>
                 </li>
 
                 <li>
-                <a class="cyan-text" href=
-                "/ingredients">Ingredients</a>
+                <a class="cyan-text" ng-click=
+                "load('/ingredients')">Ingredients</a>
                 </li>
 
                 <li>
-                <a class="cyan-text" href="/recipes/search">Recipes</a>
+                <a class="cyan-text" ng-click="load('/recipes/search')">Recipes</a>
                 </li>
 
                 <li>
