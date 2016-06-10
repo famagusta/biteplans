@@ -297,57 +297,56 @@
 
                                     <div class="row center lowbo" ng-if=
                                     "meal.mealingredient.length&gt;0">
-                                        <div class="col s4 m4">
+                                        <div class="col s3 m3">
                                             <p class="meal-head center">Name</p>
                                         </div>
 
 
                                         <div class="col s1 m1">
-                                            <p class="meal-head selco">Amt</p>
+                                            <p class="meal-head right">Amt</p>
                                         </div>
 
 
-                                        <div class="col s1 m1">
-                                            <p class="meal-head selco">Unit</p>
+                                        <div class="col s1 m2">
+                                            <p class="meal-head ">Unit</p>
                                         </div>
 
 
-                                        <div class="col s1 m1">
-                                            <p class="meal-head selco">Carbs</p>
+                                        <div class="col s1 m2">
+                                            <p class="meal-head center">Carbs</p>
                                         </div>
 
 
-                                        <div class="col s1 m1">
-                                            <p class="meal-head selco">Proteins</p>
+                                        <div class="col s1 m2 pull-m1">
+                                            <p class="meal-head center">Proteins</p>
                                         </div>
 
 
-                                        <div class="col s1 m1">
-                                            <p class="meal-head selco">Fats</p>
+                                        <div class="col s1 m1 pull-m1">
+                                            <p class="meal-head left">Fats</p>
                                         </div>
 
 
-                                        <div class="col s1 m1">
-                                            <p class="meal-head selco">Calories</p>
+                                        <div class="col s1 m1 pull-m1">
+                                            <p class="meal-head left">Calories</p>
                                         </div>
                                     </div>
                                     <br>
 
 
                                     <div class=
-                                    "row selected-meal-ingredient-list"
+                                    "row valign-wrapper"
                                     ng-repeat=
                                     "(index2, ingredient) in meal.mealingredient">
-                                    <div class="col s4 m4 center">
+                                    <div class="col s3 m3 center">
                                             <p class="meal-text ingredient-meal-text"
                                             ng-model="plan.ingredientData">
                                             {{ingredient.ingredient.name}}</p>
-                                        <br>
                                         </div>
 
 
-                                        <div class="col s1 m1">
-                                            <input class="serving" min="0" 
+                                        <div class="col s1 m1" style="text-align: center !important">
+                                            <input class="" style="text-align:center !important; margin-left: inherit !important;" min="0" 
                                             ng-blur=
                                             "updateMealIngredient(item1)"
                                             ng-model="ingredient.quantity"
@@ -358,7 +357,7 @@
 
 
                                         <div class=
-                                        "input-field col m2 s2 selcol">
+                                        "col m2 s2">
                                             <select id="ing_select"
                                             material-select="" ng-change=
                                             "updateIngredientQuantity(index2);updateMealIngredient(ingredient)"
