@@ -228,13 +228,14 @@
 
                                         <div class="col s12 m6 valign-wrapper">
                                             <div class="col s6 push-s1">
-                                                <select material-select 
+                                                <select 
                                                 ng-model=
                                                 "ingredient.unit_desc"
                                                 ng-options=
                                                 "meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
                                                 ng-change=
-                                                        "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc">
+                                                        "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc"
+                                                 material-select watch>
                                                 </select>
 
                                             </div>

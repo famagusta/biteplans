@@ -38,7 +38,7 @@ app.filter('num', function() {
 //});
 
 // this works
-app.directive("materialSelect", ["$compile", "$timeout", function ($compile, $timeout) {
+app.directive("materialSelectDefunct", ["$compile", "$timeout", function ($compile, $timeout) {
             return {
                 link: function (scope, element, attrs) {
                     if (element.is("select")) {

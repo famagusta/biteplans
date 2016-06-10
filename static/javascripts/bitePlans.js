@@ -6,7 +6,8 @@ var app = angular.module('biteplans', [
     'satellizer', 'ngRoute', 'bw.paging',
     'ngMaterial', 'materialCalendar',
     'angular-svg-round-progressbar',
-    'ng.httpLoader', 'angular-img-cropper'
+    'ng.httpLoader', 'angular-img-cropper',
+    'ui.materialize'
 ]);
 
 var constantData = {
