@@ -121,15 +121,19 @@
                         </div>
 
 
-                        <div class="col m2">
-                        <h5 class="ing-text center">Amt</p>
+                        <div class="col m1">
+                        <h5 class="ing-text ">Amt</p>
+                        </div>
+                        
+                        
+                        <div class="col m1 left" >
+                        <h5 class="ing-text">Unit</h5>
                         </div>
 
-
-                        <div class="col m2" >
-                        <h5 class="ing-text center">Unit</h5>
+                        <div class="col m2 pull-m1">
+                        <h5 class="ing-text center">Weight</p>
                         </div>
-
+                        
                         <div class="col m6">
                             <div class="row center">
                                 <h5 class="recipe-subheading">Nutritional
@@ -143,20 +147,20 @@
                         <div class="col s12 m6">
                             <div class="row valign-wrapper" ng-repeat=
                             "selectedIngredient in ingredientDisplay track by $index">
-                            <div class="col s6">
+                            <div class="col s12 m6 pull-m1">
                                     <p class="meal-text">
                                     {{ingredientDisplay[$index].ingredient.name}}</p>
                                 </div>
 
 
-                                <div class="col s2">
+                                <div class="col s3 m2 pull-m1">
                                     <input id="serving" min="0" ng-model=
                                     "ingredientDisplay[$index].quantity" step=
                                     "0.25" type="number"><br>
                                 </div>
 
 
-                                <div class="col s2">
+                                <div class="col s3 m2 pull-m1">
                                     <select material-select="" ng-model=
                                     "ingredientDisplay[$index].selected_measure"
                                     ng-options=
@@ -164,9 +168,16 @@
                                     required="">
                                         </select>
                                 </div>
+                                
+                                <div class="col s3 m2 pull-m1">
+                                    <p class="meal-text">
+                                    {{ingredientDisplay[$index].quantity * ingredientDisplay[$index].selected_measure.weight | number:0
+                                    }} &nbsp;gms
+                                    </p>
+                                </div>
 
 
-                                <div class="select-delete-mat col s2">
+                                <div class="select-delete-mat col s3 m2">
                                     <a ng-click="removeIngs($index)"><i class=
                                     "material-icons createbin">delete</i></a>
                                 </div>
@@ -478,7 +489,7 @@
 
 
                 <div class="row">
-                    <div class="col m6 create-modal-half1">
+                    <div class="col s12 m6 create-modal-half1">
                         <div class="searchresult-create row">
                             <div ng-repeat=
                             "detail in details.results track by $index">
@@ -520,7 +531,7 @@
                     </div>
 
 
-                    <div class="col m6">
+                    <div class="col s12 m6">
                         <div class="nutsection">
                             <div class="row hline" ng-if="lastChecked">
                                 <div class="col m6" ng-if="lastChecked">
@@ -649,6 +660,7 @@
             </div>
 
 
+<!--
             <div class="row">
                 <div class="col m12 center">
                     <a class="waves-effect waves-light btn btn-social largebtn"
@@ -656,6 +668,13 @@
                     "addContents();calculateTotalInfoForRecipes()">Add</a>
                 </div>
             </div>
+-->
+            
+            <div class="fixed-action-btn" style="bottom: 45px; left:47%">
+                <a class="btn-floating btn-large bp_red" ng-click="addContents();calculateTotalInfoForRecipes()">
+                  <i class="large material-icons">add</i>
+                </a>
+          </div>
         </div>
 
 

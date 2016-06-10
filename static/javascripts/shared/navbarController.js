@@ -214,6 +214,21 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
         $scope.load = function(path){
             $window.location.assign(path);  
         };
+        
+        
 
     }
 ]);
+
+app.controller("landingPageController", ['$scope', '$window', function($scope, $window){
+    $scope.getBanner = function(){
+        $scope.banner = '';
+        console.log($window.innerWidth);
+            if($window.innerWidth > 600){
+                $scope.banner = "static/images/banner_bg.jpg"
+            }else{
+                $scope.banner = "static/images/mobile_bg.jpg"
+            }
+        };
+    $scope.getBanner();
+}]);

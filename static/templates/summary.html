@@ -629,6 +629,7 @@
                             text-title-prev="Previous" 
                             paging-action="searchPlan(query, page)">
                         </paging> 
+                        <br>
                     </div>
                 </div>
 
@@ -647,13 +648,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s8 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Calories (kcal)</p>
                             </div>
 
 
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s4 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].energy_kcal}}</p>
@@ -663,13 +664,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s8 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Proteins</p>
                             </div>
 
 
-                            <div class="col s6 m6">
+                            <div class="col s4 m6">
                                 <p class="a b" ng-if=
                                 "checklistIngs[checklistIngs.length-1]">
                                 {{checklistIngs[checklistIngs.length-1].protein_tot}}</p>
@@ -679,13 +680,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s8 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Fats</p>
                             </div>
 
 
-                            <div class="col s5 m5" ng-if=
+                            <div class="col s4 m5" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].fat_tot}}</p>
@@ -695,13 +696,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s8 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Carbohydrates</p>
                             </div>
 
 
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s4 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].carbohydrate_tot}}</p>
@@ -711,13 +712,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s8 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Fiber</p>
                             </div>
 
 
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s4 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].fiber_tot}}</p>
@@ -727,13 +728,13 @@
 
                         <div class="row hline" ng-if=
                         "checklistIngs[checklistIngs.length-1]">
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s8 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b ahead">Water</p>
                             </div>
 
 
-                            <div class="col s6 m6" ng-if=
+                            <div class="col s4 m6" ng-if=
                             "checklistIngs[checklistIngs.length-1]">
                                 <p class="a b">
                                 {{checklistIngs[checklistIngs.length-1].water}}</p>
@@ -745,13 +746,13 @@
 
 
                     <div class="row" ng-repeat="(index, food) in ingredientInModal">
-                        <div class="col s10 m10 meal-list">
+                        <div class="col s8 m10 meal-list">
                             <p class="ing-text meal-list" ng-if=
                             "ingredientInModal.length&gt;0">{{food.name}}</p>
                         </div>
 
 
-                        <div class="col s2 m2 meal-list">
+                        <div class="col s4 m2 meal-list">
                             <a href="#" ng-click=
                             "removeFromIngredientInModal(index)"><i class=
                             "material-icons meal-list right createbin dustbin" ng-if=
@@ -761,13 +762,13 @@
 
 
                     <div class="row" ng-repeat="(index, checkIng) in checklistIngs">
-                        <div class="col s10 m10 meal-list">
+                        <div class="col s8 m10 meal-list">
                             <p class="ing-text meal-list" ng-if=
                             "checklistIngs.length&gt;0">{{checkIng.name}}</p>
                         </div>
 
 
-                        <div class="col s2 m2 meal-list">
+                        <div class="col s4 m2 meal-list">
                             <a href="#" ng-click=
                             "removeFromChecklistIng(index)"><i class=
                             "material-icons meal-list right createbin dustbin" ng-if=
@@ -776,14 +777,13 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="fixed-action-btn" style="bottom: 45px; left:45%">
+                <a class="btn-floating btn-large bp_red" ng-click="addContents()">
+                  <i class="large material-icons">add</i>
+                </a>
+          </div>
         </div>
 
-        
-            
-         <div class="fixed-action-btn" style="bottom: 45px; left:45%">
-            <a class="btn-floating btn-large bp_red" ng-click="addContents()">
-              <i class="large material-icons">add</i>
-            </a>
-      </div>
     </div>
 </section>

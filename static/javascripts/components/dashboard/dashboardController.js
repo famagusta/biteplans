@@ -5,7 +5,13 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
     function($scope, $window, $location, AuthService, searchService,
         profileService, constants, planService, $routeParams) {
         'use strict';
-        
+        $('.button-collapse-1').sideNav({
+          menuWidth: 300, // Default is 240
+          closeOnClick: true, 
+            edge:'left'
+        // Closes side-nav on <a> clicks, useful for Angular/Meteor
+
+        });
         var isAuth = false;
         
         AuthService.isAuthenticated()
@@ -28,6 +34,7 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     }
                     
                     $scope.setTab = function(tab) {
+                        $('.button-collapse-2').sideNav('hide');
                         if (dashboardItems.indexOf(tab) > -1){
                             $location.path('dashboard/' + tab);
                         } else if (tab === "searchPlans") {

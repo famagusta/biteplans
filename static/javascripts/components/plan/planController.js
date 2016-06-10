@@ -353,6 +353,8 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             return filterNames[filter];
         };
         
+        $scope.factor = 50;
+        
         if(constants.userOb.status){
             getUserPlanRatings();
             getUserPlans();

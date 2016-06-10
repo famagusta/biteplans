@@ -119,3 +119,9 @@ div.select-wrapper{
         height: 50px !important;
     }
 }
+
+.filter-text {
+    color: #212121 !important;
+    opacity: 54% !important;
+    font-size: 13sp !important;
+}

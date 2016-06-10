@@ -239,3 +239,22 @@ video {
     display:inline-block;
     font-weight:600 !important;
 }
+
+.slides {
+    height: 500px !important;
+    padding-bottom: 20px !important;
+}
+
+.lp-carousel-head-highlight {
+    color: #212121;
+    font-weight:600 !important;
+}
+
+.lp-carousel-head {
+    color: #212121;
+    font-weight:100 !important;
+}
+
+.lp-subtext {
+    color:#727272;
+}
