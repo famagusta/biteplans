@@ -235,7 +235,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* search function for the ingredient modal */
                     $scope.foodgroup = [];
-
+                    $scope.sortby = '';
 
                     //Checks for applied filters, as soon as a new filter is applied or removed
                     //search result is changed.
@@ -280,6 +280,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 .then(function(response) {
                                     $scope.details = response;
                                     $scope.filts = response.filters; 
+                                    console.log($scope.details);
                                     //model for storing response from API                
                                     // pagination
                                     $scope.currentPage = page;
@@ -310,6 +311,12 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.lastChecked = null;
                         $('#add-ingredients-modal')
                             .openModal();
+                        $scope.details = undefined;
+                        $scope.filts = undefined;
+                        $scope.query = undefined;
+                        $scope.pageSize = null;
+                        $scope.currentPage = null;
+                        $scope.foodgroup = [];
                     };
                     
                     /* function that opens the upload image modal */
@@ -457,7 +464,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.query = undefined;
                         $scope.pageSize = null;
                         $scope.currentPage = null;
-//                        $scope.foodgroup = null; // this created a bug
+                        $scope.foodgroup = []; // this created a bug
 
                     };
                     //checks whether an ingredient is already selected or not

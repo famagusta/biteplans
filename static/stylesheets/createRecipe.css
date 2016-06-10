@@ -149,7 +149,38 @@ button#img_upload_btn {
 }
     
 /* margin for filter select in modal */
-    #dropdown2 li {
-        margin-top: 10px !important;
-        margin-left: 10px !important;
-    }
+#dropdown-create-recipe-sort{
+
+}
+#dropdown-create-recipe-sort li {
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+}
+
+#dropdown-create-recipe-sort2{
+    white-space: nowrap;
+    position: absolute;
+    top: 91px;
+    left: 682.078px;
+    opacity: 1;
+    display: block;
+    width: 20%;
+}
+    
+#dropdown-edit-recipe-sort{
+
+}
+#dropdown-edit-recipe-sort li {
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+}
+
+#dropdown-edit-recipe-sort2{
+    white-space: nowrap;
+    position: absolute;
+    top: 91px;
+    left: 682.078px;
+    opacity: 1;
+    display: block;
+    width: 20%;
+}

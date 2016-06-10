@@ -1,5 +1,5 @@
 <section class="recipe-view" id="create-plan">
-    <ul class="dropdown-content filter-ul" id="dropdown2">
+    <ul class="dropdown-content filter-ul" id="dropdown-create-recipe-sort">
         <li ng-repeat="filter in filts track by $index"><input checked=
         "checked" checklist-model="foodgroup" checklist-value="filter['0']"
         class="filled-in" id="filled-in-box1{{$index}}" type="checkbox">
@@ -7,7 +7,7 @@
     </ul>
 
 
-    <ul class="dropdown-content filter-ul" id="dropdown3">
+    <ul class="dropdown-content filter-ul" id="dropdown-edit-recipe-sort2">
         <li ng-repeat="filter in details.sortlist track by $index">
         <input class="filled-in" id="filledin{{$index}}" name="sortradio"
         ng-click="search(1, sortby)" ng-model="sortby" type="radio" value=
@@ -59,39 +59,38 @@
                                 <div class="col s7">
                                      <div class="row">
                                         <div class="col s4">
-                                            <h5 class="recipe-subheading">
+                                            <h5 class="recipe-subheading center">
                                             Ingredients</h5>
                                         </div>
 
 
-                                        <div class="col s12 m2 push-m1" ng-if=
+                                        <div class="col s12 m3 pull-m1" ng-if=
                                         "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                                        <h5 class="recipe-subheading center">Amt</h5>
+                                        <h5 class="recipe-subheading right">Amt</h5>
                                         </div>
 
 
-                                        <div class="col s12 m2 push-m1" ng-if=
+                                        <div class="col s12 m2" ng-if=
                                         "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                                        <h5 class="recipe-subheading center">Unit</h5>
+                                        <h5 class="recipe-subheading left">Unit</h5>
                                         </div>
                                     </div>
                             
-                                    <div class="row" 
+                                    <div class="row valign-wrapper" 
                                          ng-repeat="ing in ingredientDisplay track by $index">
                                         <div class="col s4">
                                             <p class="meal-text">
                                             {{ing.ingredient.name}}</p>
                                         </div>
 
-                                        <div class="col s2 push-s1">
-                                            <br>
+                                        <div class="col s2">
                                             <input id="serving" min="0" ng-model=
                                             "ing.quantity" step=
-                                            "0.25" type="number"><br>
+                                            "0.25" type="number">
                                         </div>
 
 
-                                        <div class="col s2 push-s1 center">
+                                        <div class="col s2">
                                             <select material-select ng-model=
                                             "ingredientDisplay[$index].measure"
                                             ng-options=
@@ -100,9 +99,16 @@
                                             required="">
                                             </select>
                                         </div>
+                                        
+                                        <div class="col s3 m2">
+                                            <p class="meal-text left">
+                                            {{ing.quantity * ingredientDisplay[$index].measure.weight/ingredientDisplay[$index].measure.amount | number:0
+                                            }} &nbsp;gms
+                                            </p>
+                                        </div>
 
 
-                                        <div class="col s12 m1 push-m1">
+                                        <div class="col s12 m1 pull-m1">
                                             <a ng-click="deleteSelectedIngredient($index)"><i class=
                                             "material-icons createbin">delete</i></a>
                                         </div>
@@ -367,11 +373,19 @@
 
         <div class="modal-content">
             <div class="row">
-                <div class="col m8 push-m2">
+                <div class="col m12">
                     <div class="row">
-                        <div class="col s10 m10">
-                            <div class="card white create-search-box" id=
-                            "searchcard">
+                        <div class=
+                            "col s1 m2">
+                                <button class='fa fa-sort-amount-desc search-filter'
+                                data-activates='dropdown-edit-recipe-sort2' data-beloworigin=
+                                "true" dropdown-button=""></button>
+                                
+                            </div>
+                            
+                            <div class="col s12 m5">
+                                <div class="card white create-search-box" id=
+                                "searchcard">
                                     <!-- SEARCH-BOX -->
 
 
@@ -387,6 +401,36 @@
                                     </div>
                                 </div>
                                 <!-- END OF SEARCH-BOX -->
+                            </div>
+                            
+                            <div class="col s1 m5" id="add-ing-food-filters">
+                                <select material-select multiple watch 
+                                    ng-model="foodgroup">
+                                    <option value="" selected disabled>Filter Food Groups</option>
+                                    <option ng-repeat="filter in filts">{{filter[0]}}</option>    
+                                </select>
+                            </div>
+<!--
+                        <div class="col s10 m10">
+                            <div class="card white create-search-box" id=
+                            "searchcard">
+                                     SEARCH-BOX 
+
+
+                                    <div class="card-content black-text">
+                                        <textarea class="form-control" id=
+                                        "searchbox" ng-model="query"
+                                        placeholder=
+                                        "Search Ingredient"></textarea>
+                                        <button class=
+                                        "fa fa-search search-ingredient"
+                                        fire-enter="" ng-click="search(1)"
+                                        type="submit"></button>
+                                    </div>
+                                </div>
+-->
+                                <!-- END OF SEARCH-BOX -->
+<!--
                             </div>
                             
                             <div class=
@@ -405,43 +449,6 @@
                                 data-activates='dropdown3' data-beloworigin=
                                 "true" dropdown-button=""></button>
                             </div>
-<!--
-                        <div ng-class=
-                        "{'col s1 m1': filts!==undefined&&filts.length&gt;0}"
-                        ng-show="filts !==undefined && filts.length&gt;0">
-                            <button class='fa fa-filter search-filter'
-                            data-activates='dropdown2' data-beloworigin=
-                            "true" dropdown-button=""></button>
-                        </div>
-
-
-                        <div ng-class=
-                        "{'col s1 m1': filts!==undefined && filts.length&gt;0}"
-                        ng-show="filts !==undefined && filts.length&gt;0">
-                            <button class='fa fa-reorder search-filter'
-                            data-activates='dropdown3' data-beloworigin=
-                            "true" dropdown-button=""></button>
-                        </div>
-
-
-                        <div ng-class=
-                        "{'col s10 m10': filts!==undefined&&filts.length&gt;0&&details.sortlist.length&gt;0, 'col s12 m12':filts===undefined || filts.length&lt;=0}">
-                        <div class="card white create-search-box" id=
-                        "searchcard">
-
-
-                                <div class="card-content black-text">
-                                    <textarea class="form-control" id=
-                                    "searchbox" ng-model="query"
-                                    placeholder=
-                                    "Search Ingredient"></textarea>
-                                    <button fire-enter class=
-                                    "fa fa-search search-ingredient"
-                                    ng-click="search(1)" type=
-                                    "submit"></button>
-                                </div>
-                            </div>
-                        </div>
 -->
                     </div>
                 </div>
@@ -589,7 +596,7 @@
                         <div class="col m10 meal-list">
                             <p class="ing-text meal-list" ng-if=
                             "checklistIngredients.length&gt;0">
-                            {{item.ingredient.name}}</p>
+                            {{item.ingredient.name || item.name}}</p>
                         </div>
 
 
@@ -622,6 +629,7 @@
         </div>
 
 
+<!--
         <div class="row">
             <div class="col m12 center">
                 <a class="waves-effect waves-light btn btn-social largebtn"
@@ -629,6 +637,13 @@
                 "addContents();calculateTotalInfoForRecipes()">Add</a>
             </div>
         </div>
+-->
+        
+        <div class="fixed-action-btn" style="bottom: 45px; left:47%">
+                <a class="btn-floating btn-large bp_red" ng-click="addContents();calculateTotalInfoForRecipes()">
+                  <i class="large material-icons">add</i>
+                </a>
+          </div>
     </div>
 
     <div class="modal" id="upload-image-modal">

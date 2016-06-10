@@ -12,6 +12,7 @@ def save_avatar(strategy, details, user=None, *args, **kwargs):
         backend_name = kwargs['backend'].__class__.__name__.lower()
         response = kwargs.get('response', {})
         social_thumb = None
+        print response
         if 'facebook' in backend_name:
             if 'id' in response:
                 social_thumb = ("https://graph.facebook.com/{0}/picture?" +
