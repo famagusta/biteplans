@@ -62,7 +62,7 @@
 
                         <div class="col s12 m1 shift_right">
                             <span class=
-                            "card-title center-align meal-text date_change"><a ng-click="calendar()">
+                            "card-title center-align meal-text date_change"><a ng-click="calendar()" class="cal_icon">
                             <i class="material-icons">date_range</i></a></span>
                         </div>            
                     </div>
@@ -491,6 +491,121 @@
                 </div>
             </div>
         </div>
+        
+         <div class="modal nutrition-modal" id="meal-info-modal">
+        <div class="modal-content">
+            <h5 class="cyan-text center">
+                Nutritional Information: {{plan_data[selected].name}}
+            </h5>
+
+            <div class="row">
+                <div class="col s6 m6">
+                <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Energy</td>
+                        <td>{{calcMealPlanValues(selected, 'energy_kcal') |
+                            number:0 }} kcal</td>
+                      </tr>
+                        <tr>
+                        <td>Carbohydrates</td>
+                        <td>{{calcMealPlanValues(selected, 'carbohydrate_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Proteins</td>
+                        <td>{{calcMealPlanValues(selected, 'protein_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Fats</td>
+                        <td>{{calcMealPlanValues(selected, 'fat_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Monounsaturated Fat</td>
+                        <td>{{calcMealPlanValues(selected, 'fa_mono_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Polyunsaturated Fat</td>
+                        <td>{{calcMealPlanValues(selected, 'fa_poly_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Saturated Fat</td>
+                        <td>{{calcMealPlanValues(selected, 'fa_sat_g', true) |
+                            number:0 }} g</td>
+                      </tr>
+                        <tr>
+                        <td>Sugar</td>
+                        <td>{{calcMealPlanValues(selected, 'sugar_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                      <tr>
+                        <td>Fiber</td>
+                        <td>{{calcMealPlanValues(selected, 'fiber_tot') |
+                            number:0 }} g</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="col s6 m6">
+                    <table class="bordered responsive-table">
+                    <tbody>
+                      <tr>
+                        <td>Cholesterol</td>
+                        <td>{{calcMealPlanValues(selected, 'cholestrl_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Sodium</td>
+                        <td>{{calcMealPlanValues(selected, 'sodium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Calcium</td>
+                        <td>{{calcMealPlanValues(selected, 'calcium_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Iron</td>
+                        <td>{{calcMealPlanValues(selected, 'iron_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin A</td>
+                        <td>{{calcMealPlanValues(selected, 'vitamin_a_iu',
+                                        true) | number:0}} IU</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin B12</td>
+                        <td>{{calcMealPlanValues(selected, 'vitamin_b12_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin C</td>
+                        <td>{{calcMealPlanValues(selected, 'vitamin_c_mg',
+                                        true) | number:0}} mg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin D</td>
+                        <td>{{calcMealPlanValues(selected, 'vitamin_d_mcg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                      <tr>
+                        <td>Vitamin E</td>
+                        <td>{{calcMealPlanValues(selected, 'vitamin_e_mg',
+                                        true) | number:0}} mcg</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+        </div>
+        
+        </div>
+    </div>
     </div>
     <!-- Add Meal Modal-->
 
@@ -524,8 +639,9 @@
             </div>
         </div>
     </div>
+    
+    
     <!-- ADD FOOD MODAL -->
-
 
     <div class="modal modal-fixed-footer" id="add-food-summary-modal">
         <a class=
@@ -787,4 +903,10 @@
         </div>
 
     </div>
+
+
+    <!-- MEAL INFO MODAL-->
+
+   
+    
 </section>

@@ -20,7 +20,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.meal.time = new Date();
         $scope.searchType = 'ingredients';
         $scope.today = moment();
-
+        $scope.selected = 0;
         
         var contextDate = moment();
         if(date){
@@ -552,7 +552,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
                     $scope.plan_data[$scope.currentMealPlanName].followingMealPlanRecipe.push({
                             'meal_recipe': x[i],
-                            'no_of_servings': 1.00,
+                            'no_of_servings': x[i].servings,
                             'is_checked':false,
                             'meal_history': $scope.plan_data[$scope.currentMealPlanName].id,
 
@@ -732,7 +732,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
 
 
-        $scope.calcMealPlanValues = function(index, nutrient) {
+        $scope.calcMealPlanValues = function(index, nutrient, isAdditional) {
             var total = [];
             for (var i = 0; i < $scope.plan_data.length; i++) {
                 var q = 0;
@@ -741,19 +741,35 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 // TODO FIX WEIGHT ERROR
                 for (var j = 0; j < $scope.plan_data[i].followingMealPlanIngredient
                     .length; j++) {
-                    q += $scope.plan_data[i].followingMealPlanIngredient[
-                        j].meal_ingredient[nutrient] * $scope.plan_data[
-                        i].followingMealPlanIngredient[j].quantity * $scope.plan_data[
-                        i].followingMealPlanIngredient[j].unit_desc.weight / (parseFloat($scope.plan_data[
-                        i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
+                    if(isAdditional){
+                        q += $scope.plan_data[i].followingMealPlanIngredient[
+                            j].additionalIngInfo[nutrient] * $scope.plan_data[
+                            i].followingMealPlanIngredient[j].quantity * $scope.plan_data[
+                            i].followingMealPlanIngredient[j].unit_desc.weight / (parseFloat($scope.plan_data[
+                            i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
+                    }else{
+                        q += $scope.plan_data[i].followingMealPlanIngredient[
+                            j].meal_ingredient[nutrient] * $scope.plan_data[
+                            i].followingMealPlanIngredient[j].quantity * $scope.plan_data[
+                            i].followingMealPlanIngredient[j].unit_desc.weight / (parseFloat($scope.plan_data[
+                            i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
+                    }
                 }
                 
                 /* Add nutrition information from recipes */
                 for (j = 0; j < $scope.plan_data[i].followingMealPlanRecipe
                     .length; j++) {
-                    q += $scope.plan_data[i].followingMealPlanRecipe[
-                        j].meal_recipe[nutrient] * $scope.plan_data[
-                        i].followingMealPlanRecipe[j].no_of_servings;
+                    if(isAdditional){
+                        q += $scope.plan_data[i].followingMealPlanRecipe[
+                            j].additionalRecInfo[nutrient] * $scope.plan_data[
+                            i].followingMealPlanRecipe[j].no_of_servings / $scope.plan_data[
+                            i].followingMealPlanRecipe[j].meal_recipe.servings;
+                    }else{
+                        q += $scope.plan_data[i].followingMealPlanRecipe[
+                            j].meal_recipe[nutrient] * $scope.plan_data[
+                            i].followingMealPlanRecipe[j].no_of_servings / $scope.plan_data[
+                            i].followingMealPlanRecipe[j].meal_recipe.servings;
+                    }
                 }
                 total.push(q);
             }
@@ -801,7 +817,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     i].followingMealPlanRecipe.length; j++) {
                     total += $scope.plan_data[i].followingMealPlanRecipe[
                         j].meal_recipe[nutrient] * $scope.plan_data[
-                        i].followingMealPlanRecipe[j].no_of_servings;
+                        i].followingMealPlanRecipe[j].no_of_servings / 
+                        $scope.plan_data[
+                        i].followingMealPlanRecipe[j].meal_recipe.servings;
                 }
 
             }
@@ -869,6 +887,94 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             var result = 100* (a/b);
             return result;
         };
+        
+        $scope.openMealInfoModal = function(index){
+            $scope.selected = index;
+            $('#meal-info-modal').openModal();
+        };
+        
+        var weightedIngredientAdditionalNutritionSum = function(cntr_i, cntr_j){
+            $scope.plan_data[cntr_i]
+                    .followingMealPlanIngredient[cntr_j]
+                    .additionalIngInfo = {};
+
+            searchService.get_ingredient_addtnl_info(
+                $scope.plan_data[cntr_i]
+                    .followingMealPlanIngredient[cntr_j].meal_ingredient.id)
+                    .then(function (response){
+
+                    //model for storing response from API 
+                    $scope
+                        .plan_data[cntr_i]
+                        .followingMealPlanIngredient[cntr_j]
+                        .additionalIngInfo = response;
+                },
+                function(error) {
+                    console.log(error);
+                });
+            };
+
+        var weightedRecipeAdditionalNutritionSum = function(cntr_i,cntr_j){
+            $scope.plan_data[cntr_i]
+                .followingMealPlanRecipe[cntr_j].additionalRecInfo = {};
+            searchService.get_recipe_addtnl_info(
+                 $scope.plan_data[cntr_i].followingMealPlanRecipe[cntr_j]
+                .meal_recipe.id).then(function(response) {
+                    //model for storing response from API 
+                    $scope.plan_data[cntr_i].followingMealPlanRecipe[cntr_j]
+                        .additionalRecInfo = response;
+                },
+                function(error) {
+                    console.log(error);
+                });
+        };
+        
+         // function to populate additional ingredients info inside mealplan array
+        $scope.getAdditionalIngredientsInfo = function()
+        {
+            if ($scope.plan_data !==
+                undefined)
+            {
+                for (var i = 0; i < $scope.plan_data
+                    .length; i++)
+                {
+                    if ($scope.plan_data[i]
+                        .followingMealPlanIngredient !==
+                        undefined)
+                    {
+                        for (var j = 0; j < $scope.plan_data[
+                            i].followingMealPlanIngredient.length; j++)
+                        {
+                            //callback function to deal with the 
+                            //asynchronous call within for loop
+                            //potentially save additional requests here
+                            weightedIngredientAdditionalNutritionSum(i, j);
+                        }
+                    }
+
+                    // same for recipes
+                    if ($scope.plan_data[i]
+                        .followingMealPlanRecipe !==
+                        undefined)
+                    {
+                        for (var j = 0; j < $scope.plan_data[
+                            i].followingMealPlanRecipe.length; j++)
+                        {
+                            //callback function to deal with the 
+                            //asynchronous call within for loop
+                            //potentially save additional requests here
+                            weightedRecipeAdditionalNutritionSum(i, j);
+                        }
+                    }
+                }
+            }
+        };
+        
+        $scope.$watchCollection('plan_data', function()
+        {
+            $scope.getAdditionalIngredientsInfo();
+        });
+        
         
     }
 ]);

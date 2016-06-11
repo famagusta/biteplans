@@ -168,6 +168,10 @@ ul.day-list li:nth-child(2) {
     top: 8px;
 }
 
+.cal_icon:hover {
+    color: #00bcd4 !important;
+}
+
 
 ul.day-list li span,i {
     font-family: 'Roboto';

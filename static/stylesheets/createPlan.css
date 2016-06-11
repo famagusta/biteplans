@@ -331,8 +331,9 @@ input[type=time] {
 }
 
 .meal-text-upper{
-    color: #727272 !important;
+    color: #212121 !important;
     opacity: 54% !important;
+    text-align: center !important;
 }
 .tab_head {
     position: relative;

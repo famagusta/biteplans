@@ -316,6 +316,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 {
                                     //callback function to deal with the 
                                     //asynchronous call within for loop
+                                    //potentially save additional requests here
                                     weightedIngredientAdditionalNutritionSum(i, j);
                                 }
                             }
@@ -330,6 +331,8 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 {
                                     //callback function to deal with the 
                                     //asynchronous call within for loop
+                                    //potentially save additional requests here
+
                                     weightedRecipeAdditionalNutritionSum(i, j);
                                 }
                             }
@@ -597,7 +600,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 .push(
                                 {
                                     recipe: x[i],
-                                    servings: 1.00,
+                                    servings: x[i].servings,
                                 });
                         }
                         // handle case where measure is only 100g or not an array
@@ -858,7 +861,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                                 $scope.mealPlanNameArray[
                                                     i].mealrecipe[
                                                     j].servings
-                                            );
+                                            ) / $scope.mealPlanNameArray[
+                                                    i].mealrecipe[
+                                                    j].recipe.servings;
                                     }
                                     else
                                     {
@@ -873,7 +878,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                                 nutrient]) *
                                         parseFloat($scope.mealPlanNameArray[
                                             i].mealrecipe[
-                                            j].servings);
+                                            j].servings) / $scope.mealPlanNameArray[
+                                                    i].mealrecipe[
+                                                    j].recipe.servings;
                                 }
                             }
                         }
@@ -921,7 +928,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                         .ingredient[field]) *
                                     parseFloat($scope.mealPlanNameArray[
                                             i].mealrecipe[j]
-                                        .servings);
+                                        .servings) / $scope.mealPlanNameArray[
+                                                    i].mealrecipe[
+                                                    j].recipe.servings;;
                             }
                             GlobalTotal += mealTotal;
                             if ($scope.mealPlanNameArray[i]
@@ -1025,7 +1034,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                                 $scope.mealPlanNameArray[
                                                     i].mealrecipe[
                                                     j].servings
-                                            );
+                                            ) / $scope.mealPlanNameArray[
+                                                    i].mealrecipe[
+                                                    j].recipe.servings;
                                     }
                                     else
                                     {
@@ -1039,7 +1050,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                             nutrient]) *
                                         parseFloat($scope.mealPlanNameArray[
                                             i].mealrecipe[
-                                            j].servings);
+                                            j].servings) / $scope.mealPlanNameArray[
+                                                    i].mealrecipe[
+                                                    j].recipe.servings;
                                 }
                             }
                             total.push(q);
