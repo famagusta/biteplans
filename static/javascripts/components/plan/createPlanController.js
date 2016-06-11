@@ -732,6 +732,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 {
                     $scope.mealPlanNameArray[element] = [];
                 };
+                
                 // removes ingredients from the modal
                 $scope.removeIngredient = function(element)
                 {
@@ -740,6 +741,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     $scope.ingredientInModal.splice(index,
                         1);
                 };
+                
                 // removes ingredients which are saved in meal
                 $scope.removeIngredientsFromSavedMeal =
                     function(key, element)
@@ -754,6 +756,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     .splice(element, 1);
                             }, function(response) {});
                     };
+                
                 // removes recipes which are saved in meal
                 $scope.removeFromSavedMealRecipe =
                     function(key, element)
@@ -768,6 +771,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                     element, 1);
                             }, function(response) {});
                     };
+                
                 /* Calculates total value of a nutrient across a days plan */
                 $scope.calcDayNutrientVal = function(nutrient,
                     isAdditional)
