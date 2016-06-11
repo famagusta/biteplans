@@ -230,9 +230,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                                 $scope.followPlanObject).then(
                                 function(response)
                                 {
-                                    
-                                    console.log(
-                                        response);
                                     if(response.error){
                                         $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date.";
                                     }else{

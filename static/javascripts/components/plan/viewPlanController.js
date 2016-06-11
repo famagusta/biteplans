@@ -6,9 +6,10 @@
 /* global app, $, console */
 
 app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
-    '$routeParams', 'searchService', '$location', 'planService',
+    '$routeParams', 'searchService', '$location', 'planService', '$rootScope',
+    'constants',
     function($scope, $window, AuthService, $routeParams, searchService,
-        $location, planService)
+        $location, planService, $rootScope, constants)
     {
         'use strict';
         
@@ -1096,6 +1097,84 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                     $('#meal-info-modal').openModal();
                     $scope.selected = index;
                 };
+                
+                $scope.followPlan = function(plan)
+                {
+                    /* something strange happens inside datepicker with local variables */
+                    $scope.selected_plan = plan;
+                    $scope.followPlanObject = {};
+
+                    if(constants.userOb.status){
+                        var $input = $('.datepicker_btn')
+                        .pickadate({
+                            format: 'yyyy-mm-dd',
+                            formatSubmit: false,
+                            closeOnSelect: true,
+                            onSet: function(context){
+                                //make api call to follow the plan on setting of date
+                                /* convert to ISO 8601 date time string for serializer
+                                  acceptance*/
+                                if (context.select)
+                                {
+                                    var date_to_set = new Date(
+                                        context.select).toISOString();
+                                    $scope.followDate = moment(
+                                        date_to_set).format(
+                                        'YYYY-MM-DD');
+                                    //close the date picker
+                                    this.close();
+                                    $scope.followPlanObject = {
+                                        dietplan: $scope.selected_plan.id,
+                                        start_date: $scope.followDate
+                                    };
+                                    planService.followDietPlan(
+                                        $scope.followPlanObject).then(
+                                        function(response)
+                                        {
+                                            if(response.error){
+                                                $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date.";
+                                            }else{
+                                                $scope.followPlanError = "";
+                                            }
+                                        }, function(error)
+                                        {
+
+                                            console.log(error);
+                                        });
+                                }
+                            }
+                        });
+                    }
+                    else{
+                        /* prompt user for login */
+                        $rootScope.$emit('authFailure');
+                    }
+                };
+                
+                $scope.shortlistPlan = function(planId){
+                    if(constants.userOb.status){
+                        /* check authentication */
+                        var objToSave = {
+                            dietplan: planId
+                        };
+                        planService.addPlanToShortlist(objToSave)
+                            .then(function(
+                            response)
+                        {
+                            $scope.saveStatus = "Successfully saved the plan in your saved plans!!"
+                           //getUserPlans();
+                        }, function(error)
+                        {
+                            $scope.saveStatus = "There was an error in saving your plans!!";
+                            console.log(error);
+                        });                        
+                    }
+                    else{
+                        /* prompt user for login */
+                        $rootScope.$emit('authFailure');
+                    }
+                };
+                
             }
             else
             {
