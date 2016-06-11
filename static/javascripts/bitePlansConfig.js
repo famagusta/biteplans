@@ -70,6 +70,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                     return AuthService.isAuthenticated();
                 }]
             }
+        }).when('/dietplans/search/:query/:page?/:sortby?', {
+            controller: 'planController',
+            templateUrl: '/static/templates/searchPlan.html',
+            resolve: {
+                'AuthCheck': ['AuthService', function (AuthService) {
+                    return AuthService.isAuthenticated();
+                }]
+            }
         }).when('/ingredients', {
             controller: 'ingredientsController',
             templateUrl: '/static/templates/searchIngredients.html',

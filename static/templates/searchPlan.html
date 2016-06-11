@@ -9,13 +9,14 @@
 
                         <div class="center-btn">
                            
-                            <div><b class="pull-left">Sortby</b> <i class="fa fa-reorder pull right"></i></div>
+                            <div><b class="pull-left">Sortby</b> <i class="fa fa-sort-amount-desc pull right"></i></div>
                             <br>
                             <br>
                             <p ng-repeat="filter in plans.sortlist track by $index">
-                                <input id="filled-in-rad{{$index}}" class="with-gap"
-                                       name="sortradio" 
-                                    value="{{filter}}" type="radio" ng-model="sortby"                                             ng-click="search_plan(1, sortby)">
+                                <input id="filled-in-rad{{$index}}" 
+                                    class="with-gap" name="sortradio" 
+                                    value="{{filter}}" type="radio" 
+                                    ng-model="sortby" ng-click="updateSortby(sortby)">
                                 <label for="filled-in-rad{{$index}}" class="meal-text">
                                     {{getFilterLabel(filter)}}
                                 </label>

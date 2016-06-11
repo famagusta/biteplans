@@ -49,7 +49,7 @@ class GlobalSearchList(generics.GenericAPIView):
 
         if request.POST.get('type', False) == 'plans':
             # will do something interesting with this in future
-            sortl = ['average_rating', 'fiber_tot', 'sugar_tot',
+            sortl = ['average_rating',
                     'carbohydrate_tot', 'energy_kcal', 'fat_tot', 'protein_tot']
 
             sortby = request.POST.get('sortby', False)

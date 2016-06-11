@@ -2,18 +2,29 @@
 
 app.controller('planController', ['$scope', 'AuthService', 'searchService',
     '$location', 'planService', 'stars', 'starsUtility', '$window', '$rootScope',
-    'constants',
+    'constants', '$routeParams',
     function($scope, AuthService, searchService, $location, planService, stars,
-        starsUtility, $window, $rootScope, constants)
+        starsUtility, $window, $rootScope, constants, $routeParams)
     {
         'use strict';
         
-        $scope.query_plan = '';
+        var params = $routeParams;
+        console.log(params);
+        
+        $scope.query_plan = params.query ? params.query : '';
+        $scope.sortby = params.sortby ? params.sortby : '';
+        $scope.page = params.page? params.page : 1;
+//        $scope.sortby = undefined;
         $scope.plans = {};
         $scope.userPlanRatings = [];
         
         $scope.userPlans = [];
-                
+        
+        $scope.updateSortby = function(val){
+            $scope.sortby = val;
+            console.log($scope.sortby);
+            $scope.search_plan();
+        }
         var getUserPlanRatings = function()
         {
             planService.getUserDietPlanRatings().then(function(
@@ -49,20 +60,30 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         /* date that user selects to start following a plan*/
         $scope.followDate = '';
-        $scope.search_plan = function(page, sortby)
+        $scope.search_plan = function()
         {
             var query = $scope.query_plan;
+            var page = $scope.page;
+            var sortby = $scope.sortby;
             if (query)
             {
+                console.log(query);
+                console.log(sortby);
+                console.log(page);
+                
+                $location.search('query', query); 
+                $location.search('page', page);
+                $location.search('sortby', sortby);
+                
                 searchService.search_plan(query, page, sortby).then(function(
                     response)
                 {
                     $scope.plans = response;
+                    console.log(response);
                     $scope.currentPage = page;
                     $scope.pageSize = response.total*6;
                     for (var i = 0; i < $scope.plans.results
-                        .length; i++)
-                    {
+                        .length; i++){
                         $scope.plans.results[i].showStars =
                             true;
                     }
@@ -71,6 +92,10 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     console.log(error);
                 });
             }
+        };
+        
+        if($scope.query_plan){
+            $scope.search_plan();
         };
         
         $scope.getPlanRating = function(plan)
@@ -338,6 +363,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         };
         
         $scope.getFilterLabel = function(filter){
+            
             var filterNames ={
                 'average_rating': "Rating",
                 'carbohydrate_tot': "Carbohydrates",
