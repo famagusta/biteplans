@@ -2,6 +2,8 @@
 
 module.exports = function(grunt) {
 
+    var mozjpeg = require('imagemin-mozjpeg');
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -68,6 +70,12 @@ module.exports = function(grunt) {
             }
         },
         
+        imageoptim: {
+          myTask: {
+            src: ['./images', 'dist/images']
+          }
+        }
+
         
     });
 
@@ -79,10 +87,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-ng-annotate');
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-wiredep');
+    grunt.loadNpmTasks('grunt-imageoptim');
+
 
 
     
-    grunt.registerTask('default', ['ngAnnotate','uglify', 'cssmin'])        
+    grunt.registerTask('default', ['ngAnnotate','uglify', 'cssmin', 'imagemin'])        
 
 }
 
