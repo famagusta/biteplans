@@ -9,12 +9,11 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         'use strict';
         
         var params = $routeParams;
-        console.log(params);
         
         $scope.query_plan = params.query ? params.query : '';
         $scope.sortby = params.sortby ? params.sortby : '';
         $scope.page = params.page? params.page : 1;
-//        $scope.sortby = undefined;
+
         $scope.plans = {};
         $scope.userPlanRatings = [];
         
@@ -22,9 +21,9 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.updateSortby = function(val){
             $scope.sortby = val;
-            console.log($scope.sortby);
             $scope.search_plan();
-        }
+        };
+        
         var getUserPlanRatings = function()
         {
             planService.getUserDietPlanRatings().then(function(
@@ -67,10 +66,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             var sortby = $scope.sortby;
             if (query)
             {
-                console.log(query);
-                console.log(sortby);
-                console.log(page);
-                
                 $location.search('query', query); 
                 $location.search('page', page);
                 $location.search('sortby', sortby);
@@ -369,9 +364,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 'carbohydrate_tot': "Carbohydrates",
                 'protein_tot': "Proteins",
                 'fat_tot': "Fats",
-                'energy_kcal': "Calories",
-                'sugar_tot': "Sugar",
-                'fiber_tot': "Fiber"
+                'energy_kcal': "Calories"
             };
             return filterNames[filter];
         };

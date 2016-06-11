@@ -2,12 +2,18 @@
 
 app.controller('recipesController', ['$scope', 'searchService',
     'AuthService', '$rootScope', 'recipeService', 'constants', '$location',
-    function($scope, searchService, AuthService, $rootScope, recipeService, constants, $location) {
+    '$routeParams',
+    function($scope, searchService, AuthService, $rootScope, recipeService, constants, $location, $routeParams) {
         'use strict';
         
+        var params = $routeParams;
+        
+        $scope.query_recipe = params.query ? params.query : '';
+        $scope.sortby = params.sortby ? params.sortby : '';
+        $scope.page = params.page? parseInt(params.page) : 1;
+                                     
         $scope.searchService = searchService;
         $scope.selected = 0;
-        $scope.query_recipe = '';
         $scope.userRecipes = [];
         $scope.userRecipeRatings = [];
         $scope.recipeDetails = [];
@@ -24,28 +30,47 @@ app.controller('recipesController', ['$scope', 'searchService',
                 }
             }
         }
+
+        $scope.updateSortby = function(val){
+            $scope.sortby = val;
+            $scope.search_recipes();
+        };
         
-        $scope.search_recipes = function(page, sortby) {
+        $scope.updatePaginate = function(val){
+            $scope.page = val;
+            $scope.search_recipes();
+        }
+        
+        $scope.search_recipes = function() {
             var query = $scope.query_recipe;
+            var page = $scope.page;
+            var sortby = $scope.sortby;
+            console.log('fire');
+            $location.search('query', query); 
+            $location.search('page', page);
+            $location.search('sortby', sortby);
+            
             if (query) {
                 searchService.search_recipe(query, page, sortby)
                     .then(function(response) {
                         $scope.currentPage = page;
                         $scope.pageSize = response.total*6;
                         $scope.recipeDetails = response;
-                   for (var i=0;i<$scope.recipeDetails.results.length;i++){
-                       if(!$scope.recipeDetails.results[i].image){
-//                           $scope.recipeImage = $scope.recipeDetails.results[i].image;
-//                       }
-//                       else {
-                           $scope.recipeDetails.results[i].image = 'static/images/default_recipe.png';
+                       for (var i=0;i<$scope.recipeDetails.results.length;i++){
+                           if(!$scope.recipeDetails.results[i].image){
+
+                               $scope.recipeDetails.results[i].image = 'static/images/default_recipe.png';
+                           }
                        }
-                   }
                     }, function(error) {
                         console.log(error);
                     });
             }
         };
+        
+        if($scope.query_recipe){
+            $scope.search_recipes();
+        }
         
      
         //function to open modal for viewing full content of recipe

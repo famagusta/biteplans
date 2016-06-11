@@ -2,11 +2,22 @@
 // Controller to display search results on ingredients page
 
 app.controller('ingredientsController', 
-               ['$scope', 'searchService', 'AuthService', '$rootScope',                                     'constants',
-    function($scope, searchService, AuthService, $rootScope, constants) {
+               ['$scope', 'searchService', 'AuthService', '$rootScope',
+                'constants','$routeParams', '$location',
+    function($scope, searchService, AuthService, $rootScope, constants, $routeParams, $location) {
         'use strict';
+        
+        
+        //extract query parameters
+        var params = $routeParams;
+        
+        $scope.query = params.query ? params.query : '';
+        $scope.sortby = params.sortby ? params.sortby : '';
+        $scope.page = params.page? parseInt(params.page) : 1;
+        $scope.foodgroup = params.filters? params.filters.split('-') :  [];
+        
         // function to search for ingredients 
-        $scope.foodgroup=[];
+        //$scope.foodgroup=[];
 
         // stores index of selected card
         $scope.selected = 0;
@@ -27,19 +38,36 @@ app.controller('ingredientsController',
             }
         }
         
+        $scope.updateSortby = function(val){
+            $scope.sortby = val;
+            $scope.search();
+        };
+        
+        $scope.updatePaginate = function(val){
+            $scope.page = val;
+            $scope.search();
+        }
+        
         $scope.searchService = searchService;
 
         $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
-            $scope.search(1, $scope.sortby);
+            $scope.search();
          });
 
-        $scope.search = function(page, sortby) {
+        $scope.search = function() {
             if($scope.query !== undefined){
                 $scope.details = null;
 
-            $scope.sortby = sortby;
-            
+            var sortby = $scope.sortby;
+            var page = $scope.page;
             var query = $scope.query;
+            var foodgroup = $scope.foodgroup;
+
+            $location.search('query', query); 
+            $location.search('page', page);
+            $location.search('filters', foodgroup.join('-'));
+            $location.search('sortby', sortby);
+                
             if (query!== undefined && $scope.foodgroup.length >0) {
                 searchService.search_ingredient(query, page, $scope.foodgroup, sortby)
                     .then(function(response) {
@@ -81,6 +109,10 @@ app.controller('ingredientsController',
             }
 
         }};
+        
+        if($scope.query){
+            $scope.search($scope.page);
+        }
         
         // function for modal when ingredient card is clicked
         $scope.openIngredientsModal = function(detail) {

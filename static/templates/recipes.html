@@ -13,7 +13,7 @@
                             <br>
                             <br>
                             <p ng-repeat="filter in recipeDetails.sortlist track by $index"><input class="with-gap" id=
-                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="search_recipes(1, sortby)"><label class="meal-text"
+                            "filled-in-rad{{$index}}" name="sortradio" value="{{filter}}" type="radio" ng-model="sortby" ng-click="updateSortby(sortby)"><label class="meal-text"
                             for="filled-in-rad{{$index}}">{{getFilterLabel(filter)}}</label></p>
                         </div>
                     </form>
@@ -36,7 +36,7 @@
                                 ng-model="query_recipe" placeholder=
                                 "Search Recipes"></textarea> <button fire-enter class=
                                 "fa fa-search search-ingredient" ng-click=
-                                "search_recipes(1, sortby)" type="submit"></button>
+                                "search_recipes()" type="submit"></button>
                             </form>
                         </div>
                         <!-- END OF SEARCH-BOX -->

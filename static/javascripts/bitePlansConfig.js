@@ -78,7 +78,15 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                     return AuthService.isAuthenticated();
                 }]
             }
-        }).when('/ingredients', {
+        }).when('/ingredients/search', {
+            controller: 'ingredientsController',
+            templateUrl: '/static/templates/searchIngredients.html',
+            resolve: {
+                'AuthCheck': ['AuthService', function (AuthService) {
+                    return AuthService.isAuthenticated();
+                }]
+            }
+        }).when('/ingredients/search/:query/:page?/:filters?/:sortby?', {
             controller: 'ingredientsController',
             templateUrl: '/static/templates/searchIngredients.html',
             resolve: {
@@ -100,6 +108,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             controller: 'viewPlanController',
             templateUrl: '/static/templates/createPlan3.html'
         }).when('/recipes/search', {
+            controller: 'recipesController',
+            templateUrl: '/static/templates/recipes.html',
+            resolve: {
+                'AuthCheck': ['AuthService', function (AuthService) {
+                    return AuthService.isAuthenticated();
+                }]
+            }
+        }).when('/recipes/search/:query/:page?/:sortby?', {
             controller: 'recipesController',
             templateUrl: '/static/templates/recipes.html',
             resolve: {
