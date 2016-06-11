@@ -134,22 +134,27 @@
         {{details.results[selected].name}}</h4>
     <br>
         <div class="row">
-            <div class="col s12 push-s2 m4">
+            <div class="col s12 m4">
                 <h6 class="nutri">Nutritional Information </h6>
             </div>
-            <div class="col s8 m2">
-                Serving Size:&nbsp;&nbsp;&nbsp;{{ingredientSelected.selectedMeasure.amount | number:0}}
-            </div>
-            <div class="col s2 m2" ng-if=
-                    "selected!==undefined && ingredientSelected.measure.length&gt;0">
-                <select class="ing-modal-drop" id="modal-dropdown" material-select="" 
-                    ng-model="ingredientSelected.selectedMeasure" ng-options=
-                    "measure as measure.description for measure in ingredientSelected.measure track by measure.id">
-                </select>
-            </div>
-            <div class="col s5 m2 pull-m1">
-                (&nbsp;
-                {{ingredientSelected.selectedMeasure.weight | number}} gm&nbsp;)
+            <div class="col s12 m8 valign-wrapper">
+                <div class="col s5 m3">
+                    Serving Size
+                </div>
+                <div class="col s1 pull-s1 m1 pull-m1">
+                    {{ingredientSelected.selectedMeasure.amount | number:0}}
+                </div>
+                <div class="col s3 push-s1 m4" ng-if=
+                        "selected!==undefined && ingredientSelected.measure.length&gt;0">
+                    <select class="ing-modal-drop" id="modal-dropdown" material-select="" 
+                        ng-model="ingredientSelected.selectedMeasure" ng-options=
+                        "measure as measure.description for measure in ingredientSelected.measure track by measure.id">
+                    </select>
+                </div>
+                <div class="col s5 m4">
+                    (&nbsp;
+                    {{ingredientSelected.selectedMeasure.weight | number}} gm&nbsp;)
+                </div>
             </div>
         </div>
 

@@ -10,7 +10,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         var params = $routeParams;
         
-        $scope.query_plan = params.query ? params.query : '';
+        $scope.query_plan = params.query ? params.query : null;
         $scope.sortby = params.sortby ? params.sortby : '';
         $scope.page = params.page? params.page : 1;
 
@@ -23,6 +23,11 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             $scope.sortby = val;
             $scope.search_plan();
         };
+        
+        $scope.updatePaginate = function(val){
+            $scope.page = val;
+            $scope.search();
+        }
         
         var getUserPlanRatings = function()
         {

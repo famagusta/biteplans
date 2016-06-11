@@ -11,8 +11,8 @@ app.controller('ingredientsController',
         //extract query parameters
         var params = $routeParams;
         
-        $scope.query = params.query ? params.query : '';
-        $scope.sortby = params.sortby ? params.sortby : '';
+        $scope.query = params.query ? params.query : null;
+        $scope.sortby = params.sortby ? params.sortby : null;
         $scope.page = params.page? parseInt(params.page) : 1;
         $scope.foodgroup = params.filters? params.filters.split('-') :  [];
         

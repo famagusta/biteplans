@@ -8,7 +8,7 @@ app.controller('recipesController', ['$scope', 'searchService',
         
         var params = $routeParams;
         
-        $scope.query_recipe = params.query ? params.query : '';
+        $scope.query_recipe = params.query ? params.query : null;
         $scope.sortby = params.sortby ? params.sortby : '';
         $scope.page = params.page? parseInt(params.page) : 1;
                                      
