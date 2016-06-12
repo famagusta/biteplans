@@ -79,7 +79,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                     response)
                 {
                     $scope.plans = response;
-                    console.log(response);
                     $scope.currentPage = page;
                     $scope.pageSize = response.total*6;
                     for (var i = 0; i < $scope.plans.results
@@ -94,8 +93,27 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             }
         };
         
+        $scope.populate_search = function(){
+            if(!$scope.query_plan){
+                searchService.list_latest_plans().then(function(response){
+                    $scope.plans = response;
+                    $scope.currentPage = $scope.page;
+                    $scope.pageSize = response.total*6;
+                    for (var i = 0; i < $scope.plans.results
+                        .length; i++){
+                        $scope.plans.results[i].showStars =
+                            true;
+                    }
+                }, function(error){
+                    console.log(error);
+                })
+            }
+        }
+        
         if($scope.query_plan){
             $scope.search_plan();
+        }else {
+            $scope.populate_search();
         };
         
         $scope.getPlanRating = function(plan)

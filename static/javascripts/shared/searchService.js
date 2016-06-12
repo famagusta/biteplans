@@ -72,15 +72,30 @@ app.factory('searchService',
 
             }
             httpService.httpPost(url, obj).then(
-          function(response) {
-            deferred.resolve(response);
+              function(response) {
+                deferred.resolve(response);
 
-        },
-        function(response) {
-            deferred.reject(response.data.error);
-            //console.log(response);
-        });
-        return deferred.promise;};
+            },
+            function(response) {
+                deferred.reject(response.data.error);
+                //console.log(response);
+            });
+        
+            return deferred.promise;
+        };
+                
+        var list_latest_recipes = function(){
+            var url = '/recipes/recipe/?search_recipe_populate=1';
+            var deferred = $q.defer();
+            
+            httpService.httpGet(url).then(
+                function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
                 
         // Function to search plans
         var search_plan = function(quer, page, sortby) {
@@ -115,6 +130,20 @@ app.factory('searchService',
             //console.log(response);
         });
         return deferred.promise;};
+                
+        
+        var list_latest_plans = function(){
+            var url = '/dietplans/dietplan/?search_plan_populate=1';
+            var deferred = $q.defer();
+            
+            httpService.httpGet(url).then(
+                function(response){
+                    deferred.resolve(response);
+                }, function(error){
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+        };
                 
         // Function to get ingredient additional info
         // in future migrate to full fledged ingredient service
@@ -223,6 +252,9 @@ app.factory('searchService',
          search_recipe : function(query, page, sortby) {
             return search_recipe(query, page, sortby); 
         },
+        list_latest_recipes : function(){
+            return list_latest_recipes();  
+        },
         get_ingredient_addtnl_info : function(id){
             return get_ingredient_addtnl_info(id);
         },
@@ -231,6 +263,9 @@ app.factory('searchService',
         },
         search_plan : function(query, page, sortby) {
             return search_plan(query, page, sortby); 
+        },
+        list_latest_plans : function(){
+            return list_latest_plans();
         },
         shortlistRecipes : function(id) {
             return shortlistRecipes(id); 

@@ -17,6 +17,7 @@ class DietPlan(models.Model):
         url??, creator, goal, description, duration, age,
         gender, unit system, height, weight'''
     id = models.AutoField(primary_key=True)
+    date_published = models.DateField(auto_now_add=True, blank=True)
     name = models.CharField(max_length=191)
     creator = models.ForeignKey(Account, on_delete=models.CASCADE,
                                 related_name="createdfrom")

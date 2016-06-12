@@ -57,12 +57,19 @@ class DietPlanViewset(viewsets.ModelViewSet):
         '''returns queryset for get method'''
         user = request.user
         page = request.GET.get('page')
-        if user != None:
+        search_plan_populate = request.GET.get('search_plan_populate')
+        
+        if (not user.is_anonymous()) and (search_plan_populate is None):
             result = self.queryset.filter(creator=request.user)
         else:
-            result = self.queryset
-        total = math.ceil(len(result)/2.0)
-        paginator = Paginator(result, 2)
+            result = self.queryset.order_by('-date_published')[:4]
+            
+        no_plan_per_page = 2.0
+        if search_plan_populate is not None :
+            no_plan_per_page = 4.0
+            
+        total = math.ceil(len(result)/no_plan_per_page)
+        paginator = Paginator(result, no_plan_per_page)
         
         try:
             result = paginator.page(page)

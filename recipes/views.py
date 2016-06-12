@@ -53,14 +53,21 @@ class RecipeViewSet(viewsets.ModelViewSet):
         '''returns queryset for get method'''
         user = request.user
         page = request.GET.get('page')
+        search_recipe_populate = request.GET.get('search_recipe_populate')
         self.serializer_class = RecipeReadSerializer
-        if user is not None:
+        
+        if (not user.is_anonymous()) and (search_recipe_populate is None):
             result = self.queryset.filter(created_by=request.user)
         else:
-            result = self.queryset
+            result = self.queryset.order_by('-date_published')[:6]
+            
+        no_recipes_per_page = 3.0
+        if search_recipe_populate is not None :
+            no_recipes_per_page = 6.0
 
-        total = math.ceil(len(result)/3.0)
-        paginator = Paginator(result, 3)
+        
+        total = math.ceil(len(result)/no_recipes_per_page)
+        paginator = Paginator(result, no_recipes_per_page)
 
         try:
             result = paginator.page(page)
