@@ -160,17 +160,17 @@
                                   <btn class="btn-flat recipe-action-left cyan-text" ng-if=
                                        "!checkMyRecipes(recipe.id)"
                                        ng-click="shortlistRecipe(recipe.id)">
-                                    SHORTLIST RECIPE    
+                                    SHORTLIST    
                                     </btn>
                                     <btn class="btn-flat recipe-action-left cyan-text" ng-if=
                                        "checkMyRecipes(recipe.id)"
                                        ng-click="shortlistRecipe(recipe.id)">
-                                    REMOVE RECIPE
+                                    REMOVE
                                     </btn>
                                   
                                 
                                 <btn class="btn-flat recipe-action-right right-align cyan-text" 
-                                        ng-href="recipes/view-recipe/{{recipe.id}}">
+                                        ng-click="viewRecipe(recipe.id)">
                                          VIEW
                                     </btn>
                                

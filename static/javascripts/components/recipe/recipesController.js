@@ -338,6 +338,10 @@ app.controller('recipesController', ['$scope', 'searchService',
             return tot_time.hours() + " hour " + tot_time.minutes() + " mins" ;
         };
         
+        $scope.viewRecipe = function(recipeId){
+            $location.path('/recipes/view-recipe/' + recipeId + '/').reload();
+        }
+        
         if(constants.userOb.status){
             $scope.getUserRecipes();
             getUserRecipeRatings();
