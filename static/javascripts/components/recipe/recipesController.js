@@ -45,7 +45,7 @@ app.controller('recipesController', ['$scope', 'searchService',
             var query = $scope.query_recipe;
             var page = $scope.page;
             var sortby = $scope.sortby;
-            console.log('fire');
+            
             $location.search('query', query); 
             $location.search('page', page);
             $location.search('sortby', sortby);

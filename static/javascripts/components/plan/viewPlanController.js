@@ -22,6 +22,14 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                     TODO : page is visible only to creator of plan */
             if (isAuth)
             {
+                var params = $routeParams;
+            
+                var urlParamWeek1 = params.week1? parseInt(params.week1) : 1;
+                var urlParamDay1 = params.day1? parseInt(params.day1) : 1;
+                
+                var urlParamWeek2 = params.week2? parseInt(params.week2) : 1;
+                var urlParamDay2 = params.day2? parseInt(params.day2) : 2;
+                
                 /*if authed then create these objects*/
                 /* week & day count for current plan */
                 $scope.weekCount = [];
@@ -29,19 +37,19 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                 
                 
                 $scope.dayWeekNos = 0;
-                $scope.currentDayWeekNos = 1;
+                $scope.currentDayWeekNos = 7*(urlParamWeek1 - 1) + urlParamDay1;
 
-                $scope.currentDayWeekNos2 = 1;
+                $scope.currentDayWeekNos2 = 7*(urlParamWeek2 - 1) + urlParamDay2;
                 /* stores the details to get current day plan
                         this is used to make the first query */
                 $scope.dayplan1 = {
-                    'day_no':  1,
-                    'week_no': 1
+                    'day_no':  urlParamDay1,
+                    'week_no': urlParamWeek1
                 };
 
                 $scope.dayplan2 = {
-                    'day_no':  1,
-                    'week_no': 1
+                    'day_no':  urlParamDay2,
+                    'week_no': urlParamWeek2
                 };
                 
                 /* get the diet plan in question from the server */
@@ -282,13 +290,21 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                         {
                             console.log(error);
                         });
+                    if(col===1){
+                        $location.search('week1', week);
+                        $location.search('day1', day);
+                    }else if(col===2){
+                        $location.search('week2', week);
+                        $location.search('day2', day);
+                    };
                 };
                 //get initial data for day1 and week 1 of the plan
                 $scope.getDayPlan($scope.dayplan1.day_no, $scope
                     .dayplan1.week_no, 1);
+                
 
-                $scope.getDayPlan($scope.dayplan1.day_no, $scope
-                    .dayplan1.week_no, 2);
+                $scope.getDayPlan($scope.dayplan2.day_no, $scope
+                    .dayplan2.week_no, 2);
 
                 
 

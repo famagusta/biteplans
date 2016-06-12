@@ -101,10 +101,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }).when('/dietplans/create/overview/:id', {
             controller: 'createPlanController',
             templateUrl: '/static/templates/createPlan.html'
-        }).when('/dietplans/create/complete/:id', {
+        }).when('/dietplans/create/complete/:id/:week?/:day?', {
             controller: 'createPlanController',
             templateUrl: '/static/templates/createPlan2.html'
-        }).when('/dietplans/view-diet-plan/:id', {
+        }).when('/dietplans/view-diet-plan/:id/:week1?/:day1?/:week2?/:day2?', {
             controller: 'viewPlanController',
             templateUrl: '/static/templates/createPlan3.html'
         }).when('/recipes/search', {
