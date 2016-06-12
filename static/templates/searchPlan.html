@@ -196,16 +196,16 @@
 
                         
               <div class="card-action search-plancard-action">
-                  <a ng-if="!checkMyPlans(plan.id)"
+                  <a ng-if="!checkMyPlans(plan.id)" class="card-action-left left cyan-text"
                     ng-click="shortlistPlan(plan.id)">
-                      <i class="material-icons plan-heart-c">favorite</i>
+                      SHORTLIST PLAN
                   </a>
-                  <a ng-if="checkMyPlans(plan.id)"
+                  <a ng-if="checkMyPlans(plan.id)" class="card-action-left left cyan-text"
                     ng-click="shortlistPlan(plan.id)">
-                      <i class="material-icons plan-heart-ok">favorite</i>
+                      REMOVE PLAN
                   </a>
-                    <a class="save-more1 cyan-text">SAVE</a>
-                    <a class="read-more right cyan-text datepicker_btn" 
+                    
+                    <a class="card-action-right right cyan-text datepicker_btn" 
                        href="#" ng-click="followPlan(plan)"> 
                         FOLLOW
                     </a>

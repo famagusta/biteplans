@@ -33,7 +33,6 @@ bower_components
 # Directories like migrations etc #
 ###################################
 
-migrations/
 media/
 npm_modules/
 # Logs and databases #

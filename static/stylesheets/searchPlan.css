@@ -206,3 +206,22 @@ textarea:focus {
     bottom: 11px;
     left: 30px
 }
+
+
+.card-action-right {
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: right;
+    bottom: 7px;
+    right: 14px
+}
+
+.card-action-left {
+    cursor: pointer;
+    font-size: 19px;
+    position: absolute;
+    float: left;
+    bottom: 7px;
+    left: 14px
+}

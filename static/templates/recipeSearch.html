@@ -60,17 +60,18 @@
                                     <span ng-bind="stars | number:1"></span>/
                                     5.0
                                 </div>
-                                
-                                <div class="row">
-                                    <div class="col s6">
-                                        <h6>Time to Make</h6>
-                                    </div>
-                                    <div class="col s6">
-                                        <h6 class="meal-text">{{getTotalDuration(recipe)}}</h6>
-                                    </div>
-
-                                </div>
                             </div>
+                                
+                            <div class="row hide-on-med-and-up">
+                                <div class="col s6">
+                                    <h6>Time to Make</h6>
+                                </div>
+                                <div class="col s6">
+                                    <h6 class="meal-text">{{getTotalDuration(recipe)}}</h6>
+                                </div>
+
+                            </div>
+                            
                            
                             
                             <div class="row hide-on-small-only">
@@ -154,24 +155,24 @@
                             </div>
                         </div>
                           
-                          <div class="card-action valign-wrapper">
-                                <span class="left-align">
-                                  <a class="heart-c" ng-if=
+                          <div class="card-action valign-wrapper recipe-card-action">
+                                
+                                  <btn class="btn-flat recipe-action-left cyan-text" ng-if=
                                        "!checkMyRecipes(recipe.id)"
                                        ng-click="shortlistRecipe(recipe.id)">
-                                        <i class="material-icons">favorite</i></a>
-                                    <a class="heart-ok" ng-if=
+                                    SHORTLIST RECIPE    
+                                    </btn>
+                                    <btn class="btn-flat recipe-action-left cyan-text" ng-if=
                                        "checkMyRecipes(recipe.id)"
                                        ng-click="shortlistRecipe(recipe.id)">
-                                        <i class="material-icons">favorite</i></a>
-                                  <a class="save-more cyan-text ">
-                                         SAVE
-                                    </a>
-                                </span>
-                                <a class="read-more right-align cyan-text" 
+                                    REMOVE RECIPE
+                                    </btn>
+                                  
+                                
+                                <btn class="btn-flat recipe-action-right right-align cyan-text" 
                                         ng-href="recipes/view-recipe/{{recipe.id}}">
                                          VIEW
-                                    </a>
+                                    </btn>
                                
                           </div>
                 
