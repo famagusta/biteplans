@@ -719,14 +719,14 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             });
 
 
-            $('#add-meal-modal')
+            $('#add-meal-summary-modal')
                 .closeModal();
         };
 
 
         // adds new mealname
         $scope.addMealModal = function() {
-            $('#add-meal-modal')
+            $('#add-meal-summary-modal')
                 .openModal();
         };
 

@@ -15,7 +15,7 @@
     max-width: 30% !important;
 }
 
-@media only screen and (max-width: 600) { 
+@media only screen and (max-width: 600px) { 
   .icon-label { 
     display: none !important; 
       margin-top: 6px !important;
@@ -359,6 +359,19 @@ input:disabled {
 #add-meal-summary-modal {
     height: 55% !important;
     width: 50% !important;
+}
+
+@media only screen and (max-width: 600px) { 
+
+    #add-meal-summary-modal{
+        height: 65% !important;
+        width: 97% !important;
+    }
+    
+    #add-food-summary-modal {
+        max-width: 100% !important;
+        width: 97% !important;
+    }
 }
 
 button.dashboard-search-filter {
