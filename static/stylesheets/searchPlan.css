@@ -140,7 +140,7 @@ textarea:focus {
 
 @media only screen and (max-width : 600px) {
     .search-plancard-action {
-        height: 10px !importrant;
+        height: 10px !important;
     }
     
     .search-plan-card {
@@ -162,7 +162,7 @@ textarea:focus {
     }
     
      .search-plancard-action {
-        height: 1em !importrant;
+        height: 1em !important;
     }
     
     .search-plan-card {

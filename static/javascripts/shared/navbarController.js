@@ -223,7 +223,6 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
 app.controller("landingPageController", ['$scope', '$window', function($scope, $window){
     $scope.getBanner = function(){
         $scope.banner = '';
-        console.log($window.innerWidth);
             if($window.innerWidth > 600){
                 $scope.banner = "static/images/banner_bg.jpg"
             }else{
