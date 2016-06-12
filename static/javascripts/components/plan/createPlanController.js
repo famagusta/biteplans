@@ -800,6 +800,20 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     return result;
                 };
                 
+                var checkRecipeNutritionQty = function(recipe, nutrient, isAdditional){
+                    /* check if our recipe and nutrient have valid numbers */
+                    var result = false;
+                    if(isAdditional && recipe.additionalRecInfo!==undefined){
+                        if (recipe.additionalRecInfo[nutrient] && recipe.servings){
+                            result = true;
+                        }
+                    } else {
+                        if (recipe.recipe[nutrient] && recipe.servings){
+                            result = true;
+                        }
+                    }
+                    return result;
+                };
                 
                 // meal wise nutrition info
                 $scope.calcMealNutrientVal = function(index, nutrient, isAdditional){
@@ -859,16 +873,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             for (var j = 0; j < $scope.mealPlanNameArray[
                                 i].mealrecipe.length; j++)
                             {
-                                if (isAdditional && $scope.mealPlanNameArray[
-                                        i].mealrecipe[j]
-                                    .additionalRecInfo !==
-                                    undefined){
-                                    if ($scope.mealPlanNameArray[
-                                            i].mealrecipe[
-                                            j].additionalRecInfo[
-                                            nutrient] !==
-                                        null)
-                                    {
+                                if (isAdditional){
+                                    if(checkRecipeNutritionQty($scope.mealPlanNameArray[
+                                i].mealrecipe[j], nutrient, isAdditional)){
                                         q += parseFloat(
                                                 $scope.mealPlanNameArray[
                                                     i].mealrecipe[
@@ -879,25 +886,20 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                                 $scope.mealPlanNameArray[
                                                     i].mealrecipe[
                                                     j].servings
-                                            ) / $scope.mealPlanNameArray[
-                                                    i].mealrecipe[
-                                                    j].recipe.servings;
-                                    }
-                                    else
-                                    {
-                                        q += 0;
+                                            );
                                     }
                                 }
                                 else{
-                                    q += parseFloat($scope.mealPlanNameArray[
-                                            i].mealrecipe[
-                                            j].recipe[
-                                            nutrient]) *
-                                        parseFloat($scope.mealPlanNameArray[
-                                            i].mealrecipe[
-                                            j].servings) / $scope.mealPlanNameArray[
-                                                    i].mealrecipe[
-                                                    j].recipe.servings;
+                                    if(checkRecipeNutritionQty($scope.mealPlanNameArray[
+                                i].mealrecipe[j], nutrient, false)){
+                                        q += parseFloat($scope.mealPlanNameArray[
+                                                i].mealrecipe[
+                                                j].recipe[
+                                                nutrient]) *
+                                            parseFloat($scope.mealPlanNameArray[
+                                                i].mealrecipe[
+                                                j].servings);
+                                    }
                                 }
                             }
                             total.push(q);
