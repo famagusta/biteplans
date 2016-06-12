@@ -38,7 +38,7 @@
                                                 "progress progress-spacing">
                                                     <div class="determinate"
                                                     style=
-                                                    "width: {{(calcMealNutrientVal($index, 'energy_kcal') / calcDayNutrientVal('energy_kcal', false) )*100}}%">
+                                                    "width: {{(calcMealNutrientVal($index, 'energy_kcal', false) / calcMealNutrientVal(-1, 'energy_kcal', false) )*100}}%">
 
                                                     </div>
                                                 </div>
@@ -65,7 +65,7 @@
                                             animation-delay="0" bgcolor=
                                             "#EAEAEA" clockwise="true" color=
                                             "#6639B6" current=
-                                            "((calcDayNutrientVal('protein_tot')*4)/calcDayNutrientVal('energy_kcal'))*100"
+                                            "((calcMealNutrientVal(-1, 'protein_tot', false)*4)/calcMealNutrientVal(-1, 'energy_kcal', false))*100"
                                             duration="800" max="100" radius=
                                             "50" responsive="false"
                                             round-progress="" rounded="true"
@@ -78,13 +78,13 @@
 
 
                                             <p class="center graph-value">
-                                            {{((calcDayNutrientVal('protein_tot',
-                                            false)*4)/calcDayNutrientVal('energy_kcal',
+                                            {{((calcMealNutrientVal(-1, 'protein_tot',
+                                            false)*4)/calcMealNutrientVal(-1, 'energy_kcal',
                                             false))*100 |number:0 }} %</p>
 
 
                                             <p class="ing-text nutgraph_val">
-                                            {{calcDayNutrientVal('protein_tot',
+                                            {{calcMealNutrientVal(-1, 'protein_tot',
                                             false) | number:0}}g</p>
                                         </div>
 
@@ -94,7 +94,7 @@
                                             animation-delay="0" bgcolor=
                                             "#EAEAEA" clockwise="true" color=
                                             "#FE6433" current=
-                                            "((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal'))*100"
+                                            "((calcMealNutrientVal(-1, 'carbohydrate_tot')*4)/calcMealNutrientVal(-1, 'energy_kcal'))*100"
                                             duration="800" max="100" radius=
                                             "50" responsive="false"
                                             round-progress="" rounded="true"
@@ -107,12 +107,12 @@
 
 
                                             <p class="center graph-value">
-                                            {{((calcDayNutrientVal('carbohydrate_tot')*4)/calcDayNutrientVal('energy_kcal',
+                                            {{((calcMealNutrientVal(-1, 'carbohydrate_tot')*4)/calcMealNutrientVal(-1, 'energy_kcal',
                                             false))*100 |number:0 }}%</p>
 
 
                                             <p class="ing-text nutgraph_val">
-                                            {{calcDayNutrientVal('carbohydrate_tot',
+                                            {{calcMealNutrientVal(-1, 'carbohydrate_tot',
                                             false) | number:0}} g</p>
                                         </div>
 
@@ -122,7 +122,7 @@
                                             animation-delay="0" bgcolor=
                                             "#EAEAEA" clockwise="true" color=
                                             "#FDC106" current=
-                                            "((calcDayNutrientVal('fat_tot', false)*9)/calcDayNutrientVal('energy_kcal', false))*100"
+                                            "((calcMealNutrientVal(-1, 'fat_tot', false)*9)/calcMealNutrientVal(-1, 'energy_kcal', false))*100"
                                             duration="800" max="100" radius=
                                             "50" responsive="false"
                                             round-progress="" rounded="true"
@@ -135,13 +135,13 @@
 
 
                                             <p class="center graph-value">
-                                            {{((calcDayNutrientVal('fat_tot',
-                                            false)*9)/calcDayNutrientVal('energy_kcal',
+                                            {{((calcMealNutrientVal(-1, 'fat_tot',
+                                            false)*9)/calcMealNutrientVal(-1, 'energy_kcal',
                                             false))*100 |number:0 }} %</p>
 
 
                                             <p class="ing-text nutgraph_val">
-                                            {{calcDayNutrientVal('fat_tot',
+                                            {{calcMealNutrientVal(-1, 'fat_tot',
                                             false) | number:0}} g</p>
                                         </div>
                                     </div>

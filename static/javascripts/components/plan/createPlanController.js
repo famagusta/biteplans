@@ -802,7 +802,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 
                 
                 // meal wise nutrition info
-                $scope.calcMealNutrientVal = function(index,nutrient, isAdditional){
+                $scope.calcMealNutrientVal = function(index, nutrient, isAdditional){
                     var total = [];
                     if ($scope.mealPlanNameArray && index!==undefined)
                     {
