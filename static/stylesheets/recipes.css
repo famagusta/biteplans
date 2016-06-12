@@ -41,6 +41,7 @@ p.recipe-card-info {
 .recipe-action-right {
     cursor: pointer;
     font-size: 19px;
+    margin-left: auto;
 }
 
 .recipe-action-left {
@@ -63,12 +64,6 @@ p.recipe-card-info {
     font-size: 19px;
     bottom: 0px;
     position: absolute;
-/*
-    position: absolute;
-    float: left;
-    bottom: 0px;
-    left: 30px;
-*/
     color: #bcbcbc !important;
 }
 
@@ -101,21 +96,8 @@ p.recipe-card-info {
 .recipe_img {
     height: 75%;
     width: 75%;
-/*
-    max-height: 75vh;
-    max-width: 75vh;
-*/
 }
 
-/*
-.recipe_search_card {
-    height: 37em !important;
-}
-
-.recipe_search_content {
-    height: 21em !important;
-}
-*/
 
 td.energy {
     width: 50%;
