@@ -74,7 +74,8 @@ app.factory('httpService', ['$http', '$q',
             var promise = $http.get(url, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
-                    }
+                    },
+                    cache: true
                 }).then(
                     function (response) {
                         return response.data;
