@@ -23,6 +23,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         var urlParamWeek2 = params.week2? parseInt(params.week2) : 1;
         var urlParamDay2 = params.day2? parseInt(params.day2) : 2;
 
+        
         /*if authed then create these objects*/
         /* week & day count for current plan */
         $scope.weekCount = [];
@@ -286,15 +287,17 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                 {
                     console.log(error);
                 });
-            
-                if(col===1){
-                    $location.search('week1', week);
-                    $location.search('day1', day);
-                }else if(col===2){
-                    $location.search('week2', week);
-                    $location.search('day2', day);
-                };
-            
+                
+                
+                if(!($scope.dayplan1.day_no===1 && $scope.dayplan2.week_no===1 && $scope.dayplan2.day_no===2 && $scope.dayplan1.week_no===1)){
+                    if(col===1){
+                        $location.search('week1', week);
+                        $location.search('day1', day);
+                    }else if(col===2){
+                        $location.search('week2', week);
+                        $location.search('day2', day);
+                    }
+                }
         };
 
         //get initial data for day1 and week 1 of the plan
