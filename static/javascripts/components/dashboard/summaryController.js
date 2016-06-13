@@ -762,13 +762,11 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     if(isAdditional){
                         q += $scope.plan_data[i].followingMealPlanRecipe[
                             j].additionalRecInfo[nutrient] * $scope.plan_data[
-                            i].followingMealPlanRecipe[j].no_of_servings / $scope.plan_data[
-                            i].followingMealPlanRecipe[j].meal_recipe.servings;
+                            i].followingMealPlanRecipe[j].no_of_servings;
                     }else{
                         q += $scope.plan_data[i].followingMealPlanRecipe[
                             j].meal_recipe[nutrient] * $scope.plan_data[
-                            i].followingMealPlanRecipe[j].no_of_servings / $scope.plan_data[
-                            i].followingMealPlanRecipe[j].meal_recipe.servings;
+                            i].followingMealPlanRecipe[j].no_of_servings;
                     }
                 }
                 total.push(q);
@@ -817,9 +815,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     i].followingMealPlanRecipe.length; j++) {
                     total += $scope.plan_data[i].followingMealPlanRecipe[
                         j].meal_recipe[nutrient] * $scope.plan_data[
-                        i].followingMealPlanRecipe[j].no_of_servings / 
-                        $scope.plan_data[
-                        i].followingMealPlanRecipe[j].meal_recipe.servings;
+                        i].followingMealPlanRecipe[j].no_of_servings;
                 }
 
             }
