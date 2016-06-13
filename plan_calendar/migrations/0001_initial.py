@@ -128,5 +128,9 @@ class Migration(migrations.Migration):
         migrations.AlterUniqueTogether(
             name='myingredient',
             unique_together=set([('user', 'ingredient')]),
-        )
+        ),
+        migrations.AlterUniqueTogether(
+            name='mealhistory',
+            unique_together=set([('user', 'date', 'time')]),
+        ),
     ]
