@@ -49,7 +49,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         $httpProvider.interceptors.push('authInterceptor');
         
         $routeProvider.when('/', {
-            controller: 'navbarController',
             templateUrl: '/static/templates/landingPage.html',
             resolve: {
                 'AuthCheck': ['AuthService', function (AuthService) {

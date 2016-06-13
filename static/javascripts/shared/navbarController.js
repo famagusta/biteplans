@@ -6,6 +6,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
     function($scope, $location, AuthService, profileService, $rootScope, constants, $window) {
         'use strict';
         // function to check whether the person is logged in or not
+        
         $scope.isLoggedIn = false;
         var checkLoggedIn = function() {
             AuthService.isAuthenticated()
@@ -15,7 +16,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 }, function(error) {
                     $scope.isLoggedIn = false;
                 });
-
+            return $scope.isLoggedIn;
         };
         checkLoggedIn();
         
@@ -36,6 +37,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     $scope.user_thum =
                         'static/images/default-user.png';
                 }
+                console.log($scope.user_thum);
             }, function(error) {
                 console.log(error);
             });
@@ -166,19 +168,16 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 $scope.isLoggedIn = false;
                 $window.location.assign('/');
             }
-//            location.reload();
         };
 
         $scope.Auth = function(provider) {
             //provider can be facebook, google-oauth2
             AuthService.socialAuth(provider)
                 .then(function(response) {
-                    //    console.log(response);
                     $scope.isLoggedIn = true;
                     
                     //close the modal if login is success
                     $('#modal1').closeModal();
-                    checkLoggedIn();
                 }, function(error) {
                     //there is an error
                     $scope.loginError = error;
