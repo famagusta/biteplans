@@ -321,7 +321,7 @@ input[type=time] {
 .meal-text {
     color: #212121 !important;
     text-transform: lowercase;
-    text-align: center;
+/*    text-align: center;*/
     opacity: 54% !important;
     font-size: 13sp !important;
 }
@@ -629,6 +629,7 @@ select {
 }
 
 .descrip_overflow {
-     word-wrap: break-word;
-    width: 70em;
+    word-wrap: break-word;
+    white-space: pre !important;
+    text-transform: initial !important;
 }

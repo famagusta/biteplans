@@ -286,13 +286,15 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                 {
                     console.log(error);
                 });
-            if(col===1){
-                $location.search('week1', week);
-                $location.search('day1', day);
-            }else if(col===2){
-                $location.search('week2', week);
-                $location.search('day2', day);
-            };
+            
+                if(col===1){
+                    $location.search('week1', week);
+                    $location.search('day1', day);
+                }else if(col===2){
+                    $location.search('week2', week);
+                    $location.search('day2', day);
+                };
+            
         };
 
         //get initial data for day1 and week 1 of the plan
