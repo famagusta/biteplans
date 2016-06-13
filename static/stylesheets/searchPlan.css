@@ -85,12 +85,6 @@ textarea:focus {
     outline: none;
 }
 
-.card-action a {
-    margin-top: -11px;
-    font-weight: 700;
-    font-size: 17px;
-}
-
 #small-modal {
     max-width: 30% !important;
 }

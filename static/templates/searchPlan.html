@@ -53,6 +53,9 @@
                 <div class="col s12 m12 center">
                     <p style="color:red">{{followPlanError}}</p>
                 </div>
+                <div class="col s12 m12 center">
+                    <p style="color:green">{{followPlanStatus}}</p>
+                </div>
             </div>
 
 
@@ -62,18 +65,10 @@
                     <div class="card white" >
                         <div class="card-content search-plan-card black-text">
                             <div class="row">
-                                <!--
-                                <div class="col s2"><img class=
-                                "circle responsive-img" src=
-                                "static/images/tiger.jpg">
-                                </div>
--->
-
-
                                 <div class="col s12 m12 center">
-                                    <h5 class="cyan-text txt-overflow" 
-                                        ng-click="openPlanDetails(plan.id)">
-                                    {{plan.name}}</h5>
+                                    <h5><a class="cyan-text txt-overflow" href="/dietplans/view-diet-plan/{{plan.id}}">
+                                        {{plan.name}}
+                                    </a></h5>
                                 </div>
                             </div>
 
@@ -196,14 +191,14 @@
 
                         
               <div class="card-action search-plancard-action">
-                  <a ng-if="!checkMyPlans(plan.id)" class="card-action-left left cyan-text"
+                  <btn ng-if="!checkMyPlans(plan.id)" class="card-action-left left cyan-text"
                     ng-click="shortlistPlan(plan.id)">
                       SHORTLIST
-                  </a>
-                  <a ng-if="checkMyPlans(plan.id)" class="card-action-left left cyan-text"
+                  </btn>
+                  <btn ng-if="checkMyPlans(plan.id)" class="card-action-left left cyan-text"
                     ng-click="shortlistPlan(plan.id)">
                       REMOVE
-                  </a>
+                  </btn>
                     
                     <a class="card-action-right right cyan-text datepicker_btn" 
                        href="#" ng-click="followPlan(plan)"> 

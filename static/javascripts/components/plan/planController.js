@@ -276,7 +276,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                                     if(response.error){
                                         $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date.";
                                     }else{
-                                        $scope.followPlanError = "";
+                                        $scope.followPlanStatus = "Successfully added plan to your Meal Calendar.";
                                     }
                                 }, function(error)
                                 {

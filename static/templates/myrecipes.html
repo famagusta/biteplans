@@ -173,11 +173,10 @@
                                          SAVE
                                     </a>
 -->
-                              <a ng-click="editRecipe(recipe.id)" class="cyan-text left hide-on-med-and-down">
+                              <a class="cyan-text left hide-on-med-and-down" ng-href="/recipes/edit-recipe/{{recipe.id}}">
                                          EDIT
                                 </a>
-                                <a class="right cyan-text" 
-                                ng-click = "openRecipeDetails(recipe.id)">
+                                <a class="right cyan-text" ng-href="/recipes/view-recipe/{{recipe.id}}">
                                          VIEW
                                 </a>
                                

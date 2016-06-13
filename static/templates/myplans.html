@@ -12,9 +12,9 @@
                                
 
                                 <div class="col s12 m12 center">
-                                    <h5 class="cyan-text txt-overflow" 
-                                        ng-click="openPlanDetails(plan.id)">
-                                    {{plan.name}}</h5>
+                                    <h5><a class="cyan-text txt-overflow" href="/dietplans/view-diet-plan/{{plan.id}}">
+                                        {{plan.name}}
+                                    </a></h5>
                                 </div>
                             </div>
 
@@ -135,7 +135,8 @@
 
                   <div class="row valign-wrapper card-action-align">
                       <div class="col s6 valign left-align hide-on-med-and-down">
-                      <a class="cyan-text hide-on-med-and-down" ng-click="editPlan(plan.id)">EDIT</a>
+                      <a class="cyan-text hide-on-med-and-down"
+                         ng-href="/dietplans/create/overview/{{plan.id}}">EDIT</a>
                           </div>
                       <div class="col s6 valign right-align">
                     <a class="cyan-text datepicker_btn" 
@@ -202,9 +203,9 @@
                                
 
                                 <div class="col s12 m12 center">
-                                    <h5 class="cyan-text txt-overflow" 
-                                        ng-click="openPlanDetails(plan.id)">
-                                    {{plan.dietplan.name}}</h5>
+                                    <h5><a class="cyan-text txt-overflow" href="/dietplans/view-diet-plan/{{plan.dietplan.id}}">
+                                        {{plan.dietplan.name}}
+                                    </a></h5>
                                 </div>
                             </div>
 

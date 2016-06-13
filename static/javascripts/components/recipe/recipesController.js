@@ -132,12 +132,13 @@ app.controller('recipesController', ['$scope', 'searchService',
             
             if(constants.userOb.status){
                 var result = false;
-                for(var i=0; i<$scope.userRecipes.results.length; i++){
-                    if ($scope.userRecipes.results[i].recipe.id == id){
-                        result = true;
+                if($scope.userRecipes.results){
+                    for(var i=0; i<$scope.userRecipes.results.length; i++){
+                        if ($scope.userRecipes.results[i].recipe.id == id){
+                            result = true;
+                        }
                     }
                 }
-                
                 return result;
             }else{
                 //no user logged in
