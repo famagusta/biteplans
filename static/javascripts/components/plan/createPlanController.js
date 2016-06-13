@@ -393,6 +393,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                             });
                     }
                 };
+                                
                 // updates meal ingredient in a meal plan
                 $scope.updateMealIngredient = function(obj)
                 {
