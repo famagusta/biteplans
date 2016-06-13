@@ -61,8 +61,8 @@ p.recipe-card-info {
 
 .heart-c {
     cursor: pointer;
-    font-size: 19px;
-    bottom: 0px;
+/*    font-size: 19px;*/
+/*    bottom: 0px;*/
     position: absolute;
     color: #bcbcbc !important;
 }
@@ -70,16 +70,16 @@ p.recipe-card-info {
 .heart-c:hover{
     color: #ff5252 !important;
     cursor: pointer;
-    font-size: 19px;
-    bottom: 0px;
+/*    font-size: 19px;*/
+/*    bottom: 0px;*/
     position: absolute;
 }
 
 .heart-ok{
     color: #ff5252 !important;
     cursor: pointer;
-    font-size: 19px;
-    bottom: 0px;
+/*    font-size: 19px;*/
+/*    bottom: 0px;*/
     position: absolute;
 }
 

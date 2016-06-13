@@ -143,6 +143,14 @@ app.controller('shortlistedRecipesController', ['$scope', '$window', '$location'
             return recipe.average_rating * 20;
         };
         
+        $scope.openRecipeDetails = function(recipeId){
+            $window.location.assign('/recipes/view-recipe/' + recipeId +'/');
+        };
+        
+        $scope.editRecipe = function(recipeId){
+            $window.location.assign('/recipes/edit-recipe/' + recipeId +'/');
+        };
+        
         $scope.removeRecipe = function(myRecipeId){
             searchService.removeFromMyRecipes(myRecipeId).then(function(response){
                 $scope.getMyRecipes(1);
@@ -233,7 +241,11 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
         };
         
         $scope.openPlanDetails = function(planId){
-            $location.path('/dietplans/view-diet-plan/' + planId +'/');
+            $window.location.assign('/dietplans/view-diet-plan/' + planId +'/');
+        };
+        
+        $scope.editPlan = function(planId){
+            $window.location.assign('/dietplans/create/overview/' + planId +'/');
         };
         
         $scope.setPlanRating = function(plan, rating)

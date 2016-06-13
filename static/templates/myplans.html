@@ -135,7 +135,7 @@
 
                   <div class="row valign-wrapper card-action-align">
                       <div class="col s6 valign left-align hide-on-med-and-down">
-                      <a class="cyan-text hide-on-med-and-down" href="/dietplans/create/overview/{{plan.id}}/">EDIT</a>
+                      <a class="cyan-text hide-on-med-and-down" ng-click="editPlan(plan.id)">EDIT</a>
                           </div>
                       <div class="col s6 valign right-align">
                     <a class="cyan-text datepicker_btn" 
@@ -323,33 +323,16 @@
 
                         
               <div class="card-action search-plancard-action">
-
-                  <div class="row valign-wrapper card-action-align">
-                      <div class="col s6 valign left-align">
-                      <a
+                    <a
                     id="remove-plan-button" ng-click=
                     "removePlan(plan.id)"><i class=
                     "material-icons plan-heart-c createbin">
                     delete</i></a>
-                      <div class="col s6 valign right-align">
+
                      <a class="read-more right cyan-text datepicker_btn" 
                        href="#" ng-click="followPlan(plan)"> 
                         FOLLOW
-                    </a>
-                              
-                      </div>
-                  </div>
-                  <a
-                    id="remove-plan-button" ng-click=
-                    "removePlan(plan.id)"><i class=
-                    "material-icons plan-heart-c createbin">
-                    delete</i></a>
-
-                    <a class="read-more right cyan-text datepicker_btn" 
-                       href="#" ng-click="followPlan(plan)"> 
-                        FOLLOW
-                    </a>
-                               
+                    </a>                               
               </div>
                         
                   

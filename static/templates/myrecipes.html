@@ -173,11 +173,11 @@
                                          SAVE
                                     </a>
 -->
-                              <a href="/recipes/edit-recipe/{{recipe.id}}"class="cyan-text left hide-on-med-and-downt">
+                              <a ng-click="editRecipe(recipe.id)" class="cyan-text left hide-on-med-and-down">
                                          EDIT
                                 </a>
                                 <a class="right cyan-text" 
-                                        ng-href="recipes/view-recipe/{{recipe.id}}">
+                                ng-click = "openRecipeDetails(recipe.id)">
                                          VIEW
                                 </a>
                                
@@ -395,7 +395,7 @@
                                     <a class="heart-ok right" ng-if=
                                        "!checkMyRecipes(recipe.id)"
                                        ng-click="removeRecipe(recipe.id)">
-                                        <i class="material-icons plan-heart-c createbin">delete</i></a>
+                                        <i class="material-icons heart-c createbin">delete</i></a>
                                       
                                 <a class="read-more right cyan-text" 
                                         ng-href="recipes/view-recipe/{{recipe.id}}">

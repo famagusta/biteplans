@@ -37,7 +37,6 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     $scope.user_thum =
                         'static/images/default-user.png';
                 }
-                console.log($scope.user_thum);
             }, function(error) {
                 console.log(error);
             });

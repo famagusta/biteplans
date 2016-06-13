@@ -317,7 +317,7 @@
 
                         <div class="row hide-on-med-and-down">
                             <div class="col s5 m5 l5 icon-img">
-                                <a href="recipes/create-recipes" ng-click="setTab('createRecipe')" href="recipes/create-recipes"><img ng-if="tab.tab!=='createRecipe'"
+                                <a href="recipes/create-recipes" ng-click="setTab('createRecipe')"><img ng-if="tab.tab!=='createRecipe'"
                                 class="icon-orig" src="static/images/createrecipe_deselect.png">
                                 <img ng-if="tab.tab==='createRecipe'" src=
                                 "static/images/createrecipe_select.png"></a>
@@ -325,7 +325,7 @@
 
 
                             <div class="col m7 l7 center icon-label">
-                                <a href="recipes/create-recipes" class="db_list_text" ng-class=
+                                <a class="db_list_text" ng-class=
                                 "{active:tab.isSet('createRecipe')}" ng-click=
                                 "setTab('createRecipe')">Create Recipes</a>
                             </div>

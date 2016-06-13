@@ -75,7 +75,7 @@ app.factory('httpService', ['$http', '$q',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    cache: true
+                    //cache: true  - //this causes trouble with going to dashboard
                 }).then(
                     function (response) {
                         return response.data;

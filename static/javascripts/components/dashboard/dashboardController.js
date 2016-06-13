@@ -39,7 +39,10 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                             $location.path('dashboard/' + tab);
                         } else if (tab === "searchPlans") {
                             $window.location.assign('dietplans/search');
-                        }else {
+                        } else if(tab === "createRecipe"){
+                            $window.location.assign('recipes/create-recipes');
+                        }
+                        else {
                             $location.path('dashboard/summary');
                         }
                     };
@@ -60,7 +63,7 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                             response)
                         {
                             
-                            $location.path('/dietplans/create/overview/' + response.dietplan_id);
+                            $window.location.assign('/dietplans/create/overview/' + response.dietplan_id);
                             $('#create-plan-dash-modal').closeModal();
                             
                         }, function(error)
@@ -84,7 +87,9 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     $scope.calendar = function(){
                         $scope.tab.tab = 'calendar';
                     };
+                    
                 }else{
+                    console.log('oops');
                     $location.path("/");
                 }
         }, function(error){
