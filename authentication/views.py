@@ -73,8 +73,8 @@ class AccountViewSet(viewsets.ModelViewSet):
             message = 'Dear %s,' % (request.data['username']) + \
             '\n\nThank you for signing up. We\'ll get you started right away.' + \
             '\n\nPlease click on'  + \
-            'https://biteplans.com/confirm/%s to ' % (activation_key) + \
-            'activate your account. \nThe link is valid for 2 days,' + \
+            'https://biteplans.com/confirm/%s' % (activation_key) + \
+            '\n to activate your account. \nThe link is valid for 2 days,' + \
             'so let\'s kick off already!'  + \
             '\n\nRegards\nRobin Philip\nFounder\nBiteplans'
             tr = send_mail(sub, message, master, [email], fail_silently=False)
