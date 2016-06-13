@@ -72,7 +72,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             # unable to break the below line due to server error
             message = 'Dear %s,' % (request.data['username']) + \
             '\n\nThank you for signing up. We\'ll get you started right away.' + \
-            '\n\nPlease click on' + \
+            '\n\nPlease click on'  + \
             'https://biteplans.com/confirm/%s to ' % (activation_key) + \
             'activate your account. \nThe link is valid for 2 days,' + \
             'so let\'s kick off already!'  + \
