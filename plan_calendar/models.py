@@ -65,7 +65,7 @@ class MealHistory(models.Model):
 
     class Meta:
         '''unique fields composite'''
-        unique_together = ('date', 'time')
+        unique_together = ('user', 'date', 'time')
 
     def save(self, **kwargs):
         self.updated_on = datetime.now()
