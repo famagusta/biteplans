@@ -2,8 +2,6 @@
 
 module.exports = function(grunt) {
 
-    var mozjpeg = require('imagemin-mozjpeg');
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -13,6 +11,48 @@ module.exports = function(grunt) {
             },
 
             build:['Gruntfile.js', 'javascripts/**/*.js']
+        },
+        
+        concat_css: {
+            options: {
+              // Task-specific options go here. 
+            },
+            all: {
+              src: ["./bower_components/angular-material/angular-material.min.css",
+                    "./stylesheets/biteplans_icons_and_fonts.css",
+                    
+                   "./bower_components/materialize/dist/css/materialize.min.css",
+//                    "./bower_components/font-awesome/css/font-awesome.min.css",
+                   "./bower_components/material-calendar/angular-material-calendar.min.css"],
+              dest: "dist/css/libraries.css"
+            },
+          },
+
+        
+        concat: {
+          options: {
+            separator: ';',
+          },
+          js_frontend: {
+            src: [ './bower_components/jquery/dist/jquery.min.js',
+                    './bower_components/angular/angular.min.js',
+                   './bower_components/angular-http-loader/app/package/js/angular-http-loader.min.js',
+                  './bower_components/materialize/dist/js/materialize.min.js',
+                  './bower_components/angular-materialize/src/angular-materialize.js',
+                  './bower_components/satellizer/satellizer.min.js',
+                  './bower_components/angular-animate/angular-animate.min.js',
+                  './bower_components/angular-route/angular-route.min.js',
+                  './bower_components/angular-aria/angular-aria.min.js',
+                  './bower_components/angular-sanitize/angular-sanitize.min.js',
+                  './bower_components/angular-material/angular-material.min.js',
+                  './bower_components/material-calendar/angular-material-calendar.min.js',
+                  './bower_components/angular-paging/dist/paging.min.js',
+                  './bower_components/moment/min/moment.min.js',
+                  './bower_components/angular-svg-round-progressbar/build/roundProgress.min.js'
+            ],
+            dest: 'dist/js/lib/libraries.js',
+          },
+          
         },
 
         ngAnnotate: {
@@ -31,7 +71,7 @@ module.exports = function(grunt) {
         bower_concat: {
             build:{
                 dest: 'dist/js/bower.js',
-                src: 'bower_components/jquery/dist/jquery.min.js'
+                src: './bower_components/jquery/dist/jquery.min.js'
             }
         },
 
@@ -54,7 +94,8 @@ module.exports = function(grunt) {
             },
             build:{
                 files: {
-                    'dist/css/bitePlans.css': ['stylesheets/index.css',         
+                    'dist/css/bitePlans.css': [
+                        'stylesheets/index.css',         
                                                'stylesheets/landingPage.css',
                                                'stylesheets/searchPlan.css',
                                                'stylesheets/starRating.css',
@@ -62,8 +103,8 @@ module.exports = function(grunt) {
                                                'stylesheets/footer.css',
                                                'stylesheets/dashboard.css',
                                                'stylesheets/createPlan.css',
-                                               'stylesheets/searchIngredients.css',
-                                               'stylesheets/ingredientResult.css',
+                                            'stylesheets/searchIngredients.css',
+                                             'stylesheets/ingredientResult.css',
                                                'stylesheets/recipes.css',
                                                'stylesheets/createRecipe.css']
                 }
@@ -79,6 +120,8 @@ module.exports = function(grunt) {
         
     });
 
+    grunt.loadNpmTasks('grunt-concat-css');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -91,8 +134,6 @@ module.exports = function(grunt) {
 
 
 
-    
-    grunt.registerTask('default', ['ngAnnotate','uglify', 'cssmin', 'imagemin'])        
+    grunt.registerTask('default', ['concat_css','concat', 'ngAnnotate','uglify', 'cssmin'])        
 
 }
-

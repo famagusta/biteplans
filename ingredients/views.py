@@ -53,7 +53,7 @@ class GlobalSearchList(generics.GenericAPIView):
         result = self.get_queryset()
         # Filters are only applicable for ingredients,
         # so this gathers the list of possible filters
-        print result
+
         
         if request.POST.get('type', False) == 'plans':
             # will do something interesting with this in future
