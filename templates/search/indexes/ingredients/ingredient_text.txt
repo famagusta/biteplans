@@ -1,0 +1,10 @@
+{# templates/search/indexes/ingredients/ingredient_text.txt #}
+{{ object.name }}
+{{ object.food_group }}
+{{ object.carb }}
+{{ object.protein }}
+{{ object.fat }}
+{{ object.water }}
+{{ object.calories }}
+{{ object.sugar }}
+{{ object.fiber }}

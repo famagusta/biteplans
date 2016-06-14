@@ -6,26 +6,26 @@ app.factory('searchService',
         /* Function to do the search ingredients */
         var search_ingredient = function(quer, page, food_group, sortby) {
 
-            var url = '/search/';
+            var url = '/ingredients/search/';
 
-            if(page!==undefined && page!==null)
-                {
-                    url += '?page'+'='+page;
-                }
+            if(page!==undefined && page!==null){
+                url += '?page'+'='+page;
+            }
+            
             var deferred = $q.defer();
 
             var obj = {};
             if(food_group!==undefined && food_group!==null && food_group.length>0){
                 obj = {
                     'query':quer,
-                    'type':'ingredients',
+                    //'type':'ingredients',         // not required since haystack
                     'food_group':angular.toJson(food_group),
                 };
             }
             else{
                 obj = {
                     'query':quer,
-                    'type':'ingredients'
+                    //'type':'ingredients' //not required since haystack
                 };
 
             }
@@ -35,16 +35,14 @@ app.factory('searchService',
             }
 
             httpService.httpPost(url, obj).then(
-          function(response) {
-            deferred.resolve(response);
-            
-
-        },
-        function(response) {
-            deferred.reject(response);
-
-        });
-        return deferred.promise;};
+                function(response) {
+                    deferred.resolve(response);    
+                },
+                function(error) {
+                    deferred.reject(error);
+            });
+            return deferred.promise;
+        };
     
        // Function to search recipes
         var search_recipe = function(quer, page, sortby) {

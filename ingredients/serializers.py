@@ -5,6 +5,8 @@ from ingredients.models import Ingredient, IngredientCommonMeasures,\
     AddtnlIngredientInfo
 from recipes.models import Recipe, RecipeIngredients
 from authentication.models import Account
+from drf_haystack.serializers import HaystackSerializer, HaystackSerializerMixin
+from ingredients.search_indexes import IngredientIndex
 
 
 class IngredientMeasureSerializer(serializers.ModelSerializer):
@@ -29,3 +31,8 @@ class AddtnlInfoIngSerializer(serializers.ModelSerializer):
     class Meta:
         '''defines model to be assosiated'''
         model = AddtnlIngredientInfo
+
+
+class IngredientHaystackSerializer(HaystackSerializerMixin, IngredientSerializer):
+    class Meta(IngredientSerializer.Meta):
+        search_fields = ("name", )

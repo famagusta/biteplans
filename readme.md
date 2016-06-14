@@ -178,3 +178,8 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 ### for full text search
 alter table bitespace_app_recipe add fulltext search(name);
+
+
+For better searching
+Install elasticsearch brew install elasticsearch - or ubuntu equivalent
+

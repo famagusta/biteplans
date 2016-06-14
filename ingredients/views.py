@@ -5,7 +5,7 @@ from authentication.models import Account
 from dietplans.models import DietPlan
 from dietplans.serializers import DietPlanSerializer
 from ingredients.serializers import IngredientSerializer,\
-    AddtnlInfoIngSerializer
+    AddtnlInfoIngSerializer, IngredientHaystackSerializer
 import json
 from recipes.serializers import RecipeSerializer
 from authentication.serializers import AccountSerializer
@@ -15,11 +15,18 @@ from rest_framework.permissions import IsAuthenticated
 from django.core import serializers
 from rest_framework import viewsets, generics
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from drf_haystack.viewsets import HaystackViewSet
+from haystack.query import SearchQuerySet
+from rest_framework.mixins import ListModelMixin
+from drf_haystack.generics import HaystackGenericAPIView
+from haystack.inputs import AutoQuery
+from haystack.query import SQ
 import math
 
 
 class GlobalSearchList(generics.GenericAPIView):
-    '''creates serializer of the queryset'''
+    '''creates serializer of the queryset
+        NOW REDUNDANT SINCE haystack search'''
     sortlist = None
 
     def get_serializer_class(self):
@@ -46,7 +53,8 @@ class GlobalSearchList(generics.GenericAPIView):
         result = self.get_queryset()
         # Filters are only applicable for ingredients,
         # so this gathers the list of possible filters
-
+        print result
+        
         if request.POST.get('type', False) == 'plans':
             # will do something interesting with this in future
             sortl = ['average_rating',
@@ -144,3 +152,72 @@ class GetCompleteIngredientInfo(generics.RetrieveAPIView):
 # class IngredientUnitsViewset(viewsets.ReadOnlyModelViewSet):
 #     queryset = IngredientCommonMeasures.objects.all()
 #     serializer_class = IngredientSerializer
+        
+        
+        
+class SearchView(generics.ListAPIView, HaystackGenericAPIView):
+    '''search ingredients using django haystack (drf for api)
+        the global search list is now redundant'''
+    sortlist = None
+    serializer_class = IngredientHaystackSerializer
+    results = SearchQuerySet().all()
+#    def get(self, request, *args, **kwargs):
+#        return self.list(request, *args, **kwargs)
+
+    def get_queryset(self):
+        query = self.request.data['query']
+        self.sortlist = Ingredient._meta.fields
+        return SearchQuerySet().filter(SQ(name=AutoQuery(query)) | SQ(name=AutoQuery(query+'s')))
+
+        
+    def post(self, request):
+        '''Handles post request'''
+        result = self.get_queryset()
+        # Filters are only applicable for ingredients,
+        # so this gathers the list of possible filters
+
+        filters = set(result.values_list("food_group", flat=True));
+
+        food_group = request.POST.get('food_group', False)
+
+        # This gather the list of sort options
+        sortl = ['fiber', 'sugar', 'carbohydrate', 'water',
+                 'calories', 'fat', 'protein']
+        
+        # this checks if sort by is reuested and applies it if
+        # that is the case
+
+        sortby = request.POST.get('sortby', False)
+        if sortby:
+            result = result.order_by('-'+sortby)
+
+        # this applies filters
+        if food_group:
+            food_group = json.loads(food_group)
+            res = []
+            for i in food_group:
+                res += result.filter(food_group=i)
+            result = res
+
+
+        # total number of pages
+        total = math.ceil(len(result)/6.0)
+
+        # pagination for 6 results in each page
+        paginator = Paginator(result, 6)
+        page = request.GET.get('page')
+        serializer = self.get_serializer_class()
+        try:
+            result = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999),
+            # deliver last page of results.
+            result = paginator.page(paginator.num_pages)
+
+        result = serializer(result, many=True)
+        return Response({"results": result.data, "total": total,
+                        "filters": filters, "sortlist": sortl})
+

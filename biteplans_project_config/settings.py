@@ -29,13 +29,13 @@ SECRET_KEY = os.environ.get('BITEPLANS_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # MOVED TO DEV AND PROD SETTINGS
-#DEBUG = True 
+# DEBUG = True
 #
-#TEMPLATE_DEBUG = True 
+# TEMPLATE_DEBUG = True
 #
-#ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 #
-#TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
+# TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates"
@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'haystack',
     'ingredients',
     'authentication',
     'dietplans',
@@ -71,7 +72,6 @@ INSTALLED_APPS = (
     'rest_social_auth',
     'django_cleanup',
     'user_profile'
-    #'schedule',     # support for calendars
 )
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
@@ -86,8 +86,6 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
 
-#    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.PageNumberPagination',
-#    'PAGE_SIZE': 2
 }
 
 # Authentication pipeline for social auth to work correctly
@@ -181,7 +179,8 @@ DATABASES = {
         'NAME': os.environ.get('BITEPLANS_DB_NAME'),
         'USER': os.environ.get('BITEPLANS_DB_ROOT_USER'),
         'PASSWORD': os.environ.get('BITEPLANS_DB_ROOT_USER_PWD'),
-        'HOST': os.environ.get('BITEPLANS_DB_IP'), # Or an IP Address that your DB is hosted on
+        'HOST': os.environ.get('BITEPLANS_DB_IP'),
+        # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -263,3 +262,14 @@ DJOSER = {
     'PASSWORD_VALIDATORS': [],
     'SERIALIZERS': {},
 }
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
