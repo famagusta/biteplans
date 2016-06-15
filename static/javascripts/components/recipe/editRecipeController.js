@@ -2,8 +2,8 @@
 
 app.controller('editRecipeController', ['$scope', 'AuthService',
     '$routeParams', 'constants', 'recipeService',
-    '$location', 'planService', 'searchService',
-    function($scope, AuthService, $routeParams, constants, recipeService, $location, planService, searchService)
+    '$location', 'planService', 'searchService', 'summaryService',
+    function($scope, AuthService, $routeParams, constants, recipeService, $location, planService, searchService, summaryService)
     {
         'use strict';
         
@@ -29,6 +29,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     $scope.cookHours = 0;
                     $scope.cookMins = 0;
                     $scope.recipe = {};
+                    $scope.mySavedStuffQuery = '';
                     
                     /* crop the required input file */
                     $scope.cropper = {};
@@ -348,6 +349,8 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         $scope.query = undefined;
                         $scope.pageSize = null;
                         $scope.currentPage = null;
+                        
+                        $scope.mySavedStuffQuery = '';
                     };
                     //checks whether an ingredient is already selected or not
                     $scope.checkIfSelected = function(index)
@@ -391,6 +394,14 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         $('#add-ingredients-modal')
                             .openModal();
                     };
+                    
+                    //opens modal to add ingredients/recipes from history
+                    $scope.openQuickToolsModal = function(index) {
+                        $scope.getMySavedFoods();
+                        $('#quick-tools-modal')
+                            .openModal();
+                    };
+                    
                     $scope.removeIngredient = function(element)
                     {
                         // remove ingredient from checklist temp array
@@ -590,6 +601,50 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                 (100 * servings);
                         }
                         return total;
+                    };
+                    
+                    $scope.getMySavedFoods = function(page){
+                        if(!page){
+                            page = 1;
+                        }
+                        summaryService.getShortlistIngredients(page).then(function(response){
+
+                            $scope.mySavedStuff = response;
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total * 6;
+
+                        }, function(error){
+                            console.log(error);
+                        });
+                        
+                    };
+                    
+                    $scope.getMySavedFoods();
+                    
+                    $scope.searchMySavedStuff = function(page){
+                        summaryService.searchShortlistedStuff($scope.mySavedStuffQuery, page, "ingredients")
+                            .then(function(response){
+
+                            $scope.mySavedStuff = response;
+                            //$scope.filts = response.filters; //model for storing response from API                
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total *
+                                6;
+                        }, function(error){
+
+                        });
+                    
+                    };
+        
+                    $scope.getSavedStuffNextPage = function(page){
+                        console.log(page);
+                        if($scope.mySavedStuffQuery.length>0){
+                            $scope.searchMySavedStuff(page);
+                        }else{
+                            $scope.getMySavedFoods(page);
+                        }
                     };
                     //end auth check
                 }

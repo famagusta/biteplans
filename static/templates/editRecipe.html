@@ -115,6 +115,10 @@
                                 
                                     <div class="row">
                                         <div class="col s12">
+                                            <a class="cyan-text add-ing" ng-click=
+                                            "openQuickToolsModal(index1)">Quick
+                                            Tools</a>&nbsp;&nbsp; <span class=
+                                            "cyan-text">|</span>&nbsp;&nbsp;
                                             <a class="cyan-text add-ing" href="#"
                                             ng-click="addRecipeIngredModal()">Add
                                             Ingredients</a>
@@ -362,9 +366,236 @@
                 </div>
             </div>
         </div>
-    </div>
-        <!-- ADD RECIPE INGREDIENTS MODAL -->
+        
+        <!--  QUICK TOOLS  -->
+    <div class="modal modal-fixed-footer food-modal" id="quick-tools-modal">
+        <a class=
+        "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
 
+            
+        <div class="modal-content ">
+            <div class="row">
+
+                <div class="col s12 m6 offset-m3">
+                    <div class="card white create-search-box" id=
+                    "searchcard">
+                        <!-- SEARCH-BOX -->
+
+
+                        <div class="card-content black-text">
+                            <textarea class="form-control" id=
+                            "searchbox" ng-model="mySavedStuffQuery" placeholder=
+                            "Search Food"></textarea>
+                            <button class=
+                            "fa fa-search search-ingredient"
+                            fire-enter="" ng-click="searchMySavedStuff(1)"
+                            type="submit"></button>
+                        </div>
+                    </div>
+                    <!-- END OF SEARCH-BOX -->
+                </div>
+                
+            </div>
+
+
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="searchresult-create row">
+                        <div ng-repeat=
+                        "ingredient in mySavedStuff.results track by $index">
+                            <p><input checklist-model="checklistIngs"
+                            checklist-value="ingredient.ingredient" class="filled-in" id=
+                            "filled-in-box-ingredient-history{{$index}}"  type="checkbox">
+                            <label class="ing-text highlight" for=
+                            "filled-in-box-ingredient-history{{$index}}" id=
+                            "check-label-ingredient-history{{$index}}">{{ingredient.ingredient.name}}</label></p>
+                        </div>
+                    </div>
+
+
+                    <div class="row smallpaginate">
+                        <paging ng-if="mySavedStuff !== undefined && mySavedStuff !== []"
+                            class="small"
+                            page="mySavedStuffCurrentPage" 
+                            page-size="6" 
+                            total="mySavedStuffPageSize"
+                            hide-if-empty="{{hideIfEmpty}}"
+                            ul-class="{{ulClass}}"
+                            li-class="lipageclass"
+                            active-class="{{activeClass}}"
+                            disabled-class="{{disabledClass}}"
+                            show-prev-next="true"
+                            text-next-class="acti fa fa-chevron-right"
+                            text-prev-class="acti fa fa-chevron-left"
+                            text-first-class="acti fa fa-backward"
+                            text-last-class="acti fa fa-forward"
+                            text-title-page="Page {page}"
+                            text-title-first="First Page"
+                            text-title-last="Last Page"
+                            text-title-next="Next Page"
+                            text-title-prev="Previous" 
+                            paging-action="getSavedStuffNextPage(page)">
+                        </paging> 
+                        <br>
+                    </div>
+                </div>
+                
+
+
+                <div class="col s12 m6">
+                    <div class="nutsection">
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s12 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a ahead servehead">Serving per 100
+                                grams:</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Calories (kcal)</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].energy_kcal}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Proteins</p>
+                            </div>
+
+
+                            <div class="col s4 m6">
+                                <p class="a b" ng-if=
+                                "checklistIngs[checklistIngs.length-1]">
+                                {{checklistIngs[checklistIngs.length-1].protein_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Fats</p>
+                            </div>
+
+
+                            <div class="col s4 m5" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].fat_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Carbohydrates</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].carbohydrate_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Fiber</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].fiber_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Water</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].water}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+
+                    <div class="row" ng-repeat="(index, food) in ingredientInModal">
+                        <div class="col s8 m10 meal-list">
+                            <p class="ing-text meal-list" ng-if=
+                            "ingredientInModal.length&gt;0">{{food.name}}</p>
+                        </div>
+
+
+                        <div class="col s4 m2 meal-list">
+                            <a href="#" ng-click=
+                            "removeFromIngredientInModal(index)"><i class=
+                            "material-icons meal-list right createbin dustbin" ng-if=
+                            "ingredientInModal.length&gt;0">delete</i></a>
+                        </div>
+                    </div>
+
+
+                    <div class="row" ng-repeat="(index, checkIng) in checklistIngs">
+                        <div class="col s8 m10 meal-list">
+                            <p class="ing-text meal-list" ng-if=
+                            "checklistIngs.length&gt;0">{{checkIng.name}}</p>
+                        </div>
+
+
+                        <div class="col s4 m2 meal-list">
+                            <a href="#" ng-click=
+                            "removeFromChecklistIng(index)"><i class=
+                            "material-icons meal-list right createbin dustbin" ng-if=
+                            "checklistIngs.length&gt;0">delete</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fixed-action-btn" style="bottom: 45px; left:45%">
+                <a class="btn-floating btn-large bp_red" ng-click="addContents()">
+                  <i class="large material-icons">add</i>
+                </a>
+          </div>
+        </div>
+
+    </div>
+    
+    <!-- ADD RECIPE INGREDIENTS MODAL -->
 
     <div class="modal" id="add-ingredients-modal">
         <a class=
@@ -716,7 +947,13 @@
                 </div>
             </div>
         </div>
+        
+    </div>
     
+    
+    
+    
+        
 </section>
 <script>
     $(document).ready(function(){
