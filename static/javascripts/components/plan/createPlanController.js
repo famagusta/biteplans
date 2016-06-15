@@ -3,9 +3,9 @@
 /* global app, moment, $, console */
 
 app.controller('createPlanController', ['$scope', '$window', 'AuthService',
-    '$routeParams', 'searchService', '$location', 'planService',
+    '$routeParams', 'searchService', '$location', 'planService', 'summaryService',
     function($scope, $window, AuthService, $routeParams, searchService,
-        $location, planService)
+        $location, planService, summaryService)
     {
         'use strict';
         /* CHECK AUTH STATUS - ONLY AUTHENTICATED USERS SHOULD
@@ -32,8 +32,11 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 $scope.checklistReps = [];
                 $scope.recipeInModal = [];
                 $scope.foodgroup = [];
-                $scope.searchType = 'ingredients';
-                
+                //$scope.searchType = 'ingredients';
+                $scope.searchTypeChoices =  ["Ingredients", "Recipes"];
+                $scope.searchType = 'Ingredients';
+                $scope.searchHistoryTypeChoices = ["My Ingredients", "My Recipes"];
+                $scope.searchHistoryType = "My Ingredients";
                 /* phase of the day */
                 $scope.amPmArray = ['AM', 'PM'];
                 
@@ -442,12 +445,12 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 {
                     $scope.query = query;
                     if (query !== undefined && $scope.searchType ===
-                        'ingredients')
+                        'Ingredients')
                     {
                         $scope.search(page, sortby);
                     }
                     else if (query !== undefined && $scope.searchType ===
-                        'recipes')
+                        'Recipes')
                     {
                         $scope.search_recipe(page, sortby);
                     }
@@ -575,12 +578,57 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         }
                     }
                 };
+                
+                $scope.getMySavedFoods = function(page){
+                    if(!page){
+                        page = 1;
+                    }
+                    if($scope.searchHistoryType === "My Ingredients"){
+                        summaryService.getShortlistIngredients(page).then(function(response){
+
+                            $scope.mySavedStuff = response;
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total * 6;
+
+                        }, function(error){
+                            console.log(error);
+                        });
+                    } else if($scope.searchHistoryType === "My Recipes"){
+                        summaryService.getShortlistRecipes(page).then(function(response){
+                            $scope.mySavedStuff = response;
+
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total * 6;
+
+                        }, function(error){
+                            console.log(error);
+                        });
+                    }
+                };
+
+                //$scope.getMySavedFoods();
+
+                $scope.$watch('searchHistoryType', function(newVal, oldVal){
+                    $scope.getMySavedFoods();
+                })
+        
                 //opens modal to add ingredients/recipes on a current mealplan
                 $scope.openCreatePlanModal = function(index)
                 {
                     $('#add-food-modal').openModal();
                     $scope.currentMealPlanName = index;
                 };
+                
+                //opens modal to add ingredients/recipes from history
+                $scope.openQuickToolsModal = function(index) {
+                    $scope.currentMealPlanName = index;
+                    //$scope.getMyIngredients();
+                    $('#quick-tools-modal')
+                        .openModal();
+                };
+        
                 // array to store the nutrient values in modal for 
                 // every ingredient checked
                 // copies the ingredients selected in the respective meal array
@@ -594,7 +642,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         $scope.ingredientInModal.push(
                             $scope.checklistIngs[j]);
                     }
+                    
                     $scope.checklistIngs = [];
+                    
                     var currlength = $scope.mealPlanNameArray[
                             $scope.currentMealPlanName].mealingredient
                         .length;
@@ -649,7 +699,17 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     );
                     $scope.ingredientInModal.length = 0;
                     $('#add-food-modal').closeModal();
+                    $('#quick-tools-modal').closeModal();
+                    
+                    $scope.details = undefined;
+                    $scope.filts = undefined;
+                    $scope.query = undefined;
+                    $scope.pageSize = null;
+                    $scope.currentPage = null;
+
+                    $scope.mySavedStuffQuery = '';
                 };
+                
                 // uncheck all the selected items if save button is not clicked
                 $scope.emptyModalContents = function()
                 {
@@ -1007,6 +1067,45 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     $('#meal-info-modal').openModal();
                     $scope.selected = index;
                 };
+                
+                
+                $scope.searchMySavedStuff = function(page){
+                    if($scope.searchHistoryType==="My Ingredients"){
+                        summaryService.searchShortlistedStuff($scope.mySavedStuffQuery, page, "ingredients")
+                            .then(function(response){
+
+                            $scope.mySavedStuff = response;
+                            //$scope.filts = response.filters; //model for storing response from API                
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total *
+                                6;
+                        }, function(error){
+
+                        });
+                    } else if($scope.searchHistoryType==="My Recipes"){
+                        summaryService.searchShortlistedStuff($scope.mySavedStuffQuery, page, "recipes")
+                            .then(function(response){
+                            $scope.mySavedStuff = response;
+                            //$scope.filts = response.filters; //model for storing response from API                
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total *
+                                6;
+                        }, function(error){
+
+                        });
+                    }
+                };
+        
+                $scope.getSavedStuffNextPage = function(page){
+                    if($scope.mySavedStuffQuery.length>0){
+                        $scope.searchMySavedStuff(page);
+                    }else{
+                        $scope.getMySavedFoods(page);
+                    }
+                };
+        
             }
             else
             {

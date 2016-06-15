@@ -2,11 +2,11 @@
 
 app.controller('createRecipeController', ['$scope', 'AuthService',
     '$routeParams', 'constants',
-    'searchService', '$location', 'recipeService',
+    'searchService', '$location', 'recipeService', 'summaryService',
     function($scope, AuthService, $routeParams, constants,
         searchService,
         $location,
-        recipeService) {
+        recipeService, summaryService) {
         'use strict';
         
         
@@ -34,6 +34,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.lastChecked = null;
                     $scope.AdditionalIngredientInfo = [];
 
+                    $scope.mySavedStuffQuery = '';
                     //variables to gather additional information
                     $scope.prepHours = 0;
                     $scope.prepMins = 0;
@@ -319,6 +320,13 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.foodgroup = [];
                     };
                     
+                    //opens modal to add ingredients/recipes from history
+                    $scope.openQuickToolsModal = function(index) {
+                        $scope.getMySavedFoods();
+                        $('#quick-tools-modal')
+                            .openModal();
+                    };
+                    
                     /* function that opens the upload image modal */
                     $scope.uploadImageModal = function() {
                         $('#upload-image-modal')
@@ -457,6 +465,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         };
                         $('#add-ingredients-modal')
                             .closeModal();
+                        
+                        $('#quick-tools-modal')
+                            .closeModal();
 
                         /* cleanup checklist and search results */
                         $scope.details = undefined;
@@ -465,6 +476,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.pageSize = null;
                         $scope.currentPage = null;
                         $scope.foodgroup = []; // this created a bug
+                        
+                        $scope.mySavedStuffQuery = '';
 
                     };
                     //checks whether an ingredient is already selected or not
@@ -582,7 +595,50 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             ':' + $scope.cookMins + ':00';
                         createRecipe($scope.recipe);
                     };
+                    
+                    $scope.getMySavedFoods = function(page){
+                        if(!page){
+                            page = 1;
+                        }
+                        summaryService.getShortlistIngredients(page).then(function(response){
 
+                            $scope.mySavedStuff = response;
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total * 6;
+
+                        }, function(error){
+                            console.log(error);
+                        });
+                        
+                    };
+                    
+                    $scope.getMySavedFoods();
+                    
+                    $scope.searchMySavedStuff = function(page){
+                        summaryService.searchShortlistedStuff($scope.mySavedStuffQuery, page, "ingredients")
+                            .then(function(response){
+
+                            $scope.mySavedStuff = response;
+                            //$scope.filts = response.filters; //model for storing response from API                
+                            // pagination
+                            $scope.mySavedStuffCurrentPage = page;
+                            $scope.mySavedStuffPageSize = response.total *
+                                6;
+                        }, function(error){
+
+                        });
+                    
+                    };
+        
+                    $scope.getSavedStuffNextPage = function(page){
+                        console.log(page);
+                        if($scope.mySavedStuffQuery.length>0){
+                            $scope.searchMySavedStuff(page);
+                        }else{
+                            $scope.getMySavedFoods(page);
+                        }
+                    };
 
                 }
                 else {

@@ -446,7 +446,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         
         $scope.$watch('searchHistoryType', function(newVal, oldVal){
             $scope.getMySavedFoods();
-        })
+        });
         
         //opens modal to add ingredients/recipes on a current mealplan
         $scope.openCreatePlanModal = function(index) {
@@ -660,9 +660,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             $scope.pageSize = null;
             $scope.currentPage = null;
             
-            $scope.mySavedStuff = undefined;
-            $scope.myIngredientsCurrentPage = null;
-            $scope.myIngredientsPageSize = null;  
+            $scope.mySavedStuffQuery='';
         };
 
 
@@ -1063,7 +1061,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             }else{
                 $scope.getMySavedFoods(page);
             }
-        }
+        };
         
     }
 ]);

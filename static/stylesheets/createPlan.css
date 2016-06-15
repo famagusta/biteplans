@@ -234,7 +234,8 @@ hr {
 }
 
 #add-food-modal {
-    height: 120% !important;
+    height: 150% !important;
+    max-height: 80%;
     width: 70% !important; 
 }
 

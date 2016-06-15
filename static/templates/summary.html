@@ -613,17 +613,7 @@
         <div class="modal-content ">
             <div class="row">
 
-                <div class="col s12 m6 input-field">
-<!--
-                    <select material-select ng-model="listFromHistoryType">
-
-                        <option  ng-repeat="value in searchTypeChoices">
-                            {{value}}
-                        </option>
-
-                    </select>
-                    <label>Search From History For</label>
--->
+                <div class="col s12 m6">
                     <select material-select ng-model="searchHistoryType">
                       
                         <option  ng-repeat="value in searchHistoryTypeChoices">{{value}}</option>
@@ -936,13 +926,23 @@
         <div class="modal-content ">
             <div class="row">
                 
-                <div class="col s12 m2 input-field">
-                    <select material-select ng-model="searchType">
-                      
-                        <option  ng-repeat="value in searchTypeChoices">{{value}}</option>
-                      
-                    </select>
-                    <label>Search For</label>
+                <div class="col s12 m2 ">
+                    <div class="row center valign-wrapper">
+                        <div class="col s6 m6 search-filter-align"
+                            ng-disabled="filts !==undefined && filts.length&gt;0">
+                            <button class='fa fa-filter dashboard-search-filter'
+                            data-activates='dropdown2' data-beloworigin="true"
+                            dropdown-button=""></button>
+                        </div>
+
+
+                        <div  class="col s6 m6 search-filter-align right-align"
+                        ng-disabled="filts !==undefined && filts.length&gt;0">
+                            <button class='fa fa-reorder dashboard-search-filter'
+                            data-activates='dropdown3' data-beloworigin="true"
+                            dropdown-button=""></button>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="col s12 m8">
@@ -963,45 +963,16 @@
                     </div>
                     <!-- END OF SEARCH-BOX -->
                 </div>
-
-                <div class="col s12 m2 ">
-                    <div class="row center valign-wrapper">
-                        <div class="col s6 m6 search-filter-align"
-                            ng-disabled="filts !==undefined && filts.length&gt;0">
-                            <button class='fa fa-filter dashboard-search-filter'
-                            data-activates='dropdown2' data-beloworigin="true"
-                            dropdown-button=""></button>
-                        </div>
-
-
-                        <div  class="col s6 m6 search-filter-align right-align"
-                        ng-disabled="filts !==undefined && filts.length&gt;0">
-                            <button class='fa fa-reorder dashboard-search-filter'
-                            data-activates='dropdown3' data-beloworigin="true"
-                            dropdown-button=""></button>
-                        </div>
-                    </div>
-                </div>
                 
-<!--
-                <div class="col s12 m2 search-filter-align">
-                    Search For:
+                <div class="col s12 m2 input-field">
+                    <select material-select ng-model="searchType">
+                      
+                        <option  ng-repeat="value in searchTypeChoices">{{value}}</option>
+                      
+                    </select>
+                    <label>Search For</label>
                 </div>
 
-                <div class="col s6 m2 search-filter-align">
-                    <input class="filled-in with-gap " id="searchkind1" name=
-                    "searchkind" ng-model="searchType" type="radio"
-                    value="ingredients"> <label for=
-                    "searchkind1">Ingredients</label>
-                </div>
-
-                <div class="col s6 m2 search-filter-align">
-                    <input class="filled-in with-gap" id="searchkind2" name=
-                    "searchkind" ng-model="searchType" type="radio"
-                    value="recipes"> <label for=
-                    "searchkind2">Recipes</label>
-                </div>
--->
             </div>
 
 
