@@ -12,7 +12,6 @@ from ingredients.serializers import IngredientSerializer, \
 from dietplans.serializers import DietPlanSerializer, \
     MealIngredientSerializer, MealRecipeSerializer
 
-
 class UserPlanHistorySerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
     dietplan = DietPlanSerializer(many=False, read_only=True)

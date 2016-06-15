@@ -149,9 +149,13 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                 }
                                 $scope.created_by = response.created_by;
                                 delete $scope.recipe.created_by;
-                                $scope.stepsToCreateRecipes = [
-                                    $scope.recipe.directions
-                                    ];
+                                
+//                                $scope.stepsToCreateRecipes = [
+//                                    $scope.recipe.directions
+//                                    ];
+                            
+                                $scope.stepsToCreateRecipes = $scope.recipe
+                                    .directions.split('\n');
                                 $scope.recipe.recipeIngredients = undefined;
                                 var cookTime = $scope.recipe.cook_time.split(":");
                                 $scope.cookHours = parseInt(cookTime[0]);

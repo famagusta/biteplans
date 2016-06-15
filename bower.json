@@ -23,7 +23,7 @@
     "jquery": "^2.2.3",
     "moment": "^2.13.0",
     "angular-http-loader": "^0.1.7",
-    "angular-materialize": "^0.1.8"
+    "angular-materialize": "^0.1.8",
   },
   "resolutions": {
     "angular": "^1.4.9",

@@ -104,9 +104,9 @@
                                     <div class=
                                     "col s4 m4 left-line">
                                         <div class="row">
-                                            <div class="col s3">
+                                            <div class="col s3 push-s1">
                                                  <a href="#" ng-click=
-                                                "updateDayPlan1('week_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos">
+                                                "updateDayPlan1('week_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos small">
                                                 arrow_drop_up</i></a>
                                             </div>
                                              
@@ -116,20 +116,20 @@
                                                 {{dayplan1.week_no}}</p>
                                             </div>
                                             
-                                            <div class="col s3">
+                                            <div class="col s3 pull-s1">
                                                 <a href="#" ng-click=
-                                                "updateDayPlan1('week_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos">
+                                                "updateDayPlan1('week_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
                                                 arrow_drop_down</i></a>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <div class="col s3 m4 left-line">
+                                    <div class="col s4 m4 left-line">
                                         <div class="row">
-                                            <div class="col s3 center">
+                                            <div class="col s3 push-m1 pull-s1">
                                                 <a href="#" ng-click=
-                                                "updateDayPlan1('day_no','-1')" class="ing-text tab_head center"><i class="material-icons left_arrow_pos">
+                                                "updateDayPlan1('day_no','-1')" class="ing-text tab_head center"><i class="material-icons left_arrow_pos small">
                                                arrow_drop_up</i></a>
                                             </div>
                                             
@@ -139,9 +139,9 @@
                                                 {{dayplan1.day_no}}</p>
                                             </div>
                                             
-                                            <div class="col s3 center">
+                                            <div class="col s3 pull-s1">
                                                   <a href="#" ng-click=
-                                                "updateDayPlan1('day_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos">
+                                                "updateDayPlan1('day_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
                                                 arrow_drop_down</i></a>
                                             </div>
                                         </div>
@@ -162,9 +162,9 @@
                                     <div class=
                                     "col s4 m4 left-line">
                                         <div class="row">
-                                            <div class="col s3">
+                                            <div class="col s3 push-s1">
                                                  <a href="#" ng-click=
-                                                "updateDayPlan2('week_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos">
+                                                "updateDayPlan2('week_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos small">
                                                 arrow_drop_up</i></a>
                                             </div>
                                              
@@ -174,20 +174,20 @@
                                                 {{dayplan2.week_no}}</p>
                                             </div>
                                             
-                                            <div class="col s3">
+                                            <div class="col s3 pull-s1">
                                                 <a href="#" ng-click=
-                                                "updateDayPlan2('week_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos">
+                                                "updateDayPlan2('week_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
                                                 arrow_drop_down</i></a>
                                             </div>
                                         </div>
                                     </div>
 
 
-                                    <div class="col s3 m4 left-line">
+                                    <div class="col s4 m4 left-line">
                                         <div class="row">
-                                            <div class="col s3 center">
+                                            <div class="col s3 push-s1">
                                                 <a href="#" ng-click=
-                                                "updateDayPlan2('day_no','-1')" class="ing-text tab_head center"><i class="material-icons left_arrow_pos">
+                                                "updateDayPlan2('day_no','-1')" class="ing-text tab_head center"><i class="material-icons left_arrow_pos small">
                                                arrow_drop_up</i></a>
                                             </div>
                                             
@@ -197,9 +197,9 @@
                                                 {{dayplan2.day_no}}</p>
                                             </div>
                                             
-                                            <div class="col s3 center">
+                                            <div class="col s3 pull-s1">
                                                   <a href="#" ng-click=
-                                                "updateDayPlan2('day_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos">
+                                                "updateDayPlan2('day_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
                                                 arrow_drop_down</i></a>
                                             </div>
                                         </div>
@@ -254,12 +254,12 @@
                                                     <div class="container" id=
                                                     "create-container">
                                                         <div class="row">
-                                                            <div class="col s6">
+                                                            <div class="col m6 s12 center">
                                                              <p class="meal-text">
                                                         {{item1.ingredient.name}}
                                                         </p>
                                                             </div>
-                                                            <div class="col s6">
+                                                            <div class="col m6 s12">
                                                                 <p class="meal-text center">{{item1.quantity}}- {{item1.unit.description}}
                                                                &nbsp;&nbsp; ({{item1.quantity*item1.unit.weight}}
                                                                     &nbsp; grams)</p>
@@ -291,10 +291,13 @@
                                                     <div class="container" id=
                                                     "create-container">
                                                         <div class="row">
-                                                            <div class="col s6">
-                                                             <p class="meal-text">
-                                                        {{item1.recipe.name}}
-                                                        </p>
+                                                            <div class="col s6 center">
+                                                            
+                                                                <a ng-href="/recipes/view-recipe/{{item1.recipe.id}}">
+                                                                    <p class="meal-text">
+                                                                        {{item1.recipe.name}}
+                                                                    </p>
+                                                                </a>
                                                             </div>
                                                             <div class="col s6">
                                                                 <p class="meal-text center">{{item1.servings}}</p>

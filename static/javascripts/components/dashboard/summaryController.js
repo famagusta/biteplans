@@ -18,9 +18,13 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.meal = {};
         $scope.meal.name = 'Meal';
         $scope.meal.time = new Date();
-        $scope.searchType = 'ingredients';
+        $scope.searchTypeChoices =  ["Ingredients", "Recipes"];
+        $scope.searchType = 'Ingredients';
+        $scope.searchHistoryTypeChoices = ["My Ingredients", "My Recipes"];
+        $scope.searchHistoryType = "My Ingredients";
         $scope.today = moment();
         $scope.selected = 0;
+        $scope.mySavedStuffQuery = '';
         
         var contextDate = moment();
         if(date){
@@ -307,7 +311,38 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 console.log(error);
             });
         };
-            //function to retrieve a particular days diet plan
+        
+        // function to populate additional ingredients info inside mealplan array
+        $scope.getAdditionalIngredientsInfo = function()
+        {
+            if ($scope.plan_data !== undefined){
+                for (var i = 0; i < $scope.plan_data.length; i++){
+                    if ($scope.plan_data[i].followingMealPlanIngredient !== undefined){
+                        for (var j = 0; j < $scope.plan_data[i]
+                             .followingMealPlanIngredient.length; j++){
+                            //callback function to deal with the 
+                            //asynchronous call within for loop
+                            //potentially save additional requests here
+                            weightedIngredientAdditionalNutritionSum(i, j);
+                        }
+                    }
+
+                    // same for recipes
+                    if ($scope.plan_data[i].followingMealPlanRecipe !== undefined){
+                        for (var j = 0; j < $scope.plan_data[i]
+                            .followingMealPlanRecipe.length; j++){
+                            //callback function to deal with the 
+                            //asynchronous call within for loop
+                            //potentially save additional requests here
+                            weightedRecipeAdditionalNutritionSum(i, j);
+                        }
+                    }
+                }
+            }
+        };
+        
+        
+        //function to retrieve a particular days diet plan
         $scope.getDayPlan = function(dateString) {
             $scope.plan_data = [];
             $scope.plan_summary = [];
@@ -351,6 +386,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             }
                         }
                     }
+                    //once the day plan is populated - fetch additional ingredients info
+                    $scope.getAdditionalIngredientsInfo();
 
                 }, function(error) {
                     console.log(error);
@@ -376,15 +413,55 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 'YYYY-MM-DD'));
         };
 
+        $scope.getMySavedFoods = function(page){
+            if(!page){
+                page = 1;
+            }
+            if($scope.searchHistoryType === "My Ingredients"){
+                summaryService.getShortlistIngredients(page).then(function(response){
+                    
+                    $scope.mySavedStuff = response;
+                    // pagination
+                    $scope.mySavedStuffCurrentPage = page;
+                    $scope.mySavedStuffPageSize = response.total * 6;
+                    
+                }, function(error){
+                    console.log(error);
+                });
+            } else if($scope.searchHistoryType === "My Recipes"){
+                summaryService.getShortlistRecipes(page).then(function(response){
+                    $scope.mySavedStuff = response;
 
+                    // pagination
+                    $scope.mySavedStuffCurrentPage = page;
+                    $scope.mySavedStuffPageSize = response.total * 6;
+                        
+                }, function(error){
+                    console.log(error);
+                });
+            }
+    	};
 
+        //$scope.getMySavedFoods();
+        
+        $scope.$watch('searchHistoryType', function(newVal, oldVal){
+            $scope.getMySavedFoods();
+        })
+        
         //opens modal to add ingredients/recipes on a current mealplan
         $scope.openCreatePlanModal = function(index) {
             $scope.currentMealPlanName = index;
             $('#add-food-summary-modal')
                 .openModal();
-
         };
+        
+        //opens modal to add ingredients/recipes from history
+        $scope.openQuickToolsModal = function(index) {
+            $scope.currentMealPlanName = index;
+            //$scope.getMyIngredients();
+            $('#quick-tools-modal')
+                .openModal();
+        }
 
         $scope.removeIngredientsFromSavedMeal = function(key1, key2) {
                 var temp = $scope.plan_data[key1]
@@ -491,12 +568,12 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.searchPlan = function(query, page, sortby) {
             $scope.query = query;
             if (query !== undefined && $scope.searchType ===
-                        'ingredients')
+                        'Ingredients')
                     {
                         $scope.search(page, sortby);
                     }
                     else if (query !== undefined && $scope.searchType ===
-                        'recipes')
+                        'Recipes')
                     {
                         $scope.search_recipe(page, sortby);
                     }
@@ -536,6 +613,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                             'is_checked':false,
                             'meal_history': $scope.plan_data[$scope.currentMealPlanName].id,
                         });
+                    
                 }
                 else if(x[i].servings===undefined) {
                     console.log('YOU SHOULD NOT BE SEEING THIS');
@@ -566,9 +644,14 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
             //post ingredients to db via url endpoint
             $scope.fillMealPlan(currlength, currrecipelength, $scope.currentMealPlanName);
-
+            
+            //get the additionalingredientsinfo
+            $scope.getAdditionalIngredientsInfo();
+            
             $scope.ingredientInModal.length = 0;
             $('#add-food-summary-modal')
+                .closeModal();
+            $('#quick-tools-modal')
                 .closeModal();
             
             $scope.details = undefined;
@@ -576,22 +659,26 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             $scope.query = undefined;
             $scope.pageSize = null;
             $scope.currentPage = null;
+            
+            $scope.mySavedStuff = undefined;
+            $scope.myIngredientsCurrentPage = null;
+            $scope.myIngredientsPageSize = null;  
         };
 
 
         // removes recipes which are saved in meal
-                $scope.removeRecipeFromSavedMeal = function(key, element)
+        $scope.removeRecipeFromSavedMeal = function(key, element)
+            {
+                var temp = $scope.plan_data[key]
+                    .followingMealPlanRecipe[element];
+                summaryService.deleteMealRecipe(temp.id).then(
+                    function(response)
                     {
-                        var temp = $scope.plan_data[key]
-                            .followingMealPlanRecipe[element];
-                        summaryService.deleteMealRecipe(temp.id).then(
-                            function(response)
-                            {
-                                $scope.plan_data[
-                                    key].followingMealPlanRecipe.splice(
-                                    element, 1);
-                            }, function(response) {});
-                    };
+                        $scope.plan_data[
+                            key].followingMealPlanRecipe.splice(
+                            element, 1);
+                    }, function(response) {});
+            };
         
         $scope.clearMeal = function(index){
             var temp = $scope.plan_data[index];
@@ -615,7 +702,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 .then(
                     function(response) {
                         // add id to scope meal plan array to enable deletion
-                        $scope.plan_data[current]
+                        $scope.plan_data[$scope.currentMealPlanName]
                             .followingMealPlanIngredient[cntr]
                             .id = response.id;
 
@@ -634,7 +721,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 .then(
                     function(response) {
                         // add id to scope meal plan array to enable deletion
-                        $scope.plan_data[current]
+                        $scope.plan_data[$scope.currentMealPlanName]
                             .followingMealPlanRecipe[cntr]
                             .id = response.id;
 
@@ -730,58 +817,11 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 .openModal();
         };
 
-
-
-        $scope.calcMealPlanValues = function(index, nutrient, isAdditional) {
-            var total = [];
-            for (var i = 0; i < $scope.plan_data.length; i++) {
-                var q = 0;
-                
-                /* Add nutrition information from ingredients */
-                // TODO FIX WEIGHT ERROR
-                for (var j = 0; j < $scope.plan_data[i].followingMealPlanIngredient
-                    .length; j++) {
-                    if(isAdditional){
-                        q += $scope.plan_data[i].followingMealPlanIngredient[
-                            j].additionalIngInfo[nutrient] * $scope.plan_data[
-                            i].followingMealPlanIngredient[j].quantity * $scope.plan_data[
-                            i].followingMealPlanIngredient[j].unit_desc.weight / (parseFloat($scope.plan_data[
-                            i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
-                    }else{
-                        q += $scope.plan_data[i].followingMealPlanIngredient[
-                            j].meal_ingredient[nutrient] * $scope.plan_data[
-                            i].followingMealPlanIngredient[j].quantity * $scope.plan_data[
-                            i].followingMealPlanIngredient[j].unit_desc.weight / (parseFloat($scope.plan_data[
-                            i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
-                    }
-                }
-                
-                /* Add nutrition information from recipes */
-                for (j = 0; j < $scope.plan_data[i].followingMealPlanRecipe
-                    .length; j++) {
-                    if(isAdditional){
-                        q += $scope.plan_data[i].followingMealPlanRecipe[
-                            j].additionalRecInfo[nutrient] * $scope.plan_data[
-                            i].followingMealPlanRecipe[j].no_of_servings;
-                    }else{
-                        q += $scope.plan_data[i].followingMealPlanRecipe[
-                            j].meal_recipe[nutrient] * $scope.plan_data[
-                            i].followingMealPlanRecipe[j].no_of_servings;
-                    }
-                }
-                total.push(q);
-            }
-            return total[index];
-
-        };
-
-        /* Calculates total value of a nutrient across a days plan */
-        
-        var checkIngredNutritionQty = function(ingredient, nutrient, additionalNutrition){
+        var checkIngredNutritionQty1 = function(ingredient, nutrient, isAdditional){
             /* check if our ingredient and nutrient have valid numbers */
             var result = false;
-            if(additionalNutrition !== undefined){
-                if (additionalNutrition[nutrient] && ingredient.quantity && ingredient.selected_measure.weight){
+            if(isAdditional && ingredient.additionalIngInfo!==undefined){
+                if (ingredient.additionalIngInfo[nutrient] && ingredient.quantity && ingredient.unit_desc.weight){
                     result = true;
                 }
             } else {
@@ -791,37 +831,95 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             }
             return result;
         };
-        
-        $scope.calcDayNutrientVal = function(nutrient) {
-            var total = 0;
-            for (var i = 0; i < $scope.plan_data
-                .length; i++) {
+
+        var checkRecipeNutritionQty1 = function(recipe, nutrient, isAdditional){
+            /* check if our recipe and nutrient have valid numbers */
+            var result = false;
+            if(isAdditional && recipe.additionalRecInfo!==undefined){
+                if (recipe.additionalRecInfo[nutrient] && recipe.no_of_servings){
+                    result = true;
+                }
+            } else {
+                if (recipe.meal_recipe[nutrient] && recipe.no_of_servings){
+                    result = true;
+                }
+            }
+            return result;
+        };
+
+        $scope.calcMealPlanValues = function(index, nutrient, isAdditional) {
+            var total = [];
+            
+            for (var i = 0; i < $scope.plan_data.length; i++) {
+                var q = 0;
                 
                 /* Add nutrition information from ingredients */
-                for (var j = 0; j < $scope.plan_data[
-                    i].followingMealPlanIngredient.length; j++) {
-                    if(checkIngredNutritionQty($scope.plan_data[i]
-                            .followingMealPlanIngredient[j], nutrient)){
-                        total += parseFloat($scope.plan_data[i].followingMealPlanIngredient[
-                            j].meal_ingredient[nutrient]) * $scope.plan_data[
-                            i].followingMealPlanIngredient[j].quantity * parseFloat($scope.plan_data[
-                            i].followingMealPlanIngredient[j].unit_desc.weight) / (parseFloat($scope.plan_data[
-                            i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
+                // TODO FIX WEIGHT ERROR
+                for (var j = 0; j < $scope.plan_data[i].followingMealPlanIngredient
+                    .length; j++) {
+                    if(isAdditional){
+                        //check all parameters are numeric
+                        var isValidIngInfo = checkIngredNutritionQty1($scope.plan_data[i]
+                            .followingMealPlanIngredient[j], nutrient, isAdditional);
+                        
+                        if(isValidIngInfo){
+                            q += $scope.plan_data[i].followingMealPlanIngredient[
+                                j].additionalIngInfo[nutrient] * $scope.plan_data[
+                                i].followingMealPlanIngredient[j].quantity * $scope.plan_data[
+                                i].followingMealPlanIngredient[j].unit_desc.weight / (parseFloat($scope.plan_data[
+                                i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
                         }
+                    }else{
+                        //check all parameters are numeric
+                        var isValidIngInfo = checkIngredNutritionQty1($scope.plan_data[i]
+                            .followingMealPlanIngredient[j], nutrient, false);
+                        
+                        if(isValidIngInfo){
+                            q += $scope.plan_data[i].followingMealPlanIngredient[
+                                j].meal_ingredient[nutrient] * $scope.plan_data[
+                                i].followingMealPlanIngredient[j].quantity * $scope.plan_data[
+                                i].followingMealPlanIngredient[j].unit_desc.weight / (parseFloat($scope.plan_data[
+                                i].followingMealPlanIngredient[j].unit_desc.amount) * 100) ;
+                        }
+                    }
                 }
                 
                 /* Add nutrition information from recipes */
-                for (j = 0; j < $scope.plan_data[
-                    i].followingMealPlanRecipe.length; j++) {
-                    total += $scope.plan_data[i].followingMealPlanRecipe[
-                        j].meal_recipe[nutrient] * $scope.plan_data[
-                        i].followingMealPlanRecipe[j].no_of_servings;
-                }
+                for (j = 0; j < $scope.plan_data[i].followingMealPlanRecipe
+                    .length; j++) {
+                    if(isAdditional){
+                        var isValidRecInfo = checkRecipeNutritionQty1($scope.plan_data[i]
+                            .followingMealPlanRecipe[j], nutrient, isAdditional);
 
+                        if(isValidRecInfo){
+                            q += $scope.plan_data[i].followingMealPlanRecipe[
+                                j].additionalRecInfo[nutrient] * $scope.plan_data[
+                                i].followingMealPlanRecipe[j].no_of_servings;
+                        }
+                    }else{
+                        var isValidRecInfo = checkRecipeNutritionQty1($scope.plan_data[i]
+                            .followingMealPlanRecipe[j], nutrient, isAdditional);
+                        
+                        if(isValidRecInfo){
+                            q += $scope.plan_data[i].followingMealPlanRecipe[
+                                j].meal_recipe[nutrient] * $scope.plan_data[
+                                i].followingMealPlanRecipe[j].no_of_servings;
+                        }
+                    }
+                }
+                total.push(q);
             }
-            return total;
+            if(index>=0){
+                return total[index];
+            }else{
+                var return_val = 
+                    total.length>0? total.reduce(function(a,b){return a+b}) : 0;
+                return return_val;
+            }
+           // return total[index];
+
         };
-        
+    
         
         /* Calculates total value of a nutrient across a days plan that a user has checked*/
         $scope.calcCheckedNutrientVal = function(nutrient) {
@@ -879,7 +977,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         /* calculate %age checked nutrient value */
         $scope.percentNutrientChecked = function(nutrient){
             var a = $scope.calcCheckedNutrientVal(nutrient);
-            var b = $scope.calcDayNutrientVal(nutrient);
+            var b = $scope.calcMealPlanValues(-1, nutrient);
             var result = 100* (a/b);
             return result;
         };
@@ -890,87 +988,82 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         };
         
         var weightedIngredientAdditionalNutritionSum = function(cntr_i, cntr_j){
-            $scope.plan_data[cntr_i]
-                    .followingMealPlanIngredient[cntr_j]
-                    .additionalIngInfo = {};
-
-            searchService.get_ingredient_addtnl_info(
+            if(!$scope.plan_data[cntr_i].followingMealPlanIngredient[cntr_j]
+               .additionalIngInfo){
                 $scope.plan_data[cntr_i]
-                    .followingMealPlanIngredient[cntr_j].meal_ingredient.id)
-                    .then(function (response){
-
-                    //model for storing response from API 
-                    $scope
-                        .plan_data[cntr_i]
                         .followingMealPlanIngredient[cntr_j]
-                        .additionalIngInfo = response;
-                },
-                function(error) {
-                    console.log(error);
-                });
-            };
+                        .additionalIngInfo = {};
+
+                searchService.get_ingredient_addtnl_info(
+                    $scope.plan_data[cntr_i]
+                        .followingMealPlanIngredient[cntr_j].meal_ingredient.id)
+                        .then(function (response){
+
+                        //model for storing response from API 
+                        $scope
+                            .plan_data[cntr_i]
+                            .followingMealPlanIngredient[cntr_j]
+                            .additionalIngInfo = response;
+                    },
+                    function(error) {
+                        console.log(error);
+                    });
+            }
+        };
 
         var weightedRecipeAdditionalNutritionSum = function(cntr_i,cntr_j){
-            $scope.plan_data[cntr_i]
-                .followingMealPlanRecipe[cntr_j].additionalRecInfo = {};
-            searchService.get_recipe_addtnl_info(
-                 $scope.plan_data[cntr_i].followingMealPlanRecipe[cntr_j]
-                .meal_recipe.id).then(function(response) {
-                    //model for storing response from API 
-                    $scope.plan_data[cntr_i].followingMealPlanRecipe[cntr_j]
-                        .additionalRecInfo = response;
-                },
-                function(error) {
-                    console.log(error);
-                });
-        };
-        
-         // function to populate additional ingredients info inside mealplan array
-        $scope.getAdditionalIngredientsInfo = function()
-        {
-            if ($scope.plan_data !==
-                undefined)
-            {
-                for (var i = 0; i < $scope.plan_data
-                    .length; i++)
-                {
-                    if ($scope.plan_data[i]
-                        .followingMealPlanIngredient !==
-                        undefined)
-                    {
-                        for (var j = 0; j < $scope.plan_data[
-                            i].followingMealPlanIngredient.length; j++)
-                        {
-                            //callback function to deal with the 
-                            //asynchronous call within for loop
-                            //potentially save additional requests here
-                            weightedIngredientAdditionalNutritionSum(i, j);
-                        }
-                    }
-
-                    // same for recipes
-                    if ($scope.plan_data[i]
-                        .followingMealPlanRecipe !==
-                        undefined)
-                    {
-                        for (var j = 0; j < $scope.plan_data[
-                            i].followingMealPlanRecipe.length; j++)
-                        {
-                            //callback function to deal with the 
-                            //asynchronous call within for loop
-                            //potentially save additional requests here
-                            weightedRecipeAdditionalNutritionSum(i, j);
-                        }
-                    }
-                }
+            if(!$scope.plan_data[cntr_i].followingMealPlanRecipe[cntr_j].additionalRecInfo){
+                $scope.plan_data[cntr_i]
+                    .followingMealPlanRecipe[cntr_j].additionalRecInfo = {};
+                searchService.get_recipe_addtnl_info(
+                     $scope.plan_data[cntr_i].followingMealPlanRecipe[cntr_j]
+                    .meal_recipe.id).then(function(response) {
+                        //model for storing response from API 
+                        $scope.plan_data[cntr_i].followingMealPlanRecipe[cntr_j]
+                            .additionalRecInfo = response;
+                    },
+                    function(error) {
+                        console.log(error);
+                    });
             }
         };
         
-        $scope.$watchCollection('plan_data', function()
-        {
-            $scope.getAdditionalIngredientsInfo();
-        });
+        $scope.searchMySavedStuff = function(page){
+            if($scope.searchHistoryType==="My Ingredients"){
+                summaryService.searchShortlistedStuff($scope.mySavedStuffQuery, page, "ingredients")
+                    .then(function(response){
+
+                    $scope.mySavedStuff = response;
+                    //$scope.filts = response.filters; //model for storing response from API                
+                    // pagination
+                    $scope.mySavedStuffCurrentPage = page;
+                    $scope.mySavedStuffPageSize = response.total *
+                        6;
+                }, function(error){
+
+                });
+            } else if($scope.searchHistoryType==="My Recipes"){
+                summaryService.searchShortlistedStuff($scope.mySavedStuffQuery, page, "recipes")
+                    .then(function(response){
+                    $scope.mySavedStuff = response;
+                    //$scope.filts = response.filters; //model for storing response from API                
+                    // pagination
+                    $scope.mySavedStuffCurrentPage = page;
+                    $scope.mySavedStuffPageSize = response.total *
+                        6;
+                }, function(error){
+
+                });
+            }
+        };
         
+        $scope.getSavedStuffNextPage = function(page){
+            if($scope.mySavedStuffQuery.length>0){
+                $scope.searchMySavedStuff(page);
+            }else{
+                $scope.getMySavedFoods(page);
+            }
+        }
         
     }
 ]);

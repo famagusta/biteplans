@@ -832,8 +832,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                                 if (isAdditional)
                                 {
                                     if(checkIngredNutritionQty($scope.mealPlanNameArray[
-                                i].mealingredient[j], nutrient, isAdditional))
-                                    {
+                                i].mealingredient[j], nutrient, isAdditional)){
                                         q += parseFloat(
                                                 $scope.mealPlanNameArray[
                                                     i].mealingredient[

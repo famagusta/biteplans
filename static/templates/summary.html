@@ -340,12 +340,10 @@
                                 <div class="row">
                                         <div class="col s12">
                                             <span id="shortcut-menu">
-<!--
-                                            <a class=
-                                            "cyan-text">Quick
+                                            <a class="cyan-text" ng-click=
+                                            "openQuickToolsModal(index1)">Quick
                                             Tools</a>&nbsp;&nbsp; <span class=
                                             "cyan-text">|</span>&nbsp;&nbsp;
--->
                                             <a class="cyan-text" ng-click=
                                             "openCreatePlanModal(index1)">Add
                                             Food</a></span> 
@@ -405,7 +403,7 @@
 
 
                             <p class="meal-text">
-                            {{calcDayNutrientVal('energy_kcal') | number:0}} Kcal</p>
+                            {{calcMealPlanValues(-1, 'energy_kcal', false) | number:0}} Kcal</p>
                             <br>
                             <!-- ROUND PROGRESSBARS -->
 
@@ -431,7 +429,7 @@
                                             {{percentNutrientChecked('protein_tot') | number:0}} % </p>
 
                                         <p class="ing-text nutgraph_val">
-                                        {{calcCheckedNutrientVal('protein_tot') | number:0}} g / {{calcDayNutrientVal('protein_tot') |
+                                        {{calcCheckedNutrientVal('protein_tot') | number:0}} g / {{calcMealPlanValues(-1, 'protein_tot', false) |
                                         number:0}} g</p>
                                     </div>
                                 </div>
@@ -457,7 +455,7 @@
 
 
                                     <p class="ing-text nutgraph_val">
-                                    {{calcCheckedNutrientVal('carbohydrate_tot') | number:0}} g / {{calcDayNutrientVal('carbohydrate_tot') |
+                                    {{calcCheckedNutrientVal('carbohydrate_tot') | number:0}} g / {{calcMealPlanValues(-1, 'carbohydrate_tot', false) |
                                     number:0}} g</p>
                                 </div>
 
@@ -482,7 +480,7 @@
 
 
                                     <p class="ing-text nutgraph_val">
-                                    {{calcCheckedNutrientVal('fat_tot') | number:0}} g / {{calcDayNutrientVal('fat_tot') | number:0}}
+                                    {{calcCheckedNutrientVal('fat_tot') | number:0}} g / {{calcMealPlanValues(-1, 'fat_tot', false) | number:0}}
                                     g</p>
                                 </div>
                             </div>
@@ -493,124 +491,412 @@
         </div>
         
          <div class="modal nutrition-modal" id="meal-info-modal">
-        <div class="modal-content">
-            <h5 class="cyan-text center">
-                Nutritional Information: {{plan_data[selected].name}}
-            </h5>
+            <div class="modal-content">
+                <h5 class="cyan-text center">
+                    Nutritional Information: {{plan_data[selected].name}}
+                </h5>
 
-            <div class="row">
-                <div class="col s6 m6">
-                <table class="bordered responsive-table">
-                    <tbody>
-                      <tr>
-                        <td>Energy</td>
-                        <td>{{calcMealPlanValues(selected, 'energy_kcal') |
-                            number:0 }} kcal</td>
-                      </tr>
-                        <tr>
-                        <td>Carbohydrates</td>
-                        <td>{{calcMealPlanValues(selected, 'carbohydrate_tot') |
-                            number:0 }} g</td>
-                      </tr>
-                        <tr>
-                        <td>Proteins</td>
-                        <td>{{calcMealPlanValues(selected, 'protein_tot') |
-                            number:0 }} g</td>
-                      </tr>
-                        <tr>
-                        <td>Fats</td>
-                        <td>{{calcMealPlanValues(selected, 'fat_tot') |
-                            number:0 }} g</td>
-                      </tr>
-                        <tr>
-                        <td>Monounsaturated Fat</td>
-                        <td>{{calcMealPlanValues(selected, 'fa_mono_g', true) |
-                            number:0 }} g</td>
-                      </tr>
-                        <tr>
-                        <td>Polyunsaturated Fat</td>
-                        <td>{{calcMealPlanValues(selected, 'fa_poly_g', true) |
-                            number:0 }} g</td>
-                      </tr>
-                        <tr>
-                        <td>Saturated Fat</td>
-                        <td>{{calcMealPlanValues(selected, 'fa_sat_g', true) |
-                            number:0 }} g</td>
-                      </tr>
-                        <tr>
-                        <td>Sugar</td>
-                        <td>{{calcMealPlanValues(selected, 'sugar_tot') |
-                            number:0 }} g</td>
-                      </tr>
-                      <tr>
-                        <td>Fiber</td>
-                        <td>{{calcMealPlanValues(selected, 'fiber_tot') |
-                            number:0 }} g</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="col s6 m6">
+                <div class="row">
+                    <div class="col s6 m6">
                     <table class="bordered responsive-table">
-                    <tbody>
-                      <tr>
-                        <td>Cholesterol</td>
-                        <td>{{calcMealPlanValues(selected, 'cholestrl_mg',
-                                        true) | number:0}} mg</td>
-                      </tr>
-                      <tr>
-                        <td>Sodium</td>
-                        <td>{{calcMealPlanValues(selected, 'sodium_mg',
-                                        true) | number:0}} mg</td>
-                      </tr>
-                      <tr>
-                        <td>Calcium</td>
-                        <td>{{calcMealPlanValues(selected, 'calcium_mg',
-                                        true) | number:0}} mg</td>
-                      </tr>
-                      <tr>
-                        <td>Iron</td>
-                        <td>{{calcMealPlanValues(selected, 'iron_mg',
-                                        true) | number:0}} mg</td>
-                      </tr>
-                      <tr>
-                        <td>Vitamin A</td>
-                        <td>{{calcMealPlanValues(selected, 'vitamin_a_iu',
-                                        true) | number:0}} IU</td>
-                      </tr>
-                      <tr>
-                        <td>Vitamin B12</td>
-                        <td>{{calcMealPlanValues(selected, 'vitamin_b12_mcg',
-                                        true) | number:0}} mcg</td>
-                      </tr>
-                      <tr>
-                        <td>Vitamin C</td>
-                        <td>{{calcMealPlanValues(selected, 'vitamin_c_mg',
-                                        true) | number:0}} mg</td>
-                      </tr>
-                      <tr>
-                        <td>Vitamin D</td>
-                        <td>{{calcMealPlanValues(selected, 'vitamin_d_mcg',
-                                        true) | number:0}} mcg</td>
-                      </tr>
-                      <tr>
-                        <td>Vitamin E</td>
-                        <td>{{calcMealPlanValues(selected, 'vitamin_e_mg',
-                                        true) | number:0}} mcg</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                        <tbody>
+                          <tr>
+                            <td>Energy</td>
+                            <td>{{calcMealPlanValues(selected, 'energy_kcal') |
+                                number:0 }} kcal</td>
+                          </tr>
+                            <tr>
+                            <td>Carbohydrates</td>
+                            <td>{{calcMealPlanValues(selected, 'carbohydrate_tot') |
+                                number:0 }} g</td>
+                          </tr>
+                            <tr>
+                            <td>Proteins</td>
+                            <td>{{calcMealPlanValues(selected, 'protein_tot') |
+                                number:0 }} g</td>
+                          </tr>
+                            <tr>
+                            <td>Fats</td>
+                            <td>{{calcMealPlanValues(selected, 'fat_tot') |
+                                number:0 }} g</td>
+                          </tr>
+                            <tr>
+                            <td>Monounsaturated Fat</td>
+                            <td>{{calcMealPlanValues(selected, 'fa_mono_g', true) |
+                                number:0 }} g</td>
+                          </tr>
+                            <tr>
+                            <td>Polyunsaturated Fat</td>
+                            <td>{{calcMealPlanValues(selected, 'fa_poly_g', true) |
+                                number:0 }} g</td>
+                          </tr>
+                            <tr>
+                            <td>Saturated Fat</td>
+                            <td>{{calcMealPlanValues(selected, 'fa_sat_g', true) |
+                                number:0 }} g</td>
+                          </tr>
+                            <tr>
+                            <td>Sugar</td>
+                            <td>{{calcMealPlanValues(selected, 'sugar_tot') |
+                                number:0 }} g</td>
+                          </tr>
+                          <tr>
+                            <td>Fiber</td>
+                            <td>{{calcMealPlanValues(selected, 'fiber_tot') |
+                                number:0 }} g</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div class="col s6 m6">
+                        <table class="bordered responsive-table">
+                        <tbody>
+                          <tr>
+                            <td>Cholesterol</td>
+                            <td>{{calcMealPlanValues(selected, 'cholestrl_mg',
+                                            true) | number:0}} mg</td>
+                          </tr>
+                          <tr>
+                            <td>Sodium</td>
+                            <td>{{calcMealPlanValues(selected, 'sodium_mg',
+                                            true) | number:0}} mg</td>
+                          </tr>
+                          <tr>
+                            <td>Calcium</td>
+                            <td>{{calcMealPlanValues(selected, 'calcium_mg',
+                                            true) | number:0}} mg</td>
+                          </tr>
+                          <tr>
+                            <td>Iron</td>
+                            <td>{{calcMealPlanValues(selected, 'iron_mg',
+                                            true) | number:0}} mg</td>
+                          </tr>
+                          <tr>
+                            <td>Vitamin A</td>
+                            <td>{{calcMealPlanValues(selected, 'vitamin_a_iu',
+                                            true) | number:0}} IU</td>
+                          </tr>
+                          <tr>
+                            <td>Vitamin B12</td>
+                            <td>{{calcMealPlanValues(selected, 'vitamin_b12_mcg',
+                                            true) | number:0}} mcg</td>
+                          </tr>
+                          <tr>
+                            <td>Vitamin C</td>
+                            <td>{{calcMealPlanValues(selected, 'vitamin_c_mg',
+                                            true) | number:0}} mg</td>
+                          </tr>
+                          <tr>
+                            <td>Vitamin D</td>
+                            <td>{{calcMealPlanValues(selected, 'vitamin_d_mcg',
+                                            true) | number:0}} mcg</td>
+                          </tr>
+                          <tr>
+                            <td>Vitamin E</td>
+                            <td>{{calcMealPlanValues(selected, 'vitamin_e_mg',
+                                            true) | number:0}} mcg</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+            </div>
+
+            </div>
         </div>
         
+        <!-- QUICK TOOLS MODAL-->
+        <div class="modal modal-fixed-footer food-modal" id="quick-tools-modal">
+        <a class=
+        "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
+
+        <div class="modal-content ">
+            <div class="row">
+
+                <div class="col s12 m6 input-field">
+<!--
+                    <select material-select ng-model="listFromHistoryType">
+
+                        <option  ng-repeat="value in searchTypeChoices">
+                            {{value}}
+                        </option>
+
+                    </select>
+                    <label>Search From History For</label>
+-->
+                    <select material-select ng-model="searchHistoryType">
+                      
+                        <option  ng-repeat="value in searchHistoryTypeChoices">{{value}}</option>
+                      
+                    </select>
+                    <label>Search For</label>
+                </div>
+                
+                <div class="col s12 m6">
+                    <div class="card white create-search-box" id=
+                    "searchcard">
+                        <!-- SEARCH-BOX -->
+
+
+                        <div class="card-content black-text">
+                            <textarea class="form-control" id=
+                            "searchbox" ng-model="mySavedStuffQuery" placeholder=
+                            "Search Food"></textarea>
+                            <button class=
+                            "fa fa-search search-ingredient"
+                            fire-enter="" ng-click="searchMySavedStuff(1)"
+                            type="submit"></button>
+                        </div>
+                    </div>
+                    <!-- END OF SEARCH-BOX -->
+                </div>
+                
+            </div>
+
+
+            <div class="row">
+                <div class="col s12 m6" ng-if="searchHistoryType==='My Recipes'">
+                    <div class="searchresult-create row">
+                        <div ng-repeat=
+                        "recipe in mySavedStuff.results track by $index">
+                            <p><input checklist-model="checklistIngs"
+                            checklist-value="recipe.recipe" class="filled-in" id=
+                            "filled-in-box-recipe-history{{$index}}"  type="checkbox">
+                            <label class="ing-text highlight" for=
+                            "filled-in-box-recipe-history{{$index}}" id=
+                            "check-label-recipe-history{{$index}}">{{recipe.recipe.name}}</label></p>
+                        </div>
+                    </div>
+
+
+                    <div class="row smallpaginate">
+                        <paging ng-if="mySavedStuff !== undefined && mySavedStuff !== []"
+                            class="small"
+                            page="mySavedStuffCurrentPage" 
+                            page-size="6" 
+                            total="mySavedStuffPageSize"
+                            hide-if-empty="{{hideIfEmpty}}"
+                            ul-class="{{ulClass}}"
+                            li-class="lipageclass"
+                            active-class="{{activeClass}}"
+                            disabled-class="{{disabledClass}}"
+                            show-prev-next="true"
+                            text-next-class="acti fa fa-chevron-right"
+                            text-prev-class="acti fa fa-chevron-left"
+                            text-first-class="acti fa fa-backward"
+                            text-last-class="acti fa fa-forward"
+                            text-title-page="Page {page}"
+                            text-title-first="First Page"
+                            text-title-last="Last Page"
+                            text-title-next="Next Page"
+                            text-title-prev="Previous" 
+                            paging-action="getSavedStuffNextPage(page)">
+                        </paging> 
+                        <br>
+                    </div>
+                </div>
+                
+                <div class="col s12 m6" ng-if="searchHistoryType==='My Ingredients'">
+                    <div class="searchresult-create row">
+                        <div ng-repeat=
+                        "ingredient in mySavedStuff.results track by $index">
+                            <p><input checklist-model="checklistIngs"
+                            checklist-value="ingredient.ingredient" class="filled-in" id=
+                            "filled-in-box-history{{$index}}"  type="checkbox">
+                            <label class="ing-text highlight" for=
+                            "filled-in-box-history{{$index}}" id=
+                            "check-label-history{{$index}}">{{ingredient.ingredient.name}}</label></p>
+                        </div>
+                    </div>
+
+
+                    <div class="row smallpaginate">
+                        <paging ng-if="mySavedStuff !== undefined && mySavedStuff !== []"
+                            class="small"
+                            page="mySavedStuffCurrentPage" 
+                            page-size="6" 
+                            total="mySavedStuffPageSize"
+                            hide-if-empty="{{hideIfEmpty}}"
+                            ul-class="{{ulClass}}"
+                            li-class="lipageclass"
+                            active-class="{{activeClass}}"
+                            disabled-class="{{disabledClass}}"
+                            show-prev-next="true"
+                            text-next-class="acti fa fa-chevron-right"
+                            text-prev-class="acti fa fa-chevron-left"
+                            text-first-class="acti fa fa-backward"
+                            text-last-class="acti fa fa-forward"
+                            text-title-page="Page {page}"
+                            text-title-first="First Page"
+                            text-title-last="Last Page"
+                            text-title-next="Next Page"
+                            text-title-prev="Previous" 
+                            paging-action="getSavedStuffNextPage(page)">
+                        </paging> 
+                        <br>
+                    </div>
+                </div>
+
+
+                <div class="col s12 m6">
+                    <div class="nutsection">
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s12 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a ahead servehead">Serving per 100
+                                grams:</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Calories (kcal)</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].energy_kcal}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Proteins</p>
+                            </div>
+
+
+                            <div class="col s4 m6">
+                                <p class="a b" ng-if=
+                                "checklistIngs[checklistIngs.length-1]">
+                                {{checklistIngs[checklistIngs.length-1].protein_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Fats</p>
+                            </div>
+
+
+                            <div class="col s4 m5" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].fat_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Carbohydrates</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].carbohydrate_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Fiber</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].fiber_tot}}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row hline" ng-if=
+                        "checklistIngs[checklistIngs.length-1]">
+                            <div class="col s8 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b ahead">Water</p>
+                            </div>
+
+
+                            <div class="col s4 m6" ng-if=
+                            "checklistIngs[checklistIngs.length-1]">
+                                <p class="a b">
+                                {{checklistIngs[checklistIngs.length-1].water}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+
+
+                    <div class="row" ng-repeat="(index, food) in ingredientInModal">
+                        <div class="col s8 m10 meal-list">
+                            <p class="ing-text meal-list" ng-if=
+                            "ingredientInModal.length&gt;0">{{food.name}}</p>
+                        </div>
+
+
+                        <div class="col s4 m2 meal-list">
+                            <a href="#" ng-click=
+                            "removeFromIngredientInModal(index)"><i class=
+                            "material-icons meal-list right createbin dustbin" ng-if=
+                            "ingredientInModal.length&gt;0">delete</i></a>
+                        </div>
+                    </div>
+
+
+                    <div class="row" ng-repeat="(index, checkIng) in checklistIngs">
+                        <div class="col s8 m10 meal-list">
+                            <p class="ing-text meal-list" ng-if=
+                            "checklistIngs.length&gt;0">{{checkIng.name}}</p>
+                        </div>
+
+
+                        <div class="col s4 m2 meal-list">
+                            <a href="#" ng-click=
+                            "removeFromChecklistIng(index)"><i class=
+                            "material-icons meal-list right createbin dustbin" ng-if=
+                            "checklistIngs.length&gt;0">delete</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fixed-action-btn" style="bottom: 45px; left:45%">
+                <a class="btn-floating btn-large bp_red" ng-click="addContents()">
+                  <i class="large material-icons">add</i>
+                </a>
+          </div>
         </div>
+
     </div>
+        
+        
     </div>
     <!-- Add Meal Modal-->
 
 
-    <div class="modal modal-fixed-footer" id="add-meal-summary-modal">
+    <div class="modal modal-fixed-footer " id="add-meal-summary-modal">
         <div class="modal-content">
             <div class="row">
                 <div class="input-field col s12">
@@ -643,13 +929,23 @@
     
     <!-- ADD FOOD MODAL -->
 
-    <div class="modal modal-fixed-footer" id="add-food-summary-modal">
+    <div class="modal modal-fixed-footer food-modal" id="add-food-summary-modal">
         <a class=
         "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
 
         <div class="modal-content ">
             <div class="row">
-                <div class="col s12 m4">
+                
+                <div class="col s12 m2 input-field">
+                    <select material-select ng-model="searchType">
+                      
+                        <option  ng-repeat="value in searchTypeChoices">{{value}}</option>
+                      
+                    </select>
+                    <label>Search For</label>
+                </div>
+                
+                <div class="col s12 m8">
                     <div class="card white create-search-box" id=
                     "searchcard">
                         <!-- SEARCH-BOX -->
@@ -687,6 +983,7 @@
                     </div>
                 </div>
                 
+<!--
                 <div class="col s12 m2 search-filter-align">
                     Search For:
                 </div>
@@ -704,6 +1001,7 @@
                     value="recipes"> <label for=
                     "searchkind2">Recipes</label>
                 </div>
+-->
             </div>
 
 
@@ -903,10 +1201,6 @@
         </div>
 
     </div>
-
-
-    <!-- MEAL INFO MODAL-->
-
-   
+    
     
 </section>

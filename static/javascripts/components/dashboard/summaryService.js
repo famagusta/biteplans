@@ -188,6 +188,37 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             return deferred.promise;
         };
         
+        
+        /* Function to search for ingredients that the user shortlisted */
+        var searchShortlistedStuff = function(query, page, type){
+            var url = '/dashboard/my-ingredient-search/';
+            
+            if(page===undefined || page===null){
+                page = 1;
+            }
+            
+            if(type===undefined || type===null){
+                type = "ingredients";
+            }
+            console.log(type);
+            var deferred = $q.defer();
+
+            var obj = {
+                'name':query,
+                'page': page,
+                'type': type
+            }
+
+            httpService.httpPost(url, obj).then(
+                function(response) {
+                    deferred.resolve(response);    
+                },
+                function(error) {
+                    deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        
         return {
             getUserDayPlan: function(dateString) {
                 return getUserDayPlan(dateString);
@@ -228,6 +259,9 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             },
             getShortlistPlans: function(page){
                 return getShortlistPlans(page);
+            },
+            searchShortlistedStuff: function(query, page, type){
+                return searchShortlistedStuff(query, page, type);
             }
             
         };

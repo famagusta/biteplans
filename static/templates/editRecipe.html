@@ -255,10 +255,10 @@
                             <div class="row" ng-repeat=
                             "steps in stepsToCreateRecipes track by $index">
                                 <div class="input-field col s12">
-                                    <input class="validate" id="recipe_steps"
-                                    ng-model="steps"
-                                    required="" type="text"> <label adjust-placeholder for=
-                                    "recipe_steps">Step {{$index+1}}</label>
+                                    <textarea class="validate materialize-textarea" id=
+                                    "recipe_steps" ng-model=
+                                    "stepsToCreateRecipes[$index]"></textarea>
+                                    <label for="recipe_steps">Step {{$index+1}}</label>
                                 </div>
                             </div>
 

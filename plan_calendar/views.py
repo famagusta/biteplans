@@ -23,7 +23,6 @@ import logging
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
 
-
 class FollowDietViewSet(viewsets.ModelViewSet):
     '''view to allow users to follow plans'''
 
@@ -330,3 +329,58 @@ class MyPlanViewset(viewsets.ModelViewSet):
         result = self.serializer_class(result, many=True)
         return Response({"results":result.data, "total":total},
                         status=status.HTTP_200_OK)
+
+
+    
+class MyIngredientSearchViewset(generics.GenericAPIView):
+    '''creates serializer of the queryset
+        NOW REDUNDANT SINCE haystack search'''
+    sortlist = None
+
+    def get_serializer_class(self):
+        if self.request.data['type'] == 'recipes':
+            return MyRecipeSerializer
+        else:
+            return MyIngredientSerializer
+
+    def get_queryset(self):
+        '''returns queryset for get method'''
+        if self.request.user:
+            '''return matching '''
+            if self.request.data['type'] == 'recipes':
+                return MyRecipe.objects.filter(user=self.request.user)
+            else:
+                return MyIngredient.objects.filter(user=self.request.user)
+        else:
+            return  Response({'error':'User Authentication Failure'},
+                            status=status.HTTP_401_UNAUTHORIZED)
+
+    def post(self, request):
+        '''Handles post request'''
+        name = self.request.data['name']
+        if self.request.data['type'] == 'recipes':
+            result = self.get_queryset().filter(recipe__name__search=name)
+        else:
+            result = self.get_queryset().filter(ingredient__name__search=name)
+        # Filters are only applicable for ingredients,
+        # so this gathers the list of possible filters
+
+        # total number of pages
+        total = math.ceil(len(result)/6.0)
+
+        # pagination for 6 results in each page
+        paginator = Paginator(result, 6)
+        page = request.GET.get('page')
+        serializer = self.get_serializer_class()
+        try:
+            result = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999),
+            # deliver last page of results.
+            result = paginator.page(paginator.num_pages)
+
+        result = serializer(result, many=True)
+        return Response({"results": result.data, "total": total})

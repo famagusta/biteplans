@@ -348,7 +348,7 @@ input:disabled {
     color: #ff5252 !important;
 }
 
-#add-food-summary-modal {
+.food-modal {
     height: 150% !important;
     width: 70% !important;
     max-height: 80%;
@@ -368,7 +368,7 @@ input:disabled {
         width: 97% !important;
     }
     
-    #add-food-summary-modal {
+    .food-modal {
         max-width: 100% !important;
         width: 97% !important;
     }

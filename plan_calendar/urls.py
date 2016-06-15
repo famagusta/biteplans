@@ -18,7 +18,8 @@ calendarRouter.register(r'my-recipes', calendarViews.MyRecipeViewset)
 calendarRouter.register(r'my-dietplans', calendarViews.MyPlanViewset)
 
 urlpatterns = patterns('',
-                       #url(r'^$', include(calendarRouter.urls)),
+                       url(r'my-ingredient-search/$',
+                           calendarViews.MyIngredientSearchViewset.as_view()),
                        )
 
 urlpatterns += calendarRouter.urls
