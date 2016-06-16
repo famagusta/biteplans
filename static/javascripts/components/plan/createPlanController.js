@@ -7,6 +7,9 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
     function($scope, $window, AuthService, $routeParams, searchService,
         $location, planService, summaryService)
     {
+        //temp fixe - it has bugs - profile pic wont dropdown
+        $('#navbar').show();
+        
         'use strict';
         /* CHECK AUTH STATUS - ONLY AUTHENTICATED USERS SHOULD
         BE ABLE TO CREATE A PLAN */

@@ -113,7 +113,7 @@ app.controller('confirmController', ['$scope', '$window', '$location',
                     if (response.success) {
                         $scope.content = response.success;
                         $window.localStorage.token = response.token;
-                        $location.path('/dashboard');
+                        $location.path('/dashboard/profile');
                     }
                 }, function(error) {
                     $scope.content = error;

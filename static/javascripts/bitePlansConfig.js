@@ -19,6 +19,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         $httpProvider.interceptors.push(['$q', function ($q) {
             return {
                 request: function (config) {
+                    //console.log(config);
                     if (config.method !== 'PATCH') {
                         $('#processing').show();
                     }

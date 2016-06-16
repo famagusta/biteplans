@@ -1,6 +1,35 @@
 <div class="section" id="planPage">
     <div class="row">
-        <div class="col s12 m3" ng-if="plans.sortlist.length>0" id="checklist">
+        <div class="col s12 m8 push-m2 center">
+            <div class="card white" id="searchcard">
+                <!-- SEARCH-BOX -->
+
+
+                <div class="card-content black-text">
+                    <form>
+                        <textarea class="form-control" id="searchbox"
+                        ng-model="query_plan" placeholder=
+                        "Search Plans"></textarea> <button class=
+                        "fa fa-search search-plan" fire-enter=""
+                        ng-click="search_plan(1)" type=
+                        "submit"></button>
+                    </form>
+                </div>
+
+
+                <!-- END OF SEARCH-BOX -->
+            </div>
+        </div>
+        <div class="col s12 m12 center">
+            <p style="color:red">{{followPlanError}}</p>
+        </div>
+        <div class="col s12 m12 center">
+            <p style="color:green">{{followPlanStatus}}</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col s12 m3" ng-if="plans.sortlist.length>0 && plans.results.length>0" id="checklist">
             <div class="card white recipeCheckCard">
                 <div class="card-content black-text">
                     <form action="#" class="planform">
@@ -29,10 +58,10 @@
 
 
         <div class="smallmid" ng-class="{'col s12 m9': plans.sortlist!==undefined&&plans.sortlist.length>0, 'col s12 m12':plans.sortlist===undefined||plans.sortlist===null}">
+<!--
             <div class="row">
                 <div class="col s12 m12">
                     <div class="card white" id="searchcard">
-                        <!-- SEARCH-BOX -->
 
 
                         <div class="card-content black-text">
@@ -47,7 +76,6 @@
                         </div>
                         
                         
-                        <!-- END OF SEARCH-BOX -->
                     </div>
                 </div>
                 <div class="col s12 m12 center">
@@ -57,6 +85,7 @@
                     <p style="color:green">{{followPlanStatus}}</p>
                 </div>
             </div>
+-->
 
 
             <div class="row">
@@ -241,19 +270,20 @@
                 </div>
             </div>
 
-
-            <div class="row hide-on-med-and-down">
-                <div class="col s12">
-                    <div class="center-btn">
-                        <btn class="btn largebtn"
-                        ng-click="checkAuth4PlanCreate()" >
-                            CREATE A PLAN
-                        </btn>
-                    </div>
-                </div>
+        </div>
+    </div>
+    
+    <div class="row hide-on-med-and-down">
+        <div class="col s12">
+            <div class="center-btn">
+                <btn class="btn largebtn"
+                ng-click="checkAuth4PlanCreate()" >
+                    CREATE A PLAN
+                </btn>
             </div>
         </div>
     </div>
+    
 </div>
 <!-- END OF PLANPAGE -->
 

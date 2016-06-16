@@ -63,6 +63,20 @@ class DietPlan(models.Model):
             return 0
         else:
             return avg_rating
+        
+    @property
+    def is_complete(self):
+        #status = True;
+        day_plans = DayPlan.objects.filter(diet__id=self.id);
+        for day in day_plans:
+            meal_plans = MealPlan.objects.filter(day__id=day.id)
+            for meal in meal_plans:
+                ingredients = MealIngredient.objects.filter(meal_plan__id=meal.id)
+                recipes = MealRecipe.objects.filter(meal_plan__id=meal.id)
+                if len(ingredients)==0 and len(recipes)==0:
+                    return False
+        return True
+                
 
 
 class PlanRating(models.Model):

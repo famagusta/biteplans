@@ -62,7 +62,7 @@ class DietPlanViewset(viewsets.ModelViewSet):
         if (not user.is_anonymous()) and (search_plan_populate is None):
             result = self.queryset.filter(creator=request.user)
         else:
-            result = self.queryset.order_by('-date_published')[:4]
+            result = [dietplan for dietplan in self.queryset.order_by('-date_published') if dietplan.is_complete][:4]
             
         no_plan_per_page = 2.0
         if search_plan_populate is not None :

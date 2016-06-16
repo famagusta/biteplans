@@ -12,6 +12,7 @@ from ingredients.serializers import IngredientSerializer, \
 class DietPlanSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
     average_rating = serializers.ReadOnlyField() #FloatField(source='average_rating')
+    is_complete = serializers.ReadOnlyField()
     class Meta:
         '''Meta data, or config for the serializer'''
         model = DietPlan
