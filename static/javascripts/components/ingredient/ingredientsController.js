@@ -56,7 +56,7 @@ app.controller('ingredientsController',
         
         $scope.clearFoodGroup = function(){
             $scope.foodgroup = [];
-        }
+        };
 
         $scope.search = function() {
             if($scope.query !== undefined){

@@ -1106,6 +1106,10 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         $scope.getMySavedFoods(page);
                     }
                 };
+                
+                $scope.clearFoodGroup = function(){
+                    $scope.foodgroup = [];
+                };
         
             }
             else

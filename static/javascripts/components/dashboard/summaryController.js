@@ -1065,5 +1065,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             }
         };
         
+        $scope.clearFoodGroup = function(){
+            $scope.foodgroup = [];
+        };
+        
     }
 ]);
