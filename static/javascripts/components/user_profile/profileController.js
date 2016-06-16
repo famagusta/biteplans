@@ -18,6 +18,16 @@ app.controller('profileController', ['$scope', 'AuthService',
                     $scope.profile_image_file.src="";
                     $scope.placeHolderDOB = new Date();
                     $scope.user_thum = "";
+                    $scope.activityLevelChoices = ['Sedentary', 'Mild Activity',
+                                                   'Moderate Activity','Heavy Activity',
+                                                   'Very Heavy Activity'];
+                    var activityLevelChoicesDict = {
+                        'Sedentary': 'S',
+                        'Mild Activity': 'MA',
+                        'Moderate Activity': 'OA',
+                        'Heavy Activity': 'HA',
+                        'Very Heavy Activity': 'VHA'
+                    };
                     $scope.options = { year: 'numeric',
                                            month: 'long', 
                                            day: 'numeric' };
@@ -82,8 +92,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                                 if(context.select){
                                     var date_to_set = new Date(context.select);
 
-                                    $scope.placeHolderDOB = date_to_set.toLocaleDateString('en-GB',
-                                                                               $scope.options);
+                                    $scope.placeHolderDOB = date_to_set.toLocaleDateString('en-GB',$scope.options);
                                     // plus 1 fixed the problem that date returns month in 0 to 11
                                     var dob_str = date_to_set.getFullYear() + '-' + (date_to_set.getMonth() + 1) + '-' + date_to_set.getDate();
                                     
@@ -112,6 +121,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                             weight: $scope.profileInfo.weight || 0,
                             height: $scope.profileInfo.height || 0,
                             date_of_birth: $scope.profileInfo.date_of_birth || 0,
+                            activity_level: activityLevelChoicesDict[$scope.profileInfo.activity_level] || 0,
                             gender: $scope.profileInfo.gender || 0,
                             body_fat_percent: $scope.profileInfo.body_fat_percent || 0,
                             neck: $scope.profileInfo.neck || 0,
@@ -124,6 +134,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                             thigh: $scope.profileInfo.thigh || 0,
                             calf: $scope.profileInfo.calf || 0
                         };
+                        console.log(update_params);
                         profileService.updateProfile($scope.profileInfo.id,
                                                      update_params);
                     };

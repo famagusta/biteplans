@@ -15,6 +15,13 @@ GENDER_CHOICES = (
     ('F', 'Female'),
 )
 
+ACTIVITY_LEVEL_CHOICE = (
+    ('S', 'Sedentary'),
+    ('MA', 'Mild Activity'),
+    ('OA', 'Moderate Activity'),
+    ('HA', 'Heavy Activity'),
+    ('VHA', 'Very Heavy Activity'),
+)
 
 def upload_to(instance, filename):
     return 'photos/user_profile_image/{}_{}'.format(instance.id, filename)
@@ -79,6 +86,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     date_of_birth = models.DateField(null=True, blank=True)
     gender = models.CharField(null=True, blank=True,
                               max_length=1, choices=GENDER_CHOICES)
+    activity_level = models.CharField(null=True, blank=True,
+                                      max_length=3, choices=ACTIVITY_LEVEL_CHOICE)
 
     # some optional fields - body measurements
     body_fat_percent = models.DecimalField(null=True, blank=True,
@@ -116,6 +125,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         '''return username'''
         return self.username
+    
+    @property
+    def is_basic_info(self):
+        if self.weight and self.height and self.date_of_birth \
+            and self.gender and self.activity_level:
+                return True
+        return False
 
     
 

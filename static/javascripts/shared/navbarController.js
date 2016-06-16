@@ -8,11 +8,22 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
         // function to check whether the person is logged in or not
         
         $scope.isLoggedIn = false;
+        $scope.profileInfo = {};
+        $scope.placeHolderDOB = null;
+        var isProfileInfo = false;
+        
         var checkLoggedIn = function() {
             AuthService.isAuthenticated()
                 .then(function(response) {
                     $scope.isLoggedIn = response.status;
-                    profileService.getProfile();
+                    $scope.profileInfo.id = response.pk;
+                    isProfileInfo = response.profile_status;
+                    getProfileInfo();
+                
+                    //prompt user to fill in basic details
+                    if(response.status && !isProfileInfo){
+                        openUserInfoModal();    
+                    };
                 }, function(error) {
                     $scope.isLoggedIn = false;
                 });
@@ -25,21 +36,23 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             $scope.openModal();
         });
         
-        profileService.getProfile()
-            .then(function(response) {
-                if (response.image_path) {
-                    $scope.user_thum = response.image_path;
-                }
-                else if (response.social_thumb) {
-                    $scope.user_thum = response.social_thumb;
-                }
-                else {
-                    $scope.user_thum =
-                        'static/images/default-user.png';
-                }
-            }, function(error) {
-                console.log(error);
+        var getProfileInfo = function(){
+            profileService.getProfile()
+                .then(function(response) {
+                    if (response.image_path) {
+                        $scope.user_thum = response.image_path;
+                    }
+                    else if (response.social_thumb) {
+                        $scope.user_thum = response.social_thumb;
+                    }
+                    else {
+                        $scope.user_thum =
+                            'static/images/default-user.png';
+                    }
+                }, function(error) {
+                    console.log(error);
             });
+        };
         //by default first modal viw will be visible;
         $scope.modal1 = true;
         $scope.modal2 = false;
@@ -174,7 +187,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             AuthService.socialAuth(provider)
                 .then(function(response) {
                     $scope.isLoggedIn = true;
-                    
+                    checkLoggedIn();
                     //close the modal if login is success
                     $('#modal1').closeModal();
                 }, function(error) {
@@ -213,7 +226,74 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             $window.location.assign(path);  
         };
         
+        $rootScope.$on('getAdditionalUserInfo', function(event, args) {
+            /* function to access navbar controller for auth */
+            openUserInfoModal();
+            getProfileInfo();
+        });
         
+        var openUserInfoModal = function(){
+            $scope.modal1 = false;
+            $scope.modal2 = false;
+            $scope.modal3 = true;
+            $scope.modal4 = false;
+            $('#user_info_modal').openModal();  
+        };
+        
+        $scope.activityLevelChoices = ['Sedentary', 'Mild Activity',
+                                       'Moderate Activity','Heavy Activity',
+                                       'Very Heavy Activity'];
+        var activityLevelChoicesDict = {
+            'Sedentary': 'S',
+            'Mild Activity': 'MA',
+            'Moderate Activity': 'OA',
+            'Heavy Activity': 'HA',
+            'Very Heavy Activity': 'VHA'
+        };
+        
+        $scope.profileInfo.activity_level = $scope.activityLevelChoices[0];
+        
+        $scope.updateDOB = function(){
+            var $input = $('#dob_field_nav').pickadate({
+                format : 'd mmmm yyyy',
+                monthSelector: true,
+                yearSelector: true,
+                selectMonths: true,
+                selectYears: 100,
+                max: new Date(),
+                formatSubmit: false,
+                closeOnSelect: false,
+                onSet: function(context) {
+                    //make api call to follow the plan on setting of date
+                    /* convert to ISO 8601 date time string for serializer
+                      acceptance*/
+                    // only if a date is selected will we change stuff
+                    if(context.select){
+                        var date_to_set = new Date(context.select);
+
+                        $scope.placeHolderDOB = date_to_set.toLocaleDateString('en-GB',$scope.options);
+                        // plus 1 fixed the problem that date returns month in 0 to 11
+                        var dob_str = date_to_set.getFullYear() + '-' + (date_to_set.getMonth() + 1) + '-' + date_to_set.getDate();
+
+                        $scope.profileInfo.date_of_birth = dob_str;
+                    }
+                }
+            });
+        };
+
+                    
+        $scope.updateProfileInfo = function(){
+            var update_params = {
+                weight: $scope.profileInfo.weight || 0,
+                height: $scope.profileInfo.height || 0,
+                date_of_birth: $scope.profileInfo.date_of_birth || 0,
+                activity_level: activityLevelChoicesDict[$scope.profileInfo.activity_level] || 0,
+                gender: $scope.profileInfo.gender || 0
+            };
+            $('#user_info_modal').closeModal(); 
+            profileService.updateProfile($scope.profileInfo.id,
+                                         update_params);
+        };
 
     }
 ]);

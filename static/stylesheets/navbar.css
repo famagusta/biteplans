@@ -188,4 +188,17 @@ nav ul li {
         overflow-y: auto;
     }
 }
+
+
+#user_info_modal {
+    top: 5% !important;
+    max-height: 92% !important;
+    height : 92% !important;
+    width: 30%;
+}
+
+@media only screen and (max-width : 600px) {
+    #user_info_modal {
+        width: 80%;
+    }
 }

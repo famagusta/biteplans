@@ -101,8 +101,8 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
 
 
 app.controller('confirmController', ['$scope', '$window', '$location',
-    'httpService', '$routeParams',
-    function($scope, $window, $location, httpService, $routeParams) {
+    'httpService', '$routeParams', '$rootScope',
+    function($scope, $window, $location, httpService, $routeParams, $rootScope) {
         $scope.content = 'Just a moment we are confirming your account';
         var init = function() {
             var activation_key = $routeParams.activation_key;
@@ -113,7 +113,8 @@ app.controller('confirmController', ['$scope', '$window', '$location',
                     if (response.success) {
                         $scope.content = response.success;
                         $window.localStorage.token = response.token;
-                        $location.path('/dashboard/profile');
+                        $rootScope.$emit('getAdditionalUserInfo');
+                        $location.path('/dashboard');
                     }
                 }, function(error) {
                     $scope.content = error;

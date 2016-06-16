@@ -16,17 +16,7 @@
                 <div class="row">
                     <div class="col s12 m12 center">
                         <img class="responsive-img circle" ng-src=
-                            "{{user_thum}}"> 
-<!--
-                        <div class="file-field input-field">
-                            <img class="responsive-img circle" ng-src=
-                            "{{user_thum}}"> 
-                            <input accept=
-                            'image/*' file-model="profile_image_file.src"
-                            ng-disabled="!editIt" type="file">
-                        </div>
--->
-                        
+                            "{{user_thum}}">                         
                         
                     </div>
                     <div class="col s12 m12 center">
@@ -37,13 +27,7 @@
                 </div>
                 
                 <div class="row">
-                    
-<!--
-                    <div class="col s2 m2">
-                        
-                    </div>
--->
-                     <div class="col s12 m6">
+                    <div class="col s12 m4">
                         <label for="dob_field" adjust-placeholder>Date of Birth</label>
                         <input class="datepicker_btn" ng-click="updateDOB()" id="dob_field"
                         ng-disabled="!editIt" ng-model="placeHolderDOB" type=
@@ -51,48 +35,40 @@
                          
                     </div>
                     
-<!--
-                    <div class="col s1 m1 push-s1 push-m2">
-                        
+                    <div class="col s12 m4">
+                        <label for="activity_level" adjust-placeholder>Activity Level</label>
+                        <select class="" ng-model="profileInfo.activity_level" material-select watch id="activity_level">
+                            <option ng-repeat="value in activityLevelChoices">{{value}}</option>
+                        </select>
                     </div>
--->
 
-
-                    <div class="col s12 m6 ">
+                    <div class="col s12 m4">
                         <label>Gender</label>
                         <br>
                         <input checked class="with-gap" id="test5"
-                        name="group3" ng-disabled="!editIt" ng-model=
+                        name="group3" ng-model=
                         'profileInfo.gender' type="radio" value="M">
-                        <label for="test5">M</label>&nbsp;&nbsp;
+                        <label for="test5">Male</label>&nbsp;&nbsp;
                         <input class="with-gap" id="test4" name=
                         "group3" ng-disabled="!editIt" ng-model=
                         'profileInfo.gender' type="radio" value="F">
-                        <label for="test4">F</label>
+                        <label for="test4">Female</label>
                     </div>
 
                 </div>
-<!--
-                <div class="row">
-                    <div class="col s3 offset-s4">
-                        <a class="cyan-text add-ing" href="#" ng-click=
-                        "uploadImageModal()">Upload Image</a>
-                    </div>
-                </div>
--->
-
 
                 <div class="row">
                     <div class="input-field col s12 m6">
                         <label adjust-placeholder for="weight">Current Weight (in kgs)</label>
-                        <input class="validate" id="weight" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.weight" type="number">
+                        <input ng-class="{'validate':editIt}" min="0" max="650" id="weight"         step="0.1"  ng-disabled="!editIt" ng-model="profileInfo.weight" 
+                               type="number">
                     </div>
                     
                     <div class="input-field col s12 m6">
-                        <label adjust-placeholder for="body_fat">Body Fat (%)</label>
-                        <input class="validate" id="body_fat" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.body_fat_percent" min="0" max="100" type="number">
+                        <input ng-class="{'validate':editIt}" id="height" step="0.1"
+                               min="0" max="300"
+                               ng-model="profileInfo.height" type="number">
+                        <label adjust-placeholder for="height">Height (in cms)</label>
                     </div>
                 </div>
                 <!-- WE ARE NOT STORING THIS IN THE DATABASE YET-->
@@ -113,14 +89,14 @@
 
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="height" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.height" type="number">
-                        <label adjust-placeholder for="height">Height (in cms)</label>
+                        <label adjust-placeholder for="body_fat">Body Fat (%)</label>
+                        <input ng-class="{'validate':editIt}" id="body_fat" step="0.1" 
+                               ng-disabled="!editIt" ng-model="profileInfo.body_fat_percent" min="0" max="100" type="number">
                     </div>
                     
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="waist" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.waist" type="number">
+                        <input ng-class="{'validate':editIt}" id="waist" step="0.1" 
+                               ng-disabled="!editIt" ng-model="profileInfo.waist" type="number">
                         <label adjust-placeholder for="waist">Waist (in cms)</label>
                     </div>
                 </div>
@@ -128,14 +104,14 @@
                 
                  <div class="row">
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="chest" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.chest" type="number">
+                        <input ng-class="{'validate':editIt}" id="chest" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.chest" type="number">
                         <label adjust-placeholder for="height">Chest (in cms)</label>
                     </div>
                     
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="shoulder" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.shoulder" type="number">
+                        <input ng-class="{'validate':editIt}" id="shoulder" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.shoulder" type="number">
                         <label adjust-placeholder for="shoulder">Shoulder (in cms)</label>
                     </div>
                 </div>
@@ -143,14 +119,14 @@
                 
                  <div class="row">
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="bicep" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.bicep" type="number">
+                        <input ng-class="{'validate':editIt}" id="bicep" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.bicep" type="number">
                         <label adjust-placeholder for="bicep">Bicep (in cms)</label>
                     </div>
                     
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="forearm" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.forearm" type="number">
+                        <input ng-class="{'validate':editIt}" id="forearm" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.forearm" type="number">
                         <label adjust-placeholder for="height">Forearm (in cms)</label>
                     </div>
                 </div>
@@ -158,49 +134,36 @@
 
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="neck" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.neck" type="number">
+                        <input ng-class="{'validate':editIt}" id="neck" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.neck" type="number">
                         <label adjust-placeholder for="neck">Neck (in cms)</label>
                     </div>
                     
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="hip" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.hip" type="number">
+                        <input ng-class="{'validate':editIt}" id="hip" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.hip" type="number">
                         <label adjust-placeholder for="hip">Hip (in cms)</label>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="thigh" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.thigh" type="number">
+                        <input ng-class="{'validate':editIt}" id="thigh" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.thigh" type="number">
                         <label adjust-placeholder for="thigh">Thigh (in cms)</label>
                     </div>
                     
                     <div class="input-field col s12 m6">
-                        <input class="validate" id="calf" step="0.1" ng-disabled=
-                        "!editIt" ng-model="profileInfo.calf" type="number">
+                        <input ng-class="{'validate':editIt}" id="calf" step="0.1"
+                               ng-disabled="!editIt" ng-model="profileInfo.calf" type="number">
                         <label adjust-placeholder for="calf">Calf (in cms)</label>
                     </div>
                 </div>
 
 
-
-<!--
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input class="datepicker_btn" ng-click="updateDOB()"
-                        ng-disabled="!editIt" ng-model="placeHolderDOB" type=
-                        "text">
-                    </div>
-                </div>
-                <br>
--->
-
-
                 <div class="row center">
                     <div class="input-field col s12">
-                        <button class="waves-effect waves-light btn" ng-click=
+                        <button class="btn" ng-click=
                         "updateProfileInfo()" ng-disabled="!editIt" ng-if=
                         "editIt">Update</button>
                     </div>
@@ -220,10 +183,6 @@
 
     <div class="modal-content">
         <form name="fileForm">
-<!--
-            <input image="cropper.sourceImage" img-cropper-fileread=""
-            type="file" data-max-size="5120">
--->
 
             <div class="file-field input-field">
                 <div class="btn">

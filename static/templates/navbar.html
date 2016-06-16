@@ -346,74 +346,85 @@
                     </div>
                 </form>
             </div>
+            
             <!-- ENTER OTHER DETAILS OF THE USER -->
 
-
-            <div ng-if='!modal1 && !modal2 && modal3 && !modal4'>
+        </div>
+    </div>
+    
+    <div class="modal col s12 m6" id="user_info_modal">
+        <div class="row" ng-if='!modal1 && !modal2 && modal3 && !modal4'>
                 <h5 class="center">Tell us about yourself</h5>
-                <br>
-
-
+                
                 <p class="text-danger" ng-show="registerError">{{ registerError
                 }}</p>
 
 
-                <form ng-submit="register()">
-                    <!-- WEIGHT -->
-
-
-                    <div class="input-field">
-                        <input class="form-control validate" id="weight" min=
-                        "1" ng-model="registerWeight" required="" type=
-                        "number"> <label for="weight">Current Weight (in
-                        kgs)</label>
+                <form ng-submit="updateProfileInfo()">
+                    <div class="row">
+                        <div class="input-field col s8 m6 push-m3 push-s2">
+                            <label adjust-placeholder for="weight">Current Weight (in kgs)</label>
+                            <input ng-class="validate" min="0" max="650" id="weight"         step="0.1" ng-model="profileInfo.weight" required title="Please enter your weight" type="number">
+                        </div>
                     </div>
-                    <!-- HEIGHT -->
-
-
-                    <div class="input-field">
-                        <label for="height">Height (in cms)</label>
-                        <input class="form-control validate" data-error="Error"
-                        id="height" ng-model="registerHeight" required="" type=
-                        "number">
+                    
+                    <div class="row">
+                        <div class="input-field col s8 m6 push-m3 push-s2">
+                            <input ng-class="validate" id="height" step="0.1"
+                                   min="0" max="300" required
+                                   ng-model="profileInfo.height" type="number"
+                                   required title="Please enter your height">
+                            <label adjust-placeholder for="height">Height (in cms)</label>
+                        </div>
                     </div>
-                    <!-- GOAL WEIGHT -->
+                    
 
-
-                    <div class="input-field">
-                        <input class="form-control validate" id="weight"
-                        ng-model="registerWeight" required="" type="number">
-                        <label for="weight">Goal Weight (in kgs)</label>
+                    <div class="row">
+                        <div class="input-field col s10 m7 offset-m1 push-m2 push-s1">
+                            <label for="activity_level" adjust-placeholder>Activity Level</label>
+                            <select class="" ng-model="profileInfo.activity_level" material-select watch id="activity_level">
+                                <option ng-repeat="value in activityLevelChoices">{{value}}</option>
+                            </select>
+                        </div>
                     </div>
+                    
+                    
                     <!-- GENDER -->
 
-
-                    <div class="input-field">
-                        <label>Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <input checked class="with-gap" id="test5" name=
-                        "group3" type="radio"> <label for=
-                        "test5">Male</label>&nbsp;&nbsp; <input class=
-                        "with-gap" id="test4" name="group3" type="radio">
-                        <label for="test4">Female</label>
+                    <div class="row">
+                        <div class="input-field col s8 m6 push-m3 push-s2">
+                            <label>Gender</label>
+                            <br>
+                            <input checked class="with-gap" id="test5"
+                            name="group3" ng-model=
+                            'profileInfo.gender' type="radio" value="M" required>
+                            <label for="test5">Male</label>&nbsp;&nbsp;
+                            <input class="with-gap" id="test4" 
+                                   name="group3" ng-model='profileInfo.gender' 
+                                   type="radio" value="F" required>
+                            <label for="test4">Female</label>
+                        </div>
                     </div>
                     <!-- DATE OF BIRTH -->
 
-
-                    <div class="input-field">
-                        <input class="datepicker" id="dob" required="" type=
-                        "date">
+                    
+                    <div class="row">
+                        
+                        <div class="input-field col s8 m6 push-m3 push-s2" style="margin-top:60px">
+                            <label for="dob_field_nav" adjust-placeholder>Date of Birth</label>
+                            <input class="datepicker_btn" ng-click="updateDOB()" id="dob_field_nav" required
+                            ng-model="placeHolderDOB" type=
+                            "text" required title="Please enter your Date of Birth">
+                        </div>
                     </div>
                     <!-- SAVE AND CONTINUE BUTTON -->
 
 
                     <div class="center-btn">
-                        <a class="modal-trigger" href=
-                        "/dashboard"><input class="btn btn-default" type=
-                        "submit" value="Save and Continue"></a>
+                         <button class="btn" type="submit">Next</button>
                     </div>
                 </form>
             </div>
-        </div>
     </div>
 </div>
 

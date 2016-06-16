@@ -146,8 +146,10 @@ def checkAccountStatus(request):
     '''function to check auth status of a user'''
     if request.method == 'GET':
         if request.user.is_authenticated():
+            current_user = Account.objects.get(pk=request.user.id)
             data = {'status': True,
-                    'pk': request.user.id}
+                    'pk': request.user.id,
+                    'profile_status': current_user.is_basic_info}
             return Response(data, status=status.HTTP_200_OK)
         else:
             data = {'status': False}
