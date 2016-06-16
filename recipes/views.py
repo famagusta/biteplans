@@ -59,7 +59,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if (not user.is_anonymous()) and (search_recipe_populate is None):
             result = self.queryset.filter(created_by=request.user)
         else:
-            result = self.queryset.order_by('-date_published')[:6]
+            result = self.queryset.order_by('-date_published')
             
         no_recipes_per_page = 3.0
         if search_recipe_populate is not None :

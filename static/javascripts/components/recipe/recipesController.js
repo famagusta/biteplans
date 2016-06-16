@@ -73,7 +73,7 @@ app.controller('recipesController', ['$scope', 'searchService',
             if(!$scope.query_recipe){
                 searchService.list_latest_recipes().then(function(response){
                     $scope.currentPage = $scope.page;
-                    $scope.pageSize = response.total*3;
+                    $scope.pageSize = response.total*6;
                     $scope.recipeDetails = response;
                    for (var i=0;i<$scope.recipeDetails.results.length;i++){
                        if(!$scope.recipeDetails.results[i].image){
