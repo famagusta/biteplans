@@ -429,7 +429,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     console.log(error);
                 });
             } else if($scope.searchHistoryType === "My Recipes"){
-                summaryService.getShortlistRecipes(page).then(function(response){
+                console.log('fetching my recipes');
+                summaryService.searchShortlistedRecipes('', page).then(function(response){
+                    console.log(response);
                     $scope.mySavedStuff = response;
 
                     // pagination
@@ -1041,7 +1043,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
                 });
             } else if($scope.searchHistoryType==="My Recipes"){
-                summaryService.searchShortlistedStuff($scope.mySavedStuffQuery, page, "recipes")
+                summaryService.searchShortlistedRecipes($scope.mySavedStuffQuery, page)
                     .then(function(response){
                     $scope.mySavedStuff = response;
                     //$scope.filts = response.filters; //model for storing response from API                

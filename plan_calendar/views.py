@@ -8,6 +8,8 @@ from plan_calendar.serializers import UserPlanHistorySerializer,\
     MyRecipeWriteSerializer, EventIngredientSerializer, EventIngSerializer,\
     EventRecipeSerializer, EventRecpSerializer, MyPlanSerializer, \
     MyPlanWriteSerializer
+from recipes.models import Recipe
+from recipes.serializers import RecipeSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -22,6 +24,8 @@ import traceback
 import logging
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
+from django.db.models import Q
+
 
 class FollowDietViewSet(viewsets.ModelViewSet):
     '''view to allow users to follow plans'''
@@ -102,12 +106,13 @@ class MealHistoryViewSet(viewsets.ModelViewSet):
             self.serializer_class = MealHistoryWriteSerializer
             return (IsFollowing(), )
 
+    
     def create(self, request):
         '''creates meal history registry'''
-        serializer = self.serializer_class(data=request.data)
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
         if serializer.is_valid():
-            obj = MealHistory.objects.create(user=request.user,
-                                             **serializer.validated_data)
+            obj = MealHistory.objects.create(**serializer.validated_data)
             return Response({'mealhistory_id': obj.id},
                             status=status.HTTP_201_CREATED)
         else:
@@ -219,6 +224,7 @@ class EventRecipesViewSet(viewsets.ModelViewSet):
             self.serializer_class = EventRecpSerializer
             return (IsEventMealHistoryOwner(), )
 
+
 class MyRecipeViewset(viewsets.ModelViewSet):
     queryset = MyRecipe.objects.all()
     serializer_class = MyRecipeSerializer
@@ -274,6 +280,7 @@ class MyRecipeViewset(viewsets.ModelViewSet):
         return Response({"results":result.data, "total":total},
                         status=status.HTTP_200_OK)
 
+    
 class MyPlanViewset(viewsets.ModelViewSet):
     queryset = MyPlans.objects.all()
     serializer_class = MyPlanSerializer
@@ -362,6 +369,63 @@ class MyIngredientSearchViewset(generics.GenericAPIView):
             result = self.get_queryset().filter(recipe__name__search=name)
         else:
             result = self.get_queryset().filter(ingredient__name__search=name)
+        # Filters are only applicable for ingredients,
+        # so this gathers the list of possible filters
+
+        # total number of pages
+        total = math.ceil(len(result)/6.0)
+
+        # pagination for 6 results in each page
+        paginator = Paginator(result, 6)
+        page = request.GET.get('page')
+        serializer = self.get_serializer_class()
+        try:
+            result = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            result = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999),
+            # deliver last page of results.
+            result = paginator.page(paginator.num_pages)
+
+        result = serializer(result, many=True)
+        return Response({"results": result.data, "total": total})
+    
+    
+class MyRecipeSearchViewset(generics.GenericAPIView):
+    '''creates serializer of the queryset
+        NOW REDUNDANT SINCE haystack search'''
+    sortlist = None
+    serializer_class = RecipeSerializer
+    
+    def get_queryset(self):
+        '''returns queryset for get method'''
+        if self.request.user:
+            '''return matching '''
+            user_liked_myrecipes = MyRecipe.objects.filter(user=self.request.user)
+            user_created_or_liked_recipes = \
+                Recipe.objects.filter(Q(created_by=self.request.user) |
+                                      Q(id__in=user_liked_myrecipes.values('recipe')))
+            return user_created_or_liked_recipes
+        else:
+            return  Response({'error':'User Authentication Failure'},
+                            status=status.HTTP_401_UNAUTHORIZED)
+
+    def get(self, request):
+        result = self.get_queryset()
+        serializer = self.get_serializer_class()
+        result = serializer(result, many=True)
+        return Response({"results": result.data})
+    
+    def post(self, request):
+        '''Handles post request'''
+        name = self.request.data['name']
+        if name:
+            result = self.get_queryset().filter(name__search=name)
+        else:
+            result = self.get_queryset()
+        
         # Filters are only applicable for ingredients,
         # so this gathers the list of possible filters
 

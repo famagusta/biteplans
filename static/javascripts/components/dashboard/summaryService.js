@@ -191,6 +191,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
         
         /* Function to search for ingredients that the user shortlisted */
         var searchShortlistedStuff = function(query, page, type){
+            // this is for ingredients only now - separated the one for recipes
             var url = '/dashboard/my-ingredient-search/';
             
             if(page===undefined || page===null){
@@ -200,7 +201,7 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             if(type===undefined || type===null){
                 type = "ingredients";
             }
-            console.log(type);
+            
             var deferred = $q.defer();
 
             var obj = {
@@ -209,6 +210,36 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
                 'type': type
             }
 
+            httpService.httpPost(url, obj).then(
+                function(response) {
+                    deferred.resolve(response);    
+                },
+                function(error) {
+                    deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        
+        
+        /* Function to search for ingredients that the user shortlisted */
+        var searchShortlistedRecipes = function(query, page){
+            // this is for ingredients only now - separated the one for recipes
+            var url = '/dashboard/my-recipe-search/';
+            
+            if(page===undefined || page===null){
+                page = 1;
+            }
+            
+            if(query===undefined || query===null){
+                query = '';
+            }
+            var deferred = $q.defer();
+
+            var obj = {
+                'name':query,
+                'page': page
+            }
+            
             httpService.httpPost(url, obj).then(
                 function(response) {
                     deferred.resolve(response);    
@@ -262,6 +293,9 @@ app.factory('summaryService', ['httpService', 'AuthService', '$location',
             },
             searchShortlistedStuff: function(query, page, type){
                 return searchShortlistedStuff(query, page, type);
+            },
+            searchShortlistedRecipes: function(query, page){
+                return searchShortlistedRecipes(query, page);
             }
             
         };

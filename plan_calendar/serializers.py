@@ -70,9 +70,6 @@ class MealHistorySerializer(serializers.ModelSerializer):
     followingMealPlanIngredient = EventIngredientSerializer(many=True,
                                                             read_only=True)
 
-    # this did not work
-    # user_dietplan = DietPlanSerializer(many=False, read_only=True)
-
     # this might work
     user_dietplan = UserPlanHistorySerializer(many=False, read_only=True)
 
@@ -84,6 +81,9 @@ class MealHistorySerializer(serializers.ModelSerializer):
 
 class MealHistoryWriteSerializer(serializers.ModelSerializer):
     '''Serializer to convert the recieved data into suitable python dict'''
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        default=serializers.CurrentUserDefault())
     class Meta:
         '''Meta data, or config for the serializer'''
         model = MealHistory

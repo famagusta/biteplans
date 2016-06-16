@@ -22,4 +22,9 @@ urlpatterns = patterns('',
                            calendarViews.MyIngredientSearchViewset.as_view()),
                        )
 
+urlpatterns = patterns('',
+                       url(r'my-recipe-search/$',
+                           calendarViews.MyRecipeSearchViewset.as_view()),
+                       )
+
 urlpatterns += calendarRouter.urls
