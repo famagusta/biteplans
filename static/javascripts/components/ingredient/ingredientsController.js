@@ -53,6 +53,10 @@ app.controller('ingredientsController',
         $scope.$watchCollection('foodgroup', function (newVal, oldVal) {
             $scope.search();
          });
+        
+        $scope.clearFoodGroup = function(){
+            $scope.foodgroup = [];
+        }
 
         $scope.search = function() {
             if($scope.query !== undefined){
@@ -116,7 +120,6 @@ app.controller('ingredientsController',
         
         // function for modal when ingredient card is clicked
         $scope.openIngredientsModal = function(detail) {
-//            $scope.selected = 0;
             $scope.ingredientSelected = {};
             
 
