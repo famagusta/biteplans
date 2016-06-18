@@ -230,3 +230,7 @@ input:not([type]).invalid, input:not([type]):focus.invalid, input[type=text].inv
     border-bottom: 1px solid #ff5252 !important;
     box-shadow: 0 1px 0 0 #ff5252 !important;
 }
+
+pre, code {
+    white-space: pre-line;
+}
