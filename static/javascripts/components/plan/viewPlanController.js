@@ -7,9 +7,9 @@
 
 app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
     '$routeParams', 'searchService', '$location', 'planService', '$rootScope',
-    'constants',
+    'constants', 'profileService',
     function($scope, $window, AuthService, $routeParams, searchService,
-        $location, planService, $rootScope, constants)
+        $location, planService, $rootScope, constants, profileService)
     {
         'use strict';
         
@@ -54,6 +54,26 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
             'VHA': 'Very Heavy Activity'
         };
         
+        $scope.profileInfo={};
+        
+        $scope.constants = constants.userOb;
+        
+        $scope.$watchCollection('constants', function(newVal, oldVal){
+            if(newVal.status){
+                getUserProfile(newVal.pk);
+            }
+            
+        })
+        
+        var getUserProfile = function(id){
+            profileService.getUserProfile(id)
+                .then(function(response) {
+                    //model for storing response from API
+                    $scope.profileInfo = response; 
+                    }, function(error) {
+                        console.log(error);
+            });
+        }
         /* get the diet plan in question from the server */
         planService.getDietPlan($routeParams.id).then(
             function(response)
@@ -96,6 +116,67 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                 console.log(error);
             });
 
+        var isToasting = false;
+        var gender_lookup = {'Male':'M', 'Female': 'F'};
+        // a very basic look up to test BMR match
+        $scope.$watch('[profileInfo, plan]', function(newVal, oldVal){
+            var toast_msg = 'This plan is not suited for you!';
+            if(newVal[0] && newVal[1]){
+                if(newVal[1].upper_bmr && newVal[1].lower_bmr 
+                   && newVal[0].gender && newVal[1].gender && newVal[0].basal_metabolic_rate){
+                    if(newVal[1].gender!=='All'){
+                        console.log(1);
+                        if(gender_lookup[newVal[1].gender] !== newVal[0].gender){
+                            toast_msg += ' Gender Mismatch.';
+                            isToasting = true;
+                        }
+                        
+                    } 
+                    
+                    if(newVal[0].basal_metabolic_rate > 
+                              parseFloat(newVal[1].upper_bmr)){
+                        toast_msg += 
+                            ' Your body needs more calories to achieve this goal. Your estimated BMR is ' + newVal[0].basal_metabolic_rate + ' kcal';
+                        isToasting = true;
+                        
+                    } else if(newVal[0].basal_metabolic_rate < 
+                              parseFloat(newVal[1].lower_bmr)){
+                        toast_msg += ' Your body needs fewer calories to achieve this goal'  
+                            + newVal[0].basal_metabolic_rate + ' kcal';
+                        isToasting = true;
+                    } 
+
+                    if(isToasting){
+                        Materialize.toast(toast_msg, 20000, 'rounded');
+                    }
+                };
+            }
+            
+        }, true);
+        
+//        $scope.$watch('plan', function(newVal, oldVal){
+//            var toast_msg = 'This plan is not suited for your body!';
+//            console.log(newVal);
+//            if(newVal){
+//                if($scope.profileInfo && newVal.upper_bmr && newVal.lower_bmr){
+//                    console.log(newVal.gender);
+//                    console.log($scope.profileInfo.gender);
+//                    console.log(gender_lookup[newVal.gender]);
+//                    if(newVal.gender!=='All'){
+//                        gender_lookup[newVal.gender] !== $scope.profileInfo.gender;
+//                        toast_msg += 'It was designed for ' + gender_lookup[newVal.gender];
+//                        Materialize.toast(toast_msg, 40000, 'rounded') 
+//                    }else if($scope.profileInfo.basal_metabolic_rate> newVal.upper_bmr){
+//                        toast_msg += 'Your body needs more calories than this'
+//                        Materialize.toast(toast_msg, 40000, 'rounded');
+//                    } else if($scope.profileInfo.basal_metabolic_rate> newVal.lower_bmr){
+//                        toast_msg += 'Your body needs few calories than this'
+//                        Materialize.toast(toast_msg, 40000, 'rounded') 
+//                    }
+//                }
+//            }
+//        });
+        
         /*opens jump to or copy to modal*/
         $scope.openJumpToModal = function(type)
         {

@@ -36,10 +36,10 @@
                                     </div>
                                     
                                     <div class="col s12 m2">
-                                        <p class="ing-text">BMR RANGE
-                                        :</p>
+                                        <a class="ing-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Minimum amount of calories a body at rest needs per day">BMR RANGE
+                                        :</a>
                                     </div>
-                                    
+
                                     <div class="col s12 m2">
                                         <p class="" style="text-transform: lowercase">
                                         {{plan.lower_bmr | number:0}} - {{plan.upper_bmr | number:0}} kcal</p>
@@ -51,7 +51,7 @@
                                     </div>
                                     
                                     <div class="col s12 m2">
-                                        <p class="">
+                                        <p class="meal-text">
                                         {{plan.activity_level}}</p>
                                     </div>
 
@@ -905,4 +905,9 @@
             </div>
         </div>
     </div>
+    <script>
+      $(document).ready(function(){
+        $('.tooltipped').tooltip({delay: 50});
+      });
+    </script>
 </section>

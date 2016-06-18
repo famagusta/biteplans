@@ -22,6 +22,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
             
             var isAuth = response.status;
             var currentUser = response.pk;
+            
             /*page is visible only if user is authenticated
                     TODO : page is visible only to creator of plan */
             if (isAuth)

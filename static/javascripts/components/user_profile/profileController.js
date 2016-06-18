@@ -14,6 +14,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                 if (isAuthenticated) {
                     $scope.tab = 2;
                     $scope.inputImage = null;
+                    //$scope.profile = {};
                     $scope.profile_image_file = {};
                     $scope.profile_image_file.src="";
                     $scope.placeHolderDOB = new Date();
@@ -33,7 +34,7 @@ app.controller('profileController', ['$scope', 'AuthService',
                                            day: 'numeric' };
                     
                     
-                    profileService.getProfile()
+                    profileService.getUserProfile(response.pk)
                     .then(function(response) {
                             //model for storing response from API
                         

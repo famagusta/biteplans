@@ -20,8 +20,23 @@ app.factory('profileService',
         return deferred.promise;
     };
     
+    var getUserProfile = function(id ) {
+        //?? what is this doing here/??
+        // this is incorrectly name and does god knows what
+            var url = '/authentication/api/v1/register/' + id + '/';
+            var deferred = $q.defer();
+            httpService.httpGet(url)
+                .then(function(response) {
+                    deferred.resolve(response);
+                }, function(error) {
+                    deferred.reject(error);
+                });
+            return deferred.promise;
+    };
+                
     var updateSavedPlan = function(obj, id ) {
         //?? what is this doing here/??
+        // this is incorrectly name and does god knows what
             var url = '/authentication/api/v1/register/' + id + '/';
             var deferred = $q.defer();
             httpService.httpPatch(url, obj)
@@ -79,6 +94,9 @@ app.factory('profileService',
         },
         updateSavedPlan : function(obj, id){
             return updateSavedPlan(obj, id);
+        },
+        getUserProfile : function(id){
+            return getUserProfile(id);
         }
     };
 }]);

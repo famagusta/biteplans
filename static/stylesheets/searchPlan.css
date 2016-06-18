@@ -219,3 +219,7 @@ textarea:focus {
     bottom: 7px;
     left: 14px
 }
+
+.toast{
+    background-color: #ff5252;
+}
