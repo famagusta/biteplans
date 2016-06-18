@@ -12,6 +12,21 @@ import math
 import decimal
 
 
+ACTIVITY_LEVEL_CHOICE = (
+    ('S', 'Sedentary'),
+    ('MA', 'Mild Activity'),
+    ('OA', 'Moderate Activity'),
+    ('HA', 'Heavy Activity'),
+    ('VHA', 'Very Heavy Activity'),
+)
+
+GENDER_CHOICES = (
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+    ('All', 'All')
+)
+
+
 class DietPlan(models.Model):
     ''' model for specifying a general diet plan- name,
         url??, creator, goal, description, duration, age,
@@ -24,10 +39,15 @@ class DietPlan(models.Model):
     goal = models.CharField(max_length=191, null=True)
     description = models.TextField(null=True)
     duration = models.IntegerField()
-    age = models.DecimalField(max_digits=11, decimal_places=3, null=True)
-    gender = models.CharField(max_length=20, null=True)
-    height = models.DecimalField(max_digits=11, decimal_places=3, null=True)
-    weight = models.DecimalField(max_digits=11, decimal_places=3, null=True)
+    lower_bmr = models.DecimalField(max_digits=11, decimal_places=3, null=True, blank=True)
+    upper_bmr = models.DecimalField(max_digits=11, decimal_places=3, null=True, blank=True)
+    activity_level = models.CharField(null=True, blank=True,
+                                      max_length=3, choices=ACTIVITY_LEVEL_CHOICE)
+    
+    #age = models.DecimalField(max_digits=11, decimal_places=3, null=True, blank=True)
+    gender = models.CharField(blank=True, null=True, max_length=6, choices=GENDER_CHOICES)
+    #height = models.DecimalField(max_digits=11, decimal_places=3, null=True, blank=True)
+    #weight = models.DecimalField(max_digits=11, decimal_places=3, null=True, blank=True)
 
     # keep on these major nutrition info of entire dietplans
     # energy content of food in kilo calories

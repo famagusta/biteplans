@@ -17,7 +17,8 @@ class AccountSerializer(serializers.ModelSerializer):
                   'updated_at', 'password', 'confirm_password', 'weight',
                   'height', 'date_of_birth', 'gender', 'body_fat_percent',
                   'neck', 'shoulder', 'bicep', 'forearm', 'chest', 'waist',
-                  'hip', 'thigh', 'calf', 'image_path', 'social_thumb', 'activity_level')
+                  'hip', 'thigh', 'calf', 'image_path', 'social_thumb',
+                  'activity_level', 'basal_metabolic_rate', 'total_daily_energy_expenditure')
         read_only_fields = ('date_joined', 'updated_at')
 
     def create(self, validated_data):

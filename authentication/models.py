@@ -6,6 +6,14 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
+from datetime import date
+import decimal
+
+
+def calculate_age(born):
+    today = date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
 #from user_profile.models import UserPhysicalHistory
 _UNSAVED_FILEFIELD = 'unsaved_filefield'
 
@@ -132,6 +140,41 @@ class Account(AbstractBaseUser, PermissionsMixin):
             and self.gender and self.activity_level:
                 return True
         return False
+    
+    @property
+    def basal_metabolic_rate(self):
+        # this is based on mifflin st jeor equation - see wikipedia
+        age = calculate_age(self.date_of_birth)
+        bmr = 0
+        gender_factor = decimal.Decimal(5)
+        if self.gender == 'F':
+            gender_factor = decimal.Decimal(-161)
+        if self.weight and self.height and age and self.gender:
+            weight_factor = decimal.Decimal(self.weight)*10
+            height_factor = decimal.Decimal(self.height)*decimal.Decimal(6.25)
+            age_factor = decimal.Decimal(age)*decimal.Decimal(5)
+            bmr = weight_factor + height_factor - age_factor + gender_factor
+        return bmr
+    
+    @property
+    def total_daily_energy_expenditure(self):
+        # this is based on mifflin st jeor equation - see wikipedia
+        age = calculate_age(self.date_of_birth)
+        bmr = 0
+        tdee = 0
+        gender_factor = decimal.Decimal(5)
+        activity_level_dict = {'S': 1.2,'MA': 1.375,
+                               'OA': 1.55, 'HA': 1.725,
+                               'VHA': 1.9}
+        if self.gender == 'F':
+            gender_factor = decimal.Decimal(-161)
+        if self.weight and self.height and age and self.gender and self.activity_level:
+            weight_factor = decimal.Decimal(self.weight)*10
+            height_factor = decimal.Decimal(self.height)*decimal.Decimal(6.25)
+            age_factor = decimal.Decimal(age)*decimal.Decimal(5)
+            bmr = weight_factor + height_factor - age_factor + gender_factor
+            tdee = bmr * decimal.Decimal(activity_level_dict[self.activity_level])
+        return tdee
 
     
 

@@ -52,47 +52,100 @@
                                     required title="Please enter 8 to 75 Characters">
                                 </div>
 
+<!--
                                 <div class="input-field col s12 m5 push-m1">
                                     <input class="validate" id="age" ng-model=
                                     "plan.age" type="number" min="0" max="150"> <label for=
                                     "age">Age</label> <span class="text-danger"
                                     ng-if="!plan.age">{{errorArray[3]}}</span>
                                 </div>
-                                
-                            </div>
-
-                            <div class="row">
+-->
                                 <div class="input-field col s12 m5 push-m1">
-                                    <label for="duration">Duration</label>
+                                    <label for="duration">Duration (in weeks)</label>
                                     <input class="validate" id="duration" max=
                                     "8" min="1" ng-model="plan.duration" type=
                                     "number">
                                 </div>
-
-                                <div class="input-field s12 col m5 push-m1">
-                                    <input class="form-control validate" id=
-                                    "height" ng-model="plan.height" required=""
-                                    type="number"> <label for="height">Height
-                                    (in cms)</label>
-                                </div>
+                               
+                                
+                            </div>
+                            
+                            <div ng-if="bmrError" class="row center">
+                                <p style="color:red"><b>{{bmrError}}</b></p>
                             </div>
 
                             <div class="row">
+                                
+
+                                <div class="input-field s12 col m5 push-m1">
+                                    <input class="form-control validate" id=
+                                    "lower_bmr" ng-model="plan.lower_bmr" required min="0"
+                                    max="5000"
+                                    type="number"> <label for="lower_bmr">Lower BMR
+                                    (kcal)</label>
+                                </div>
+                                
+                                <div class="input-field col s12 m5 push-m1">
+                                    <input class="form-control validate" id=
+                                    "upper_bmr" ng-model="plan.upper_bmr" required min="0"
+                                    max="5000"
+                                    type="number"> <label for="upper_bmr">Upper BMR
+                                    (kcal)</label>
+                                </div>
+                                
+                            </div>
+
+                            <div class="row">
+<!--
                                 <div class="input-field col s12 m5 push-m1">
                                     <label for="goal">Goal in one line</label>
                                     <input class="validate" id="goal" ng-model=
                                     "plan.goal" type="text" pattern=".{8,191}" 
                                     required title="Please enter 8 to 191 Characters">
                                 </div>
-                                 <div class="input-field col s12 m5 push-m1">
-                                    <input class="form-control validate" id=
-                                    "weight" ng-model="plan.weight" required=""
-                                    type="number"> <label for="weight">Weight
-                                    (in kgs)</label>
+-->
+                                <div class="col s12 m5 push-m1 input-field" id="gender">
+                                    <label >Gender</label>
+                                    <br><br>
+                                    <input class=
+                                    "with-gap push-m2" id="test5" name=
+                                    "group3" ng-model="plan.gender"
+                                    type="radio" value="Male">
+                                    <label for="test5">Male</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <input class="with-gap push-m2" id=
+                                    "test4" name="group3" ng-model=
+                                    "plan.gender" type="radio" value=
+                                    "Female"> <label for=
+                                    "test4">Female</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    
+                                    <input class="with-gap push-m2" id=
+                                    "test6" name="group3" ng-model=
+                                    "plan.gender" type="radio" value=
+                                    "All" checked> <label for=
+                                    "test6">All</label>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>
+                                <div class="input-field col s12 m5 push-m1">
+                                    <label for="activity_level">Activity Level</label>
+                                    <select class="" ng-model="selected_activity_level" material-select watch required id="activity_level">
+                                        <option ng-repeat="value in activityLevelChoices">{{value}}</option>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="row">
+                                <div class="input-field col s12 m10 push-m1">
+                                    <label for="goal">Goal in one line</label>
+                                    <input class="validate" id="goal" ng-model=
+                                    "plan.goal" type="text" pattern=".{8,191}" 
+                                    required title="Please enter 8 to 191 Characters">
+                                </div>
+                                
+                                 
+<!--
                                 <div class="col s12 m5 push-m1" id="gender">
                                     <div class="row">
                                         <div class="col m3 s3">
@@ -115,12 +168,21 @@
                                             "Female"> <label for=
                                             "test4">Female</label>
                                         </div>
+                                        
+                                        <div class="col m3 s3">
+                                            <input class="with-gap push-m2" id=
+                                            "test4" name="group3" ng-model=
+                                            "plan.gender" type="radio" value=
+                                            "All"> <label for=
+                                            "test4">All</label>
+                                        </div>
                                     </div>
                                 </div>
+-->
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s12 m9 offset-m1">
+                                <div class="input-field col s12 m10 offset-m1">
                                     <textarea class="materialize-textarea" id=
                                     "description" ng-model=
                                     "plan.description"></textarea> <label for=

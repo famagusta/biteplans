@@ -46,11 +46,21 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
             'week_no': urlParamWeek2
         };
 
+        var activityLevelChoicesDict = {
+            'S': 'Sedentary',
+            'MA': 'Mild Activity',
+            'OA': 'Moderate Activity',
+            'HA': 'Heavy Activity',
+            'VHA': 'Very Heavy Activity'
+        };
+        
         /* get the diet plan in question from the server */
         planService.getDietPlan($routeParams.id).then(
             function(response)
             {
                 $scope.plan = response;
+                $scope.plan.activity_level = 
+                    activityLevelChoicesDict[response.activity_level];
                 /* rewrite some object variables in correct format
                         as the response object stringifies everything */
                 $scope.plan.age = parseInt($scope.plan

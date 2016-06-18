@@ -61,11 +61,34 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 /* unit for height */
                 $scope.unit = 0;
                 
+                $scope.activityLevelChoices = ['Sedentary', 'Mild Activity',
+                                               'Moderate Activity','Heavy Activity',
+                                               'Very Heavy Activity'];
+                var activityLevelChoicesDict = {
+                    'Sedentary': 'S',
+                    'Mild Activity': 'MA',
+                    'Moderate Activity': 'OA',
+                    'Heavy Activity': 'HA',
+                    'Very Heavy Activity': 'VHA'
+                };
+                
+                var reverseActivityLevelChoicesDict = {
+                    'S': 'Sedentary',
+                    'MA': 'Mild Activity',
+                    'OA': 'Moderate Activity',
+                    'HA': 'Heavy Activity',
+                    'VHA': 'Very Heavy Activity'
+                };
+                
                 /* Function that updates the main descriptors of a diet plan
                         from the first create plan page */
                 $scope.initialize_plan = function()
                 {
                     var id = $routeParams.id;
+                    $scope.plan.activity_level = activityLevelChoicesDict[$scope.selected_activity_level];
+                    if($scope.plan.lower_bmr > $scope.plan.upper_bmr){
+                        $scope.bmrError = 'Upper value of BMR range must smaller than the lower value';
+                    }else{
                     planService.updatePlan($scope.plan, id)
                         .then(function(response)
                         {
@@ -75,12 +98,15 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         {
                             console.log(error);
                         });
+                    };
                 };
                 /* get the diet plan in question from the server */
                 planService.getDietPlan($routeParams.id).then(
                     function(response)
                     {
                         $scope.plan = response;
+                        $scope.plan.lower_bmr = parseInt(response.lower_bmr);
+                        $scope.plan.upper_bmr = parseInt(response.upper_bmr);
 
                         if($scope.plan.creator !== currentUser){
                             $location.path('/dietplans/view-diet-plan/' + $routeParams.id + '/');
@@ -96,6 +122,16 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         $scope.plan.duration = parseInt(
                             $scope.plan.duration);
                         $scope.dayWeekNos = $scope.plan.duration*7;
+                        
+                        if(!$scope.plan.activity_level){
+                            $scope.selected_activity_level = $scope.activityLevelChoices[0];
+                        }else{
+                            $scope.selected_activity_level = reverseActivityLevelChoicesDict[$scope.plan.activity_level];
+                        };
+                        
+                        if(!$scope.plan.gender){
+                            $scope.plan.gender = 'All';
+                        }
                         
                         for (var i = 1; i <= $scope.plan.duration; i++)
                         {
@@ -125,6 +161,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     $scope.jumpToModalType = type;
                     $('#jump-to-modal').openModal();
                 };
+                
                 //function to copy the current day plan and jump to feature
                 //type determines what is the task
                 //if type is copy then it will copy
