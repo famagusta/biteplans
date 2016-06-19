@@ -545,17 +545,17 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                         return return_val;
                     }
                 }
-            } else if(col===2){
+            }
+            else if(col===2){
                 if ($scope.mealPlanNameArray2){
                 for (var i = 0; i < $scope.mealPlanNameArray2.length; i++){
                     var q = 0;
                     /* add nutrition information of ingredients */
                     for (var j = 0; j < $scope.mealPlanNameArray2[i]
                          .mealingredient.length; j++){
-                        if (isAdditional && $scope.mealPlanNameArray2[i]
-                            .mealingredient[j].additionalIngInfo !== undefined){
-                            if ($scope.mealPlanNameArray2[i].mealingredient[j]
-                                .additionalIngInfo[nutrient] !== null){
+                        if (isAdditional){
+                            if(checkIngredNutritionQty($scope.mealPlanNameArray2[i]
+                                                           .mealingredient[j], nutrient, isAdditional)){
                                 q += parseFloat($scope.mealPlanNameArray2[i]
                                                 .mealingredient[j]
                                                 .additionalIngInfo[nutrient]) *
@@ -567,20 +567,22 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                         }
                         else
                         {
+                            if(checkIngredNutritionQty($scope.mealPlanNameArray2[
+                                    i].mealingredient[j], nutrient, false)){
                             q += parseFloat($scope.mealPlanNameArray2[i].mealingredient[j]
                                             .ingredient[nutrient]) *
                                 parseFloat($scope.mealPlanNameArray2[i].mealingredient[j]
                                            .quantity) *
                                 parseFloat($scope.mealPlanNameArray2[i].mealingredient[j]
                                            .unit.weight) / 100;
+                            }
                         }
                     }
                     /* add nutrition information of recipes */
                     for (var j = 0; j < $scope.mealPlanNameArray2[i].mealrecipe.length; j++){
-                        if (isAdditional && $scope.mealPlanNameArray2[i]
-                                .mealrecipe[j].additionalRecInfo !== undefined){
-                            if ($scope.mealPlanNameArray2[i].mealrecipe[j]
-                                .additionalRecInfo[nutrient] !==null){
+                        if (isAdditional){
+                            if(checkRecipeNutritionQty($scope.mealPlanNameArray2[
+                                    i].mealrecipe[j], nutrient, isAdditional)){
                                 q += parseFloat(
                                         $scope.mealPlanNameArray2[i].mealrecipe[j]
                                             .additionalRecInfo[nutrient]) *
@@ -590,10 +592,13 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                             }
                         }
                         else{
+                            if(checkRecipeNutritionQty($scope.mealPlanNameArray2[
+                                    i].mealrecipe[j], nutrient, false)){
                             q += parseFloat($scope.mealPlanNameArray2[i].mealrecipe[j]
                                             .recipe[nutrient]) *
                                 parseFloat($scope.mealPlanNameArray2[i].mealrecipe[j]
                                             .servings);
+                            }
                         }
                     }
                     total.push(q);
