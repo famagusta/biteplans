@@ -321,7 +321,7 @@ input[type=time] {
 
 .meal-text {
     color: #212121 !important;
-    text-transform: lowercase;
+    text-transform: initial;
 /*    text-align: center;*/
     opacity: 54% !important;
     font-size: 13sp !important;
