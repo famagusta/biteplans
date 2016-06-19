@@ -19,6 +19,25 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.userPlans = [];
         
+        $scope.activityLevelChoices = ['Sedentary', 'Mild Activity',
+                                       'Moderate Activity','Heavy Activity',
+                                       'Very Heavy Activity'];
+        var activityLevelChoicesDict = {
+            'Sedentary': 'S',
+            'Mild Activity': 'MA',
+            'Moderate Activity': 'OA',
+            'Heavy Activity': 'HA',
+            'Very Heavy Activity': 'VHA'
+        };
+
+        var reverseActivityLevelChoicesDict = {
+            'S': 'Sedentary',
+            'MA': 'Mild Activity',
+            'OA': 'Moderate Activity',
+            'HA': 'Heavy Activity',
+            'VHA': 'Very Heavy Activity'
+        };
+        
         $scope.updateSortby = function(val){
             $scope.sortby = val;
             $scope.search_plan();
@@ -85,6 +104,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                         .length; i++){
                         $scope.plans.results[i].showStars =
                             true;
+                        $scope.plans.results[i].activity_level = reverseActivityLevelChoicesDict[$scope.plans.results[i].activity_level];
                     }
                 }, function(error)
                 {
@@ -103,6 +123,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                         .length; i++){
                         $scope.plans.results[i].showStars =
                             true;
+                        $scope.plans.results[i].activity_level = reverseActivityLevelChoicesDict[$scope.plans.results[i].activity_level];
                     }
                 }, function(error){
                     console.log(error);

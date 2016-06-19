@@ -113,12 +113,40 @@
 
 
                             <div class="row">
-                                <div class="col s4 m4">
+                                <div class="col s3 m3">
                                     <p>Duration:
                                     </p>
                                 </div>
-                                <div class="col s8 m8">
+                                <div class="col s3 m3">
                                     <p class="meal-text left">{{plan.duration }} Week</p>
+                                </div>
+                                <div class="col s3 m3">
+                                    <p>Gender:
+                                    </p>
+                                </div>
+                                <div class="col s3 m3">
+                                    <p class="meal-text left">{{plan.gender }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                 <div class="col s4 m4">
+                                    <p>BMR Range:
+                                    </p>
+                                </div>
+                                <div class="col s8 m8">
+                                    <p class="meal-text left">{{plan.lower_bmr | number:0}} - {{plan.upper_bmr | number:0}} KCal</p>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                
+                                <div class="col s5 m4">
+                                    <p>Activity Level:
+                                    </p>
+                                </div>
+                                <div class="col s7 m8">
+                                    <p class="meal-text left">{{plan.activity_level }}</p>
                                 </div>
                             </div>
 
