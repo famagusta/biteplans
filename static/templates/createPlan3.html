@@ -24,79 +24,51 @@
 
 
                                 <div class="row">
-                                    <div class="col s12 m2">
+                                    <div class="col s12 m3">
                                         <p class="ing-text">DURATION
                                         :</p>
                                     </div>
 
 
-                                    <div class="col s12 m2">
+                                    <div class="col s12 m3">
                                         <p class="meal-text">
                                         {{plan.duration}} Weeks</p>
                                     </div>
                                     
-                                    <div class="col s12 m2">
+                                    <div class="col s12 m3">
                                         <a class="ing-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Minimum amount of calories a body at rest needs per day">BMR RANGE
                                         :</a>
                                     </div>
 
-                                    <div class="col s12 m2">
+                                    <div class="col s12 m3">
                                         <p class="" style="text-transform: lowercase">
                                         {{plan.lower_bmr | number:0}} - {{plan.upper_bmr | number:0}} kcal</p>
                                     </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col s12 m3">
+                                        <p class="ing-text">GENDER
+                                        :</p>
+                                    </div>
                                     
-                                    <div class="col s12 m2">
+                                    <div class="col s12 m3">
+                                        <p class="meal-text">
+                                        {{plan.gender}}</p>
+                                    </div>
+                                    
+                                    <div class="col s12 m3">
                                         <p class="ing-text">ACTIVITY LEVEL
                                         :</p>
                                     </div>
                                     
-                                    <div class="col s12 m2">
+                                    <div class="col s12 m3">
                                         <p class="meal-text">
                                         {{plan.activity_level}}</p>
                                     </div>
 
-<!--
-                                    <div class="col s12 m2">
-                                        <p class="ing-text">ASSUMPTIONS
-                                        :</p>
-                                    </div>
-
-
-                                    <div class="col s12 m3">
-                                        <p class="">
-                                        {{'Weight : ' + plan.weight + '&nbsp;' + 'Kgs' + '&nbsp;' + '&nbsp;' + '&nbsp;' + '|' }} {{'Height : ' + plan.height + '&nbsp;' +'cms' + '&nbsp;' + '| ' }}
-                                         BMI :  {{10000*plan.weight/(plan.height*plan.height) | number:1}}</p>
-                                    </div>
--->
                                 </div>
                                 
-<!--
-                                <div class="row">
-                                     <div class="col s12 m2">
-                                        <p class="ing-text">BMR RANGE
-                                        :</p>
-                                    </div>
-                                    
-                                    <div class="col s12 m3 push-m1">
-                                        <p class="">
-                                        {{plan.lower_bmr | number:1}} - {{plan.lower_bmr | number:1}}</p>
-                                    </div>
-                                    
-                                </div>
-                                
-                                <div class="row">
-                                     <div class="col s12 m2">
-                                        <p class="ing-text">ACTIVITY LEVEL
-                                        :</p>
-                                    </div>
-                                    
-                                    <div class="col s12 m3 push-m1">
-                                        <p class="">
-                                        {{plan.activity_level}}</p>
-                                    </div>
-                                    
-                                </div>
--->
                                 
                                  <div class="row">
                                      <div class="col s12 m2">
@@ -441,9 +413,11 @@
                                                     "create-container">
                                                         <div class="row">
                                                             <div class="col s6">
-                                                             <p class="meal-text">
-                                                        {{item1.recipe.name}}
-                                                        </p>
+                                                                <a ng-href="/recipes/view-recipe/{{item1.recipe.id}}">
+                                                                    <p class="meal-text">
+                                                                        {{item1.recipe.name}}
+                                                                    </p>
+                                                                </a>
                                                             </div>
                                                             <div class="col s6">
                                                                 <p class="meal-text center">{{item1.servings}}</p>
