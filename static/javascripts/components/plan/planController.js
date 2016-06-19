@@ -52,7 +52,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.updatePaginate = function(val){
             $scope.page = val;
-            $scope.search();
+            $scope.search_plan();
         }
         
         var getUserPlanRatings = function()
