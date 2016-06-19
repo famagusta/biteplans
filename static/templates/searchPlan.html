@@ -1,4 +1,4 @@
-<div class="section" id="planPage">
+<section class="section" id="planPage">
     <div class="row">
         <div class="col s12 m8 push-m2 center">
             <div class="card white" id="searchcard">
@@ -144,12 +144,12 @@
                                 <div class="col s5 m4">
                                     <p>Activity Level:
                                     </p>
+                                    
                                 </div>
                                 <div class="col s7 m8">
-                                    <p class="meal-text left">{{plan.activity_level }}</p>
+                                    <p class="meal-text left" tooltipped data-position="bottom" data-delay="50" data-tooltip="{{activityDescriptions[plan.activity_level]}}">{{plan.activity_level }}</p>
                                 </div>
                             </div>
-
 
                             <div class="row showcustom">
                                 <div class="col s12 m12 l4">
@@ -312,7 +312,7 @@
         </div>
     </div>
     
-</div>
+
 <!-- END OF PLANPAGE -->
 
 
@@ -353,3 +353,10 @@
         </form>
     </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50});
+  });
+</script>
+</section>

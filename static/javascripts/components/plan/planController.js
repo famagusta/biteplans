@@ -7,7 +7,6 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         starsUtility, $window, $rootScope, constants, $routeParams)
     {
         'use strict';
-        
         var params = $routeParams;
         
         $scope.query_plan = params.query ? params.query : null;
@@ -36,6 +35,14 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
             'OA': 'Moderate Activity',
             'HA': 'Heavy Activity',
             'VHA': 'Very Heavy Activity'
+        };
+        
+        $scope.activityDescriptions = {
+            'Sedentary': 'Little or no Exercise/ desk job',
+            'Mild Activity': 'Light exercise/ sports 1 – 3 days/ week',
+            'Moderate Activity': 'Moderate Exercise, sports 3 – 5 days/ week',
+            'Heavy Activity': 'Heavy Exercise/ sports 6 – 7 days/ week',
+            'Very Heavy Activity': 'Very heavy exercise/ physical job/ training 2 x/ day'
         };
         
         $scope.updateSortby = function(val){
