@@ -48,3 +48,8 @@ background: none;
     }
 */
 }
+
+#about-modal{
+    max-height: 87%;
+    height: 100%;
+}

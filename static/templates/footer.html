@@ -1,63 +1,64 @@
 
-<footer class="page-footer page-ftr">
+<footer class="page-footer page-ftr" ng-controller="footerController">
+    <div class="row container">
+        <div class="col s12 m4 center">
+            <a href="#" id="about" class="cyan-text" ng-click="openAboutModal()">
+                 About
+            </a>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <a href="#" id="contact" class="cyan-text" ng-click="openContactModal()">
+                 Contact
+            </a>
+        </div>
+        <div class="col s12 m4 center">
+            <span>Copyright &copy; 2016 BITEPLANS</span>
+        </div>
+        <div class="col m4 s12 center">
+            <a href="https://www.facebook.com/Biteplans/">
+                 <i class="fa fa-facebook-square fa-2x social-icon-fb"></i>
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://twitter.com/biteplans">
+                 <i class="fa fa-twitter-square fa-2x social-icon-twitter"></i>
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://plus.google.com/109093250299707124295">
+                 <i class="fa fa-google-plus-square fa-2x" style="color:#d34836"></i>
+            </a>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="https://www.pinterest.com/biteplans/">
+                 <i class="fa fa-pinterest-square fa-2x" style="color:#C92228"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="modal" id="about-modal">
         <div class="row container">
-            <div class="col s12 m4 center">
-                <a href="#" class="cyan-text">
-                     About
-                </a>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <a href="#" class="cyan-text">
-                     Contact
-                </a>
+            <div class="col s12 center">
+                <h5>ABOUT</h5>
             </div>
-            <div class="col s12 m4 center">
-                <span>Copyright &copy; 2016 BITEPLANS</span>
-            </div>
-            <div class="col m4 s12 center">
-                <a href="https://www.facebook.com/Biteplans/">
-                     <i class="fa fa-facebook-square fa-2x social-icon-fb"></i>
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://twitter.com/biteplans">
-                     <i class="fa fa-twitter-square fa-2x social-icon-twitter"></i>
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://plus.google.com/109093250299707124295">
-                     <i class="fa fa-google-plus-square fa-2x" style="color:#d34836"></i>
-                </a>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://www.pinterest.com/biteplans/">
-                     <i class="fa fa-pinterest-square fa-2x" style="color:#C92228"></i>
-                </a>
+            <div class="col s12">
+                <p class="flow-text">
+                    
+                    Biteplans was launched with the idea of creating a community of nutrition enthusiasts. We believe that everyone has different sets of nutritional requirement. We let you search, create and follow diets that suit your goals in a simple manner. Our platform gives you a daily overview of your nutrition needs - what to eat, when to eat & how much to eat. We provide a summary of all major macro & micro nutrients you consumed for the day. Our goal is to transform your relationship with food.
+                </p>
             </div>
         </div>
+    </div>
+
+    <div class="modal" id="contact-modal">
+        <div class="row container">
+            <div class="col s12 center">
+                <h5>CONTACT</h5>
+            </div>
+            <div class="col s12">
+                <p class="flow-text">
+                    Have questions, dietplan requests, feature requests,  or find a bug?
+                    <br>
+                    Email us at:
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>info@biteplans.com</b>
+                </p>
+            </div>
+        </div>
+    </div>
 </footer>
-
-
-<!--
-<footer class="page-footer">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-                <h5 class="white-text">Links</h5>
-                <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-                  <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-          </div>
-        </footer>
--->
