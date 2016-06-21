@@ -16,7 +16,6 @@ import datetime
 import random
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import math
 
@@ -61,14 +60,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
         else:
             result = self.queryset.order_by('-date_published')
             
-        no_recipes_per_page = 3.0
+        no_recipes_per_page = 6.0
         if search_recipe_populate is not None :
             no_recipes_per_page = 6.0
 
-        
         total = math.ceil(len(result)/no_recipes_per_page)
         paginator = Paginator(result, no_recipes_per_page)
-
         try:
             result = paginator.page(page)
         except PageNotAnInteger:
@@ -77,7 +74,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
         except EmptyPage:
             # If page is out of range (e.g. 9999), deliver last page of results
             result = paginator.page(paginator.num_pages)
-
         result = self.serializer_class(result, many=True)
         return Response({"results": result.data, "total": total},
                         status=status.HTTP_200_OK)

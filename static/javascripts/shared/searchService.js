@@ -47,10 +47,9 @@ app.factory('searchService',
        // Function to search recipes
         var search_recipe = function(quer, page, sortby) {
             var url = '/search/';
-            if(page!==undefined && page!==null)
-                {
-                    url += '?page'+'='+page;
-                }
+            if(page!==undefined && page!==null){
+                url += '?page'+'='+page;
+            }
 
             var obj = {};
             var deferred = $q.defer();
@@ -82,8 +81,12 @@ app.factory('searchService',
             return deferred.promise;
         };
                 
-        var list_latest_recipes = function(){
+        var list_latest_recipes = function(page){
+            
             var url = '/recipes/recipe/?search_recipe_populate=1';
+            if(page!==undefined && page!==null){
+                url += '&page'+'='+page;
+            }
             var deferred = $q.defer();
             
             httpService.httpGet(url).then(
@@ -250,8 +253,8 @@ app.factory('searchService',
          search_recipe : function(query, page, sortby) {
             return search_recipe(query, page, sortby); 
         },
-        list_latest_recipes : function(){
-            return list_latest_recipes();  
+        list_latest_recipes : function(page){
+            return list_latest_recipes(page);  
         },
         get_ingredient_addtnl_info : function(id){
             return get_ingredient_addtnl_info(id);
