@@ -7,7 +7,7 @@ class IngredientIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     name = indexes.CharField(model_attr='name')
     food_group = indexes.CharField(model_attr='food_group')
-    carb = indexes.DecimalField(model_attr='carbohydrate_tot', null=True)
+    carbohydrate = indexes.DecimalField(model_attr='carbohydrate_tot', null=True)
     protein = indexes.DecimalField(model_attr='protein_tot', null=True)
     fat = indexes.DecimalField(model_attr='fat_tot', null=True)
     water = indexes.DecimalField(model_attr='water', null=True)
