@@ -20,9 +20,6 @@ calendarRouter.register(r'my-dietplans', calendarViews.MyPlanViewset)
 urlpatterns = patterns('',
                        url(r'my-ingredient-search/$',
                            calendarViews.MyIngredientSearchViewset.as_view()),
-                       )
-
-urlpatterns = patterns('',
                        url(r'my-recipe-search/$',
                            calendarViews.MyRecipeSearchViewset.as_view()),
                        )

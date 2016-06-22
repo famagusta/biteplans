@@ -41,6 +41,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 $scope.searchType = 'Ingredients';
                 $scope.searchHistoryTypeChoices = ["My Ingredients", "My Recipes"];
                 $scope.searchHistoryType = "My Ingredients";
+                $scope.mySavedStuffQuery = '';
                 /* phase of the day */
                 $scope.amPmArray = ['AM', 'PM'];
                 
@@ -650,7 +651,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     }
                 };
 
-                //$scope.getMySavedFoods();
+//                $scope.getMySavedFoods();
 
                 $scope.$watch('searchHistoryType', function(newVal, oldVal){
                     $scope.getMySavedFoods();

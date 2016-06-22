@@ -341,34 +341,34 @@ class MyPlanViewset(viewsets.ModelViewSet):
     
 class MyIngredientSearchViewset(generics.GenericAPIView):
     '''creates serializer of the queryset
-        NOW REDUNDANT SINCE haystack search'''
+        using full text search instead haystack search'''
     sortlist = None
-
-    def get_serializer_class(self):
-        if self.request.data['type'] == 'recipes':
-            return MyRecipeSerializer
-        else:
-            return MyIngredientSerializer
+    serializer_class = MyIngredientSerializer
 
     def get_queryset(self):
         '''returns queryset for get method'''
         if self.request.user:
             '''return matching '''
-            if self.request.data['type'] == 'recipes':
-                return MyRecipe.objects.filter(user=self.request.user)
-            else:
-                return MyIngredient.objects.filter(user=self.request.user)
+            return MyIngredient.objects.filter(user=self.request.user)
         else:
             return  Response({'error':'User Authentication Failure'},
                             status=status.HTTP_401_UNAUTHORIZED)
+        
+        
+    def get(self, request):
+        result = self.get_queryset()
+        serializer = self.get_serializer_class()
+        result = serializer(result, many=True)
+        return Response({"results": result.data})
+    
 
     def post(self, request):
         '''Handles post request'''
         name = self.request.data['name']
-        if self.request.data['type'] == 'recipes':
-            result = self.get_queryset().filter(recipe__name__search=name)
-        else:
+        if name:
             result = self.get_queryset().filter(ingredient__name__search=name)
+        else:
+            result = self.get_queryset()
         # Filters are only applicable for ingredients,
         # so this gathers the list of possible filters
 
@@ -434,7 +434,7 @@ class MyRecipeSearchViewset(generics.GenericAPIView):
 
         # pagination for 6 results in each page
         paginator = Paginator(result, 6)
-        page = request.GET.get('page')
+        page = self.request.data['page']
         serializer = self.get_serializer_class()
         try:
             result = paginator.page(page)
