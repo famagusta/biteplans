@@ -924,16 +924,14 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         /* Calculates total value of a nutrient across a days plan that a user has checked*/
         $scope.calcCheckedNutrientVal = function(nutrient) {
             var total = 0;
-            for (var i = 0; i < $scope.plan_data
-                .length; i++) {
-                
+            for (var i = 0; i < $scope.plan_data.length; i++) {
                 /* Add nutrition information from ingredients */
-                for (var j = 0; j < $scope.plan_data[
-                    i].followingMealPlanIngredient.length; j++) {
-                    if($scope.plan_data[i].followingMealPlanIngredient[j]
-                       .is_checked){
-                        if(checkIngredNutritionQty($scope.plan_data[i]
-                            .followingMealPlanIngredient[j], nutrient)){
+                
+                for (var j = 0; j < $scope.plan_data[i]
+                     .followingMealPlanIngredient.length; j++) {
+                    if(checkIngredNutritionQty1($scope.plan_data[i]
+                        .followingMealPlanIngredient[j], nutrient)){
+                        if($scope.plan_data[i].followingMealPlanIngredient[j].is_checked){
                             total += parseFloat($scope.plan_data[i].followingMealPlanIngredient[
                                 j].meal_ingredient[nutrient]) * $scope.plan_data[
                                 i].followingMealPlanIngredient[j].quantity * parseFloat($scope.plan_data[
@@ -944,8 +942,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                 }
                 
                 /* Add nutrition information from recipes */
-                for (j = 0; j < $scope.plan_data[
-                    i].followingMealPlanRecipe.length; j++) {
+                for (j = 0; j < $scope.plan_data[i]
+                     .followingMealPlanRecipe.length; j++) {
                     if($scope.plan_data[i].followingMealPlanRecipe[j]
                        .is_checked){
                         total += $scope.plan_data[i].followingMealPlanRecipe[
@@ -978,6 +976,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.percentNutrientChecked = function(nutrient){
             var a = $scope.calcCheckedNutrientVal(nutrient);
             var b = $scope.calcMealPlanValues(-1, nutrient);
+            
             var result = 100* (a/b);
             return result;
         };
