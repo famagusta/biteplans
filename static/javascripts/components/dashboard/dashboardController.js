@@ -1,9 +1,9 @@
 /* global app, $, console */
 
 app.controller('dashboardController', ['$scope', '$window', '$location',
-    'AuthService', 'searchService', 'profileService', 'constants', 'planService', '$routeParams',
+    'AuthService', 'searchService', 'profileService', 'constants', 'planService', '$routeParams', '$rootScope', '$route',
     function($scope, $window, $location, AuthService, searchService,
-        profileService, constants, planService, $routeParams) {
+        profileService, constants, planService, $routeParams, $rootScope, $route) {
         'use strict';
         $('.button-collapse-1').sideNav({
           menuWidth: 300, // Default is 240
@@ -90,7 +90,9 @@ app.controller('dashboardController', ['$scope', '$window', '$location',
                     
                 }else{
                     console.log('oops');
-                    $location.path("/");
+                    $rootScope.$emit('authFailure');
+                    
+                    //$location.path("/");
                 }
         }, function(error){
             console.log(error);

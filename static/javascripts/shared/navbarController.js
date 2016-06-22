@@ -2,11 +2,16 @@
 
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService',
-    'profileService', '$rootScope', 'constants', '$window',
-    function($scope, $location, AuthService, profileService, $rootScope, constants, $window) {
+    'profileService', '$rootScope', 'constants', '$window', 'searchService',
+    'planService', '$routeParams',
+    function($scope, $location, AuthService, profileService, $rootScope, constants, $window,
+            searchService, planService, $routeParams) {
         'use strict';
         // function to check whether the person is logged in or not
-        
+        var currPath = $location.path()
+        var locationRegex = new RegExp('/dashboard/*')
+        $scope.isDashboard = locationRegex.test(currPath);
+        console.log($scope.isDashboard);
         $scope.isLoggedIn = false;
         $scope.profileInfo = {};
         $scope.placeHolderDOB = null;
@@ -159,7 +164,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                             $('#modal1')
                                 .closeModal();
                             checkLoggedIn();
-
+                            $route.reload();
                         },
                         function(error) {
                             $scope.loginError =
@@ -190,6 +195,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     checkLoggedIn();
                     //close the modal if login is success
                     $('#modal1').closeModal();
+                    $route.reload();
                 }, function(error) {
                     //there is an error
                     $scope.loginError = error;
@@ -294,7 +300,123 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             profileService.updateProfile($scope.profileInfo.id,
                                          update_params);
         };
+        
+        $('.button-collapse-1').sideNav({
+          menuWidth: 300, // Default is 240
+          closeOnClick: true, 
+            edge:'left'
+        // Closes side-nav on <a> clicks, useful for Angular/Meteor
 
+        });
+        var isAuth = false;
+        
+        AuthService.isAuthenticated()
+            .then(function(response){
+                isAuth = response.status;
+                if(isAuth){
+                    $scope.token = $window.localStorage.token;
+                    $scope.username = $window.localStorage.username;
+                    $scope.params = $routeParams;
+                    
+                    $scope.tab = {};
+                    var dashboardItems = ['summary', 'profile', 'calendar', 'plans', 'recipes', 'ingredients'];
+                    
+                    if (dashboardItems.indexOf($scope.params.page) > -1) {
+                        
+                        $scope.tab.tab = $scope.params.page;
+                    } 
+                    else {
+                        $scope.tab.tab = 'summary';
+                    }
+                    
+                    $scope.setTab = function(tab) {
+                        $('.button-collapse-2').sideNav('hide');
+                        if (dashboardItems.indexOf(tab) > -1){
+                            $location.path('dashboard/' + tab);
+                        } else if (tab === "searchPlans") {
+                            $window.location.assign('dietplans/search');
+                        } else if(tab === "createRecipe"){
+                            $window.location.assign('recipes/create-recipes');
+                        }
+                        else {
+                            $location.path('dashboard/summary');
+                        }
+                    };
+                    
+
+                    $scope.tab.isSet = function(tabId) {
+                        return $scope.tab.tab === tabId;
+                    };
+                    
+//                    $scope.openCreatePlanModal = function() {
+//                        console.log('opening modal');
+//                        $('#create-plan-nav-modal').openModal();
+//                    };
+//                   
+//                    $scope.createPlan = function()
+//                    {
+//                        if(constants.userOb.status)
+//                        planService.createPlan($scope.plan).then(function(
+//                            response)
+//                        {
+//                            
+//                            $window.location.assign('/dietplans/create/overview/' + response.dietplan_id);
+//                            $('#create-plan-nav-modal').closeModal();
+//                            
+//                        }, function(error)
+//                        {
+//                            console.log(error);
+//                        });
+//                    };
+                    
+                    $scope.isMobile = function(){
+                        /* dynamically add navbar-fixed class to navbar for mobile devices - we want the navbar to be fixed on phones but
+                        not browser*/
+                        return $window.innerWidth < 600;
+                    }
+
+                    $scope.edit = 0;
+
+                    $scope.editProfileForm = function() {
+                        $scope.edit = 1;
+                    };
+
+                    $scope.calendar = function(){
+                        $scope.tab.tab = 'calendar';
+                    };
+                    
+                }else{
+                    console.log('oops');
+                    $location.path("/");
+                }
+        }, function(error){
+            console.log(error);
+        });
+
+        $scope.openCreatePlanModal = function() {
+            console.log('opening modal');
+            if(constants.userOb.status){
+                $('#create-plan-nav-modal').openModal();
+            }else{
+                $scope.openModal();
+            }
+            
+        };
+        
+        $scope.createPlan = function(){
+            if(constants.userOb.status){
+            planService.createPlan($scope.plan)
+                .then(function(response){
+                    $window.location.assign('/dietplans/create/overview/' + response.dietplan_id);
+                    $('#create-plan-nav-modal').closeModal();
+
+                }, function(error)
+                {
+                    console.log(error);
+                });
+            }
+        };
+        
     }
 ]);
 

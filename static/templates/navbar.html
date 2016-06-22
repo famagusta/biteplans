@@ -1,14 +1,27 @@
 <div class="ng-cloak" ng-cloak="" ng-controller="navbarController">
 <!--    ng-controller="navbarController">-->
     <ul class="dropdown-content" id="dropdown1">
+<!--
         <li>
             <a class="cyan-text" href="/dashboard">Dashboard</a>
         </li>
+-->
 
 
         <li>
             <a class="cyan-text" ng-click="logout()">Logout</a>
         </li>
+    </ul>
+    
+    <ul id="dropdown-search" class="dropdown-content">
+      <li><a href="/dietplans/search">Plans</a></li>
+      <li><a href="/recipes/search">Recipes</a></li>
+      <li><a href="/ingredients/search">Ingredients</a></li>
+    </ul>
+    
+    <ul id="dropdown-create" class="dropdown-content">
+      <li> <a class="cyan-text" ng-click="openCreatePlanModal()">Create Plan</a></li>
+      <li><a href="/recipes/create-recipes">Create Recipe</a></li>
     </ul>
 
     <nav class="navbar" role="navigation" id="navbar">
@@ -19,6 +32,32 @@
             "static/images/Logo-new.png"></a>
 
             <ul class="right hide-on-med-and-down" id="main_menu">
+                
+                 <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
+                    <a href="http://blog.biteplans.com/">Blog</a>
+                </li>
+                
+                <li ng-class='{"active":toggle==0}' ng-click='toggle=0'>
+                    <a class="cyan-text" href="/dashboard">Dashboard</a>
+                </li>
+                <li>
+                    <a
+                            class='dropdown-button'
+                            data-activates='dropdown-search' data-beloworigin="true">
+                        Search
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a
+                            class='dropdown-button'
+                            data-activates='dropdown-create' data-beloworigin="true">
+                        Create
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+<!--
                 <li ng-class='{"active":toggle==1}' ng-click='toggle=1'>
                     <a href="/dietplans/search">Plans</a>
                 </li>
@@ -32,11 +71,8 @@
                 <li ng-class='{"active":toggle==3}' ng-click='toggle=3'>
                     <a href="/recipes/search">Recipes</a>
                 </li>
+-->
 
-
-                <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
-                    <a href="http://blog.biteplans.com/">Blog</a>
-                </li>
 
 
                 <li>
@@ -54,50 +90,145 @@
                 </li>
             </ul>
 
-                <!-- MOBILE VIEW NAVIGATION -->
-                <!--Mobile View-->
+            <!-- MOBILE VIEW NAVIGATION -->
+            <!--Mobile View-->
+
+            <ul id="nav-mobile" class="side-nav">  
+
+                <li>
+                    <img class="mobile_dp" ng-src="{{user_thum}}">
+                </li>
+
+                <li>
+                    <a href="/dashboard" class="cyan-text" ng-if="isLoggedIn">Dashboard</a>
+                </li>
+
+                <li>
+                    <a class="cyan-text" href="/dietplans/search">Plans</a>
+                </li>
 
 
-                        <ul id="nav-mobile" class="side-nav">  
-                            
-                            <li>
-                                <img class="mobile_dp" ng-src="{{user_thum}}">
-                            </li>
-                            
-                            <li>
-                                <a href="/dashboard" class="cyan-text" ng-if="isLoggedIn">Dashboard</a>
-                            </li>
-                        
-                        <li>
-                            <a class="cyan-text" href="/dietplans/search">Plans</a>
-                        </li>
+                <li>
+                    <a class="cyan-text" href=
+                    "/ingredients/search">Ingredients</a>
+                </li>
 
 
-                        <li>
-                            <a class="cyan-text" href=
-                            "/ingredients/search">Ingredients</a>
-                        </li>
+                <li>
+                    <a class="cyan-text" href="/recipes/search">Recipes</a>
+                </li>
 
 
-                        <li>
-                            <a class="cyan-text" href="/recipes/search">Recipes</a>
-                        </li>
+                <li>
+                    <a class="cyan-text" href="http://blog.biteplans.com">Blog</a>
+                </li>
 
+                <!--function to open modal openModal()-->
 
-                        <li>
-                            <a class="cyan-text" href="http://blog.biteplans.com">Blog</a>
-                        </li>
-                        <!--function to open modal openModal()-->
+                <li>
+                    <a class="cyan-text" href="#modal1" ng-click=
+                    "openModal()" ng-if="!isLoggedIn">Log in</a>
+                    <a class="cyan-text" ng-click="logout()" ng-if=
+                    "isLoggedIn">Log out</a>
+                </li>
+            </ul>
+            
+            <ul ng-show="isDashboard" id="slide-out" class="side-nav">
+                <li class="bold">
+                  <div class="row">
+                      <a ng-click="setTab('summary')">
+                          <img ng-if="tab.tab!=='summary'" class="icon-orig-nav"     
+                               src="static/images/summary_deselect.png">
+                          <img ng-if="tab.tab==='summary'" class="icon-orig-nav"
+                               src="static/images/summary.png">
 
-                        
-                        <li>
-                            <a class="cyan-text" href="#modal1" ng-click=
-                            "openModal()" ng-if="!isLoggedIn">Log in</a>
-                            <a class="cyan-text" ng-click="logout()" ng-if=
-                            "isLoggedIn">Log out</a>
-                        </li>
-                    </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+                          <span class="slide-nav-title">Summary</span>
+                      </a>
+                  </div>
+                </li>
+                <li class="bold">
+                  <div class="row">
+                      <a ng-click="setTab('profile')">
+                          <img ng-if="tab.tab!=='profile'" class="icon-orig-nav"     
+                               src="static/images/profile_deselect.png">
+                          <img ng-if="tab.tab==='profile'" class="icon-orig-nav"
+                               src="static/images/profile.png">
+                          <span class="slide-nav-title">Profile</span>
+                      </a>
+                  </div>
+                </li>
+                <li class="bold">
+                  <div class="row">
+                      <a ng-click="setTab('calendar')">
+                          <img ng-if="tab.tab!=='calendar'" class="icon-orig-nav"     
+                               src="static/images/calendar_deselect.png">
+                          <img ng-if="tab.tab==='calendar'" class="icon-orig-nav"
+                               src="static/images/calendar.png">
+                          <span class="slide-nav-title">Calendar</span>
+                      </a>
+                  </div>
+                </li>
+                <li class="bold">
+                  <div class="row">
+                      <a ng-click="setTab('plans')">
+                          <img ng-if="tab.tab!=='plans'" class="icon-orig-nav"     
+                               src="static/images/myplans_deselect.png">
+                          <img ng-if="tab.tab==='plans'" class="icon-orig-nav"
+                               src="static/images/myplans.png">
+                          <span class="slide-nav-title">My Plans</span>
+                      </a>
+                  </div>
+                </li>
+                <li class="bold">
+                  <div class="row">
+                      <a ng-click="setTab('recipes')">
+                          <img ng-if="tab.tab!=='recipes'" class="icon-orig-nav"     
+                               src="static/images/reciepes_deselect.png">
+                          <img ng-if="tab.tab==='recipes'" class="icon-orig-nav"
+                               src="static/images/reciepes.png">
+                          <span class="slide-nav-title">My Recipes</span>
+                      </a>
+                  </div>
+                </li>  
+                <li class="bold">
+                  <div class="row">
+                      <a ng-click="setTab('ingredients')">
+                          <img ng-if="tab.tab!=='ingredients'"
+                               class="icon-orig-nav"     
+                               src="static/images/myingredients_deselect.png">
+                          <img ng-if="tab.tab==='ingredients'"
+                               class="icon-orig-nav"
+                               src="static/images/myingredients_select.png">
+                          <span class="slide-nav-title">My Ingredients</span>
+                      </a>
+                  </div>
+                </li>
+                <li class="bold">
+                    
+                  <div class="row">
+                      <a ng-click="setTab('searchPlans');redirectToSearchPlan()">
+                          <img ng-if="tab.tab!=='searchPlans'" 
+                               class="icon-orig-nav"     
+                               src="static/images/searchplan_deselect.png">
+                          <img ng-if="tab.tab==='searchPlans'"
+                               class="icon-orig-nav"
+                               src="static/images/searchplan.png">
+                          <span class="slide-nav-title">Search Plans</span>
+                      </a>
+                  </div>
+             </li>
+            </ul>
+    
+<!--
+            <a href="#" data-activates="nav-mobile" class="button-collapse">
+                <i class="material-icons">menu</i>
+            </a>
+-->
+            
+            <div class="row container hide-on-med-and-up">
+                <a data-activates="nav-mobile" class="button-collapse cyan-text left"><i class="material-icons">menu</i></a>
+              <a ng-show="isDashboard" data-activates="slide-out " class="button-collapse-2 cyan-text right"><i class="material-icons">more_vert</i></a>
+            </div>
 
         </div>
     </nav>
@@ -425,6 +556,43 @@
                     </div>
                 </form>
             </div>
+    </div>
+    
+    <div class="modal" id="create-plan-nav-modal">
+        <a class=
+        "modal-action modal-close btn-flat right">X</a>
+
+        <div class="modal-content">
+            <form ng-submit="createPlan()">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="name_plan" ng-model="plan.name" type="text"
+                            class="validate" pattern=".{8,191}" 
+                            required title="Please enter 8 to 75 Characters">
+                        <label for="name_plan">Name of Plan</label>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="duration_plan" ng-model="plan.duration" type=
+                        "number" required min="1" max="8" title="Plan must be at most 8 weeks long" class=validate> <label for="duration_plan">Duration (in Weeks)</label>
+                    </div>
+                </div>
+                <br>
+                <br>
+
+
+                <div class="row center">
+                    <div class="col s12">
+                        <button class=
+                        "center btn largebtn" type=
+                        "submit">Create</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

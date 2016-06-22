@@ -202,3 +202,7 @@ nav ul li {
         width: 80%;
     }
 }
+
+#create-plan-nav-modal {
+    max-width: 30% !important;
+}
