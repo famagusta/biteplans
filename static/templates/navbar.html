@@ -1,13 +1,6 @@
 <div class="ng-cloak" ng-cloak="" ng-controller="navbarController">
 <!--    ng-controller="navbarController">-->
     <ul class="dropdown-content" id="dropdown1">
-<!--
-        <li>
-            <a class="cyan-text" href="/dashboard">Dashboard</a>
-        </li>
--->
-
-
         <li>
             <a class="cyan-text" ng-click="logout()">Logout</a>
         </li>
@@ -20,8 +13,8 @@
     </ul>
     
     <ul id="dropdown-create" class="dropdown-content">
-      <li> <a class="cyan-text" ng-click="openCreatePlanModal()">Create Plan</a></li>
-      <li><a href="/recipes/create-recipes">Create Recipe</a></li>
+      <li> <a class="cyan-text" ng-click="openCreatePlanModal()">Diet Plan</a></li>
+      <li><a ng-click="goToCreateRecipe()" href="#">Recipe</a></li>
     </ul>
 
     <nav class="navbar" role="navigation" id="navbar">
@@ -33,47 +26,29 @@
 
             <ul class="right hide-on-med-and-down" id="main_menu">
                 
+                <li>
+                    <a class='dropdown-button' data-activates='dropdown-search'
+                       data-beloworigin="true">
+                        Search
+                        <i class="material-icons right navbar-dropdown-icon">arrow_drop_down</i>
+                    </a>
+                </li>
+                
+                <li>
+                    <a class='dropdown-button' data-activates='dropdown-create'
+                       data-beloworigin="true">
+                        Create
+                        <i class="material-icons right navbar-dropdown-icon">arrow_drop_down</i>
+                    </a>
+                </li>
+                
                  <li ng-class='{"active":toggle==4}' ng-click='toggle=4'>
                     <a href="http://blog.biteplans.com/">Blog</a>
                 </li>
                 
-                <li ng-class='{"active":toggle==0}' ng-click='toggle=0'>
-                    <a class="cyan-text" href="/dashboard">Dashboard</a>
+                <li ng-class='{"active":toggle==5}' ng-click='goToDashboard()'>
+                    <a class="cyan-text" href="#">Dashboard</a>
                 </li>
-                <li>
-                    <a
-                            class='dropdown-button'
-                            data-activates='dropdown-search' data-beloworigin="true">
-                        Search
-                        <i class="material-icons right">arrow_drop_down</i>
-                    </a>
-                </li>
-                
-                <li>
-                    <a
-                            class='dropdown-button'
-                            data-activates='dropdown-create' data-beloworigin="true">
-                        Create
-                        <i class="material-icons right">arrow_drop_down</i>
-                    </a>
-                </li>
-<!--
-                <li ng-class='{"active":toggle==1}' ng-click='toggle=1'>
-                    <a href="/dietplans/search">Plans</a>
-                </li>
-
-
-                <li ng-class='{"active":toggle==2}' ng-click='toggle=2'>
-                    <a href="/ingredients/search">Ingredients</a>
-                </li>
-
-
-                <li ng-class='{"active":toggle==3}' ng-click='toggle=3'>
-                    <a href="/recipes/search">Recipes</a>
-                </li>
--->
-
-
 
                 <li>
                     <button class="login-btn" href="#modal1" ng-show="!isLoggedIn" 
@@ -133,7 +108,7 @@
                 </li>
             </ul>
             
-            <ul ng-show="isDashboard" id="slide-out" class="side-nav">
+            <ul ng-show="isLoggedIn" id="slide-out" class="side-nav">
                 <li class="bold">
                   <div class="row">
                       <a ng-click="setTab('summary')">
@@ -218,16 +193,10 @@
                   </div>
              </li>
             </ul>
-    
-<!--
-            <a href="#" data-activates="nav-mobile" class="button-collapse">
-                <i class="material-icons">menu</i>
-            </a>
--->
             
             <div class="row container hide-on-med-and-up">
                 <a data-activates="nav-mobile" class="button-collapse cyan-text left"><i class="material-icons">menu</i></a>
-              <a ng-show="isDashboard" data-activates="slide-out " class="button-collapse-2 cyan-text right"><i class="material-icons">more_vert</i></a>
+              <a ng-show="isLoggedIn" data-activates="slide-out" class="button-collapse-2 cyan-text right"><i class="material-icons">more_vert</i></a>
             </div>
 
         </div>
@@ -262,17 +231,6 @@
                     </div>
                     
                 </div>
-                
-
-
-<!--
-                <div class="row center">
-                    <a class="waves-effect waves-light btn googleicon" id=
-                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Log In </a>
-                </div>
--->
-
-
                 <p class="center-align">OR</p>
 
 
@@ -344,15 +302,6 @@
                     </div>
                 </div>
 
-
-<!--
-                <div class="center-btn">
-                    <a class="waves-effect waves-light btn  googleicon" id=
-                    "googlebtn" ng-click="closeModal();Auth('google')"><i class="fa fa-google googlelogo"></i>Sign Up</a>
-                </div>
--->
-
-
                 <p class="center-align">OR</p>
 
 
@@ -374,14 +323,6 @@
 <!--                    <div class="row">-->
                         <!-- WARNINGS FOR EMPTY FIELD-->
 
-
-<!--
-                        <div class="col s12">
-                            <p class="text-success" ng-show="registerSuccess">
-                            {{ registerSuccess }}</p>
-                        </div>
-                    </div>
--->
                     <!-- USERNAME -->
 
 
@@ -605,6 +546,13 @@ $(document).ready(function() {
     }
   );
     $(".dropdown-button").dropdown();
+    
+    $('.button-collapse-2').sideNav({
+      menuWidth: 300, // Default is 240
+      closeOnClick: true ,
+        // Closes side-nav on <a> clicks, useful for Angular/Meteor
+        edge:'right'
+    });
 
   // Initialize collapse button
   // Initialize collapsible (uncomment the line below if you use the dropdown variation)

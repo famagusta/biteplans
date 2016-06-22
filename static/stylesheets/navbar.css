@@ -206,3 +206,7 @@ nav ul li {
 #create-plan-nav-modal {
     max-width: 30% !important;
 }
+
+.navbar-dropdown-icon {
+    margin-left: 0px !important;
+}

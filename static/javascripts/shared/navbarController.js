@@ -8,10 +8,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             searchService, planService, $routeParams) {
         'use strict';
         // function to check whether the person is logged in or not
-        var currPath = $location.path()
-        var locationRegex = new RegExp('/dashboard/*')
-        $scope.isDashboard = locationRegex.test(currPath);
-        console.log($scope.isDashboard);
+
         $scope.isLoggedIn = false;
         $scope.profileInfo = {};
         $scope.placeHolderDOB = null;
@@ -332,14 +329,14 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     $scope.setTab = function(tab) {
                         $('.button-collapse-2').sideNav('hide');
                         if (dashboardItems.indexOf(tab) > -1){
-                            $location.path('dashboard/' + tab);
+                            $window.location.assign('dashboard/' + tab);
                         } else if (tab === "searchPlans") {
                             $window.location.assign('dietplans/search');
                         } else if(tab === "createRecipe"){
                             $window.location.assign('recipes/create-recipes');
                         }
                         else {
-                            $location.path('dashboard/summary');
+                            $window.location.assign('dashboard/summary');
                         }
                     };
                     
@@ -348,26 +345,6 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                         return $scope.tab.tab === tabId;
                     };
                     
-//                    $scope.openCreatePlanModal = function() {
-//                        console.log('opening modal');
-//                        $('#create-plan-nav-modal').openModal();
-//                    };
-//                   
-//                    $scope.createPlan = function()
-//                    {
-//                        if(constants.userOb.status)
-//                        planService.createPlan($scope.plan).then(function(
-//                            response)
-//                        {
-//                            
-//                            $window.location.assign('/dietplans/create/overview/' + response.dietplan_id);
-//                            $('#create-plan-nav-modal').closeModal();
-//                            
-//                        }, function(error)
-//                        {
-//                            console.log(error);
-//                        });
-//                    };
                     
                     $scope.isMobile = function(){
                         /* dynamically add navbar-fixed class to navbar for mobile devices - we want the navbar to be fixed on phones but
@@ -392,9 +369,24 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
         }, function(error){
             console.log(error);
         });
+        
+        $scope.goToCreateRecipe = function(){
+            if(constants.userOb.status){
+                $location.path("/recipes/create-recipes");
+            }else{
+                $scope.openModal();
+            }    
+        };
 
+        $scope.goToDashboard = function(){
+            if(constants.userOb.status){
+                $location.path("/dashboard");
+            }else{
+                $scope.openModal();
+            }    
+        };
+        
         $scope.openCreatePlanModal = function() {
-            console.log('opening modal');
             if(constants.userOb.status){
                 $('#create-plan-nav-modal').openModal();
             }else{
