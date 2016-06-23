@@ -210,3 +210,7 @@ nav ul li {
 .navbar-dropdown-icon {
     margin-left: 0px !important;
 }
+
+.dpdown-cont-top {
+    z-index: 1004 !important;
+}

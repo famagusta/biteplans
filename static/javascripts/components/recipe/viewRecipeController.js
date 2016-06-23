@@ -1,10 +1,12 @@
 /* global app, $, console */
 
 app.controller('viewRecipeController', ['$scope', 'AuthService',
-    'searchService', '$location', 'recipeService', '$routeParams',
+    'searchService', '$location', 'recipeService', '$routeParams', '$window',
     function($scope, AuthService, searchService, $location,
-        recipeService, $routeParams) {
+        recipeService, $routeParams, $window) {
         'use strict';
+        // quick fix for random behaviour of view recipe page opening from middle of page
+        $window.scrollTo(0,0);
         
         $scope.recipe = {};
         $scope.parsed_directions = [];        
