@@ -32,7 +32,7 @@ class UserPlanHistory(models.Model):
 
     def __unicode__(self):
         '''string repr of the object'''
-        return self.user.username
+        return self.dietplan.name
 
     def save(self, **kwargs):
         if not self.id:

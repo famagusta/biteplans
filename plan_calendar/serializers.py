@@ -72,8 +72,8 @@ class MealHistorySerializer(serializers.ModelSerializer):
                                                             read_only=True)
 
     # this might work
-    user_dietplan = UserPlanHistorySerializer(many=False, read_only=True)
-
+    # user_dietplan = UserPlanHistorySerializer(many=False, read_only=True)
+    user_dietplan = serializers.StringRelatedField(many=False, read_only=True)
     class Meta:
         '''Meta data, or config for the serializer'''
         model = MealHistory
