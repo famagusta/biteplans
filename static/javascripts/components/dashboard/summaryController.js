@@ -349,6 +349,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
                     $scope.plan_data = response;
+                    console.log(response);
                     if(response.length > 0){
                         $scope.plan_summary = response[0].user_dietplan;
                     }
