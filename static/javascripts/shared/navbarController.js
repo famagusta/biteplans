@@ -3,9 +3,9 @@
 
 app.controller('navbarController', ['$scope', '$location', 'AuthService',
     'profileService', '$rootScope', 'constants', '$window', 'searchService',
-    'planService', '$routeParams',
+    'planService', '$routeParams', '$route',
     function($scope, $location, AuthService, profileService, $rootScope, constants, $window,
-            searchService, planService, $routeParams) {
+            searchService, planService, $routeParams, $route) {
         'use strict';
         // function to check whether the person is logged in or not
 
