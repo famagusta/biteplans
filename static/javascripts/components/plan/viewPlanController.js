@@ -624,10 +624,36 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
             $scope.selected = index;
         };
 
+        $scope.calendarSelect = new Date();
+        $scope.followPlan2 = function(plan){
+            $scope.followDate = moment($scope.calendarSelect).format(
+                                'YYYY-MM-DD');
+            $scope.followPlanObject = {
+                dietplan: plan.id,
+                start_date: $scope.followDate
+            };
+            planService.followDietPlan(
+                $scope.followPlanObject).then(
+                function(response)
+                {
+                    if(response.error){
+                        $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date.";
+                    }else{
+                        $scope.followPlanError = "";
+                        $window.location.href = '/dashboard/summary?date=' +
+                            $scope.followDate
+                    }
+                }, function(error)
+                {
+
+                    console.log(error);
+                });
+        };
+        
+        
         $scope.followPlan = function(plan)
         {
             /* something strange happens inside datepicker with local variables */
-            $scope.selected_plan = plan;
             $scope.followPlanObject = {};
 
             if(constants.userOb.status){
@@ -650,7 +676,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                             //close the date picker
                             this.close();
                             $scope.followPlanObject = {
-                                dietplan: $scope.selected_plan.id,
+                                dietplan: plan.id,
                                 start_date: $scope.followDate
                             };
                             planService.followDietPlan(
@@ -661,6 +687,8 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                                         $scope.followPlanError = "Sorry, selected Date conflicts with another dietplan on the same day! Please select another date.";
                                     }else{
                                         $scope.followPlanError = "";
+                                        $window.location.href = '/dashboard/summary?date=' +
+                                            $scope.followDate
                                     }
                                 }, function(error)
                                 {
@@ -676,7 +704,17 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                 $rootScope.$emit('authFailure');
             }
         };
-
+        
+        $scope.percentNutrient = function(nutrient){
+            var total_energy = $scope.calcMealNutrientVal(-1, 'energy_kcal', false, 1);
+            var nutrient_val = $scope.calcMealNutrientVal(-1, nutrient, false, 1);
+            var multiplier = 4;
+            if (nutrient==="fat_tot"){
+                multiplier = 9;
+            }
+            return 100*multiplier*nutrient_val/total_energy;
+        };
+        
         $scope.shortlistPlan = function(planId){
             if(constants.userOb.status){
                 /* check authentication */

@@ -634,3 +634,7 @@ select {
     white-space: pre !important;
     text-transform: initial !important;
 }
+
+.collapsible-body-color{
+    background-color: white;
+}

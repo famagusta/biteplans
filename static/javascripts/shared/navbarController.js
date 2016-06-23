@@ -362,9 +362,6 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                         $scope.tab.tab = 'calendar';
                     };
                     
-                }else{
-                    console.log('oops');
-                    $location.path("/");
                 }
         }, function(error){
             console.log(error);

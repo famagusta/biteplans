@@ -53,6 +53,7 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
         $scope.getDietCalendarTitle = function(inputKey, timetable)
         {
             var key = moment(inputKey);
+            
             /* check all dietplans to see if any of them fall on a this particular day */
             for (var i = 0; i < timetable.length; i++)
             {
@@ -61,8 +62,12 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                 var end_date = moment(timetable[i].start_date)
                     .add(timetable[i].dietplan.duration, "w");
                 /* check if given key date is between start and end date of any dietplan */
+                console.log(key);
+                console.log(end_date);
+                console.log(start_date);
                 if (key.isSameOrAfter(start_date) && key.isBefore(end_date))
                 {
+                    
                     return timetable[i].dietplan.name;
                 }
             }
@@ -115,7 +120,9 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                 for(var i=0; i<$scope.currentUserPlans.length; i++){
                     var duration = $scope.currentUserPlans[i].dietplan.duration*7 - 1;
                     var end_date = moment($scope.currentUserPlans[i].start_date).add(duration,'days');
+                    var start_date = moment($scope.currentUserPlans[i].start_date);
                     $scope.currentUserPlans[i].end_date = end_date.format('DD MMM YYYY');
+                    $scope.currentUserPlans[i].start_date = start_date.format('DD MMM YYYY');
                 }
             }, function(error){
                 console.log(error);

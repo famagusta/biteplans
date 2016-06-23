@@ -6,11 +6,10 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
     '$rootScope', '$routeParams',
     function($scope, summaryService, searchService, $rootScope, $routeParams) {
         'use strict';
-        
         var date = $routeParams.date;
 
         $scope.plan_data = [];
-        $scope.plan_summary = [];
+        $scope.plan_summary = '';
         $scope.checklistIngs = [];
         $scope.ingredientInModal = [];
         $scope.foodgroup = [];
@@ -345,11 +344,10 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         //function to retrieve a particular days diet plan
         $scope.getDayPlan = function(dateString) {
             $scope.plan_data = [];
-            $scope.plan_summary = [];
+            $scope.plan_summary = '';
             summaryService.getUserDayPlan(dateString)
                 .then(function(response) {
                     $scope.plan_data = response;
-                    console.log(response);
                     if(response.length > 0){
                         $scope.plan_summary = response[0].user_dietplan;
                     }

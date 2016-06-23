@@ -83,47 +83,231 @@
                                         {{plan.goal}}</p>
                                     </div>
                                 </div>
+                                
+                                <div class="row center">
+                                            <div class="col s3  m2 push-m4">
+                                                <btn class="btn-flat cyan-text" ng-click="shortlistPlan(plan.id)"><i class="material-icons left">save</i>Save</btn>
+                                            </div>
 
-                                <div class="row">
-                                    <div class="col s12 m12">
-                                        <p class="ing-text">DESCRIPTION
-                                        :</p>
-                                    </div>
-                                    <br>
-
-                                    <div class="col s12 m12">
-                                        <pre><p class="meal-text">
-                                        {{plan.description}}
-                                        </p>
-                                        </pre>
-                                    </div>
+                                            <div class="col s3 offset-s3 m2 push-m4">
+                                                <btn class="btn-flat cyan-text datepicker_btn" ng-click="followPlan(plan)"><i class="material-icons right">today</i>Follow</btn>
+                                            </div>
                                 </div>
 
-
-                                <!-- <div class="row">
-                                    <div class="col s12 m6">
-                                        <p class="ing-text" style=
-                                        "text-transform:uppercase">CREATED BY
-                                        :</p>
-                                    </div>
-
-
-                                    <div class="col s12 m6">
-                                        <p class="meal-text" style=
-                                        "text-transform:uppercase">
-                                        {{Data.planName}}</p>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                         
-                        <div class="row">
-                            <div class="col s12 m6">
-                                     <div class="row horizontal-line vertical-line top-line left-line">
-                            <div class=
-                                    "col s4 m4">
-                                    <p class="center tab_head ing-text">Food plan
-                                    for</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                
+        <ul class="collapsible popout" data-collapsible="accordion">
+             <li class="collapsible-body-color">
+                  <div class="collapsible-header"><p class="ing-text"><i class="material-icons">description</i>DESCRIPTION</p></div>
+                  <div class="collapsible-body "><pre><p class="meal-text">
+                    {{plan.description}}
+                    </p>
+                    </pre>
+                 </div>
+                </li>
+            <li class="collapsible-body-color">
+                <div class="collapsible-header"><p class="ing-text"><i class="material-icons">insert_chart</i>Nutritional Information</p></div>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <div class="col s12 m6">
+                            <table class="bordered responsive-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Energy</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'energy_kcal', false, 1)
+                                        | number:0}} kcal</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Carbohydrates</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'carbohydrate_tot', false, 1)
+                                        |number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Proteins</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'protein_tot', false, 1)
+                                        | number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Fats</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'fat_tot', false, 1)
+                                        | number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Monounsaturated Fat</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'fa_mono_g', true, 1)
+                                        | number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Polyunsaturated Fat</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'fa_poly_g', true, 1)
+                                        | number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Saturated Fat</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'fa_sat_g', true, 1)
+                                        | number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Sugar</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'sugar_tot', false, 1)
+                                        | number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Fiber</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'fiber_tot', false, 1)
+                                        | number:0}} g</td>
+                                    </tr>
+
+
+                                    <tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div class="col s12 m6">
+                            <table class="bordered responsive-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Cholesterol</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'cholestrl_mg', true, 1)
+                                        | number:0}} mg</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Sodium</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'sodium_mg', true, 1)
+                                        | number:0}} mg</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Calcium</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'calcium_mg', true, 1)
+                                        | number:0}} mg</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Iron</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'iron_mg', true, 1)
+                                        | number:0}} mg</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Vitamin A</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'vitamin_a_iu', true, 1)
+                                        | number:0}} IU</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Vitamin B12</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'vitamin_b12_mcg', true, 1)
+                                        | number:0}} mcg</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Vitamin C</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'vitamin_c_mg', true, 1)
+                                        | number:0}} mg</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Vitamin D</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'vitamin_d_mcg', true, 1)
+                                        | number:0}} mcg</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td>Vitamin E</td>
+
+                                        <td>
+                                        {{calcMealNutrientVal(-1, 'vitamin_e_mg', true, 1)
+                                        | number:0}} mcg</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>          
+            </li>
+        </ul> 
+        
+        
+        <div class="row center">
+            <div class="col s12 m9">
+                <div class="card white darken-1">
+                    <div class="card-content black-text">
+                        <div class="row center">
+                            <div class="col s12 m12">
+                                <div class="row horizontal-line vertical-line top-line left-line">
+                                    <div class="col s4 m4">
+                                        <p class="center tab_head ing-text">Food plan
+                                        for</p>
                                     </div>
 
 
@@ -175,73 +359,10 @@
                                      
                                 </div>
                             </div>
-                            
-                            <div class="col m6 hide-on-small-only">
-                                         <div class="row horizontal-line vertical-line top-line">
-                            <div class=
-                                    "col s4 m4">
-                                    <p class="center tab_head ing-text">Food plan
-                                    for</p>
-                                    </div>
-
-
-                                    <div class=
-                                    "col s4 m4 left-line">
-                                        <div class="row">
-                                            <div class="col s3 push-s1">
-                                                 <a href="#" ng-click=
-                                                "updateDayPlan2('week_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos small">
-                                                arrow_drop_up</i></a>
-                                            </div>
-                                             
-                                            <div class="col s6">
-                                                <p class="ing-text tab_head center" ng-model=
-                                                "dayplan2.week_no">Week
-                                                {{dayplan2.week_no}}</p>
-                                            </div>
-                                            
-                                            <div class="col s3 pull-s1">
-                                                <a href="#" ng-click=
-                                                "updateDayPlan2('week_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
-                                                arrow_drop_down</i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col s4 m4 left-line">
-                                        <div class="row">
-                                            <div class="col s3 push-s1">
-                                                <a href="#" ng-click=
-                                                "updateDayPlan2('day_no','-1')" class="ing-text tab_head center"><i class="material-icons left_arrow_pos small">
-                                               arrow_drop_up</i></a>
-                                            </div>
-                                            
-                                            <div class="col s6 center">
-                                                 <p class="ing-text tab_head" ng-model=
-                                                "dayplan2.day_no">Day
-                                                {{dayplan2.day_no}}</p>
-                                            </div>
-                                            
-                                            <div class="col s3 pull-s1">
-                                                  <a href="#" ng-click=
-                                                "updateDayPlan2('day_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
-                                                arrow_drop_down</i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                     
-                                </div>
-                            </div>
                         </div>
-
-
-               
-
-
                         <div class="container" id="create-container">
-                            <div class="row">
-                                <div class="col s12 m6 vertical-line">
+                            <div class="row center">
+                                <div class="col s12 m12">
                                     <div ng-repeat="key in mealPlanNameArray">
                                         <div class="horizontal-line">
                                             <div class="row">
@@ -306,7 +427,7 @@
                                                     </div>
                                                     <div class="col s6 center">
                                                 
-                                                        <b ng-if="key.mealingredient.length>0" style="margin-left: 13px !important">Servings</b>
+                                                        <b ng-if="key.mealrecipe.length>0" style="margin-left: 13px !important">Servings</b>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -337,556 +458,110 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col s12 m3">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="card dash_graphcard">
+                        <div class="card-content black-text">
+                            <p class="ing-text">Total Calories</p>
+                            <p class="meal-text">
+                            {{calcMealNutrientVal(-1, 'energy_kcal', false, 1) | number:0}} Kcal</p>
+                            <br>
+                            <!-- ROUND PROGRESSBARS -->
 
 
-                                <div class="col s12 m6 vertical-line hide-on-small-only">
-                                    <div ng-repeat="key in mealPlanNameArray2">
-                                        <div class="horizontal-line">
-                                            <div class="row">
-                                                <div class="col s3 m3">
-                                                    <p class="ing-text" style="font-size:15px !important">{{key.mealname}}</p>
-                                                </div>
-
-
-                                                <div class="col s1 m1">
-                                                    <span>|</span>
-                                                </div>
-
-
-                                                <div class="col s3 m2">
-                                                    <span class="meal-text">{{key.time | date:'HH:mm'}}</span>
-                                                </div>
-                                            </div>
-
-
-                                             <div class="row">
-                                             <div class="col s12">
-                                                    <div class="row">
-                                                    <div class="col s6 center">
-                                            
-                                                        <b ng-if="key.mealingredient.length>0" style="margin-left: 13px !important">Ingredients</b>
-                                                    </div>
-                                                    <div class="col s6 center">
-                                                
-                                                        <b ng-if="key.mealingredient.length>0" style="margin-left: 13px !important">Servings</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                <div ng-repeat=
-                                                "item1 in key.mealingredient track by $index">
-                                                    <div class="container" id=
-                                                    "create-container">
-                                                        <div class="row">
-                                                            <div class="col s6">
-                                                             <p class="meal-text">
-                                                        {{item1.ingredient.name}}
-                                                        </p>
-                                                            </div>
-                                                            <div class="col s6">
-                                                                <p class="meal-text center">{{item1.quantity}}- {{item1.unit.description}}
-                                                               &nbsp;&nbsp; ({{item1.quantity*item1.unit.weight}}
-                                                                    &nbsp; grams)</p>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                 
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                            <div class="col s12">
-                                                    <div class="row">
-                                                    <div class="col s6 center">
-                                            
-                                                        <b ng-if="key.mealrecipe.length>0" style="margin-left: 11px !important">Recipes</b>
-                                                    </div>
-                                                    <div class="col s6 center">
-                                                
-                                                        <b ng-if="key.mealingredient.length>0" style="margin-left: 13px !important">Servings</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <br>
-                                                
-                                                <div ng-repeat=
-                                                "item1 in key.mealrecipe track by $index">
-                                                    <div class="container" id=
-                                                    "create-container">
-                                                        <div class="row">
-                                                            <div class="col s6">
-                                                                <a ng-href="/recipes/view-recipe/{{item1.recipe.id}}">
-                                                                    <p class="meal-text">
-                                                                        {{item1.recipe.name}}
-                                                                    </p>
-                                                                </a>
-                                                            </div>
-                                                            <div class="col s6">
-                                                                <p class="meal-text center">{{item1.servings}}</p>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                       
-                                                    </div>
-                                                </div>
-                                            </div>
+                            <div clas="row">
+                                <div class="col s12 m12 center">
+                                    <div class="progress-wrapper">
+            
+                                        <div animation="easeInOutQuart"
+                                        animation-delay="0" bgcolor="#EAEAEA"
+                                        clockwise="true" color="#6639B6" 
+                                        current="percentNutrient('protein_tot')"
+                                        duration="800" max="100" radius="50"
+                                        responsive="false" round-progress=""
+                                        rounded="true" semi="false" stroke="4">
                                         </div>
+
+
+                                        <p class="center graph-text">PROTEINS</p>
+
+
+                                        <p class="center graph-value">
+                                            {{percentNutrient('protein_tot') | number:0}} % </p>
+
+                                        <p class="ing-text nutgraph_val">
+                                        {{calcMealNutrientVal(-1, 'protein_tot', false, 1) |
+                                        number:0}} g</p>
                                     </div>
                                 </div>
+
+
+                                <div class="col s12 m12 center">
+                                    <div animation="easeInOutQuart"
+                                    animation-delay="0" bgcolor="#EAEAEA"
+                                    clockwise="true" color="#FE6433" current=
+                                    "percentNutrient('carbohydrate_tot')"
+                                    duration="800" max="100" radius="50"
+                                    responsive="false" round-progress=""
+                                    rounded="true" semi="false" stroke="4">
+                                    </div>
+
+
+                                    <p class="center graph-text">CARBS</p>
+
+
+                                    <p class="center graph-value">
+                                   {{percentNutrient('carbohydrate_tot') | number:0}} %
+                                    </p>
+
+
+                                    <p class="ing-text nutgraph_val">
+                                    {{calcMealNutrientVal(-1, 'carbohydrate_tot', false, 1) |
+                                    number:0}} g</p>
+                                </div>
+
+
+                                <div class="col s12 m12 center">
+                                    <div animation="easeInOutQuart"
+                                    animation-delay="0" bgcolor="#EAEAEA"
+                                    clockwise="true" color="#FDC106" current=
+                                    "percentNutrient('fat_tot')"
+                                    duration="800" max="100" radius="50"
+                                    responsive="false" round-progress=""
+                                    rounded="true" semi="false" stroke="4">
+                                    </div>
+
+
+                                    <p class="center graph-text">FATS</p>
+
+
+                                    <p class="center graph-value">
+                                    {{percentNutrient('fat_tot') | number:0}} %
+                                    </p>
+
+
+                                    <p class="ing-text nutgraph_val">
+                                    {{calcMealNutrientVal(-1, 'fat_tot', false, 1) | number:0}}
+                                    g</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-        <div class="row" id="nutsinfo">
-            <div class="col s12 m6">
-                <div class="row">
-                    <div class="col s12 m12">
-                        <div class="card white">
-                            <div class="card-content black-text">
-                                <div class="container" id="create-container">
-                                    <p class="card-title left" id=
-                                    "recipe-title" style="margin-left: 10px">
-                                    Nutritional Information</p>
-<!--
-                                    <i class=
-                                                                      "material-icons right cyan-text">expand_more</i>
--->
-                                    <br>
-                                              <div class="row">
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Calories</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'energy_kcal', false, 1) | number:0
-                                }} &nbsp;&nbsp;kcal</p>
-                                </div>
-                            </div>
-                            
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Carbohydrates</p>
-                                 </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'carbohydrate_tot', false, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Proteins</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'protein_tot', false, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fat_tot', false, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Monounsaturated Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fa_mono_g', true, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Polyunsaturated Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fa_poly_g',true, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Saturated Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fa_sat_g', true, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Sugar</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'sugar_tot', false, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Fiber</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fiber_tot', false, 1) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Cholestrol</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'cholestrl_mg', true, 1) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Sodium</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'sodium_mg', true, 1) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Calcium</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'calcium_mg', true, 1) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Iron</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'iron_mg', true, 1) | number:0}} &nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin A</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_a_iu', true, 1) | number:0}}&nbsp;&nbsp;IU</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin B12</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_b12_mcg', true, 1) | number:0}}&nbsp;&nbsp;mcg</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin C</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_c_mg', true, 1) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin D</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_d_mcg', true, 1) | number:0}}&nbsp;&nbsp;mcg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin E</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_e_mg', true, 1) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            
-            <div class="col s12 m6 hide-on-small-only">
-                <div class="row">
-                    <div class="col s12 m12">
-                        <div class="card white">
-                            <div class="card-content black-text">
-                                <div class="container" id="create-container">
-                                    <p class="card-title left" id=
-                                    "recipe-title" style="margin-left: 10px">
-                                    Nutritional Information</p>
-<!--
-                                    <i class=
-                                    "material-icons right cyan-text">expand_more</i>
-                                    <br>
--->
-                                              <div class="row">
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Calories</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'energy_kcal', false, 2) | number:0
-                                }}&nbsp;&nbsp;kcal</p>
-                                </div>
-                            </div>
-                            
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Carbohydrates</p>
-                                 </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'carbohydrate_tot',false, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Proteins</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'protein_tot',false, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fat_tot', false, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Monounsaturated Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fa_mono_g', true, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Polyunsaturated Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fa_poly_g',true, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Saturated Fats</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fa_sat_g', true, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Sugar</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'sugar_tot', false, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Fiber</p>
-                                </div>
-                                <div class="col s6">
-                                   <p class="meal-text">&nbsp;&nbsp; {{
-                                calcMealNutrientVal(-1, 'fiber_tot', false, 2) | number:0
-                                }}&nbsp;&nbsp;g</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Cholestrol</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'cholestrl_mg', true, 2) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Sodium</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'sodium_mg', true, 2) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Calcium</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'calcium_mg', true, 2) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Iron</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'iron_mg', true, 2) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin A</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_a_iu', true, 2) | number:0}}&nbsp;&nbsp;IU</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin B</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_b12_mcg', true, 2) | number:0}}&nbsp;&nbsp;mcg</p>
-                                </div>
-                            </div>
-                            
-                             <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin C</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_c_mg', true, 2) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin D</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_d_mcg', true, 2) | number:0}}&nbsp;&nbsp;mcg</p>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col s6">
-                                    <p class="ing-text">Vitamin E</p>
-                                </div>
-                                <div class="col s6">
-                                    <p class="meal-text">{{calcMealNutrientVal(-1, 'vitamin_e_mg', true, 2) | number:0}}&nbsp;&nbsp;mg</p>
-                                </div>
-                            </div>
-                            
-                        </div>
-
-                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
+        
         </div>
-
 
     </div>
 
-
-    <div class="row">
-        <div class="col s12 center">
-            <div class="row">
-
-
-                <div class="col s3  m2 push-m4">
-                    <a class=
-                    "btn" ng-click="shortlistPlan(plan.id)">Save</a>
-                </div>
-
-                <div class="col s3 offset-s3 m2 push-m4">
-                    <a class=
-                   "btn datepicker_btn" ng-click="followPlan(plan)">Follow</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
       $(document).ready(function(){
         $('.tooltipped').tooltip({delay: 50});
