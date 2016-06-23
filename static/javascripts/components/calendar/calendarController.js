@@ -62,9 +62,6 @@ app.controller("calendarCtrl", ['$scope', '$filter', '$q', '$timeout', '$log',
                 var end_date = moment(timetable[i].start_date)
                     .add(timetable[i].dietplan.duration, "w");
                 /* check if given key date is between start and end date of any dietplan */
-                console.log(key);
-                console.log(end_date);
-                console.log(start_date);
                 if (key.isSameOrAfter(start_date) && key.isBefore(end_date))
                 {
                     

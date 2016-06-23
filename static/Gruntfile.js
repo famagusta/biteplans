@@ -19,7 +19,7 @@ module.exports = function(grunt) {
             },
             all: {
               src: ["./bower_components/angular-material/angular-material.min.css",
-                    "./stylesheets/biteplans_icons_and_fonts.css",
+//                    "./stylesheets/biteplans_icons_and_fonts.css",
                     
                    "./bower_components/materialize/dist/css/materialize.min.css",
 //                    "./bower_components/font-awesome/css/font-awesome.min.css",
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
             build:{
                 files: {
                     'dist/css/bitePlans.css': [
-                        'stylesheets/index.css',         
+                                               'stylesheets/index.css',         
                                                'stylesheets/landingPage.css',
                                                'stylesheets/searchPlan.css',
                                                'stylesheets/starRating.css',
@@ -103,8 +103,8 @@ module.exports = function(grunt) {
                                                'stylesheets/footer.css',
                                                'stylesheets/dashboard.css',
                                                'stylesheets/createPlan.css',
-                                            'stylesheets/searchIngredients.css',
-                                             'stylesheets/ingredientResult.css',
+                                               'stylesheets/searchIngredients.css',
+                                               'stylesheets/ingredientResult.css',
                                                'stylesheets/recipes.css',
                                                'stylesheets/createRecipe.css']
                 }
