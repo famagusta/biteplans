@@ -52,8 +52,10 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.updatePaginate = function(val){
             $scope.page = val;
+            $scope.populate_search();
             $scope.search_plan();
         }
+        
         
         var getUserPlanRatings = function()
         {
@@ -122,7 +124,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
         
         $scope.populate_search = function(){
             if(!$scope.query_plan){
-                searchService.list_latest_plans().then(function(response){
+                searchService.list_latest_plans($scope.page).then(function(response){
                     $scope.plans = response;
                     $scope.currentPage = $scope.page;
                     $scope.pageSize = response.total*6;

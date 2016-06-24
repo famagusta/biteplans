@@ -101,10 +101,9 @@ app.factory('searchService',
         // Function to search plans
         var search_plan = function(quer, page, sortby) {
             var url = '/search/';
-            if(page!==undefined && page!==null)
-                {
+            if(page!==undefined && page!==null){
                     url += '?page'+'='+page;
-                }
+            }
             var deferred = $q.defer();
             var obj = {};
 
@@ -133,8 +132,12 @@ app.factory('searchService',
         return deferred.promise;};
                 
         
-        var list_latest_plans = function(){
+        var list_latest_plans = function(page){
             var url = '/dietplans/dietplan/?search_plan_populate=1';
+            if(page!==undefined && page!==null){
+                    url += '?page'+'='+page;
+            }
+            
             var deferred = $q.defer();
             
             httpService.httpGet(url).then(
@@ -265,8 +268,8 @@ app.factory('searchService',
         search_plan : function(query, page, sortby) {
             return search_plan(query, page, sortby); 
         },
-        list_latest_plans : function(){
-            return list_latest_plans();
+        list_latest_plans : function(page){
+            return list_latest_plans(page);
         },
         shortlistRecipes : function(id) {
             return shortlistRecipes(id); 

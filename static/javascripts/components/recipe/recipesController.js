@@ -37,7 +37,6 @@ app.controller('recipesController', ['$scope', 'searchService',
         };
         
         $scope.updatePaginate = function(val){
-            console.log(val);
             $scope.page = val;
             $scope.populate_search();
             $scope.search_recipes();
