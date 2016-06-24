@@ -111,20 +111,24 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
 
         var isToasting = false;
         var gender_lookup = {'Male':'M', 'Female': 'F'};
+        
         // a very basic look up to test BMR match
         $scope.$watch('[profileInfo, plan]', function(newVal, oldVal){
             var toast_msg = 'This plan is not suited for you!';
+            
             if((urlParamWeek1===1 && urlParamWeek2===1 
                 && urlParamDay1===1 & urlParamDay2===2)){
+                
                 if(newVal[0] && newVal[1]){
+                    
                     if(newVal[1].upper_bmr && newVal[1].lower_bmr 
                        && newVal[0].gender && newVal[1].gender && newVal[0].basal_metabolic_rate){
+                        
                         if(newVal[1].gender!=='All'){
                             if(gender_lookup[newVal[1].gender] !== newVal[0].gender){
                                 toast_msg += ' Gender Mismatch.';
                                 isToasting = true;
                             }
-
                         } 
 
                         if(newVal[0].basal_metabolic_rate > 
@@ -291,20 +295,21 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                         $scope.mealPlanNameArray2[m].mealNutrition = {};
                     }
                 }
+                
+                if(!($scope.dayplan1.day_no===1 && $scope.dayplan2.week_no===1 
+                         && $scope.dayplan2.day_no===2 && $scope.dayplan1.week_no===1)){
+                    if(col===1){
+                        $location.search('week1', week);
+                        $location.search('day1', day);
+                    }else if(col===2){
+                        $location.search('week2', week);
+                        $location.search('day2', day);
+                    }
+                }
             }, function(error){
                 console.log(error);
             });
-                
-                
-            if(!($scope.dayplan1.day_no===1 && $scope.dayplan2.week_no===1 && $scope.dayplan2.day_no===2 && $scope.dayplan1.week_no===1)){
-                if(col===1){
-                    $location.search('week1', week);
-                    $location.search('day1', day);
-                }else if(col===2){
-                    $location.search('week2', week);
-                    $location.search('day2', day);
-                }
-            }
+            
         };
 
         //get initial data for day1 and week 1 of the plan
