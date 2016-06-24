@@ -5,115 +5,76 @@
                 <p style="color:red">{{followPlanError}}</p>
                 <p style="color:green">{{saveStatus}}</p>
             </div>
-            <div class="col s12 m12">
-                <div class="card white darken-1">
-                    <div class="card-content black-text">
-                        <div class="row" id="summary-info">
-                            <div class="col s12 m12">
-                                <div class="row">
-                                    <div class="col s12 m3">
-                                        <p class="ing-text">
-                                            NAME OF THE PLAN :
-                                        </p>
-                                    </div>
-                                    <div class="col s12 m8 pull-m1">
-                                        <p class="meal-text">
-                                        {{plan.name}}
-                                        </p>
-                                    </div>
-                                </div>
-
-
-
-                                <div class="row">
-                                    <div class="col s12 m3">
-                                        <p class="ing-text">DURATION
-                                        :</p>
-                                    </div>
-
-
-                                    <div class="col s12 m3">
-                                        <p class="meal-text">
-                                        {{plan.duration}} Weeks</p>
-                                    </div>
-                                    
-                                    <div class="col s12 m3">
-                                        <a class="ing-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Minimum amount of calories a body at rest needs per day">BMR RANGE
-                                        :</a>
-                                    </div>
-
-                                    <div class="col s12 m3">
-                                        <p class="" style="text-transform: lowercase">
-                                        {{plan.lower_bmr | number:0}} - {{plan.upper_bmr | number:0}} kcal</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col s12 m3">
-                                        <p class="ing-text">GENDER
-                                        :</p>
-                                    </div>
-                                    
-                                    <div class="col s12 m3">
-                                        <p class="meal-text">
-                                        {{plan.gender}}</p>
-                                    </div>
-                                    
-                                    <div class="col s12 m3">
-                                        <p class="ing-text">ACTIVITY LEVEL
-                                        :</p>
-                                    </div>
-                                    
-                                    <div class="col s12 m3">
-                                        <p class="meal-text" tooltipped data-position="bottom" data-delay="50" data-tooltip="{{activityDescriptions['Sedentary']}}">
-                                        {{plan.activity_level}}</p>
-                                    </div>
-
-                                </div>
-                                
-                                
-                                 <div class="row">
-                                     <div class="col s12 m2">
-                                        <p class="ing-text">GOAL :</p>
-                                    </div>
-
-
-                                    <div class="col s12 m10 left">
-                                        <p class="meal-text">
-                                        {{plan.goal}}</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="row center">
-                                            <div class="col s3  m2 push-m4">
-                                                <btn class="btn-flat cyan-text" ng-click="shortlistPlan(plan.id)"><i class="material-icons left">save</i>Save</btn>
-                                            </div>
-
-                                            <div class="col s3 offset-s3 m2 push-m4">
-                                                <btn class="btn-flat cyan-text datepicker_btn" ng-click="followPlan(plan)"><i class="material-icons right">today</i>Follow</btn>
-                                            </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
         </div>
         
                 
-        <ul class="collapsible popout" data-collapsible="accordion">
+        <ul class="collapsible popout" data-collapsible="expandable">
+            <li class="collapsible-body-color">
+                <div class="collapsible-header active"><p class="ing-text"><i class="material-icons">info_outline</i>OVERVIEW</p></div>
+                <div class="collapsible-body ">
+                    <div class="row">
+                        <div class="col s12 m3">
+                            <p class="ing-text">
+                                NAME OF THE PLAN :
+                            </p>
+                        </div>
+                        <div class="col s12 m8 pull-m1">
+                            <p class="meal-text">
+                            {{plan.name}}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col m3">
+                            <p style="display:inline"><b>DURATION:</b> {{plan.duration}} Weeks</p>
+                        </div>
+                        <div class="col m3">
+                            <p style="display:inline"><b><a class="ing-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Minimum amount of calories a body at rest needs per day">BMR RANGE:</a></b> {{plan.lower_bmr | number:0}} - {{plan.upper_bmr | number:0}} kcal</p>
+                        </div>
+                        <div class="col m2">
+                            <p style="display:inline"><b>GENDER
+                            :</b> {{plan.gender}}</p>
+                        </div>
+                        <div class="col m4">
+                            <p style="display:inline" tooltipped data-position="bottom" data-delay="50" data-tooltip="{{activityDescriptions['Sedentary']}}"><b>ACTIVITY LEVEL :</b> {{plan.activity_level}}</p>
+                        </div>
+                   
+                    </div>
+
+                     <div class="row">
+                         <div class="col s12 m2">
+                            <p class="ing-text">GOAL :</p>
+                        </div>
+
+                        <div class="col s12 m10 left">
+                            <p class="meal-text">
+                            {{plan.goal}}</p>
+                        </div>
+                    </div>
+
+                    <div class="row center">
+                        <div class="col s12 m6">
+                            <btn class="btn-flat cyan-text" ng-click="shortlistPlan(plan.id)">Save<i class="material-icons left">save</i></btn>
+                        </div>
+
+                        <div class="col s12 m6">
+                            <btn class="btn-flat cyan-text datepicker_btn" ng-click="followPlan(plan)">Follow<i class="material-icons left">today</i></btn>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
              <li class="collapsible-body-color">
-                  <div class="collapsible-header"><p class="ing-text"><i class="material-icons">description</i>DESCRIPTION</p></div>
-                  <div class="collapsible-body "><pre><p class="meal-text">
+                  <div class="collapsible-header"><p class="ing-text" style="margin-top:0px"><i class="material-icons">description</i>DESCRIPTION</p></div>
+                  <div class="collapsible-body"><pre><p class="meal-text">
                     {{plan.description}}
                     </p>
                     </pre>
                  </div>
                 </li>
             <li class="collapsible-body-color">
-                <div class="collapsible-header"><p class="ing-text"><i class="material-icons">insert_chart</i>Nutritional Information</p></div>
+                <div class="collapsible-header"><p class="ing-text" style="margin-top:0px"><i class="material-icons">insert_chart</i>NUTRITION</p></div>
                 <div class="collapsible-body">
                     <div class="row">
                         <div class="col s12 m6">
@@ -303,7 +264,7 @@
                 <div class="card white darken-1">
                     <div class="card-content black-text">
                         <div class="row center">
-                            <div class="col s12 m12">
+                            <div class="col s12 m12 show-on-medium-and-up hide-on-small-only">
                                 <div class="row horizontal-line vertical-line top-line left-line">
                                     <div class="col s4 m4">
                                         <p class="center tab_head ing-text">Food plan
@@ -359,6 +320,63 @@
                                      
                                 </div>
                             </div>
+                            
+                            <div class="col s12 show-on-small hide-on-med-and-up">
+                                <div class="row horizontal-line vertical-line top-line left-line">
+                                    <div class="col s12">
+                                        <p class="center tab_head ing-text">Food plan
+                                        for</p>
+                                    </div>
+
+
+                                    <div class=
+                                    "col s12 left-line">
+                                        <div class="row">
+                                            <div class="col s3">
+                                                 <a href="#" ng-click=
+                                                "updateDayPlan1('week_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos small">
+                                                arrow_drop_up</i></a>
+                                            </div>
+                                             
+                                            <div class="col s6">
+                                                <p class="ing-text tab_head center" ng-model=
+                                                "dayplan1.week_no">Week
+                                                {{dayplan1.week_no}}</p>
+                                            </div>
+                                            
+                                            <div class="col s3">
+                                                <a href="#" ng-click=
+                                                "updateDayPlan1('week_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
+                                                arrow_drop_down</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col s12 left-line">
+                                        <div class="row">
+                                            <div class="col s3">
+                                                <a href="#" ng-click=
+                                                "updateDayPlan1('day_no','-1')" class="ing-text tab_head right"><i class="material-icons left_arrow_pos small">
+                                               arrow_drop_up</i></a>
+                                            </div>
+                                            
+                                            <div class="col s6 center">
+                                                 <p class="ing-text tab_head" ng-model=
+                                                "dayplan1.day_no">Day
+                                                {{dayplan1.day_no}}</p>
+                                            </div>
+                                            
+                                            <div class="col s3">
+                                                  <a href="#" ng-click=
+                                                "updateDayPlan1('day_no','1')" class="ing-text tab_head"><i class="material-icons right_arrow_pos small">
+                                                arrow_drop_down</i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                     
+                                </div>
+                            </div>
                         </div>
                         <div class="container" id="create-container">
                             <div class="row center">
@@ -366,18 +384,19 @@
                                     <div ng-repeat="key in mealPlanNameArray">
                                         <div class="horizontal-line">
                                             <div class="row">
-                                                <div class="col s3 m3">
-                                                    <p class="ing-text" style="font-size:15px !important">{{key.mealname}}</p>
+                                                <div class="col s5 m3">
+                                                    
+                                                    <p class="ing-text" style="font-size:15px !important"><i class="material-icons left">restaurant</i>{{key.mealname}}</p>
                                                 </div>
 
 
-                                                <div class="col s1 m1">
+                                                <div class="col s2 m1">
                                                     <span>|</span>
                                                 </div>
 
 
-                                                <div class="col s3 m2">
-                                                    <span class="meal-text">{{key.time | date:'HH:mm'}}</span>
+                                                <div class="col s5 m2">
+                                                    <span class="meal-text"><i class="material-icons left">schedule</i>{{key.time | date:'HH:mm'}}</span>
                                                 </div>
                                             </div>
 
@@ -401,12 +420,12 @@
                                                     <div class="container" id=
                                                     "create-container">
                                                         <div class="row">
-                                                            <div class="col m6 s12 center">
+                                                            <div class="col m6 s6 center">
                                                              <p class="meal-text">
                                                         {{item1.ingredient.name}}
                                                         </p>
                                                             </div>
-                                                            <div class="col m6 s12">
+                                                            <div class="col m6 s6">
                                                                 <p class="meal-text center">{{item1.quantity}}- {{item1.unit.description}}
                                                                &nbsp;&nbsp; ({{item1.quantity*item1.unit.weight}}
                                                                     &nbsp; grams)</p>
@@ -459,6 +478,16 @@
                                     </div>
                                 </div>
                             </div>
+                             <div class="row center">
+                                <div class="col s12 m6">
+                                    <btn class="btn-flat cyan-text" ng-click="shortlistPlan(plan.id)">Save<i class="material-icons left">save</i></btn>
+                                </div>
+
+                                <div class="col s12 m6">
+                                    <btn class="btn-flat cyan-text datepicker_btn" ng-click="followPlan(plan)">Follow<i class="material-icons left">today</i></btn>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
