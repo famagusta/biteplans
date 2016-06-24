@@ -106,7 +106,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             templateUrl: '/static/templates/createPlan2.html'
         }).when('/dietplans/view-diet-plan/:id/:week1?/:day1?/:week2?/:day2?', {
             controller: 'viewPlanController',
-            templateUrl: '/static/templates/createPlan3.html'
+            templateUrl: '/static/templates/viewPlan.html'
         }).when('/recipes/search', {
             controller: 'recipesController',
             templateUrl: '/static/templates/recipes.html',
