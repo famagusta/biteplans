@@ -135,7 +135,7 @@ app.factory('searchService',
         var list_latest_plans = function(page){
             var url = '/dietplans/dietplan/?search_plan_populate=1';
             if(page!==undefined && page!==null){
-                    url += '?page'+'='+page;
+                    url += '&page'+'='+page;
             }
             
             var deferred = $q.defer();
