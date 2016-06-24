@@ -104,7 +104,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         }).when('/dietplans/create/complete/:id/:week?/:day?', {
             controller: 'createPlanController',
             templateUrl: '/static/templates/createPlan2.html'
-        }).when('/dietplans/view-diet-plan/:id/:week1?/:day1?/:week2?/:day2?', {
+        }).when('/dietplans/view-diet-plan/:id/:week1?/:day1?', {
             controller: 'viewPlanController',
             templateUrl: '/static/templates/viewPlan.html',
             reloadOnSearch: false

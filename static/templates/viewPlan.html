@@ -84,7 +84,7 @@
                                         <td>Energy</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'energy_kcal', false, 1)
+                                        {{calcMealNutrientVal(-1, 'energy_kcal', false)
                                         | number:0}} kcal</td>
                                     </tr>
 
@@ -93,7 +93,7 @@
                                         <td>Carbohydrates</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'carbohydrate_tot', false, 1)
+                                        {{calcMealNutrientVal(-1, 'carbohydrate_tot', false)
                                         |number:0}} g</td>
                                     </tr>
 
@@ -102,7 +102,7 @@
                                         <td>Proteins</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'protein_tot', false, 1)
+                                        {{calcMealNutrientVal(-1, 'protein_tot', false)
                                         | number:0}} g</td>
                                     </tr>
 
@@ -111,7 +111,7 @@
                                         <td>Fats</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'fat_tot', false, 1)
+                                        {{calcMealNutrientVal(-1, 'fat_tot', false)
                                         | number:0}} g</td>
                                     </tr>
 
@@ -120,7 +120,7 @@
                                         <td>Monounsaturated Fat</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'fa_mono_g', true, 1)
+                                        {{calcMealNutrientVal(-1, 'fa_mono_g', true)
                                         | number:0}} g</td>
                                     </tr>
 
@@ -138,7 +138,7 @@
                                         <td>Saturated Fat</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'fa_sat_g', true, 1)
+                                        {{calcMealNutrientVal(-1, 'fa_sat_g', true)
                                         | number:0}} g</td>
                                     </tr>
 
@@ -147,7 +147,7 @@
                                         <td>Sugar</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'sugar_tot', false, 1)
+                                        {{calcMealNutrientVal(-1, 'sugar_tot', false)
                                         | number:0}} g</td>
                                     </tr>
 
@@ -156,7 +156,7 @@
                                         <td>Fiber</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'fiber_tot', false, 1)
+                                        {{calcMealNutrientVal(-1, 'fiber_tot', false)
                                         | number:0}} g</td>
                                     </tr>
 
@@ -175,7 +175,7 @@
                                         <td>Cholesterol</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'cholestrl_mg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'cholestrl_mg', true)
                                         | number:0}} mg</td>
                                     </tr>
 
@@ -184,7 +184,7 @@
                                         <td>Sodium</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'sodium_mg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'sodium_mg', true)
                                         | number:0}} mg</td>
                                     </tr>
 
@@ -193,7 +193,7 @@
                                         <td>Calcium</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'calcium_mg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'calcium_mg', true)
                                         | number:0}} mg</td>
                                     </tr>
 
@@ -202,7 +202,7 @@
                                         <td>Iron</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'iron_mg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'iron_mg', true)
                                         | number:0}} mg</td>
                                     </tr>
 
@@ -211,7 +211,7 @@
                                         <td>Vitamin A</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'vitamin_a_iu', true, 1)
+                                        {{calcMealNutrientVal(-1, 'vitamin_a_iu', true)
                                         | number:0}} IU</td>
                                     </tr>
 
@@ -220,7 +220,7 @@
                                         <td>Vitamin B12</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'vitamin_b12_mcg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'vitamin_b12_mcg', true)
                                         | number:0}} mcg</td>
                                     </tr>
 
@@ -229,7 +229,7 @@
                                         <td>Vitamin C</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'vitamin_c_mg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'vitamin_c_mg', true)
                                         | number:0}} mg</td>
                                     </tr>
 
@@ -238,7 +238,7 @@
                                         <td>Vitamin D</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'vitamin_d_mcg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'vitamin_d_mcg', true)
                                         | number:0}} mcg</td>
                                     </tr>
 
@@ -247,7 +247,7 @@
                                         <td>Vitamin E</td>
 
                                         <td>
-                                        {{calcMealNutrientVal(-1, 'vitamin_e_mg', true, 1)
+                                        {{calcMealNutrientVal(-1, 'vitamin_e_mg', true)
                                         | number:0}} mcg</td>
                                     </tr>
                                 </tbody>
@@ -500,7 +500,7 @@
                         <div class="card-content black-text">
                             <p class="ing-text">Total Calories</p>
                             <p class="meal-text">
-                            {{calcMealNutrientVal(-1, 'energy_kcal', false, 1) | number:0}} Kcal</p>
+                            {{calcMealNutrientVal(-1, 'energy_kcal', false) | number:0}} Kcal</p>
                             <br>
                             <!-- ROUND PROGRESSBARS -->
 
@@ -526,7 +526,7 @@
                                             {{percentNutrient('protein_tot') | number:0}} % </p>
 
                                         <p class="ing-text nutgraph_val">
-                                        {{calcMealNutrientVal(-1, 'protein_tot', false, 1) |
+                                        {{calcMealNutrientVal(-1, 'protein_tot', false) |
                                         number:0}} g</p>
                                     </div>
                                 </div>
@@ -552,7 +552,7 @@
 
 
                                     <p class="ing-text nutgraph_val">
-                                    {{calcMealNutrientVal(-1, 'carbohydrate_tot', false, 1) |
+                                    {{calcMealNutrientVal(-1, 'carbohydrate_tot', false) |
                                     number:0}} g</p>
                                 </div>
 
@@ -577,7 +577,7 @@
 
 
                                     <p class="ing-text nutgraph_val">
-                                    {{calcMealNutrientVal(-1, 'fat_tot', false, 1) | number:0}}
+                                    {{calcMealNutrientVal(-1, 'fat_tot', false) | number:0}}
                                     g</p>
                                 </div>
                             </div>

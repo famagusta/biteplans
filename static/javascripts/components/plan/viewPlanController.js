@@ -20,10 +20,6 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         var urlParamWeek1 = params.week1? parseInt(params.week1) : 1;
         var urlParamDay1 = params.day1? parseInt(params.day1) : 1;
 
-        var urlParamWeek2 = params.week2? parseInt(params.week2) : 1;
-        var urlParamDay2 = params.day2? parseInt(params.day2) : 2;
-
-        
         /*if authed then create these objects*/
         /* week & day count for current plan */
         $scope.weekCount = [];
@@ -33,17 +29,11 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         $scope.dayWeekNos = 0;
         $scope.currentDayWeekNos = 7*(urlParamWeek1 - 1) + urlParamDay1;
 
-        $scope.currentDayWeekNos2 = 7*(urlParamWeek2 - 1) + urlParamDay2;
         /* stores the details to get current day plan
                 this is used to make the first query */
         $scope.dayplan1 = {
             'day_no':  urlParamDay1,
             'week_no': urlParamWeek1
-        };
-
-        $scope.dayplan2 = {
-            'day_no':  urlParamDay2,
-            'week_no': urlParamWeek2
         };
 
         var activityLevelChoicesDict = {
@@ -116,9 +106,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         $scope.$watch('[profileInfo, plan]', function(newVal, oldVal){
             var toast_msg = 'This plan is not suited for you!';
             
-            if((urlParamWeek1===1 && urlParamWeek2===1 
-                && urlParamDay1===1 & urlParamDay2===2)){
-                
+            if((urlParamWeek1===1 && urlParamDay1===1)){
                 if(newVal[0] && newVal[1]){
                     
                     if(newVal[1].upper_bmr && newVal[1].lower_bmr 
@@ -160,39 +148,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
             $('#jump-to-modal').openModal();
         };
 
-        //function to copy the current day plan and jump to feature
-        //type determines what is the task
-        //if type is copy then it will copy
-        //if type is jump then it will jump
-        $scope.daySelect = function(type, week, day)
-        {
-            if (type === 'copy')
-            {
-                if (day !== $scope.dayplan.day_no ||
-                    week !== $scope.dayplan.week_no)
-                {
-                    planService.copyDayPlan(
-                    {
-                        'from_day': $scope.dayplan.day_no,
-                        'from_week': $scope.dayplan.week_no,
-                        'to_day': day,
-                        'to_week': week,
-                        'dietplan': $scope.plan.id
-                    }).then(function(){
-                        $('#jump-to-modal').closeModal();
-                    }, function(error){
-                        console.log(error);
-                    });
-                }
-            }
-            else if (type === 'jump'){
-                $scope.dayplan.day_no = parseInt(day);
-                $scope.dayplan.week_no = parseInt(week);
-                $scope.getDayPlan($scope.dayplan.day_no, $scope.dayplan.week_no);
-                $('#jump-to-modal').closeModal();
-            }
-        };
-
+        
         /* Function to update day_no or week_no */
 
         $scope.updateDayPlan1 = function(param, val)
@@ -221,46 +177,16 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
 
         };
 
-        $scope.updateDayPlan2 = function(param, val)
-        {
-            // made shorter with ternary operator and modulo division
-            var multiplier = param === 'week_no' ? 7 : param === 'day_no' ? 1 : 0;
-
-            $scope.currentDayWeekNos2 += (multiplier*val);
-
-            if($scope.currentDayWeekNos2 > $scope.dayWeekNos){
-                $scope.currentDayWeekNos2 = $scope.currentDayWeekNos2 % 
-                $scope.dayWeekNos;
-            }else if ($scope.currentDayWeekNos2 <= 0){
-                $scope.currentDayWeekNos2 = $scope.currentDayWeekNos2 + 
-                $scope.dayWeekNos;
-            }
-
-            $scope.dayplan2.day_no = ($scope.currentDayWeekNos2 % 7);
-            if($scope.dayplan2.day_no === 0){
-                $scope.dayplan2.day_no = 7;
-            }
-            $scope.dayplan2.week_no = Math.ceil($scope.currentDayWeekNos2/7);
-
-            $scope.getDayPlan($scope.dayplan2.day_no,
-                    $scope.dayplan2.week_no, 2);
-
-        };
-
         // TODO: update for API
-        $scope.getDayPlan = function(day, week, col)
+        $scope.getDayPlan = function(day, week)
         {
             var id = $routeParams.id;
             planService.getdayplan(id, day, week).then(function(response){ 
-                if(col===1){
-                    $scope.dayplan1.id = response.id;
-                    $scope.dayplan1.day_no = response.day_no;
-                    $scope.dayplan1.week_no = response.week_no;
-                } else if(col===2){
-                    $scope.dayplan2.id = response.id;
-                    $scope.dayplan2.day_no = response.day_no;
-                    $scope.dayplan2.week_no = response.week_no;
-                }
+                
+                $scope.dayplan1.id = response.id;
+                $scope.dayplan1.day_no = response.day_no;
+                $scope.dayplan1.week_no = response.week_no;
+                
 
                 for (var i = 0; i < response.mealplan.length; i++){
                     response.mealplan[i].mealname = response.mealplan[i].name;
@@ -284,27 +210,18 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                             parseFloat(response.mealplan[i].mealrecipe[j].servings);
                     }
                 }
-                if(col===1){
-                    $scope.mealPlanNameArray = response.mealplan;
-                    for (var m = 0; m < $scope.mealPlanNameArray.length; m++){
-                        $scope.mealPlanNameArray[m].mealNutrition = {};
-                    }
-                }else{
-                    $scope.mealPlanNameArray2 = response.mealplan;
-                    for (var m = 0; m < $scope.mealPlanNameArray2.length; m++){
-                        $scope.mealPlanNameArray2[m].mealNutrition = {};
-                    }
+                
+                $scope.mealPlanNameArray = response.mealplan;
+                for (var m = 0; m < $scope.mealPlanNameArray.length; m++){
+                    $scope.mealPlanNameArray[m].mealNutrition = {};
                 }
                 
-                if(!($scope.dayplan1.day_no===1 && $scope.dayplan2.week_no===1 
-                         && $scope.dayplan2.day_no===2 && $scope.dayplan1.week_no===1)){
-                    if(col===1){
+                
+                if(!($scope.dayplan1.day_no===1 && $scope.dayplan1.week_no===1)){
+                    
                         $location.search('week1', week);
                         $location.search('day1', day);
-                    }else if(col===2){
-                        $location.search('week2', week);
-                        $location.search('day2', day);
-                    }
+                    
                 }
             }, function(error){
                 console.log(error);
@@ -314,10 +231,6 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
 
         //get initial data for day1 and week 1 of the plan
         $scope.getDayPlan($scope.dayplan1.day_no, $scope.dayplan1.week_no, 1);
-
-        $scope.getDayPlan($scope.dayplan2.day_no, $scope.dayplan2.week_no, 2);
-
-
 
         // function to populate additional ingredients info inside mealplan array
         $scope.getAdditionalIngredientsInfo = function(){
@@ -372,70 +285,8 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
             }
         };
 
-
-
-        $scope.getAdditionalIngredientsInfo2 = function(){
-            if ($scope.mealPlanNameArray2 !== undefined){
-                for (var i = 0; i < $scope.mealPlanNameArray2
-                    .length; i++){
-                    if ($scope.mealPlanNameArray2[i].mealingredient !== undefined){
-                        for (var j = 0; j < $scope.mealPlanNameArray2[i].mealingredient
-                             .length;j++){
-                            //callback function to deal with the 
-                            //asynchronous call within for loop
-                            (function(cntr_i, cntr_j)
-                            {
-                                $scope.mealPlanNameArray2[cntr_i].mealingredient[cntr_j]
-                                    .additionalIngInfo = {};
-                                searchService.get_ingredient_addtnl_info(
-                                    $scope.mealPlanNameArray2[cntr_i]
-                                    .mealingredient[cntr_j].ingredient.id)
-                                    .then(function(response){
-                                        //model for storing response from API 
-                                        $scope.mealPlanNameArray2[cntr_i]
-                                            .mealingredient[cntr_j].additionalIngInfo =
-                                            response;
-                                    },
-                                    function(error){
-                                        console.log(error);
-                                    });
-                            })(i, j);
-                        }
-                    }
-
-                    // same for recipes
-                    if ($scope.mealPlanNameArray2[i].mealrecipe !== undefined){
-                        for (var j = 0; j < $scope.mealPlanNameArray2[i].mealrecipe.length;
-                             j++){
-                            //callback function to deal with the 
-                            //asynchronous call within for loop
-                            (function(cntr_i,cntr_j){
-                                $scope.mealPlanNameArray2[cntr_i].mealrecipe[cntr_j]
-                                    .additionalRecInfo = {};
-                                searchService.get_recipe_addtnl_info(
-                                    $scope.mealPlanNameArray2[cntr_i].mealrecipe[cntr_j]
-                                    .recipe.id).then(function(response){
-                                        //model for storing response from API 
-                                        $scope.mealPlanNameArray2[cntr_i]
-                                            .mealrecipe[cntr_j].additionalRecInfo =
-                                            response;
-                                    },
-                                    function(error){
-                                        console.log(error);
-                                    });
-                            })(i, j);
-                        }
-                    }
-                }
-            }
-        };
-        
         $scope.$watchCollection('mealPlanNameArray', function(){
             $scope.getAdditionalIngredientsInfo();
-        });
-
-        $scope.$watchCollection('mealPlanNameArray2', function(){
-            $scope.getAdditionalIngredientsInfo2();
         });
 
 
@@ -475,141 +326,71 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
 
         
         // meal wise nutrition info
-        $scope.calcMealNutrientVal = function(index, nutrient, isAdditional, col)
-        {
+        $scope.calcMealNutrientVal = function(index, nutrient, isAdditional){
             var total = [];
-
-            if(col===1){
-                if ($scope.mealPlanNameArray){
-                    for (var i = 0; i < $scope.mealPlanNameArray.length; i++){
-                        var q = 0;
-                        /* add nutrition information of ingredients */
-                        for (var j = 0; j < $scope.mealPlanNameArray[i].mealingredient
-                             .length; j++){
-                            if (isAdditional && $scope.mealPlanNameArray[i].mealingredient[j]
-                                .additionalIngInfo !== undefined){
-                            
-                                if(checkIngredNutritionQty($scope.mealPlanNameArray[i]
-                                                           .mealingredient[j], nutrient, isAdditional)){
-                                    q += parseFloat(
-                                        $scope.mealPlanNameArray[i].mealingredient[j]
-                                        .additionalIngInfo[nutrient]) *
-                                        parseFloat(
-                                            $scope.mealPlanNameArray[i].mealingredient[j]
-                                            .quantity) *
-                                        parseFloat(
-                                            $scope.mealPlanNameArray[i].mealingredient[j]
-                                            .unit.weight) / 100;
-                                }
-                            }
-                            else
-                            {
-                                if(checkIngredNutritionQty($scope.mealPlanNameArray[
-                                    i].mealingredient[j], nutrient, false)){
-                                    q += parseFloat($scope.mealPlanNameArray[i]
-                                                    .mealingredient[j].ingredient[nutrient])*
-                                        parseFloat($scope.mealPlanNameArray[i]
-                                                   .mealingredient[j].quantity) *
-                                        parseFloat($scope.mealPlanNameArray[i]
-                                                   .mealingredient[j].unit.weight) / 100;
-                                    
-                                }
-                            }
-                        }
-                        /* add nutrition information of recipes */
-                        for (var j = 0; j < $scope.mealPlanNameArray[
-                            i].mealrecipe.length; j++)
-                        {
-                            if (isAdditional){
-                                if(checkRecipeNutritionQty($scope.mealPlanNameArray[
-                                    i].mealrecipe[j], nutrient, isAdditional)){
-                                    q += parseFloat($scope.mealPlanNameArray[i].mealrecipe[j]
-                                        .additionalRecInfo[nutrient]) *
-                                        parseFloat($scope.mealPlanNameArray[i]
-                                                   .mealrecipe[j].servings);
-                                }
-                            }
-                            else{
-                                if(checkRecipeNutritionQty($scope.mealPlanNameArray[
-                                    i].mealrecipe[j], nutrient, false)){
-                                    q += parseFloat($scope.mealPlanNameArray[i]
-                                                    .mealrecipe[j].recipe[nutrient]) *
-                                        parseFloat($scope.mealPlanNameArray[i]
-                                                   .mealrecipe[j].servings);
-                                }
-                            }
-                        }
-                        total.push(q);
-                    }
-                    
-                    if(index>=0){
-                        return total[index];
-                    }else{
-                        var return_val = 
-                            total.length>0? total.reduce(function(a,b){return a+b}) : 0;
-                        return return_val;
-                    }
-                }
-            }
-            else if(col===2){
-                if ($scope.mealPlanNameArray2){
-                for (var i = 0; i < $scope.mealPlanNameArray2.length; i++){
+            
+            if ($scope.mealPlanNameArray){
+                for (var i = 0; i < $scope.mealPlanNameArray.length; i++){
                     var q = 0;
                     /* add nutrition information of ingredients */
-                    for (var j = 0; j < $scope.mealPlanNameArray2[i]
-                         .mealingredient.length; j++){
-                        if (isAdditional){
-                            if(checkIngredNutritionQty($scope.mealPlanNameArray2[i]
-                                                           .mealingredient[j], nutrient, isAdditional)){
-                                q += parseFloat($scope.mealPlanNameArray2[i]
-                                                .mealingredient[j]
-                                                .additionalIngInfo[nutrient]) *
-                                    parseFloat($scope.mealPlanNameArray2[i]
-                                               .mealingredient[j].quantity) *
-                                    parseFloat($scope.mealPlanNameArray2[i]
-                                                .mealingredient[j].unit.weight) / 100;
+                    for (var j = 0; j < $scope.mealPlanNameArray[i].mealingredient
+                         .length; j++){
+                        if (isAdditional && $scope.mealPlanNameArray[i].mealingredient[j]
+                            .additionalIngInfo !== undefined){
+
+                            if(checkIngredNutritionQty($scope.mealPlanNameArray[i]
+                                                       .mealingredient[j], nutrient, isAdditional)){
+                                q += parseFloat(
+                                    $scope.mealPlanNameArray[i].mealingredient[j]
+                                    .additionalIngInfo[nutrient]) *
+                                    parseFloat(
+                                        $scope.mealPlanNameArray[i].mealingredient[j]
+                                        .quantity) *
+                                    parseFloat(
+                                        $scope.mealPlanNameArray[i].mealingredient[j]
+                                        .unit.weight) / 100;
                             }
                         }
                         else
                         {
-                            if(checkIngredNutritionQty($scope.mealPlanNameArray2[
-                                    i].mealingredient[j], nutrient, false)){
-                            q += parseFloat($scope.mealPlanNameArray2[i].mealingredient[j]
-                                            .ingredient[nutrient]) *
-                                parseFloat($scope.mealPlanNameArray2[i].mealingredient[j]
-                                           .quantity) *
-                                parseFloat($scope.mealPlanNameArray2[i].mealingredient[j]
-                                           .unit.weight) / 100;
+                            if(checkIngredNutritionQty($scope.mealPlanNameArray[
+                                i].mealingredient[j], nutrient, false)){
+                                q += parseFloat($scope.mealPlanNameArray[i]
+                                                .mealingredient[j].ingredient[nutrient])*
+                                    parseFloat($scope.mealPlanNameArray[i]
+                                               .mealingredient[j].quantity) *
+                                    parseFloat($scope.mealPlanNameArray[i]
+                                               .mealingredient[j].unit.weight) / 100;
+
                             }
                         }
                     }
                     /* add nutrition information of recipes */
-                    for (var j = 0; j < $scope.mealPlanNameArray2[i].mealrecipe.length; j++){
+                    for (var j = 0; j < $scope.mealPlanNameArray[
+                        i].mealrecipe.length; j++)
+                    {
                         if (isAdditional){
-                            if(checkRecipeNutritionQty($scope.mealPlanNameArray2[
-                                    i].mealrecipe[j], nutrient, isAdditional)){
-                                q += parseFloat(
-                                        $scope.mealPlanNameArray2[i].mealrecipe[j]
-                                            .additionalRecInfo[nutrient]) *
-                                    parseFloat(
-                                        $scope.mealPlanNameArray2[i].mealrecipe[j].servings
-                                    );
+                            if(checkRecipeNutritionQty($scope.mealPlanNameArray[
+                                i].mealrecipe[j], nutrient, isAdditional)){
+                                q += parseFloat($scope.mealPlanNameArray[i].mealrecipe[j]
+                                    .additionalRecInfo[nutrient]) *
+                                    parseFloat($scope.mealPlanNameArray[i]
+                                               .mealrecipe[j].servings);
                             }
                         }
                         else{
-                            if(checkRecipeNutritionQty($scope.mealPlanNameArray2[
-                                    i].mealrecipe[j], nutrient, false)){
-                            q += parseFloat($scope.mealPlanNameArray2[i].mealrecipe[j]
-                                            .recipe[nutrient]) *
-                                parseFloat($scope.mealPlanNameArray2[i].mealrecipe[j]
-                                            .servings);
+                            if(checkRecipeNutritionQty($scope.mealPlanNameArray[
+                                i].mealrecipe[j], nutrient, false)){
+                                q += parseFloat($scope.mealPlanNameArray[i]
+                                                .mealrecipe[j].recipe[nutrient]) *
+                                    parseFloat($scope.mealPlanNameArray[i]
+                                               .mealrecipe[j].servings);
                             }
                         }
                     }
                     total.push(q);
                 }
-                //return total[index];
-                    
+
                 if(index>=0){
                     return total[index];
                 }else{
@@ -617,14 +398,10 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                         total.length>0? total.reduce(function(a,b){return a+b}) : 0;
                     return return_val;
                 }
-            }
-            
-            }
-
+            } 
         };
 
-        $scope.openMealInfoModal = function(index)
-        {
+        $scope.openMealInfoModal = function(index){
             $('#meal-info-modal').openModal();
             $scope.selected = index;
         };
@@ -656,8 +433,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         };
         
         
-        $scope.followPlan = function(plan)
-        {
+        $scope.followPlan = function(plan){
             /* something strange happens inside datepicker with local variables */
             $scope.followPlanObject = {};
 
