@@ -177,16 +177,29 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
         'use strict';
         
         $scope.userPlanRatings = [];
+        var reverseActivityLevelChoicesDict = {
+            'S': 'Sedentary',
+            'MA': 'Mild Activity',
+            'OA': 'Moderate Activity',
+            'HA': 'Heavy Activity',
+            'VHA': 'Very Heavy Activity'
+        };
+        
         var getUserPlanRatings = function()
         {
-            planService.getUserDietPlanRatings().then(function(
-                response)
-            {
+            planService.getUserDietPlanRatings().then(function(response){
                 $scope.userPlanRatings = response;
-            }, function(error)
-            {
+            }, function(error){
                 console.log(error);
             });
+        };
+        
+        $scope.activityDescriptions = {
+            'Sedentary': 'Little or no Exercise/ desk job',
+            'Mild Activity': 'Light exercise/ sports 1 – 3 days/ week',
+            'Moderate Activity': 'Moderate Exercise, sports 3 – 5 days/ week',
+            'Heavy Activity': 'Heavy Exercise/ sports 6 – 7 days/ week',
+            'Very Heavy Activity': 'Very heavy exercise/ physical job/ training 2 x/ day'
         };
         
         $scope.currentPageCreatedPlans=1;
@@ -201,6 +214,11 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
                 $scope.createdPlans = response.results;
                 $scope.currentPageCreatedPlans = page;
                 $scope.pageSizeCreatedPlan = response.total*2;
+                
+                for(var i=0; i < $scope.createdPlans.length; i++){
+                    $scope.createdPlans[i].activity_level = 
+                    reverseActivityLevelChoicesDict[$scope.createdPlans[i].activity_level];
+                }
             }, function(error){
                 console.log(error);
             });
@@ -221,12 +239,10 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
         $scope.getPlanRating = function(plan)
         {
             // bind result to results array
-            var planRatingMatch = $scope.createdPlans.filter(
-                function(el)
-                {
-                    return el.id === plan.id;
-                });
-            var idxDietPlan = findWithAttr($scope.createdPlans.results,
+            var planRatingMatch = $scope.createdPlans.filter(function(el){
+                return el.id === plan.id;
+            });
+            var idxDietPlan = findWithAttr($scope.createdPlans,
                 'id', planRatingMatch[0].id);
             return $scope.createdPlans[idxDietPlan]
                 .average_rating * 20;
@@ -246,6 +262,19 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
         
         $scope.editPlan = function(planId){
             $window.location.assign('/dietplans/create/overview/' + planId +'/');
+        };
+        
+        $scope.getStyle = function(){
+            var transform = ($scope.isSemi ? '' : 'translateY(-50%) ') + 'translateX(-50%)';
+            return {
+                'top': $scope.isSemi ? 'auto' : '50%',
+                'bottom': $scope.isSemi ? '5%' : 'auto',
+                'left': '50%',
+                'transform': transform,
+                '-moz-transform': transform,
+                '-webkit-transform': transform,
+                'font-size': $scope.radius/3.5 + 'px'
+            };
         };
         
         $scope.setPlanRating = function(plan, rating)
@@ -275,7 +304,7 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
                         return el.dietPlan === plan.id;
                     });
                 // find index of diet plan in results - we need to update it 
-                var idxDietPlan = findWithAttr($scope.plans.results,
+                var idxDietPlan = findWithAttr($scope.myPlans,
                     'id', userRatingMatch[0].dietPlan);
                 if (userRatingMatch.length > 0)
                 {
@@ -320,12 +349,16 @@ app.controller('shortlistedPlansController', ['$scope', '$window', '$location',
         };
         
         
+        
         $scope.getMyPlans = function(page){
             summaryService.getShortlistPlans(page).then(function(response){
                 $scope.myPlans = response.results;
                 $scope.currentPageSavedPlans = page;
                 $scope.pageSizeSavedPlan = response.total*2;
-
+                
+                for(var i=0; i < $scope.myPlans.length; i++){
+                    $scope.myPlans[i].activity_level = reverseActivityLevelChoicesDict[$scope.myPlans[i].activity_level];
+                }
             }, function(error){
                 console.log(error);
             });

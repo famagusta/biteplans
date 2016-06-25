@@ -46,7 +46,7 @@ button.search-filter {
 }
 
 #checklist .card {
-   margin-left: 10% !important;
+/*   margin-left: 10% !important;*/
 }
 
 @media only screen and (max-width : 768px) {

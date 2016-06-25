@@ -138,7 +138,8 @@ textarea:focus {
     }
     
     .search-plan-card {
-        height: 30em !important;
+        height: 33em !important;
+        padding: 0px !important;
     }
     
     .save-more1{
@@ -222,4 +223,23 @@ textarea:focus {
 
 .toast{
     background-color: #ff5252;
+}
+
+.progress-wrapper{
+    position: relative;
+    margin:20px auto;
+    font-size: 40px;
+}
+.round-progress-title{
+    position: absolute;
+/*    /font-weight: 300;*/
+    line-height: 1;
+    background-color: white !important;
+    font-size: 13px !important;
+    color: #949494 !important;
+    font-weight: 600;
+}
+
+.showcustom {
+    margin-bottom: 0px !important;
 }

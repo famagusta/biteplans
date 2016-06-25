@@ -86,8 +86,7 @@
                 </div>
             </div>
 -->
-
-
+            
             <div class="row">
                 <div class="col s12 m6" ng-repeat=
                 "plan in plans.results"> <!--| limitTo:4"> -->
@@ -176,71 +175,47 @@
 
 
                             <div class="row">
-                                <div class="col s4 m4 center plan_graph_prot">
-                                    <div animation="easeInOutQuart"
+                                <div class="col s4 m4 center progress-wrapper">
+                                    <div class="round-progress-title ng-cloak" ng-style="getStyle()">PROTEINS <p>{{getPlanNutrientPercent(plan,
+                                    'protein_tot') | number:0}} %</p></div>
+                                    <round-progress
+                                        animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#6639B6" current=
                                     "getPlanNutrientPercent(plan, 'protein_tot')"
                                     duration="800" max="100" radius="50"
-                                    responsive="true" round-progress=""
-                                    rounded="true" semi="false" stroke="4">
-                                    </div>
-
-
-                                    <p class="center graph-text">PROTEINS</p>
-
-
-                                    <p class="center graph-value">
-                                    {{getPlanNutrientPercent(plan,
-                                    'protein_tot') | number:0}} %</p>
-                                    <!--
-                                            <p class="ing-text nutgraph_val">
-                                            g</p>
--->
+                                    responsive="true"
+                                    rounded="true" semi="false" stroke="4"></round-progress>
                                 </div>
 
 
-                                <div class="col s4 m4 center plan_graph_carbs">
-                                    <div animation="easeInOutQuart"
+                                <div class="col s4 m4 center progress-wrapper">
+                                     <div class="round-progress-title ng-cloak" ng-style="getStyle()">CARBS <p>{{getPlanNutrientPercent(plan,
+                                    'carbohydrate_tot') | number:0}} %</p></div>
+                                    <round-progress
+                                        animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FE6433" current=
                                     "getPlanNutrientPercent(plan, 'carbohydrate_tot')"
                                     duration="800" max="100" radius="50"
-                                    responsive="true" round-progress=""
-                                    rounded="true" semi="false" stroke="4">
-                                    </div>
-
-
-                                    <p class="center graph-text">CARBS</p>
-
-
-                                    <p class="center graph-value">
-                                    {{getPlanNutrientPercent(plan,
-                                    'carbohydrate_tot') | number:0}} %</p>
-
-
-                                    <p class="ing-text nutgraph_val">
-                                    </p>
+                                    responsive="true"
+                                    rounded="true" semi="false" stroke="4"></round-progress>
                                 </div>
 
 
-                                <div class="col s4 m4 center plan_graph_fat">
-                                    <div animation="easeInOutQuart"
+                                <div class="col s4 m4 center progress-wrapper">
+
+                                     <div class="round-progress-title ng-cloak" ng-style="getStyle()">FATS <p>{{getPlanNutrientPercent(plan,
+                                    'fat_tot') | number:0}} %</p></div>
+                                    <round-progress
+                                        animation="easeInOutQuart"
                                     animation-delay="0" bgcolor="#EAEAEA"
                                     clockwise="true" color="#FDC106" current=
                                     "getPlanNutrientPercent(plan, 'fat_tot')"
                                     duration="800" max="100" radius="50"
-                                    responsive="true" round-progress=""
-                                    rounded="true" semi="false" stroke="4">
-                                    </div>
-
-
-                                    <p class="center graph-text">FATS</p>
-
-
-                                    <p class="center graph-value">
-                                    {{getPlanNutrientPercent(plan, 'fat_tot') |
-                                    number:0}}%</p>
+                                    responsive="true"
+                                    rounded="true" semi="false" stroke="4"></round-progress>
+                                    
                                 </div>
                             </div>
                         </div>
