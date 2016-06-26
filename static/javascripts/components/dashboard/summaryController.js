@@ -432,9 +432,7 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                     console.log(error);
                 });
             } else if($scope.searchHistoryType === "My Recipes"){
-                console.log('fetching my recipes');
                 summaryService.searchShortlistedRecipes('', page).then(function(response){
-                    console.log(response);
                     $scope.mySavedStuff = response;
 
                     // pagination
@@ -586,21 +584,17 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
         $scope.addContents = function() {
             //add 
-            for (var j = 0; j <
-                $scope.checklistIngs.length; j++
-            ) {
-                $scope.ingredientInModal.push(
-                    $scope.checklistIngs[j]);
+            for (var j = 0; j < $scope.checklistIngs.length; j++){
+                $scope.ingredientInModal.push($scope.checklistIngs[j]);
             }
             $scope.checklistIngs = [];
 
             var currlength =
-                $scope.plan_data[$scope.currentMealPlanName].followingMealPlanIngredient
-                .length;
+                $scope.plan_data[$scope.currentMealPlanName]
+                    .followingMealPlanIngredient.length;
 
             var currrecipelength =
-                $scope.plan_data[$scope.currentMealPlanName].followingMealPlanRecipe
-                .length;
+                $scope.plan_data[$scope.currentMealPlanName].followingMealPlanRecipe.length;
 
             //give a more sensible name to this variable
             var x = $scope.ingredientInModal.slice();
@@ -641,10 +635,9 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
                         });
 
-
                 }
                 
-                }
+            }
 
 
             //post ingredients to db via url endpoint

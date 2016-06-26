@@ -41,7 +41,8 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.cookHours = 0;
                     $scope.cookMins = 0;
                     $scope.recipe = {};
-
+                    $scope.mySavedStuffCurrentPage = 1;
+                    
                     /* crop the required input file */
                     $scope.cropper = {};
                     $scope.cropper.urlInput = null;
@@ -335,12 +336,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
 
                     /* watch the value of nutrient value to detect change 
                       and update the last checked value */
-                    $scope.$watchCollection('checklistIngs',
-                        function(
-                            newVal, oldVal) {
+                    $scope.$watchCollection('checklistIngs', function(newVal, oldVal) {
                             if (newVal.length > 0) {
-                                $scope.lastChecked = newVal[
-                                    newVal.length - 1];
+                                $scope.lastChecked = newVal[newVal.length - 1];
                             }
                         }, true);
 
@@ -352,10 +350,11 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             .indexOf(element);
 
                         if (index1 >= 0) {
-                            $scope.checklistIngs.splice(
-                                index1, 1);
+                            $scope.checklistIngs.splice(index1, 1);
                         }
 
+                        console.log(element);
+                        console.log($scope.checklistIngredients);
                         var index2 = $scope.checklistIngredients
                             .indexOf(element);
                         if (index2 >= 0) {
@@ -374,9 +373,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             }
                         }
                         if (index3 >= 0) {
-                            $scope.ingredientDisplay.splice(
-                                index3,
-                                1);
+                            $scope.ingredientDisplay.splice(index3,1);
                         }
                     };
 
@@ -385,28 +382,22 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     $scope.removeIngs = function(index) {
                         // remove ingredient from checklist array
                         var index2 = -1;
-                        for (var i = 0; i < $scope.checklistIngredients
-                            .length; i++) {
-                            if ($scope.checklistIngredients[i].id ===
-                                $scope.ingredientDisplay[index]
-                                .ingredient.id) {
+                        for (var i = 0; i < $scope.checklistIngredients.length; i++) {
+                            if ($scope.checklistIngredients[i].id === 
+                                $scope.ingredientDisplay[index].ingredient.id) {
                                 index2 = i;
                             }
                         }
                         if (index2 >= 0) {
-                            $scope.checklistIngredients.splice(
-                                index2, 1);
+                            $scope.checklistIngredients.splice(index2, 1);
                         }
 
                         // remove ingredient from recipe ingredients
 
-                        $scope.ingredientDisplay.splice(index,
-                            1);
+                        $scope.ingredientDisplay.splice(index, 1);
 
                         // remove ingredient from recipe ingredients
-                        $scope.AdditionalIngredientInfo.splice(
-                            index,
-                            1);
+                        $scope.AdditionalIngredientInfo.splice(index, 1);
                     };
 
 
@@ -418,18 +409,14 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                           use in calculating total nutrient
 
                         add to the ingredients */
-                        for (var j = 0; j <
-                            $scope.checklistIngs.length; j++
-                        ) {
-                            $scope.checklistIngredients.push(
-                                $scope.checklistIngs[j]);
+                        for (var j = 0; j < $scope.checklistIngs.length; j++){
+                            $scope.checklistIngredients.push($scope.checklistIngs[j]);
                         }
                         $scope.checklistIngs = [];
 
 
-                        for (var i = $scope.ingredientDisplay.length; i <
-                            $scope.checklistIngredients.length; i++
-                        ) {
+                        for (var i = $scope.ingredientDisplay.length; 
+                             i < $scope.checklistIngredients.length; i++){
                             // call API to get addtional ingredient information
 
                             searchService.get_ingredient_addtnl_info(
@@ -480,17 +467,25 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         $scope.mySavedStuffQuery = '';
 
                     };
+                    
                     //checks whether an ingredient is already selected or not
-                    $scope.checkIfSelected = function(index) {
-                        for (var i = 0; i < $scope.checklistIngredients
-                            .length; i++) {
-                            if ($scope.checklistIngredients[i].id ===
-                                index) {
+                    $scope.checkIfSelected = function(ingredient) {
+                        for (var i = 0; i < $scope.checklistIngs.length; i++) {
+                            if ($scope.checklistIngs[i].id === ingredient.id) {
                                 return true;
                             }
                         }
                         return false;
                     };
+                    
+                    $scope.checkInBigBasket = function(ingredient){
+                        for (var i = 0; i < $scope.checklistIngredients.length; i++) {
+                            if ($scope.checklistIngredients[i].id === ingredient.id) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
 
                     $scope.stepsToCreateRecipes = [''];
                     $scope.addMoreSteps = function() {
@@ -507,48 +502,35 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                 function(response) {
                                     var id = response.recipe_id;
                                     
-                                    for (var i = 0; i < $scope.ingredientDisplay
-                                        .length; i++) {
+                                    for (var i = 0; i < $scope.ingredientDisplay.length; i++)
+                                    {
                                         /* create a recipe ingred object to send to server */
                                         (function(cntr_i)
                                         {
                                         var recipeIngred = {
                                             recipe: id,
                                             ingredient: $scope
-                                                .ingredientDisplay[
-                                                    cntr_i]
-                                                .ingredient
-                                                .id,
+                                                .ingredientDisplay[cntr_i].ingredient.id,
                                             measure: $scope
-                                                .ingredientDisplay[
-                                                    cntr_i]
-                                                .selected_measure
-                                                .id,
+                                                .ingredientDisplay[cntr_i]
+                                                .selected_measure.id,
                                             quantity: $scope
-                                                .ingredientDisplay[
-                                                    cntr_i]
-                                                .quantity
+                                                .ingredientDisplay[cntr_i].quantity
                                         };
 
-                                        recipeService.createRecipeIng(
-                                                recipeIngred)
-                                            .then(
-                                                function(
-                                                    response) {
+                                        recipeService.createRecipeIng(recipeIngred)
+                                            .then(function(response) {
                                                     //TODO: Add meaningful behaviour
                                                     //    on successful return
-                                                    if(cntr_i==$scope.ingredientDisplay.length-1)
-                                                    {
+                                                    if(cntr_i==
+                                                       $scope.ingredientDisplay.length-1){
                                                         $scope.uploadFile(id);
                                                         $location.path(
                                                             '/recipes/view-recipe/' + id
                                                         );
                                                     }
-                                                }, function(
-                                                    error) {
-                                                    console.log(
-                                                        error
-                                                    );
+                                                }, function(error) {
+                                                    console.log(error);
                                                 });
                                         })(i);
 
@@ -600,6 +582,11 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         if(!page){
                             page = 1;
                         }
+                        
+                        $scope.checklistIngredients = $scope.checklistIngredients
+                            .concat($scope.checklistIngs.splice(0,$scope
+                                                                .checklistIngs.length));
+                        
                         summaryService.getShortlistIngredients(page).then(function(response){
 
                             $scope.mySavedStuff = response;
@@ -632,7 +619,6 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     };
         
                     $scope.getSavedStuffNextPage = function(page){
-                        console.log(page);
                         if($scope.mySavedStuffQuery.length>0){
                             $scope.searchMySavedStuff(page);
                         }else{

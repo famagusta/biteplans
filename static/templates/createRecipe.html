@@ -823,10 +823,11 @@
                         "ingredient in mySavedStuff.results track by $index">
                             <p><input checklist-model="checklistIngs"
                             checklist-value="ingredient.ingredient" class="filled-in" id=
-                            "filled-in-box-ingredient-history{{$index}}"  type="checkbox">
+                            "filled-in-box-ingredient-history{{mySavedStuffCurrentPage}}{{$index}}" ng-checked=
+                            "checkIfSelected(ingredient.ingredient)" ng-disabled="checkInBigBasket(ingredient.ingredient)" type="checkbox">
                             <label class="ing-text highlight" for=
-                            "filled-in-box-ingredient-history{{$index}}" id=
-                            "check-label-ingredient-history{{$index}}">{{ingredient.ingredient.name}}</label></p>
+                            "filled-in-box-ingredient-history{{mySavedStuffCurrentPage}}{{$index}}" id=
+                            "check-label-ingredient-history{{mySavedStuffCurrentPage}}{{$index}}">{{ingredient.ingredient.name}}</label></p>
                         </div>
                     </div>
 
@@ -971,18 +972,18 @@
                     <br>
 
 
-                    <div class="row" ng-repeat="(index, food) in ingredientInModal">
+                    <div class="row" ng-repeat="(index, food) in checklistIngredients">
                         <div class="col s8 m10 meal-list">
                             <p class="ing-text meal-list" ng-if=
-                            "ingredientInModal.length&gt;0">{{food.name}}</p>
+                            "checklistIngredients.length&gt;0">{{food.name}}</p>
                         </div>
 
 
                         <div class="col s4 m2 meal-list">
                             <a href="#" ng-click=
-                            "removeFromIngredientInModal(index)"><i class=
+                            "removeIngredient(food)"><i class=
                             "material-icons meal-list right createbin dustbin" ng-if=
-                            "ingredientInModal.length&gt;0">delete</i></a>
+                            "checklistIngredients.length&gt;0">delete</i></a>
                         </div>
                     </div>
 
@@ -996,7 +997,7 @@
 
                         <div class="col s4 m2 meal-list">
                             <a href="#" ng-click=
-                            "removeFromChecklistIng(index)"><i class=
+                            "removeIngredient(food)"><i class=
                             "material-icons meal-list right createbin dustbin" ng-if=
                             "checklistIngs.length&gt;0">delete</i></a>
                         </div>
