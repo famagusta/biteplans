@@ -56,11 +56,19 @@
                                     <i class=
                                     "fa fa-chevron-right cyan-text"></i></a></span>
                                 </div>
+                                
+                            </div>
+                            
+                            <div class="row center show-on-small hide-on-med-and-up">
+                                <span class="card-title center-align meal-text date_change">    <a ng-click="calendar()" class="cal_icon">
+                                        <i class="material-icons">date_range</i>
+                                    </a>
+                                </span>
                             </div>
                         </div>
 
 
-                        <div class="col s12 m1 shift_right">
+                        <div class="col m1 shift_right show-on-med-and-up hide-on-small-only">
                             <span class=
                             "card-title center-align meal-text date_change"><a ng-click="calendar()" class="cal_icon">
                             <i class="material-icons">date_range</i></a></span>
@@ -95,7 +103,7 @@
                                     </div>
 
 
-                                    <div class="col s1 push-s3 m1">
+                                    <div class="col s5 push-s1 m2">
                                         <p class="ing-text">{{meal.time}}</p>
                                     </div>
                                 </div>
@@ -896,11 +904,15 @@
 
 
             <div class="row">
+<!--
                 <p>Meal Time</p>
                 <input id="exampleInput" name="input" ng-model=
                         "meal.time" placeholder="HH:mm:ss" required="" type=
                         "time">
-                
+-->
+                <label for="timepicker">Meal Time</label>
+                <input id="timepicker-x" class="timepicker" type="text" 
+                       name="input" ng-model="meal.time" required>
             </div>
 
 
@@ -1172,5 +1184,13 @@
 
     </div>
     
+    <script>
+        // needed to initialize each time picker inside ng
+        //repeat
+        $('.timepicker').pickatime({
+            autoclose: true,
+            twelvehour: true
+          });
+    </script>
     
 </section>

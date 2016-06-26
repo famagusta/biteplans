@@ -109,18 +109,15 @@
       
       <script>
     $(document).ready(function(){
-             $('label').addClass('active');
+        $('label').addClass('active');
 
-  //Calling the open modal function manually no need for trigger
-  $('.tooltipped').tooltip({delay: 50});
+        //Calling the open modal function manually no need for trigger
+        $('.tooltipped').tooltip({delay: 50});
 
         $("#modal1").width($("#modal1").width());
-       $('input#input_name').characterCounter();
+        $('input#input_name').characterCounter();
         $('input#input_password').characterCounter();
-
         $('select').material_select();
-
-        
     });
           
      $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
@@ -132,11 +129,7 @@
         }
     });
 
-$("h5").click(function() {
-    });
-
-   
-  
+    $("h5").click(function() {});
 
      $("textarea#searchbox").keypress(function (e) { // fire search results on pressing enter key
         if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
@@ -149,8 +142,5 @@ $("h5").click(function() {
  
       </script>
      <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-      
-
 </body>
 </html>

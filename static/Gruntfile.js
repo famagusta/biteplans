@@ -23,7 +23,8 @@ module.exports = function(grunt) {
                     
                    "./bower_components/materialize/dist/css/materialize.min.css",
 //                    "./bower_components/font-awesome/css/font-awesome.min.css",
-                   "./bower_components/material-calendar/angular-material-calendar.min.css"],
+                   "./bower_components/material-calendar/angular-material-calendar.min.css",
+                   './bower_components/materialize-clockpicker/dist/css/materialize.clockpicker.css'],
               dest: "dist/css/libraries.css"
             },
           },
@@ -38,6 +39,7 @@ module.exports = function(grunt) {
                     './bower_components/angular/angular.min.js',
                    './bower_components/angular-http-loader/app/package/js/angular-http-loader.min.js',
                   './bower_components/materialize/dist/js/materialize.min.js',
+                  './bower_components/materialize-clockpicker/dist/js/materialize.clockpicker.js',
                   './bower_components/angular-materialize/src/angular-materialize.js',
                   './bower_components/satellizer/satellizer.min.js',
                   './bower_components/angular-animate/angular-animate.min.js',

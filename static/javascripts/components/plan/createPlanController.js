@@ -8,7 +8,7 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
         $location, planService, summaryService)
     {
         //temp fixe - it has bugs - profile pic wont dropdown
-        $('#navbar').show();
+        //$('#navbar').show();
         
         'use strict';
         /* CHECK AUTH STATUS - ONLY AUTHENTICATED USERS SHOULD
@@ -241,76 +241,41 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     $location.search('week', week);
                     $location.search('day', day);
                     planService.getdayplan(id, day, week).then(
-                        function(response)
-                        {
-                            $scope.dayplan.id =
-                                response.id;
-                            $scope.dayplan.day_no =
-                                response.day_no;
-                            $scope.dayplan.week_no =
-                                response.week_no;
-                            for (var i = 0; i <
-                                response.mealplan.length; i++
-                            )
-                            {
-                                response.mealplan[i].mealname =
-                                    response.mealplan[i]
-                                    .name;
-                                delete response.mealplan[
-                                    i].name;
-                                var dateStr =
-                                    'July 21, 1983 ' +
-                                    response.mealplan[i]
-                                    .time;
-                                var b = new Date(
-                                    dateStr);
-                                response.mealplan[i].time =
-                                    b;
-                                response.mealplan[i].counter =
-                                    i;
+                        function(response){
+                            $scope.dayplan.id = response.id;
+                            $scope.dayplan.day_no = response.day_no;
+                            $scope.dayplan.week_no = response.week_no;
+                            for (var i = 0; i < response.mealplan.length; i++){
+                                response.mealplan[i].mealname = response.mealplan[i].name;
+                                delete response.mealplan[i].name;
+                                var dateStr ='July 21, 1983 ' + response.mealplan[i] .time;
+                                var b = new Date(dateStr);
+                                //use moment js to get time format
+                                response.mealplan[i].time = moment(b).format('hh:mm A');
+                                response.mealplan[i].counter = i;
+                                
                                 /* coerce string responses into floats to avoid angular error
                                         do samething for recipes as well. check null cases */
-                                for (var j = 0; j <
-                                    response.mealplan[i]
-                                    .mealingredient.length; j++
-                                )
-                                {
-                                    response.mealplan[i]
-                                        .mealingredient[
-                                            j].quantity =
-                                        parseFloat(
-                                            response.mealplan[
-                                                i].mealingredient[
-                                                j].quantity
-                                        );
+                                for (var j = 0;
+                                     j < response.mealplan[i].mealingredient.length; j++){
+                                    response.mealplan[i].mealingredient[j].quantity =
+                                        parseFloat(response.mealplan[i].mealingredient[j]
+                                                   .quantity);
                                 }
                                 // TODO: similar thing for recipes
                                 //parse recipe servings to float
-                                for (j = 0; j <
-                                    response.mealplan[i]
-                                    .mealrecipe.length; j++
-                                )
-                                {
-                                    response.mealplan[i]
-                                        .mealrecipe[j].servings =
-                                        parseFloat(
-                                            response.mealplan[
-                                                i].mealrecipe[
-                                                j].servings
-                                        );
+                                for (j = 0; j < response.mealplan[i].mealrecipe.length; j++){
+                                    response.mealplan[i].mealrecipe[j].servings =
+                                        parseFloat(response.mealplan[i].mealrecipe[j]
+                                                   .servings);
                                 }
                             }
-                            $scope.mealPlanNameArray =
-                                response.mealplan;
-                            for (var m = 0; m < $scope.mealPlanNameArray
-                                .length; m++)
-                            {
-                                $scope.mealPlanNameArray[
-                                    m].mealNutrition = {};
+                            $scope.mealPlanNameArray = response.mealplan;
+                            for (var m = 0; m < $scope.mealPlanNameArray.length; m++){
+                                $scope.mealPlanNameArray[m].mealNutrition = {};
                             }
                             
-                        }, function(error)
-                        {
+                        }, function(error){
                             console.log(error);
                         });
                 };
@@ -416,16 +381,30 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 // updates name and time of a meal plan
                 $scope.updateDayMealPlan = function(index)
                 {
-                    if ($scope.mealPlanNameArray[index] !==
-                        undefined)
-                    {
+                    if ($scope.mealPlanNameArray[index] !== undefined){
+                        
+                        // need to construct a random date object and extract time 
+                        // moment js bhi rota hai
+                        
+                        $scope.mealPlanNameArray[index].time = $scope.mealPlanNameArray[index].time.replace(/AM/i, " AM");
+                        $scope.mealPlanNameArray[index].time = $scope.mealPlanNameArray[index].time.replace(/PM/i, " PM");                
+
+                        var dateStr = 'July 21, 1983 ' + $scope.mealPlanNameArray[
+                                index].time;
+                        var b = new Date(dateStr);
+                        //use moment js to get time format
+                        $scope.mealPlanNameArray[
+                                index].mealtime =
+                            moment(b).format('HH:mm:ss.SSSSSS');
                         var obj = {
                             'name': $scope.mealPlanNameArray[
                                 index].mealname,
                             'time': $scope.mealPlanNameArray[
-                                    index].time.getHours() +
-                                ':' + $scope.mealPlanNameArray[
-                                    index].time.getMinutes()
+                                index].mealtime
+//                            'time': $scope.mealPlanNameArray[
+//                                    index].time.getHours() +
+//                                ':' + $scope.mealPlanNameArray[
+//                                    index].time.getMinutes()
                         };
                         planService.updateMealPlan(obj,
                             $scope.mealPlanNameArray[
@@ -806,12 +785,14 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 // adds new mealname
                 $scope.addMeal = function(key)
                 {
-                    var tm = key.time;
+                    key.time = key.time.replace('AM','');
+                    key.time = key.time.replace('PM','');
+                    var tm = key.time + ':00';
+                    
                     var mealObjToUpdate = {
                         day: $scope.dayplan.id,
                         name: key.name,
-                        time: moment(tm).format(
-                            'HH:mm:ss')
+                        time: tm
                     };
                     //convert to JS date format for rendering
                     /* update the database */
@@ -819,13 +800,25 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                         mealObjToUpdate).then(function(
                         response)
                     {
+                        console.log(response);
+                        var dateStr =
+                            'July 21, 1983 ' +
+                            tm;
+                        
+                        var b = new Date(
+                            dateStr);
+                        
+                        var time2push =
+                            moment(b).format('hh:mm A');
+                        
+                            //moment(b).format('HH:mm:ss.SSSSSS');
                         /* update the view variables for meals */
                         $scope.mealPlanNameArray.push(
                         {
                             'mealname': key
                                 .name,
                             'mealingredient': [],
-                            'time': tm,
+                            'time': time2push,
                             'mealrecipe': [],
                             'id': response.mealplanid,
                             'counter': $scope

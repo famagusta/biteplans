@@ -15,8 +15,8 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
         $scope.foodgroup = [];
         $scope.currentMealPlanName = -1;
         $scope.meal = {};
-        $scope.meal.name = 'Meal';
-        $scope.meal.time = new Date();
+//        $scope.meal.name = 'Meal';
+//        $scope.meal.time = new Date();
         $scope.searchTypeChoices =  ["Ingredients", "Recipes"];
         $scope.searchType = 'Ingredients';
         $scope.searchHistoryTypeChoices = ["My Ingredients", "My Recipes"];
@@ -352,6 +352,10 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
                         $scope.plan_summary = response[0].user_dietplan;
                     }
                     for (var i = 0; i < $scope.plan_data.length; i++) {
+                        var dateStr ='July 21, 1983 ' + $scope.plan_data[i].time;
+                        var b = new Date(dateStr);
+                        //use moment js to get time format
+                        $scope.plan_data[i].time = moment(b).format('hh:mm A');
                         
                         /* correct number formats for the page */
                         for (var j = 0; j < $scope.plan_data[i]
@@ -779,15 +783,16 @@ app.controller('summaryCtrl', ['$scope', 'summaryService', 'searchService',
 
         // adds new mealname
         $scope.addMeal = function(key) {
-            
+            console.log(key);
+            var time2save = key.time.replace('AM','');
+            time2save = key.time.replace('PM','');
+            var tm = key.time + ':00';
             var objToSave = key;
             objToSave.date = $scope.navDates.current.format('YYYY-MM-DD');
-            objToSave.time = key.time.getHours() + ":" +
-                key.time.getMinutes() + ":00";
-
+            
             summaryService.createMeal(objToSave).then(function(response){
                 if(!response.non_field_errors){
-                    key.time = objToSave.time;
+                    key.time = time2save;
                     key.followingMealPlanIngredient=[];
                     key.followingMealPlanRecipe=[];
                     key.id= response.mealhistory_id;

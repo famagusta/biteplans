@@ -298,8 +298,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                         //make api call to follow the plan on setting of date
                         /* convert to ISO 8601 date time string for serializer
                           acceptance*/
-                        if (context.select)
-                        {
+                        if (context.select){
                             var date_to_set = new Date(
                                 context.select).toISOString();
                             $scope.followDate = moment(

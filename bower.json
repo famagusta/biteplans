@@ -24,6 +24,7 @@
     "moment": "^2.13.0",
     "angular-http-loader": "^0.1.7",
     "angular-materialize": "^0.1.8",
+    "materialize-clockpicker": "*"
   },
   "resolutions": {
     "angular": "^1.4.9",

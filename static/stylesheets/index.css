@@ -234,3 +234,35 @@ input:not([type]).invalid, input:not([type]):focus.invalid, input[type=text].inv
 pre, code {
     white-space: pre-line;
 }
+
+/* STYLING OF DATE PICKER*/
+select.picker__select--month.browser-default{
+    height: 20px !important;
+}
+select.picker__select--year.browser-default{
+    height: 20px !important;
+}
+
+.picker__date-display{
+    background-color: #00bcd4;
+} 
+
+.picker__weekday-display{
+    background-color: #0097A7 !important;
+}
+
+.picker__day.picker__day--today {
+    color: #00bcd4;
+}
+
+.picker__close, .picker__today{
+    color: #00bcd4;
+}
+
+.picker__nav--prev:hover, .picker__nav--next:hover {
+    background: #b2ebf2 !important;
+}
+
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
+    background-color: #00bcd4 !important;
+}
