@@ -23,96 +23,121 @@
 
                 
                 <form class="col s12 m12">
+                    
                     <div class="row">
-                        <div class="input-field col s12 m6">
-                            <input class="validate" id="recipe_name" ng-model=
-                            "recipe.name" required type="text" pattern=".{3,75}" 
-                            required title="Please enter 3 to 75 Characters"> <label for=
-                            "recipe_name">Name of Recipe</label>
-                        </div>
-
-
-                        <div class="input-field col s12 m6">
-                            <input class="validate" id="servings" min="1"
-                            ng-model="recipe.servings" required type=
-                            "number"> <label for="servings">Number of
-                            Servings</label>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea class="materialize-textarea" id=
-                            "recipe_desc" required 
-                            ng-model="recipe.description"></textarea> <label for=
-                            "recipe_desc">Description</label>
-                        </div>
-                    </div>
-                    <!-- TIME TAKEN TO CREATE RECIPES -->
-
-
-                    <div class="row">
-                        <div class="col s6">
-                            <h6 class="meal-text">Preparation Time</h6>
-                        </div>
-
-
-                        <div class="col s6">
-                            <h6 class="meal-text">Cooking Time</h6>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <!-- PREPARATION TIME -->
-
-
-                        <div class="col s6">
+                        <div class="col s12 m6">
+                            
                             <div class="row">
-                                <div class="input-field col s3">
-                                    <input class="validate" id="prep_time" max=
-                                    "12" min="0" ng-model="prepHours" required=
-                                    "" type="number">
-
-                                    <p>Hrs</p>
+                                <div class="col s6 ">
+                                    <label for=
+                                        "recipe_name">Name of Recipe</label>
+                                    <input class="validate" id="recipe_name" ng-model=
+                                        "recipe.name" required type="text" pattern=".{3,75}" 
+                                        required title="Please enter 3 to 75 Characters"> 
                                 </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s6 ">
+                                    <label for="servings">
+                                        Number of Servings</label>
+                                   <input class="validate" id="servings" min="1"
+                                    ng-model="recipe.servings" required type=
+                                    "number">
+                                </div>
+                            </div>
+                            
+                            
+                            
+                            <div class="row">
+                                <div class="col s6">
+                                    <label for="prep_time">
+                                                Prep Time</label>
+                                    <div class="row">
+                                        <div class="input-field col s6" id="prep_time">
+                                            <input class="validate" id="prep_time_hrs" max=
+                                            "12" min="0" ng-model="prepHours" required=
+                                            "" type="number">
+                                            <p>Hrs</p>
+                                        </div>
 
 
-                                <div class="input-field col s3">
-                                    <input class="validate" id="prep_time" max=
-                                    "59" min="00" ng-model="prepMins" required=
-                                    "" type="number">
+                                        <div class="input-field col s6">
+                                            <input class="validate" id="prep_time_mins" max=
+                                            "59" min="00" ng-model="prepMins" required=
+                                            "" type="number">
+                                            <p>Mins</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col s6">
+                                    <label for="cook_time">
+                                                Cook Time</label>
+                                    <div class="row">
+                                        <div class="input-field col s6" id="cook_time">
+                                            <input class="validate" id="cook_time_hrs" max=
+                                            "12" min="0" ng-model="cookHours" required=
+                                            "" type="number">
 
-                                    <p>Mins</p>
+                                            <p>Hrs</p>
+                                        </div>
+
+
+                                        <div class="input-field col s6">
+                                            <input class="validate" id="cook_time_mins" max=
+                                            "59" min="00" ng-model="cookMins" required=
+                                            "" type="number">
+
+                                            <p>Mins</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+             
+                            
+                            
+                            <div class="row">
+                                <div class="col s12 m12">
+                                    <label for="external-url">Link to External Page</label>
+                                    <input id="external-url" ng-model="recipe.url" type="url" name='url'>
+
                                 </div>
                             </div>
                         </div>
-                        <!-- COOKING TIME -->
-
-
+                        
                         <div class="col s6">
-                            <div class="row">
-                                <div class="input-field col s3">
-                                    <input class="validate" id="prep_time" max=
-                                    "12" min="0" ng-model="cookHours" required=
-                                    "" type="number">
-
-                                    <p>Hrs</p>
-                                </div>
-
-
-                                <div class="input-field col s3">
-                                    <input class="validate" id="prep_time" max=
-                                    "59" min="00" ng-model="cookMins" required=
-                                    "" type="number">
-
-                                    <p>Mins</p>
+                                <div class="row center">
+                                    <div ng-if="cropper.croppedImage">
+                                        <img class="recipe_img center"
+                                            ng-src="{{cropper.croppedImage}}">
+                                    </div>
+                                    <div ng-if="!cropper.croppedImage">
+                                        <img class="recipe_img center"
+                                             ng-src="static/images/default_recipe.png">
+                                    </div>
+                                <div class="row">
+                                    <div class="col s12 center">
+                                        <a class="cyan-text add-ing" href="#" ng-click=
+                                        "uploadImageModal()">Upload Image</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
+                    
 
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for=
+                                "recipe_desc">Description</label>
+                                <textarea class="materialize-textarea" id=
+                                "recipe_desc" required 
+                                ng-model="recipe.description"></textarea>
+                            </div>
+                        </div>
+                    
 
                     <div class="row">
                         <div class="col m2">
@@ -405,24 +430,6 @@
                     </div>
                     <br>
 
-
-                    <div class="row">
-                        <div class="col s12">
-                            <a class="cyan-text add-ing" href="#" ng-click=
-                            "uploadImageModal()">Upload Image</a>
-                        </div>
-                    </div>
-
-                    
-                    <div class="row">
-                        <div class="col s12 m12">
-                            <label for="external-url">Link to External Page</label>
-                            <input id="external-url" ng-model="recipe.url" type="url" name='url'>
-                             
-                        </div>
-                    </div>
-
-
                     <div class="row">
                         <div class="col s12">
                             <div class="center-btn">
@@ -680,17 +687,6 @@
                     </div>
                 </div>
             </div>
-
-
-<!--
-            <div class="row">
-                <div class="col m12 center">
-                    <a class="waves-effect waves-light btn btn-social largebtn"
-                    ng-click=
-                    "addContents();calculateTotalInfoForRecipes()">Add</a>
-                </div>
-            </div>
--->
             
             <div class="fixed-action-btn" style="bottom: 45px; left:47%">
                 <a class="btn-floating btn-large bp_red" ng-click="addContents();calculateTotalInfoForRecipes()">
