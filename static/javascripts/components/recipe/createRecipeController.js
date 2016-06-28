@@ -515,7 +515,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                                 .ingredientDisplay[cntr_i]
                                                 .selected_measure.id,
                                             quantity: $scope
-                                                .ingredientDisplay[cntr_i].quantity
+                                                .ingredientDisplay[cntr_i].quantity,
+                                            description: $scope
+                                                .ingredientDisplay[cntr_i].description
                                         };
 
                                         recipeService.createRecipeIng(recipeIngred)

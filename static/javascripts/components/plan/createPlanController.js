@@ -785,9 +785,18 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                 // adds new mealname
                 $scope.addMeal = function(key)
                 {
+                    
+                    var timeRegex = /([01]\d|2[0-3]):([0-5]\d)([AP]M)/;
+                    var timeTokens = key.time.match(timeRegex);
+                    //console.log(timeTokens);
                     key.time = key.time.replace('AM','');
                     key.time = key.time.replace('PM','');
-                    var tm = key.time + ':00';
+                    var tm = '';
+                    if(timeTokens[3]==='PM'){
+                        tm = (parseInt(timeTokens[1]) + 12) + ':' + timeTokens[2] + ':00';
+                    }else{
+                        tm = timeTokens[1] + ':' + timeTokens[2] + ':00';
+                    }
                     
                     var mealObjToUpdate = {
                         day: $scope.dayplan.id,
@@ -796,37 +805,25 @@ app.controller('createPlanController', ['$scope', '$window', 'AuthService',
                     };
                     //convert to JS date format for rendering
                     /* update the database */
-                    planService.createMealPlan(
-                        mealObjToUpdate).then(function(
-                        response)
-                    {
-                        console.log(response);
-                        var dateStr =
-                            'July 21, 1983 ' +
-                            tm;
+                    planService.createMealPlan(mealObjToUpdate).then(function(response){
+                        var dateStr = 'July 21, 1983 ' + tm;
                         
-                        var b = new Date(
-                            dateStr);
+                        var b = new Date(dateStr);
                         
-                        var time2push =
-                            moment(b).format('hh:mm A');
+                        var time2push = moment(b).format('hh:mm A');
                         
-                            //moment(b).format('HH:mm:ss.SSSSSS');
+                        //moment(b).format('HH:mm:ss.SSSSSS');
                         /* update the view variables for meals */
                         $scope.mealPlanNameArray.push(
                         {
-                            'mealname': key
-                                .name,
+                            'mealname': key.name,
                             'mealingredient': [],
                             'time': time2push,
                             'mealrecipe': [],
                             'id': response.mealplanid,
-                            'counter': $scope
-                                .mealPlanNameArray
-                                .length,
+                            'counter': $scope.mealPlanNameArray.length,
                             'day': $scope.dayplanid,
-                            'mealNutrition':
-                            {}
+                            'mealNutrition':{}
                         });
                     }, function(error)
                     {

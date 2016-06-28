@@ -109,7 +109,7 @@ class RecipeNutrition(models.Model):
     # empty name is not allowed for recipe
     recipe = models.OneToOneField(Recipe, on_delete=models.CASCADE,
                                   related_name="recipeNutritionInfo")
-
+    
     # Metallic Minerals
     calcium_mg = models.DecimalField(default=0.00,
                                      max_digits=11,
@@ -208,6 +208,10 @@ class RecipeIngredients(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE,
                                related_name="recipeIngredients")
 
+    # a text field to allow some description of an ingredients - maybe
+    # it is some variant but nutritionally close
+    description  = models.CharField(max_length=191, null=True, blank=True)
+    
     # TODO: potential limitation here - redo the models for ingredients to make
     # it more general
 

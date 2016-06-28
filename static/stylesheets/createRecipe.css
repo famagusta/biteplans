@@ -65,9 +65,9 @@
 .smallpaginate{
     font-size:8px !important;
 }
-h5.recipe-subheading {
+.recipe-subheading {
     color: #212121;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 15px;
 }
 

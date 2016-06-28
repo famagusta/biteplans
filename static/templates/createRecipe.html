@@ -28,7 +28,7 @@
                         <div class="col s12 m6">
                             
                             <div class="row">
-                                <div class="col s6 ">
+                                <div class="col s8">
                                     <label for=
                                         "recipe_name">Name of Recipe</label>
                                     <input class="validate" id="recipe_name" ng-model=
@@ -50,46 +50,64 @@
                             
                             
                             <div class="row">
-                                <div class="col s6">
+                                <div class="col s12">
                                     <label for="prep_time">
                                                 Prep Time</label>
-                                    <div class="row">
-                                        <div class="input-field col s6" id="prep_time">
+                                    <div class="row" id="prep_time">
+                                        <div class="input-field col s3">
+<!--
+                                            <label for="prep_time_hrs">
+                                                Hours</label>
+-->
                                             <input class="validate" id="prep_time_hrs" max=
-                                            "12" min="0" ng-model="prepHours" required=
-                                            "" type="number">
-                                            <p>Hrs</p>
+                                            "12" min="0" ng-model="prepHours" required
+                                            type="number">
+                                            <p class="grey-text">Hrs</p>
                                         </div>
 
 
-                                        <div class="input-field col s6">
+                                        <div class="input-field col s3 offset-s3">
+<!--
+                                            <label for="prep_time_mins">
+                                                Mins</label>
+-->
                                             <input class="validate" id="prep_time_mins" max=
                                             "59" min="00" ng-model="prepMins" required=
                                             "" type="number">
-                                            <p>Mins</p>
+                                            <p class="grey-text">Mins</p>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="col s6">
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s12">
                                     <label for="cook_time">
                                                 Cook Time</label>
-                                    <div class="row">
-                                        <div class="input-field col s6" id="cook_time">
+                                    <div class="row" id="cook_time">
+                                        <div class="input-field col s3" >
+<!--
+                                            <label for="cook_time_hrs">
+                                                Hours</label>
+-->
                                             <input class="validate" id="cook_time_hrs" max=
                                             "12" min="0" ng-model="cookHours" required=
                                             "" type="number">
 
-                                            <p>Hrs</p>
+                                            <p class="grey-text">Hrs</p>
                                         </div>
 
 
-                                        <div class="input-field col s6">
+                                        <div class="input-field col s3 offset-s3">
+<!--
+                                            <label for="cook_time_mins">
+                                                Mins</label>
+-->
                                             <input class="validate" id="cook_time_mins" max=
                                             "59" min="00" ng-model="cookMins" required=
                                             "" type="number">
 
-                                            <p>Mins</p>
+                                            <p class="grey-text">Mins</p>
                                         </div>
                                     </div>
                                 </div>
@@ -104,10 +122,21 @@
 
                                 </div>
                             </div>
+                            
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <label for=
+                                    "recipe_desc">Description</label>
+                                    <textarea class="materialize-textarea" id=
+                                    "recipe_desc" required 
+                                    ng-model="recipe.description"></textarea>
+                                </div>
+                            </div>
+                            
                         </div>
                         
-                        <div class="col s6">
-                                <div class="row center">
+                        <div class="col s12 m6">
+                            <div class="row center">
                                     <div ng-if="cropper.croppedImage">
                                         <img class="recipe_img center"
                                             ng-src="{{cropper.croppedImage}}">
@@ -123,68 +152,242 @@
                                     </div>
                                 </div>
                             </div>
-                        
+                            
+                            <div class="row center">
+                                <p class="recipe-subheading center">Nutritional
+                                Information (per Serving)</p>
+                            </div>
+                            
+                            <div class="row center">
+                                <div class="col s12 m6">
+                                    <table class="bordered responsive-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>Energy</td>
+
+                                                <td>
+                                                {{calculateNutritionTotal('energy_kcal')
+                                                | number:0}} kcal</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Carbohydrates</td>
+
+                                                <td>
+                                                {{calculateNutritionTotal('carbohydrate_tot')
+                                                |number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Proteins</td>
+
+                                                <td>
+                                                {{calculateNutritionTotal('protein_tot')
+                                                | number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Fats</td>
+
+                                                <td>
+                                                {{calculateNutritionTotal('fat_tot')
+                                                | number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Monounsaturated Fat</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_mono_g')
+                                                | number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Polyunsaturated Fat</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_poly_g')
+                                                | number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Saturated Fat</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('fa_sat_g')
+                                                | number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Sugar</td>
+
+                                                <td>
+                                                {{calculateNutritionTotal('sugar_tot')
+                                                | number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Fiber</td>
+
+                                                <td>
+                                                {{calculateNutritionTotal('fiber_tot')
+                                                | number:0}} g</td>
+                                            </tr>
+
+
+                                            <tr>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div class="col s12 m6">
+                                    <table class="bordered responsive-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>Cholesterol</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('cholestrl_mg')
+                                                | number:0}} mg</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Sodium</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('sodium_mg')
+                                                | number:0}} mg</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Calcium</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('calcium_mg')
+                                                | number:0}} mg</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Iron</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('iron_mg')
+                                                | number:0}} mg</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Vitamin A</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('vitamin_a_iu')
+                                                | number:0}} IU</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Vitamin B12</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('vitamin_b12_mcg')
+                                                | number:0}} mcg</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Vitamin C</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('vitamin_c_mg')
+                                                | number:0}} mg</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Vitamin D</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('vitamin_d_mcg')
+                                                | number:0}} mcg</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>Vitamin E</td>
+
+                                                <td>
+                                                {{calculateAddtnlNutritionTotal('vitamin_e_mg')
+                                                | number:0}} mcg</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
                     
 
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <label for=
-                                "recipe_desc">Description</label>
-                                <textarea class="materialize-textarea" id=
-                                "recipe_desc" required 
-                                ng-model="recipe.description"></textarea>
-                            </div>
-                        </div>
+                        
                     
 
                     <div class="row">
-                        <div class="col m2">
-                            <h5 class="ing-text" style="margin-left:11px !important">Ingredients</h5>
+                        <div class="col m4">
+                            <p class="ing-text center" style="margin-left:11px !important">Ingredients</p>
                         </div>
 
 
                         <div class="col m1">
-                        <h5 class="ing-text ">Amt</p>
+                            <p class="ing-text center">Amt</p>
                         </div>
                         
                         
-                        <div class="col m1 left" >
-                        <h5 class="ing-text">Unit</h5>
+                        <div class="col m1" >
+                            <p class="ing-text center">Unit</p>
                         </div>
 
-                        <div class="col m2 pull-m1">
-                        <h5 class="ing-text center">Weight</p>
+                        <div class="col m2">
+                            <p class="ing-text center">Weight</p>
                         </div>
                         
-                        <div class="col m6">
-                            <div class="row center">
-                                <h5 class="recipe-subheading">Nutritional
-                                Information (per Serving)</h5>
-                            </div>
+                        <div class="col m4">
+                            <p class="ing-text center">Description</p>
                         </div>
                     </div>
 
 
                     <div class="row">
-                        <div class="col s12 m6">
+                        <div class="col s12">
                             <div class="row valign-wrapper" ng-repeat=
                             "selectedIngredient in ingredientDisplay track by $index">
-                            <div class="col s12 m6 pull-m1">
+                                <div class="col s12 m5">
                                     <p class="meal-text">
                                     {{ingredientDisplay[$index].ingredient.name}}</p>
                                 </div>
 
 
-                                <div class="col s3 m2 pull-m1">
+                                <div class="col s3 m1">
                                     <input id="serving" min="0" ng-model=
                                     "ingredientDisplay[$index].quantity" step=
                                     "0.25" type="number"><br>
                                 </div>
 
 
-                                <div class="col s3 m2 pull-m1">
+                                <div class="col s3 m2">
                                     <select material-select="" ng-model=
                                     "ingredientDisplay[$index].selected_measure"
                                     ng-options=
@@ -193,7 +396,7 @@
                                         </select>
                                 </div>
                                 
-                                <div class="col s3 m2 pull-m1">
+                                <div class="col s3 m2">
                                     <p class="meal-text">
                                     {{ingredientDisplay[$index].quantity * ingredientDisplay[$index].selected_measure.weight | number:0
                                     }} &nbsp;gms
@@ -201,9 +404,13 @@
                                 </div>
 
 
-                                <div class="select-delete-mat col s3 m2">
+                                <div class="select-delete-mat col s3 m1">
                                     <a ng-click="removeIngs($index)"><i class=
                                     "material-icons createbin">delete</i></a>
+                                </div>
+                                
+                                <div class="col s3 m4">
+                                    <input ng-model="ingredientDisplay[$index].description" type="text"> 
                                 </div>
                             </div>
 
@@ -222,6 +429,7 @@
                         </div>
 
 
+<!--
                         <div class="col s12 m6">
                             <div class="col s12 m6">
                                 <table class="bordered responsive-table">
@@ -400,6 +608,7 @@
                                 </table>
                             </div>
                         </div>
+-->
                     </div>
                     <!-- STEPS TO CREATE RECIPES -->
 

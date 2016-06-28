@@ -28,7 +28,7 @@
                                 <div class="col s12 m6">
                             
                             <div class="row">
-                                <div class="col s6 ">
+                                <div class="col s8 ">
                                     <label for=
                                         "recipe_name">Name of Recipe</label>
                                     <input class="validate" id="recipe_name" ng-model=
@@ -58,7 +58,7 @@
                                             <input class="validate" id="prep_time_hrs" max=
                                             "12" min="0" ng-model="prepHours" required=
                                             "" type="number">
-                                            <p>Hrs</p>
+                                            <p class="grey-text">Hours</p>
                                         </div>
 
 
@@ -66,11 +66,13 @@
                                             <input class="validate" id="prep_time_mins" max=
                                             "59" min="00" ng-model="prepMins" required=
                                             "" type="number">
-                                            <p>Mins</p>
+                                            <p class="grey-text">Mins</p>
                                         </div>
                                     </div>
                                 </div>
-                                
+                            </div>
+                                    
+                            <div class="row">
                                 <div class="col s6">
                                     <label for="cook_time">
                                                 Cook Time</label>
@@ -80,7 +82,7 @@
                                             "12" min="0" ng-model="cookHours" required=
                                             "" type="number">
 
-                                            <p>Hrs</p>
+                                            <p class="grey-text">Hours</p>
                                         </div>
 
 
@@ -89,10 +91,12 @@
                                             "59" min="00" ng-model="cookMins" required=
                                             "" type="number">
 
-                                            <p>Mins</p>
+                                            <p class="grey-text">Mins</p>
                                         </div>
                                     </div>
                                 </div>
+                                
+                                
                             </div>
              
                             
@@ -104,11 +108,19 @@
 
                                 </div>
                             </div>
+                                    
+                            <div class="input-field col s12">
+                                <label for=
+                                "recipe_desc">Description</label>
+                                <textarea class="materialize-textarea" id=
+                                "recipe_desc" required 
+                                ng-model="recipe.description"></textarea>
+                            </div>
                         </div>
                             
                                 
                                 <div class="col s6">
-                                        <div class="row center">
+                                    <div class="row center">
                                             <div ng-if="cropper.croppedImage">
                                                 <img class="recipe_img center"
                                                     ng-src="{{cropper.croppedImage}}">
@@ -128,126 +140,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                    
-
-
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <label for=
-                                        "recipe_desc">Description</label>
-                                        <textarea class="materialize-textarea" id=
-                                        "recipe_desc" required 
-                                        ng-model="recipe.description"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-<!--
-                            
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input class="validate" id="recipe_name" required
-                                    ng-model="recipe.name" type="text">
-                                    <label adjust-placeholder for="recipe_name">Name of
-                                    Recipe</label>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input class="validate" id="recipe_desc" required
-                                    ng-model="recipe.description" type="text">
-                                    <label adjust-placeholder for=
-                                    "recipe_desc">Description</label>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="input-field col s6">
-                                    <input class="validate" id="servings" min=
-                                    "1" ng-model="recipe.servings" type=
-                                    "number" required> <label adjust-placeholder for="servings">Number of
-                                    Servings</label>
-                                </div>
-                            </div>
--->
-
-
-                            <div class="row">
-                                <div class="col s7">
-                                     <div class="row">
-                                        <div class="col s4">
-                                            <h5 class="recipe-subheading center">
-                                            Ingredients</h5>
-                                        </div>
-
-
-                                        <div class="col s12 m3 pull-m1" ng-if=
-                                        "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                                        <h5 class="recipe-subheading right">Amt</h5>
-                                        </div>
-
-
-                                        <div class="col s12 m2" ng-if=
-                                        "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
-                                        <h5 class="recipe-subheading left">Unit</h5>
-                                        </div>
-                                    </div>
-                            
-                                    <div class="row valign-wrapper" 
-                                         ng-repeat="ing in ingredientDisplay track by $index">
-                                        <div class="col s4">
-                                            <p class="meal-text">
-                                            {{ing.ingredient.name}}</p>
-                                        </div>
-
-                                        <div class="col s2">
-                                            <input id="serving" min="0" ng-model=
-                                            "ing.quantity" step=
-                                            "0.25" type="number">
-                                        </div>
-
-
-                                        <div class="col s2">
-                                            <select material-select ng-model=
-                                            "ingredientDisplay[$index].measure"
-                                            ng-options=
-                                            "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
-                                            ng-change="updateIngredientQuantity($index)"
-                                            required="">
-                                            </select>
-                                        </div>
-                                        
-                                        <div class="col s3 m2">
-                                            <p class="meal-text left">
-                                            {{ing.quantity * ingredientDisplay[$index].measure.weight/ingredientDisplay[$index].measure.amount | number:0
-                                            }} &nbsp;gms
-                                            </p>
-                                        </div>
-
-
-                                        <div class="col s12 m1 pull-m1">
-                                            <a ng-click="deleteSelectedIngredient($index)"><i class=
-                                            "material-icons createbin">delete</i></a>
-                                        </div>
-                                    </div>   
-                                
-                                    <div class="row">
-                                        <div class="col s12">
-                                            <a class="cyan-text add-ing" ng-click=
-                                            "openQuickToolsModal(index1)">Quick
-                                            Tools</a>&nbsp;&nbsp; <span class=
-                                            "cyan-text">|</span>&nbsp;&nbsp;
-                                            <a class="cyan-text add-ing" href="#"
-                                            ng-click="addRecipeIngredModal()">Add
-                                            Ingredients</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col s5">
+                                    
                                     <div class="row center">
                                         <h5 class="recipe-subheading">Nutritional Information (per Serving)</h5>
                                     </div>
@@ -362,8 +255,135 @@
                                         </div>
                                     </div>
                                 </div>
-                        
+                    
+
+
+<!--
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <label for=
+                                        "recipe_desc">Description</label>
+                                        <textarea class="materialize-textarea" id=
+                                        "recipe_desc" required 
+                                        ng-model="recipe.description"></textarea>
+                                    </div>
+                                </div>
+-->
                             </div>
+<!--
+                            
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input class="validate" id="recipe_name" required
+                                    ng-model="recipe.name" type="text">
+                                    <label adjust-placeholder for="recipe_name">Name of
+                                    Recipe</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input class="validate" id="recipe_desc" required
+                                    ng-model="recipe.description" type="text">
+                                    <label adjust-placeholder for=
+                                    "recipe_desc">Description</label>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input class="validate" id="servings" min=
+                                    "1" ng-model="recipe.servings" type=
+                                    "number" required> <label adjust-placeholder for="servings">Number of
+                                    Servings</label>
+                                </div>
+                            </div>
+-->
+
+
+                           
+                                
+                                     <div class="row">
+                                        <div class="col s12 m4">
+                                            <h5 class="recipe-subheading center">
+                                            Ingredients</h5>
+                                        </div>
+
+
+                                        <div class="col s12 m1" ng-if=
+                                        "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
+                                        <h5 class="recipe-subheading left">Amt</h5>
+                                        </div>
+
+
+                                        <div class="col s12 m3" ng-if=
+                                        "ingredientDisplay != null && ingredientDisplay != undefined && ingredientDisplay.length&gt;0">
+                                        <h5 class="recipe-subheading left">Unit</h5>
+                                        </div>
+                                         
+                                        <div class="col s4">
+                                            <h5 class="recipe-subheading center">
+                                            Description</h5>
+                                        </div>
+                                         
+                                    </div>
+                            
+                                    <div class="row valign-wrapper" 
+                                         ng-repeat="ing in ingredientDisplay track by $index">
+                                        <div class="col s12 m4">
+                                            <p class="meal-text">
+                                            {{ing.ingredient.name}}</p>
+                                        </div>
+
+                                        <div class="col s12 m1">
+                                            <input id="serving" min="0" ng-model=
+                                            "ing.quantity" step=
+                                            "0.25" type="number">
+                                        </div>
+
+
+                                        <div class="col s12 m2">
+                                            <select material-select ng-model=
+                                            "ingredientDisplay[$index].measure"
+                                            ng-options=
+                                            "unit as unit.description for unit in ingredientDisplay[$index].ingredient.measure track by unit.id"
+                                            ng-change="updateIngredientQuantity($index)"
+                                            required="">
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="col s12 m1">
+                                            <p class="meal-text left">
+                                            {{ing.quantity * ingredientDisplay[$index].measure.weight/ingredientDisplay[$index].measure.amount | number:0
+                                            }} &nbsp;gms
+                                            </p>
+                                        </div>
+
+
+                                        <div class="col s12 m1">
+                                            <a ng-click="deleteSelectedIngredient($index)"><i class=
+                                            "material-icons createbin">delete</i></a>
+                                        </div>
+                                        
+                                        <div class="col s12 m4">
+                                            <input ng-model="ingredientDisplay[$index].description" type="text"> 
+                                        </div>
+                                    </div>   
+                                
+                                    <div class="row">
+                                        <div class="col s12">
+                                            <a class="cyan-text add-ing" ng-click=
+                                            "openQuickToolsModal(index1)">Quick
+                                            Tools</a>&nbsp;&nbsp; <span class=
+                                            "cyan-text">|</span>&nbsp;&nbsp;
+                                            <a class="cyan-text add-ing" href="#"
+                                            ng-click="addRecipeIngredModal()">Add
+                                            Ingredients</a>
+                                        </div>
+                                    </div>
+                                
    
             
                             <!-- STEPS TO CREATE RECIPES -->
