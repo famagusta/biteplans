@@ -503,7 +503,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                                 measure: $scope.ingredientDisplay[i].measure.id,
                                                 quantity: $scope.ingredientDisplay[i].quantity,
                                                 description:
-                                                $scope.ingredientDisplay[i].description
+                                                $scope.ingredientDisplay[i].description || ''
                                             };
                                             recipeService.createRecipeIng(recipeIngred)
                                                 .then(function(response)

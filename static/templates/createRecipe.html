@@ -22,7 +22,7 @@
                 <p class="center" style="color:red">{{recipeError}}</p> <!--                    <div class="row">-->
 
                 
-                <form class="col s12 m12">
+                <form class="col s12 m12"  id="recipeForm" name="recipeForm" ng-submit="validateRecipe()">
                     
                     <div class="row">
                         <div class="col s12 m6">
@@ -47,18 +47,12 @@
                                 </div>
                             </div>
                             
-                            
-                            
                             <div class="row">
                                 <div class="col s12">
                                     <label for="prep_time">
                                                 Prep Time</label>
                                     <div class="row" id="prep_time">
                                         <div class="input-field col s3">
-<!--
-                                            <label for="prep_time_hrs">
-                                                Hours</label>
--->
                                             <input class="validate" id="prep_time_hrs" max=
                                             "12" min="0" ng-model="prepHours" required
                                             type="number">
@@ -67,10 +61,6 @@
 
 
                                         <div class="input-field col s3 offset-s3">
-<!--
-                                            <label for="prep_time_mins">
-                                                Mins</label>
--->
                                             <input class="validate" id="prep_time_mins" max=
                                             "59" min="00" ng-model="prepMins" required=
                                             "" type="number">
@@ -86,10 +76,6 @@
                                                 Cook Time</label>
                                     <div class="row" id="cook_time">
                                         <div class="input-field col s3" >
-<!--
-                                            <label for="cook_time_hrs">
-                                                Hours</label>
--->
                                             <input class="validate" id="cook_time_hrs" max=
                                             "12" min="0" ng-model="cookHours" required=
                                             "" type="number">
@@ -99,10 +85,6 @@
 
 
                                         <div class="input-field col s3 offset-s3">
-<!--
-                                            <label for="cook_time_mins">
-                                                Mins</label>
--->
                                             <input class="validate" id="cook_time_mins" max=
                                             "59" min="00" ng-model="cookMins" required=
                                             "" type="number">
@@ -112,9 +94,7 @@
                                     </div>
                                 </div>
                             </div>
-             
-                            
-                            
+                                         
                             <div class="row">
                                 <div class="col s12 m12">
                                     <label for="external-url">Link to External Page</label>
@@ -341,10 +321,6 @@
                     </div>
                     
 
-
-                        
-                    
-
                     <div class="row">
                         <div class="col m4">
                             <p class="ing-text center" style="margin-left:11px !important">Ingredients</p>
@@ -427,191 +403,10 @@
                                 </div>
                             </div>
                         </div>
-
-
-<!--
-                        <div class="col s12 m6">
-                            <div class="col s12 m6">
-                                <table class="bordered responsive-table">
-                                    <tbody>
-                                        <tr>
-                                            <td>Energy</td>
-
-                                            <td>
-                                            {{calculateNutritionTotal('energy_kcal')
-                                            | number:0}} kcal</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Carbohydrates</td>
-
-                                            <td>
-                                            {{calculateNutritionTotal('carbohydrate_tot')
-                                            |number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Proteins</td>
-
-                                            <td>
-                                            {{calculateNutritionTotal('protein_tot')
-                                            | number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Fats</td>
-
-                                            <td>
-                                            {{calculateNutritionTotal('fat_tot')
-                                            | number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Monounsaturated Fat</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('fa_mono_g')
-                                            | number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Polyunsaturated Fat</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('fa_poly_g')
-                                            | number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Saturated Fat</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('fa_sat_g')
-                                            | number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Sugar</td>
-
-                                            <td>
-                                            {{calculateNutritionTotal('sugar_tot')
-                                            | number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Fiber</td>
-
-                                            <td>
-                                            {{calculateNutritionTotal('fiber_tot')
-                                            | number:0}} g</td>
-                                        </tr>
-
-
-                                        <tr>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-                            <div class="col s12 m6">
-                                <table class="bordered responsive-table">
-                                    <tbody>
-                                        <tr>
-                                            <td>Cholesterol</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('cholestrl_mg')
-                                            | number:0}} mg</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Sodium</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('sodium_mg')
-                                            | number:0}} mg</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Calcium</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('calcium_mg')
-                                            | number:0}} mg</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Iron</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('iron_mg')
-                                            | number:0}} mg</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Vitamin A</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('vitamin_a_iu')
-                                            | number:0}} IU</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Vitamin B12</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('vitamin_b12_mcg')
-                                            | number:0}} mcg</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Vitamin C</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('vitamin_c_mg')
-                                            | number:0}} mg</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Vitamin D</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('vitamin_d_mcg')
-                                            | number:0}} mcg</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>Vitamin E</td>
-
-                                            <td>
-                                            {{calculateAddtnlNutritionTotal('vitamin_e_mg')
-                                            | number:0}} mcg</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
--->
                     </div>
-                    <!-- STEPS TO CREATE RECIPES -->
 
+                        
+                    <!-- STEPS TO CREATE RECIPES -->
 
                     <div class="row">
                         <div class="col s4">
@@ -643,8 +438,7 @@
                         <div class="col s12">
                             <div class="center-btn">
                                 <button class="btn largebtn"
-                                ng-click='validateRecipe()' type=
-                                "submit">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                                type="submit">Save</button> &nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                         </div>
                     </div>

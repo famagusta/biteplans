@@ -517,7 +517,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                             quantity: $scope
                                                 .ingredientDisplay[cntr_i].quantity,
                                             description: $scope
-                                                .ingredientDisplay[cntr_i].description
+                                                .ingredientDisplay[cntr_i].description || ''
                                         };
 
                                         recipeService.createRecipeIng(recipeIngred)
@@ -558,7 +558,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                              $scope.finalizeRecipeCreation();
                         }
                         else {
-                            $scope.recipeError = 'Enter';
+                            $scope.recipeError = 'Insufficient Information About Recipe';
                         }
                     };
                     
