@@ -14,6 +14,7 @@
                             <h3 class="bite">BITE</h3>
                             <h3 class="plans">PLANS</h3>
                         </div>
+<!--
                         <div class="row">
                             <div class="col m1 push-m3 s12">
                                 <h3 id="search" class="lp-carousel-head-highlight">Search.</h3>
@@ -29,9 +30,11 @@
                                 <h3 id="follow" class="lp-carousel-head">Follow</h3>
                             </div>
                         </div>
+-->
 
 
-                        <h5 id="banner-msg" class="lp-subtext">Look up our exhaustive list of popular and easy diets</h5>
+<!--                        <h5 id="banner-msg" class="lp-subtext">Look up our exhaustive list of popular and easy diets</h5>-->
+                        <h5 id="banner-msg" class="lp-subtext">Search, Create & Follow the Best Diet for You. Create your Free Account and Track your Progress now!</h5>
                     </div>
                 </li>
             </ul>
@@ -98,7 +101,7 @@
                                     <div class="row">
                                         <div class="col s12 m12">
                                             <div class="center-btn">
-                                                <a class="cyan-text center-btn" href="http://blog.biteplans.com/index.php/2016/05/29/eat-right/">The Best Way to Bite Right</a>
+                                                <a class="cyan-text center-btn" href="http://blog.biteplans.com/index.php/2016/05/29/eat-right/">Eat Right</a>
                                             </div>
                                         </div>
                                     </div>
@@ -122,27 +125,28 @@ $(document).ready(function(){
     var count = 1;
     
     // this was the easiest hack 
-    setInterval(function(){
-        if(count===1){
-            $('#search').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
-            $('#create').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-            $('#follow').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-            $('#banner-msg').html(bannerMessages[count-1]);
-            count += 1;
-        } else if(count===2) {
-            $('#search').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-            $('#create').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
-            $('#follow').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-            $('#banner-msg').html(bannerMessages[count-1]);
-            count += 1;
-        } else {
-            $('#search').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-            $('#create').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-            $('#follow').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
-            $('#banner-msg').html(bannerMessages[count-1]);
-            count = 1;
-        }
-    }, 4000);
+//    setInterval(function(){
+//        if(count===1){
+//            $('#search').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
+//            $('#create').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
+//            $('#follow').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
+//            $('#banner-msg').html(bannerMessages[count-1]);
+//            count += 1;
+//        } 
+//        else if(count===2) {
+//            $('#search').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
+//            $('#create').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
+//            $('#follow').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
+//            $('#banner-msg').html(bannerMessages[count-1]);
+//            count += 1;
+//        } else {
+//            $('#search').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
+//            $('#create').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
+//            $('#follow').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
+//            $('#banner-msg').html(bannerMessages[count-1]);
+//            count = 1;
+//        }
+//    }, 4000);
 
     
 });
