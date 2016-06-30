@@ -374,12 +374,13 @@
             </div>
         </div>
     </form>
-        <!--  QUICK TOOLS  -->
+        
+        
+    <!--  QUICK TOOLS  -->
     <div class="modal modal-fixed-footer food-modal" id="quick-tools-modal">
         <a class=
         "modal-action modal-close waves-effect waves-green btn-flat right">X</a>
 
-            
         <div class="modal-content ">
             <div class="row">
 
@@ -387,7 +388,6 @@
                     <div class="card white create-search-box" id=
                     "searchcard">
                         <!-- SEARCH-BOX -->
-
 
                         <div class="card-content black-text">
                             <textarea class="form-control" id=
@@ -410,12 +410,22 @@
                     <div class="searchresult-create row">
                         <div ng-repeat=
                         "ingredient in mySavedStuff.results track by $index">
+<!--
                             <p><input checklist-model="checklistIngs"
                             checklist-value="ingredient.ingredient" class="filled-in" id=
                             "filled-in-box-ingredient-history{{$index}}"  type="checkbox">
                             <label class="ing-text highlight" for=
                             "filled-in-box-ingredient-history{{$index}}" id=
                             "check-label-ingredient-history{{$index}}">{{ingredient.ingredient.name}}</label></p>
+-->
+                            
+                            <p><input checklist-model="checklistIngs"
+                            checklist-value="ingredient.ingredient" class="filled-in" id=
+                            "filled-in-box-ingredient-history{{mySavedStuffCurrentPage}}{{$index}}" ng-checked=
+                            "checkIfSelected(ingredient.ingredient.id)" ng-disabled="checkInBigBasket(ingredient.ingredient)" type="checkbox">
+                            <label class="ing-text highlight" for=
+                            "filled-in-box-ingredient-history{{mySavedStuffCurrentPage}}{{$index}}" id=
+                            "check-label-ingredient-history{{mySavedStuffCurrentPage}}{{$index}}">{{ingredient.ingredient.name}}</label></p>
                         </div>
                     </div>
 
@@ -647,46 +657,6 @@
                                     <option ng-repeat="filter in filts">{{filter}}</option>    
                                 </select>
                             </div>
-<!--
-                        <div class="col s10 m10">
-                            <div class="card white create-search-box" id=
-                            "searchcard">
-                                     SEARCH-BOX 
-
-
-                                    <div class="card-content black-text">
-                                        <textarea class="form-control" id=
-                                        "searchbox" ng-model="query"
-                                        placeholder=
-                                        "Search Ingredient"></textarea>
-                                        <button class=
-                                        "fa fa-search search-ingredient"
-                                        fire-enter="" ng-click="search(1)"
-                                        type="submit"></button>
-                                    </div>
-                                </div>
--->
-                                <!-- END OF SEARCH-BOX -->
-<!--
-                            </div>
-                            
-                            <div class=
-                            "col s1 m1"
-                            ng-show="filts !==undefined && filts.length&gt;0">
-                                <button class='fa fa-filter search-filter'
-                                data-activates='dropdown2' data-beloworigin=
-                                "true" dropdown-button=""></button>
-                            </div>
-
-
-                            <div class=
-                            "col s1 m1"
-                            ng-show="filts !==undefined && filts.length&gt;0">
-                                <button class='fa fa-reorder search-filter'
-                                data-activates='dropdown3' data-beloworigin=
-                                "true" dropdown-button=""></button>
-                            </div>
--->
                     </div>
                 </div>
                 <br>
@@ -868,7 +838,7 @@
 
         
         <div class="fixed-action-btn" style="bottom: 45px; left:47%">
-                <a class="btn-floating btn-large bp_red" ng-click="addContents();calculateTotalInfoForRecipes()">
+                <a class="btn-floating btn-large bp_red" ng-click="addContents()">
                   <i class="large material-icons">add</i>
                 </a>
           </div>

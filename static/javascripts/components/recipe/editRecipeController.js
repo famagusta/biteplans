@@ -20,6 +20,10 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     $scope.checklistIngredients = [];
                     // stores the ingredients added to the recipe so far
                     $scope.ingredientDisplay = [];
+                    $scope.$watchCollection('ingredientDisplay', function(newVal, oldVal){
+                        console.log(newVal);
+                        console.log(oldVal);
+                    })
                     //stores the last ingredient added to the recipe
                     $scope.lastChecked = null;
                     $scope.AdditionalIngredientInfo = [];
@@ -113,19 +117,15 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         $('#upload-image-modal')
                             .openModal();
                     };
-                    var getRecipe = function()
-                    {
-                        recipeService.getRecipe($routeParams.id)
-                            .then(function(response)
-                            {
+                    var getRecipe = function(){
+                        recipeService.getRecipe($routeParams.id).then(function(response){
                                 $scope.recipe = response;
                             
                                 if($scope.recipe.created_by !== currentUser){
                                     //prevent unauthorized edits
                                     $location.path('/recipes/view-recipe/' + $routeParams.id + '/');
                                 }
-                                for (var i = 0; i < $scope.recipe.recipeIngredients.length; i++)
-                                {
+                                for (var i = 0; i < $scope.recipe.recipeIngredients.length; i++){
                                     $scope.recipe.recipeIngredients[i].quantity = parseFloat($scope.recipe.recipeIngredients[
                                         i].quantity);
                                     $scope.ingredientDisplay.push($scope.recipe.recipeIngredients[i]);
@@ -241,8 +241,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     };
                     $scope.$watchCollection('checklistIngs', function(newVal, oldVal)
                     {
-                        if (newVal.length > 0)
-                        {
+                        if (newVal.length > 0){
                             $scope.lastChecked = newVal[newVal.length - 1];
                         }
                     }, true);
@@ -300,23 +299,23 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         // remove ingredient from recipe ingredients
                         $scope.AdditionalIngredientInfo.splice(index, 1);
                     };
+                    
+                    
                     /* add contents from the modal to the recipe */
-                    $scope.addContents = function()
-                    {
+                    $scope.addContents = function(){
                         /*loop over the checklist mode (nutrient value) and
                           add to the ingredients 
                           also, add the weight of each ingredient measure to 
                           use in calculating total nutrient
 
                         add to the ingredients */
-                        for (var j = 0; j < $scope.checklistIngs.length; j++)
-                        {
+                        
+                        for (var j = 0; j < $scope.checklistIngs.length; j++){
                             $scope.checklistIngredients.push($scope.checklistIngs[j]);
                         }
-                        $scope.checklistIngs = [];
-                        //                        $scope.ingredientDisplay = $scope.checklistIngredients;
-                        for (var i = $scope.ingredientDisplay.length; i < $scope.checklistIngredients.length; i++)
-                        {
+                       
+                        for (var i = $scope.ingredientDisplay.length; 
+                             i < $scope.checklistIngredients.length; i++){
                             //populate ingredient display in identical format as original request
                             // will populate ids later (after patch)
                             $scope.ingredientDisplay.push(
@@ -335,14 +334,9 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                 {
                                     console.log(error);
                                 });
-                            var obj = {
-                                    ingredient: $scope.checklistIngredients[i],
-                                    measure: $scope.checklistIngredients[i].measure[0],
-                                    quantity: parseFloat($scope.checklistIngredients[i].measure[0])
-                                };
                         }
-                        $('#add-ingredients-modal')
-                            .closeModal();
+                        $('#add-ingredients-modal').closeModal();
+                        $('#quick-tools-modal').closeModal();
                         /* cleanup checklist and search results */
                         $scope.details = undefined;
                         $scope.filts = undefined;
@@ -364,6 +358,16 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         }
                         return false;
                     };
+                    
+                    $scope.checkInBigBasket = function(ingredient){
+                        for (var i = 0; i < $scope.checklistIngredients.length; i++) {
+                            if ($scope.checklistIngredients[i].id === ingredient.id) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                    
                     $scope.addMoreSteps = function()
                     {
                         $scope.stepsToCreateRecipes.length += 1;
@@ -406,17 +410,11 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     {
                         // remove ingredient from checklist temp array
                         var index1 = $scope.checklistIngs.indexOf(element);
-                        if (index1 >= 0)
-                        {
+                        if (index1 >= 0){
                             $scope.checklistIngs.splice(index1, 1);
                         }
-                        // remove ingredient from checklist array
-                        //                        var index = $scope.checklistIngredients.filter(function(el) {
-                        //                            return el.id === element; // Filter out the appropriate one
-                        //                        })
                         var index2 = $scope.checklistIngredients.indexOf(element);
-                        if (index2 >= 0)
-                        {
+                        if (index2 >= 0){
                             $scope.checklistIngredients.splice(index2, 1);
                         }
                         // remove ingredient from recipe ingredients
@@ -497,6 +495,9 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     {
                                         if ($scope.ingredientDisplay[i].id === undefined)
                                         {
+                                            if ($scope.ingredientDisplay[cntr_i].description === undefined || $scope.ingredientDisplay[cntr_i].description === null){
+                                                $scope.ingredientDisplay[cntr_i].description = ''
+                                            }
                                             var recipeIngred = {
                                                 recipe: recipe.id,
                                                 ingredient: $scope.ingredientDisplay[i].ingredient.id,

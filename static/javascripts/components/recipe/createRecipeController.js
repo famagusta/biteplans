@@ -152,12 +152,9 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         }
                     };
                     
-                       $scope.initialize_recipe = function()
-                {
-                    var id = $routeParams.id;
-                    recipeService.updateRecipe($scope.recipe, id)
-                        .then(function(response)
-                        {
+                    $scope.initialize_recipe = function(){
+                        var id = $routeParams.id;
+                        recipeService.updateRecipe($scope.recipe, id).then(function(response){
                         }, function(error)
                         {
                             console.log(error);
@@ -193,7 +190,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             }
                             for (var i = 0; i < $scope.ingredientDisplay
                                 .length; i++) {
-                                if ( checkIngredNutritionQty($scope.ingredientDisplay[i], nutrient)) {
+                                if (checkIngredNutritionQty($scope.ingredientDisplay[i], nutrient)) {
                                     total += parseFloat($scope.ingredientDisplay[
                                             i].ingredient[nutrient]) *
                                             parseFloat($scope.ingredientDisplay[
@@ -420,41 +417,27 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                             // call API to get addtional ingredient information
 
                             searchService.get_ingredient_addtnl_info(
-                                    $scope
-                                    .checklistIngredients[i]
-                                    .id)
+                                    $scope.checklistIngredients[i].id)
                                 .then(function(response) {
                                     //model for storing response from API                
-                                    $scope.AdditionalIngredientInfo
-                                        .push(response);
+                                    $scope.AdditionalIngredientInfo.push(response);
                                 }, function(error) {
                                     console.log(error);
                                 });
 
 
                             $scope.ingredientDisplay.push({
-                                ingredient: $scope.checklistIngredients[
-                                    i],
-                                selected_measure: $scope
-                                    .checklistIngredients[
-                                        i].measure[0],
-                                quantity: parseFloat( $scope
-                                    .checklistIngredients[
-                                        i].measure[0].amount),
+                                ingredient: $scope.checklistIngredients[i],
+                                selected_measure: $scope.checklistIngredients[i].measure[0],
+                                quantity: parseFloat($scope.checklistIngredients[i]
+                                                     .measure[0].amount),
                             });
                             
                         }
 
-                        $scope.updateQuantity = function(index){
-                            $scope.ingredientDisplay[index].quantity = 
-                                parseFloat($scope.ingredientDisplay[index]
-                                           .selected_measure.amount);
-                        };
-                        $('#add-ingredients-modal')
-                            .closeModal();
+                        $('#add-ingredients-modal').closeModal();
                         
-                        $('#quick-tools-modal')
-                            .closeModal();
+                        $('#quick-tools-modal').closeModal();
 
                         /* cleanup checklist and search results */
                         $scope.details = undefined;
@@ -466,6 +449,12 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                         
                         $scope.mySavedStuffQuery = '';
 
+                    };
+                    
+                    $scope.updateQuantity = function(index){
+                        $scope.ingredientDisplay[index].quantity = 
+                            parseFloat($scope.ingredientDisplay[index]
+                                       .selected_measure.amount);
                     };
                     
                     //checks whether an ingredient is already selected or not
@@ -505,8 +494,10 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                     for (var i = 0; i < $scope.ingredientDisplay.length; i++)
                                     {
                                         /* create a recipe ingred object to send to server */
-                                        (function(cntr_i)
-                                        {
+                                        (function(cntr_i){
+                                        if ($scope.ingredientDisplay[cntr_i].description === undefined || $scope.ingredientDisplay[cntr_i].description === null){
+                                            $scope.ingredientDisplay[cntr_i].description = ''
+                                        }
                                         var recipeIngred = {
                                             recipe: id,
                                             ingredient: $scope
@@ -517,7 +508,7 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                                             quantity: $scope
                                                 .ingredientDisplay[cntr_i].quantity,
                                             description: $scope
-                                                .ingredientDisplay[cntr_i].description || ''
+                                                .ingredientDisplay[cntr_i].description
                                         };
 
                                         recipeService.createRecipeIng(recipeIngred)
