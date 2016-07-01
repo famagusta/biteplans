@@ -30,6 +30,7 @@ class Recipe(models.Model):
     prep_time = models.DurationField(null=True, blank=True)
     cook_time = models.DurationField(null=True, blank=True)
     servings = models.IntegerField()
+    serving_descriptor = models.CharField(null=True, blank=True, max_length=191)
     source = models.CharField(null=True, blank=True, max_length=191)
     url = models.URLField(null=True, blank=True, max_length=400)
     # TODO: Handle case of saving recipe when user is deleted
