@@ -256,5 +256,12 @@ video {
 }
 
 .lp-subtext {
+/*    position: absolute;*/
     color:#727272;
+}
+
+.image-overlay{
+    position:absolute;
+    width:100%;
+    top: 75px;
 }

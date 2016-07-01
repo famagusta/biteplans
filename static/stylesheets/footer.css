@@ -4,7 +4,7 @@
 /*  color: #fff;*/
   clear: both;
 /*  padding: 2em 2em;*/
-  background: white !important;
+  background: #b6b6b6 !important;
   position: relative;
   top: 100%;
     
@@ -52,4 +52,8 @@ background: none;
 #about-modal{
     max-height: 87%;
     height: 100%;
+}
+
+.footer-container{
+    margin-bottom: 0px !important;
 }

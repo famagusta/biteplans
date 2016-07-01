@@ -1,153 +1,79 @@
-<section style="background-color: #fafbfc !important" ng-controller="landingPageController">
-    <div class="row">
-        <div class="slider">
-            <ul class="slides">
-                <li>
-<!--                    <img src="static/images/banner_bg.jpg">-->
-                    <img id="banner" ng-src="{{banner}}">
-                    <div class="caption center-align">
-                        <div class="hide-on-small-only">
-                            <h2 class="bite">BITE</h2>
-                            <h2 class="plans">PLANS</h2>
-                        </div>
-                        <div class="hide-on-med-and-up">
-                            <h3 class="bite">BITE</h3>
-                            <h3 class="plans">PLANS</h3>
-                        </div>
-<!--
-                        <div class="row">
-                            <div class="col m1 push-m3 s12">
-                                <h3 id="search" class="lp-carousel-head-highlight">Search.</h3>
-                            </div>
-
-
-                            <div class="col m1 push-m4 s12">
-                                <h3 id="create" class="lp-carousel-head">Create.</h3>
-                            </div>
-
-
-                            <div class="col m1 push-m5 s12">
-                                <h3 id="follow" class="lp-carousel-head">Follow</h3>
-                            </div>
-                        </div>
--->
-
-
-<!--                        <h5 id="banner-msg" class="lp-subtext">Look up our exhaustive list of popular and easy diets</h5>-->
+<main ng-controller="landingPageController">
+     <div class="parallax-container" style="top:-19px !important;">
+        <div class="parallax">
+            <img src="static/images/banner_bg.jpg" style="zoom:75%; padding-bottom:100px">
+            <div class="caption center-align image-overlay">
+                <div class="hide-on-small-only">
+                    <h2 class="bite">BITE</h2>
+                    <h2 class="plans">PLANS</h2>
+                </div>
+                <div class="hide-on-med-and-up">
+                    <h3 class="bite">BITE</h3>
+                    <h3 class="plans">PLANS</h3>
+                </div>
+                <div class="row container">
+                    <div class="col s12">
                         <h5 id="banner-msg" class="lp-subtext">Search, Create & Follow the Best Diet for You. Create your Free Account and Track your Progress now!</h5>
                     </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-
-
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="container" id="featuredPlan">
-                <div class="section">
-                    <div class="row">
-                        <div class="col s12 m12">
-                            <div class="card white">
-                                <img class="center-block round_icon" src="static/images/carrot.png">
-
-                                <h3 class="center card-title">Featured Plans</h3>
-
-
-                                <div class="card-content">
-                                    <div class="row">
-                                        <div class="center-btn">
-                                                <a class="cyan-text center-btn" href="/dietplans/view-diet-plan/2/">Indian Vegetarian Weight Loss Diet Plan for Women</a>
-                                            </div>
-                                            <br>
-                                            <div class="center-btn">
-                                                <a class="cyan-text center-btn" href="/dietplans/view-diet-plan/5/">Indian Non Vegetarian Weight Loss Diet Plan for Women</a>
-                                            </div>
-                                            <br>
-                                            <div class="center-btn">
-                                                <a class="cyan-text center-btn" href="/dietplans/view-diet-plan/18/">Indian Vegetarian Weight Loss Diet Plan for Men</a>
-                                            </div>
-                                            <br>
-                                            <div class="center-btn">
-                                                <a class="cyan-text center-btn" href="/dietplans/view-diet-plan/16/">Indian Non Vegetarian Weight Loss Diet Plan for Men</a>
-                                            </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+            
         </div>
+      </div>
+      <div class="section white">
+        <div class="row container">
+          <h2 class="header center">Featured Plans</h2>
+             
+            <div class="col s12 m8 offset-m2">
+             <ul class="collection with-header">
+                <li class="collection-item center">
+                    <i class="fa fa-female left fa-lg grey-text" aria-hidden="true"></i>
+                    <a class="cyan-text center" href="/dietplans/view-diet-plan/2/">Indian Vegetarian Weight Loss Diet Plan for Women</a>
+                 </li>
+                <li class="collection-item center">
+                    <i class="fa fa-female left fa-lg grey-text" aria-hidden="true"></i>
+                    <a class="cyan-text center" href="/dietplans/view-diet-plan/5/">Indian Non Vegetarian Weight Loss Diet Plan for Women</a>
+                 </li>
+                <li class="collection-item center">
+                    <i class="fa fa-male left fa-lg grey-text" aria-hidden="true"></i>
+                    <a class="cyan-text center" href="/dietplans/view-diet-plan/18/">Indian Vegetarian Weight Loss Diet Plan for Men</a>
 
-
-        <div class="col s12 m6">
-            <div class="container" id="aricleSection">
-                <div class="section">
-                    <div class="row">
-                        <div class="col s12 m12">
-                            <div class="card white">
-                                <img class="center-block round_icon" src="static/images/nutrition.png">
-
-                                <h3 class="center card-title"><a href="http://blog.biteplans.com" class="cyan-text">Blogs</a></h3>
-
-
-                                <div class="card-content">
-                                    <div class="row">
-                                        <div class="col s12 m12">
-                                            <div class="center-btn">
-                                                <a class="cyan-text center-btn" href="http://blog.biteplans.com/index.php/2016/05/29/eat-right/">Biteplans: Eat Right</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                 </li>
+                <li class="collection-item center">
+                    <i class="fa fa-male left fa-lg grey-text" aria-hidden="true"></i>
+                    <a class="cyan-text center" href="/dietplans/view-diet-plan/16/">Indian Non Vegetarian Weight Loss Diet Plan for Men</a>
+                 </li>
+              </ul>
                 </div>
-            </div>
+                
         </div>
     </div>
-</section>
+    
+    <div class="parallax-container" style="height: 300px !important">
+        <div class="parallax">
+          <div class="row container">
+          <h2 class="header center">Blog</h2>
+            
+            <div class="col s12 m6 offset-m3">
+              <ul class="collection with-header">
+                <li class="collection-item center">
+                    <a class="cyan-text" href="http://blog.biteplans.com/index.php/2016/05/29/eat-right/">BitePlans: Eat Right</a>
+                 </li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+</main>
 <script>
 $(document).ready(function(){
-    $('.slider').slider();
-    $('.carousel').carousel();
-    
+//    $('.slider').slider();
+//    $('.carousel').carousel();
+    $('.parallax').parallax();
     var bannerMessages = ['Look up our exhaustive list of popular and easy diets',
                          'Be inspired, and make an exclusive diet plan for yourself, while we provide all necessary nutrient info',
                          "Now that it's done, following this diet is so much easier than eating salads all day!"]
-    var count = 1;
-    
-    // this was the easiest hack 
-//    setInterval(function(){
-//        if(count===1){
-//            $('#search').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
-//            $('#create').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-//            $('#follow').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-//            $('#banner-msg').html(bannerMessages[count-1]);
-//            count += 1;
-//        } 
-//        else if(count===2) {
-//            $('#search').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-//            $('#create').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
-//            $('#follow').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-//            $('#banner-msg').html(bannerMessages[count-1]);
-//            count += 1;
-//        } else {
-//            $('#search').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-//            $('#create').removeClass('lp-carousel-head-highlight').addClass('lp-carousel-head');
-//            $('#follow').removeClass('lp-carousel-head').addClass('lp-carousel-head-highlight');
-//            $('#banner-msg').html(bannerMessages[count-1]);
-//            count = 1;
-//        }
-//    }, 4000);
-
     
 });
 </script>
