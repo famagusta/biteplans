@@ -26,7 +26,7 @@ app.controller('viewRecipeController', ['$scope', 'AuthService',
 
                 $scope.recipe = response;
                 $scope.parsed_directions = $scope.recipe.directions
-                    .split('\n');
+                    .split('{LineBreak}');
             
                 for(var i=0; i< $scope.recipe.recipeIngredients.length; i++){
                     searchService.get_ingredient_addtnl_info($scope.recipe

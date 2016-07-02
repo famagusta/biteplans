@@ -220,4 +220,6 @@ td.energy {
 .recipe-card-action {
     padding: 7px !important;
 }
-
+.recipe-step{
+    white-space: pre-wrap;
+}

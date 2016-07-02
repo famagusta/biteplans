@@ -156,7 +156,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
 //                                    ];
                             
                                 $scope.stepsToCreateRecipes = $scope.recipe
-                                    .directions.split('\n');
+                                    .directions.split('{LineBreak}');
                                 $scope.recipe.recipeIngredients = undefined;
                                 var cookTime = $scope.recipe.cook_time.split(":");
                                 $scope.cookHours = parseInt(cookTime[0]);
@@ -475,7 +475,9 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         $scope.recipe.directions = '';
                         for (var i = 0; i < $scope.stepsToCreateRecipes.length; i++)
                         {
-                            $scope.recipe.directions = $scope.recipe.directions + ' \n' + $scope.stepsToCreateRecipes[i];
+                            if($scope.stepsToCreateRecipes[i].length>0){
+                                $scope.recipe.directions = $scope.recipe.directions + $scope.stepsToCreateRecipes[i] + '{LineBreak}';
+                            }
                         }
                         $scope.recipe.prep_time = $scope.prepHours + ':' + $scope.prepMins + ':00';
                         $scope.recipe.cook_time = $scope.cookHours + ':' + $scope.cookMins + ':00';

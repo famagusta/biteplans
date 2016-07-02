@@ -558,11 +558,11 @@ app.controller('createRecipeController', ['$scope', 'AuthService',
                     /* function called for saving the plan */
                     $scope.finalizeRecipeCreation = function($files) {
                         $scope.recipe.directions = '';
-                        for (var i = 0; i < $scope.stepsToCreateRecipes
-                            .length; i++) {
+                        for (var i = 0; i < $scope.stepsToCreateRecipes.length; i++) {
+                            if($scope.stepsToCreateRecipes[i].length>0){
                             $scope.recipe.directions = $scope.recipe
-                                .directions + ' \n' + $scope.stepsToCreateRecipes[
-                                    i];
+                                .directions + $scope.stepsToCreateRecipes[i] + '{LineBreak}';
+                            }
                         }
                         $scope.recipe.prep_time = $scope.prepHours +
                             ':' + $scope.prepMins + ':00';
