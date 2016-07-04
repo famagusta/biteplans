@@ -4,8 +4,7 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
     '$location', 'planService', 'stars', 'starsUtility', '$window', '$rootScope',
     'constants', '$routeParams',
     function($scope, AuthService, searchService, $location, planService, stars,
-        starsUtility, $window, $rootScope, constants, $routeParams)
-    {
+        starsUtility, $window, $rootScope, constants, $routeParams){
         'use strict';
         var params = $routeParams;
         

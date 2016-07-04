@@ -9,8 +9,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
     '$routeParams', 'searchService', '$location', 'planService', '$rootScope',
     'constants', 'profileService',
     function($scope, $window, AuthService, $routeParams, searchService,
-        $location, planService, $rootScope, constants, profileService)
-    {
+        $location, planService, $rootScope, constants, profileService){
         'use strict';
         
         /* NO AUTH REQUIRED */
@@ -142,8 +141,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         }, true);
         
         /*opens jump to or copy to modal*/
-        $scope.openJumpToModal = function(type)
-        {
+        $scope.openJumpToModal = function(type){
             $scope.jumpToModalType = type;
             $('#jump-to-modal').openModal();
         };
@@ -151,8 +149,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         
         /* Function to update day_no or week_no */
 
-        $scope.updateDayPlan1 = function(param, val)
-        {
+        $scope.updateDayPlan1 = function(param, val){
             // made shorter with ternary operator and modulo division
             var multiplier = param === 'week_no' ? 7 : param === 'day_no' ? 1 : 0;
 
@@ -178,8 +175,7 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
         };
 
         // TODO: update for API
-        $scope.getDayPlan = function(day, week)
-        {
+        $scope.getDayPlan = function(day, week){
             var id = $routeParams.id;
             planService.getdayplan(id, day, week).then(function(response){ 
                 
@@ -212,11 +208,13 @@ app.controller('viewPlanController', ['$scope', '$window', 'AuthService',
                 }
                 
                 $scope.mealPlanNameArray = response.mealplan;
-                for (var m = 0; m < $scope.mealPlanNameArray.length; m++){
-                    $scope.mealPlanNameArray[m].mealNutrition = {};
-                }
                 
+                // possibly useless piece of for loop
+//                for (var m = 0; m < $scope.mealPlanNameArray.length; m++){
+//                    $scope.mealPlanNameArray[m].mealNutrition = {};
+//                }
                 
+                console.log($scope.mealPlanNameArray);
                 if(!($scope.dayplan1.day_no===1 && $scope.dayplan1.week_no===1)){
                     
                         $location.search('week1', week);

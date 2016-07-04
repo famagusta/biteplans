@@ -243,3 +243,43 @@ textarea:focus {
 .showcustom {
     margin-bottom: 0px !important;
 }
+
+
+
+.pin-top {
+position: relative !important;
+}
+
+.pin-bottom {
+position: relative !important;
+}
+
+.pinned {
+    position: fixed !important;
+    width: 22.35% !important;
+}
+
+.view-plan-day {
+    margin-bottom: 0px !important
+}
+
+.viewplan-left-line {
+    border-left: 1px solid #ddd;
+}
+
+.viewplan-meals{
+    
+}
+
+@media only screen and (max-width : 600px) {
+    .viewplan-left-line {
+        border-left: none;
+    }
+    
+    .viewplan-meals{
+        padding-left: 0px !important;
+    }
+}
+
+
+
