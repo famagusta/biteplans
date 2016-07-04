@@ -1,5 +1,5 @@
 <main ng-controller="landingPageController">
-     <div class="parallax-container" style="top:-19px !important;">
+     <div class="parallax-container" ng-class="{'less-top': isLoggedIn}">
         <div class="parallax">
             <img src="static/images/banner_bg.jpg" style="zoom:75%; padding-bottom:100px">
             <div class="caption center-align image-overlay">

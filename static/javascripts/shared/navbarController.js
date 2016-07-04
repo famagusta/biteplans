@@ -409,7 +409,15 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
     }
 ]);
 
-app.controller("landingPageController", ['$scope', '$window', function($scope, $window){
+app.controller("landingPageController", ['$scope', '$window', 'constants', function($scope, $window, constants){
+    $scope.isLoggedIn = constants.userOb.status;
+    
+    // handle weird margin issues with the parallax container
+    $scope.marginForLoggedIn = '0px;';
+    if($scope.isLoggedIn){
+        $scope.marginForLoggedIn = "-19px !important;";
+    }
+    
     $scope.getBanner = function(){
         $scope.banner = '';
             if($window.innerWidth > 600){

@@ -275,3 +275,11 @@ select.picker__select--year.browser-default{
 .picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected{
     background-color: #00bcd4 !important;
 }
+
+.more-margin {
+    margin-bottom: -17px !important;
+}
+
+.less-top{
+    top:-19px !important;
+}
