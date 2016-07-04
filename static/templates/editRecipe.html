@@ -418,15 +418,6 @@
                     <div class="searchresult-create row">
                         <div ng-repeat=
                         "ingredient in mySavedStuff.results track by $index">
-<!--
-                            <p><input checklist-model="checklistIngs"
-                            checklist-value="ingredient.ingredient" class="filled-in" id=
-                            "filled-in-box-ingredient-history{{$index}}"  type="checkbox">
-                            <label class="ing-text highlight" for=
-                            "filled-in-box-ingredient-history{{$index}}" id=
-                            "check-label-ingredient-history{{$index}}">{{ingredient.ingredient.name}}</label></p>
--->
-                            
                             <p><input checklist-model="checklistIngs"
                             checklist-value="ingredient.ingredient" class="filled-in" id=
                             "filled-in-box-ingredient-history{{mySavedStuffCurrentPage}}{{$index}}" ng-checked=

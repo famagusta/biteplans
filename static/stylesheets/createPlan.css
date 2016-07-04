@@ -368,7 +368,7 @@ input[type=time] {
 
 .ing-text {
     color: #212121 !important;
-/*    text-transform: lowercase;*/
+    text-transform: lowercase;
     font-weight: 600;
     font-size: 15px !important;
 }
@@ -613,6 +613,7 @@ select {
 .ingredient-meal-text {
     margin-left: -80px !important;
     word-wrap: break-word;
+    text-transform: lowercase;
 /*    width: 20em;*/
     margin-left: -25px !important;
 }

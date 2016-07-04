@@ -20,10 +20,6 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     $scope.checklistIngredients = [];
                     // stores the ingredients added to the recipe so far
                     $scope.ingredientDisplay = [];
-                    $scope.$watchCollection('ingredientDisplay', function(newVal, oldVal){
-                        console.log(newVal);
-                        console.log(oldVal);
-                    })
                     //stores the last ingredient added to the recipe
                     $scope.lastChecked = null;
                     $scope.AdditionalIngredientInfo = [];
@@ -250,48 +246,37 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     {
                         // remove ingredient from checklist temp array
                         var index1 = $scope.checklistIngs.indexOf(element);
-                        if (index1 >= 0)
-                        {
+                        if (index1 >= 0){
                             $scope.checklistIngs.splice(index1, 1);
                         }
-                        // remove ingredient from checklist array
-                        //                        var index = $scope.checklistIngredients.filter(function(el) {
-                        //                            return el.id === element; // Filter out the appropriate one
-                        //                        })
+                        
                         var index2 = $scope.checklistIngredients.indexOf(element);
-                        if (index2 >= 0)
-                        {
+                        if (index2 >= 0){
                             $scope.checklistIngredients.splice(index2, 1);
                         }
                         // remove ingredient from recipe ingredients
                         var index3 = -1;
-                        for (var ind = 0; ind < $scope.ingredientDisplay.length; ind++)
-                        {
-                            if (element.id === $scope.ingredientDisplay[ind].ingredient.id)
-                            {
+                        for (var ind = 0; ind < $scope.ingredientDisplay.length; ind++){
+                            if (element.id === $scope.ingredientDisplay[ind].ingredient.id){
                                 index3 = ind;
                                 break;
                             }
                         }
-                        if (index3 >= 0)
-                        {
+                        if (index3 >= 0){
                             $scope.ingredientDisplay.splice(index3, 1);
                         }
                     };
+                    
                     /* function to remove an ingredient from the recipe */
-                    $scope.removeIngs = function(index)
-                    {
+                    $scope.removeIngs = function(index){
                         // remove ingredient from checklist array
                         var index2 = -1;
-                        for (var i = 0; i < $scope.checklistIngredients.length; i++)
-                        {
-                            if ($scope.checklistIngredients[i].id === $scope.ingredientDisplay[index].ingredient.id)
-                            {
+                        for (var i = 0; i < $scope.checklistIngredients.length; i++){
+                            if ($scope.checklistIngredients[i].id === $scope.ingredientDisplay[index].ingredient.id){
                                 index2 = i;
                             }
                         }
-                        if (index2 >= 0)
-                        {
+                        if (index2 >= 0){
                             $scope.checklistIngredients.splice(index2, 1);
                         }
                         // remove ingredient from recipe ingredients
@@ -309,32 +294,33 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                           use in calculating total nutrient
 
                         add to the ingredients */
-                        
                         for (var j = 0; j < $scope.checklistIngs.length; j++){
-                            $scope.checklistIngredients.push($scope.checklistIngs[j]);
+                            
+                            $scope.checklistIngredients.push({
+                                ingredient: $scope.checklistIngs[j],
+                                measure: $scope.checklistIngs[j].measure[0],
+                                quantity: parseFloat($scope.checklistIngs[j].measure[0].amount)
+                            });
+                            
                         }
+                        $scope.checklistIngs = [];
                        
+                        
                         for (var i = $scope.ingredientDisplay.length; 
                              i < $scope.checklistIngredients.length; i++){
                             //populate ingredient display in identical format as original request
-                            // will populate ids later (after patch)
-                            $scope.ingredientDisplay.push(
-                            {
-                                ingredient: $scope.checklistIngredients[i],
-                                measure: $scope.checklistIngredients[i].measure[0],
-                                quantity: parseFloat($scope.checklistIngredients[i].measure[0].amount)
-                            });
+                            // will populate ids later (after patch) - WE NEVER DID
+                            $scope.ingredientDisplay.push($scope.checklistIngredients[i]);
+                            
                             // call API to get addtional ingredient information
-                            searchService.get_ingredient_addtnl_info($scope.checklistIngredients[i].id)
-                                .then(function(response)
-                                {
-                                    //model for storing response from API                
-                                    $scope.AdditionalIngredientInfo.push(response);
-                                }, function(error)
-                                {
-                                    console.log(error);
-                                });
+                            searchService.get_ingredient_addtnl_info($scope.checklistIngredients[i].id).then(function(response){
+                                //model for storing response from API                
+                                $scope.AdditionalIngredientInfo.push(response);
+                            }, function(error){
+                                console.log(error);
+                            });
                         }
+                        
                         $('#add-ingredients-modal').closeModal();
                         $('#quick-tools-modal').closeModal();
                         /* cleanup checklist and search results */
@@ -346,13 +332,11 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         
                         $scope.mySavedStuffQuery = '';
                     };
+                    
                     //checks whether an ingredient is already selected or not
-                    $scope.checkIfSelected = function(index)
-                    {
-                        for (var i = 0; i < $scope.checklistIngredients.length; i++)
-                        {
-                            if ($scope.checklistIngredients[i].id === index)
-                            {
+                    $scope.checkIfSelected = function(index){
+                        for (var i = 0; i < $scope.checklistIngredients.length; i++){
+                            if ($scope.checklistIngredients[i].id === index){
                                 return true;
                             }
                         }
@@ -368,15 +352,13 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         return false;
                     }
                     
-                    $scope.addMoreSteps = function()
-                    {
+                    $scope.addMoreSteps = function(){
                         $scope.stepsToCreateRecipes.length += 1;
                     };
+                    
                     // delete selected ingredients for a given recipe while editing
-                    $scope.deleteSelectedIngredient = function(element)
-                    {
-                        if ($scope.ingredientDisplay[element].id !== undefined)
-                        {
+                    $scope.deleteSelectedIngredient = function(element){
+                        if ($scope.ingredientDisplay[element].id !== undefined){
                             var ingredientIndex = $scope.ingredientDisplay[element].id;
                             recipeService.deleteRecipeIngredient(ingredientIndex)
                                 .then(function(response)
@@ -387,13 +369,12 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                                     console.log(error);
                                 });
                         }
-                        else
-                        {
+                        else{
                             $scope.removeIngs(element);
                         }
                     };
-                    $scope.addRecipeIngredModal = function()
-                    {
+                    
+                    $scope.addRecipeIngredModal = function(){
                         $scope.lastChecked = null;
                         $('#add-ingredients-modal')
                             .openModal();
@@ -406,8 +387,7 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                             .openModal();
                     };
                     
-                    $scope.removeIngredient = function(element)
-                    {
+                    $scope.removeIngredient = function(element){
                         // remove ingredient from checklist temp array
                         var index1 = $scope.checklistIngs.indexOf(element);
                         if (index1 >= 0){
@@ -419,33 +399,27 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         }
                         // remove ingredient from recipe ingredients
                         var index3 = -1;
-                        for (var ind = 0; ind < $scope.ingredientDisplay.length; ind++)
-                        {
-                            if (element.id === $scope.ingredientDisplay[ind].ingredient.id)
-                            {
+                        for (var ind = 0; ind < $scope.ingredientDisplay.length; ind++){
+                            if (element.id === $scope.ingredientDisplay[ind].ingredient.id){
                                 index3 = ind;
                                 break;
                             }
                         }
-                        if (index3 >= 0)
-                        {
+                        if (index3 >= 0){
                             $scope.ingredientDisplay.splice(index3, 1);
                         }
                     };
+                    
                     /* function to remove an ingredient from the recipe */
-                    $scope.removeIngs = function(index)
-                    {
+                    $scope.removeIngs = function(index){
                         // remove ingredient from checklist array
                         var index2 = -1;
-                        for (var i = 0; i < $scope.checklistIngredients.length; i++)
-                        {
-                            if ($scope.checklistIngredients[i].id === $scope.ingredientDisplay[index].ingredient.id)
-                            {
+                        for (var i = 0; i < $scope.checklistIngredients.length; i++){
+                            if ($scope.checklistIngredients[i].id === $scope.ingredientDisplay[index].ingredient.id){
                                 index2 = i;
                             }
                         }
-                        if (index2 >= 0)
-                        {
+                        if (index2 >= 0){
                             $scope.checklistIngredients.splice(index2, 1);
                         }
                         // remove ingredient from recipe ingredients
@@ -453,28 +427,25 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         // remove ingredient from recipe ingredients
                         $scope.AdditionalIngredientInfo.splice(index, 1);
                     };
-                    $scope.uploadFile = function(id)
-                    {
+                    
+                    $scope.uploadFile = function(id){
                         //var file = $scope.recipe_image_file;
-                        if ($scope.cropper.croppedImage)
-                        {
+                        if ($scope.cropper.croppedImage){
                             var image_blob = dataURLtoBlob($scope.cropper.croppedImage);
                             var fileName = 'recipe_pic.' + $scope.fileExtn;
                             var file = new File([image_blob], fileName);
                             
                             var url = 'recipes/recipe/' + id + '/';
-                            if (file)
-                            {
+                            if (file){
                                 recipeService.uploadRecipeImage(file, url);
                             }
                         }
                     };
+                    
                     /* function called for saving the recipe */
-                    $scope.finalizeRecipeCreation = function($files)
-                    {
+                    $scope.finalizeRecipeCreation = function($files){
                         $scope.recipe.directions = '';
-                        for (var i = 0; i < $scope.stepsToCreateRecipes.length; i++)
-                        {
+                        for (var i = 0; i < $scope.stepsToCreateRecipes.length; i++){
                             if($scope.stepsToCreateRecipes[i].length>0){
                                 $scope.recipe.directions = $scope.recipe.directions + $scope.stepsToCreateRecipes[i] + '{LineBreak}';
                             }
@@ -483,79 +454,66 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                         $scope.recipe.cook_time = $scope.cookHours + ':' + $scope.cookMins + ':00';
                         updateRecipe($scope.recipe);
                     };
+                    
                     $scope.counter = 0;
+                    
                     // updates contents of recipes after editing
-                    var updateRecipe = function(recipe)
-                    {
-                        recipeService.updateRecipe(recipe, recipe.id)
-                            .then(function(response)
-                            {
-                                for (var i = 0; i < $scope.ingredientDisplay.length; i++)
-                                {
-                                    /* create a recipe ingred object to send to server */
-                                    (function(cntr_i)
-                                    {
-                                        if ($scope.ingredientDisplay[i].id === undefined)
-                                        {
-                                            if ($scope.ingredientDisplay[cntr_i].description === undefined || $scope.ingredientDisplay[cntr_i].description === null){
-                                                $scope.ingredientDisplay[cntr_i].description = ''
-                                            }
-                                            var recipeIngred = {
-                                                recipe: recipe.id,
-                                                ingredient: $scope.ingredientDisplay[i].ingredient.id,
-                                                measure: $scope.ingredientDisplay[i].measure.id,
-                                                quantity: $scope.ingredientDisplay[i].quantity,
-                                                description:
-                                                $scope.ingredientDisplay[i].description || ''
-                                            };
-                                            recipeService.createRecipeIng(recipeIngred)
-                                                .then(function(response)
-                                                {
-                                                    //TODO: Add meaningful behaviour
-                                                    //    on successful return
-                                                    $scope.counter += 1;
-                                                    $scope.checkIfCompleted();
-                                                }, function(error)
-                                                {
-                                                    console.log(error);
-                                                });
-                                            /* upload image file to server upon id creation 
-                                           Note: it was easier to do this separately since
-                                           the other option was to rewrite sending data in 
-                                           a form as opposed to urlencoding it */
+                    var updateRecipe = function(recipe){
+                        recipeService.updateRecipe(recipe, recipe.id).then(function(response){
+                            for (var i = 0; i < $scope.ingredientDisplay.length; i++){
+                                    
+                                /* create a recipe ingred object to send to server */
+                                (function(cntr_i){
+                                    if ($scope.ingredientDisplay[i].id === undefined){
+                                        if ($scope.ingredientDisplay[cntr_i].description === undefined || $scope.ingredientDisplay[cntr_i].description === null){
+                                            $scope.ingredientDisplay[cntr_i].description = ''
                                         }
-                                        else
-                                        {
-                                            recipeService.updateRecipeIngredient($scope.ingredientDisplay[i],
-                                                    $scope.ingredientDisplay[i].id)
-                                                .then(function(response)
-                                                {
-                                                    //TODO: Add meaningful behaviour
-                                                    //    on successful return
-                                                    $scope.counter += 1;
-                                                    $scope.checkIfCompleted();
-                                                }, function(error)
-                                                {
-                                                    console.log(error);
-                                                });
-                                        }
-                                    })(i);
-                                }
-                                /* Redirect to view recipe page */
-                            }, function(error)
-                            {
-                                console.log('recipe could not be created, try again later', error);
-                            });
+                                        var recipeIngred = {
+                                            recipe: recipe.id,
+                                            ingredient: $scope.ingredientDisplay[i].ingredient.id,
+                                            measure: $scope.ingredientDisplay[i].measure.id,
+                                            quantity: $scope.ingredientDisplay[i].quantity,
+                                            description:
+                                            $scope.ingredientDisplay[i].description || ''
+                                        };
+                                        recipeService.createRecipeIng(recipeIngred)
+                                            .then(function(response){
+                                                //TODO: Add meaningful behaviour
+                                                //    on successful return
+                                                $scope.counter += 1;
+                                                $scope.checkIfCompleted();
+                                            }, function(error){
+                                                console.log(error);
+                                            });
+                                        /* upload image file to server upon id creation 
+                                       Note: it was easier to do this separately since
+                                       the other option was to rewrite sending data in 
+                                       a form as opposed to urlencoding it */
+                                    }
+                                    else{
+                                        recipeService.updateRecipeIngredient($scope.ingredientDisplay[i], $scope.ingredientDisplay[i].id)
+                                            .then(function(response){
+                                                
+                                                $scope.counter += 1;
+                                                $scope.checkIfCompleted();
+                                            }, function(error){
+                                                console.log(error);
+                                            });
+                                    }
+                                })(i);
+                            }
+                            /* Redirect to view recipe page */
+                        }, function(error){
+                            console.log('recipe could not be created, try again later', error);
+                        });
                     };
                     
                     $scope.updateIngredientQuantity = function(index){
                         $scope.ingredientDisplay[index].quantity = parseFloat($scope.ingredientDisplay[index].measure.amount);
                     };
                     
-                    $scope.checkIfCompleted = function()
-                    {
-                        if ($scope.counter === $scope.ingredientDisplay.length)
-                        {
+                    $scope.checkIfCompleted = function(){
+                        if ($scope.counter === $scope.ingredientDisplay.length){
                             $scope.uploadFile($scope.recipe.id);
                             $location.path('/recipes/view-recipe/' + $scope.recipe.id);
                         }
@@ -564,31 +522,25 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
                     /* Nutritional Information calculations based on changes to
                         selected ingredients */
 
-                    $scope.calculateNutritionTotal = function(
-                            nutrient) {
-                            var total = 0;
-                            var servings = parseInt($scope.recipe.servings);
-                            //prevent divide by zero
-                            if (!servings) {
-                                servings = 1;
-                            }
-                            for (var i = 0; i < $scope.ingredientDisplay
-                                .length; i++) {
-                                total += parseFloat($scope.ingredientDisplay[
-                                        i].ingredient[nutrient]) *
-                                    parseFloat($scope.ingredientDisplay[
-                                        i].quantity) * parseFloat(
-                                        $scope.ingredientDisplay[i]
-                                        .measure.weight) /
-                                    (100 * servings * parseFloat(
-                                        $scope.ingredientDisplay[i]
-                                        .measure.amount));
-                            }
-                            return total;
-                        };
-                        /* calculates additional nutritional information */
-                    $scope.calculateAddtnlNutritionTotal = function(
-                        nutrient) {
+                    $scope.calculateNutritionTotal = function(nutrient) {
+                        var total = 0;
+                        var servings = parseInt($scope.recipe.servings);
+                        //prevent divide by zero
+                        if (!servings) {
+                            servings = 1;
+                        }
+                        for (var i = 0; i < $scope.ingredientDisplay.length; i++) {
+                            total += parseFloat($scope.ingredientDisplay[i]
+                                                .ingredient[nutrient]) *
+                                parseFloat($scope.ingredientDisplay[i].quantity) * parseFloat($scope.ingredientDisplay[i].measure.weight) /
+                                (100 * servings * 
+                                 parseFloat($scope.ingredientDisplay[i].measure.amount));
+                        }
+                        return total;
+                    };
+                    
+                    /* calculates additional nutritional information */
+                    $scope.calculateAddtnlNutritionTotal = function(nutrient){
                         var total = 0;
                         var servings = parseInt($scope.recipe.servings);
                         //prevent divide by 0
@@ -657,15 +609,13 @@ app.controller('editRecipeController', ['$scope', 'AuthService',
         }
 ]);
 
-function dataURLtoBlob(dataurl)
-{
+function dataURLtoBlob(dataurl){
     var arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),
         n = bstr.length,
         u8arr = new Uint8Array(n);
-    while (n--)
-    {
+    while (n--){
         u8arr[n] = bstr.charCodeAt(n);
     }
     return new Blob([u8arr],
@@ -674,8 +624,7 @@ function dataURLtoBlob(dataurl)
     });
 }
 
-function blobToFile(theBlob, fileName)
-{
+function blobToFile(theBlob, fileName){
     //A Blob() is almost a File() - it's just missing the two properties below which we will add
     theBlob.lastModifiedDate = new Date();
     theBlob.name = fileName;
