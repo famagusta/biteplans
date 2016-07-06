@@ -292,6 +292,23 @@ app.controller('planController', ['$scope', 'AuthService', 'searchService',
                 .pickadate({
                     format: 'yyyy-mm-dd',
                     formatSubmit: false,
+                    today: 'Today',
+                    clear: '',
+                    close: 'Close',
+                    onRender: function(){
+                        /* Restyle the date picker for better UI UX*/
+                        var noOfPickers = $('.picker__month-display').length;
+                        
+                        for (var i=0; i< noOfPickers; i++){
+                            $('.picker__month-display')[i].innerHTML = "";
+                            $('.picker__day-display')[i].innerHTML = "";
+                            $('.picker__weekday-display')[i].innerHTML = "";
+                            $('.picker__year-display')[i].innerHTML = "";
+
+                            $('.picker__weekday-display')[i].innerHTML = "Follow A Plan";
+                            $('.picker__month-display')[i].innerHTML = "Select Start Date";
+                        }
+                    }, 
                     closeOnSelect: true,
                     onSet: function(context){
                         //make api call to follow the plan on setting of date

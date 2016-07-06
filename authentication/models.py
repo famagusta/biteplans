@@ -89,6 +89,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # these are not mandatory fields
     weight = models.DecimalField(null=True, blank=True,
                                  max_digits=11, decimal_places=3)
+    goal_weight = models.DecimalField(null=True, blank=True,
+                                      max_digits=11, decimal_places=3)
     height = models.DecimalField(null=True, blank=True,
                                  max_digits=11, decimal_places=3)
     date_of_birth = models.DateField(null=True, blank=True)

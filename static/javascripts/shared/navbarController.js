@@ -235,6 +235,14 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
             getProfileInfo();
         });
         
+        $scope.activityDescriptions = {
+            'Sedentary': 'Little or no Exercise/ desk job',
+            'Mild Activity': 'Light exercise/ sports 1 – 3 days/ week',
+            'Moderate Activity': 'Moderate Exercise, sports 3 – 5 days/ week',
+            'Heavy Activity': 'Heavy Exercise/ sports 6 – 7 days/ week',
+            'Very Heavy Activity': 'Very heavy exercise/ physical job/ training 2 x/ day'
+        };
+        
         var openUserInfoModal = function(){
             $scope.modal1 = false;
             $scope.modal2 = false;
@@ -256,6 +264,8 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
         
         $scope.profileInfo.activity_level = $scope.activityLevelChoices[0];
         
+        $scope.activityDesc = 
+            $scope.activityDescriptions[$scope.profileInfo.activity_level];
         $scope.updateDOB = function(){
             var $input = $('#dob_field_nav').pickadate({
                 format : 'd mmmm yyyy',
@@ -263,6 +273,23 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 yearSelector: true,
                 selectMonths: true,
                 selectYears: 100,
+                today: 'Today',
+                clear: '',
+                close: 'Done',
+                onRender: function(){
+                    /* Restyle the date picker for better UI UX*/
+                    var noOfPickers = $('.picker__month-display').length;
+
+                    for (var i=0; i< noOfPickers; i++){
+                        $('.picker__month-display')[i].innerHTML = "";
+                        $('.picker__day-display')[i].innerHTML = "";
+                        $('.picker__weekday-display')[i].innerHTML = "";
+                        $('.picker__year-display')[i].innerHTML = "";
+
+                        $('.picker__weekday-display')[i].innerHTML = "Date of Birth";
+                        $('.picker__month-display')[i].innerHTML = "Select Your Date of Birth";
+                    }
+                }, 
                 max: new Date(),
                 formatSubmit: false,
                 closeOnSelect: false,

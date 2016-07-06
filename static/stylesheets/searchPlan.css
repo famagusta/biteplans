@@ -282,4 +282,6 @@ position: relative !important;
 }
 
 
-
+.picker__month-display{
+    text-transform: none !important;
+}

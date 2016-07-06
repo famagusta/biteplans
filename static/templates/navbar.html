@@ -1,9 +1,38 @@
 <div class="ng-cloak" ng-cloak="" ng-controller="navbarController">
 <!--    ng-controller="navbarController">-->
-    <ul class="dropdown-content" id="dropdown1">
+    <ul class="dropdown-content profile_dropdown" id="dropdown1" >
         <li>
-            <a class="cyan-text" ng-click="logout()">Logout</a>
+            <a href="/dashboard/profile" class="cyan-text">
+                <i class="material-icons left grey-text">account_circle</i>
+                Profile
+            </a>
         </li>
+        <li>
+            <a href="/dashboard/calendar" class="cyan-text">
+                <i class="material-icons left grey-text">date_range</i>
+                Calendar</a>
+        </li>
+        <li>
+            <a href="/dashboard/plans" class="cyan-text">
+                <i class="material-icons left grey-text">assignment</i>
+                My Plans</a>
+        </li>
+        <li>
+            <a href="/dashboard/recipes" class="cyan-text">
+                <img src="static/images/recipes-icon-png.png" style="width:15%; margin-right:15px">
+                My Recipes</a>
+        </li>
+        <li>
+            <a href="/dashboard/ingredients" class="cyan-text">
+                <img src="static/images/ingredients.png" style="width:15%; margin-right:15px">
+                My Ingredients</a>
+        </li>
+        <li>
+            <a class="cyan-text" ng-click="logout()">
+                <i class="material-icons left grey-text">exit_to_app</i>
+                Logout</a>
+        </li>
+        
     </ul>
     
     <ul id="dropdown-search" class="dropdown-content dpdown-cont-top">
@@ -13,8 +42,8 @@
     </ul>
     
     <ul id="dropdown-create" class="dropdown-content dpdown-cont-top">
-      <li> <a class="cyan-text" ng-click="openCreatePlanModal()">Diet Plan</a></li>
-      <li><a class="cyan-text"ng-click="goToCreateRecipe()" href="#">Recipe</a></li>
+      <li> <a class="cyan-text" ng-click="openCreatePlanModal()" href="#">Diet Plan</a></li>
+      <li><a class="cyan-text" ng-click="goToCreateRecipe()" href="#">Recipe</a></li>
     </ul>
 
     <nav class="navbar" role="navigation" id="navbar">
@@ -28,7 +57,7 @@
                 
                 <li>
                     <a class='dropdown-button' data-activates='dropdown-search'
-                       data-beloworigin="true">
+                       data-beloworigin="true" href="#">
                         Search
                         <i class="material-icons right navbar-dropdown-icon">arrow_drop_down</i>
                     </a>
@@ -36,7 +65,7 @@
                 
                 <li>
                     <a class='dropdown-button' data-activates='dropdown-create'
-                       data-beloworigin="true">
+                       data-beloworigin="true" href="#">
                         Create
                         <i class="material-icons right navbar-dropdown-icon">arrow_drop_down</i>
                     </a>
@@ -57,10 +86,10 @@
                     </button>
                     <button ng-show="isLoggedIn" 
                             class='circle dropdown-button btn-thumb'
-                            data-activates='dropdown1' data-beloworigin="true">
+                            data-activates='dropdown1' data-beloworigin="true" style="cursor:!important pointer">
                 
                         <img class="responsive-img small circle"
-                            id="small_logo" ng-src="{{user_thum}}">
+                            id="small_logo" ng-src="{{user_thum}}" style="cursor:pointer">
                     </button>
                 </li>
             </ul>
@@ -434,35 +463,52 @@
 
                 <form ng-submit="updateProfileInfo()">
                     <div class="row">
-                        <div class="input-field col s8 m6 push-m3 push-s2">
+                        <div class="input-field col s8 m6  push-s2">
                             <label adjust-placeholder for="weight">Current Weight (in kgs)</label>
                             <input ng-class="validate" min="0" max="650" id="weight"         step="0.1" ng-model="profileInfo.weight" required title="Please enter your weight" type="number">
+                        </div>
+                        <div class="input-field col s8 m6  push-s2">
+                            <label adjust-placeholder for="goal_weight">Goal Weight (in kgs)</label>
+                            <input ng-class="validate" min="0" max="650" id="goal_weight"         step="0.1" ng-model="profileInfo.goal_weight" required title="Please enter your weight" type="number">
                         </div>
                     </div>
                     
                     <div class="row">
-                        <div class="input-field col s8 m6 push-m3 push-s2">
+                        <div class="input-field col s8 m6 push-s2">
                             <input ng-class="validate" id="height" step="0.1"
                                    min="0" max="300" required
                                    ng-model="profileInfo.height" type="number"
                                    required title="Please enter your height">
                             <label adjust-placeholder for="height">Height (in cms)</label>
                         </div>
+                        
+                        <div class="input-field col s8 m6 push-s2" style="margin-top:-10px">
+                            <label>Gender</label>
+                            <br>
+                            <input checked class="with-gap" id="test5"
+                            name="group3" ng-model=
+                            'profileInfo.gender' type="radio" value="M" required>
+                            <label for="test5">Male</label>&nbsp;&nbsp;
+                            <input class="with-gap" id="test4" 
+                                   name="group3" ng-model='profileInfo.gender' 
+                                   type="radio" value="F" required>
+                            <label for="test4">Female</label>
+                        </div>
                     </div>
-                    
+                    <br>
 
                     <div class="row">
-                        <div class="input-field col s10 m7 offset-m1 push-m2 push-s1">
-                            <label for="activity_level" adjust-placeholder>Activity Level</label>
+                        <div class="input-field col s10 m10 push-s1 push-m1">
+                            <label for="activity_level" adjust-placeholder>Activity Level : <br> {{activityDescriptions[profileInfo.activity_level]}}</label>
                             <select class="" ng-model="profileInfo.activity_level" material-select watch id="activity_level">
                                 <option ng-repeat="value in activityLevelChoices">{{value}}</option>
                             </select>
                         </div>
                     </div>
                     
-                    
                     <!-- GENDER -->
 
+<!--
                     <div class="row">
                         <div class="input-field col s8 m6 push-m3 push-s2">
                             <label>Gender</label>
@@ -477,12 +523,13 @@
                             <label for="test4">Female</label>
                         </div>
                     </div>
+-->
                     <!-- DATE OF BIRTH -->
 
                     
                     <div class="row">
                         
-                        <div class="input-field col s8 m6 push-m3 push-s2" style="margin-top:60px">
+                        <div class="input-field col s8 m6 push-m3 push-s2">
                             <label for="dob_field_nav" adjust-placeholder>Date of Birth</label>
                             <input class="datepicker_btn" ng-click="updateDOB()" id="dob_field_nav" required
                             ng-model="placeHolderDOB" type=

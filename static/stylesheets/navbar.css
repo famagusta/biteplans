@@ -193,13 +193,14 @@ nav ul li {
 #user_info_modal {
     top: 5% !important;
     max-height: 92% !important;
-    height : 92% !important;
+    height : 75% !important;
     width: 30%;
 }
 
 @media only screen and (max-width : 600px) {
     #user_info_modal {
-        width: 80%;
+        width: 90%;
+        height : 92% !important;
     }
 }
 
@@ -213,4 +214,8 @@ nav ul li {
 
 .dpdown-cont-top {
     z-index: 1004 !important;
+}
+
+.profile_dropdown {
+    width: 200px !important;
 }
