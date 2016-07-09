@@ -139,7 +139,6 @@
             
             <ul ng-show="isLoggedIn" id="slide-out" class="side-nav">
                 <li class="bold">
-                  <div class="row">
                       <a href="/dashboard/summary">
                           <img ng-if="tab.tab!=='summary'" class="icon-orig-nav"     
                                src="static/images/summary_deselect.png">
@@ -148,55 +147,46 @@
 
                           <span class="slide-nav-title">Summary</span>
                       </a>
-                  </div>
                 </li>
                 <li class="bold">
-                  <div class="row">
-                      <a  href="/dashboard/profile" >
+                  <a  href="/dashboard/profile" >
                           <img ng-if="tab.tab!=='profile'" class="icon-orig-nav"     
                                src="static/images/profile_deselect.png">
                           <img ng-if="tab.tab==='profile'" class="icon-orig-nav"
                                src="static/images/profile.png">
                           <span class="slide-nav-title">Profile</span>
                       </a>
-                  </div>
+                  
                 </li>
                 <li class="bold">
-                  <div class="row">
-                      <a  href="/dashboard/calendar" >
+                  <a  href="/dashboard/calendar" >
                           <img ng-if="tab.tab!=='calendar'" class="icon-orig-nav"     
                                src="static/images/calendar_deselect.png">
                           <img ng-if="tab.tab==='calendar'" class="icon-orig-nav"
                                src="static/images/calendar.png">
                           <span class="slide-nav-title">Calendar</span>
                       </a>
-                  </div>
                 </li>
                 <li class="bold">
-                  <div class="row">
-                      <a  href="/dashboard/plans" >
+                  <a  href="/dashboard/plans" >
                           <img ng-if="tab.tab!=='plans'" class="icon-orig-nav"     
                                src="static/images/myplans_deselect.png">
                           <img ng-if="tab.tab==='plans'" class="icon-orig-nav"
                                src="static/images/myplans.png">
                           <span class="slide-nav-title">My Plans</span>
                       </a>
-                  </div>
                 </li>
                 <li class="bold">
-                  <div class="row">
-                      <a  href="/dashboard/recipes" >
+                    <a  href="/dashboard/recipes" >
                           <img ng-if="tab.tab!=='recipes'" class="icon-orig-nav"     
                                src="static/images/reciepes_deselect.png">
                           <img ng-if="tab.tab==='recipes'" class="icon-orig-nav"
                                src="static/images/reciepes.png">
                           <span class="slide-nav-title">My Recipes</span>
                       </a>
-                  </div>
                 </li>  
                 <li class="bold">
-                  <div class="row">
-                      <a  href="/dashboard/ingredients" >
+                  <a  href="/dashboard/ingredients" >
                           <img ng-if="tab.tab!=='ingredients'"
                                class="icon-orig-nav"     
                                src="static/images/myingredients_deselect.png">
@@ -205,12 +195,10 @@
                                src="static/images/myingredients_select.png">
                           <span class="slide-nav-title">My Ingredients</span>
                       </a>
-                  </div>
                 </li>
                 <li class="bold">
                     
-                  <div class="row">
-                      <a href="/dietplans/search">
+                  <a href="/dietplans/search">
                           <img ng-if="tab.tab!=='searchPlans'" 
                                class="icon-orig-nav"     
                                src="static/images/searchplan_deselect.png">
@@ -219,7 +207,6 @@
                                src="static/images/searchplan.png">
                           <span class="slide-nav-title">Search Plans</span>
                       </a>
-                  </div>
              </li>
             </ul>
             

@@ -219,3 +219,12 @@ nav ul li {
 .profile_dropdown {
     width: 200px !important;
 }
+
+.icon-orig-nav {
+/*    margin-top: 10px !important;*/
+    padding:10px !important;
+}
+
+#slide-out{
+    width: 250px !important;
+}

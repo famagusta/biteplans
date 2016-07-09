@@ -1,7 +1,7 @@
 <main ng-controller="landingPageController">
      <div class="parallax-container" ng-class="{'less-top': isLoggedIn}">
         <div class="parallax">
-            <img src="static/images/banner_bg.jpg" style="zoom:75%; padding-bottom:100px">
+            <img ng-src="{{banner}}" style="zoom:75%; padding-bottom:100px">
             <div class="caption center-align image-overlay">
                 <div class="hide-on-small-only">
                     <h2 class="bite">BITE</h2>
