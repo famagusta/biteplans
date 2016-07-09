@@ -13,6 +13,24 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
         $scope.profileInfo = {};
         $scope.placeHolderDOB = null;
         var isProfileInfo = false;
+        $scope.tab = {};
+        
+        var updateNavbarIcons = function(){
+            var params = $routeParams;
+            
+            var dashboardItems = ['summary', 'profile', 'calendar', 'plans', 'recipes', 'ingredients'];
+
+            if (dashboardItems.indexOf(params.page) > -1) {
+                $scope.tab.tab = params.page;
+            } 
+            else {
+                $scope.tab.tab = 'summary';
+            }
+        }
+        
+        $scope.$on('$routeChangeStart', function(next, current) {
+            $scope.tab.tab = current.params.page;
+        });
         
         var checkLoggedIn = function() {
             AuthService.isAuthenticated()
@@ -21,7 +39,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                     $scope.profileInfo.id = response.pk;
                     isProfileInfo = response.profile_status;
                     getProfileInfo();
-                
+                    updateNavbarIcons();
                     //prompt user to fill in basic details
                     if(response.status && !isProfileInfo){
                         openUserInfoModal();    
@@ -333,66 +351,6 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
 
         });
         var isAuth = false;
-        
-        AuthService.isAuthenticated()
-            .then(function(response){
-                isAuth = response.status;
-                if(isAuth){
-                    $scope.token = $window.localStorage.token;
-                    $scope.username = $window.localStorage.username;
-                    $scope.params = $routeParams;
-                    
-                    $scope.tab = {};
-                    var dashboardItems = ['summary', 'profile', 'calendar', 'plans', 'recipes', 'ingredients'];
-                    
-                    if (dashboardItems.indexOf($scope.params.page) > -1) {
-                        
-                        $scope.tab.tab = $scope.params.page;
-                    } 
-                    else {
-                        $scope.tab.tab = 'summary';
-                    }
-                    
-                    $scope.setTab = function(tab) {
-                        $('.button-collapse-2').sideNav('hide');
-                        if (dashboardItems.indexOf(tab) > -1){
-                            $window.location.assign('dashboard/' + tab);
-                        } else if (tab === "searchPlans") {
-                            $window.location.assign('dietplans/search');
-                        } else if(tab === "createRecipe"){
-                            $window.location.assign('recipes/create-recipes');
-                        }
-                        else {
-                            $window.location.assign('dashboard/summary');
-                        }
-                    };
-                    
-
-                    $scope.tab.isSet = function(tabId) {
-                        return $scope.tab.tab === tabId;
-                    };
-                    
-                    
-                    $scope.isMobile = function(){
-                        /* dynamically add navbar-fixed class to navbar for mobile devices - we want the navbar to be fixed on phones but
-                        not browser*/
-                        return $window.innerWidth < 600;
-                    }
-
-                    $scope.edit = 0;
-
-                    $scope.editProfileForm = function() {
-                        $scope.edit = 1;
-                    };
-
-                    $scope.calendar = function(){
-                        $scope.tab.tab = 'calendar';
-                    };
-                    
-                }
-        }, function(error){
-            console.log(error);
-        });
         
         $scope.goToCreateRecipe = function(){
             if(constants.userOb.status){

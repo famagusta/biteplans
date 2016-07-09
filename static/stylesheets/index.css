@@ -283,3 +283,9 @@ select.picker__select--year.browser-default{
 .less-top{
     top:-19px !important;
 }
+
+@media only screen and (max-width : 600px) {
+    .less-top{
+        top:0px !important;
+    }
+}
