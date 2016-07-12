@@ -85,287 +85,143 @@
                             </h5>
                         </div>
                         
-                        <div class="col s12">
-                            <div class="hor-line" ng-repeat="(index1, meal) in plan_data">
-                                <div class="row">
-                                    <div class="col s1">
-                                        
-                                        <a
-                                        id="add-meal-button" ng-click=
-                                        "clearMeal(index1)"><i class=
-                                        "material-icons createbin">
-                                        delete</i></a>
+                        <ul class="collection">
+                            <li ng-repeat="(index1, key) in plan_data" class="collection-item avatar viewplan-meals" style="padding-left:0px !important;">
+                                <div class="row show-on-medium-and-up hide-on-small-only">
+                                    <div class="col s12 m6">
+                                        <i class="material-icons left">restaurant</i>
+                                        <span class="title left">{{key.name}} &nbsp;&nbsp;</span>
                                     </div>
+                                    <div class="col s12 offset-m2 m4">
 
-
-                                    <div class="col s5 push-s1 m3">
-                                        <p class="ing-text">{{meal.name}}</p>
-                                    </div>
-
-
-                                    <div class="col s5 push-s1 m2">
-                                        <p class="ing-text">{{meal.time}}</p>
-                                    </div>
-                                </div>
-
-                                <div ng-if="meal.followingMealPlanRecipe != undefined && meal.followingMealPlanRecipe.length>0" >
-
-                                <p class="ing-text meal_category" style="margin-left:11px !important">Recipes</p>
-
-                                <br><br>
-                                <div class="row">
-                                        <div class="col s5 m5 center">
-                                            <p class="meal-head">
-                                            Name</p>
-                                        </div>
-
-                                        <div class="col s3 m2">
-                                           <p class="meal-head center">Servings</p>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <br>
-                                
-                                <div class="meal_lst" ng-repeat=
-                                '(index3, recipe) in meal.followingMealPlanRecipe'>
-                                <div class="row">
-                                        <div class="col s5 m5">
-                                            <a href="/recipes/view-recipe/{{recipe.meal_recipe.id}}/"
-                                               class="name-a meal-text">
-                                            <p class="meal-text">
-                                            {{recipe.meal_recipe.name}}
-                                            </p>
-                                            </a>
-                                        </div>
-
-
-                                        <div class="col s3 m2">
-                                            <input class="serving" id=
-                                            "dash_servings" min="0" ng-blur=
-                                            "updateMealRecipe(recipe)"
-                                            ng-model="recipe.no_of_servings"
-                                            ng-pattern=
-                                            "/^[0-9]+(\.[0-9]{1,2})?$/" step=
-                                            "0.25" type="number">
-                                        </div>
-
-
-                                        <div class="col s2 m1 push-m2">
-                                            <span class=
-                                            "center-align"><input 
-                                            checklist-model="checklistRecipes"
-                                            checklist-value="recipe" class=
-                                            "filled-in" id=
-                                            "rec-filled-in-box-{{index1}}-{{index3}}"
-                                            ng-change=
-                                            "updateMealRecipe(recipe)"
-                                            type="checkbox"> <label class=
-                                            "ing-text highlight" for=
-                                            "rec-filled-in-box-{{index1}}-{{index3}}"
-                                            id="check-label"></label></span>
-                                        </div>
-
-
-                                        <div class="col s2 m1 push-m3 bin">
-                                            <span class=
-                                            "card-title center-align"><a ng-click="removeRecipeFromSavedMeal(index1,index3)">
-                                            <i class=
-                                            "material-icons createbin">delete</i></a></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div ng-if="meal.followingMealPlanIngredient != undefined && meal.followingMealPlanIngredient.length>0" >
-
-                                <p class="ing-text meal_category" style="margin-left:16px !important">Ingredients</p><br>
-                                <div class="row">
-                                        <div class="col s7 m2 push-m1 center">
-                                             <p class="meal-head">Name</p>
-                                        </div>
-
-
-                                        <div class="col s3 m2 push-m1">
-                                           <p class="meal-head right">Quantity</p>
-                                        </div>
-
-
-                                        <div class="col s2 m1 push-m1">
                                             
-                                             <p class="meal-head">Weight</p>
-                                        </div>
+                                            <span class="title right"><i class="material-icons right">schedule</i>
+                                                {{key.time | date:'hh:mma'}}
 
-
-                                        <div class="col s4 m2 push-m2 center hide-on-small-only">
-                                            <p class="meal-head center">Unit</p>
-                                        </div>
-
+                                            </span>
                                     </div>
-
                                 </div>
-                                <br>
-                                <div class="meal_lst" ng-repeat=
-                                '(index2, ingredient) in meal.followingMealPlanIngredient '>
-                                    <div class="row valign-wrapper hide-on-small-only">
-                                        <div class="col s12 m6 valign-wrapper">
-                                            <div class="col s7">
-                                                <p class="meal-text">
-                                                {{ingredient.meal_ingredient.name}}
-                                                </p>
-                                            </div>
+                                <div class="row show-on-small hide-on-med-and-up">
+                                    <div class="col s12 center">
+                                        <i class="material-icons left">restaurant</i>
+                                        <span class="title center">{{key.name}} &nbsp;&nbsp;
+                                                {{key.time | date:'hh:mma'}}
 
-
-                                            <div class="col s3">
-                                                <input class="dash_serving" min="0" ng-blur=
-                                                "updateMealIngredientQuantity(ingredient)"
-                                                ng-model="ingredient.quantity"
-                                                ng-pattern=
-                                                "/^[0-9]+(\.[0-9]{1,2})?$/" step=
-                                                "0.25" type="number">
-                                            </div>
-
-
-                                            <div class="col s2">
-                                                <p class="meal-text">
-                                                {{((ingredient.unit_desc.weight)* (ingredient.quantity)/ingredient.unit_desc.amount |
-                                                number:0)  +
-                                                '&nbsp;' + 'gms'}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col s12 m6 valign-wrapper">
-                                            <div class="col s6 push-s1">
-                                                <select 
-                                                ng-model=
-                                                "ingredient.unit_desc"
-                                                ng-options=
-                                                "meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
-                                                ng-change=
-                                                        "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc"
-                                                 material-select watch>
-                                                </select>
-
-                                            </div>
-
-
-                                            <div class="col s2">
-
-                                                <span class=
-                                                "center-align"><input 
-                                                checklist-model="checklistIngredients"
-                                                checklist-value="ingredient" class=
-                                                "filled-in" id=
-                                                "filled-in-box-{{index1}}-{{index2}}"
-                                                ng-change=
-                                                "updateMealIngredientCheck(ingredient)"
-                                                type="checkbox"> <label for=
-                                                "filled-in-box-{{index1}}-{{index2}}"
-                                                id="summary-check-label"></label></span>
-                                            </div>
-
-
-                                            <div class="col s2 push-s1">
-                                                <span class=
-                                                "card-title center-align"><a ng-click="removeIngredientsFromSavedMeal(index1,index2)">
-                                                <i class=
-                                                "material-icons createbin">delete</i></a></span>
-                                            </div>
-
-                                        </div>
-
+                                            </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" ng-repeat="(index2, ingredient) in key.followingMealPlanIngredient">
+                                    <div class="col s1 m1">
+                                        <input 
+                                        checklist-model="checklistIngredients"
+                                        checklist-value="ingredient" class=
+                                        "filled-in" id=
+                                        "filled-in-box-{{index1}}-{{index2}}"
+                                        ng-change=
+                                        "updateMealIngredientCheck(ingredient)"
+                                        type="checkbox"> <label for=
+                                        "filled-in-box-{{index1}}-{{index2}}"
+                                        id="summary-check-label" style="height:0px !important"></label>
                                     </div>
                                     
-                                    <div class="row hide-on-med-and-up ">
-                                        <div class="col s12 valign-wrapper">
-                                            <div class="col s7 left-align">
-                                                <p class="meal-text">
-                                                {{ingredient.meal_ingredient.name}}
-                                                </p>
-                                            </div>
-
-
-                                            <div class="col s3 center-align">
-                                                <input class="dash_serving" min="0" ng-blur=
-                                                "updateMealIngredientQuantity(ingredient)"
-                                                ng-model="ingredient.quantity"
-                                                ng-pattern=
-                                                "/^[0-9]+(\.[0-9]{1,2})?$/" step=
-                                                "0.25" type="number">
-                                            </div>
-
-
-                                            <div class="col s2 right-align">
-                                                <p class="meal-text">
-                                                {{((ingredient.unit_desc.weight)* (ingredient.quantity)/ingredient.unit_desc.amount |
-                                                number:0)  +
-                                                '&nbsp;' + 'gms'}}</p>
-                                            </div>
-                                        </div>
-
-                                        <div class="col s12 valign-wrapper">
-                                            <div class="col s7">
-                                                <select material-select 
-                                                ng-model=
-                                                "ingredient.unit_desc"
-                                                ng-options=
-                                                "meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
-                                                ng-change=
-                                                        "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc">
-                                                </select>
-
-                                            </div>
-
-
-                                            <div class="col s2">
-
-                                                <span class=
-                                                "center-align"><input 
-                                                checklist-model="checklistIngredients"
-                                                checklist-value="ingredient" class=
-                                                "filled-in" id=
-                                                "filled-in-box-{{index1}}-{{index2}}"
-                                                ng-change=
-                                                "updateMealIngredientCheck(ingredient)"
-                                                type="checkbox"> <label for=
-                                                "filled-in-box-{{index1}}-{{index2}}"
-                                                id="summary-check-label"></label></span>
-                                            </div>
-
-
-                                            <div class="col s2 push-s1">
-                                                <span class=
-                                                "card-title center-align"><a ng-click="removeIngredientsFromSavedMeal(index1,index2)">
-                                                <i class=
-                                                "material-icons createbin">delete</i></a></span>
-                                            </div>
-
-                                        </div>
-
+                                    <div class="col push-s1 s4 m2">
+                                        <input class="dash_serving" min="0" ng-blur=
+                                        "updateMealIngredientQuantity(ingredient)"
+                                        ng-model="ingredient.quantity"
+                                        ng-pattern=
+                                        "/^[0-9]+(\.[0-9]{1,2})?$/" step=
+                                        "0.25" type="number">
+                                    </div>
+                                    <div class="col s5 push-s1 m3">
+                                        <select ng-model="ingredient.unit_desc"
+                                        ng-options="meas as meas.description for meas in ingredient.meal_ingredient.measure track by meas.id" 
+                                        ng-change=
+                                                "updateQuantity(index1, index2); updateMealIngredientMeasure(ingredient);"ng-if="ingredient.unit_desc"
+                                         material-select watch>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col s10 m5">
+                                        <p class="meal-text center">
+                                           {{ingredient.meal_ingredient.name}}
+                                           &nbsp;&nbsp;&nbsp; ({{ingredient.quantity*ingredient.unit_desc.weight | number:0}}
+                                            &nbsp; grams)
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="col s2 m1">
+                                        <span class=
+                                        "card-title center-align"><a ng-click="removeIngredientsFromSavedMeal(index1,index2)">
+                                        <i class=
+                                        "material-icons createbin">delete</i></a></span>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                        <div class="col s12">
-                                            
-                                            <a class="cyan-text" ng-click=
-                                            "openQuickToolsModal(index1)"><b>Quick
-                                            Tools</b></a>&nbsp;&nbsp;
-                                            <span class="cyan-text">|</span>&nbsp;&nbsp;
-                                            <a class="cyan-text" ng-click=
-                                            "openCreatePlanModal(index1)"><b>Add
-                                            Food</b></a>
-                                            <span class=
-                                            "cyan-text">|</span>&nbsp;&nbsp;
-                                            <a class="cyan-text" ng-click=
-                                            "openMealInfoModal(index1)"><b>Meal
-                                            Info</b></a>
-                                        </div>
-                                    </div>
                                 
-                            </div>
-                        </div>
-
+                                <div class="row" ng-repeat="(index3, recipe) in key.followingMealPlanRecipe">
+                                    <div class="col s2 m1" >
+                                        <span class="center-align"><input 
+                                        checklist-model="checklistRecipes"
+                                        checklist-value="recipe" class=
+                                        "filled-in" id=
+                                        "rec-filled-in-box-{{index1}}-{{index3}}"
+                                        ng-change=
+                                        "updateMealRecipe(recipe)"
+                                        type="checkbox"> <label class=
+                                        "ing-text highlight" for=
+                                        "rec-filled-in-box-{{index1}}-{{index3}}"
+                                        id="check-label"></label></span>
+                                    </div>
+                                    <div class="col s5 m2">
+                                        <input class="serving" id=
+                                        "dash_servings" min="0" ng-blur=
+                                        "updateMealRecipe(recipe)"
+                                        ng-model="recipe.no_of_servings"
+                                        ng-pattern=
+                                        "/^[0-9]+(\.[0-9]{1,2})?$/" step=
+                                        "0.25" type="number">
+                                    </div>
+                                    <div class="col s5 m2">
+                                        <p class="meal-text">
+                                        {{recipe.meal_recipe.serving_descriptor}}
+                                        </p>
+                                    </div>
+                                    <div class="col s10 m6">
+                                        <a ng-href="/recipes/view-recipe/{{recipe.meal_recipe.id}}">
+                                            <p class="meal-text">
+                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                                {{recipe.meal_recipe.name}}
+                                            </p>
+                                        </a>
+                                    </div>
+                                    <div class="col s2 m1 bin">
+                                        <span class=
+                                        "card-title center-align"><a ng-click="removeRecipeFromSavedMeal(index1,index3)">
+                                        <i class=
+                                        "material-icons createbin">delete</i></a></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col s12">
+                                        <a class="cyan-text" ng-click=
+                                        "openQuickToolsModal(index1)"><b>Quick
+                                        Tools</b></a>&nbsp;&nbsp;
+                                        <span class="cyan-text">|</span>&nbsp;&nbsp;
+                                        <a class="cyan-text" ng-click=
+                                        "openCreatePlanModal(index1)"><b>Add
+                                        Food</b></a>
+                                        <span class=
+                                        "cyan-text">|</span>&nbsp;&nbsp;
+                                        <a class="cyan-text" ng-click=
+                                        "openMealInfoModal(index1)"><b>Meal
+                                        Info</b></a>
+                                    </div>
+                                </div>
+                                
+                            </li>
+                        </ul>
+                        
                         <div class="col s12 m12">
                             <div class="row valign-wrapper">
                                 <div class="col s1 left-align">
@@ -397,7 +253,7 @@
         <div class="col s12 m4">
             <div class="row">
                 <div class="col s12 m12">
-                    <div class="card dash_graphcard">
+                    <div class="card dash_graphcard"  pushpin pushpin-top="1000" pushpin-offset="0" pushpin-bottom="Infinity">
                         <div class="card-content black-text">
                             <p class="ing-text">Total Calories</p>
 

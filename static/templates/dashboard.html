@@ -3,9 +3,9 @@
 <div id="planPage">
     <div id="dashboard-page" >
         <div class="row">
-            <div class="col s12 m2 hide-on-small-only" >
-                <div class="card white darken-1 sidemenu_margin">
-                    <div class="card-content grey-text">
+            <div class="col s12 m2 hide-on-small-only">
+                <div class="card white darken-1 sidemenu_margin"  >
+                    <div class="card-content grey-text" >
                         <div class="row">
                             <!-- SUMMARY TAB -->
 
@@ -181,8 +181,6 @@
                 </div>
             </div>
             
-    
-            
             <!--SUMMARY VIEW -->
 
 
@@ -206,23 +204,9 @@
 
             <div ng-if="tab.tab==='calendar'">
                 <div class="col s12 m10">
-<!--                    <div class="col s10">-->
-<!--                        <div class="card top_mar" >-->
                             <div ng-include="'static/templates/calendar.html'" class="calendar"></div>
-<!--                        </div>-->
-<!--                    </div>-->
-<!--
-                    <div class="col s10">
-                        <div class="card" >
-                            <div ng-include="'static/templates/followPlans.html'"></div>
-                        </div>
-                    </div>
--->
                 </div>
                 
-<!--                <div class="row">-->
-                    
-<!--                </div>-->
             </div>
 
             <div ng-if="tab.tab==='plans'">
@@ -257,13 +241,6 @@
                 </div>
             </div>
             
-<!--
-            <div ng-if="tab.tab==1" ng-controller="summaryCtrl">
-                <div class="col s4">
-                    <div ng-include="'static/templates/summaryGraphs.html'"></div>
-                </div>
-            </div>
--->
         </div>
     </div>
 </div>
