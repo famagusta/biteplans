@@ -106,10 +106,10 @@ SOCIAL_AUTH_PIPELINE = (
 )
 # JWT Auth settings
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=7),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
     'JWT_ALLOW_REFRESH': True,
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(seconds=30),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=30),
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True
 }
