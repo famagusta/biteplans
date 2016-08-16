@@ -18,6 +18,15 @@ app.factory('authInterceptor', ['$rootScope', '$q', '$window', function($rootSco
         // handle the case where the user is not authenticated
       }
       return response || $q.when(response);
+    },
+    responseError: function (responseError) {
+//        if (responseError.status === 401) {
+//            $window.localStorage.removeItem('token');
+//            $window.localStorage.removeItem('username');
+//            return;
+//            // handle the case where the token expired
+//          }
+        return responseError;
     }
   };
 }]);

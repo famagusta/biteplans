@@ -53,7 +53,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             templateUrl: '/static/templates/landingPage.html',
             resolve: {
                 'AuthCheck': ['AuthService', function (AuthService) {
-                    return AuthService.isAuthenticated();
+                    return AuthService.isTokenExpired();
+                    //return AuthService.isAuthenticated();
                 }]
             }
         }).when('/confirm/:activation_key', {

@@ -200,29 +200,6 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 
         };
 
-        /* function to update a user profile */
-//        var updateProfile = function (args, id) {
-//            var url = '/authentication/api/v1/register/' + id + '/';
-//        };
-        
-        /*User resource for sharing between different controllers */
-        // I think this doesnt work anumore
-//        var userOb = {};
-//        userOb.current = {};
-//        constants.userOb.set_user = function (response) {
-//            if (response) {
-//                constants.userOb.current = response.data;
-//            }
-//            else {
-//                constants.userOb.current = {
-//                    'username': null,
-//                    'first_name': null,
-//                    'last_name': null,
-//                    'email': null,
-//                    'social_thumb': '{% static "anonymous.png" %}'
-//                };
-//            }
-//        };
 
         /*Function for social login */
         var loginSocial = function (provider) {
@@ -230,7 +207,6 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             $auth.authenticate(provider)
                 .then(function (response) {
                     $auth.setToken(response.data.token);
-//                    constants.userOb.set_user(response);
                     constants.userOb.pk = response.data.id;
                     constants.userOb.status = true;
                     prom.resolve(response.data);
@@ -250,14 +226,14 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
         // I think this doesnt work anymore
         var getCurrentUserDetails = function () {
             if ($auth.getToken()) {
-                httpService.httpGet(
-                       '/authentication/api/v1/jwt_user/'
-                    )
+                httpService.httpGet('/authentication/api/v1/jwt_user/')
                     .then(function (response) {
                         constants.userOb.pk = response.id;
                         constants.userOb.status = true;
                         //return UserOb;
-                    });
+                    }, function(error){
+                        console.log(error);
+                });
             }
         };
 
@@ -285,7 +261,31 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
             return deferred.promise;
         };
 
+        // check if existing token is expired
+        var isTokenExpired = function(){
+            if ($window.localStorage.token) {
+                var url ='/authentication/api-token-verify/'
+                var deferred = $q.defer();
+                httpService.httpPost(url, {
+                    'token' : $window.localStorage.token,
+                }).then(function (response) {
+                    if ('non_field_errors' in response){
+                        if(response['non_field_errors'][0] === "Signature has expired."){
+                            $window.localStorage.removeItem('token');      
+                        }
+                    }else{
+                        isAuthenticated();
+                    }
+                    deferred.resolve(response);
+                }, function (error) {
+                    deferred.reject(error);
+                });
 
+            return deferred.promise;
+            }
+        }
+
+        
         var isAuthenticated = function () {
             var url = '/authentication/loginstatus/';
             var deferred = $q.defer();
@@ -315,6 +315,9 @@ app.factory('AuthService', ['httpService', '$location', 'constants', '$q',
 //                location.reload(); 
                 return 'User has been logged out';
 
+            },
+            isTokenExpired: function(){
+                return isTokenExpired();
             },
             isAuthenticated: function () {
                 return isAuthenticated();

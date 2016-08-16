@@ -49,7 +49,7 @@ app.controller('navbarController', ['$scope', '$location', 'AuthService',
                 });
             return $scope.isLoggedIn;
         };
-        checkLoggedIn();
+        //checkLoggedIn();
         
         $rootScope.$on('authFailure', function(event, args) {
             /* function to access navbar controller for auth */

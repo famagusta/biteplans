@@ -2,6 +2,7 @@
 from rest_framework import routers
 from django.conf.urls import patterns, url, include
 from authentication import views
+from rest_framework_jwt.views import verify_jwt_token
 
 router = routers.SimpleRouter()
 router.register(r'register',
@@ -13,6 +14,7 @@ urlpatterns = patterns('',
                            'rest_framework_jwt.views.obtain_jwt_token'),
                        url(r'^api/v1/jwt_user/',
                            views.UserJWTDetailView.as_view()),
+                       url(r'^api-token-verify/', verify_jwt_token),
                        url(r'^sociallogin/',
                            include('rest_social_auth.urls_jwt')),
                        url(r'^registerConfirm/(?P<activation_key>\w+)/',
